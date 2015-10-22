@@ -1,0 +1,12 @@
+{% if page.code1%}
+
+<div id="relatedCode">
+<h2>GET RELATED CODE</h2>
+Right Click to download associated code:
+<ul>
+	<li>
+ 	<a href="{{ site.baseurl }}/code/{{ page.code1 }}" class="btn btn-info"> {{ page.code1 }} </a> </li>{% endif %}
+
+	{% if page.code2%} <li><a href="{{ site.baseurl }}/code/{{ page.code2 }}">{{ page.code2 }} </a></li>{% endif %}
+</ul>
+</div>

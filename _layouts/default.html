@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    {% if page.type == 'year' %}<meta name="robots" content="noindex, follow">{% endif %}
+    <title>
+      {% if page.title %}
+        {% if page.type == 'year' %}{{ page.title | date: "%Y" }} Archive • {% endif %}
+        {% if page.type == 'tag' %}{{ page.title }} Archive • {% endif %}
+        {% unless page.type %}{{ page.title }} • {% endunless %}
+      {% endif %}
+      {{ site.title }}
+    </title>
+    {% if page.excerpt %}<meta name="description" content="{{ page.excerpt | strip_html }}">{% endif %}
+    {% if page.type == 'year' %}<meta name="description" content="An archive of posts from the year {{ page.title | date: "%Y" }}.">{% endif %}
+    {% if page.type == 'tag' %}<meta name="description" content="An archive of posts filed under the {{ page.type }} {{ page.title }}.">{% endif %}
+
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.url }}">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ site.url }}/sitemap.xml">
+
+    <link href="http://feeds.feedburner.com/MadeMistakes" type="application/atom+xml" rel="alternate" title="{{ site.title }} &#8211; Everything">
+    <link href="http://feeds.feedburner.com/MadeMistakesArticles" type="application/atom+xml" rel="alternate" title="{{ site.title }} &#8211; Articles">
+    <link href="http://feeds.feedburner.com/MadeMistakesMasteringPaper" type="application/atom+xml" rel="alternate" title="{{ site.title }} &#8211; Mastering Paper">
+    <link href="http://feeds.feedburner.com/MadeMistakesPaperFaces" type="application/atom+xml" rel="alternate" title="{{ site.title }} &#8211; PaperFaces Portraits">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cleartype" content="on">
+
+    <!-- Defer loading of Google Webfonts -->
+    <script>
+      ~function (document) {
+        var elem = document.createElement('link');
+        var head = document.getElementsByTagName('head')[0];
+        elem.rel = 'stylesheet';
+        elem.href = '//fonts.googleapis.com/css?family=Lato:400,700,400italic|Alegreya:400italic,400,700';
+        elem.media = 'only x';
+        head.appendChild(elem);
+        setTimeout(function () {
+          elem.media = 'all';
+        });
+      }(document);
+    </script>
+    <!-- no-js fallback -->
+    <noscript>
+      <link href="//fonts.googleapis.com/css?family=Lato:400,700,400italic|Alegreya:400italic,400,700" rel="stylesheet" type="text/css">
+    </noscript>
+{% include _head.html %}
+
+  </head>
+
+  <body id="js-body">
+
+
+    <div id="page-wrapper">
+      {{ content }}
+      <a href="#0" class="mm-top" onclick="ga('send', 'event', 'footer', 'click', 'back to top');">Top</a>
+
+    </div>
+
+
+  
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+    {% if page.ads != false %}<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>{% endif %}
+
+  </body>
+
+</html>
+

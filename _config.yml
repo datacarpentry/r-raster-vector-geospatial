@@ -1,0 +1,84 @@
+title: 	NEON Tabular Time Series Lessons
+description: 	Hackathon held October 21-23 in Boulder, CO at NEON headquarters.
+#Comment out url when working locally to resolve base urls correctly ok
+#use this when pushing to git for live version
+
+url:      http://data-lessons.github.io/NEON-R-Tabular-Time-Series/
+baseurl:   http://data-lessons.github.io/NEON-R-Tabular-Time-Series/
+
+#use this when working locally
+#just uncomment the first localhost.
+#url: http://localhost:4000
+#baseurl: http://localhost:4000
+
+#we might not need comments here???
+disqus_shortname: 
+
+# Social networking links are used in author-bio sidebar. Update and remove as you like.
+
+# Owner/author information
+owner: 		
+  name: NEON / Data Carpentry Hackathon
+  avatar: profilePic.png
+  bio: "Devoted to open data and open source in science and education."
+  email: "lwasser@neoninc.org"
+#  twitter: "leahawasser"
+  github: "data-lessons"
+#  youtube: " "
+# instagram:      " "
+# For Google Authorship https://plus.google.com/authorship
+# google_plus:    
+
+# Analytics and webmaster tools stuff goes here
+google_analytics:   
+#google_verify:      UQj93ERU9zgECodaaXgVpkjrFn9UrDMEzVamacSoQ8Y
+# https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
+#bing_verify:        D81F4C18A6CB3018F64D7C827D953DFD
+
+# category: [using lidar data, working with field data, zcarbon links]
+# categories: [using lidar data, working with field data, zcarbon links]
+# Links to include in top navigation
+# For external links add external: true
+links:  
+  - title: About
+    url: /about/
+    
+  - title: NEON Website
+    url: http://www.neoninc.org
+    external: true
+    
+  - title: Data Carpentry Website
+    url: http://www.datacarpentry.org
+    external: true  
+
+# http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone:    America/Denver
+future:      true
+# turning off pygments for the time being
+#pygments:    true
+#highlighter: pygments
+markdown:    kramdown
+#markdown: redcarpet
+redcarpet:
+  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
+
+
+# https://github.com/mojombo/jekyll/wiki/Permalinks
+permalink:   /:categories/:title/
+
+kramdown:
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..1
+  use_coderay: false
+
+  coderay:
+    coderay_line_numbers: 
+    coderay_line_numbers_start: 1
+    coderay_tab_width: 4
+    coderay_bold_every: 10
+    coderay_css: class
+
+include: [".htaccess"]
+exclude: ["*.Rmd", "lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules", "Gemfile", "Gemfile.lock", "LICENSE", "README.md"]
