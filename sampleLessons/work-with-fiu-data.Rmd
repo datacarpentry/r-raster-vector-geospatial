@@ -1,0 +1,270 @@
+---
+title: "work-with-FIU-data"
+output: html_document
+---
+
+This document begins to explore approaches to handling met station collected time
+series data. For the time being we are using data from the site below.
+
+(http://harvardforest.fas.harvard.edu:8080/exist/apps/datasets/showData.html?id=hf001)[http://harvardforest.fas.harvard.edu:8080/exist/apps/datasets/showData.html?id=hf001]
+A nice overview of time series formats in R
+
+http://www.noamross.net/blog/2014/2/10/using-times-and-dates-in-r---presentation-code.html
+
+#Load Libraries
+
+```{r load-libraries-date-function}
+
+#load ggplot for plotting 
+library(ggplot2)
+#the scales library supports breaks and formatting in ggplot
+library(scales)
+
+#don't load strings as factors
+options(stringsAsFactors = FALSE)
+
+```
+
+#Fix Date Function
+
+The dates natively come in - in `chr` format. We need to strip the letters and turn
+it into a time class. 
+
+**Can we use a placeholder to tell it to ignore the letters??**
+
+```{r create-date-fix-function}
+
+fixDate <- function(dateField,timezone){
+  # Remove Characters from the dates - 2014-08-19T00:43:22Z
+  # Replace T and Z with a space
+  aDateField <- gsub("T|Z", " ", dateField)
+  
+  #set the field to be a date field
+  aDateField <- as.POSIXct(aDateField,format = "%Y-%m-%d %H:%M:%S", 
+                          tz = "GMT")
+  
+  #list of time zones
+  #https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  #convert to local time for pretty plotting
+  attributes(aDateField)$tzone <- timezone
+  return(aDateField)
+}
+
+fixDateTime <- function(dat,timeOne,timeTwo,tz) {
+  #fix dates
+  dat[,timeOne] <- fixDate(dat[,timeOne],tz)
+  #if there's a second time, fix that too
+  if (exists("timeTwo")) {
+      dat[,timeTwo] <- fixDate(dat[,timeTwo],tz)
+  }
+  return(dat)
+}
+
+```
+
+#Plot NEON data
+
+A function that deals with both the date issue (UCT to local) and plots the data.
+
+```{r plot-NEON-data }
+
+plotData <- function(dat, xVar, yVar,plTitle,yaxTitle) {
+  # dat= a dataframe containing neon data
+  # nVar = the variable of interest to be plotted
+
+  #Create the plot
+  #create a quick plot of Barometric Pressure
+  
+  myPlot <- ggplot(dat,aes_string(x=xVar, y=yVar)) +
+           geom_point() +
+           ggtitle(plTitle) +
+           theme(plot.title = element_text(lineheight=.8, face="bold",size = 20)) +
+           theme(text = element_text(size=20)) +
+           xlab("Start Time") + ylab(yaxTitle)
+
+  #format x axis with dates
+  myPlot + scale_x_datetime(labels = date_format("%m/%d/%y"))
+  }
+
+```
+
+#Open and clean NEON data
+
+```{r import-data }
+#import barometric pressure data
+harBP <- read.csv("HarvardForest_4_2015_9_2015/bar-pressure/NEON.D01.HARV.DP1.00004.001.00000.000.025.030.BP_30min.csv")
+
+#convert times to posix class
+harBP <- fixDateTime(harBP,"startDateTime","endDateTime",tz="America/New_York")
+
+
+#plot the data
+plotData(harBP,"startDateTime","staPresMean", 
+         "NEON Barometric Pressure\nHarvard Forest",
+         "Mean Barometric Pressure")
+
+#import single aspirated temperature data
+harTemp30 <- read.csv("HarvardForest_4_2015_9_2015/s-asp-temp/NEON.D01.HARV.DP1.00002.001.00000.000.040.030.SAAT_30min.csv")
+
+#convert times to posix class
+harTemp30 <- fixDateTime(harTemp30,"startDateTime","endDateTime",tz="America/New_York")
+
+
+#plot the data
+#note there are missing data for May
+plotData(harTemp30,"startDateTime","tempSingleMean", 
+         "NEON Single Aspirated Temperature\nHarvard Forest",
+         "Mean Temperature")
+
+########################
+#import 30 minute PARPAR
+harPar30 <- read.csv("HarvardForest_4_2015_9_2015/PAR/NEON.D01.HARV.DP1.00024.001.00000.000.060.030.PARPAR_30min.csv")
+
+#convert times to posix class
+harPar30 <- fixDateTime(harPar30,"startDateTime","endDateTime",tz="America/New_York")
+
+
+#plot the data
+#note there are missing data for May
+plotData(harPar30,"startDateTime","PARMean", 
+         "NEON PAR - 30 Min\nHarvard Forest",
+         "Mean PAR")
+
+```
+
+
+#Imported from the harvard tower 
+
+Note - the NEON time series is not yet complete enough to review multiple years.
+Thus data were downloaded from the Harvard tower.
+
+http://harvardforest.fas.harvard.edu:8080/exist/apps/datasets/showData.html?id=hf001
+
+NOTE: this is not NEON data - using it to have a fuller time series.
+
+```{r import-harvard-met-data }
+
+
+#set the working dir
+setwd("~/Documents/data/1_DataPortal_Workshop")
+
+#read in 15 min average data
+harMet <- read.csv(file="harvard_MetData/hf001-10-15min-m.csv")
+
+#clean up dates
+#remove the "T"
+#harMet$datetime <- fixDate(harMet$datetime,"America/New_York")
+
+# Replace T and Z with a space
+harMet$datetime <- gsub("T|Z", " ", harMet$datetime)
+  
+#set the field to be a date field
+harMet$datetime <- as.POSIXct(harMet$datetime,format = "%Y-%m-%d %H:%M", 
+                          tz = "GMT")
+
+#list of time zones
+#https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+#convert to local time for pretty plotting
+attributes(harMet$datetime)$tzone <- "America/New_York"
+
+#subset out some of the data - 2010-2013 
+yr.09.11 <- subset(harMet, datetime >= as.POSIXct('2009-01-01 00:00') & datetime <=
+as.POSIXct('2011-01-01 00:00'))
+
+#as.Date("2006-02-01 00:00:00")
+#plot Some Air Temperature Data
+  
+myPlot <- ggplot(yr.09.11,aes(datetime, airt)) +
+           geom_point() +
+           ggtitle("15 min Avg Air Temperature\nHarvard Forest") +
+           theme(plot.title = element_text(lineheight=.8, face="bold",size = 20)) +
+           theme(text = element_text(size=20)) +
+           xlab("Time") + ylab("Mean Air Temperature")
+
+#format x axis with dates
+myPlot + scale_x_datetime(labels = date_format("%m/%d/%y"))
+
+# Plot PAR
+
+myPlot <- ggplot(yr.09.11,aes(datetime, parr)) +
+           geom_point() +
+           ggtitle("15 Min PAR\nHarvard Forest") +
+           theme(plot.title = element_text(lineheight=.8, face="bold",size = 20)) +
+           theme(text = element_text(size=20)) +
+           xlab("Time") + ylab("Mean PAR")
+
+#format x axis with dates
+myPlot + scale_x_datetime(labels = date_format("%m/%d/%y"))
+```
+
+#Variables available as Daily Averages
+
+```{r}
+
+# Plot Precipitation
+myPlot <- ggplot(yr.09.11,aes(datetime, prec)) +
+           geom_point() +
+           ggtitle("Precipitation \nHarvard Forest") +
+           theme(plot.title = element_text(lineheight=.8, face="bold",size = 20)) +
+           theme(text = element_text(size=20)) +
+           xlab("Time") + ylab("Mean Precip")
+
+#format x axis with dates
+myPlot + scale_x_datetime(labels = date_format("%m/%d/%y"))
+
+```
+
+
+```{r read-Daily-avg }
+
+
+#read in daily data
+harMetDaily <- read.csv(file="harvard_MetData/hf001-06-daily-m.csv")
+
+  
+#set the field to be a date field
+harMetDaily$date <- as.Date(harMetDaily$date, format = "%Y-%m-%d")
+
+#subset out some of the data - 2010-2013 
+yr.09.11_monAvg <- subset(harMetDaily, date >= as.Date('2009-01-01') & date <=
+as.Date('2011-01-01'))
+
+#as.Date("2006-02-01 00:00:00")
+#plot Some Air Temperature Data
+  
+myPlot <- ggplot(yr.09.11_monAvg,aes(date, airt)) +
+           geom_point() +
+           ggtitle("Daily Air Temperature\nHarvard Forest") +
+           theme(plot.title = element_text(lineheight=.8, face="bold",size = 20)) +
+           theme(text = element_text(size=20)) +
+           xlab("Time") + ylab("Mean Air Temperature")
+
+#format x axis with dates
+myPlot + scale_x_date(labels = date_format("%m/%d/%y"))
+
+
+#plot Some Air Temperature Data
+  
+myPlot <- ggplot(yr.09.11_monAvg,aes(date, prec)) +
+           geom_point() +
+           ggtitle("Daily Precipitation\nHarvard Forest") +
+           theme(plot.title = element_text(lineheight=.8, face="bold",size = 20)) +
+           theme(text = element_text(size=20)) +
+           xlab("Time") + ylab("Mean Air Temperature")
+
+#format x axis with dates
+myPlot + scale_x_date(labels = date_format("%m/%d/%y"))
+
+#plot Some Air Temperature Data
+  
+myPlot <- ggplot(yr.09.11_monAvg,aes(date, part)) +
+           geom_point() +
+           ggtitle("Daily Avg Total PAR\nHarvard Forest") +
+           theme(plot.title = element_text(lineheight=.8, face="bold",size = 20)) +
+           theme(text = element_text(size=20)) +
+           xlab("Time") + ylab("Mean Total PAR")
+
+#format x axis with dates
+myPlot + scale_x_date(labels = date_format("%m/%d/%y"))
+
+```
