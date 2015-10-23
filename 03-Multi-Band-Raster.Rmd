@@ -1,14 +1,14 @@
 ---
 layout: post
-title: "Lesson Title Goes here"
-date:   2015-1-26 20:49:52
-authors: "FirstName LastName, FirstName LastName"
-dateCreated:  2014-11-26 20:49:52
-lastModified: 2015-07-23 14:28:52
-category: time-series-workshop
+title: "Multi-band Structure"
+date:   2015-10-23 12:00:0
+authors: "Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym"
+dateCreated:  2015-10-23 12:00:00
+lastModified: 2015-10-23 12:00:00
+category: spatio-temporal-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data
-description: "This post explains the fundamental principles, functions and metadata that you need to work with raster data in R."
+description: "This post expands on raster principles and functions in R for multi-band files."
 code1: 
 image:
   feature: lidar_GrandMesa.png
@@ -41,9 +41,9 @@ with raster data in R.
 <h3>Goals / Objectives</h3>
 After completing this activity, you will know:
 <ol>
-<li>What a raster dataset is and its fundamental attributes.</li>
-<li>How to import rasters into `R` using the raster library.</li>
-<li>How to perform raster calculations in `R`.</li>
+<li>How a raster file stores multiple bands.</li>
+<li>How to import multi-band rasters into `R` using the `raster` library.</li>
+<li>How to plot multi-band rasters in `R`.</li>
 </ol>
 
 <h3>Things You'll Need To Complete This Lesson</h3>
@@ -62,23 +62,18 @@ R studio to write your code.
 
 <h4>Data to Download</h4>
 
-Download the raster and *in situ* collected vegetation structure data:
+Download the workshop data:
 <ul>
-<li><a href="http://neonhighered.org/Data/LidarActivity/CHM_InSitu_Data.zip" class="btn btn-success"> DOWNLOAD Sample NEON LiDAR data in Raster Format & Vegetation Sampling Data</a></li>
-<li><a href="{{ site.baseurl }}/data/rasterLayers_tif.zip" class="btn btn-success"> DOWNLOAD NEON imagery data (tiff format) California Domain 17 (D17)</a></li>
+<li><a href="http://figshare.com/articles/NEON_AOP_Hyperspectral_Teaching_Dataset_SJER_and_Harvard_forest/1580086" class="btn btn-success"> DOWNLOAD Sample NEON LiDAR data in Raster Format & Vegetation Sampling Data</a></li>
 </ul>
 
 <p>The LiDAR and imagery data used to create the rasters in this dataset were 
-collected over the San Joaquin field site located in California (NEON Domain 17) 
+collected over the Harvard and San Joaquin field sites 
 and processed at <a href="http://www.neoninc.org" target="_blank" >NEON </a> 
 headquarters. The entire dataset can be accessed by request from the NEON website.</p>  
 
 <h4>Recommended Pre-Lesson Reading</h4>
 <ul>
-<li>
-<a href="{{ site.baseurl }}/GIS-Spatial-Data/Working-With-Rasters/" target="_blank">
-The Relationship Between Raster Resolution, Spatial extent & Number of Pixels - in R</a>
-</li>
 <li>
 <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
 Read more about the `raster` package in R.</a>
@@ -86,10 +81,28 @@ Read more about the `raster` package in R.</a>
 </ul>
 </div>
 
-#About Raster Data
-Raster or "gridded" data are data that are saved in pixels. In the spatial world, 
-each pixel represents an area on the Earth's surface. For example in the raster 
-below, each pixel represents a particular land cover class that would be found in 
-that location in the real world. 
-<a href="{{ site.baseurl }}/GIS-Spatial-Data/Working-With-Rasters/"> More on 
-rasters here</a>. 
+```
+# Read in multi-band raster with raster function, the default is the first band
+RGB_band1 <- raster("~/Documents/Graduate_School/Workshops/GST_hackathon/1_WorkshopData/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
+plot(RGB_band1) #Point out dimension, CRS, and values attributes, but esp. band
+RGB_band1
+
+# Can specify which band you want to read in
+RGB_band2 <- raster("~/Documents/Graduate_School/Workshops/GST_hackathon/1_WorkshopData/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif", band = 2
+plot(RGB_band2)
+RGB_band2
+
+# Use stack function to read in all bands
+RGB <- stack("~/Documents/Graduate_School/Workshops/GST_hackathon/1_WorkshopData/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
+RGB #Look at dimensions, CRS, and min/max
+#Metadata file? 
+plot(RGB)
+
+# The plotRGB function plots all bands together, is an image like our eyes would see
+plotRGB(RGB, r = 1, g = 2, b = 3)
+
+#The black bands on the edges are zeros but should be NAs, might want to show 
+#them how to turn them into NAs? 
+
+# TODO: Challenge: calculate NDVI, but would need an infrared band to do this
+```
