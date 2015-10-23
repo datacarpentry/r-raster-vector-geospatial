@@ -40,9 +40,7 @@ This post explains the simple plotting function in the `raster` package.
 <h3>Goals / Objectives</h3>
 After completing this activity, you will know:
 <ol>
-<li>What a raster dataset is and its fundamental attributes.</li>
-<li>How to import rasters into `R` using the raster library.</li>
-<li>How to perform raster calculations in `R`.</li>
+<li>how to plot a single raster image.</li>
 </ol>
 
 <h3>Things You'll Need To Complete This Lesson</h3>
