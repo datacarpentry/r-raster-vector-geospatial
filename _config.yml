@@ -1,10 +1,10 @@
-title: 	NEON Tabular Time Series Lessons
-description: 	Hackathon held October 21-23 in Boulder, CO at NEON headquarters.
+title: 	NEON Raster Data in R 
+description: 	A set of lessons .
 #Comment out url when working locally to resolve base urls correctly ok
 #use this when pushing to git for live version
 
-url:      http://data-lessons.github.io/NEON-R-Tabular-Time-Series/
-baseurl:   http://data-lessons.github.io/NEON-R-Tabular-Time-Series/
+url:      http://data-lessons.github.io/NEON-R-Spatial-Raster/
+baseurl:   http://data-lessons.github.io/NEON-R-Spatial-Raster/
 
 #use this when working locally
 #just uncomment the first localhost.
