@@ -14,8 +14,7 @@ image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink: http://www.neoninc.org
-permalink: 
-code1: /R/2015-07-22-Introduction-to-Raster-Data-In-R.R
+permalink: /R/Introduction-to-Raster-Data-In-R.R
 comments: false
 
 ---
@@ -89,15 +88,17 @@ rasters here</a>.
 #Types of data stored as rasters
 
 Raster data can be continuous or categorical. Continuous rasters can have a 
-range of values. Some examples of contuous rasters include
+range of values. Some examples of continuous rasters include
 
-1. precipitation maps
-2. maps of tree height derived from lidar data
-3. elevation values for a region. 
+1. Precipitation maps
+2. Maps of tree height derived from lidar data
+3. Elevation values for a region. 
 
+A map of elevation for Harvard Forest, derived from the NEON AOP lidar sensor
+is below.
 
-    # code output here - DEM rendered on the screen
-    # dem hillshade
+![ ]({{ site.baseurl }}/images/rfigs/00-Raster-Structure/elevation-map-1.png) 
+
 We can also classify continuous rasters to identify regions that are low, medium
 and high elevation. Some examples of classified maps include
 
@@ -105,9 +106,13 @@ and high elevation. Some examples of classified maps include
 2. tree height maps classified short, medium, tall trees
 3. elevation maps classified low, medium and high elevation
 
+![ ]({{ site.baseurl }}/images/rfigs/00-Raster-Structure/classified-elevation-map-1.png) 
 
-    # code output here - DEM classified and rendered on the screen
-    # CHM classified low, med tall
+
+#What is a geotiff??
+I think we need to introduce this format here or somewhere??
+
+##About
 
 In this lesson we will learn how to open a raster in r. We will also learn about 
 the key metadata associated with rasters! We will use the `raster` and `rgdal`
@@ -142,6 +147,11 @@ located on your computer! You can use the `setwd()` to set this.
     ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif 
     ## names       : HARV_dsmCrop 
     ## values      : 305.07, 416.07  (min, max)
+
+    #quickly plot the raster
+    plot(DSM, main="NEON Digital Surface Model\nHarvard Forest")
+
+![ ]({{ site.baseurl }}/images/rfigs/00-Raster-Structure/open-raster-1.png) 
 
 There are several key metadata components that we need to examine when we work with 
 rasters. We can see most of this information when we type the name of the raster
@@ -262,7 +272,16 @@ One way to explore the range of values in our raster data is to look at a histog
     #view raster no data value
     hist(DSM)
 
-    ## Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...):
-    ## 4% of the raster cells were used. 100000 values used.
-
 ![ ]({{ site.baseurl }}/images/rfigs/00-Raster-Structure/view-raster-histogram-1.png) 
+
+## Raster Bands? ?? -- something about that here??
+
+It is important to note that rasters can be either single or multi-band. When data
+are brought in using the `raster` function, then we are only bring in one band. 
+
+~(Image on what bands are...)[]
+
+
+#Challenge
+
+???
