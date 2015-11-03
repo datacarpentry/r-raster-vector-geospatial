@@ -11,13 +11,11 @@ mainTag: GIS-Spatial-Data
 description: "This post explains functions that modify raster data in R."
 code1: 
 image:
-  feature: lidar_GrandMesa.png
-  credit: LiDAR data collected over Grand Mesa, Colorado - National Ecological Observatory Network (NEON)
+  feature: NEONCarpentryHeader_2.png
+  credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink: http://www.neoninc.org
-permalink: /R/Raster-Data-In-R/
-code1: /R/2015-07-22-Introduction-to-Raster-Data-In-R.R
-comments: true
-
+permalink: /R/Modify-Rasters-In-R.R
+comments: false
 ---
 
 <section id="table-of-contents" class="toc">
@@ -107,3 +105,4 @@ plot(coord_crop) #Compare with CHM raster, should have different x-axis ranges
 # TODO: summarizing multiple pixels into one value
 # TODO: do raster math on single raster
 ```
+
