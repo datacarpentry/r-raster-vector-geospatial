@@ -1,0 +1,90 @@
+---
+layout: post
+title: "Raster Plotting"
+date:   2015-10-23 12:00:0
+authors: "Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym"
+dateCreated:  2015-10-23 12:00:00
+lastModified: 2015-10-23 12:00:00
+category: spatio-temporal-workshop
+tags: [module-1]
+mainTag: GIS-Spatial-Data
+description: "This post explains the simple plotting function in the `raster` package."
+code1: 
+image:
+  feature: lidar_GrandMesa.png
+  credit: LiDAR data collected by National Ecological Observatory Network (NEON)
+  creditlink: http://www.neoninc.org
+permalink: /R/Raster-Data-In-R/
+code1: /R/2015-07-22-Introduction-to-Raster-Data-In-R.R
+comments: true
+
+---
+
+<section id="table-of-contents" class="toc">
+  <header>
+    <h3>Contents</h3>
+  </header>
+<div id="drawer" markdown="1">
+*  Auto generated table of contents
+{:toc}
+</div>
+</section><!-- /#table-of-contents -->
+
+##About
+This post explains the simple plotting function in the `raster` package.
+
+**R Skill Level:** Intermediate - you've got the basics of `R` down.
+
+<div id="objectives">
+
+<h3>Goals / Objectives</h3>
+After completing this activity, you will know:
+<ol>
+<li>how to plot a single raster image.</li>
+</ol>
+
+<h3>Things You'll Need To Complete This Lesson</h3>
+
+<h3>R Libraries to Install:</h3>
+<ul>
+<li><strong>raster:</strong> <code> install.packages("raster")</code></li>
+<li><strong>rgdal:</strong> <code> install.packages("rgdal")</code></li>
+
+</ul>
+<h4>Tools To Install</h4>
+
+Please be sure you have the most current version of `R` and preferably
+R studio to write your code.
+
+
+<h4>Data to Download</h4>
+
+Download the workshop data:
+<ul>
+<li><a href="http://figshare.com/articles/NEON_AOP_Hyperspectral_Teaching_Dataset_SJER_and_Harvard_forest/1580086" class="btn btn-success"> DOWNLOAD Sample NEON LiDAR data in Raster Format & Vegetation Sampling Data</a></li>
+</ul>
+
+<p>The LiDAR and imagery data used to create the rasters in this dataset were 
+collected over the Harvard and San Joaquin field sites 
+and processed at <a href="http://www.neoninc.org" target="_blank" >NEON </a> 
+headquarters. The entire dataset can be accessed by request from the NEON website.</p>  
+
+<h4>Recommended Pre-Lesson Reading</h4>
+<ul>
+<li>
+<a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
+Read more about the `raster` package in R.</a>
+</li>
+</ul>
+</div>
+
+```
+# Plot raster file and change some parameters
+plot(DSM) #Necessary to explicitly differentiate between base plot and raster plot?
+pixels <- ncol(DSM) * nrow(DSM)
+hist(DSM, col = "blue", maxpixels = pixels)
+myCol <- terrain.colors(10)
+plot(DSM, breaks = c(320, 340, 360, 380, 400), col = myCol, maxpixels = pixels) #optional argument
+plot(DSM, zlim = c(340, 400)) #optional argument
+#`image` v. `plot`
+# TODO: challenge
