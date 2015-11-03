@@ -14,8 +14,7 @@ image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink: http://www.neoninc.org
-permalink: 
-code1: /R/2015-07-22-Introduction-to-Raster-Data-In-R.R
+permalink: /R/Introduction-to-Raster-Data-In-R.R
 comments: false
 
 ---
@@ -138,6 +137,10 @@ DSM <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
 # Look at raster structure
 DSM 
+
+#quickly plot the raster
+
+plot(DSM, main="NEON Digital Surface Model\nHarvard Forest")
 
 ```
 
