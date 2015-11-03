@@ -88,16 +88,22 @@ rasters here</a>.
 #Types of data stored as rasters
 
 Raster data can be continuous or categorical. Continuous rasters can have a 
-range of values. Some examples of contuous rasters include
+range of values. Some examples of continuous rasters include
 
-1. precipitation maps
-2. maps of tree height derived from lidar data
-3. elevation values for a region. 
+1. Precipitation maps
+2. Maps of tree height derived from lidar data
+3. Elevation values for a region. 
 
-```{r elevation-map }
+A map of elevation for Harvard Forest, derived from the NEON AOP lidar sensor
+is below.
+
+```{r elevation-map, echo=FALSE}
 # code output here - DEM rendered on the screen
 # dem hillshade
+plot(DSM, main="NEON Elevation Map\nHarvard Forest")
+
 ```
+
 We can also classify continuous rasters to identify regions that are low, medium
 and high elevation. Some examples of classified maps include
 
@@ -105,11 +111,31 @@ and high elevation. Some examples of classified maps include
 2. tree height maps classified short, medium, tall trees
 3. elevation maps classified low, medium and high elevation
 
-```{r classified-elevation-map }
-# code output here - DEM classified and rendered on the screen
-# CHM classified low, med tall
+```{r classified-elevation-map, echo=FALSE}
+# Just a demonstration image for the lesson
 
+#add a color map with 5 colors
+col=terrain.colors(3)
+#add breaks to the colormap (6 breaks = 5 segments)
+brk <- c(250,350, 380,500)
+
+# Expand right side of clipping rect to make room for the legend
+par(xpd = FALSE,mar=c(5.1, 4.1, 4.1, 4.5))
+#DEM with a custom legend
+plot(DSM, col=col, breaks=brk, main="Classified Elevation Map\nHarvard Forest",legend = FALSE)
+#turn xpd back on to force the legend to fit next to the plot.
+par(xpd = TRUE)
+#add a legend - but make it appear outside of the plot
+legend( par()$usr[2], 4713700,
+        legend = c("Highest", "Middle","Lowest"), 
+        fill = rev(col))
 ```
+
+
+#What is a geotiff??
+I think we need to introduce this format here or somewhere??
+
+##About
 
 In this lesson we will learn how to open a raster in r. We will also learn about 
 the key metadata associated with rasters! We will use the `raster` and `rgdal`
@@ -139,7 +165,6 @@ DSM <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 DSM 
 
 #quickly plot the raster
-
 plot(DSM, main="NEON Digital Surface Model\nHarvard Forest")
 
 ```
@@ -262,3 +287,15 @@ One way to explore the range of values in our raster data is to look at a histog
 hist(DSM)
 
 ```
+
+## Raster Bands? ?? -- something about that here??
+
+It is important to note that rasters can be either single or multi-band. When data
+are brought in using the `raster` function, then we are only bring in one band. 
+
+~(Image on what bands are...)[]
+
+
+#Challenge
+
+???

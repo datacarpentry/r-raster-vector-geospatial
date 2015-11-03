@@ -1,22 +1,21 @@
 ---
 layout: post
-title: "Multi-band Structure"
-date:   2015-10-23 12:00:0
-authors: "Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym"
-dateCreated:  2015-10-23 12:00:00
-lastModified: 2015-10-23 12:00:00
+title: "Lesson 03: Work With Multi-Band Rasters - Images in R"
+date:   2015-10-23
+authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym, Leah Wasser]
+dateCreated:  2015-10-23
+lastModified: 2015-10-23
 category: spatio-temporal-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data
-description: "This post expands on raster principles and functions in R for multi-band files."
+description: "This lesson explores how to import and plot a multi-band raster in R."
 code1: 
 image:
-  feature: lidar_GrandMesa.png
-  credit: LiDAR data collected over Grand Mesa, Colorado - National Ecological Observatory Network (NEON)
+  feature: NEONCarpentryHeader_2.png
+  credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink: http://www.neoninc.org
-permalink: /R/Raster-Data-In-R/
-code1: /R/2015-07-22-Introduction-to-Raster-Data-In-R.R
-comments: true
+permalink: /R/Multi-Band-Rasters-In-R.R
+comments: false
 
 ---
 
