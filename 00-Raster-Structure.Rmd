@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Lesson 00 - About Raster Data"
-date:   2015-10-23
-authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym]
+title: "Lesson 00: About Raster Data"
+date:   2015-10-29
+authors: [Kristina Riemer, Zack Brym, Jason Williams, Jeff Hollister,  Mike Smorul, Leah Wasser]
 dateCreated:  2015-10-23
 lastModified: 2015-10-23
 category:  
@@ -14,20 +14,11 @@ image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink: http://www.neoninc.org
-permalink: /R/Introduction-to-Raster-Data-In-R.R
+permalink: /R/Introduction-to-Raster-Data-In-R
 comments: false
-
 ---
 
-<section id="table-of-contents" class="toc">
-  <header>
-    <h3>Contents</h3>
-  </header>
-<div id="drawer" markdown="1">
-*  Auto generated table of contents
-{:toc}
-</div>
-</section><!-- /#table-of-contents -->
+{% include _toc.html %}
 
 ##About
 This activity will walk you through the fundamental principles of working 

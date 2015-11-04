@@ -4,7 +4,11 @@
 RGB_band1 <- raster("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
 
 #create a grayscale color palette to use for the image
-grayscale_colors <- gray.colors(100, start = 0.3, end = 0.9, gamma = 2.2, alpha = NULL)
+grayscale_colors <- gray.colors(100, 
+                                start = 0.0, 
+                                end = 1.0, 
+                                gamma = 2.2, 
+                                alpha = NULL)
 
 #Point out dimension, CRS, and values attributes, but esp. band
 plot(RGB_band1, 
@@ -60,20 +64,21 @@ RGB_stack@layers
 RGB_stack[[1]]
 
 #plot one band
-plot(RGB_stack[[1]], "main=band one")
+plot(RGB_stack[[1]], main="band one", col=grayscale_colors)
 
 #Metadata file? 
 #plot all three bands
-plot(RGB_stack)
+plot(RGB_stack, col=grayscale_colors)
 
 
 ## ----plot-rgb-image------------------------------------------------------
 
-# The plotRGB function plots all bands together, is an image like our eyes would see
+# Create an RGB image from the raster stack
 plotRGB(RGB_stack, r = 1, g = 2, b = 3)
 
 #what does stretch do?
 plotRGB(RGB_stack,r = 1, g = 2, b = 3, scale=800,stretch = "Lin")
+
 #The black bands on the edges are zeros but should be NAs, might want to show 
 #them how to turn them into NAs? 
 

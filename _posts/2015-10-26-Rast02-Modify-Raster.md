@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Modify Raster"
-date:   2015-10-23 12:00:0
+title: "Lesson 02: Raster Math & Reprojection in R"
+date:   2015-10-27
 authors: "Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym"
 dateCreated:  2015-10-23 12:00:00
 lastModified: 2015-10-23 12:00:00
@@ -18,15 +18,7 @@ permalink: /R/Modify-Rasters-In-R.R
 comments: false
 ---
 
-<section id="table-of-contents" class="toc">
-  <header>
-    <h3>Contents</h3>
-  </header>
-<div id="drawer" markdown="1">
-*  Auto generated table of contents
-{:toc}
-</div>
-</section><!-- /#table-of-contents -->
+{% include _toc.html %}
 
 ##About
 This activity will walk you through ways to modify raster data in R.
