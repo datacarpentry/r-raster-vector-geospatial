@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Lesson 02: Raster Plotting"
-date:   2015-10-23
+title: "Lesson 01: Plot Rasters in R"
+date:   2015-10-28
 authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym]
 dateCreated:  2015-10-23
 lastModified: 2015-10-23
@@ -18,15 +18,7 @@ permalink: /R/Plot-Rasters-In-R.R
 comments: false
 ---
 
-<section id="table-of-contents" class="toc">
-  <header>
-    <h3>Contents</h3>
-  </header>
-<div id="drawer" markdown="1">
-*  Auto generated table of contents
-{:toc}
-</div>
-</section><!-- /#table-of-contents -->
+{% include _toc.html %}
 
 ##About
 This post explains the simple plotting function in the `raster` package.

@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Lesson 03: Work With Multi-Band Rasters - Images in R"
-date:   2015-10-23
-authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym, Leah Wasser]
+date:   2015-10-26
+authors: [Kristina Riemer, Mike Smorul, Zack Brym, Jason Williams, Jeff Hollister, Leah Wasser]
 dateCreated:  2015-10-23
 lastModified: 2015-10-23
 category: spatio-temporal-workshop
@@ -19,15 +19,7 @@ permalink: /R/Multi-Band-Rasters-In-R.R
 comments: false
 ---
 
-<section id="table-of-contents" class="toc">
-  <header>
-    <h3>Contents</h3>
-  </header>
-<div id="drawer" markdown="1">
-*  Auto generated table of contents
-{:toc}
-</div>
-</section><!-- /#table-of-contents -->
+{% include _toc.html %}
 
 
 ##About
@@ -61,9 +53,7 @@ R studio to write your code.
 
 ####Data to Download
 
-Download the workshop data:
-
-* <a href="http://figshare.com/articles/NEON_AOP_Hyperspectral_Teaching_Dataset_SJER_and_Harvard_forest/1580086" class="btn btn-success"> DOWNLOAD Sample NEON LiDAR data in Raster Format & Vegetation Sampling Data</a>
+* <a href="http://files.figshare.com/2387965/NEON_RemoteSensing.zip" class="btn btn-success"> DOWNLOAD Sample NEON Raster Data for Harvard Forest & SJER</a>
 
 The LiDAR and imagery data used to create the rasters in this dataset were 
 collected over the Harvard and San Joaquin field sites 
@@ -79,24 +69,44 @@ Read more about the `raster` package in R.</a>
 
 #About Raster Bands
 
-As mentioned in (ADD LINK lesson 00)[], a raster can contain 1 or more bands. To 
-work with multi-band rasters, we need to adjust our workflow. We will use the `stack`
-function in r to do this. We can use `plotRGB` to plot a 3 band image raster.
+As mentioned in the [Intro to Raster Data Lesson 00]( {{ base.url }} }}/R/Introduction-to-Raster-Data-In-R), a raster can contain 1 or more bands. To 
+work with multi-band rasters, we need to adjust how we import and plot our data. 
 
+* To import multi band raster data we will use the `stack` function.
+* If our multi-band data are imagery that we wish to composit, we can use `plotRGB` 
+to plot a 3 band image raster.
+
+#About Multi Band Imagery
+In this lesson, the multi-band data that we are working with is imagery
+collected using the NEON Airborne Observation Platform high resolution camera over
+the NEON Harvard Forest field site. 
+
+#This imagery has 3 bands... more here when we decide on data
+
+more about imagery will go here.
+
+#leah needs to decide whether the harvard spectrometer data are usable given
+#some trees are purple - ask nathan
+
+#Getting Started with Multi-Band data
 If we read a raster stack into R using the `raster` function, it defaults to 
 reading in one (the first) band. We can plot this band using the plot function.
 
-#SOMETHING ABOUT IMAGES SPECIFICALLY WHICH ARE DIFF FROM OTHER RASTERS??
-
-Note that in a typical GIS application would render a single image band using a grayscale
-color palette.
+Note that in a typical GIS application, a single band would render a single image 
+band using a grayscale color palette. We will thus use a grayscale palette to render
+individual bands below.
+{: .notice}
 
 
     # Read in multi-band raster with raster function, the default is the first band
     RGB_band1 <- raster("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
     
     #create a grayscale color palette to use for the image
-    grayscale_colors <- gray.colors(100, start = 0.3, end = 0.9, gamma = 2.2, alpha = NULL)
+    grayscale_colors <- gray.colors(100, 
+                                    start = 0.0, 
+                                    end = 1.0, 
+                                    gamma = 2.2, 
+                                    alpha = NULL)
     
     #Point out dimension, CRS, and values attributes, but esp. band
     plot(RGB_band1, 
@@ -275,13 +285,13 @@ to plot and view histograms of each band in the stack.
     ## values      : 0, 255  (min, max)
 
     #plot one band
-    plot(RGB_stack[[1]], "main=band one")
+    plot(RGB_stack[[1]], main="band one", col=grayscale_colors)
 
 ![ ]({{ site.baseurl }}/images/rfigs/03-Multi-Band-Raster/plot-raster-layers-1.png) 
 
     #Metadata file? 
     #plot all three bands
-    plot(RGB_stack)
+    plot(RGB_stack, col=grayscale_colors)
 
 ![ ]({{ site.baseurl }}/images/rfigs/03-Multi-Band-Raster/plot-raster-layers-2.png) 
 
@@ -295,8 +305,11 @@ image using this function if we had an infrared band to work with)
 #this above could be a challenge if i provide spectrometer data with 4 bands instead of just 3 RGB
 2. Adjust the stretch of the image to make it brighter / darker
 
+The plotRGB function composits three bands together into one producing an image
+that is similar to an image that a camera takes. 
 
-    # The plotRGB function plots all bands together, is an image like our eyes would see
+
+    # Create an RGB image from the raster stack
     plotRGB(RGB_stack, r = 1, g = 2, b = 3)
 
 ![ ]({{ site.baseurl }}/images/rfigs/03-Multi-Band-Raster/plot-rgb-image-1.png) 
