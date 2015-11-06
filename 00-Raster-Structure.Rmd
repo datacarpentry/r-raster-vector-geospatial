@@ -291,12 +291,44 @@ data.
 
 1. **NoData values:** These are values where no data were collected. The shape of
 a raster, by default is always square or rectangular. Thus, if we have a dataset 
-that has a shape that isn't square or rectangular, some pixels wil have no data.
+that has a shape that isn't square or rectangular, some pixels will have no data.
 This often happens when the data were collected by an airplane which only flew some
 of a particular region
 
-#NEED TO ADD IMAGE
-<<IMAGE SHOWING NO DATA VALUES>>
+###BELOW: raster data with black edges that are actually no data values
+The camera did not collect data in these areas
+
+```{r demonstrate-no-data-blaco, echo=FALSE}
+
+# Use stack function to read in all bands
+RGB_stack <- stack("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
+
+# Create an RGB image from the raster stack
+plotRGB(RGB_stack, r = 1, g = 2, b = 3,
+        addfun="(main='Test')" )
+ 
+```
+
+###BELOW: raster data with black edges assigned to no data. 
+
+Note that R doesn't render the black edges now that `NA` values are assigned.
+
+```{r demonstrate-no-data, echo=FALSE}
+#reassign cells with 0,0,0 to NA
+
+f <- function(x) {
+  x[rowSums(x == 0) == 3, ] <- NA
+  x
+}
+
+newRGBImage <- calc(RGB_stack, f)
+
+# Create an RGB image from the raster stack
+plotRGB(newRGBImage, r = 1, g = 2, b = 3,
+        addfun="(main='Test')" )
+ 
+```
+
 
 If we are lucky, our geotiff file has a tag that tells us what the NoDATA value is.
 If we are less lucky, we can find that information in the raster's `metadata`. 
@@ -311,7 +343,8 @@ of `NA` will be ignored by R.
 ```{r no-data-values }
 
 #view raster no data value using GDAL info.
-#for our raster, all cells with a value of -9999 were assigned by R to NA
+#for our raster, all cells with a value of -9999 will assigned by R to NA
+#when we import the data
 GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
 ```
@@ -341,7 +374,7 @@ hist(DSM, maxpixels=ncell(DSM))
 
 ```
 
-## Raster Bands? ?? -- something about that here??
+##Raster Bands
 
 It is important to note that rasters can be either single or multi-band. If you 
 remember, GDALinfo told us the `DSM` raster that we are working with only has

@@ -1,3 +1,26 @@
+## ----demonstrate-RGB-Image, echo=FALSE-----------------------------------
+
+# Use stack function to read in all bands
+RGB_stack <- stack("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
+
+names(RGB_stack) <- c("Red Band","Green Band","Blue Band")
+
+grayscale_colors <- gray.colors(100, 
+                                start = 0.0, 
+                                end = 1.0, 
+                                gamma = 2.2, 
+                                alpha = NULL)
+
+# Create an RGB image from the raster stack
+plot(RGB_stack, col=grayscale_colors)
+
+
+## ----plot-RGB-now, echo=FALSE--------------------------------------------
+# Create an RGB image from the raster stack
+plotRGB(RGB_stack, r = 1, g = 2, b = 3,
+        addfun="(main='Test')" )
+ 
+
 ## ----read-single-band----------------------------------------------------
  
 # Read in multi-band raster with raster function, the default is the first band
@@ -23,13 +46,16 @@ RGB_band1
 ## ----min-max-image-------------------------------------------------------
 
 #view min value
-RGB_band1@data@min
+minValue(RGB_band1)
 
 #view max value
-RGB_band1@data@max
+maxValue(RGB_band1)
 
 
-## ------------------------------------------------------------------------
+
+
+## ----plot-single-band----------------------------------------------------
+
 # Can specify which band you want to read in
 RGB_band2 <- raster("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif", 
                     band = 2)
