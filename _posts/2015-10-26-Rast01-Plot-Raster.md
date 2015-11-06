@@ -68,6 +68,7 @@ Read more about the `raster` package in R.</a>
 </div>
 
 
+
     # Plot raster file and change some parameters
     plot(DSM) #Necessary to explicitly differentiate between base plot and raster plot?
 
@@ -91,4 +92,37 @@ Read more about the `raster` package in R.</a>
     # TODO: challenge
 
 
-    # Code here
+##Plotting raster files
+We should already be familiar with the DSM Harvard raster file because it has been
+opened in the first raster lesson, Raster Structure. We will now plot this raster and the histogram of the raster values to get an idea of what the raster is like.  
+
+```
+#Plot entire raster
+plot(DSM)
+
+#Plot distribution of raster values, get an error cause only plots subset
+hist(DSM)
+pixels = ncol(DSM) * nrow(DSM)
+hist(DSM, maxpixels = pixels)
+```
+
+We can also use some arguments for the plot function to plot a subset of the raster values or choose which values correspond to which plot colors. 
+
+```
+#Plot a subset of the pixel values, e.g., the bottom 50m of surface
+plot(DSM, zlim = c(305, 355))
+
+#Plot all pixel values using broader categories for values
+myCol = terrain.colors(4)
+plot(DSM, breaks = c(305, 341, 377, 416), col = myCol, maxpixels = pixels)
+```
+
+Lastly, like most plots, we can add labels
+```
+#Add axes and title to raster plot
+plot(DSM, xlab = "X Coordinates", ylab = "Y Coordinates", main = "Harvard Forest Digital Surface Model")
+```
+
+##Challenge
+
+Create a plot of the Harvard DSM that has a legend with six colors that are evenly divided amongst the range of pixel values. 

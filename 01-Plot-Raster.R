@@ -10,7 +10,3 @@ plot(DSM, zlim = c(340, 400)) #optional argument
 # TODO: challenge
 
 
-## ----another-chunk-name--------------------------------------------------
-# Code here
-
-

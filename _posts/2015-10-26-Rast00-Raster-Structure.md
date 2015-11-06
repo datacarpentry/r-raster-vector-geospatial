@@ -94,16 +94,6 @@ range of quantitative values. Some examples of continuous rasters include:
 A map of elevation for Harvard Forest, derived from the NEON AOP lidar sensor
 is below.
 
-
-    ## Loading required package: sp
-    ## rgdal: version: 1.1-1, (SVN revision 572)
-    ##  Geospatial Data Abstraction Library extensions to R successfully loaded
-    ##  Loaded GDAL runtime: GDAL 1.11.3, released 2015/09/16
-    ##  Path to GDAL shared files: /usr/local/Cellar/gdal/1.11.3/share/gdal
-    ##  Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
-    ##  Path to PROJ.4 shared files: (autodetected)
-    ##  Linking to sp version: 1.2-1
-
 ![ ]({{ site.baseurl }}/images/rfigs/00-Raster-Structure/elevation-map-1.png) 
 
 Some rasters contain categorical data. Thus each pixel represents a class such as
@@ -304,12 +294,21 @@ data.
 
 1. **NoData values:** These are values where no data were collected. The shape of
 a raster, by default is always square or rectangular. Thus, if we have a dataset 
-that has a shape that isn't square or rectangular, some pixels wil have no data.
+that has a shape that isn't square or rectangular, some pixels will have no data.
 This often happens when the data were collected by an airplane which only flew some
 of a particular region
 
-#NEED TO ADD IMAGE
-<<IMAGE SHOWING NO DATA VALUES>>
+###BELOW: raster data with black edges that are actually no data values
+The camera did not collect data in these areas
+
+![ ]({{ site.baseurl }}/images/rfigs/00-Raster-Structure/demonstrate-no-data-blaco-1.png) 
+
+###BELOW: raster data with black edges assigned to no data. 
+
+Note that R doesn't render the black edges now that `NA` values are assigned.
+
+![ ]({{ site.baseurl }}/images/rfigs/00-Raster-Structure/demonstrate-no-data-1.png) 
+
 
 If we are lucky, our geotiff file has a tag that tells us what the NoDATA value is.
 If we are less lucky, we can find that information in the raster's `metadata`. 
@@ -323,7 +322,8 @@ of `NA` will be ignored by R.
 
 
     #view raster no data value using GDAL info.
-    #for our raster, all cells with a value of -9999 were assigned by R to NA
+    #for our raster, all cells with a value of -9999 will assigned by R to NA
+    #when we import the data
     GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
     ## rows        1367 
@@ -379,7 +379,7 @@ function which produces a histogram.
 
 ![ ]({{ site.baseurl }}/images/rfigs/00-Raster-Structure/view-raster-histogram-2.png) 
 
-## Raster Bands? ?? -- something about that here??
+##Raster Bands
 
 It is important to note that rasters can be either single or multi-band. If you 
 remember, GDALinfo told us the `DSM` raster that we are working with only has

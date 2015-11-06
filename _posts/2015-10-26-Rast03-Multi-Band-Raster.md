@@ -4,7 +4,7 @@ title: "Lesson 03: Work With Multi-Band Rasters - Images in R"
 date:   2015-10-26
 authors: [Kristina Riemer, Mike Smorul, Zack Brym, Jason Williams, Jeff Hollister, Leah Wasser]
 dateCreated:  2015-10-23
-lastModified: 2015-10-23
+lastModified: 2015-11-06
 category: spatio-temporal-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data
@@ -23,8 +23,7 @@ comments: false
 
 
 ##About
-This activity will walk you through the fundamental principles of working 
-with raster data in R.
+This lesson will explore how to work with multi-band raster data in R.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
@@ -69,7 +68,7 @@ Read more about the `raster` package in R.</a>
 
 #About Raster Bands
 
-As mentioned in the [Intro to Raster Data Lesson 00]( {{ base.url }} }}/R/Introduction-to-Raster-Data-In-R), a raster can contain 1 or more bands. To 
+As discussed in the [Intro to Raster Data Lesson 00]( {{ base.url }} }}/R/Introduction-to-Raster-Data-In-R), a raster can contain 1 or more bands. To 
 work with multi-band rasters, we need to adjust how we import and plot our data. 
 
 * To import multi band raster data we will use the `stack` function.
@@ -77,13 +76,20 @@ work with multi-band rasters, we need to adjust how we import and plot our data.
 to plot a 3 band image raster.
 
 #About Multi Band Imagery
+A raster dataset can store multiple bands. One multi-band raster dataset that is  familiar to many of us is an image. A basic color image consists of three bands:
+red, green and blue. The pixel brightness for each band, when composited creates
+the colors that we see in an image.
+
+####we can plot each band of an 3 band image individually
+
+![ ]({{ site.baseurl }}/images/rfigs/03-Multi-Band-Raster/demonstrate-RGB-Image-1.png) 
+
+####Or we can composite all three bands together to make a color image
+![ ]({{ site.baseurl }}/images/rfigs/03-Multi-Band-Raster/plot-RGB-now-1.png) 
+
 In this lesson, the multi-band data that we are working with is imagery
 collected using the NEON Airborne Observation Platform high resolution camera over
-the NEON Harvard Forest field site. 
-
-#This imagery has 3 bands... more here when we decide on data
-
-more about imagery will go here.
+the <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>. 
 
 #leah needs to decide whether the harvard spectrometer data are usable given
 #some trees are purple - ask nathan
@@ -140,12 +146,12 @@ Take careful note of the min and max values of our raster min and max values:
 
 
     #view min value
-    RGB_band1@data@min
+    minValue(RGB_band1)
 
     ## [1] 0
 
     #view max value
-    RGB_band1@data@max
+    maxValue(RGB_band1)
 
     ## [1] 255
 
@@ -179,7 +185,7 @@ TO do that, we add `band=2` (or whatever band number we wish to import).
          col=grayscale_colors, 
          main="NEON RGB Imagery - Band 2\nHarvard Forest")
 
-![ ]({{ site.baseurl }}/images/rfigs/03-Multi-Band-Raster/unnamed-chunk-1-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/03-Multi-Band-Raster/plot-single-band-1.png) 
 
     #view attributes of band 2 
     RGB_band2
@@ -333,4 +339,7 @@ that is similar to an image that a camera takes.
 
 #Challenge
 
-1. You can view various attributes of `raster` objects in R using the `@` symbol...
+1. You can view various methods available to call on an R object with 
+`methods(class=class(objectNameHere))`. Use this to figure out what methods you
+can call on the `RGB_stack` object. What methods are available for a single 
+`RasterLayer`? 

@@ -68,10 +68,36 @@ minValue(DSM)
 maxValue(DSM)
 
 
+## ----demonstrate-no-data-blaco, echo=FALSE-------------------------------
+
+# Use stack function to read in all bands
+RGB_stack <- stack("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
+
+# Create an RGB image from the raster stack
+plotRGB(RGB_stack, r = 1, g = 2, b = 3,
+        addfun="(main='Test')" )
+ 
+
+## ----demonstrate-no-data, echo=FALSE-------------------------------------
+#reassign cells with 0,0,0 to NA
+
+f <- function(x) {
+  x[rowSums(x == 0) == 3, ] <- NA
+  x
+}
+
+newRGBImage <- calc(RGB_stack, f)
+
+# Create an RGB image from the raster stack
+plotRGB(newRGBImage, r = 1, g = 2, b = 3,
+        addfun="(main='Test')" )
+ 
+
 ## ----no-data-values------------------------------------------------------
 
 #view raster no data value using GDAL info.
-#for our raster, all cells with a value of -9999 were assigned by R to NA
+#for our raster, all cells with a value of -9999 will assigned by R to NA
+#when we import the data
 GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
 

@@ -4,7 +4,7 @@ title: "Lesson 03: Work With Multi-Band Rasters - Images in R"
 date:   2015-10-26
 authors: [Kristina Riemer, Mike Smorul, Zack Brym, Jason Williams, Jeff Hollister, Leah Wasser]
 dateCreated:  2015-10-23
-lastModified: 2015-10-23
+lastModified: `r format(Sys.time(), "%Y-%m-%d")`
 category: spatio-temporal-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data
@@ -23,8 +23,7 @@ comments: false
 
 
 ##About
-This activity will walk you through the fundamental principles of working 
-with raster data in R.
+This lesson will explore how to work with multi-band raster data in R.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
@@ -69,7 +68,7 @@ Read more about the `raster` package in R.</a>
 
 #About Raster Bands
 
-As mentioned in the [Intro to Raster Data Lesson 00]( {{ base.url }} }}/R/Introduction-to-Raster-Data-In-R), a raster can contain 1 or more bands. To 
+As discussed in the [Intro to Raster Data Lesson 00]( {{ base.url }} }}/R/Introduction-to-Raster-Data-In-R), a raster can contain 1 or more bands. To 
 work with multi-band rasters, we need to adjust how we import and plot our data. 
 
 * To import multi band raster data we will use the `stack` function.
@@ -77,13 +76,41 @@ work with multi-band rasters, we need to adjust how we import and plot our data.
 to plot a 3 band image raster.
 
 #About Multi Band Imagery
+A raster dataset can store multiple bands. One multi-band raster dataset that is  familiar to many of us is an image. A basic color image consists of three bands:
+red, green and blue. The pixel brightness for each band, when composited creates
+the colors that we see in an image.
+
+####we can plot each band of an 3 band image individually
+
+```{r demonstrate-RGB-Image, echo=FALSE}
+
+# Use stack function to read in all bands
+RGB_stack <- stack("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
+
+names(RGB_stack) <- c("Red Band","Green Band","Blue Band")
+
+grayscale_colors <- gray.colors(100, 
+                                start = 0.0, 
+                                end = 1.0, 
+                                gamma = 2.2, 
+                                alpha = NULL)
+
+# Create an RGB image from the raster stack
+plot(RGB_stack, col=grayscale_colors)
+
+```
+
+####Or we can composite all three bands together to make a color image
+```{r plot-RGB-now, echo=FALSE }
+# Create an RGB image from the raster stack
+plotRGB(RGB_stack, r = 1, g = 2, b = 3,
+        addfun="(main='Test')" )
+ 
+```
+
 In this lesson, the multi-band data that we are working with is imagery
 collected using the NEON Airborne Observation Platform high resolution camera over
-the NEON Harvard Forest field site. 
-
-#This imagery has 3 bands... more here when we decide on data
-
-more about imagery will go here.
+the <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>. 
 
 #leah needs to decide whether the harvard spectrometer data are usable given
 #some trees are purple - ask nathan
@@ -133,10 +160,12 @@ Take careful note of the min and max values of our raster min and max values:
 ```{r min-max-image }
 
 #view min value
-RGB_band1@data@min
+minValue(RGB_band1)
 
 #view max value
-RGB_band1@data@max
+maxValue(RGB_band1)
+
+
 
 ```
 
@@ -160,7 +189,8 @@ raster contain?
 We can use the raster function to import specific bands in our raster object too.
 TO do that, we add `band=2` (or whatever band number we wish to import).
 
-```{r}
+```{r plot-single-band }
+
 # Can specify which band you want to read in
 RGB_band2 <- raster("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif", 
                     band = 2)
@@ -256,4 +286,7 @@ plotRGB(RGB_stack,r = 1, g = 2, b = 3, scale=800,stretch = "Lin")
 
 #Challenge
 
-1. You can view various attributes of `raster` objects in R using the `@` symbol...
+1. You can view various methods available to call on an R object with 
+`methods(class=class(objectNameHere))`. Use this to figure out what methods you
+can call on the `RGB_stack` object. What methods are available for a single 
+`RasterLayer`? 
