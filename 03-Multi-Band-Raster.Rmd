@@ -108,6 +108,14 @@ plotRGB(RGB_stack, r = 1, g = 2, b = 3,
  
 ```
 
+#Other Types of Multi-band Raster data
+
+Multi-band raster data might also contain:
+
+1. time series - of the same variable, over the same area over time.
+2. Multi-hyperspectral imagery - that might have 4 or more bands up to 400+ bands 
+of image data!
+
 In this lesson, the multi-band data that we are working with is imagery
 collected using the NEON Airborne Observation Platform high resolution camera over
 the <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>. 

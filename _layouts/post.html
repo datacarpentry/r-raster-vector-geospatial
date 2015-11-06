@@ -37,6 +37,13 @@
     </div><!--/ .headline-wrap -->
 
     <div class="article-wrap">
+    <!-- List authors at the top of the lesson -->
+
+    By: {{ page.authors | join: ', ' %}}
+    {% if page.contributors %}
+       Lesson Reviewers {{ page.contributors | join: ', ' %}}
+    {% endif %}   
+
       {{ content }}
 
 
