@@ -111,3 +111,17 @@ plotRGB(RGB_stack,r = 1, g = 2, b = 3, scale=800,stretch = "Lin")
 # TODO: Challenge: calculate NDVI, but would need an infrared band to do this
 #-- on it!
 
+## ----raster-bricks-------------------------------------------------------
+
+#view size of the RGB_stack object that contains our 3 band image
+object.size(RGB_stack)
+
+#convert stack to a brick
+RGB_brick <- brick(RGB_stack)
+
+#view size of the brick
+object.size(RGB_brick)
+
+#plot brick
+plot(RGB_brick)
+

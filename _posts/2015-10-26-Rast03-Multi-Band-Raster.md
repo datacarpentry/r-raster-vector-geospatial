@@ -87,6 +87,14 @@ the colors that we see in an image.
 ####Or we can composite all three bands together to make a color image
 ![ ]({{ site.baseurl }}/images/rfigs/03-Multi-Band-Raster/plot-RGB-now-1.png) 
 
+#Other Types of Multi-band Raster data
+
+Multi-band raster data might also contain:
+
+1. time series - of the same variable, over the same area over time.
+2. Multi-hyperspectral imagery - that might have 4 or more bands up to 400+ bands 
+of image data!
+
 In this lesson, the multi-band data that we are working with is imagery
 collected using the NEON Airborne Observation Platform high resolution camera over
 the <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>. 
@@ -331,10 +339,43 @@ that is similar to an image that a camera takes.
     # TODO: Challenge: calculate NDVI, but would need an infrared band to do this
     #-- on it!
 
+
+##Raster Brick vs Raster Stack in R
+You can turn a `RasterStack` into a `RasterBrick` in `R`. A `RasterStack` is an
+`R` object with multiple layers. However those layers can be stored anywhere on your computer. A `RasterBrick` contains all of the objects stored within the actual
+R object. In most cases, you can work with a RasterBrick in the same way you 
+might work with a stack. However a `RasterBrick` is often more efficient / faster 
+to process.
+
+<a href="http://www.inside-r.org/packages/cran/raster/docs/brick" target="_blank">More on Raster Bricks</a>
+
+Let's use the `object.size()` function to compare a stack vs brick R object.
+
+
+    #view size of the RGB_stack object that contains our 3 band image
+    object.size(RGB_stack)
+
+    ## 40528 bytes
+
+    #convert stack to a brick
+    RGB_brick <- brick(RGB_stack)
+    
+    #view size of the brick
+    object.size(RGB_brick)
+
+    ## 85454360 bytes
+
+    #plot brick
+    plot(RGB_brick)
+
+![ ]({{ site.baseurl }}/images/rfigs/03-Multi-Band-Raster/raster-bricks-1.png) 
+
+
 # LEAH NEEDS to take the RGB image and
 1. Make the edges -9999 - no data
 2. Create an no data slot in the raster
 3. potentially add a fourth band so a color infrared image could be made as a cool challenge.
+
 
 
 #Challenge
