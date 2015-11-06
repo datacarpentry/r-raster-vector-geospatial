@@ -1,4 +1,8 @@
 ## ----elevation-map, echo=FALSE-------------------------------------------
+library(raster)
+library(rgdal)
+DSM <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+
 # code output here - DEM rendered on the screen
 # dem hillshade
 plot(DSM, main="NEON Elevation Map\nHarvard Forest")
@@ -20,12 +24,17 @@ plot(DSM, col=col, breaks=brk, main="Classified Elevation Map\nHarvard Forest",l
 par(xpd = TRUE)
 #add a legend - but make it appear outside of the plot
 legend( par()$usr[2], 4713700,
-        legend = c("Highest", "Middle","Lowest"), 
+        legend = c("High Elevation", "Middle","Low Elevation"), 
         fill = rev(col))
 
-## ----load-libraris-------------------------------------------------------
+## ----load-libraries------------------------------------------------------
 library(raster)
 library(rgdal)
+
+
+## ----view-attributes-gdal------------------------------------------------
+# view attributes before opening file
+GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
 
 ## ----open-raster---------------------------------------------------------
@@ -36,38 +45,46 @@ DSM <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 DSM 
 
 #quickly plot the raster
+#note \n firces a line break in the title!
 plot(DSM, main="NEON Digital Surface Model\nHarvard Forest")
 
 
 ## ----view-resolution-units-----------------------------------------------
 #view resolution units
-DSM@data@unit
-
-
-## ----view-raster-CRS-----------------------------------------------------
-
-#view raster crs - in Proj 4 format
 crs(DSM)
 
 
-## ------------------------------------------------------------------------
-DSM <- setMinMax(DSM) #This step might be unnecessary
+## ----set-min-max---------------------------------------------------------
+
+#This step is unnecessary if the min max values are already calculated and 
+#stored in the tags for the raster.
+#our raster already has these values calculated!
+#DSM <- setMinMax(DSM) 
 
 #view min value
-DSM@data@min
+minValue(DSM)
 
 #view max value
-DSM@data@max
+maxValue(DSM)
 
 
 ## ----no-data-values------------------------------------------------------
-#view raster no data value
-NAvalue(DSM)
+
+#view raster no data value using GDAL info.
+#for our raster, all cells with a value of -9999 were assigned by R to NA
+GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
 
 ## ----view-raster-histogram-----------------------------------------------
 
-#view raster no data value
+#view histogram of data
 hist(DSM)
+
+#oops - the histogram has a default number of pixels that it renders
+#grab the number of pixels in the raster
+ncell(DSM)
+
+#create histogram with all pixel values in the raster
+hist(DSM, maxpixels=ncell(DSM))
 
 
