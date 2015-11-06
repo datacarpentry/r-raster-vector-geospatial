@@ -21,8 +21,10 @@ comments: false
 {% include _toc.html %}
 
 ##About
-This activity will walk you through the fundamental principles of working 
-with raster data in R.
+In this lesson, we will learn 
+
+1. What raster data are and 
+2. How to open and explore raster data and properties in `R`.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
@@ -33,7 +35,9 @@ with raster data in R.
 After completing this activity, you will know:
 
 * What a raster dataset is and its fundamental attributes.
+* How to explore raster attributes in `R`
 * How to import rasters into `R` using the `raster` library.
+* How to quickly plot a raster file in `R`
 
 ###Things You'll Need To Complete This Lesson
 
@@ -57,7 +61,9 @@ Download the workshop data:
 The LiDAR and imagery data used to create the rasters in this dataset were 
 collected over the Harvard and San Joaquin field sites 
 and processed at <a href="http://www.neoninc.org" target="_blank" >NEON </a> 
-headquarters. The entire dataset can be accessed by request from the NEON website.
+headquarters. The entire dataset can be accessed by request from the 
+<a href="http://www.neoninc.org/data-resources/get-data" target="_blank"> NEON 
+website.</a>
 
 ####Recommended Pre-Lesson Reading
 
@@ -67,7 +73,7 @@ Read more about the `raster` package in R.</a>
 </div>
 
 #About Raster Data
-Raster or "gridded" data are data that are saved on a regular grid which is rendered
+Raster or "gridded" data are saved on a regular grid which is rendered
 on a map as pixels. Each pixel contains a value that represents an area on the Earth's 
 surface.
 
@@ -79,7 +85,7 @@ rasters here</a>.
 #Types of data stored as rasters
 
 Raster data can be continuous or categorical. Continuous rasters can have a 
-range of values. Some examples of continuous rasters include
+range of quantitative values. Some examples of continuous rasters include:
 
 1. Precipitation maps
 2. Maps of tree height derived from lidar data
@@ -89,14 +95,19 @@ A map of elevation for Harvard Forest, derived from the NEON AOP lidar sensor
 is below.
 
 ```{r elevation-map, echo=FALSE}
+library(raster)
+library(rgdal)
+DSM <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+
 # code output here - DEM rendered on the screen
 # dem hillshade
 plot(DSM, main="NEON Elevation Map\nHarvard Forest")
 
 ```
 
-We can also classify continuous rasters to identify regions that are low, medium
-and high elevation. Some examples of classified maps include
+Some rasters contain categorical data. Thus each pixel represents a class such as
+a landcover class ("forest") rathen than a continual value such as temperature.
+Some examples of classified maps include:
 
 1. landcover / landuse maps
 2. tree height maps classified short, medium, tall trees
@@ -118,26 +129,64 @@ plot(DSM, col=col, breaks=brk, main="Classified Elevation Map\nHarvard Forest",l
 par(xpd = TRUE)
 #add a legend - but make it appear outside of the plot
 legend( par()$usr[2], 4713700,
-        legend = c("Highest", "Middle","Lowest"), 
+        legend = c("High Elevation", "Middle","Low Elevation"), 
         fill = rev(col))
 ```
 
 
 #What is a geotiff??
-I think we need to introduce this format here or somewhere??
+Raster data can come in many different formats. In this lesson, we will use the 
+`geotiff` format which has the extension `.tif`. A `.tif` file can store metadata
+or attributes about the file in embedded tags. For instance, your camera might store
+a tag that describes the make and model of the camera if it saves a tiff. Or
+it might save the date the image was taken. A geotiff is a standard `.tif`  
+image format with addition spatial (georeferenceing) information embedded in the file
+as a tag. These tags can include 
+
+1. A Coordinate Reference System (CRS)
+2. Spatial Extent
+3. NoData Values 
+
+We will talk about all of these metadata tags below.
+
+More about tiffs
+
+* <a href="https://en.wikipedia.org/wiki/GeoTIFF" target="_blank"> Geotiff on Wikipedia</a>
+* <a href="https://trac.osgeo.org/geotiff/" target="_blank"> OSGEO Tiff documentation</a>
+{: notice }
 
 ##About
 
-In this lesson we will learn how to open a raster in r. We will also learn about 
+In this lesson we will learn how to open a raster in `R`. We will also learn about 
 the key metadata associated with rasters! We will use the `raster` and `rgdal`
 libraries.
 
 
-```{r load-libraris}
+```{r load-libraries }
 library(raster)
 library(rgdal)
 
 ```
+
+##View Raster Attributes
+
+As mentioned above, a Geotiff contains a set of embedded tags that contain metadata
+about the file. We can view those tags before we open the data in `R` using the
+`GDALinfo` function. Notice a few things in the output.
+
+1. a projection is described as a string - this format is called `proj4`
+   `+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs `
+2. We can se a `NoDataValue`
+
+What else do you see in the attributes of our raster? Take note as we will 
+explore these metadata later in the lesson.
+
+```{r view-attributes-gdal}
+# view attributes before opening file
+GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+
+```
+
 
 ##Open up a raster in R
 
@@ -156,6 +205,7 @@ DSM <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 DSM 
 
 #quickly plot the raster
+#note \n firces a line break in the title!
 plot(DSM, main="NEON Digital Surface Model\nHarvard Forest")
 
 ```
@@ -173,8 +223,8 @@ are in meters. We can find this using two methods: we can look at the `CRS` stri
 which we will example in just a bit. or we can use the `DSM@data@unit` to view
 the units stored in the geotiff.
 
-#NOTE: the units aren't in the geotiff - look into whether we can add this or 
-this is another R bug!
+#NOTE: the units aren't in this geotiff. That is ok because we can find the units 
+in the `CRS`
 
 ```{r view-resolution-units}
 #view resolution units
@@ -187,9 +237,10 @@ The `Coordinate Reference System` or `CRS` is another important raster attribute
 The `CRS` tells R where the raster is located in geographic space. It also tells 
 R what method should be used to "flatten" the raster. <<SOME LINK TO MORE ABOUT CRS>>
 
-The CRS in this case is in a `PROJ 4` format. This meanst hat the projection information
+The CRS in this case is in a `PROJ 4` format. This means that the projection information
 is strung together as a series of text elements, each of which begins with a `+`
 sign. 
+
 We'll focus on the first few components of the CRS in this lesson.
 
 * `+proj=utm` The projection of this dataset is UTM 
@@ -201,7 +252,8 @@ more on that HERE <<ADD LINK>>
 are meters. This means that if the data are 1x1 resolution, that each pixel represents
 a 1 x 1 meter area on the ground.
 
-image<UTM zone image from other lesson>
+![UTM Coordinate system](http://upload.wikimedia.org/wikipedia/en/thumb/5/57/Utm-zones.svg/720px-Utm-zones.svg.png)
+
 
 ```{r view-raster-CRS }
 
@@ -219,8 +271,12 @@ for R to calculate them using the `setMinMax` function. Once they are calculated
 you can then call them using the same `@data` syntax that we used above to look
 at the units.
 
-```{r}
-DSM <- setMinMax(DSM) #This step might be unnecessary
+```{r set-min-max }
+
+#This step is unnecessary if the min max values are already calculated and 
+#stored in the tags for the raster.
+#our raster already has these values calculated!
+DSM <- setMinMax(DSM) 
 
 #view min value
 DSM@data@min
@@ -241,21 +297,24 @@ that has a shape that isn't square or rectangular, some pixels wil have no data.
 This often happens when the data were collected by an airplane which only flew some
 of a particular region
 
+#NEED TO ADD IMAGE
 <<IMAGE SHOWING NO DATA VALUES>>
 
 If we are lucky, our geotiff file has a tag that tells us what the NoDATA value is.
 If we are less lucky, we can find that information in the raster's `metadata`. 
-in R, we can use the `NAvalues` function to see if the NoDATA attribute has been
-assigned. NOTE: `-INF` is a default value so if you see that - double check the 
-metadata!
+If a NoDataValue was stored in the `geotiff` tag, when R opens up the raster,
+it will assign each instance of that value to `NA` (no data in r world). Values
+of `NA` will be ignored by R.
 
 #Add no data values to geotiff, then add section looking for -9999 values and
 #changing to NaN (or equivalent); there would be a challenge here, because the
 #-9999 should show up as the min value
 
 ```{r no-data-values }
-#view raster no data value
-NAvalue(DSM)
+
+#view raster no data value using GDAL info.
+#for our raster, all cells with a value of -9999 were assigned by R to NA
+GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
 ```
 
@@ -264,27 +323,37 @@ NAvalue(DSM)
 Bad data values are different from NoData values. Sometimes a raster's metadata
 will tell us a value range of values for the raster. Sometimes, we need to use
 some practial scientific insight as we examine the data - just as we would for field
-data. For instance, in a mediterranean climate, we would not expect to see 70m 
-tall trees! 
+data. 
 
-<<Insert Image from Victoria's tower discovery at SJER>>
+We can explore the range of values contained within our raster using the `hist`
+function which produces a histogram.
 
-One way to explore the range of values in our raster data is to look at a histogram.
-<<This might be covered in lesson 2??>>
 
 ```{r view-raster-histogram }
 
-#view raster no data value
+#view histogram of data
 hist(DSM)
+
+#oops - the histogram has a default number of pixels that it renders
+#grab the number of pixels in the raster
+ncell(DSM)
+
+#create histogram with all pixel values in the raster
+hist(DSM, maxpixels=ncell(DSM))
 
 ```
 
 ## Raster Bands? ?? -- something about that here??
 
-It is important to note that rasters can be either single or multi-band. When data
-are brought in using the `raster` function, then we are only bring in one band. 
+It is important to note that rasters can be either single or multi-band. If you 
+remember, GDALinfo told us the `DSM` raster that we are working with only has
+one band. 
 
-~(Image on what bands are...)[]
+By default the `raster` function only imports the first band in a raster so we can
+use it for our `DSM`. We will explore multi-band rasters in a [later lesson 4??]()
+
+#COLIN
+![Image on what bands are...]()
 
 
 #Challenge
