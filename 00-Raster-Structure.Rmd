@@ -4,7 +4,7 @@ title: "Lesson 00: About Raster Data"
 date:   2015-10-29
 authors: [Kristina Riemer, Zack Brym, Jason Williams, Jeff Hollister,  Mike Smorul, Leah Wasser]
 dateCreated:  2015-10-23
-lastModified: 2015-10-23
+lastModified: `r format(Sys.time(), "%Y-%m-%d")`
 category:  
 tags: [module-1]
 mainTag: GIS-Spatial-Data
@@ -174,9 +174,15 @@ As mentioned above, a Geotiff contains a set of embedded tags that contain metad
 about the file. We can view those tags before we open the data in `R` using the
 `GDALinfo` function. Notice a few things in the output.
 
-1. a projection is described as a string - this format is called `proj4`
+1. A projection is described as a string - this format is called `proj4`
    `+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs `
-2. We can se a `NoDataValue`
+2. We can se a `NoDataValue` (-9999)
+3. We can tell how many `bands` the file contains (1)
+4. We can view the x and y `resolution` of the data (1)
+5. We can see the min and max values of the data `Bmin` and `Bmax`
+
+This is great - we haven't yet opened the file but we already know some things
+about it.
 
 What else do you see in the attributes of our raster? Take note as we will 
 explore these metadata later in the lesson.
@@ -220,17 +226,17 @@ A raster will have horizontal (x and y) resolution. This resolution
 represents the area on the ground that each pixel covers. We will need to know the
 units used to calculate resolution as well. In the case of the NEON rasters, the units
 are in meters. We can find this using two methods: we can look at the `CRS` string
-which we will example in just a bit. or we can use the `DSM@data@unit` to view
-the units stored in the geotiff.
+which we will example in just a bit.
 
 #NOTE: the units aren't in this geotiff. That is ok because we can find the units 
 in the `CRS`
 
 ```{r view-resolution-units}
 #view resolution units
-DSM@data@unit
+crs(DSM)
 
 ```
+
 ## Coordinate Reference System
 
 The `Coordinate Reference System` or `CRS` is another important raster attribute.
@@ -255,14 +261,6 @@ a 1 x 1 meter area on the ground.
 ![UTM Coordinate system](http://upload.wikimedia.org/wikipedia/en/thumb/5/57/Utm-zones.svg/720px-Utm-zones.svg.png)
 
 
-```{r view-raster-CRS }
-
-#view raster crs - in Proj 4 format
-crs(DSM)
-
-```
-
-
 #Calculate the Min and Max values for the raster
 
 Sometimes the raster statistics including the min and max values have already been
@@ -276,13 +274,13 @@ at the units.
 #This step is unnecessary if the min max values are already calculated and 
 #stored in the tags for the raster.
 #our raster already has these values calculated!
-DSM <- setMinMax(DSM) 
+#DSM <- setMinMax(DSM) 
 
 #view min value
-DSM@data@min
+minValue(DSM)
 
 #view max value
-DSM@data@max
+maxValue(DSM)
 
 ```
 
