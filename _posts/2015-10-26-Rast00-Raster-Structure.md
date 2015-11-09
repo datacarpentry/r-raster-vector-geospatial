@@ -4,7 +4,7 @@ title: "Lesson 00: About Raster Data"
 date:   2015-10-29
 authors: [Kristina Riemer, Zack Brym, Jason Williams, Jeff Hollister,  Mike Smorul, Leah Wasser]
 dateCreated:  2015-10-23
-lastModified: 2015-11-06
+lastModified: 2015-11-09
 category:  
 tags: [module-1]
 mainTag: GIS-Spatial-Data
