@@ -55,10 +55,6 @@ plot(hill,
     main="NEON Hillshade - DSM\n Harvard Forest")
 
 
-
-
-## ----plot-overlay--------------------------------------------------------
-
 #overlay the DSM on top of the hillshade
 plot(DSM,
      col=rainbow(100),
