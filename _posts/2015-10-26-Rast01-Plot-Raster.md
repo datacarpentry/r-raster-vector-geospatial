@@ -172,12 +172,8 @@ DSM on top of a `hillshade` of the DSM.
         col=grey(1:100/100),
         legend=F,
         main="NEON Hillshade - DSM\n Harvard Forest")
-
-![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/overlaying-hillshade-1.png) 
-
-Overlay the DSM raster on top of the hillshade.
-
-
+    
+    
     #overlay the DSM on top of the hillshade
     plot(DSM,
          col=rainbow(100),
@@ -185,5 +181,5 @@ Overlay the DSM raster on top of the hillshade.
          add=T,
          legend=F)
 
-    ## Error in graphics::rasterImage(x, e[1], e[3], e[2], e[4], interpolate = interpolate): plot.new has not been called yet
+![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/overlaying-hillshade-1.png) 
 
