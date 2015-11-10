@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Lesson 06: Plotting Raster Time Series Data in R Using RasterVis and LevelPlot"
-date:   2015-10-24
+date:   2015-10-23
 authors: [Leah Wasser, Kristina Riemer, Zack Bryn, Jason Williams, Jeff Hollister, 
 Mike Smorul]
 contributors: [Test Human]
