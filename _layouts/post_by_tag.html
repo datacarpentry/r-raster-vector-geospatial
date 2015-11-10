@@ -21,7 +21,7 @@
 </div>
 
 <div id="index">
-  <h1>{{ page.title }}</h1>
+  <h1>{{ page.title }}</h1> 
  <header id="post-header">
     <!-- <h1 id="post-title">{{ page.tag }}</h1>
     <h4 id="post-subtitle">Articles by tag</h4>-->
@@ -52,7 +52,7 @@
                 <span class="post-date">
                 {% if post.lastModified %}Last modified: {{ post.lastModified | date: "%b %-d, %Y" }}{% endif %}
                 {% if post.estimatedTime %}Time: {{ post.estimatedTime }}{% endif %}
-                {% if post.packagesLibraries %}, Related: {{ post.packagesLibraries }},{% endif %}
+                {% if post.packagesLibraries %}, Libraries: {{ post.packagesLibraries | join: ', ' %}},{% endif %}
 				</span>
                 <p>{% if post.description %}{{ post.description }}{% else %}{{ post.content | strip_html | strip_newlines | truncate: 120 }}{% endif %}</p>
             </a>

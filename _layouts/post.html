@@ -38,12 +38,12 @@
 
     <div class="article-wrap">
     <!-- List authors at the top of the lesson -->
-
-    By: {{ page.authors | join: ', ' %}}
+    <span class="post-date">
+    Authors: {{ page.authors | join: ', ' %}}
     {% if page.contributors %}
-       Lesson Reviewers {{ page.contributors | join: ', ' %}}
+    Reviewers: {{ page.contributors | join: ', ' %}}
     {% endif %}   
-
+     </span>
       {{ content }}
 
 

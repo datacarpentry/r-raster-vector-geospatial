@@ -2,13 +2,16 @@
 layout: post
 title: "Lesson 02: Reproject Rasters in R"
 date:   2015-10-27
-authors: "Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym, Leah Wasser"
+authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym, Leah Wasser]
+contributors: [Test Human]
+packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2015-11-09
+lastModified: 2015-11-10
 category: spatio-temporal-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data
-description: "This lesson explains how to reproject a raster in R."
+description: "This lesson explains how to reproject a raster in R using the projectRaster
+function in the raster package."
 code1: 
 image:
   feature: NEONCarpentryHeader_2.png

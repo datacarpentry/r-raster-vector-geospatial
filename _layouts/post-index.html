@@ -41,6 +41,8 @@
   {% if post.categories contains t %}
   <article>
     <h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
+    Yea
+    {% if post.packagesLibraries %}, Related: {{ post.packagesLibraries }},{% endif %}
     <p>{% if post.description %}{{ post.description }}{% else %}{{ post.content | strip_html | strip_newlines | truncate: 120 }}{% endif %}</p>
   </article>         
    <!-- <span class="date">{{ post.date | date: "%B %-d, %Y"  }}</span> -->

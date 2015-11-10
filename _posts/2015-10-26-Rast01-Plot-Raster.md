@@ -4,12 +4,16 @@ title: "Lesson 01: Plot Rasters in R"
 date:   2015-10-28
 authors: [Kristina Riemer, Jason Williams, Jeff Hollister, Mike Smorul, 
 Zack Brym, Leah Wasser]
+contributors: [Test Human]
+packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2015-11-09
+lastModified: 2015-11-10
 category: spatio-temporal-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data
-description: "This post explains the simple plotting function in the `raster` package."
+description: "This lesson reviews how to plot a raster in R using the plot command.
+It also covers how to overlay a raster on top of a hillshade for a eloquent map
+output."
 code1: 
 image:
   feature: NEONCarpentryHeader_2.png

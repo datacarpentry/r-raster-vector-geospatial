@@ -17,9 +17,15 @@ plot(RGB_stack, col=grayscale_colors)
 
 ## ----plot-RGB-now, echo=FALSE--------------------------------------------
 # Create an RGB image from the raster stack
+
+original_par <-par() #original par
+par(col.axis="white",col.lab="white",tck=0)
 plotRGB(RGB_stack, r = 1, g = 2, b = 3,
-        addfun="(main='Test')" )
- 
+        axes=TRUE, 
+        main="3 Band Color Composite Image")
+box(col="white")
+par(original_par) # go back to original par
+
 
 ## ----read-single-band----------------------------------------------------
  
@@ -35,7 +41,7 @@ grayscale_colors <- gray.colors(100,
 
 #Point out dimension, CRS, and values attributes, but esp. band
 plot(RGB_band1, 
-     col=grayscale_colors, 
+     col=grayscale_colors(100), 
      main="NEON RGB Imagery - Band 1\nHarvard Forest") 
 
 #view attributes
@@ -50,8 +56,6 @@ minValue(RGB_band1)
 
 #view max value
 maxValue(RGB_band1)
-
-
 
 
 ## ----plot-single-band----------------------------------------------------
@@ -80,6 +84,9 @@ RGB_stack
 #What is the CRS of the raster stack
 crs(RGB_stack)
 
+#What is the extent of the raster stack
+extent(RGB_stack)
+
 
 ## ----plot-raster-layers--------------------------------------------------
 
@@ -90,26 +97,28 @@ RGB_stack@layers
 RGB_stack[[1]]
 
 #plot one band
-plot(RGB_stack[[1]], main="band one", col=grayscale_colors)
+plot(RGB_stack[[1]], 
+     main="band one", 
+     col=grayscale_colors)
 
-#Metadata file? 
 #plot all three bands
-plot(RGB_stack, col=grayscale_colors)
+plot(RGB_stack, 
+     col=grayscale_colors)
 
 
 ## ----plot-rgb-image------------------------------------------------------
 
 # Create an RGB image from the raster stack
-plotRGB(RGB_stack, r = 1, g = 2, b = 3)
+plotRGB(RGB_stack, 
+        r = 1, g = 2, b = 3)
 
 #what does stretch do?
-plotRGB(RGB_stack,r = 1, g = 2, b = 3, scale=800,stretch = "Lin")
+plotRGB(RGB_stack,
+        r = 1, g = 2, b = 3, 
+        scale=800,
+        stretch = "Lin")
 
-#The black bands on the edges are zeros but should be NAs, might want to show 
-#them how to turn them into NAs? 
 
-# TODO: Challenge: calculate NDVI, but would need an infrared band to do this
-#-- on it!
 
 ## ----raster-bricks-------------------------------------------------------
 
@@ -123,5 +132,7 @@ RGB_brick <- brick(RGB_stack)
 object.size(RGB_brick)
 
 #plot brick
-plot(RGB_brick)
+plot(RGB_brick,
+     col=grayscale_colors)
+
 

@@ -3,8 +3,8 @@
 #load raster package
 library(raster)
 
-# CHALLENGE: repeat objectives 1 & 2 for a different .tif file
-
+#view info about the dtm raster data
+GDALinfo("NEON_RemoteSensing/HARV/DTM/HARV_dtmCrop.tif")
 
 #load the DTM
 DTM <- raster("NEON_RemoteSensing/HARV/DTM/HARV_dtmCrop.tif")
@@ -26,10 +26,15 @@ CHM <- DSM - DTM #This section could be automatable later on
 plot(CHM,
      main="NEON Canopy Height Model - Subtracted\n Harvard Forest") 
 
-#Ask participants what they think this might look like ahead of time
-hist(CHM, col = "purple")
+## ----view-histogram------------------------------------------------------
 
-## ----raster-overlay------------------------------------------------------
+#Create histogram of CHM values
+hist(CHM, 
+     col = "purple",
+     main = "Histogram of NEON Canopy Height Model\n Harvard Forest")
+
+
+## ----create-function-----------------------------------------------------
 
 #first, let's create a function
 #this function will take two rasters (r1 and r2) and subtract them
@@ -37,34 +42,56 @@ subtRasters <- function(r1, r2){
 return(r1-r2)
 }
 
-CHM_ov <- overlay(DSM,DTM,fun=subtRasters)
 
-plot(CHM_ov,
+## ----raster-overlay------------------------------------------------------
+
+
+CHM_ov_HARV <- overlay(DSM,DTM,fun=subtRasters)
+
+plot(CHM_ov_HARV,
      main="NEON Canopy Height Model - Overlay Subtract\n Harvard Forest")
 
 
 ## ----write-raster--------------------------------------------------------
 
 #export CHM object to new geotiff
-writeRaster(CHM_ov,"chm_ov.tiff",
+writeRaster(CHM_ov_HARV,"chm_ov_HARV.tiff",
             format="GTiff", 
             overwrite=TRUE, 
             NAflag=-9999)
 
 #note we are setting the NA value to -9999 for consistency.
 
-## ------------------------------------------------------------------------
-# Crop raster, first method
-plot(CHM)
-cropbox <- drawExtent()
-manual_crop <- crop(CHM, cropbox)
-plot(manual_crop)
+## ----SJER-CHM, echo=FALSE------------------------------------------------
 
-# Crop raster, second method
-coords <- c(xmin(CHM) + ncol(CHM) * 0.1, xmax(CHM) - ncol(CHM) * 0.1, 
-            ymin(CHM), ymax(CHM))
-coord_crop = crop(CHM, coords)
-plot(coord_crop) #Compare with CHM raster, should have different x-axis ranges
+##load the DTM
+DTM_SJER <- raster("NEON_RemoteSensing/SJER/DTM/SJER_dtmCrop.tif")
+#load the DSM
+DSM_SJER <- raster("NEON_RemoteSensing/SJER/DSM/SJER_dsmCrop.tif")
+
+#use overlay to subtract the two rasters
+CHM_ov_SJER <- overlay(DSM_SJER,DTM_SJER,fun=subtRasters)
+
+#plot the output
+plot(CHM_ov_SJER,
+     main="NEON Canopy Height Model - Overlay Subtract\n SJER")
+
+
+## ----histogram-compare, echo=FALSE---------------------------------------
+
+
+#view histogram
+hist(CHM_ov_SJER, 
+     main="NEON Canopy Height Model - Histogram\n SJER")
+
+#view histogram
+hist(CHM_ov_HARV, 
+     main="NEON Canopy Height Model - Histogram\n HARV")
+
+
+## ----notes-chunk---------------------------------------------------------
+
+ #Compare with CHM raster, should have different x-axis ranges
 
 # Challenge: play with resolution (i.e., pixel numbers)
 
