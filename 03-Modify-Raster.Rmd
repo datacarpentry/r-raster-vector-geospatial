@@ -2,19 +2,23 @@
 layout: post
 title: "Lesson 03: Raster Calculations - Overlay & Raster Math in R"
 date:   2015-10-26
-authors: "Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym, Leah Wasser"
+authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym, Leah Wasser]
+contributors: [Test Human]
+packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`
 category: spatio-temporal-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data
-description: "This lesson explains functions that modify raster data in R."
+description: "This lesson covers how to use the overlay function in R to perform
+efficient raster calculations. It also explains the basic principles of writing
+functions in R."
 code1: 
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink: http://www.neoninc.org
-permalink: /R/Modify-Rasters-In-R.R
+permalink: /R/Modify-Rasters-In-R
 comments: false
 ---
 
@@ -33,8 +37,9 @@ modify rasters including `overlay`, `calc` and raster math.
 
 After completing this activity, you will know:
 
-* How to compute raster math.
-* How to crop rasters.
+* How to perform a subtraction (difference) between two rasters using raster math.
+* How to perform a more efficient subtraction (difference) between two rasters 
+using the raster `Overlay` function in R.
 
 ###Things You'll Need To Complete This Lesson
 
@@ -87,15 +92,16 @@ We can calculate this difference by subtracting the two rasters in `R`. However
 if our rasters get large, we can calculate the difference more efficiently using
 the `overlay` function. 
 
-First, let's create and plot a `CHM` by subtracting two rasters.
+First, let's create and plot a `CHM` by subtracting two rasters - we often call
+this `raster math` in the geospatial world.
 
 ```{r load-libraries }
 
 #load raster package
 library(raster)
 
-# CHALLENGE: repeat objectives 1 & 2 for a different .tif file
-
+#view info about the dtm raster data
+GDALinfo("NEON_RemoteSensing/HARV/DTM/HARV_dtmCrop.tif")
 
 #load the DTM
 DTM <- raster("NEON_RemoteSensing/HARV/DTM/HARV_dtmCrop.tif")
@@ -121,9 +127,25 @@ CHM <- DSM - DTM #This section could be automatable later on
 #view the output CHM
 plot(CHM,
      main="NEON Canopy Height Model - Subtracted\n Harvard Forest") 
+```
 
-#Ask participants what they think this might look like ahead of time
-hist(CHM, col = "purple")
+#Exploring Raster Data Values
+
+It's often a good idea to explore the range of values in a raster dataset just like
+we might explore a dataset that we collected in the field. We can do this using
+the `hist` function in `R`.
+
+What range of values do you expect to see for the Harvard Forest `Canopy Height 
+Model (CHM)` that we just created?
+
+
+```{r view-histogram }
+
+#Create histogram of CHM values
+hist(CHM, 
+     col = "purple",
+     main = "Histogram of NEON Canopy Height Model\n Harvard Forest")
+
 ```
 
 #Raster Overlay
@@ -131,19 +153,35 @@ hist(CHM, col = "purple")
 Raster math is an appropriate aporoach to this calculation if
 
 1. The rasters we are using are small in size.
-2. THe calculations we are performing are simple.
+2. The calculations we are performing are simple.
 
 Raster math is easy to code up, however it is less efficient as computation becomes
 more complex or as file sizes become larger. To deal with larger rasters that are
-indivitual (ie not in a `RasterStack` or `RasterBrick`), we should use the `overlay` function. If our rasters are stacked, then we can use `calc`.
+stored as individual files we should use the `overlay` function
 
-Let's have a look at how the `overlay` function works.
+NOTE: If our rasters are stacked and stored as `RasterStack` or `RasterBrick`
+objects in R, then we can use `calc`.
+{: .notice }
 
-To the `overlay` function takes two or more rasters and applies a function to them.
+Let's have a look at how the `overlay` function works. The `overlay` function 
+takes two or more rasters and applies a function to them using efficient processing
+methods. The syntax looks like:
 
-`outputRaster <- overlay(raster1, raster2, function)`
+`outputRaster <- overlay(raster1, raster2, functionName )`
 
-```{r raster-overlay }
+##Writing Functions in R
+
+A function represents a set of tasks that need to be repeated over and over. 
+The syntax for a function in R is as follows:
+
+`functionName <- function(variable1, variable2){
+
+
+}
+
+LINK TO MORE ABOUT FUNCTIONS IN R 
+
+```{r create-function }
 
 #first, let's create a function
 #this function will take two rasters (r1 and r2) and subtract them
@@ -151,9 +189,15 @@ subtRasters <- function(r1, r2){
 return(r1-r2)
 }
 
-CHM_ov <- overlay(DSM,DTM,fun=subtRasters)
+```
 
-plot(CHM_ov,
+
+```{r raster-overlay }
+
+
+CHM_ov_HARV <- overlay(DSM,DTM,fun=subtRasters)
+
+plot(CHM_ov_HARV,
      main="NEON Canopy Height Model - Overlay Subtract\n Harvard Forest")
 
 ```
@@ -165,7 +209,7 @@ the object as a new geotiff.
 ```{r write-raster }
 
 #export CHM object to new geotiff
-writeRaster(CHM_ov,"chm_ov.tiff",
+writeRaster(CHM_ov_HARV,"chm_ov_HARV.tiff",
             format="GTiff", 
             overwrite=TRUE, 
             NAflag=-9999)
@@ -173,28 +217,49 @@ writeRaster(CHM_ov,"chm_ov.tiff",
 #note we are setting the NA value to -9999 for consistency.
 ```
 
-#Challenge
+#Challenge 1
 1. Import the DSM and DTM from the SJER directory. These data are also derived from
 NEON lidar data but cover the San Joachin experimental range field site in 
 Southern California. Create a CHM from the two raster layers. Export as a geotiff.
+{: .notice }
+
+```{r SJER-CHM, echo=FALSE }
+
+##load the DTM
+DTM_SJER <- raster("NEON_RemoteSensing/SJER/DTM/SJER_dtmCrop.tif")
+#load the DSM
+DSM_SJER <- raster("NEON_RemoteSensing/SJER/DSM/SJER_dsmCrop.tif")
+
+#use overlay to subtract the two rasters
+CHM_ov_SJER <- overlay(DSM_SJER,DTM_SJER,fun=subtRasters)
+
+#plot the output
+plot(CHM_ov_SJER,
+     main="NEON Canopy Height Model - Overlay Subtract\n SJER")
+
+```
+
 
 2. Once you are done with the above, plot a histogram of both CHM's. What do you notice
 about tree heights across the two sites?
 
-???
+```{r histogram-compare, echo=FALSE}
 
-```{r}
-# Crop raster, first method
-plot(CHM)
-cropbox <- drawExtent()
-manual_crop <- crop(CHM, cropbox)
-plot(manual_crop)
 
-# Crop raster, second method
-coords <- c(xmin(CHM) + ncol(CHM) * 0.1, xmax(CHM) - ncol(CHM) * 0.1, 
-            ymin(CHM), ymax(CHM))
-coord_crop = crop(CHM, coords)
-plot(coord_crop) #Compare with CHM raster, should have different x-axis ranges
+#view histogram
+hist(CHM_ov_SJER, 
+     main="NEON Canopy Height Model - Histogram\n SJER")
+
+#view histogram
+hist(CHM_ov_HARV, 
+     main="NEON Canopy Height Model - Histogram\n HARV")
+
+```
+
+
+```{r notes-chunk }
+
+ #Compare with CHM raster, should have different x-axis ranges
 
 # Challenge: play with resolution (i.e., pixel numbers)
 

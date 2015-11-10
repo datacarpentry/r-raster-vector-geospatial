@@ -4,12 +4,17 @@ title: "Lesson 05: Raster Time Series Data in R"
 date:   2015-10-24
 authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym,
 Leah Wasser]
+contributors: [Test Human]
+packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2015-11-09
+lastModified: 2015-11-10
 category: time-series-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data
-description: "This post explains the fundamental principles, functions and metadata that you need to work with raster data in R."
+description: "This lesson covers how to work with a raster time series, using the
+R RasterStack object. It also covers how practical assessment of data quality in
+Remote Sensing derived imagery. Finally it covers pretty raster time series plotting 
+using the RasterVis library."
 code1: 
 image:
   feature: NEONCarpentryHeader_2.png
@@ -103,17 +108,20 @@ names -- thoughts?
 In this lesson, we will
 
 1. Import NDVI data derived from the Landsat Sensor in raster (`geotiff`)format
-2. Plot one full year of NDVO raster time series data. 
+2. Plot one full year of NDVI raster time series data. 
 3. Generate an average NDVI value for each time period throughout the year.
 
 ##Getting Started 
 
-To begin, we will create use a list of raster file names that can be used to
+To begin, we will create a list of raster file names that can be used to
 generate a `RasterStack`. We can use `list.files` to generate the list. We will 
 tell R to only find files with a `.tif` extention using the syntax `pattern=".tif$"`.
 
-If we specify `full.names=TRUE`, we will be able to create a `RasterStack` directly
-from the list.
+If we specify `full.names=TRUE`, the full path for each file will be added to the 
+list. We will be able to create a `RasterStack` directly from the list.
+
+Note that the full path is relative to the working directory that was set.
+{: .notice }
 
 
     # Create list of NDVI file paths
@@ -177,10 +185,10 @@ key metadata about our data including `Coordinate Reference System (CRS)`,
 
 ##Challenge
 
-Before you go any further, answer the following questions about our raster data
+Before you go any further, answer the following questions about our `RasterStack`.
 
-1. What is the CRS?
-2. what is the resolution of the data? And what units is that resolution in?
+1. What is the `CRS`?
+2. what is the `resolution` of the data? And what `units` is that resolution in?
 
 #Plotting Time Series Data
 
@@ -226,54 +234,15 @@ We can do that using the `colorRampPalette` function in r in combination with
 
 ![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/change-color-ramp-1.png) 
 
-##Refining labels in our plot - THIS COULD BE A CHALLENGE
 
-This is a great start, however we might want to clean up the plot labels.  
-Let's have a look at the names being used to label each plot. 
+Note: we can make the `levelplot` even prettier by fixing the individual tile
+names. We will cover this in 
+[{{ site.baseurl }}/R/Plot-Raster-Times-Series-Data-In-R/](Lesson 06 - Plot Time Series Rasters in R)
 
-The first part of the name is the Julian Day. We might want to remove the "x"
-and the `_HARV_ndvi_crop` from each label. We can do that using the `gsub` function
-in R. `gsub("stringToReplace","WhatYouWantToReplaceItWith",Robject` allows you to replace one or more patterns with new text. We can use 
-the `|` to replace more than one element. For example
+##Taking a Closer Look at Our Data
 
-"X|_HARV" tells R to replace all instances of both `X` and `_HARV` in the string.
-
-Example: 
-`gsub("X|_HARV_ndvi_crop","","X005_HARV_ndvi_crop")`
-
-
-    #view names for each raster layer
-    names(NDVI_stack)
-
-    ##  [1] "X005_HARV_ndvi_crop" "X037_HARV_ndvi_crop" "X085_HARV_ndvi_crop"
-    ##  [4] "X133_HARV_ndvi_crop" "X181_HARV_ndvi_crop" "X197_HARV_ndvi_crop"
-    ##  [7] "X213_HARV_ndvi_crop" "X229_HARV_ndvi_crop" "X245_HARV_ndvi_crop"
-    ## [10] "X261_HARV_ndvi_crop" "X277_HARV_ndvi_crop" "X293_HARV_ndvi_crop"
-    ## [13] "X309_HARV_ndvi_crop"
-
-    #use gsub to edit the names of the layers in the rasterstack
-    names(NDVI_stack) <- gsub("X|_HARV_ndvi_crop","",names(NDVI_stack))
-    
-    #view names for each raster layer
-    names(NDVI_stack)
-
-    ##  [1] "X005" "X037" "X085" "X133" "X181" "X197" "X213" "X229" "X245" "X261"
-    ## [11] "X277" "X293" "X309"
-
-    #use level plot to create a nice plot with one legend and a 4x4 layout.
-    levelplot(NDVI_stack,
-              layout=c(5, 3), #create a 4x4 layout for the data
-              col.regions=cols, #add a color ramp
-              main="Landsat NDVI\nHarvard Forest 4 columns")
-
-![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/clean-up-names-1.png) 
-
-CHALLENGE -- change the X in each layer name to `Julian_` to label each plot.
-{ : notice }
-
-##Taking a Closer Look at our Data
-
-Take a close look at the data. GIven when you might know about the seasons in 
+Now that we are happy with our base plot, let's take a close look at the data. 
+Given when you might know about the seasons in 
 Massachusettes (where Harvard Forest is located), do you notice anything that 
 seems unusual about the patterns of greening and browning of the vegetation at 
 the site?
@@ -308,7 +277,7 @@ Open up the RGB images from Julian dates 277 and 293. What do you see?
 
 ![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/view-stack-histogram-1.png) 
 
-#ALl RGB images.
+#View All Landsat RGB images for Harvard Forest 2011
 
 ![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/view-all-rgb-1.png) 
 

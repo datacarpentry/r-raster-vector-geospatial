@@ -61,24 +61,6 @@ levelplot(NDVI_stack,
 
 
 
-## ----clean-up-names------------------------------------------------------
-
-#view names for each raster layer
-names(NDVI_stack)
-
-#use gsub to edit the names of the layers in the rasterstack
-names(NDVI_stack) <- gsub("X|_HARV_ndvi_crop","",names(NDVI_stack))
-
-#view names for each raster layer
-names(NDVI_stack)
-
-#use level plot to create a nice plot with one legend and a 4x4 layout.
-levelplot(NDVI_stack,
-          layout=c(5, 3), #create a 4x4 layout for the data
-          col.regions=cols, #add a color ramp
-          main="Landsat NDVI\nHarvard Forest 4 columns")
-
-
 ## ----view-temp-data, echo=FALSE------------------------------------------
 
 library(ggplot2)

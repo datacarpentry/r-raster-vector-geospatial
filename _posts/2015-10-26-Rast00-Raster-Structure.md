@@ -3,12 +3,16 @@ layout: post
 title: "Lesson 00: About Raster Data"
 date:   2015-10-29
 authors: [Kristina Riemer, Zack Brym, Jason Williams, Jeff Hollister,  Mike Smorul, Leah Wasser]
+contributors: [Test Human]
 dateCreated:  2015-10-23
-lastModified: 2015-11-09
+lastModified: 2015-11-10
+packagesLibraries: [raster, rgdal]
 category:  
 tags: [module-1]
 mainTag: GIS-Spatial-Data
-description: "This post explains the fundamental principles, functions and metadata that you need to work with raster data in R."
+description: "This lesson review the fundamental principles, libraries and metadata 
+/ raster attributes that you need to be familiar with in order to successfully 
+work with raster data in R."
 code1: 
 image:
   feature: NEONCarpentryHeader_2.png

@@ -3,19 +3,21 @@ layout: post
 title: "Lesson 04: Work With Multi-Band Rasters - Images in R"
 date:   2015-10-25
 authors: [Kristina Riemer, Mike Smorul, Zack Brym, Jason Williams, Jeff Hollister, Leah Wasser]
+contributors: [Test Human]
+packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2015-11-09
+lastModified: 2015-11-10
 category: spatio-temporal-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data
 description: "This lesson explores how to import and plot a multi-band raster in R.
-It also covers how to adjust stretch using the plotRGB command in R"
+It also covers how to plot a 3 band color image plotRGB command in R"
 code1: 
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink: http://www.neoninc.org
-permalink: /R/Multi-Band-Rasters-In-R.R
+permalink: /R/Multi-Band-Rasters-In-R
 comments: false
 ---
 
@@ -84,32 +86,47 @@ the colors that we see in an image.
 
 ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/demonstrate-RGB-Image-1.png) 
 
-####Or we can composite all three bands together to make a color image
+####Or we can composite all three bands together to make a color image.
+
 ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/plot-RGB-now-1.png) 
+
+    ## Warning in par(original_par): graphical parameter "cin" cannot be set
+
+    ## Warning in par(original_par): graphical parameter "cra" cannot be set
+
+    ## Warning in par(original_par): graphical parameter "csi" cannot be set
+
+    ## Warning in par(original_par): graphical parameter "cxy" cannot be set
+
+    ## Warning in par(original_par): graphical parameter "din" cannot be set
+
+    ## Warning in par(original_par): graphical parameter "page" cannot be set
 
 #Other Types of Multi-band Raster data
 
 Multi-band raster data might also contain:
 
-1. time series - of the same variable, over the same area over time.
+1. Time series - of the same variable, over the same area over time.
 2. Multi-hyperspectral imagery - that might have 4 or more bands up to 400+ bands 
 of image data!
+
+NOTE: In a multi-band dataset, the rasters will always have the same `extent`,
+`CRS` and `resolution`.
+{: .notice }
 
 In this lesson, the multi-band data that we are working with is imagery
 collected using the NEON Airborne Observation Platform high resolution camera over
 the <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>. 
 
-#leah needs to decide whether the harvard spectrometer data are usable given
-#some trees are purple - ask nathan
 
 #Getting Started with Multi-Band data
 If we read a raster stack into R using the `raster` function, it defaults to 
 reading in one (the first) band. We can plot this band using the plot function.
 
-Note that in a typical GIS application, a single band would render a single image 
+In a typical GIS application, a single band would render a single image 
 band using a grayscale color palette. We will thus use a grayscale palette to render
 individual bands below.
-{: .notice}
+{: .notice }
 
 
     # Read in multi-band raster with raster function, the default is the first band
@@ -124,10 +141,10 @@ individual bands below.
     
     #Point out dimension, CRS, and values attributes, but esp. band
     plot(RGB_band1, 
-         col=grayscale_colors, 
+         col=grayscale_colors(100), 
          main="NEON RGB Imagery - Band 1\nHarvard Forest") 
 
-![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/read-single-band-1.png) 
+    ## Error in .asRaster(x, col, breaks, zrange, colNA, alpha = alpha): could not find function "grayscale_colors"
 
     #view attributes
     RGB_band1
@@ -177,7 +194,7 @@ color!
 The number of bands associated with a raster object can be determined using the 
 `nbands` slot as follows `RGB_band1@file@nbands`. How many bands does our original 
 raster contain? 
-{: notice }
+{: .notice }
 
 ##Import Specific Bands
 We can use the raster function to import specific bands in our raster object too.
@@ -216,7 +233,7 @@ Notice that band 2 is band 2 of 3 bands.
 
 We have now explored several bands in a 3 band raster. Our data is a color image 
 which means it has atleast 3 bands. Let's bring in all of the bands and composite 
-it to create a final color RGB plot! To bring in all bands of a raster, we will use
+it to create a final color RGB plot. To bring in all bands of a raster, we will use
 the `stack` function.
 
 
@@ -241,6 +258,15 @@ the `stack` function.
     ## CRS arguments:
     ##  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84
     ## +towgs84=0,0,0
+
+    #What is the extent of the raster stack
+    extent(RGB_stack)
+
+    ## class       : Extent 
+    ## xmin        : 731998.5 
+    ## xmax        : 732766.8 
+    ## ymin        : 4712956 
+    ## ymax        : 4713536
 
 We can use `RGB_stack@layers` to view the attributes of each band in the raster
 object in r. We can also use the `plot` and `hist` functions on the raster stack
@@ -299,13 +325,15 @@ to plot and view histograms of each band in the stack.
     ## values      : 0, 255  (min, max)
 
     #plot one band
-    plot(RGB_stack[[1]], main="band one", col=grayscale_colors)
+    plot(RGB_stack[[1]], 
+         main="band one", 
+         col=grayscale_colors)
 
 ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/plot-raster-layers-1.png) 
 
-    #Metadata file? 
     #plot all three bands
-    plot(RGB_stack, col=grayscale_colors)
+    plot(RGB_stack, 
+         col=grayscale_colors)
 
 ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/plot-raster-layers-2.png) 
 
@@ -316,7 +344,6 @@ color image. This function allows us to also
 
 1. Determine what order we want to plot the bands (We could create a color infrared
 image using this function if we had an infrared band to work with)  
-#this above could be a challenge if i provide spectrometer data with 4 bands instead of just 3 RGB
 2. Adjust the stretch of the image to make it brighter / darker
 
 The plotRGB function composits three bands together into one producing an image
@@ -324,20 +351,26 @@ that is similar to an image that a camera takes.
 
 
     # Create an RGB image from the raster stack
-    plotRGB(RGB_stack, r = 1, g = 2, b = 3)
+    plotRGB(RGB_stack, 
+            r = 1, g = 2, b = 3)
 
 ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/plot-rgb-image-1.png) 
 
     #what does stretch do?
-    plotRGB(RGB_stack,r = 1, g = 2, b = 3, scale=800,stretch = "Lin")
+    plotRGB(RGB_stack,
+            r = 1, g = 2, b = 3, 
+            scale=800,
+            stretch = "Lin")
 
 ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/plot-rgb-image-2.png) 
 
-    #The black bands on the edges are zeros but should be NAs, might want to show 
-    #them how to turn them into NAs? 
-    
-    # TODO: Challenge: calculate NDVI, but would need an infrared band to do this
-    #-- on it!
+##Challenge - NoData Values
+View the attributes of the `HARV_Ortho_wNA.tif` file located in the `NEON_RemoteSensing/HARV` 
+directory using `GDALinfo()`. Are there NoData values assigned for this file? 
+If so, what is the NoData Value? Open the file in R as a 3 band `RasterStack`. 
+Then plot it using the `plotRGB` function. What happened to the black edges in 
+the data?
+{: .notice }
 
 
 ##Raster Brick vs Raster Stack in R
@@ -363,24 +396,19 @@ Let's use the `object.size()` function to compare a stack vs brick R object.
     #view size of the brick
     object.size(RGB_brick)
 
-    ## 85454360 bytes
+    ## 170896080 bytes
 
     #plot brick
-    plot(RGB_brick)
+    plot(RGB_brick,
+         col=grayscale_colors)
 
 ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/raster-bricks-1.png) 
 
 
-# LEAH NEEDS to take the RGB image and
-1. Make the edges -9999 - no data
-2. Create an no data slot in the raster
-3. potentially add a fourth band so a color infrared image could be made as a cool challenge.
-
-
-
 #Challenge
 
-1. You can view various methods available to call on an R object with 
+You can view various methods available to call on an R object with 
 `methods(class=class(objectNameHere))`. Use this to figure out what methods you
 can call on the `RGB_stack` object. What methods are available for a single 
 `RasterLayer`? 
+{: .notice }
