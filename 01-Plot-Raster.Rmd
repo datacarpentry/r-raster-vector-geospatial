@@ -36,8 +36,8 @@ This post explains the simple plotting function in the `raster` package.
 
 After completing this activity, you will:
 
-* Know what a raster band is
-* Be able how to plot a single band raster in R
+* Be able how to plot a single band raster in R.
+* Be able to layer rasters to create a plot with hillshading.
 
 ###Things You'll Need To Complete This Lesson
 You will need the most current version of R, and preferably RStudio, loaded on
