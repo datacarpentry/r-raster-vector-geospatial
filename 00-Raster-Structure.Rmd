@@ -3,7 +3,7 @@ layout: post
 title: "Lesson 00: About Raster Data"
 date:   2015-10-29
 authors: [Kristina Riemer, Zack Brym, Jason Williams, Jeff Hollister,  Mike Smorul, Leah Wasser]
-contributors: [Test Human]
+contributors: [Megan A. Jones]
 dateCreated:  2015-10-23
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`
 packagesLibraries: [raster, rgdal]
@@ -36,29 +36,26 @@ In this lesson, we will learn
 
 ###Goals / Objectives
 
-After completing this activity, you will know:
+After completing this activity, you will:
 
-* What a raster dataset is and its fundamental attributes.
-* How to explore raster attributes in `R`
-* How to import rasters into `R` using the `raster` library.
-* How to quickly plot a raster file in `R`
+* Understand what a raster dataset is and its fundamental attributes.
+* Know how to explore raster attributes in `R`
+* Be able to import rasters into `R` using the `raster` library.
+* Be able to quickly plot a raster file in `R`
 
 ###Things You'll Need To Complete This Lesson
+You will need the most current version of R, and preferably RStudio, loaded on
+your computer to complete this lesson.
 
-###R Libraries to Install:
+####R Libraries to Install:
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
-####Tools To Install
-
-Please be sure you have the most current version of `R` and preferably
-R studio to write your code.
-
 
 ####Data to Download
 
-Download the workshop data:
+Download the raster files for the Harvard Forest dataset:
 
 * <a href="http://figshare.com/articles/NEON_AOP_Hyperspectral_Teaching_Dataset_SJER_and_Harvard_forest/1580086" class="btn btn-success"> DOWNLOAD Sample NEON LiDAR data in Raster Format & Vegetation Sampling Data</a> 
 
@@ -77,14 +74,13 @@ Read more about the `raster` package in R.</a>
 </div>
 
 #About Raster Data
-Raster or "gridded" data are saved on a regular grid which is rendered
-on a map as pixels. Each pixel contains a value that represents an area on the Earth's 
+Raster or "gridded" data are saved on a regular grid which is rendered on a map
+as pixels. Each pixel contains a value that represents an area on the Earth's 
 surface.
 
-<a href="{{ site.baseurl }}/GIS-Spatial-Data/Working-With-Rasters/"> More on 
-rasters here</a>. 
+> <a href="{{ site.baseurl }}"neondataskill.org/GIS-Spatial-Data/Working-With-Rasters/" target="_blank" > More on rasters here</a>. 
 
-![COLINS IMAGE HERE ]({{ site.baseurl }}/images/raster_concept.png)
+![COLIN'S RASTER IMAGE HERE ]({{ site.baseurl }}/images/raster_concept.png)
 
 #Types of data stored as rasters
 
@@ -92,11 +88,12 @@ Raster data can be continuous or categorical. Continuous rasters can have a
 range of quantitative values. Some examples of continuous rasters include:
 
 1. Precipitation maps
-2. Maps of tree height derived from lidar data
+2. Maps of tree height derived from LiDAR data
 3. Elevation values for a region. 
 
-A map of elevation for Harvard Forest, derived from the NEON AOP lidar sensor
-is below.
+A map of elevation for Harvard Forest derived from the NEON AOP LiDAR sensor
+is below.  Elevation is a continuous variable and we can see from the legend on
+the right that the colored shading is also continuous. 
 
 ```{r elevation-map, echo=FALSE}
 library(raster)
@@ -109,13 +106,15 @@ plot(DSM, main="NEON Elevation Map\nHarvard Forest")
 
 ```
 
-Some rasters contain categorical data. Thus each pixel represents a class such as
-a landcover class ("forest") rathen than a continual value such as temperature.
-Some examples of classified maps include:
+Some rasters contain categorical data. Thus each pixel represents a class such
+as a landcover class ("forest") rather than a continual value such as 
+temperature. Some examples of classified maps include:
 
 1. landcover / landuse maps
 2. tree height maps classified short, medium, tall trees
 3. elevation maps classified low, medium and high elevation
+
+The legend of this map shows the colors representing each discrete class. 
 
 ```{r classified-elevation-map, echo=FALSE}
 # Just a demonstration image for the lesson
@@ -138,33 +137,37 @@ legend( par()$usr[2], 4713700,
 ```
 
 
-#What is a geotiff??
+#What is a GeoTIFF??
 Raster data can come in many different formats. In this lesson, we will use the 
 `geotiff` format which has the extension `.tif`. A `.tif` file can store metadata
-or attributes about the file in embedded tags. For instance, your camera might store
-a tag that describes the make and model of the camera if it saves a tiff. Or
-it might save the date the image was taken. A geotiff is a standard `.tif`  
-image format with addition spatial (georeferenceing) information embedded in the file
+or attributes about the file as embedded tags. For instance, your camera might 
+store a tag that describes the make and model of the camera or the date the
+photo was taken when it saves a tiff. A GeoTIFF is a standard `.tif` image
+format with addition spatial (georeferenceing) information embedded in the file
 as a tag. These tags can include 
 
 1. A Coordinate Reference System (CRS)
 2. Spatial Extent
 3. NoData Values 
 
-We will talk about all of these metadata tags below.
+In this lesson we will discuss all of these metadata tags.
 
-More about tiffs
+> More about TIFFs
 
-* <a href="https://en.wikipedia.org/wiki/GeoTIFF" target="_blank"> Geotiff on Wikipedia</a>
-* <a href="https://trac.osgeo.org/geotiff/" target="_blank"> OSGEO Tiff documentation</a>
-{: notice }
+> * <a href="https://en.wikipedia.org/wiki/GeoTIFF" target="_blank"> Geotiff on Wikipedia</a>
+> * <a href="https://trac.osgeo.org/geotiff/" target="_blank"> OSGEO Tiff documentation</a>
 
-##About
+##Raster Data in R
 
-In this lesson we will learn how to open a raster in `R`. We will also learn about 
-the key metadata associated with rasters! We will use the `raster` and `rgdal`
-libraries.
+Now that we know about raster data and GeoTiffs, we will learn how to how to 
+open a raster in `R` and about the key metadata associated with rasters! While 
+learning these skills our area of interest will be within within the Harvard 
+Forest.  One of the first things we should do is to bring in a file
+(/HARV_dsmCrop.tif) showing the surface of the land known as a Digital Surface 
+Model (DSM) . 
 
+When working with rasters in 'R' the `raster` and `rgdal` libraries are 
+indespensible.
 
 ```{r load-libraries }
 library(raster)
@@ -174,9 +177,17 @@ library(rgdal)
 
 ##View Raster Attributes
 
-As mentioned above, a Geotiff contains a set of embedded tags that contain metadata
-about the file. We can view those tags before we open the data in `R` using the
-`GDALinfo` function. Notice a few things in the output.
+As mentioned above, a GeoTIFF contains a set of embedded tags that contain 
+metadata about the file. We can view those tags before we open the data in `R` 
+using the `GDALinfo()` function.
+
+```{r view-attributes-gdal}
+# view attributes before opening file
+GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+
+```
+
+Notice a few things in the output:
 
 1. A projection is described as a string - this format is called `proj4`
    `+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs `
@@ -191,24 +202,17 @@ about it.
 What else do you see in the attributes of our raster? Take note as we will 
 explore these metadata later in the lesson.
 
-```{r view-attributes-gdal}
-# view attributes before opening file
-GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+##Opening a raster in R
 
-```
+We can use the `raster` function to open a raster in R. 
 
-
-##Open up a raster in R
-
-We can use the `raster` function to open a raster in R. NOTE: make sure that your 
-working directory is set to the location where the NEON_RemoteSensing directory is 
-located on your computer! You can use the `setwd()` to set this.
-
-
-** it might be worth creating a supplementary lesson on working directories in r**
+NOTE ON WORKING DIRECTORY: Your working directory needs to be set to the 
+location where the data you downloaded for this lesson is.  If you do not know 
+how to do this please refer to this how-to for working directories. LINK. {: .notice}
 
 ```{r open-raster }
-# Load raster into r
+# setwd()     #Make sure to set the directory to your data
+# Load raster into R
 DSM <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
 # Look at raster structure
@@ -220,20 +224,27 @@ plot(DSM, main="NEON Digital Surface Model\nHarvard Forest")
 
 ```
 
-There are several key metadata components that we need to examine when we work with 
-rasters. We can see most of this information when we type the name of the raster
-and hit return in R studio as we did above. Let's example the metadata more closely.
+Here is a map showing the elevation of our site in Harvard Forest.  Does this 
+are top out at just over 400 meters or 400 feet?  Perhaps we need to learn more 
+about metadata!
 
-## Resolution
+## Coordinate Reference System
+The Coordinate Reference System or `CRS` is another important raster attribute.
+The `CRS` tells R where the raster is located in geographic space. It also tells
+`R` what method should be used to "flatten" or project the raster. 
 
-A raster will have horizontal (x and y) resolution. This resolution
-represents the area on the ground that each pixel covers. We will need to know the
-units used to calculate resolution as well. In the case of the NEON rasters, the units
-are in meters. We can find this using two methods: we can look at the `CRS` string
-which we will example in just a bit.
+PROJECTION DISCUSSION - brief into to each with links out. 
+*Geographic Coordinate System
+*Why projections are needed
+*Common projections 
+![UTM Coordinate system](http://upload.wikimedia.org/wikipedia/en/thumb/5/57/Utm-zones.svg/720px-Utm-zones.svg.png)
+*Datums
+NCEAS Overview of CRS in R https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf
 
-#NOTE: the units aren't in this geotiff. That is ok because we can find the units 
-in the `CRS`
+
+We actually already viewed the coordinate reference system along with a lot of 
+other structure and attribute data when we entered in the object name `DSM`. 
+However, we can view just the CRS information by using `crs()`. 
 
 ```{r view-resolution-units}
 #view resolution units
@@ -241,89 +252,94 @@ crs(DSM)
 
 ```
 
-## Coordinate Reference System
+The CRS in this case is in a `PROJ 4` format. This means that the projection
+information is strung together as a series of text elements, each of which 
+begins with a `+` sign. 
 
-The `Coordinate Reference System` or `CRS` is another important raster attribute.
-The `CRS` tells R where the raster is located in geographic space. It also tells 
-R what method should be used to "flatten" the raster. <<SOME LINK TO MORE ABOUT CRS>>
-
-The CRS in this case is in a `PROJ 4` format. This means that the projection information
-is strung together as a series of text elements, each of which begins with a `+`
-sign. 
+ `+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0`
 
 We'll focus on the first few components of the CRS in this lesson.
 
-* `+proj=utm` The projection of this dataset is UTM 
-* `+zone=18` If you read more about UTM, you will learn that the UTM projection 
-divides up the world into zones. this data happens to be in zone 18 (Massachusettes).
-* `+datum=WGS84` The datum tells us how the center point was defined to flatten the data
-more on that HERE <<ADD LINK>>
-* `+units=m` This is the horizontal units that the data are in. Here we see the units 
-are meters. This means that if the data are 1x1 resolution, that each pixel represents
-a 1 x 1 meter area on the ground.
+* `+proj=utm` The projection of the dataset. Our data are in UTMs.  
+* `+zone=18` The UTM projection divides up the world into zones, this element
+tells you which zone the data is in.  Harvard Forest is within Zone 18.
+* `+datum=WGS84` Which datum was used to define the center point of the 
+projection. Our data are within WGS84 the most common projection currently in 
+use in the US. 
+* `+units=m` This is the horizontal units that the data are in. Our units 
+are meters. 
 
-![UTM Coordinate system](http://upload.wikimedia.org/wikipedia/en/thumb/5/57/Utm-zones.svg/720px-Utm-zones.svg.png)
+## Resolution
+A raster has horizontal (x and y) resolution. This resolution represents the 
+area on the ground that each pixel covers. We will need to know the units used 
+to calculate the resolution. In our data the units are meters. This means that 
+if the data are 1x1 resolution, that each pixel represents a 1 x 1 meter area
+on the ground.
 
+>Bonus: We can find out the units using either of two methods: viewing the 
+>coordinate reference system string `crs()` like we just did or by `@data`. 
+>If you enter `DSM@data`, you'll see that units are not specified for these data.
 
 #Calculate the Min and Max values for the raster
+Dependig on our question we may want to know the min or max value of the data 
+in our raster.  Let's say we are thinking about studying a species of tree 
+that grows only above 600m. Therefore, we want to know if this might be a good
+species to monitor the phenology of within this area of the Harvard Forest. 
+We are unsure of the elevation range within the area. 
 
-Sometimes the raster statistics including the min and max values have already been
-calculated for us. Other times they have not. If they are not calculated you can
-for R to calculate them using the `setMinMax` function. Once they are calculated 
-you can then call them using the same `@data` syntax that we used above to look
-at the units.
+Raster statistics can include the min and max values, however, they aren't
+always caluclated and included. If they are not calculated, you can calculate
+them using the `setMinMax()` function.
 
 ```{r set-min-max }
+#Our raster already has these values calculated. Slot "min" and Slot "max":
+DSM@data
 
-#This step is unnecessary if the min max values are already calculated and 
-#stored in the tags for the raster.
-#our raster already has these values calculated!
+#This is the code if min/max weren't calculated: 
 #DSM <- setMinMax(DSM) 
 
-#view min value
+#view only min value
 minValue(DSM)
 
-#view max value
+#view only max value
 maxValue(DSM)
 
 ```
 
-##No Data Values in Rasters
+We can see that the elevation ranges from 305.07m to 416.07m.  We should probably
+consider monitoring the phenology of a different tree species.  
 
+##NoData Values in Rasters
 There are two types of "bad" data values to be aware of when working with raster
 data.
 
-1. **NoData values:** These are values where no data were collected. The shape of
-a raster, by default is always square or rectangular. Thus, if we have a dataset 
+1. **NoData values:** These are values where no data were collected. By default 
+the shape of a raster is always square or rectangular. Thus, if we have a dataset 
 that has a shape that isn't square or rectangular, some pixels will have no data.
-This often happens when the data were collected by an airplane which only flew some
-of a particular region
+This often happens when the data were collected by an airplane which only flew 
+over some of a particular region. 
 
-###BELOW: raster data with black edges that are actually no data values
-The camera did not collect data in these areas
+In this image the raster data in the black edges are actually no data values.
+The camera did not collect data in these areas so no classification can be made
+of those regions. 
 
 ```{r demonstrate-no-data-blaco, echo=FALSE}
-
 # Use stack function to read in all bands
 RGB_stack <- stack("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
 
 # Create an RGB image from the raster stack
 plotRGB(RGB_stack, r = 1, g = 2, b = 3,
         addfun="(main='Test')" )
- 
 ```
 
-###BELOW: raster data with black edges assigned to no data. 
-
-Note that R doesn't render the black edges now that `NA` values are assigned.
+Here, the black edges have been assigned NoDataValues (`NA`). R doesn't render the black edges now that `NA` values are assigned.
 
 ```{r demonstrate-no-data, echo=FALSE}
 #reassign cells with 0,0,0 to NA
 
 f <- function(x) {
   x[rowSums(x == 0) == 3, ] <- NA
-  x
-}
+  x}
 
 newRGBImage <- calc(RGB_stack, f)
 
@@ -334,18 +350,24 @@ plotRGB(newRGBImage, r = 1, g = 2, b = 3,
 ```
 
 
-If we are lucky, our geotiff file has a tag that tells us what the NoDATA value is.
-If we are less lucky, we can find that information in the raster's `metadata`. 
-If a NoDataValue was stored in the `geotiff` tag, when R opens up the raster,
-it will assign each instance of that value to `NA` (no data in r world). Values
+Several different NoData values are in common use (NA, NaN, -9999). If we are 
+lucky, our geoTIFF file has a tag that tells us what the NoData value is. If we 
+are less lucky, we can find that information in the raster's metadata.
+If a NoDataValue was stored in the GeoTIFF tag, when R opens up the raster,
+it will assign each instance of that value to `NA` (no data in R world). Values
 of `NA` will be ignored by R.
 
-#Add no data values to geotiff, then add section looking for -9999 values and
-#changing to NaN (or equivalent); there would be a challenge here, because the
-#-9999 should show up as the min value
+#Explain -9999 
 
-```{r no-data-values }
 
+# section looking for -9999 values 
+#Challenge:  -9999 should show up as the min value
+```{ r looking-for-9999-values}
+
+```
+
+#Convert to NaN (or equivalent)
+```{r convert-no-data-values }
 #view raster no data value using GDAL info.
 #for our raster, all cells with a value of -9999 will assigned by R to NA
 #when we import the data
@@ -353,44 +375,62 @@ GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
 ```
 
-## Bad data values
-
-Bad data values are different from NoData values. Sometimes a raster's metadata
-will tell us a value range of values for the raster. Sometimes, we need to use
-some practial scientific insight as we examine the data - just as we would for field
-data. 
+2. **Bad data values:** Bad data values are different from NoData values. 
+Sometimes a raster's metadata will tell us a value range of values for the 
+raster. Sometimes, we need to use some practial scientific insight as we examine 
+the data - just as we would for field data. 
 
 We can explore the range of values contained within our raster using the `hist`
 function which produces a histogram.
-
 
 ```{r view-raster-histogram }
 
 #view histogram of data
 hist(DSM)
 
-#oops - the histogram has a default number of pixels that it renders
-#grab the number of pixels in the raster
+```
+
+
+Hmmm...  The y-axis only goes up to 6000 pixels.  That seems pretty small for 
+the area of forest that we are looking at.  It turns out the in `R` histogram
+has a maximum number of values it will use to create the plot.  If you have a very
+data set you have to tell it to include all the data.  
+
+``` {r view-raster-histogram2}
+#how large is our raster.  ncell() give number of cells/ pixels
 ncell(DSM)
 
 #create histogram with all pixel values in the raster
 hist(DSM, maxpixels=ncell(DSM))
-
 ```
 
+Now the y-axis looks a bit better. We can see that all of the values are between
+our expected min and expected max.  We also see that a lot of the elevations are
+in the middle of the range.  This is what we'd expect for this elevation model. 
+There are no obvious examples of bad data here.  
+
 ##Raster Bands
+When we looked at the data in `DSM` we were looking only at a model of the 
+surface elevation.  There was only a single piece of data--elevation in meters-- 
+given for each cell.  The `DSM` raster is a single-band raster. We know that 
+intuitively based on the data the raster is depicting and, also when we looked 
+at the attributes and metadata (`DSM`) it said band: 1.
 
-It is important to note that rasters can be either single or multi-band. If you 
-remember, GDALinfo told us the `DSM` raster that we are working with only has
-one band. 
+However, raster data can also be multi-band meaning that within one file it
+contains data on multiple variables for each cell. A raster that is a color 
+photo of a landsape is a good example of multi-band rasters.  The true colors we 
+percieve in a landscape consists of many different wavelengths of light, when we
+digitalize those they tend to fall into three categories: red, green, and blue. 
+Each of these colors becomes a band and the combination of all three bands within
+each cell gives the true color map image.  
 
-By default the `raster` function only imports the first band in a raster so we can
-use it for our `DSM`. We will explore multi-band rasters in a [later lesson 4??]()
+By default the `raster` function only imports the first band in a raster. 
+Multi-band rasters in Lesson 04:  
 
-#COLIN
-![Image on what bands are...]()
+<a href="{{ site.baseurl }}/NEON-R-Spatial-Raster/R/Multi-Band-Rasters-In-R/"  target="_blank"> Working with Multi-band Rasters: Images in R</a>.
+
+#COLIN ![Image on what bands are...]()
 
 
-#Challenge
+#Challenge: Ideas?
 
-???
