@@ -27,7 +27,7 @@ comments: false
 ##About
 In this lesson, we will learn 
 
-1. What raster data are and 
+1. What raster data are.
 2. How to open and explore raster data and properties in `R`.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
@@ -42,6 +42,7 @@ After completing this activity, you will:
 * Know how to explore raster attributes in `R`
 * Be able to import rasters into `R` using the `raster` library.
 * Be able to quickly plot a raster file in `R`
+* Understand the basic difference between single- and mult-band rasters.
 
 ###Things You'll Need To Complete This Lesson
 You will need the most current version of R, and preferably RStudio, loaded on
@@ -83,7 +84,6 @@ surface.
 ![COLIN'S RASTER IMAGE HERE ]({{ site.baseurl }}/images/raster_concept.png)
 
 #Types of data stored as rasters
-
 Raster data can be continuous or categorical. Continuous rasters can have a 
 range of quantitative values. Some examples of continuous rasters include:
 
@@ -158,7 +158,6 @@ In this lesson we will discuss all of these metadata tags.
 > * <a href="https://trac.osgeo.org/geotiff/" target="_blank"> OSGEO Tiff documentation</a>
 
 ##Raster Data in R
-
 Now that we know about raster data and GeoTiffs, we will learn how to how to 
 open a raster in `R` and about the key metadata associated with rasters! While 
 learning these skills our area of interest will be within within the Harvard 
@@ -175,36 +174,8 @@ library(rgdal)
 
 ```
 
-##View Raster Attributes
-
-As mentioned above, a GeoTIFF contains a set of embedded tags that contain 
-metadata about the file. We can view those tags before we open the data in `R` 
-using the `GDALinfo()` function.
-
-```{r view-attributes-gdal}
-# view attributes before opening file
-GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
-
-```
-
-Notice a few things in the output:
-
-1. A projection is described as a string - this format is called `proj4`
-   `+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs `
-2. We can se a `NoDataValue` (-9999)
-3. We can tell how many `bands` the file contains (1)
-4. We can view the x and y `resolution` of the data (1)
-5. We can see the min and max values of the data `Bmin` and `Bmax`
-
-This is great - we haven't yet opened the file but we already know some things
-about it.
-
-What else do you see in the attributes of our raster? Take note as we will 
-explore these metadata later in the lesson.
-
 ##Opening a raster in R
-
-We can use the `raster` function to open a raster in R. 
+We can use the `raster()` function to open a raster in R. 
 
 NOTE ON WORKING DIRECTORY: Your working directory needs to be set to the 
 location where the data you downloaded for this lesson is.  If you do not know 
@@ -226,21 +197,21 @@ plot(DSM, main="NEON Digital Surface Model\nHarvard Forest")
 
 Here is a map showing the elevation of our site in Harvard Forest.  Does this 
 are top out at just over 400 meters or 400 feet?  Perhaps we need to learn more 
-about metadata!
+about attributes and metadata!
 
 ## Coordinate Reference System
 The Coordinate Reference System or `CRS` is another important raster attribute.
 The `CRS` tells R where the raster is located in geographic space. It also tells
 `R` what method should be used to "flatten" or project the raster. 
 
-PROJECTION DISCUSSION - brief into to each with links out. 
+PROJECTION DISCUSSION - **brief** intro to each with links out. 
 *Geographic Coordinate System
 *Why projections are needed
 *Common projections 
 ![UTM Coordinate system](http://upload.wikimedia.org/wikipedia/en/thumb/5/57/Utm-zones.svg/720px-Utm-zones.svg.png)
 *Datums
-NCEAS Overview of CRS in R https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf
-
+*Additional Links:
+ <a href="https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf" target="_blank"> NCEAS Overview of CRS in R</a>
 
 We actually already viewed the coordinate reference system along with a lot of 
 other structure and attribute data when we entered in the object name `DSM`. 
@@ -390,7 +361,6 @@ hist(DSM)
 
 ```
 
-
 Hmmm...  The y-axis only goes up to 6000 pixels.  That seems pretty small for 
 the area of forest that we are looking at.  It turns out the in `R` histogram
 has a maximum number of values it will use to create the plot.  If you have a very
@@ -431,6 +401,52 @@ Multi-band rasters in Lesson 04:
 
 #COLIN ![Image on what bands are...]()
 
+##Viewing Raster Attributes Prior to Reading in a File
+As mentioned above, a GeoTIFF contains a set of embedded tags that contain 
+metadata about the file. So far we've viewed attribute data after reading in a 
+raster file.  However, we could also view those tags before we open the data in 
+`R` using the `GDALinfo()` function.
 
-#Challenge: Ideas?
+Using the same file DSM file we've already used for illustration: 
+```{r view-attributes-gdal}
+# view attributes before opening file
+GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
+```
+
+Notice a few things in the output:
+
+1. A projection is described as a string - this format is called `proj4`
+   `+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs `
+2. We can se a `NoDataValue` (-9999)
+3. We can tell how many `bands` the file contains (1)
+4. We can view the x and y `resolution` of the data (1)
+5. We can see the min and max values of the data `Bmin` and `Bmax`
+
+This is great - we haven't yet opened the file but we already know some things
+about it.
+
+What else do you see in the attributes of our raster? Take note as we will 
+explore these metadata later in the lesson.
+
+#Challenge: Viewing Raster Attributes 
+In Lesson 01 we will be using the file NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif
+Before we read in the file let's learn a bit about it's attributes.  Without
+reading in the file can you determine: 
+1. If this file has the same CRS as DSM?
+2. What format NoData values take?
+3. The resolution of the raster data? 
+4. How large a 5x5 pixel area would be? 
+5. If the file is a multi- or single-band raster?
+
+``` {r challenge-code}
+GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif")
+```
+
+Checking back in
+1. If this file has the same CRS as DSM?  Yes: UTM Zone 18, WGS84, meters. 
+2. What format NoData values take?  -9999
+3. The resolution of the raster data? 1x1
+4. How large a 5x5 pixel area would be? 5mx5m How? We are given resolution of 
+1x1 and units in meters, therefore rolution of 5x5 means 5x5m. 
+5. If the file is a multi- or single-band raster?  Single 
