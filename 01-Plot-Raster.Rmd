@@ -4,14 +4,14 @@ title: "Lesson 01: Plot Rasters in R"
 date:   2015-10-28
 authors: [Kristina Riemer, Jason Williams, Jeff Hollister, Mike Smorul, 
 Zack Brym, Leah Wasser]
-contributors: [Test Human]
+contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`
 category: spatio-temporal-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data
-description: "This lesson reviews how to plot a raster in R using the plot command.
+description: "This lesson reviews how to plot a raster in R using the plot() command.
 It also covers how to overlay a raster on top of a hillshade for a eloquent map
 output."
 code1: 
@@ -34,31 +34,25 @@ This post explains the simple plotting function in the `raster` package.
 
 ###Goals / Objectives
 
-After completing this activity, you will know:
+After completing this activity, you will:
 
-* what a raster band is
-* how to plot a single band raster in R
+* Know what a raster band is
+* Be able how to plot a single band raster in R
 
 ###Things You'll Need To Complete This Lesson
-
+You will need the most current version of R, and preferably RStudio, loaded on
+your computer to complete this lesson.
 
 ###R Libraries to Install:
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
-####Tools To Install
-
-Please be sure you have the most current version of `R` and preferably
-R studio to write your code.
-
-
 ####Data to Download
 
 Download the workshop data:
 
 * <a href="http://figshare.com/articles/NEON_AOP_Hyperspectral_Teaching_Dataset_SJER_and_Harvard_forest/1580086" class="btn btn-success"> DOWNLOAD Sample NEON LiDAR data in Raster Format & Vegetation Sampling Data</a>
-
 
 The LiDAR and imagery data used to create the rasters in this dataset were 
 collected over the Harvard and San Joaquin field sites 
@@ -93,15 +87,18 @@ plot(DSM,
 
 
 ##Plotting raster files
-We should already be familiar with the DSM Harvard raster file because it has been
-opened in the first raster lesson, Raster Structure. We will now plot this raster and the histogram of the raster values to get an idea of what the raster is like.  
+We should already be familiar with the DSM Harvard raster file because it has 
+been opened in the first raster lesson, Raster Structure. We will now plot this 
+raster and the histogram of the raster values to get an idea of what the raster 
+is like.  
 
 ```{r hist-raster }
 #Plot entire raster
 plot(DSM)
 
-#Plot distribution of raster values, get an error cause only plots subset
+#Plot distribution of raster values 
 hist(DSM)
+# Warning? Hist by default only plots subset
 pixels = ncol(DSM) * nrow(DSM)
 hist(DSM, maxpixels = pixels)
 ```
@@ -134,19 +131,20 @@ plot(DSM,
 
 ##Challenge
 
-Create a plot of the Harvard DSM that has a legend with six colors that are evenly divided amongst the range of pixel values. 
+Create a plot of the Harvard DSM that has a legend with six colors that are 
+evenly divided amongst the range of pixel values. 
 
 
-#Overlaying rasters
 
-Sometimes you want to overlay a raster on another raster and use a transparency 
-to give it texture. The most common approach to this is to use a `HILLSHADE` as the 
-base raster layer. A hillshade is simply a raster that maps the shadows and texture
-that you would see from above when viewing terrain. It gives data a nice "3 dimensional" 
-appearance. You might then overlay another raster on top. Let's overlay the
-DSM on top of a `hillshade` of the DSM.
 
-```{r overlaying-hillshade }
+#Layering rasters
+Sometimes you want to layer a raster on to another raster and use a transparency 
+to give it texture. The most common approach to this is to use a `HILLSHADE` as
+the base raster layer. A hillshade is simply a raster that maps the shadows and 
+texture that you would see from above when viewing terrain. It gives data a nice 
+3D appearance. 
+
+```{r hillshade }
 #import DSM hillshade
 hill <- raster("NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif")
 
@@ -155,8 +153,12 @@ plot(hill,
     col=grey(1:100/100),
     legend=F,
     main="NEON Hillshade - DSM\n Harvard Forest")
+```
 
+Now that we have the hillshade we might then overlay another raster on top. 
+Let's overlay `DSM` on top of a `hillshade` of the DSM.
 
+``` {r overlay-hillshade}
 #overlay the DSM on top of the hillshade
 plot(DSM,
      col=rainbow(100),
