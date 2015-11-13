@@ -34,20 +34,17 @@ comments: false
 
 After completing this activity, you will know:
 
-* How to reproject a  raster in R
+* How to reproject a raster in R
 
 ###Things You'll Need To Complete This Lesson
+
+Please be sure you have the most current version of `R` and, preferably,
+RStudio to write your code.
 
 ###R Libraries to Install:
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
-
-####Tools To Install
-
-Please be sure you have the most current version of `R` and preferably
-R studio to write your code.
-
 
 ####Data to Download
 
@@ -70,18 +67,18 @@ Read more about the `raster` package in R.</a>
 
 #Manipulating Rasters in R
 
-We often want to overlay two or more rasters on top of each other, and perform
-calculations to create a new output raster. For example, we might have a lidar
-`Digital Surface Model (DSM)` that tells us the elevation at the top of the earths surface.
-This means that it is the elevation at the tops of trees, buildings and all other
-objects on the earth. In comparison, a `Digital Terrain Model (DTM)` or `Digital Elevation
-Model (DEM)` contains elevation data for the actual ground (with trees, buildings and 
-other objects removed). 
+We often want to overlay two or more rasters on top of each other and perform
+calculations to create a new output raster. For example, we might have a LiDAR
+Digital Surface Model (`DSM`) that tells us the elevation at the top of the 
+earth's surface. This means that it is the elevation at the tops of trees, 
+buildings and all other objects on the earth. In comparison, a Digital Terrain 
+Model (`DTM`) or Digital Elevation Model (`DEM`) contains elevation data for the 
+actual ground (with trees, buildings and other objects removed). 
 
 In ecology, we are often interested in measuring the heights of trees and so the
-raster that we really want is the `difference` between the `DSM` and the `DTM`.
-This data product is often referred to as a `Canopy Height Model (CHM)` and represents
-the actual height of trees, buildings etc above the ground.
+raster that we really want is the *difference* between the `DSM` and the `DTM`.
+This data product is often referred to as a Canopy Height Model (`CHM`) and 
+represents the actual height of trees, buildings, etc, above the ground.
 
 We can calculate this difference by subtracting the two rasters in `R`. However
 if our rasters get large, we can calculate the difference more efficiently using
