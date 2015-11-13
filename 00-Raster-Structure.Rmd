@@ -259,7 +259,7 @@ species to monitor the phenology of within this area of the Harvard Forest.
 We are unsure of the elevation range within the area. 
 
 Raster statistics can include the min and max values, however, they aren't
-always caluclated and included. If they are not calculated, you can calculate
+always calculated and included. If they are not calculated, you can calculate
 them using the `setMinMax()` function.
 
 ```{r set-min-max }
@@ -327,24 +327,6 @@ are less lucky, we can find that information in the raster's metadata.
 If a NoDataValue was stored in the GeoTIFF tag, when R opens up the raster,
 it will assign each instance of that value to `NA` (no data in R world). Values
 of `NA` will be ignored by R.
-
-#Explain -9999 
-
-
-# section looking for -9999 values 
-#Challenge:  -9999 should show up as the min value
-```{ r looking-for-9999-values}
-
-```
-
-#Convert to NaN (or equivalent)
-```{r convert-no-data-values }
-#view raster no data value using GDAL info.
-#for our raster, all cells with a value of -9999 will assigned by R to NA
-#when we import the data
-GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
-
-```
 
 2. **Bad data values:** Bad data values are different from NoData values. 
 Sometimes a raster's metadata will tell us a value range of values for the 
