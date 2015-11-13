@@ -103,7 +103,8 @@ pixels = ncol(DSM) * nrow(DSM)
 hist(DSM, maxpixels = pixels)
 ```
 
-We can also use some arguments for the plot function to plot a subset of the raster values or choose which values correspond to which plot colors. 
+We can also use some arguments for the plot function to plot a subset of the 
+raster values or choose which values correspond to which plot colors. 
 
 ```{r breaks-zlim }
 #Plot a subset of the pixel values, e.g., the bottom 50m of surface
@@ -148,17 +149,18 @@ texture that you would see from above when viewing terrain. It gives data a nice
 #import DSM hillshade
 hill <- raster("NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif")
 
-#	Plot hillshade using a grayscale color ramp 
+#	Plot hillshade using a grayscale color ramp that looks like shadows.
 plot(hill,
-    col=grey(1:100/100),
+    col=grey(1:100/100),  #
     legend=F,
     main="NEON Hillshade - DSM\n Harvard Forest")
 ```
 
-Now that we have the hillshade we might then overlay another raster on top. 
+Now that we have the hillshade we might then overlay another raster on top by
+using `add=TRUE`.
 Let's overlay `DSM` on top of a `hillshade` of the DSM.
-
 ``` {r overlay-hillshade}
+
 #overlay the DSM on top of the hillshade
 plot(DSM,
      col=rainbow(100),
@@ -167,3 +169,4 @@ plot(DSM,
      legend=F)
 ```
 
+Here we used the color palete `rainbow()` instead of `terrain.color()`.
