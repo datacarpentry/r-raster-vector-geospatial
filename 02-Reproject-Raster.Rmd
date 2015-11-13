@@ -203,7 +203,6 @@ plot(DTM,
      legend=F)
 ```
 
-And now it works.  
-
-#challenge?
-
+And now it works.  Now that we can layer both the Digital Terrain Model and the 
+Hillshade of the DTM we can now continue on to Lesson 03 where we'll learn to 
+manipulate layers in order to create the Canopy Height Model that we are after. 
