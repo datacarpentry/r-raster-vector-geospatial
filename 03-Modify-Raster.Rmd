@@ -3,7 +3,7 @@ layout: post
 title: "Lesson 03: Raster Calculations - Overlay & Raster Math in R"
 date:   2015-10-26
 authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym, Leah Wasser]
-contributors: [Test Human]
+contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`
@@ -25,9 +25,9 @@ comments: false
 {% include _toc.html %}
 
 ##About
-We often want to perform calculaions on rasters or combine multiple rasters to create
-a new output raster.This lesson will cover some of the most common functions to 
-modify rasters including `overlay`, `calc` and raster math.
+When dealing with spatial data, we often want to perform calculaions on rasters 
+or combine multiple rasters to create a new output raster.This lesson will cover 
+some of the most common functions to modify rasters including `overlay`, `calc` and raster math.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
