@@ -320,7 +320,6 @@ plotRGB(newRGBImage, r = 1, g = 2, b = 3,
  
 ```
 
-
 Several different NoData values are in common use (NA, NaN, -9999). If we are 
 lucky, our geoTIFF file has a tag that tells us what the NoData value is. If we 
 are less lucky, we can find that information in the raster's metadata.
