@@ -11,8 +11,9 @@ lastModified: `r format(Sys.time(), "%Y-%m-%d")`
 category: spatio-temporal-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data
-description: "This lesson reviews how to plot a raster in R using the plot() command.
-It also covers how to overlay a raster on top of a hillshade for a eloquent map
+description: "This lesson reviews how to plot a raster in R using the plot() 
+command. It also covers how to overlay a raster on top of a hillshade for a 
+eloquent map.
 output."
 code1: 
 image:
@@ -69,16 +70,16 @@ Read more about the `raster` package in R.</a>
 
 ```{r pseudo-code }
 # Plot raster file and change some parameters
-plot(DSM) #Necessary to explicitly differentiate between base plot and raster plot?
-pixels <- ncol(DSM) * nrow(DSM)
-hist(DSM, col = "blue", maxpixels = pixels)
+plot(DSM_HARV) #Necessary to explicitly differentiate between base plot and raster plot?
+pixels <- ncol(DSM_HARV) * nrow(DSM_HARV)
+hist(DSM_HARV, col = "blue", maxpixels = pixels)
 myCol <- terrain.colors(10)
-plot(DSM, 
+plot(DSM_HARV, 
      breaks = c(320, 340, 360, 380, 400), 
      col = myCol,
      maxpixels = pixels) #optional argument
 
-plot(DSM, 
+plot(DSM_HARV, 
      zlim = c(340, 400)) #optional argument
 #`image` v. `plot`
 # TODO: challenge
@@ -94,13 +95,13 @@ is like.
 
 ```{r hist-raster }
 #Plot entire raster
-plot(DSM)
+plot(DSM_HARV)
 
 #Plot distribution of raster values 
-hist(DSM)
+hist(DSM_HARV)
 # Warning? Hist by default only plots subset
-pixels = ncol(DSM) * nrow(DSM)
-hist(DSM, maxpixels = pixels)
+pixels = ncol(DSM_HARV) * nrow(DSM_HARV)
+hist(DSM_HARV, maxpixels = pixels)
 ```
 
 We can also use some arguments for the plot function to plot a subset of the 
@@ -108,12 +109,12 @@ raster values or choose which values correspond to which plot colors.
 
 ```{r breaks-zlim }
 #Plot a subset of the pixel values, e.g., the bottom 50m of surface
-plot(DSM, zlim = c(305, 355))
+plot(DSM_HARV, zlim = c(305, 355))
 
 #Plot all pixel values using broader categories for values
 myCol = terrain.colors(4)
 
-plot(DSM, 
+plot(DSM_HARV, 
      breaks = c(305, 341, 377, 416), 
      col = myCol, 
      maxpixels = pixels)
@@ -123,7 +124,7 @@ Lastly, like most plots, we can add labels.
 
 ```{r add-plot-title }
 #Add axes and title to raster plot
-plot(DSM, 
+plot(DSM_HARV, 
      xlab = "X Coordinates", 
      ylab = "Y Coordinates", 
      main = "Harvard Forest Digital Surface Model")
@@ -135,11 +136,12 @@ plot(DSM,
 Create a plot of the Harvard DSM that has a legend with six colors that are 
 evenly divided amongst the range of pixel values. 
 
+``` {r challenge-code-plotting, echo=FALSE}
 
-
+```
 
 #Layering rasters
-Sometimes you want to layer a raster on to another raster and use a transparency 
+Sometimes you want to layer a raster on to another raster and use a transparency
 to give it texture. The most common approach to this is to use a `HILLSHADE` as
 the base raster layer. A hillshade is simply a raster that maps the shadows and 
 texture that you would see from above when viewing terrain. It gives data a nice 
@@ -147,10 +149,10 @@ texture that you would see from above when viewing terrain. It gives data a nice
 
 ```{r hillshade }
 #import DSM hillshade
-hill <- raster("NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif")
+hill_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif")
 
 #	Plot hillshade using a grayscale color ramp that looks like shadows.
-plot(hill,
+plot(hill_HARV,
     col=grey(1:100/100),  #
     legend=F,
     main="NEON Hillshade - DSM\n Harvard Forest")
@@ -162,7 +164,7 @@ Let's overlay `DSM` on top of a `hillshade` of the DSM.
 ``` {r overlay-hillshade}
 
 #overlay the DSM on top of the hillshade
-plot(DSM,
+plot(DSM_HARV,
      col=rainbow(100),
      alpha=0.4,
      add=T,
