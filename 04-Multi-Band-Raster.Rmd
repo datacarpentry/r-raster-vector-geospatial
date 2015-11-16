@@ -297,9 +297,8 @@ in RGB so that we can visualize it. Images from infrared cameras do this with th
 infrared band usually plotted as band 1, which appears red to us.  
 
 2. Adjust the `stretch` of the image to make it brighter or darker. Stretch 
-modifies the histogram of colors in the image in order to increase contrast.
+modifies the colors in the image which can increase contrast.
 
-COLIN CREATE GRAPIC/ INSERT GRAPHIC OF STRECH FROM http://www.nrcan.gc.ca/earth-sciences/geomatics/satellite-imagery-air-photos/satellite-imagery-products/educational-resources/9389
 
 ```{r plot-rgb-image }
 
@@ -321,8 +320,7 @@ the upper left corner an area of uniform green can now be differentiated into
 seperate trees or shrubs. 
 
 >Bonus: Here we did a linear ("lin") stretch of the values. You can also stretch 
->the historgram of the values ("hist") to get more contrast, but a less realistic
->image. 
+>the historgram of the values ("hist") to which may result in more contrast. 
 
 ##Challenge - NoData Values
 To explore what happens with NoData values when using `RasterStack` and `plotRGB`
