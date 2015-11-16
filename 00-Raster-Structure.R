@@ -1,11 +1,11 @@
 ## ----elevation-map, echo=FALSE-------------------------------------------
 library(raster)
 library(rgdal)
-DSM <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
 # code output here - DEM rendered on the screen
 # dem hillshade
-plot(DSM, main="NEON Elevation Map\nHarvard Forest")
+plot(DSM_HARV, main="NEON Elevation Map\nHarvard Forest")
 
 
 ## ----classified-elevation-map, echo=FALSE--------------------------------
@@ -19,7 +19,7 @@ brk <- c(250,350, 380,500)
 # Expand right side of clipping rect to make room for the legend
 par(xpd = FALSE,mar=c(5.1, 4.1, 4.1, 4.5))
 #DEM with a custom legend
-plot(DSM, col=col, breaks=brk, main="Classified Elevation Map\nHarvard Forest",legend = FALSE)
+plot(DSM_HARV, col=col, breaks=brk, main="Classified Elevation Map\nHarvard Forest",legend = FALSE)
 #turn xpd back on to force the legend to fit next to the plot.
 par(xpd = TRUE)
 #add a legend - but make it appear outside of the plot
@@ -32,59 +32,52 @@ library(raster)
 library(rgdal)
 
 
-## ----view-attributes-gdal------------------------------------------------
-# view attributes before opening file
-GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
-
-
 ## ----open-raster---------------------------------------------------------
-# Load raster into r
-DSM <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+# setwd()     #Make sure to set the directory to your data
+# Load raster into R
+DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
 # Look at raster structure
-DSM 
+DSM_HARV 
 
 #quickly plot the raster
 #note \n firces a line break in the title!
-plot(DSM, main="NEON Digital Surface Model\nHarvard Forest")
+plot(DSM_HAV, main="NEON Digital Surface Model\nHarvard Forest")
 
 
 ## ----view-resolution-units-----------------------------------------------
 #view resolution units
-crs(DSM)
+crs(DSM_HARV)
 
 
 ## ----set-min-max---------------------------------------------------------
+#Our raster already has these values calculated. Slot "min" and Slot "max":
+DSM_HARV@data
 
-#This step is unnecessary if the min max values are already calculated and 
-#stored in the tags for the raster.
-#our raster already has these values calculated!
-#DSM <- setMinMax(DSM) 
+#This is the code if min/max weren't calculated: 
+#DSM_HARV <- setMinMax(DSM_HARV) 
 
-#view min value
-minValue(DSM)
+#view only min value
+minValue(DSM_HARV)
 
-#view max value
-maxValue(DSM)
+#view only max value
+maxValue(DSM_HARV)
 
 
 ## ----demonstrate-no-data-blaco, echo=FALSE-------------------------------
-
 # Use stack function to read in all bands
 RGB_stack <- stack("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
 
 # Create an RGB image from the raster stack
 plotRGB(RGB_stack, r = 1, g = 2, b = 3,
         addfun="(main='Test')" )
- 
 
 ## ----demonstrate-no-data, echo=FALSE-------------------------------------
 #reassign cells with 0,0,0 to NA
 
 f <- function(x) {
   x[rowSums(x == 0) == 3, ] <- NA
-  x
-}
+  x}
 
 newRGBImage <- calc(RGB_stack, f)
 
@@ -93,24 +86,24 @@ plotRGB(newRGBImage, r = 1, g = 2, b = 3,
         addfun="(main='Test')" )
  
 
-## ----no-data-values------------------------------------------------------
-
-#view raster no data value using GDAL info.
-#for our raster, all cells with a value of -9999 will assigned by R to NA
-#when we import the data
-GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
-
-
 ## ----view-raster-histogram-----------------------------------------------
 
 #view histogram of data
-hist(DSM)
+hist(DSM_HARV)
 
-#oops - the histogram has a default number of pixels that it renders
-#grab the number of pixels in the raster
-ncell(DSM)
+
+## ----view-raster-histogram2----------------------------------------------
+#how large is our raster.  ncell() give number of cells/ pixels
+ncell(DSM_HARV)
 
 #create histogram with all pixel values in the raster
-hist(DSM, maxpixels=ncell(DSM))
+hist(DSM_HARV, maxpixels=ncell(DSM_HARV))
 
+## ----view-attributes-gdal------------------------------------------------
+# view attributes before opening file
+GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+
+
+## ----challenge-code-attributes, echo=FALSE-------------------------------
+GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif")
 

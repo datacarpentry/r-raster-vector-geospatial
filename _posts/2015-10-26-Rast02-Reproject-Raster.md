@@ -3,15 +3,15 @@ layout: post
 title: "Lesson 02: Reproject Rasters in R"
 date:   2015-10-27
 authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym, Leah Wasser]
-contributors: [Test Human]
+contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2015-11-10
+lastModified: 2015-11-16
 category: spatio-temporal-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data
-description: "This lesson explains how to reproject a raster in R using the projectRaster
-function in the raster package."
+description: "This lesson explains how to reproject a raster in R using the
+projectRaster() function in the raster package."
 code1: 
 image:
   feature: NEONCarpentryHeader_2.png
@@ -24,7 +24,11 @@ comments: false
 {% include _toc.html %}
 
 ##About
-
+As ecologists we often want to overlay two or more rasters on top of each other 
+and perform calculations to create a new output raster. In order to layer
+rasters each must be in the same projection.  This lesson explains how to 
+reproject a raster in R using the `projectRaster()` function in the raster 
+package.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
@@ -32,28 +36,25 @@ comments: false
 
 ###Goals / Objectives
 
-After completing this activity, you will know:
+After completing this activity, you will:
 
-* How to reproject a  raster in R
+* Be able to reproject a raster in R
 
 ###Things You'll Need To Complete This Lesson
+
+Please be sure you have the most current version of `R` and, preferably,
+RStudio to write your code.
 
 ###R Libraries to Install:
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
-####Tools To Install
-
-Please be sure you have the most current version of `R` and preferably
-R studio to write your code.
-
-
 ####Data to Download
 
 Download the workshop data:
 
-* <a href="http://files.figshare.com/2387965/NEON_RemoteSensing.zip" class="btn btn-success"> DOWNLOAD Sample NEON Raster Data Derived from LiDAR over Harvard
+ <a href="http://files.figshare.com/2387965/NEON_RemoteSensing.zip" class="btn btn-success"> DOWNLOAD Sample NEON Raster Data Derived from LiDAR over Harvard
 Forest and SJER Field Sites</a>
 
 The LiDAR and imagery data used to create the rasters in this dataset were 
@@ -70,90 +71,95 @@ Read more about the `raster` package in R.</a>
 
 #Manipulating Rasters in R
 
-We often want to overlay two or more rasters on top of each other, and perform
-calculations to create a new output raster. For example, we might have a lidar
-`Digital Surface Model (DSM)` that tells us the elevation at the top of the earths surface.
-This means that it is the elevation at the tops of trees, buildings and all other
-objects on the earth. In comparison, a `Digital Terrain Model (DTM)` or `Digital Elevation
-Model (DEM)` contains elevation data for the actual ground (with trees, buildings and 
-other objects removed). 
+We often want to overlay two or more rasters on top of each other and perform
+calculations to create a new output raster. For example, we might have a LiDAR
+Digital Surface Model (DSM) that tells us the elevation at the top of the 
+earth's surface. This means that it is the elevation of the tops of trees, 
+buildings, and all other objects on the earth. In comparison, a Digital Terrain 
+Model (DTM) or Digital Elevation Model (DEM) contains elevation data for the 
+actual ground (with trees, buildings and other objects removed). 
 
-In ecology, we are often interested in measuring the heights of trees and so the
-raster that we really want is the `difference` between the `DSM` and the `DTM`.
-This data product is often referred to as a `Canopy Height Model (CHM)` and represents
-the actual height of trees, buildings etc above the ground.
+In ecology, we might be interested in measuring the heights of the trees.  
+Therefore,  the raster that we really want is the *difference* between the DSM 
+and the DTM. This data product is often referred to as a Canopy Height Model
+(CHM) and represents the actual height of trees, buildings, etc, above the 
+ground.
 
-We can calculate this difference by subtracting the two rasters in `R`. However
-if our rasters get large, we can calculate the difference more efficiently using
-the `overlay` function. 
-
-First, let's create and plot a `CHM` by subtracting two rasters.
+First, let's create and plot a CHM by subtracting two rasters.
 
 
     #load raster package
     library(raster)
 
-Let's create an overlay map of the Digital Terrain Model.
+Let's create an layered map of the Digital Terrain Model (`DTM_HARV`) that 
+includes hill shading (`DTM_hill_HARV`).
 
 
     #import DTM
-    DTM <- raster("NEON_RemoteSensing/HARV/DTM/HARV_dtmcrop.tif")
+    DTM_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_dtmcrop.tif")
     #import DTM hillshade
-    DTM_hill <- raster("NEON_RemoteSensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
+    DTM_hill_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
     
-    #NOTE: this should use color brewer for consistency across lessons
     #	Plot hillshade using a grayscale color ramp 
-    plot(DTM_hill,
+    plot(DTM_hill_HARV,
         col=grey(1:100/100),
         legend=F,
         main="NEON Hillshade - DTM\n Harvard Forest")
     
     #overlay the DSM on top of the hillshade
-    plot(DTM,
-         col=rainbow(100),
+    plot(DTM_HARV,
+         col=terrain.colors(10),
          alpha=0.4,
          add=T,
          legend=F)
 
 ![ ]({{ site.baseurl }}/images/rfigs/02-Reproject-Raster/import-DTM-hillshade-1.png) 
 
-So what happened? Our hillshade plotted just fine but when we tried to overlay
-the DTM raster on top, nothing happened? A likely culprit for things not lining
-up is the `CRS` or `Coordinate Reference System`. Let's explore our data.
+What! Nothing happened? The hillshade plotted just fine but when we tried to 
+overlay the DTM raster on top nothing happened. 
+
+A likely culprit for layers not lining up is the Coordinate Reference System
+(CRS). Let's explore our data.
 
 
     #view crs for DTM
-    crs(DTM)
+    crs(DTM_HARV)
 
     ## CRS arguments:
     ##  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84
     ## +towgs84=0,0,0
 
     #view crs for hillshade
-    crs(DTM_hill)
+    crs(DTM_hill_HARV)
 
     ## CRS arguments:
     ##  +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
 
+Aha!  DTM is in UTMs but DTM_hill is in latitude and longitude.  They won't plot
+together until on is reprojected.  
+
 #Reproject Rasters
+When things don't line up, it is often due to differences in CRS. In this case,
+our DTM is in UTM zone 18. However, our Hillshade is in the geographic 
+coordinate system (latitude and longitude). 
 
-When things don't line up, it is often do to differences in CRS. In this case,
-our DTM is in UTM zone north. However our Hillshade is in geographic WGS84
-(latitude and longitude). 
+We can use the `projectRaster` function to reproject a raster.  Keep in mind 
+that reprojection only works when you first have a DEFINED CRS for the raster 
+object that you want to reproject. It cannot be used if NO CRS is defined. We'll
+deal with that issue in a later lesson.  In this case, the Hillshade does have a
+defined CRS. If unsure, we could check using `crs(DTM_hill_HARV)`.
 
-We can use the `projectRaster` function to reproject a raster as follows
-
-`projectRaster(RasterObjects,CRSToReprojectTo)`
-
-Keep in mind that reprojection only works when you first have a DEFINED CRS for
-the raster object that you want to reproject. In this case, we do - we know that 
-because CRS(DTM_hill)
+The syntax for `projectRaster()` is 
+`projectRaster(RasterObject,crs=CRSToReprojectTo)`.  Since we want to CRS to 
+match the `DTM_HARV` raster we can simple tell `R` to use the CRS from 
+`DTM_HARV` as the CRS for this reprojetion.
 
 
-    #reproject to WGS84
-    DTM_hill_UTMZ18N <- projectRaster(DTM_hill, crs=crs(DTM))
+    #reproject to UTM
+    DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV, crs=crs(DTM_HARV))
     
-    DTM_hill_UTMZ18N
+    #compare attributes of DTM_hill_UTMZ18N to DTM_hill
+    DTM_hill_UTMZ18N_HARV
 
     ## class       : RasterLayer 
     ## dimensions  : 1507, 1808, 2724656  (nrow, ncol, ncell)
@@ -164,12 +170,40 @@ because CRS(DTM_hill)
     ## names       : HARV_DTMhill_WGS84 
     ## values      : -0.1106608, 0.9923992  (min, max)
 
-    #note: in this case we know that the resolution fo the data should be 1 m. We can 
-    #assign that in the reprojection as well
-    DTM_hill_UTMZ18N <- projectRaster(DTM_hill, 
-                                      crs=crs(DTM),
+    DTM_hill_HARV
+
+    ## class       : RasterLayer 
+    ## dimensions  : 1438, 1747, 2512186  (nrow, ncol, ncell)
+    ## resolution  : 1.22e-05, 8.99e-06  (x, y)
+    ## extent      : -72.18192, -72.16061, 42.52941, 42.54234  (xmin, xmax, ymin, ymax)
+    ## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON_RemoteSensing/HARV/DTM/HARV_DTMhill_WGS84.tif 
+    ## names       : HARV_DTMhill_WGS84 
+    ## values      : -0.1239408, 0.9957315  (min, max)
+
+First, we can see the the CRS of DTM_hillUTMZ18N_HARV did change and is now in 
+UTMs.  In DTM_hill_HARV where units were not defined (`no_defs`),
+DTM_hill_UTMZ18N_HARV now has meters for units.  Notice also that dimensions and
+extent have also changed.  
+Why do you think this is?  
+
+#### LESSON NEED TO ADD: Why do min/ max values change.  CRS shouldn't effect elevation? Is this due to changeing # of cells and then having to re-sample cells? We lose just a bit of the extremes. 
+> Note: When you are reprojecting a raster, you are moving it from on "Grid" 
+> to another. Thus you are modifying the data! Keep this in mind as you work with
+> raster data.
+
+##Assigning Resolution to Raster
+When we looked at the attributes of DTM_hill_UTMZ18N_HARV we should have noticed
+that the resolution for the reprojected raster was 1 x 0.998. Yet, we know that 
+the resolution for the data should be 1x1 m. By adding a line of code (`res=`), 
+we can assign that in the reprojection as well.  
+
+
+    DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV, 
+                                      crs=crs(DTM_HARV),
                                       res=1)
-    DTM_hill_UTMZ18N
+    
+    DTM_hill_UTMZ18N_HARV
 
     ## class       : RasterLayer 
     ## dimensions  : 1504, 1808, 2719232  (nrow, ncol, ncell)
@@ -180,23 +214,19 @@ because CRS(DTM_hill)
     ## names       : HARV_DTMhill_WGS84 
     ## values      : -0.1089656, 0.9922803  (min, max)
 
-#A note about reprojection
-
-Note that when you are reprojecting a raster, you are moving it from on "Grid" to
-another. Thus you are modifying the data! Keep this in mind as you work with raster
-data.
+The resolution is now the expected 1x1. 
 
 Once we have reprojected the raster, we can try to plot again!
 
 
     #plot newly reprojected hillshade
-    plot(DTM_hill_UTMZ18N,
+    plot(DTM_hill_UTMZ18N_HARV,
         col=grey(1:100/100),
         legend=F,
         main="NEON Hillshade - DTM\n Harvard Forest")
     
-    #overlay the DSM on top of the hillshade
-    plot(DTM,
+    #overlay the DTM on top of the hillshade
+    plot(DTM_HARV,
          col=rainbow(100),
          alpha=0.4,
          add=T,
@@ -204,5 +234,5 @@ Once we have reprojected the raster, we can try to plot again!
 
 ![ ]({{ site.baseurl }}/images/rfigs/02-Reproject-Raster/plot-projected-raster-1.png) 
 
-#challenge?
-
+We have now successfully layered the Digital Terrain Model on top of our hillshade
+to produce a nice looking, textured basemap! 
