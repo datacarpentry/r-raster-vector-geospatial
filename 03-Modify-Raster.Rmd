@@ -66,32 +66,37 @@ headquarters. The entire dataset can be accessed by request from the NEON websit
 
 ####Recommended Pre-Lesson Reading
 
-* <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
+<a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
 Read more about the `raster` package in R.</a>
 
 </div>
 
 #Manipulating Rasters in R
-As introduced in Lesson 02, we often want to overlay two or more rasters on top 
+We often want to overlay two or more rasters on top 
 of each other, and perform calculations to create a new output raster. If 
 interested in measuring the heights of trees, then what we really want is the 
-`difference` between the Digital Surface Model (`DSM`, tops of trees) and the 
-Digital Terrain Model (`DTM`, ground level) .This data product is often referred
-to as a Canopy Height Model (`CHM`) and represents the actual height of trees, 
+*difference* between the Digital Surface Model (DSM, tops of trees) and the 
+Digital Terrain Model (DTM, ground level) .This data product is often referred
+to as a Canopy Height Model (CHM) and represents the actual height of trees, 
 buildings, etc above the ground.
 
 We can calculate this difference in two different ways:
-1) by subtracting the two rasters in `R` 
+
+1) by directly subtracting the two rasters in `R` using raster math
+
 or if our rasters are large
+
 2) using the `overlay()` function to more efficiently calculate the difference.
 
 First, we'll learn the intuitive first step of subtracting layers to create and
-plot a `CHM`.  In the geospatial world we often call
-this *raster math*.
+plot a CHM.  In the geospatial world we often call this *raster math*.
 
-If you completed Lessons 00 and 02 you've already loaded and viewed 
+If you completed the <a href="/R/Introduction-to-Raster-Data-In-R/" target="_blank">
+About Raster Data </a> and the <a R/Reproject-Raster-In-R.R/" target="_blank">
+Reproject Rasters in R </a> lessons,  you've already loaded and viewed 
 `HARV_dtmCrop.tif` and `HARV_dsmCrop.tif` and can skip this code chunk.  If you 
-have not completed it, let's load and check out our raster files. 
+have not, let's load and check out our raster files. 
+
 ```{r load-libraries }
 #load raster package
 library(raster)
@@ -100,13 +105,13 @@ library(raster)
 GDALinfo("NEON_RemoteSensing/HARV/DTM/HARV_dtmCrop.tif")
 GDALinfo("NEON_RemoteSensing/HARV/DTM/HARV_dsmCrop.tif")
 #load the DTM & DSM rasters
-DTM <- raster("NEON_RemoteSensing/HARV/DTM/HARV_dtmCrop.tif")
-DSM <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+DTM_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_dtmCrop.tif")
+DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 #create a quick plot of each to see what we're dealing with
-plot(DTM,
+plot(DTM_HARV,
      main="Digital Terrain Model (Elevation)\n Harvard Forest")
 
-plot(DSM,
+plot(DSM_HARV,
      main="Digital Surface Model (Elevation)\n Harvard Forest")
 ```
 
@@ -116,10 +121,10 @@ Model.
 
 ```{r raster-math }
 # Raster math example
-CHM <- DSM - DTM 
+CHM_HARV <- DSM_HARV - DTM_HARV 
 
 #view the output CHM
-plot(CHM,
+plot(CHM_HARV,
      main="NEON Canopy Height Model - Subtracted\n Harvard Forest") 
 ```
 Notice the legend on the right.  We are now looking at the height of the canopy 
@@ -131,30 +136,30 @@ of values in a raster dataset just like we might explore a dataset that we
 collected in the field.  
 
 1. What range of values do you expect to see for the Harvard Forest Canopy 
-Height Model (`CHM`) that we just created? 
-2. What are two ways you can check this range of data in CHM? 
+Height Model (`CHM_HARV`) that we just created? 
+2. What are two ways you can check this range of data in `CHM_HARV`? 
 3. Plot your data in such a way that you can see the range of data values in 
 CHM.
 4. Bonus challenge: Change the color of and add a title to the plot you created 
 in question 3. 
 
-```{r challenge-code-1 }
+```{r challenge-code-CHM-HARV, echo=FALSE }
 #1) Depends on types of trees.  0m to <50m?
 #2) Looks at histogram or min/max values. 
-minValue(CHM)
-maxValue(CHM)
+minValue(CHM_HARV)
+maxValue(CHM_HARV)
 #3) 
-hist(CHM, maxpixels=ncell(CHM))
+hist(CHMv, maxpixels=ncell(CHM_HARV))
 
 #4)
-hist(CHM, 
+hist(CHM_HARV, 
      col = "purple",
      main = "Histogram of NEON Canopy Height Model\n Harvard Forest",
      maxpixels=ncell(CHM))
 
 ```
 
-#Efficient Raster Math: Overlay Function
+#Efficient Raster Calculations: Overlay Function
 Basic raster math like we just did, is an appropriate aporoach to a calculation 
 if
 
@@ -169,65 +174,38 @@ function is more efficient when
 2. The rasters are stored as individual files. 
 3. The computations needed are complex. 
 
->NOTE: If the rasters are stacked and stored as `RasterStack` or `RasterBrick`
->objects in R, then we should use `calc()`. `overlay()` will not work on stacked
->rasters. 
-
 The `overlay()` function takes two or more rasters and applies a function to
 them using efficient processing methods. The syntax is
 
 `outputRaster <- overlay(raster1, raster2, fun=functionName)`
 
-##Writing Functions in R
-Before we can continue with `overlay()` we need to discuss writing functions. A 
-function represents a set of tasks that need to be repeated over and over. 
+> NOTE: If the rasters are stacked and stored as `RasterStack` or `RasterBrick`
+> objects in R, then we should use `calc()`. `overlay()` will not work on
+> stacked rasters. 
 
-LINK TO MORE ABOUT FUNCTIONS IN R 
-I like explanations (how to AND why) here: http://nicercode.github.io/guides/functions/
-but I'm hesitant to link to blogs that might disappear so also QuickR link:
-http://www.statmethods.net/management/userfunctions.html
-Thoughts? 
 
-A simplified syntax for a function in R is as follows:
+Let's repeat our simple raster math computation using `overlay()`.  
 
-`functionName <- function(variable1, variable2){WhatYouWantDone, WhatToReturn}`
-
-Let's say we want to create a function that subtracts one raster from another. 
-In our case what we want does is what we want returned so we don't have to 
-specify it twice. 
-```{r create-function }
-#this function will take two rasters (r1 and r2) and subtract them
-subtRasters <- function(r1, r2){
-(r1-r2)
-}
-```
-
-We now have a function called `subtRasters` that will subtract any two rasters
-that we give it.  
-
-##Continuing with Overlay Function
-Let's repeat our simple raster math computation using `overlay()` and the
-function we just created. 
 ```{r raster-overlay }
-CHM_ov<- overlay(DSM,DTM,fun=subtRasters)
+CHM_ov_HARV<- overlay(DSM_HARV,DTM_HARV,fun=function(r1, r2){return(r1-r2)})
 
-plot(CHM_ov,
+plot(CHM_ov_HARV,
      main="NEON Canopy Height Model - Overlay Subtract\n Harvard Forest")
 ```
 
-#Writing Raster Files
-So now we've learned two different ways to do calculations (in our case 
-subtraction) with two rasters in R.  This gives us an output raster object 
-(`CHM_ov`), we can use the `writeRaster` function to export the object as a new 
-geotiff. 
+> Bonus: When doing the overlay we used a function. A function represents a set
+of tasks that need to be repeated over and over. Functions are very useful in
+many different contexts. A simplified syntax for a function in R is:
 
->NAMES: Part of writing a raster (or any file) is choosing a suitable name for 
->the file.  File names should be make it clear what is in the file.  This is 
->also true with object names in R.  In fact, so far in these lessons we've been 
->using poor nameing practices as we haven't been including any information about
->the location in our names (eg. `DSM` not `DSM_HARV`).  This hasn't gotten us 
->in trouble as we've only been working in one location (Harvard Forest), 
->however, it is still good practice to be specific with file and object names.
+> `functionName <- function(variable1, variable2){WhatYouWantDone, WhatToReturn}`
+
+> In our case what we want does is what we want returned so we don't have to 
+specify it twice. 
+
+#Writing Raster Files
+So now we've learned two different ways to do raster calculations.  This gives 
+us an output raster object (`CHM_ov_HARV`), we can use the `writeRaster` 
+function to export the object as a new GeoTIFF. 
 
 When we write this raster object to a GeoTIFF file we'll name it 
 `chm_ov_HARV.tiff` this way we know that it is a canopy height model of Harvard 
@@ -236,7 +214,7 @@ file is the current working directory.
 
 ```{r write-raster }
 #export CHM object to new GeotIFF
-writeRaster(CHM_ov,"chm_ov_HARV.tiff",
+writeRaster(CHM_ov_HARV,"chm_ov_HARV.tiff",
             format="GTiff", 
             overwrite=TRUE, 
             NAflag=-9999)
@@ -246,11 +224,9 @@ In the code we specify that the format will be GTiff. Overwrite is true so that
 it replaces any other file with this name.  This is a useful setting so that you
 can make a change to the object and then update the file by re-runing the code.
 However, be careful to never accidentally re-use a name for a file that already 
-exists. We are setting the NA value to -9999 for consistency. 
-####CONSISTENCY WITH WHAT?  NOT PREVIOUSLY MENTIONED
+exists. We are setting the NA value to -9999, a standard NoData value. 
 
-
-#Challenge: Exploring the San Joaquin field site.  
+#Challenge: Explore the NEON San Joaquin (SJER) Field Site 
 As ecologists we may want to explore the phenology of two different sites.  The 
 San Joaquin valley in California is rather different from the Harvard Forest in 
 Massachusetts and could make a good comparison.  
@@ -268,9 +244,10 @@ data for CRS, bad values, etc.
 what you expect. 
 3. Plot the CHM from SJER. 
 4. Export as a GeoTIFF.
-5. What do you notice about tree heights at the two sites?
+5. What do you notice about tree heights at the two sites?  Hint: plotting SJER and HARV data 
+side-by-side would be an effective way to see the data at the same time.
 
-```{r SJER-CHM, }
+```{r challenge-code-SJER-CHM, echo=FALSE}
 #1.
 #load the DTM
 DTM_SJER <- raster("NEON_RemoteSensing/SJER/DTM/SJER_dtmCrop.tif")
@@ -306,6 +283,9 @@ writeRaster(CHM_ov_SJER,"chm_ov_SJER.tiff",
 
 #4.  Tree heights are WAY shorter in SJER. 
 #view histogram of HARV again. 
-hist(CHM_ov, 
+par(mfcol=c(2,1))
+hist(CHM_ov_HARV, 
      main="NEON Canopy Height Model - Histogram\n HARV")
+hist(CHM_ov_SJER, 
+     main="NEON Canopy Height Model - Histogram\n SJER")
 ```

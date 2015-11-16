@@ -10,9 +10,9 @@ packagesLibraries: [raster, rgdal]
 category:  
 tags: [module-1]
 mainTag: GIS-Spatial-Data
-description: "This lesson review the fundamental principles, libraries and metadata 
-/ raster attributes that you need to be familiar with in order to successfully 
-work with raster data in R."
+description: "This lesson review the fundamental principles, libraries and 
+metadata / raster attributes that you need to be familiar with in order to 
+successfully work with raster data in R."
 code1: 
 image:
   feature: NEONCarpentryHeader_2.png
@@ -98,11 +98,11 @@ the right that the colored shading is also continuous.
 ```{r elevation-map, echo=FALSE}
 library(raster)
 library(rgdal)
-DSM <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
 # code output here - DEM rendered on the screen
 # dem hillshade
-plot(DSM, main="NEON Elevation Map\nHarvard Forest")
+plot(DSM_HARV, main="NEON Elevation Map\nHarvard Forest")
 
 ```
 
@@ -127,7 +127,7 @@ brk <- c(250,350, 380,500)
 # Expand right side of clipping rect to make room for the legend
 par(xpd = FALSE,mar=c(5.1, 4.1, 4.1, 4.5))
 #DEM with a custom legend
-plot(DSM, col=col, breaks=brk, main="Classified Elevation Map\nHarvard Forest",legend = FALSE)
+plot(DSM_HARV, col=col, breaks=brk, main="Classified Elevation Map\nHarvard Forest",legend = FALSE)
 #turn xpd back on to force the legend to fit next to the plot.
 par(xpd = TRUE)
 #add a legend - but make it appear outside of the plot
@@ -181,17 +181,22 @@ NOTE ON WORKING DIRECTORY: Your working directory needs to be set to the
 location where the data you downloaded for this lesson is.  If you do not know 
 how to do this please refer to this how-to for working directories. LINK. {: .notice}
 
+> NAMES: File and object names should be make it clear what is in the file, not
+> only the data but also the source of the data.  All of the data we are
+> currently using come from Harvard Forest so we'll use a naming conention of
+> data_HARV.
+
 ```{r open-raster }
 # setwd()     #Make sure to set the directory to your data
 # Load raster into R
-DSM <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
 # Look at raster structure
-DSM 
+DSM_HARV 
 
 #quickly plot the raster
 #note \n firces a line break in the title!
-plot(DSM, main="NEON Digital Surface Model\nHarvard Forest")
+plot(DSM_HAV, main="NEON Digital Surface Model\nHarvard Forest")
 
 ```
 
@@ -214,12 +219,12 @@ PROJECTION DISCUSSION - **brief** intro to each with links out.
  <a href="https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf" target="_blank"> NCEAS Overview of CRS in R</a>
 
 We actually already viewed the coordinate reference system along with a lot of 
-other structure and attribute data when we entered in the object name `DSM`. 
+other structure and attribute data when we called the object `DSM_HARV`.
 However, we can view just the CRS information by using `crs()`. 
 
 ```{r view-resolution-units}
 #view resolution units
-crs(DSM)
+crs(DSM_HARV)
 
 ```
 
@@ -249,7 +254,7 @@ on the ground.
 
 >Bonus: We can find out the units using either of two methods: viewing the 
 >coordinate reference system string `crs()` like we just did or by `@data`. 
->If you enter `DSM@data`, you'll see that units are not specified for these data.
+>If you enter `DSM_HARV@data`, you'll see that units are not specified for these data.
 
 #Calculate the Min and Max values for the raster
 Dependig on our question we may want to know the min or max value of the data 
@@ -264,16 +269,16 @@ them using the `setMinMax()` function.
 
 ```{r set-min-max }
 #Our raster already has these values calculated. Slot "min" and Slot "max":
-DSM@data
+DSM_HARV@data
 
 #This is the code if min/max weren't calculated: 
-#DSM <- setMinMax(DSM) 
+#DSM_HARV <- setMinMax(DSM_HARV) 
 
 #view only min value
-minValue(DSM)
+minValue(DSM_HARV)
 
 #view only max value
-maxValue(DSM)
+maxValue(DSM_HARV)
 
 ```
 
@@ -338,7 +343,7 @@ function which produces a histogram.
 ```{r view-raster-histogram }
 
 #view histogram of data
-hist(DSM)
+hist(DSM_HARV)
 
 ```
 
@@ -349,10 +354,10 @@ data set you have to tell it to include all the data.
 
 ``` {r view-raster-histogram2}
 #how large is our raster.  ncell() give number of cells/ pixels
-ncell(DSM)
+ncell(DSM_HARV)
 
 #create histogram with all pixel values in the raster
-hist(DSM, maxpixels=ncell(DSM))
+hist(DSM_HARV, maxpixels=ncell(DSM_HARV))
 ```
 
 Now the y-axis looks a bit better. We can see that all of the values are between
@@ -361,11 +366,11 @@ in the middle of the range.  This is what we'd expect for this elevation model.
 There are no obvious examples of bad data here.  
 
 ##Raster Bands
-When we looked at the data in `DSM` we were looking only at a model of the 
+When we looked at the data in `DSM_HARV` we were looking only at a model of the 
 surface elevation.  There was only a single piece of data--elevation in meters-- 
-given for each cell.  The `DSM` raster is a single-band raster. We know that 
+given for each cell.  The `DSM_HARV` raster is a single-band raster. We know that 
 intuitively based on the data the raster is depicting and, also when we looked 
-at the attributes and metadata (`DSM`) it said band: 1.
+at the attributes and metadata (`DSM_HARV`) it said band: 1.
 
 However, raster data can also be multi-band meaning that within one file it
 contains data on multiple variables for each cell. A raster that is a color 
@@ -388,7 +393,7 @@ metadata about the file. So far we've viewed attribute data after reading in a
 raster file.  However, we could also view those tags before we open the data in 
 `R` using the `GDALinfo()` function.
 
-Using the same file DSM file we've already used for illustration: 
+Using the same DSM file we've already used for illustration: 
 ```{r view-attributes-gdal}
 # view attributes before opening file
 GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
@@ -414,18 +419,18 @@ explore these metadata later in the lesson.
 In Lesson 01 we will be using the file NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif
 Before we read in the file let's learn a bit about it's attributes.  Without
 reading in the file can you determine: 
-1. If this file has the same CRS as DSM?
+1. If this file has the same CRS as DSM_HARV?
 2. What format NoData values take?
 3. The resolution of the raster data? 
 4. How large a 5x5 pixel area would be? 
 5. If the file is a multi- or single-band raster?
 
-``` {r challenge-code}
+``` {r challenge-code-attributes, echo=FALSE}
 GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif")
 ```
 
 Checking back in
-1. If this file has the same CRS as DSM?  Yes: UTM Zone 18, WGS84, meters. 
+1. If this file has the same CRS as DSM_HARV?  Yes: UTM Zone 18, WGS84, meters. 
 2. What format NoData values take?  -9999
 3. The resolution of the raster data? 1x1
 4. How large a 5x5 pixel area would be? 5mx5m How? We are given resolution of 
