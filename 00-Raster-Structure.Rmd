@@ -74,6 +74,7 @@ Read more about the `raster` package in R.</a>
 Intro to Raster Data - NEON Data Skills</a>
 
 
+
 ####Raster Lesson Series 
 This lesson is a part of a series of raster data in R lessons:
 
@@ -401,6 +402,8 @@ We can define the max pixels to ensure that all pixel values are included in the
 histogram. **USE THIS WITH CAUTION!**
 { : .notice }
 
+<a href="http://www.r-bloggers.com/basics-of-histograms/" target="_blank">More 
+on histograms in R</a>
 
 ``` {r view-raster-histogram2}
 #NOTE: force R to plot all pixel values in the histogram COULD be problematic
@@ -486,9 +489,9 @@ following about the file:
 5. Is the file is a multi- or single-band raster?
 
 >NOTE: this file is a `hillshade`. We will learn about hillshades in the next, 
->lesson!
+>lesson.
 
-``` {r challenge-code-attributes, echo=FALSE, results='hide'}
+``` {r challenge-code-attributes, eval=FALSE, echo=FALSE}
 GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif")
 
 #ANSWERS ###
