@@ -7,7 +7,7 @@ Leah Wasser]
 contributors: [Test Human]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2015-11-16
+lastModified: 2015-11-18
 category: time-series-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data
@@ -210,11 +210,7 @@ using the `levelplot` function. Let's check it out.
 
 
     library(rasterVis)
-
-    ## Loading required package: lattice
-    ## Loading required package: latticeExtra
-    ## Loading required package: RColorBrewer
-
+    
     #create a level plot - plot
     levelplot(NDVI_stack,
               main="Landsat NDVI\nHarvard Forest")
@@ -257,14 +253,6 @@ or dips in the late summer that might cause the vegetation to brown and then
 quickly green again the following month. 
 
 What is happening here? Maybe we should look at the data!
-
-
-    ## 
-    ## Attaching package: 'ggplot2'
-    ## 
-    ## The following object is masked from 'package:latticeExtra':
-    ## 
-    ##     layer
 
 ![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/view-temp-data-1.png) 
 

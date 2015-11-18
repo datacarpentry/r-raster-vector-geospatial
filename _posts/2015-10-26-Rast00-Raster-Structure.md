@@ -5,7 +5,7 @@ date:   2015-10-29
 authors: [Kristina Riemer, Zack Brym, Jason Williams, Jeff Hollister,  Mike Smorul, Leah Wasser]
 contributors: [Megan A. Jones]
 dateCreated:  2015-10-23
-lastModified: 2015-11-17
+lastModified: 2015-11-18
 packagesLibraries: [raster, rgdal]
 category:  
 tags: [module-1]
@@ -72,6 +72,7 @@ website.</a>
 Read more about the `raster` package in R.</a>
 * <a href="http://neondataskills.org/R/Raster-Data-In-R/" target="_blank" > 
 Intro to Raster Data - NEON Data Skills</a>
+
 
 
 ####Raster Lesson Series 
@@ -363,6 +364,8 @@ We can define the max pixels to ensure that all pixel values are included in the
 histogram. **USE THIS WITH CAUTION!**
 { : .notice }
 
+<a href="http://www.r-bloggers.com/basics-of-histograms/" target="_blank">More 
+on histograms in R</a>
 
 
     #NOTE: force R to plot all pixel values in the histogram COULD be problematic
@@ -405,7 +408,7 @@ contains data on multiple variables for each cell. By default the `raster`
 function only imports the first band in a raster regardless of whether it has 1
 or more bands. We will cover multi-band rasters in Lesson 04:  
 
-<a href="{{ site.baseurl }}/NEON-R-Spatial-Raster/R/Multi-Band-Rasters-In-R/" target="_blank"> Working with Multi-band Rasters: Images in R</a>.
+<a href="{{ site.baseurl }}/NEON-R-Spatial-Raster/R/Multi-Band-Rasters-In-R/" target="_blank"> Work with Multi-band Rasters: Images in R</a>.
 
 #COLIN ![Image on what bands are...]()
 
@@ -468,28 +471,7 @@ following about the file:
 5. Is the file is a multi- or single-band raster?
 
 >NOTE: this file is a `hillshade`. We will learn about hillshades in the next, 
->lesson!
+>lesson.
 
 
-    ## rows        1367 
-    ## columns     1697 
-    ## bands       1 
-    ## lower left origin.x        731453 
-    ## lower left origin.y        4712471 
-    ## res.x       1 
-    ## res.y       1 
-    ## ysign       -1 
-    ## oblique.x   0 
-    ## oblique.y   0 
-    ## driver      GTiff 
-    ## projection  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
-    ## file        NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif 
-    ## apparent band summary:
-    ##    GDType hasNoDataValue NoDataValue blockSize1 blockSize2
-    ## 1 Float64           TRUE       -9999          1       1697
-    ## apparent band statistics:
-    ##         Bmin      Bmax     Bmean       Bsd
-    ## 1 -0.7136298 0.9999997 0.3125525 0.4812939
-    ## Metadata:
-    ## AREA_OR_POINT=Area
 
