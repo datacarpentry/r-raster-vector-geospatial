@@ -6,7 +6,7 @@ authors: [Kristina Riemer, Mike Smorul, Zack Brym, Jason Williams, Jeff Holliste
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2015-11-16
+lastModified: 2015-11-18
 category: spatio-temporal-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data
@@ -48,19 +48,33 @@ R studio to write your code.
 
 ####Data to Download
 
-<a href="http://files.figshare.com/2387965/NEON_RemoteSensing.zip" class="btn btn-success"> DOWNLOAD Sample NEON Raster Data for Harvard Forest & SJER</a>
+Download the raster files for the Harvard Forest dataset:
+
+<a href="http://files.figshare.com/2434040/NEON_RemoteSensing.zip" class="btn btn-success"> DOWNLOAD Sample NEON Airborne Observation Platform Raster Data</a> 
 
 The LiDAR and imagery data used to create the rasters in this dataset were 
-collected over the Harvard and San Joaquin field sites 
+collected over the <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard</a> and 
+<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin</a> field sites 
 and processed at <a href="http://www.neoninc.org" target="_blank" >NEON </a> 
-headquarters. The entire dataset can be accessed by request from the NEON 
-website.  
+headquarters. The entire dataset can be accessed by request from the 
+<a href="http://www.neoninc.org/data-resources/get-data/airborne-data" target="_blank"> NEON 
+website.</a>
 
 ####Recommended Pre-Lesson Reading
 
 <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
 Read more about the `raster` package in R.</a>
 
+####Raster Lesson Series 
+This lesson is a part of a series of raster data in R lessons:
+
+* [Lesson 00 - Intro to Raster Data in R]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R/)
+* [Lesson 01 - Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/)
+* [Lesson 02 - Reproject Raster Data in R]({{ site.baseurl}}/R/Reproject-Raster-In-R/)
+* [Lesson 03 - Raster Calculations in R]({{ site.baseurl}}/R/Raster-Calculations-In-R/)
+* [Lesson 04 - Work With Multi-Band Rasters - Images in R]({{ site.baseurl}}/R/Multi-Band-Rasters-In-R/)
+* [Lesson 05 - Raster Time Series Data in R]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/)
+* [Lesson 06 - Plot Raster Time Series Data in R Using RasterVis and LevelPlot]({{ site.baseurl}}/R/Plot-Raster-Times-Series-Data-In-R/)
 </div>
 
 #About Raster Bands
@@ -525,44 +539,49 @@ You can view various methods available to call on an `R` object with
     ##  [13] all.equal      animate        approxNA       area          
     ##  [17] Arith          as.array       as.data.frame  as.logical    
     ##  [21] as.matrix      as.vector      bbox           boxplot       
-    ##  [25] brick          calc           cellStats      clamp         
-    ##  [29] click          coerce         colSums        Compare       
-    ##  [33] coordinates    corLocal       cover          crop          
-    ##  [37] crosstab       cut            cv             density       
-    ##  [41] dim            dim<-          disaggregate   dropLayer     
-    ##  [45] extend         extent         extract        flip          
-    ##  [49] freq           getValues      getValuesBlock getValuesFocal
-    ##  [53] head           hist           image          interpolate   
-    ##  [57] intersect      is.factor      is.finite      is.infinite   
-    ##  [61] is.na          is.nan         isLonLat       KML           
-    ##  [65] labels         length         levels         levels<-      
-    ##  [69] log            Logic          mask           match         
-    ##  [73] Math           Math2          maxValue       mean          
-    ##  [77] merge          minValue       modal          mosaic        
-    ##  [81] names          names<-        ncell          ncol          
-    ##  [85] nlayers        nrow           origin         origin<-      
-    ##  [89] overlay        pairs          persp          plot          
-    ##  [93] plotRGB        predict        print          proj4string   
-    ##  [97] proj4string<-  quantile       raster         rasterize     
-    ## [101] readAll        readStart      readStop       reclassify    
-    ## [105] res            resample       rotate         rowSums       
-    ## [109] sampleRandom   sampleRegular  scale          select        
-    ## [113] setMinMax      setValues      shift          show          
-    ## [117] spplot         stack          stackSelect    subs          
-    ## [121] subset         Summary        summary        t             
-    ## [125] tail           text           trim           unique        
-    ## [129] unstack        values         values<-       weighted.mean 
-    ## [133] which.max      which.min      writeRaster    xmax          
-    ## [137] xmin           xres           ymax           ymin          
-    ## [141] yres           zonal          zoom          
+    ##  [25] brick          bwplot         calc           cellStats     
+    ##  [29] clamp          click          coerce         colSums       
+    ##  [33] Compare        contourplot    coordinates    corLocal      
+    ##  [37] cover          crop           crosstab       cut           
+    ##  [41] cv             density        densityplot    dim           
+    ##  [45] dim<-          disaggregate   dropLayer      extend        
+    ##  [49] extent         extract        flip           freq          
+    ##  [53] getValues      getValuesBlock getValuesFocal gplot         
+    ##  [57] head           hexbinplot     hist           histogram     
+    ##  [61] horizonplot    hovmoller      identifyRaster image         
+    ##  [65] interpolate    intersect      is.factor      is.finite     
+    ##  [69] is.infinite    is.na          is.nan         isLonLat      
+    ##  [73] KML            labels         length         levelplot     
+    ##  [77] levels         levels<-       log            Logic         
+    ##  [81] mask           match          Math           Math2         
+    ##  [85] maxValue       mean           merge          minValue      
+    ##  [89] modal          mosaic         names          names<-       
+    ##  [93] ncell          ncol           nlayers        nrow          
+    ##  [97] origin         origin<-       overlay        pairs         
+    ## [101] persp          plot           plotRGB        predict       
+    ## [105] print          proj4string    proj4string<-  quantile      
+    ## [109] raster         rasterize      readAll        readStart     
+    ## [113] readStop       reclassify     res            resample      
+    ## [117] rotate         rowSums        sampleRandom   sampleRegular 
+    ## [121] scale          select         setMinMax      setValues     
+    ## [125] shift          show           splom          spplot        
+    ## [129] stack          stackSelect    streamplot     subs          
+    ## [133] subset         Summary        summary        t             
+    ## [137] tail           text           trim           unique        
+    ## [141] unstack        values         values<-       vectorplot    
+    ## [145] weighted.mean  which.max      which.min      writeRaster   
+    ## [149] xmax           xmin           xres           xyplot        
+    ## [153] ymax           ymin           yres           zonal         
+    ## [157] zoom          
     ## see '?methods' for accessing help and source code
 
     ##  [1] [             [<-           anyDuplicated as.data.frame as.raster    
-    ##  [6] boxplot       brick         coerce        coordinates   determinant  
-    ## [11] duplicated    edit          extent        extract       head         
-    ## [16] initialize    isSymmetric   Math          Math2         Ops          
-    ## [21] raster        rasterize     relist        subset        summary      
-    ## [26] surfaceArea   tail          trim          unique        weighted.mean
-    ## [31] writeValues  
+    ##  [6] barchart      boxplot       brick         cloud         coerce       
+    ## [11] contourplot   coordinates   determinant   dotplot       duplicated   
+    ## [16] edit          extent        extract       head          initialize   
+    ## [21] isSymmetric   levelplot     Math          Math2         Ops          
+    ## [26] parallel      parallelplot  raster        rasterize     relist       
+    ## [31] splom         subset        summary       surfaceArea   tail         
+    ## [36] trim          unique        weighted.mean wireframe     writeValues  
     ## see '?methods' for accessing help and source code
 
