@@ -134,10 +134,10 @@ Looking at our histogram, R has binned out the data as follows:
 
 We can use those bins to plot our raster data. We will use the `terrain.colors(3)`
 `R` function to create a palette of 3 colors to use in our plot. We can use the 
-`breaks` method to add breaks. Breaks looks for a list of numbers formatted as 
+`breaks` method to add breaks. Breaks requires a list of numbers formatted as 
 follows:
 
-c(value1,value2,value3)
+`c(value1,value2,value3)`
 
 You can include as many or as few breaks as you'd like but you need atleast 3 
 breaks to create a plot of any value.
