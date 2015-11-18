@@ -2,14 +2,16 @@
 
 #load raster package
 library(raster)
+library(rgdal)
 
 ## ----import-DTM-hillshade------------------------------------------------
+
 #import DTM
 DTM_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_dtmcrop.tif")
 #import DTM hillshade
 DTM_hill_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
 
-#	Plot hillshade using a grayscale color ramp 
+#plot hillshade using a grayscale color ramp 
 plot(DTM_hill_HARV,
     col=grey(1:100/100),
     legend=F,
@@ -22,6 +24,17 @@ plot(DTM_HARV,
      add=T,
      legend=F)
 
+
+## ----plot-DTM------------------------------------------------------------
+
+#Plot DTM 
+plot(DTM_HARV,
+     col=terrain.colors(10),
+     alpha=0.4,
+     legend=F,
+     main="NEON Digital Terrain Model\nHarvard Forest")
+
+
 ## ----explore-crs---------------------------------------------------------
 #view crs for DTM
 crs(DTM_HARV)
@@ -31,18 +44,31 @@ crs(DTM_hill_HARV)
 
 ## ----reproject-raster----------------------------------------------------
 #reproject to UTM
-DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV, crs=crs(DTM_HARV))
+DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV, 
+                                       crs=crs(DTM_HARV))
 
 #compare attributes of DTM_hill_UTMZ18N to DTM_hill
-DTM_hill_UTMZ18N_HARV
-DTM_hill_HARV
+crs(DTM_hill_UTMZ18N_HARV)
+crs(DTM_hill_HARV)
+
+#compare attributes of DTM_hill_UTMZ18N to DTM_hill
+extent(DTM_hill_UTMZ18N_HARV)
+extent(DTM_hill_HARV)
+
+
+
+## ----view-resolution-----------------------------------------------------
+
+#compare resolution
+res(DTM_hill_HARV)
+res(DTM_hill_UTMZ18N_HARV)
 
 ## ----reproject-assign-resolution-----------------------------------------
 DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV, 
                                   crs=crs(DTM_HARV),
                                   res=1)
-
-DTM_hill_UTMZ18N_HARV
+#view resolution
+res(DTM_hill_UTMZ18N_HARV)
 
 ## ----plot-projected-raster-----------------------------------------------
 
