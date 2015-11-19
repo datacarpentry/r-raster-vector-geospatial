@@ -6,7 +6,7 @@ authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Bry
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2015-11-18
+lastModified: 2015-11-19
 category: spatio-temporal-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data

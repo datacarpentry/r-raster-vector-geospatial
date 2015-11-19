@@ -7,7 +7,7 @@ Mike Smorul]
 contributors: [Test Human]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2015-11-18
+lastModified: 2015-11-19
 category: time-series-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data
