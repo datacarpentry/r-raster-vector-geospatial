@@ -7,7 +7,7 @@ Leah Wasser]
 contributors: [Test Human]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2015-11-18
+lastModified: 2015-11-19
 category: time-series-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data
@@ -110,6 +110,11 @@ In this lesson, we will
 1. Import NDVI data derived from the Landsat Sensor in raster (`geotiff`)format
 2. Plot one full year of NDVI raster time series data. 
 3. Generate an average NDVI value for each time period throughout the year.
+
+<figure>
+    <a href="/images/GreenessOverTime.png"><img src="/images/GreenessOverTime.png"></a>
+    <figcaption>A raster dataset can also contain a time series. In R, a stack of rasters will be in the same extent, CRS and resolution.</figcaption>
+</figure>
 
 ##Getting Started 
 

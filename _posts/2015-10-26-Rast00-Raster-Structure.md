@@ -5,7 +5,7 @@ date:   2015-10-29
 authors: [Kristina Riemer, Zack Brym, Jason Williams, Jeff Hollister,  Mike Smorul, Leah Wasser]
 contributors: [Megan A. Jones]
 dateCreated:  2015-10-23
-lastModified: 2015-11-18
+lastModified: 2015-11-19
 packagesLibraries: [raster, rgdal]
 category:  
 tags: [module-1]
@@ -394,6 +394,13 @@ The Digital Surface Model object ( `DSM_HARV`) that we've been working with
 is a single band raster. This means that there is only one dataset - stored in 
 the raster - surface elevation in meters, for one time period over Harvard Forest.
 
+<figure>
+    <a href="/images/
+single_multi_raster.png"><img src="/images/
+single_multi_raster.png"></a>
+    <figcaption>A raster dataset can contain one or more bands. We can use the raster function to import one single band from a single OR multi-band raster.</figcaption>
+</figure>
+
 We can view the number of bands in a raster using the `nlayers()` method. 
 
 
@@ -410,7 +417,6 @@ or more bands. We will cover multi-band rasters in Lesson 04:
 
 <a href="{{ site.baseurl }}/NEON-R-Spatial-Raster/R/Multi-Band-Rasters-In-R/" target="_blank"> Work with Multi-band Rasters: Images in R</a>.
 
-#COLIN ![Image on what bands are...]()
 
 ##View Raster File Attributes
 
