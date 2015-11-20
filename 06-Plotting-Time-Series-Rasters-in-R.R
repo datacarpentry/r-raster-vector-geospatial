@@ -19,6 +19,15 @@ all_NDVI
 NDVI_stack <- stack(all_NDVI)
 
 
+## ----plot-time-series----------------------------------------------------
+
+#view a histogram of all of the rasters
+#nc specifies number of columns
+plot(NDVI_stack, 
+     zlim = c(1500, 10000), 
+     nc = 4)
+
+
 ## ----levelplot-time-series-----------------------------------------------
 
 #create a level plot - plot

@@ -7,7 +7,7 @@ Leah Wasser]
 contributors: [Test Human]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2015-11-19
+lastModified: 2015-11-20
 category: time-series-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data
@@ -91,6 +91,7 @@ This lesson is a part of a series of raster data in R lessons:
 * [Lesson 04 - Work With Multi-Band Rasters - Images in R]({{ site.baseurl}}/R/Multi-Band-Rasters-In-R/)
 * [Lesson 05 - Raster Time Series Data in R]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/)
 * [Lesson 06 - Plot Raster Time Series Data in R Using RasterVis and LevelPlot]({{ site.baseurl}}/R/Plot-Raster-Times-Series-Data-In-R/)
+* [Lesson 07- Extract NDVI Summary Values from a Raster Time Series]({{ site.baseurl}}/R/Extract-NDVI-From-Rasters-In-R/)
 </div>
 
 In this lesson, we will use the `raster`, `rgdal` and `rasterVis` libraries.
@@ -227,7 +228,7 @@ key metadata about our data including `Coordinate Reference System (CRS)`,
 
 #Plotting Time Series Data
 
-Once we have created our `RasterStack`, we can visualization our data. Remember 
+Once we have created our `RasterStack`, we can visualize our data. Remember 
 from a previous lesson, that we can use the `plot` command to quickly plot a `RasterStack`.
 
 
@@ -240,44 +241,11 @@ from a previous lesson, that we can use the `plot` command to quickly plot a `Ra
 
 ![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/plot-time-series-1.png) 
 
-However, if we have the `rasterVis` package loaded, we can create a nicer plot 
-using the `levelplot` function. 
-
-* <a href="http://oscarperpinan.github.io/rastervis/" target="_blank">More on the 
-rasterVis library</a>
-
-Let's check it out.
-
-
-    library(rasterVis)
-    
-    #create a level plot - plot
-    levelplot(NDVI_stack,
-              main="Landsat NDVI\nHarvard Forest")
-
-![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/levelplot-time-series-1.png) 
-
-##Adjust the Color Ramp
-
-Let's change the red color ramp to a green one that is more suited to our data.
-We can do that using the `colorRampPalette` function in r in combination with 
-`colorBrewer`. 
-
-
-    #use color brewer which loads with rasterVis to generate
-    #a color ramp of yellow to green
-    cols <- colorRampPalette(brewer.pal(9,"YlGn"))
-    #create a level plot - plot
-    levelplot(NDVI_stack,
-              main="Landsat NDVI better colors \nHarvard Forest",
-              col.regions=cols)
-
-![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/change-color-ramp-1.png) 
-
 
 Note: we can make the `levelplot` even prettier by fixing the individual tile
 names. We will cover this in 
 [Lesson 06 - Plot Time Series Rasters in R ]({{ site.baseurl }}/R/Plot-Raster-Times-Series-Data-In-R/)
+{ : .notice }
 
 ##Taking a Closer Look at Our Data
 
@@ -291,7 +259,8 @@ than viewing images?
 
 
     #create histogram
-    hist(NDVI_stack, xlim = c(0, 10000))
+    hist(NDVI_stack, 
+         xlim = c(0, 10000))
 
 ![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/view-stack-histogram-1.png) 
 
