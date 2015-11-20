@@ -1,8 +1,8 @@
 ---
 layout: post_by_tag
-title: 'Module 2 Lessons'
-tag: module-2
-permalink: module-2/
+title: 'Raster Time Series Data Lesson Workshop'
+tag: raster-ts-wrksp
+permalink: raster-ts-wrksp/
 image:
   feature: NEONCarpentryHeader_2.png
   credit: National Ecological Observatory Network (NEON)

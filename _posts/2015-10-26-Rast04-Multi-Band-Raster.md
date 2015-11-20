@@ -280,11 +280,7 @@ Notice that band 2 is band 2 of 3 bands.
 
 Next, we will explore working with all 3 bands - using a `RasterStack`. 
 
-```{ r challenge1-answer, echo=FALSE }
-#We'd expect a *brighter* value for the forest in band 2 (green) than in 
-#band 1 (red) because most trees appear green. 
 
-```
 
 #Raster Stacks in R
 We have now explored individual bands in a multi-band raster. Let's bring in all
@@ -441,16 +437,14 @@ directory.
 `HARV_Ortho_wNA.tif` and `HARV_RGB_Ortho.tif` (`R` object RGB_stack). How can you
 check?
 
-Answer the questions above  using the functions we have covered so far in this
+Answer the questions above using the functions we have covered so far in this
 lesson.
 
 ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/challenge-code-NoData-1.png) 
 
 > Bonus: So far we've created a RasterStack from multiple bands in one GeoTIFF, 
 > however, you can also create a RasterStack by combining single bands from 
-> multiple files. If you want to know more about how to do this, check out the 
-> `Working with multiple rasters using Raster Stacks and Raster Bricks` section 
-> of NEON's WorkWithData lesson <a href="http://neondataskills.org/R/Image-Raster-Data-In-R/" target="_blank" >Image Raster Data in R </a>.  
+> multiple files. We will cover this in [Lesson 05 - Raster Time Series Data in R]({{ site.baseurl }}R/Raster-Times-Series-Data-In-R/).  
 
 ##RasterStack vs RasterBrick in R
 
