@@ -9,7 +9,7 @@ packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
 lastModified: 2015-11-20
 category: time-series-workshop
-tags: [module-1]
+tags: [raster-ts-wrksp, raster]
 mainTag: GIS-Spatial-Data
 description: "This lesson covers how to work with a raster time series, using the
 R RasterStack object. It also covers how practical assessment of data quality in
