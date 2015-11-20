@@ -8,7 +8,7 @@ packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`
 category: spatio-temporal-workshop
-tags: [module-1]
+tags: [raster-ts-wrksp, raster]
 mainTag: GIS-Spatial-Data
 description: "This lesson covers how to use the overlay function in R to perform
 efficient raster calculations. It also explains the basic principles of writing
@@ -94,7 +94,8 @@ as a Canopy Height Model (CHM) and represents the actual height of trees,
 buildings, etc with the influence of ground elevation removed.
 
 <figure>
-    <a href="/images/lidarTree-height.png"><img src="/images/lidarTree-height.png"></a>
+    <a href="{{ site.baseurl }}/images/lidarTree-height.png">
+    <img src="{{ site.baseurl }}/images/lidarTree-height.png"></a>
     <figcaption>A canopy height model represents the difference between the digital 
     surface model and a digital terrain model. It represents the actual height 
     of the trees with the influence of elevation, removed.</figcaption>

@@ -143,8 +143,10 @@ In this lesson, we will
 3. Generate an average NDVI value for each time period throughout the year.
 
 <figure>
-    <a href="/images/GreenessOverTime.png"><img src="/images/GreenessOverTime.png"></a>
-    <figcaption>A raster dataset can also contain a time series. In R, a stack of rasters will be in the same extent, CRS and resolution.</figcaption>
+    <a href="{{ site.baseurl }}/images/GreenessOverTime.png">
+    <img src="{{ site.baseurl }}/images/GreenessOverTime.png"></a>
+    <figcaption>A raster dataset can also contain a time series. In R, a stack of rasters 
+    will be in the same extent, CRS and resolution.</figcaption>
 </figure>
 
 ##Getting Started 

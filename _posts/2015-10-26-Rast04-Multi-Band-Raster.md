@@ -84,10 +84,10 @@ As discussed in the [Intro to Raster Data Lesson 00]( {{ base.url }} }}NEON-R-Sp
 contain 1 or more bands.
 
 <figure>
-    <a href="/images/
-single_multi_raster.png"><img src="/images/
-single_multi_raster.png"></a>
-    <figcaption>A raster dataset can contain one or more bands. We can use the raster function to import one single band from a single OR multi-band raster.</figcaption>
+    <a href="{{ site.baseurl }}/images/single_multi_raster.png">
+    <img src="{{ site.baseurl }}/images/single_multi_raster.png"></a>
+    <figcaption>A raster dataset can contain one or more bands. We can use the raster 
+    function to import one single band from a single OR multi-band raster.</figcaption>
 </figure>
 
 To work with multi-band rasters, we need to change how 
@@ -115,7 +115,7 @@ three bands: red, green, and blue. The pixel brightness for each band, when
 composited creates the colors that we see in an image. 
 
 <figure>
-    <a href="/images/RGBSTack_1.png"><img src="/images/RGBSTack_1.png"></a>
+    <a href="{{ site.baseurl }}/images/RGBSTack_1.png"><img src="{{ site.baseurl }}/images/RGBSTack_1.png"></a>
     <figcaption>A color image consists of 3 bands - red, green and blue. When
     rendered together in a GIS, or even a tool like Photoshop or any other
     image software, they create a color image.</figcaption>
