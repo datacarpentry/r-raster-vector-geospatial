@@ -9,7 +9,7 @@ dateCreated:  2015-10-23
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`
 category: spatio-temporal-workshop
 tags: [raster-ts-wrksp, raster]
-mainTag: GIS-Spatial-Data
+mainTag: raster-ts-wrksp
 description: "This lesson covers how to use the overlay function in R to perform
 efficient raster calculations. It also explains the basic principles of writing
 functions in R."

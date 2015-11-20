@@ -9,7 +9,7 @@ dateCreated:  2015-10-23
 lastModified: 2015-11-20
 category: spatio-temporal-workshop
 tags: [raster-ts-wrksp, raster]
-mainTag: GIS-Spatial-Data
+mainTag: raster-ts-wrksp
 description: "This lesson explains how to reproject a raster in R using the
 projectRaster() function in the raster package."
 code1: Reproject-Raster-In-R.R

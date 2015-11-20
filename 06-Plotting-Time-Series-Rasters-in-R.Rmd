@@ -10,7 +10,7 @@ dateCreated:  2014-11-26
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`
 category: time-series-workshop
 tags: [raster-ts-wrksp, raster]
-mainTag: GIS-Spatial-Data
+mainTag: raster-ts-wrksp
 description: "This lesson covers how to improve plotting output using the rasterVis
 library in R. Specifically it covers using levelplot, and adding meaningful custom 
 names to bands within a RasterStack."

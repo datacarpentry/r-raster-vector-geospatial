@@ -9,7 +9,7 @@ dateCreated:  2015-10-23
 lastModified: 2015-11-20
 category: spatio-temporal-workshop
 tags: [raster-ts-wrksp, raster]
-mainTag: GIS-Spatial-Data
+mainTag: raster-ts-wrksp
 description: "This lesson explores how to import and plot a multi-band raster in
 R. It also covers how to plot a three band color image plotRGB command in R"
 code1: 
@@ -76,6 +76,7 @@ This lesson is a part of a series of raster data in R lessons:
 * [Lesson 04 - Work With Multi-Band Rasters - Images in R]({{ site.baseurl}}/R/Multi-Band-Rasters-In-R/)
 * [Lesson 05 - Raster Time Series Data in R]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/)
 * [Lesson 06 - Plot Raster Time Series Data in R Using RasterVis and LevelPlot]({{ site.baseurl}}/R/Plot-Raster-Times-Series-Data-In-R/)
+* [Lesson 07- Extract NDVI Summary Values from a Raster Time Series]({{ site.baseurl}}/R/Extract-NDVI-From-Rasters-In-R/)
 </div>
 
 #About Raster Bands
