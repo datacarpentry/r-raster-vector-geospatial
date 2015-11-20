@@ -79,6 +79,12 @@ plot(RGB_band2_HARV,
 RGB_band2_HARV
 
 
+## ----challenge1-answer, echo=FALSE---------------------------------------
+
+#We'd expect a *brighter* value for the forest in band 2 (green) than in 
+#band 1 (red) because most trees appear green. 
+
+
 ## ----intro-to-raster-stacks----------------------------------------------
 
 # Use stack function to read in all bands
