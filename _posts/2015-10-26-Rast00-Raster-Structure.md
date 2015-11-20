@@ -8,7 +8,7 @@ dateCreated: 2015-10-23
 lastModified: 2015-11-20
 packagesLibraries: [raster, rgdal]
 category:  
-tags: [module-1]
+tags: [raster-ts-wrksp, raster]
 mainTag: GIS-Spatial-Data
 description: "This lesson review the fundamental principles, libraries and 
 metadata / raster attributes that you need to be familiar with in order to 

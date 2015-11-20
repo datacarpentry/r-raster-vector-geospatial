@@ -8,7 +8,7 @@ packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
 lastModified: 2015-11-20
 category: spatio-temporal-workshop
-tags: [module-1]
+tags: [raster-ts-wrksp, raster]
 mainTag: GIS-Spatial-Data
 description: "This lesson explores how to import and plot a multi-band raster in
 R. It also covers how to plot a three band color image plotRGB command in R"

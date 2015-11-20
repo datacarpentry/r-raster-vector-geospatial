@@ -9,7 +9,7 @@ packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
 lastModified: 2015-11-20
 category: time-series-workshop
-tags: [module-1]
+tags: [raster-ts-wrksp, raster]
 mainTag: GIS-Spatial-Data
 description: "This lesson covers how to improve plotting output using the rasterVis
 library in R. Specifically it covers using levelplot, and adding meaningful custom 

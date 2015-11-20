@@ -8,7 +8,7 @@ packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
 lastModified: 2015-11-20
 category: spatio-temporal-workshop
-tags: [module-1]
+tags: [raster-ts-wrksp, raster]
 mainTag: GIS-Spatial-Data
 description: "This lesson explains how to reproject a raster in R using the
 projectRaster() function in the raster package."

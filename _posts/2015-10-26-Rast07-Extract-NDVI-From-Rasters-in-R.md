@@ -9,7 +9,7 @@ packagesLibraries: [raster, rgdal]
 dateCreated:  2014-11-26
 lastModified: 2015-11-20
 category: time-series-workshop
-tags: [module-1]
+tags: [raster-ts-wrksp, raster]
 mainTag: GIS-Spatial-Data
 description: "This lesson will explore a way to extract NDVI index values from a
 raster time series in R and plot them using GGPLOT. Methods learned in this lesson could be applied to any 
@@ -206,7 +206,7 @@ called "site". We can populate this with the site name.
 
 
 
-#Extract Julian Day from `row.names`
+#Extract Julian Day from row.names
 
 We'd like to produce a plot where Julian Days is on the X axis and NDVI is on the 
 Y axis. To do this, we'll need a column that is populated with Julian Day values
