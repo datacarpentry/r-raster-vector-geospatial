@@ -396,10 +396,10 @@ is a single band raster. This means that there is only one dataset - stored in
 the raster - surface elevation in meters, for one time period over Harvard Forest.
 
 <figure>
-    <a href="/images/
-single_multi_raster.png"><img src="/images/
-single_multi_raster.png"></a>
-    <figcaption>A raster dataset can contain one or more bands. We can use the raster function to import one single band from a single OR multi-band raster.</figcaption>
+    <a href="{{ site.baseurl }}/images/single_multi_raster.png">
+    <img src="{{ site.baseurl }}/images/single_multi_raster.png"></a>
+    <figcaption>A raster dataset can contain one or more bands. We can use the raster 
+    function to import one single band from a single OR multi-band raster.</figcaption>
 </figure>
 
 We can view the number of bands in a raster using the `nlayers()` method. 

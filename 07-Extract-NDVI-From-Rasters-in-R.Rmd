@@ -9,7 +9,7 @@ packagesLibraries: [raster, rgdal]
 dateCreated:  2014-11-26
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`
 category: time-series-workshop
-tags: [module-1]
+tags: [raster-ts-wrksp, raster]
 mainTag: GIS-Spatial-Data
 description: "This lesson will explore a way to extract NDVI index values from a
 raster time series in R and plot them using GGPLOT. Methods learned in this lesson could be applied to any 
