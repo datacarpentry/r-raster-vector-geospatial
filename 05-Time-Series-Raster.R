@@ -2,6 +2,7 @@
 
 library(raster)
 library(rgdal)
+library(rasterVis)
 
 
 ## ----import-ndvi-rasters-------------------------------------------------
@@ -61,6 +62,12 @@ levelplot(NDVI_stack,
 
 
 
+## ----view-stack-histogram------------------------------------------------
+
+#create histogram
+hist(NDVI_stack, xlim = c(0, 10000))
+
+
 ## ----view-temp-data, echo=FALSE------------------------------------------
 
 library(ggplot2)
@@ -89,22 +96,14 @@ myPlot <- ggplot(yr.09.11_monAvg,aes(date, airt)) +
 myPlot + scale_x_date(labels = date_format("%m/%d/%y"))
 
 
-## ----view-stack-histogram------------------------------------------------
-
-#create histogram
-hist(NDVI_stack, xlim = c(0, 10000))
-
-# TODO: Challenge: two of the times have weird values because of clouds, have them figure that out
-
-
-#http://oscarperpinan.github.io/rastervis/
-
 ## ----view-all-rgb, echo=FALSE--------------------------------------------
 # we can create a prettier time series using level plot
 
 #open up the cropped files
 #create list of files to make raster stack
-rgb.allCropped <-  list.files("Landsat_NDVI/HARV/2011/RGB/", full.names=TRUE, pattern = ".tif$")
+rgb.allCropped <-  list.files("Landsat_NDVI/HARV/2011/RGB/", 
+                              full.names=TRUE, 
+                              pattern = ".tif$")
 
 #create a layout
 par(mfrow=c(4,4))
