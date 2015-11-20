@@ -6,7 +6,7 @@ authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Bry
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2015-11-19
+lastModified: 2015-11-20
 category: spatio-temporal-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data
@@ -81,6 +81,7 @@ This lesson is a part of a series of raster data in R lessons:
 * [Lesson 04 - Work With Multi-Band Rasters - Images in R]({{ site.baseurl}}/R/Multi-Band-Rasters-In-R/)
 * [Lesson 05 - Raster Time Series Data in R]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/)
 * [Lesson 06 - Plot Raster Time Series Data in R Using RasterVis and LevelPlot]({{ site.baseurl}}/R/Plot-Raster-Times-Series-Data-In-R/)
+* [Lesson 07- Extract NDVI Summary Values from a Raster Time Series]({{ site.baseurl}}/R/Extract-NDVI-From-Rasters-In-R/)
 </div>
 
 #Raster Calculations in R
@@ -88,8 +89,9 @@ We often want to perform calculations on two or more rasters to create a new
 output raster. For example, if we are interested in mapping the heights of trees
 across an entire field site, we might want to calculate the *difference* between 
 the Digital Surface Model (DSM, tops of trees) and the 
-Digital Terrain Model (DTM, ground level). The resulting dataset is referred to as a Canopy Height Model (CHM) and represents the actual height of trees, buildings, etc with 
-the influence of ground elevation removed.
+Digital Terrain Model (DTM, ground level). The resulting dataset is referred to 
+as a Canopy Height Model (CHM) and represents the actual height of trees, 
+buildings, etc with the influence of ground elevation removed.
 
 <figure>
     <a href="/images/lidarTree-height.png"><img src="/images/lidarTree-height.png"></a>
@@ -98,7 +100,7 @@ the influence of ground elevation removed.
     of the trees with the influence of elevation, removed.</figcaption>
 </figure>
 
-> * <a href="http://neondataskills.org/remote-sensing/2_LiDAR-Data-Concepts_Activity2/" target="_blank">More on lidar CHM, DTM and DSM here.</a>
+> * <a href="http://neondataskills.org/remote-sensing/2_LiDAR-Data-Concepts_Activity2/" target="_blank">More on LiDAR CHM, DTM and DSM here.</a>
 
 We can calculate the difference between two rasters in two different ways:
 

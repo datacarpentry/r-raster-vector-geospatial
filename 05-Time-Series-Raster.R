@@ -42,30 +42,11 @@ plot(NDVI_stack,
      nc = 4)
 
 
-## ----levelplot-time-series-----------------------------------------------
-
-library(rasterVis)
-
-#create a level plot - plot
-levelplot(NDVI_stack,
-          main="Landsat NDVI\nHarvard Forest")
-
-
-## ----change-color-ramp---------------------------------------------------
-#use color brewer which loads with rasterVis to generate
-#a color ramp of yellow to green
-cols <- colorRampPalette(brewer.pal(9,"YlGn"))
-#create a level plot - plot
-levelplot(NDVI_stack,
-          main="Landsat NDVI better colors \nHarvard Forest",
-          col.regions=cols)
-
-
-
 ## ----view-stack-histogram------------------------------------------------
 
 #create histogram
-hist(NDVI_stack, xlim = c(0, 10000))
+hist(NDVI_stack, 
+     xlim = c(0, 10000))
 
 
 ## ----view-temp-data, echo=FALSE------------------------------------------

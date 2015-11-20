@@ -1,19 +1,19 @@
 ---
 layout: post
-title: "Lesson 07: Extract NDVI"
+title: "Lesson 07: Extract NDVI Summary Values from a Raster Time Series"
 date:   2015-10-22
 authors: [Leah Wasser, Kristina Riemer, Zack Bryn, Jason Williams, Jeff Hollister, 
 Mike Smorul]
 contributors: [Test Human]
-packagesLibraries: [raster, rgdal, rasterVis]
+packagesLibraries: [raster, rgdal]
 dateCreated:  2014-11-26
-lastModified: 2015-11-19
+lastModified: 2015-11-20
 category: time-series-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data
-description: "This lesson covers how to improve plotting output using the rasterVis
-library in R. Specifically it covers using levelplot, and adding meaningful custom 
-names to bands within a RasterStack."
+description: "This lesson will explore a way to extract NDVI index values from a
+raster time series in R and plot them using GGPLOT. Methods learned in this lesson could be applied to any 
+raster time series"
 code1: 
 image:
   feature: NEONCarpentryHeader_2.png
@@ -37,8 +37,8 @@ rasters in `R`.
 
 After completing this activity, you will know:
 
-* How to assign custom names to bands in a RasterStack for prettier plotting.
-* Advanced plotting using `rasterVis` library and `levelplot`
+* How to extract summary pixel values from a raster.
+* 
 
 ###Things You'll Need To Complete This Lesson
 
@@ -46,11 +46,7 @@ After completing this activity, you will know:
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
-* **rasterVis:** `install.packages("rasterVis")`
 
-Note: the `rasterVis` library can be used to create nicer plots of raster time
-series data! <a href="https://cran.r-project.org/web/packages/rasterVis/rasterVis.pdf"
-target="_blank">Learn More about the rasterVis library</a>
 
 ####Tools To Install
 
@@ -87,11 +83,13 @@ This lesson is a part of a series of raster data in R lessons:
 * [Lesson 04 - Work With Multi-Band Rasters - Images in R]({{ site.baseurl}}/R/Multi-Band-Rasters-In-R/)
 * [Lesson 05 - Raster Time Series Data in R]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/)
 * [Lesson 06 - Plot Raster Time Series Data in R Using RasterVis and LevelPlot]({{ site.baseurl}}/R/Plot-Raster-Times-Series-Data-In-R/)
+* [Lesson 07- Extract NDVI Summary Values from a Raster Time Series]({{ site.baseurl}}/R/Extract-NDVI-From-Rasters-In-R/)
 </div>
 
 
     library(raster)
     library(rgdal)
+    library(ggplot2)
 
 #About the Time Series Data
 
@@ -108,12 +106,12 @@ To begin, we will use the same raster stack that we used in the previous lesson.
 
 
     # Create list of NDVI file paths
-    NDVI_path <- "Landsat_NDVI/HARV/2011/ndvi"
-    all_NDVI <- list.files(NDVI_path, full.names = TRUE, pattern = ".tif$")
+    NDVI_path_HARV <- "Landsat_NDVI/HARV/2011/ndvi"
+    all_NDVI_HARV <- list.files(NDVI_path_HARV, full.names = TRUE, pattern = ".tif$")
     
     #view list - note that the full path (relative to our working directory)
     #is included
-    all_NDVI
+    all_NDVI_HARV
 
     ##  [1] "Landsat_NDVI/HARV/2011/ndvi/005_HARV_ndvi_crop.tif"
     ##  [2] "Landsat_NDVI/HARV/2011/ndvi/037_HARV_ndvi_crop.tif"
@@ -130,39 +128,166 @@ To begin, we will use the same raster stack that we used in the previous lesson.
     ## [13] "Landsat_NDVI/HARV/2011/ndvi/309_HARV_ndvi_crop.tif"
 
     # Create a time series raster stack
-    NDVI_stack <- stack(all_NDVI)
+    NDVI_stack_HARV <- stack(all_NDVI_HARV)
+
+Once we have created a raster stack, we can efficiently work with our time series.
+
+#Calculate Average NDVI
+
+Our output goal is a dataframe that contains a single, mean NDVI value for each
+raster in our time series. We can calculate the mean for each raster using the
+`cellStats` function. This produces a numeric array of values.
 
 
-    #create data frame, calculate NDVI
-    ndvi.df.HARV <- as.data.frame(matrix(-999, ncol = 2, nrow = length(all_NDVI)))
+    #calculate mean NDVI for each raster
+    avg_NDVI_HARV <- cellStats(NDVI_stack_HARV,mean)
     
-    colnames(ndvi.df.HARV) <- c("julianDays", "meanNDVI")
+    #convert output to data.frame
+    avg_NDVI_HARV <- as.data.frame(avg_NDVI_HARV)
     
-    i <- 0
+    #We can do the above two steps with one line of code
+    avg_NDVI_HARV <- as.data.frame(cellStats(NDVI_stack_HARV,mean))
     
-    for (aRaster in all_NDVI){
-      i=i+1
-      #open raster
-      oneRaster <- raster(aRaster)
-      
-      #calculate the mean of each
-      ndvi.df.HARV$meanNDVI[i] <- cellStats(oneRaster,mean) 
-      
-      #grab julian days
-      ndvi.df.HARV$julianDays[i] <- substr(aRaster,nchar(aRaster)-21,nchar(aRaster)-19)
-    }
+    avg_NDVI_HARV
+
+    ##                     cellStats(NDVI_stack_HARV, mean)
+    ## X005_HARV_ndvi_crop                          3651.50
+    ## X037_HARV_ndvi_crop                          2426.45
+    ## X085_HARV_ndvi_crop                          2513.90
+    ## X133_HARV_ndvi_crop                          5993.00
+    ## X181_HARV_ndvi_crop                          8787.25
+    ## X197_HARV_ndvi_crop                          8932.50
+    ## X213_HARV_ndvi_crop                          8783.95
+    ## X229_HARV_ndvi_crop                          8815.05
+    ## X245_HARV_ndvi_crop                          8501.20
+    ## X261_HARV_ndvi_crop                          7963.60
+    ## X277_HARV_ndvi_crop                           330.50
+    ## X293_HARV_ndvi_crop                           568.95
+    ## X309_HARV_ndvi_crop                          5411.30
+
+Let's explore our output `data.frame`. Each row has a name corresponding with the
+raster name in our stack
+
+
+    #view row names for data frame
+    row.names(avg_NDVI_HARV)
+
+    ##  [1] "X005_HARV_ndvi_crop" "X037_HARV_ndvi_crop" "X085_HARV_ndvi_crop"
+    ##  [4] "X133_HARV_ndvi_crop" "X181_HARV_ndvi_crop" "X197_HARV_ndvi_crop"
+    ##  [7] "X213_HARV_ndvi_crop" "X229_HARV_ndvi_crop" "X245_HARV_ndvi_crop"
+    ## [10] "X261_HARV_ndvi_crop" "X277_HARV_ndvi_crop" "X293_HARV_ndvi_crop"
+    ## [13] "X309_HARV_ndvi_crop"
+
+    #view the first value in the data.frame
+    avg_NDVI_HARV[1,1]
+
+    ## [1] 3651.5
+
+    #view column names
+    names(avg_NDVI_HARV)
+
+    ## [1] "cellStats(NDVI_stack_HARV, mean)"
+
+    #rename the NDVI column
+    names(avg_NDVI_HARV) <- "meanNDVI"
     
-    ndvi.df.HARV$yr <- as.integer(2011)
-    ndvi.df.HARV$site <- "SJER"
+    #view cleaned column names
+    names(avg_NDVI_HARV)
+
+    ## [1] "meanNDVI"
+
+We are only working with one site now, however we might want to compare several
+sites worth of data. To allow us to do this, let's add a column to our `data.frame`
+called "site". We can populate this with the site name.
+
+
+    #add a site column to our data
+    avg_NDVI_HARV$site <- "HARV"
+
+
+
+#Extract Julian Day from `row.names`
+
+We'd like to produce a plot where Julian Days is on the X axis and NDVI is on the 
+Y axis. To do this, we'll need a column that is populated with Julian Day values
+for each NDVI value. We can do this using several approaches. For this lesson, 
+e will use `gsub` to replace the `X` and the `_HARV_ndvi_crop`.
+
+
+    #note the use of | is equivalent to "or". this allows us to search for more than
+    #one pattern in our text strings
+    julianDays <- gsub(pattern = "X|_HARV_ndvi_crop", #the pattern to find 
+                x = row.names(avg_NDVI_HARV), #the object containing the strings
+                replacement = "") #what to replace each instance of the pattern with
     
+    #make sure output looks ok
+    head(julianDays)
+
+    ## [1] "005" "037" "085" "133" "181" "197"
+
+    #add julianDay values as a column in the dataframe
+    avg_NDVI_HARV$julianDay <- julianDays
+    
+    #what class is the new column
+    class(avg_NDVI_HARV$julianDay)
+
+    ## [1] "character"
+
+    #convert julian days into a time class
+    #avg_NDVI_HARV$julianDay <- as.POSIXlt(avg_NDVI_HARV$julianDay, format="%j")
+    
+    #the code above does weird things. for one i think jday is 0 based indexing
+    #but also it seems to want a year and defaults to 2015. i am not sure how to force 
+    #it to 2011 which is when the data were collected
+    #being lazy and useing int for the time being.
+    avg_NDVI_HARV$julianDay <- as.integer(avg_NDVI_HARV$julianDay)
+    
+    # Parse that character vector
+    #strptime(date_info, "%Y %j")
+
+#Scale Data
+The last thing that we need to do it so scale our data. Valid NDVI values range 
+between 0-1. The metadata included a `ScaleFactor`. NDVI data are scaled by a 
+factor of 10,000. A scale factor is commonly used in larger datasets. Storing decimal
+places actually consumes more space and creates larger file sizes compared to 
+storing integer values.
+
+
+    #scale data by 10,000
+    avg_NDVI_HARV$meanNDVI <- avg_NDVI_HARV$meanNDVI / 10000
+    #view output
+    head(avg_NDVI_HARV)
+
+    ##                     meanNDVI site julianDay
+    ## X005_HARV_ndvi_crop 0.365150 HARV         5
+    ## X037_HARV_ndvi_crop 0.242645 HARV        37
+    ## X085_HARV_ndvi_crop 0.251390 HARV        85
+    ## X133_HARV_ndvi_crop 0.599300 HARV       133
+    ## X181_HARV_ndvi_crop 0.878725 HARV       181
+    ## X197_HARV_ndvi_crop 0.893250 HARV       197
+
+#Plot NDVI Using GGPLOT
+
+We now have a clean `data.frame` with properly scaled NDVI and julian days.
+Let's plot our data.
+
+
     #plot NDVI
-    ggplot(ndvi.df.HARV, aes(julianDays, meanNDVI)) +
+    ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI)) +
       geom_point(size=4,colour = "blue") + 
       ggtitle("NDVI for HARV 2011\nLandsat Derived") +
       xlab("Julian Days") + ylab("Mean NDVI") +
       theme(text = element_text(size=20))
 
-![ ]({{ site.baseurl }}/images/rfigs/07-Extract-NDVI-From-Rasters-in-R copy/unnamed-chunk-1-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/07-Extract-NDVI-From-Rasters-in-R/plot-data-1.png) 
+
+> ##Challenges
+>
+> 1. Customize your final ggplot output. Change the color of the data points
+> 2. Calculate average NDVI for all rasters in the Landsat_NDVI/SJER/2013/ndvi
+> directory. Then create a plot that renders BOTH sites as a comparison.
 
 
+
+![ ]({{ site.baseurl }}/images/rfigs/07-Extract-NDVI-From-Rasters-in-R/challenge-answers-1.png) 
 

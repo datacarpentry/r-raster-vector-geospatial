@@ -7,7 +7,7 @@ Mike Smorul]
 contributors: [Test Human]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2015-11-19
+lastModified: 2015-11-20
 category: time-series-workshop
 tags: [module-1]
 mainTag: GIS-Spatial-Data
@@ -74,6 +74,17 @@ headquarters. The entire dataset can be accessed by request from the NEON websit
 * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
 Read more about the `raster` package in R.</a>
 
+####Raster Lesson Series 
+This lesson is a part of a series of raster data in R lessons:
+
+* [Lesson 00 - Intro to Raster Data in R]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R/)
+* [Lesson 01 - Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/)
+* [Lesson 02 - Reproject Raster Data in R]({{ site.baseurl}}/R/Reproject-Raster-In-R/)
+* [Lesson 03 - Raster Calculations in R]({{ site.baseurl}}/R/Raster-Calculations-In-R/)
+* [Lesson 04 - Work With Multi-Band Rasters - Images in R]({{ site.baseurl}}/R/Multi-Band-Rasters-In-R/)
+* [Lesson 05 - Raster Time Series Data in R]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/)
+* [Lesson 06 - Plot Raster Time Series Data in R Using RasterVis and LevelPlot]({{ site.baseurl}}/R/Plot-Raster-Times-Series-Data-In-R/)
+* [Lesson 07- Extract NDVI Summary Values from a Raster Time Series]({{ site.baseurl}}/R/Extract-NDVI-From-Rasters-In-R/)
 </div>
 
 
@@ -120,8 +131,22 @@ To begin, we will use the same raster stack that we used in the previous lesson.
     # Create a time series raster stack
     NDVI_stack <- stack(all_NDVI)
 
-In the previous lesson, we used the `rasterVis` package and the `levelplot` function
-to create a nicer looking plot of our raster time series.  
+In the previous lesson, we used the `plot` function
+to plot our raster time series.
+
+
+    #view a histogram of all of the rasters
+    #nc specifies number of columns
+    plot(NDVI_stack, 
+         zlim = c(1500, 10000), 
+         nc = 4)
+
+![ ]({{ site.baseurl }}/images/rfigs/06-Plotting-Time-Series-Rasters-in-R/plot-time-series-1.png) 
+
+In this lesson we will refine our plot using `levelplot` from the `rasterVis`
+library. The syntax is similar to plot.
+
+* <a href="http://oscarperpinan.github.io/rastervis/" target="_blank">More on the rasterVis library</a>
 
 
     #create a level plot - plot
@@ -169,7 +194,7 @@ Note that we can use the `|` to replace more than one element. For example
 `X|_HARV` tells R to replace all instances of both `X` and `_HARV` in the string.
 Example: 
 `gsub("X|_HARV_ndvi_crop","","X005_HARV_ndvi_crop")`
-{ : .notice }
+{: .notice }
 
 
 
@@ -228,7 +253,7 @@ we adjust the layout to be a matrix of 4 columns and 4 rows.
 ![ ]({{ site.baseurl }}/images/rfigs/06-Plotting-Time-Series-Rasters-in-R/adjust-layout-1.png) 
 
 CHALLENGE -- change the X in each layer name to `Julian_` to label each plot.
-{ : .notice }
+{: .notice }
 
 
 
