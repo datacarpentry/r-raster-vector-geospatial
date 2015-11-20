@@ -10,7 +10,7 @@ dateCreated:  2014-11-26
 lastModified: 2015-11-20
 category: time-series-workshop
 tags: [raster-ts-wrksp, raster]
-mainTag: GIS-Spatial-Data
+mainTag: raster-ts-wrksp
 description: "This lesson covers how to work with a raster time series, using the
 R RasterStack object. It also covers how practical assessment of data quality in
 Remote Sensing derived imagery. Finally it covers pretty raster time series plotting 

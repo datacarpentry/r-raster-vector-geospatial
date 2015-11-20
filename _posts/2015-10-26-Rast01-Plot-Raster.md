@@ -10,7 +10,7 @@ dateCreated:  2015-10-23
 lastModified: 2015-11-20
 category: spatio-temporal-workshop
 tags: [raster-ts-wrksp, raster]
-mainTag: GIS-Spatial-Data
+mainTag: raster-ts-wrksp
 description: "This lesson reviews how to plot a raster in R using the plot() 
 command. It also covers how to overlay a raster on top of a hillshade for a 
 eloquent map.

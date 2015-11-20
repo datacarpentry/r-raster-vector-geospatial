@@ -9,7 +9,7 @@ lastModified: 2015-11-20
 packagesLibraries: [raster, rgdal]
 category:  
 tags: [raster-ts-wrksp, raster]
-mainTag: GIS-Spatial-Data
+mainTag: raster-ts-wrksp
 description: "This lesson review the fundamental principles, libraries and 
 metadata / raster attributes that you need to be familiar with in order to 
 successfully work with raster data in R."
