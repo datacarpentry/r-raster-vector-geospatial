@@ -94,21 +94,21 @@ To work with multi-band rasters, we need to change how
 we import and plot our data in several ways. 
 
 * To import multi band raster data we will use the `stack()` function.
-* If our multi-band data are imagery that we wish to composite (spatial data
-term essentially meaning, to view multiple bands together), we can use
-`plotRGB()` (instead of `plot`) to plot a composite 3 band raster image.
+* If our multi-band data are imagery that we wish to composite, we can use
+`plotRGB()` (instead of `plot`) to plot a 3 band raster image.
 
 Want to learn more? The video below, covers the basics of what a multi-band 
 images are:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/3iaFzafWJQE" frameborder="0" allowfullscreen></iframe>
 
+To work with multi-band rasters, we will use the `raster` and `rgdal` libraries.
 
 
     library(raster)
     library(rgdal)
 
-#About Multi Band Imagery
+#About Multi-Band Imagery
 A raster dataset can store multiple bands. One type of multi-band raster dataset 
 that is familiar to many of us is a color image. A basic color image consists of 
 three bands: red, green, and blue. The pixel brightness for each band, when 
@@ -116,7 +116,9 @@ composited creates the colors that we see in an image.
 
 <figure>
     <a href="/images/RGBSTack_1.png"><img src="/images/RGBSTack_1.png"></a>
-    <figcaption>A color image consists of 3 bands - red, green and blue.</figcaption>
+    <figcaption>A color image consists of 3 bands - red, green and blue. When
+    rendered together in a GIS, or even a tool like Photoshop or any other
+    image software, they create a color image.</figcaption>
 </figure>
 
 We can plot each band of a multi-band image individually. 
@@ -149,15 +151,16 @@ Or we can composite all three bands together to make a color image.
 
 Multi-band raster data might also contain:
 
-1. Time series: same variable, over the same area, over time. [Check out Lesson 04
-- Raster time series data in R to learn more about time series stacks]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/).
+1. Time series: same variable, over the same area, over time. 
+[Check out Lesson 04 - Raster time series data in R to learn more about time series stacks]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/).
 2. Multi-hyperspectral imagery: that might have 4 or more bands up to 400+ bands 
-of image data! Check out a lesson on < a href="http://neondataskills.org/HDF5/Imaging-Spectroscopy-HDF5-In-R/" target="_blank">
+of image data! Check out a lesson on 
+<a href="http://neondataskills.org/HDF5/Imaging-Spectroscopy-HDF5-In-R/" target="_blank">
 hyperspectral imagery here.</a>
 
 NOTE: In a multi-band dataset, the rasters will always have the same extent,
 CRS and resolution.
-{ : .notice }
+{: .notice }
 
 In this lesson, the multi-band data that we are working with is imagery
 collected using the <a href="http://http://www.neoninc.org/science-design/collection-methods/airborne-remote-sensing" target="_blank">NEON Airborne Observation Platform</a> high resolution camera over
@@ -275,6 +278,7 @@ Notice that band 2 is band 2 of 3 bands.
 > If you compare the plots of band 1 (red) and band 2 (green) you can see subtle 
 > differences in the image. The forest appears paler in band 2 (green). Why?  
 
+Next, we will explore working with all 3 bands - using a `RasterStack`. 
 
 ```{ r challenge1-answer, echo=FALSE }
 #We'd expect a *brighter* value for the forest in band 2 (green) than in 
@@ -362,17 +366,9 @@ and `hist()` functions on the `RasterStack` to view each band in the stack.
     ## values      : 0, 255  (min, max)
 
     #view histogram of all 3 bands
-    hist(RGB_stack_HARV)
-
-    ## Warning in .hist1(raster(x, y[i]), maxpixels = maxpixels, main =
-    ## main[y[i]], : 1% of the raster cells were used. 100000 values used.
-
-    ## Warning in .hist1(raster(x, y[i]), maxpixels = maxpixels, main =
-    ## main[y[i]], : 1% of the raster cells were used. 100000 values used.
-
-    ## Warning in .hist1(raster(x, y[i]), maxpixels = maxpixels, main =
-    ## main[y[i]], : 1% of the raster cells were used. 100000 values used.
-
+    hist(RGB_stack_HARV,
+         maxpixels=ncell(RGB_stack_HARV))
+    
     #plot one band
     plot(RGB_stack_HARV[[1]], 
          main="RGB_stack Band 1", 
@@ -387,7 +383,7 @@ and `hist()` functions on the `RasterStack` to view each band in the stack.
 ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/plot-raster-layers-2.png) 
 
     # revert to a single plot layout 
-    par(mfrow=c(1,1)) 
+    #par(mfrow=c(1,1)) 
 
 
 #Create A Three Band Image
@@ -448,60 +444,7 @@ check?
 Answer the questions above  using the functions we have covered so far in this
 lesson.
 
-
-    ## rows        2317 
-    ## columns     3073 
-    ## bands       3 
-    ## lower left origin.x        731998.5 
-    ## lower left origin.y        4712956 
-    ## res.x       0.25 
-    ## res.y       0.25 
-    ## ysign       -1 
-    ## oblique.x   0 
-    ## oblique.y   0 
-    ## driver      GTiff 
-    ## projection  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
-    ## file        NEON_RemoteSensing/HARV/HARV_Ortho_wNA.tif 
-    ## apparent band summary:
-    ##    GDType hasNoDataValue NoDataValue blockSize1 blockSize2
-    ## 1 Float64           TRUE       -9999          1       3073
-    ## 2 Float64           TRUE       -9999          1       3073
-    ## 3 Float64           TRUE       -9999          1       3073
-    ## apparent band statistics:
-    ##   Bmin Bmax     Bmean      Bsd
-    ## 1    0  255 107.83651 30.01918
-    ## 2    0  255 130.09595 32.00168
-    ## 3    0  255  95.75979 16.57704
-    ## Metadata:
-    ## AREA_OR_POINT=Area
-
 ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/challenge-code-NoData-1.png) 
-
-    ## rows        2317 
-    ## columns     3073 
-    ## bands       3 
-    ## lower left origin.x        731998.5 
-    ## lower left origin.y        4712956 
-    ## res.x       0.25 
-    ## res.y       0.25 
-    ## ysign       -1 
-    ## oblique.x   0 
-    ## oblique.y   0 
-    ## driver      GTiff 
-    ## projection  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
-    ## file        NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif 
-    ## apparent band summary:
-    ##    GDType hasNoDataValue NoDataValue blockSize1 blockSize2
-    ## 1 Float64           TRUE   -1.7e+308          1       3073
-    ## 2 Float64           TRUE   -1.7e+308          1       3073
-    ## 3 Float64           TRUE   -1.7e+308          1       3073
-    ## apparent band statistics:
-    ##   Bmin Bmax Bmean Bsd
-    ## 1    0  255   NaN NaN
-    ## 2    0  255   NaN NaN
-    ## 3    0  255   NaN NaN
-    ## Metadata:
-    ## AREA_OR_POINT=Area
 
 > Bonus: So far we've created a RasterStack from multiple bands in one GeoTIFF, 
 > however, you can also create a RasterStack by combining single bands from 
@@ -550,13 +493,13 @@ PlotRGB can still be used for plotting bricks.
 ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/plot-brick-1.png) 
 
 
-#Challenge: What Methods Can I Use on an Object?
-You can view various methods available to call on an `R` object with 
-`methods(class=class(objectNameHere))`. Use this to figure out:
-
-1) What methods can you use to call on the `RGB_stack_HARV` object? 
-2) What methods are available for a single band within `RGB_stack_HARV`? 
-3) Why do you think there is a difference? 
+> #Challenge: What Methods Can I Use on an Object?
+> You can view various methods available to call on an `R` object with 
+> `methods(class=class(objectNameHere))`. Use this to figure out:
+>
+> 1) What methods can you use to call on the `RGB_stack_HARV` object? 
+> 2) What methods are available for a single band within `RGB_stack_HARV`? 
+> 3) Why do you think there is a difference? 
 
 
     ##   [1] !              !=             [              [[            

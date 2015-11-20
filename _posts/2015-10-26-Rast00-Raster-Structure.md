@@ -4,7 +4,7 @@ title: "Lesson 00: Intro to Raster Data in R"
 date:   2015-10-29
 authors: [Kristina Riemer, Zack Brym, Jason Williams, Jeff Hollister,  Mike Smorul, Leah Wasser]
 contributors: [Megan A. Jones]
-dateCreated:  2015-10-23
+dateCreated: 2015-10-23
 lastModified: 2015-11-19
 packagesLibraries: [raster, rgdal]
 category:  
