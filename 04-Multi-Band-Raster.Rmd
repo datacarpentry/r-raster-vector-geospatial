@@ -94,15 +94,15 @@ To work with multi-band rasters, we need to change how
 we import and plot our data in several ways. 
 
 * To import multi band raster data we will use the `stack()` function.
-* If our multi-band data are imagery that we wish to composite (spatial data
-term essentially meaning, to view multiple bands together), we can use
-`plotRGB()` (instead of `plot`) to plot a composite 3 band raster image.
+* If our multi-band data are imagery that we wish to composite, we can use
+`plotRGB()` (instead of `plot`) to plot a 3 band raster image.
 
 Want to learn more? The video below, covers the basics of what a multi-band 
 images are:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/3iaFzafWJQE" frameborder="0" allowfullscreen></iframe>
 
+To work with multi-band rasters, we will use the `raster` and `rgdal` libraries.
 
 ```{r load-libraries }
 library(raster)
@@ -110,7 +110,7 @@ library(rgdal)
 
 ```
 
-#About Multi Band Imagery
+#About Multi-Band Imagery
 A raster dataset can store multiple bands. One type of multi-band raster dataset 
 that is familiar to many of us is a color image. A basic color image consists of 
 three bands: red, green, and blue. The pixel brightness for each band, when 
@@ -118,7 +118,9 @@ composited creates the colors that we see in an image.
 
 <figure>
     <a href="/images/RGBSTack_1.png"><img src="/images/RGBSTack_1.png"></a>
-    <figcaption>A color image consists of 3 bands - red, green and blue.</figcaption>
+    <figcaption>A color image consists of 3 bands - red, green and blue. When
+    rendered together in a GIS, or even a tool like Photoshop or any other
+    image software, they create a color image.</figcaption>
 </figure>
 
 We can plot each band of a multi-band image individually. 
@@ -169,15 +171,16 @@ par(original_par) # go back to original par
 
 Multi-band raster data might also contain:
 
-1. Time series: same variable, over the same area, over time. [Check out Lesson 04
-- Raster time series data in R to learn more about time series stacks]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/).
+1. Time series: same variable, over the same area, over time. 
+[Check out Lesson 04 - Raster time series data in R to learn more about time series stacks]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/).
 2. Multi-hyperspectral imagery: that might have 4 or more bands up to 400+ bands 
-of image data! Check out a lesson on < a href="http://neondataskills.org/HDF5/Imaging-Spectroscopy-HDF5-In-R/" target="_blank">
+of image data! Check out a lesson on 
+<a href="http://neondataskills.org/HDF5/Imaging-Spectroscopy-HDF5-In-R/" target="_blank">
 hyperspectral imagery here.</a>
 
 NOTE: In a multi-band dataset, the rasters will always have the same extent,
 CRS and resolution.
-{ : .notice }
+{: .notice }
 
 In this lesson, the multi-band data that we are working with is imagery
 collected using the <a href="http://http://www.neoninc.org/science-design/collection-methods/airborne-remote-sensing" target="_blank">NEON Airborne Observation Platform</a> high resolution camera over
@@ -272,6 +275,7 @@ Notice that band 2 is band 2 of 3 bands.
 > If you compare the plots of band 1 (red) and band 2 (green) you can see subtle 
 > differences in the image. The forest appears paler in band 2 (green). Why?  
 
+Next, we will explore working with all 3 bands - using a `RasterStack`. 
 
 ```{ r challenge1-answer, echo=FALSE }
 #We'd expect a *brighter* value for the forest in band 2 (green) than in 
@@ -309,7 +313,8 @@ RGB_stack_HARV@layers
 RGB_stack_HARV[[1]]
 
 #view histogram of all 3 bands
-hist(RGB_stack_HARV)
+hist(RGB_stack_HARV,
+     maxpixels=ncell(RGB_stack_HARV))
 
 #plot one band
 plot(RGB_stack_HARV[[1]], 
@@ -321,7 +326,7 @@ plot(RGB_stack_HARV,
      col=grayscale_colors)
 
 # revert to a single plot layout 
-par(mfrow=c(1,1)) 
+#par(mfrow=c(1,1)) 
 
 ```
 
@@ -388,7 +393,7 @@ check?
 Answer the questions above  using the functions we have covered so far in this
 lesson.
 
-``` {r challenge-code-NoData, echo=FALSE}
+``` {r challenge-code-NoData, echo=FALSE, results="hide"}
 #1.
 #view attributes
 GDALinfo("NEON_RemoteSensing/HARV/HARV_Ortho_wNA.tif")
@@ -456,13 +461,13 @@ plotRGB(RGB_brick_HARV)
 ```
 
 
-#Challenge: What Methods Can I Use on an Object?
-You can view various methods available to call on an `R` object with 
-`methods(class=class(objectNameHere))`. Use this to figure out:
-
-1) What methods can you use to call on the `RGB_stack_HARV` object? 
-2) What methods are available for a single band within `RGB_stack_HARV`? 
-3) Why do you think there is a difference? 
+> #Challenge: What Methods Can I Use on an Object?
+> You can view various methods available to call on an `R` object with 
+> `methods(class=class(objectNameHere))`. Use this to figure out:
+>
+> 1) What methods can you use to call on the `RGB_stack_HARV` object? 
+> 2) What methods are available for a single band within `RGB_stack_HARV`? 
+> 3) Why do you think there is a difference? 
 
 ``` {r challenge-code-calling-methods, echo=FALSE}
 #1
