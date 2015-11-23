@@ -96,7 +96,7 @@ as pixels. Each pixel contains a value that represents an area on the Earth's
 surface.
 
 
-![What Is A Raster Dataset]({{ site.baseurl }}/images/raster_concept.png)
+![What Is A Raster Dataset]({{ site.baseurl }}/images/raster_timeseries/raster_concept.png)
 
 #Types of data stored as rasters
 Raster data can be continuous or categorical. Continuous rasters can have a 
@@ -244,8 +244,6 @@ seems proportionally larger or smaller than they actually are!
 <iframe width="560" height="315" src="https://www.youtube.com/embed/KUF_Ckv8HbE" frameborder="0" allowfullscreen></iframe>
 
 
-![UTM Coordinate system](http://upload.wikimedia.org/wikipedia/en/thumb/5/57/Utm-zones.svg/720px-Utm-zones.svg.png)
-
 
 While we will not go into great depth with respect to understanding Coordinate
 reference systems in this lesson, it is important to understand that 
@@ -272,6 +270,10 @@ method. We can assign this string to an `R` object too.
     ##  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84
     ## +towgs84=0,0,0
 
+From this we can see that our data are in the UTM projection.
+
+![UTM Coordinate system](http://upload.wikimedia.org/wikipedia/en/thumb/5/57/Utm-zones.svg/720px-Utm-zones.svg.png)
+
 The CRS in this case is in a `PROJ 4` format. This means that the projection
 information is strung together as a series of text elements, each of which 
 begins with a `+` sign. 
@@ -296,13 +298,13 @@ to calculate the resolution. In our data the units are meters. This means that
 if the data are 1x1 resolution, that each pixel represents a 1 x 1 meter area
 on the ground.
 
-![raster resolution]({{ site.baseurl}}/images/raster_resolution.png)
+![raster resolution]({{ site.baseurl}}/images/raster_timeseries/raster_resolution.png)
 
 NOTE: We can view resolution units using two methods: viewing the 
 coordinate reference system string `crs()` OR using `@data`. 
 If you enter `DSM_HARV@data`, you'll see that units were not embedded in the `tif 
 tags` for this raster.
-{ : .notice }
+{: .notice }
 
 #Calculate the Min and Max values for the raster
 
@@ -381,7 +383,8 @@ or bad data values in our raster.
     hist(DSM_HARV,
          main="Digital Surface Model - Range of Values\n NEON Harvard Forest",
          xlab="DSM ELevation Value (m)",
-         ylab="Frequency")
+         ylab="Frequency",
+         col="wheat")
 
     ## Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...):
     ## 4% of the raster cells were used. 100000 values used.
@@ -414,7 +417,8 @@ on histograms in R</a>
          maxpixels=ncell(DSM_HARV),
          main="Digital Surface Model Histogram\n All Pixel values Included",
          xlab="DSM ELevation Value (m)",
-         ylab="Frequency")
+         ylab="Frequency",
+         col="wheat4")
 
 ![ ]({{ site.baseurl }}/images/rfigs/00-Raster-Structure/view-raster-histogram2-1.png) 
 
@@ -430,8 +434,8 @@ is a single band raster. This means that there is only one dataset - stored in
 the raster - surface elevation in meters, for one time period over Harvard Forest.
 
 <figure>
-    <a href="{{ site.baseurl }}/images/single_multi_raster.png">
-    <img src="{{ site.baseurl }}/images/single_multi_raster.png"></a>
+    <a href="{{ site.baseurl }}/images/raster_timeseries/single_multi_raster.png">
+    <img src="{{ site.baseurl }}/images/raster_timeseries/single_multi_raster.png"></a>
     <figcaption>A raster dataset can contain one or more bands. We can use the raster 
     function to import one single band from a single OR multi-band raster.</figcaption>
 </figure>

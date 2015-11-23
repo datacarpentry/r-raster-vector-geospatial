@@ -40,7 +40,8 @@ maxValue(CHM_HARV)
 #3) 
 hist(CHM_HARV, 
      maxpixels=ncell(CHM_HARV),
-     col="springgreen4")
+     col="springgreen4",
+     main = "Histogram of NEON Canopy Height Model\n Harvard Forest",)
 
 #4)
 hist(CHM_HARV, 
