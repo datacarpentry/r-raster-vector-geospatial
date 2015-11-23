@@ -6,7 +6,7 @@ authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Bry
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2015-11-20
+lastModified: 2015-11-23
 category: spatio-temporal-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
@@ -273,4 +273,10 @@ Once we have reprojected the raster, we can try to plot again!
 We have now successfully layered the Digital Terrain Model on top of our hillshade
 to produce a nice looking, textured basemap! 
 
-##Challenge??
+> ##Challenge
+> Open up the `SJER_DSMhill_WGS84.tif` file and overlay the Digital Surface Model
+> (`SJER_dsmCrop.tif`) on top of it in R. Reproject the data as necessary to make 
+> things line up!
+
+![ ]({{ site.baseurl }}/images/rfigs/02-Reproject-Raster/unnamed-chunk-1-1.png) 
+

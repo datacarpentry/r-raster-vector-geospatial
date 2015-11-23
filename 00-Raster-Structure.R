@@ -106,7 +106,8 @@ plotRGB(newRGBImage, r = 1, g = 2, b = 3,
 hist(DSM_HARV,
      main="Digital Surface Model - Range of Values\n NEON Harvard Forest",
      xlab="DSM ELevation Value (m)",
-     ylab="Frequency")
+     ylab="Frequency",
+     col="wheat")
 
 
 ## ----view-raster-histogram2----------------------------------------------
@@ -121,7 +122,8 @@ hist(DSM_HARV,
      maxpixels=ncell(DSM_HARV),
      main="Digital Surface Model Histogram\n All Pixel values Included",
      xlab="DSM ELevation Value (m)",
-     ylab="Frequency")
+     ylab="Frequency",
+     col="wheat4")
 
 
 ## ----view-raster-bands---------------------------------------------------

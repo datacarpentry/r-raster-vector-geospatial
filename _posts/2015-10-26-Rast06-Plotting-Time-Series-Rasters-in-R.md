@@ -7,7 +7,7 @@ Mike Smorul]
 contributors: [Test Human]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2015-11-20
+lastModified: 2015-11-23
 category: time-series-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
