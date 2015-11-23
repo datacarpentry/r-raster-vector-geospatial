@@ -5,7 +5,7 @@ date:   2015-10-29
 authors: [Kristina Riemer, Zack Brym, Jason Williams, Jeff Hollister,  Mike Smorul, Leah Wasser]
 contributors: [Megan A. Jones]
 dateCreated: 2015-10-23
-lastModified: 2015-11-20
+lastModified: 2015-11-23
 packagesLibraries: [raster, rgdal]
 category:  
 tags: [raster-ts-wrksp, raster]
@@ -206,22 +206,52 @@ are top out at just over 400 meters or 400 feet?  Perhaps we need to learn more
 about attributes and metadata!
 
 ## Coordinate Reference System
-The Coordinate Reference System or `CRS` tells R where the raster is located in 
+The Coordinate Reference System or `CRS` tells `R` where the raster is located in 
 geographic space. It also tells `R` what method should be used to "flatten" or 
 project the raster in geographic space. 
 
-#PROJECTION DISCUSSION - **brief** intro to each with links out. 
+<figure>
+    <a href="https://source.opennews.org/media/cache/b9/4f/b94f663c79024f0048ae7b4f88060cb5.jpg">
+    <img src="https://source.opennews.org/media/cache/b9/4f/b94f663c79024f0048ae7b4f88060cb5.jpg">
+    </a>
+    
+    <figcaption>Maps of the United States in different projections. Notice the 
+    differences in shape associated with each different projection. These 
+    differences are a direct result of the calculations used to "flatten" the 
+    data onto a 2 dimensional map. Source: opennews.org</figcaption>
+</figure>
 
-* ** Geographic Coordinate System **
-* ** Why projections are needed **
-* ** Common projections **
+##What Makes Spatial Data Line Up On A Map?
+There are lots of great resources that describe coordinate reference systems and 
+projections in greater detail. However, for the purposes of this activity, what 
+is important to understand is that data from the same location but saved in 
+different projections **will not line up in any GIS or other program**. Thus 
+it's important when working with spatial data in a program like `R` or `Python` 
+to identify the coordinate reference system applied to the data, and to grab 
+that information and retain it when you process / analyze the data.
+
+Read More: 
+* <a href="http://spatialreference.org/ref/epsg/" target="_blank">A comprehensive
+online library of CRS information.</a>
+* <a href="http://docs.qgis.org/2.0/en/docs/gentle_gis_introduction/coordinate_reference_systems.html" target="_blank">QGIS Documentation - CRS  Overview</a>
+<a href="https://source.opennews.org/en-US/learning/choosing-right-map-projection/" target="_blank">Choosing the Right Map Projection.</a>
+* <a href="https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf" target="_blank"> NCEAS Overview of CRS in R</a>
+
+####How Map Projections Can Fool the Eye
+Check out this short video highlighting how map projections can make continents 
+seems proportionally larger or smaller than they actually are!
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KUF_Ckv8HbE" frameborder="0" allowfullscreen></iframe>
+
 
 ![UTM Coordinate system](http://upload.wikimedia.org/wikipedia/en/thumb/5/57/Utm-zones.svg/720px-Utm-zones.svg.png)
 
-* Datums
-* Additional Links:
- <a href="https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf" target="_blank"> NCEAS Overview of CRS in R</a>
 
+While we will not go into great depth with respect to understanding Coordinate
+reference systems in this lesson, it is important to understand that 
+if your data are in different CRS', then they will not line up in R. They might
+line up in a GIS interface that knows how to "reproject on the fly" to make things
+visually line up. 
 
 We can view just the CRS string associated with our `R` object using the`crs()` 
 method. We can assign this string to an `R` object too.
@@ -349,7 +379,9 @@ or bad data values in our raster.
 
     #view histogram of data
     hist(DSM_HARV,
-         main="Digital Surface Model - Range of Values\n NEON Harvard Forest")
+         main="Digital Surface Model - Range of Values\n NEON Harvard Forest",
+         xlab="DSM ELevation Value (m)",
+         ylab="Frequency")
 
     ## Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...):
     ## 4% of the raster cells were used. 100000 values used.
@@ -380,7 +412,9 @@ on histograms in R</a>
     #create histogram that includes with all pixel values in the raster
     hist(DSM_HARV, 
          maxpixels=ncell(DSM_HARV),
-         main="Digital Surface Model Histogram\n All Pixel values Included")
+         main="Digital Surface Model Histogram\n All Pixel values Included",
+         xlab="DSM ELevation Value (m)",
+         ylab="Frequency")
 
 ![ ]({{ site.baseurl }}/images/rfigs/00-Raster-Structure/view-raster-histogram2-1.png) 
 

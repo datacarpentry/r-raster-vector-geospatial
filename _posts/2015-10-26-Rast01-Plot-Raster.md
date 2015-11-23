@@ -7,7 +7,7 @@ Zack Brym, Leah Wasser]
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2015-11-20
+lastModified: 2015-11-23
 category: spatio-temporal-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
@@ -95,6 +95,10 @@ will continue to use the `raster` and `rgdal` libraries in this lesson.
     #if they are not already loaded
     library(rgdal)
     library(raster)
+    
+    #import raster - Used in lesson 00
+    DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+
 First, let's plot our Digital Surface Model object (`DSM_HARV`) using the `plot`
 function. We add a title using `main=""`.
 
@@ -122,7 +126,8 @@ on histograms in R</a>
     #Plot distribution of raster values 
     hist(DSM_HARV,
          breaks=2,
-         main="Histogram Digital Surface Model\nHarvard Forest Field Site")
+         main="Histogram Digital Surface Model\nHarvard Forest Field Site",
+         col="wheat3")
 
     ## Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...):
     ## 4% of the raster cells were used. 100000 values used.
