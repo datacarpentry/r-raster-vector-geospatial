@@ -96,7 +96,11 @@ will continue to use the `raster` and `rgdal` libraries in this lesson.
 library(rgdal)
 library(raster)
 
+#import raster - Used in lesson 00
+DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+
 ```
+
 First, let's plot our Digital Surface Model object (`DSM_HARV`) using the `plot`
 function. We add a title using `main=""`.
 
@@ -125,7 +129,8 @@ on histograms in R</a>
 #Plot distribution of raster values 
 hist(DSM_HARV,
      breaks=2,
-     main="Histogram Digital Surface Model\nHarvard Forest Field Site")
+     main="Histogram Digital Surface Model\nHarvard Forest Field Site",
+     col="wheat3")
 
 ```
 

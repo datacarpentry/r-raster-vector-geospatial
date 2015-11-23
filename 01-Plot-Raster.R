@@ -3,6 +3,9 @@
 library(rgdal)
 library(raster)
 
+#import raster - Used in lesson 00
+DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+
 
 ## ----hist-raster---------------------------------------------------------
 
@@ -15,7 +18,8 @@ plot(DSM_HARV,
 #Plot distribution of raster values 
 hist(DSM_HARV,
      breaks=2,
-     main="Histogram Digital Surface Model\nHarvard Forest Field Site")
+     main="Histogram Digital Surface Model\nHarvard Forest Field Site",
+     col="wheat3")
 
 
 ## ----plot-with-breaks----------------------------------------------------
