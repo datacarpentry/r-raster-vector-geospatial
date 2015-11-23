@@ -104,7 +104,9 @@ plotRGB(newRGBImage, r = 1, g = 2, b = 3,
 
 #view histogram of data
 hist(DSM_HARV,
-     main="Digital Surface Model - Range of Values\n NEON Harvard Forest")
+     main="Digital Surface Model - Range of Values\n NEON Harvard Forest",
+     xlab="DSM ELevation Value (m)",
+     ylab="Frequency")
 
 
 ## ----view-raster-histogram2----------------------------------------------
@@ -117,7 +119,9 @@ ncell(DSM_HARV)
 #create histogram that includes with all pixel values in the raster
 hist(DSM_HARV, 
      maxpixels=ncell(DSM_HARV),
-     main="Digital Surface Model Histogram\n All Pixel values Included")
+     main="Digital Surface Model Histogram\n All Pixel values Included",
+     xlab="DSM ELevation Value (m)",
+     ylab="Frequency")
 
 
 ## ----view-raster-bands---------------------------------------------------
