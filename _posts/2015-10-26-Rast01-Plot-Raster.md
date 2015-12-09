@@ -7,10 +7,10 @@ Zack Brym, Leah Wasser]
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2015-11-18
+lastModified: 2015-11-23
 category: spatio-temporal-workshop
-tags: [module-1]
-mainTag: GIS-Spatial-Data
+tags: [raster-ts-wrksp, raster]
+mainTag: raster-ts-wrksp
 description: "This lesson reviews how to plot a raster in R using the plot() 
 command. It also covers how to overlay a raster on top of a hillshade for a 
 eloquent map.
@@ -79,6 +79,7 @@ This lesson is a part of a series of raster data in R lessons:
 * [Lesson 04 - Work With Multi-Band Rasters - Images in R]({{ site.baseurl}}/R/Multi-Band-Rasters-In-R/)
 * [Lesson 05 - Raster Time Series Data in R]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/)
 * [Lesson 06 - Plot Raster Time Series Data in R Using RasterVis and LevelPlot]({{ site.baseurl}}/R/Plot-Raster-Times-Series-Data-In-R/)
+* [Lesson 07- Extract NDVI Summary Values from a Raster Time Series]({{ site.baseurl}}/R/Extract-NDVI-From-Rasters-In-R/)
 
 
 </div>
@@ -94,6 +95,10 @@ will continue to use the `raster` and `rgdal` libraries in this lesson.
     #if they are not already loaded
     library(rgdal)
     library(raster)
+    
+    #import raster - Used in lesson 00
+    DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+
 First, let's plot our Digital Surface Model object (`DSM_HARV`) using the `plot`
 function. We add a title using `main=""`.
 
@@ -121,7 +126,8 @@ on histograms in R</a>
     #Plot distribution of raster values 
     hist(DSM_HARV,
          breaks=2,
-         main="Histogram Digital Surface Model\nHarvard Forest Field Site")
+         main="Histogram Digital Surface Model\nHarvard Forest Field Site",
+         col="wheat3")
 
     ## Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...):
     ## 4% of the raster cells were used. 100000 values used.

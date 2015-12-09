@@ -59,3 +59,30 @@ writeRaster(hill,"HARV_DSMhill.tif",
             NAflag=-9999)
 
 GDALinfo("HARV_DSMhill.tif")
+
+########### CREATE SJER HILLSHADE 
+
+DSM_SJER <- raster("NEON_RemoteSensing/SJER/DSM/SJER_dsmCrop.tif")
+#create hillshade
+slope_SJER <- terrain(DSM_SJER, opt='slope')
+aspect_SJER <- terrain(DSM_SJER, opt='aspect')
+hill_SJER <- hillShade(slope_SJER, aspect_SJER, 40, 270)
+
+
+#export CHM object to new geotiff
+writeRaster(hill_SJER,"SJER_dsmHill.tiff",
+            format="GTiff", 
+            overwrite=TRUE, 
+            NAflag=-9999)
+
+DTM_SJER <- raster("NEON_RemoteSensing/SJER/DTM/SJER_dtmCrop.tif")
+#create hillshade
+slope_SJER <- terrain(DTM_SJER, opt='slope')
+aspect_SJER <- terrain(DTM_SJER, opt='aspect')
+hill_SJER <- hillShade(slope_SJER, aspect_SJER, 40, 270)
+
+#export CHM object to new geotiff
+writeRaster(hill_SJER,"SJER_dtmHill.tiff",
+            format="GTiff", 
+            overwrite=TRUE, 
+            NAflag=-9999)

@@ -4,12 +4,12 @@ title: "Lesson 00: Intro to Raster Data in R"
 date:   2015-10-29
 authors: [Kristina Riemer, Zack Brym, Jason Williams, Jeff Hollister,  Mike Smorul, Leah Wasser]
 contributors: [Megan A. Jones]
-dateCreated:  2015-10-23
+dateCreated: 2015-10-23
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`
 packagesLibraries: [raster, rgdal]
 category:  
-tags: [module-1]
-mainTag: GIS-Spatial-Data
+tags: [raster-ts-wrksp, raster]
+mainTag: raster-ts-wrksp
 description: "This lesson review the fundamental principles, libraries and 
 metadata / raster attributes that you need to be familiar with in order to 
 successfully work with raster data in R."
@@ -85,6 +85,7 @@ This lesson is a part of a series of raster data in R lessons:
 * [Lesson 04 - Work With Multi-Band Rasters - Images in R]({{ site.baseurl}}/R/Multi-Band-Rasters-In-R/)
 * [Lesson 05 - Raster Time Series Data in R]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/)
 * [Lesson 06 - Plot Raster Time Series Data in R Using RasterVis and LevelPlot]({{ site.baseurl}}/R/Plot-Raster-Times-Series-Data-In-R/)
+* [Lesson 07- Extract NDVI Summary Values from a Raster Time Series]({{ site.baseurl}}/R/Extract-NDVI-From-Rasters-In-R/)
 
 
 </div>
@@ -95,7 +96,7 @@ as pixels. Each pixel contains a value that represents an area on the Earth's
 surface.
 
 
-![What Is A Raster Dataset]({{ site.baseurl }}/images/raster_concept.png)
+![What Is A Raster Dataset]({{ site.baseurl }}/images/raster_timeseries/raster_concept.png)
 
 #Types of data stored as rasters
 Raster data can be continuous or categorical. Continuous rasters can have a 
@@ -228,22 +229,50 @@ are top out at just over 400 meters or 400 feet?  Perhaps we need to learn more
 about attributes and metadata!
 
 ## Coordinate Reference System
-The Coordinate Reference System or `CRS` tells R where the raster is located in 
+The Coordinate Reference System or `CRS` tells `R` where the raster is located in 
 geographic space. It also tells `R` what method should be used to "flatten" or 
 project the raster in geographic space. 
 
-#PROJECTION DISCUSSION - **brief** intro to each with links out. 
+<figure>
+    <a href="https://source.opennews.org/media/cache/b9/4f/b94f663c79024f0048ae7b4f88060cb5.jpg">
+    <img src="https://source.opennews.org/media/cache/b9/4f/b94f663c79024f0048ae7b4f88060cb5.jpg">
+    </a>
+    
+    <figcaption>Maps of the United States in different projections. Notice the 
+    differences in shape associated with each different projection. These 
+    differences are a direct result of the calculations used to "flatten" the 
+    data onto a 2 dimensional map. Source: opennews.org</figcaption>
+</figure>
 
-* ** Geographic Coordinate System **
-* ** Why projections are needed **
-* ** Common projections **
+##What Makes Spatial Data Line Up On A Map?
+There are lots of great resources that describe coordinate reference systems and 
+projections in greater detail. However, for the purposes of this activity, what 
+is important to understand is that data from the same location but saved in 
+different projections **will not line up in any GIS or other program**. Thus 
+it's important when working with spatial data in a program like `R` or `Python` 
+to identify the coordinate reference system applied to the data, and to grab 
+that information and retain it when you process / analyze the data.
 
-![UTM Coordinate system](http://upload.wikimedia.org/wikipedia/en/thumb/5/57/Utm-zones.svg/720px-Utm-zones.svg.png)
+Read More: 
+* <a href="http://spatialreference.org/ref/epsg/" target="_blank">A comprehensive
+online library of CRS information.</a>
+* <a href="http://docs.qgis.org/2.0/en/docs/gentle_gis_introduction/coordinate_reference_systems.html" target="_blank">QGIS Documentation - CRS  Overview</a>
+<a href="https://source.opennews.org/en-US/learning/choosing-right-map-projection/" target="_blank">Choosing the Right Map Projection.</a>
+* <a href="https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf" target="_blank"> NCEAS Overview of CRS in R</a>
 
-* Datums
-* Additional Links:
- <a href="https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf" target="_blank"> NCEAS Overview of CRS in R</a>
+####How Map Projections Can Fool the Eye
+Check out this short video highlighting how map projections can make continents 
+seems proportionally larger or smaller than they actually are!
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KUF_Ckv8HbE" frameborder="0" allowfullscreen></iframe>
+
+
+
+While we will not go into great depth with respect to understanding Coordinate
+reference systems in this lesson, it is important to understand that 
+if your data are in different CRS', then they will not line up in R. They might
+line up in a GIS interface that knows how to "reproject on the fly" to make things
+visually line up. 
 
 We can view just the CRS string associated with our `R` object using the`crs()` 
 method. We can assign this string to an `R` object too.
@@ -256,6 +285,10 @@ crs(DSM_HARV)
 myCRS <- crs(DSM_HARV)
 myCRS
 ```
+
+From this we can see that our data are in the UTM projection.
+
+![UTM Coordinate system](http://upload.wikimedia.org/wikipedia/en/thumb/5/57/Utm-zones.svg/720px-Utm-zones.svg.png)
 
 The CRS in this case is in a `PROJ 4` format. This means that the projection
 information is strung together as a series of text elements, each of which 
@@ -281,13 +314,13 @@ to calculate the resolution. In our data the units are meters. This means that
 if the data are 1x1 resolution, that each pixel represents a 1 x 1 meter area
 on the ground.
 
-![raster resolution]({{ site.baseurl}}/images/raster_resolution.png)
+![raster resolution]({{ site.baseurl}}/images/raster_timeseries/raster_resolution.png)
 
 NOTE: We can view resolution units using two methods: viewing the 
 coordinate reference system string `crs()` OR using `@data`. 
 If you enter `DSM_HARV@data`, you'll see that units were not embedded in the `tif 
 tags` for this raster.
-{ : .notice }
+{: .notice }
 
 #Calculate the Min and Max values for the raster
 
@@ -389,7 +422,10 @@ or bad data values in our raster.
 
 #view histogram of data
 hist(DSM_HARV,
-     main="Digital Surface Model - Range of Values\n NEON Harvard Forest")
+     main="Digital Surface Model - Range of Values\n NEON Harvard Forest",
+     xlab="DSM ELevation Value (m)",
+     ylab="Frequency",
+     col="wheat")
 
 ```
 
@@ -415,7 +451,10 @@ ncell(DSM_HARV)
 #create histogram that includes with all pixel values in the raster
 hist(DSM_HARV, 
      maxpixels=ncell(DSM_HARV),
-     main="Digital Surface Model Histogram\n All Pixel values Included")
+     main="Digital Surface Model Histogram\n All Pixel values Included",
+     xlab="DSM ELevation Value (m)",
+     ylab="Frequency",
+     col="wheat4")
 
 ```
 
@@ -429,6 +468,13 @@ are no bad data values in this particular raster.
 The Digital Surface Model object ( `DSM_HARV`) that we've been working with 
 is a single band raster. This means that there is only one dataset - stored in 
 the raster - surface elevation in meters, for one time period over Harvard Forest.
+
+<figure>
+    <a href="{{ site.baseurl }}/images/raster_timeseries/single_multi_raster.png">
+    <img src="{{ site.baseurl }}/images/raster_timeseries/single_multi_raster.png"></a>
+    <figcaption>A raster dataset can contain one or more bands. We can use the raster 
+    function to import one single band from a single OR multi-band raster.</figcaption>
+</figure>
 
 We can view the number of bands in a raster using the `nlayers()` method. 
 
@@ -447,7 +493,6 @@ or more bands. We will cover multi-band rasters in Lesson 04:
 
 <a href="{{ site.baseurl }}/NEON-R-Spatial-Raster/R/Multi-Band-Rasters-In-R/" target="_blank"> Work with Multi-band Rasters: Images in R</a>.
 
-#COLIN ![Image on what bands are...]()
 
 ##View Raster File Attributes
 
