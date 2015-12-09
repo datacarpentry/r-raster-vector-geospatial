@@ -1,17 +1,9 @@
-- slug: module-1
-  name: Raster and Vector Data
+- slug: raster-ts-wrksp
+  name: Raster Time Series
   color: '#1abc9c'
-  
-- slug: module-2
-  name: Spatial Data Viz - Maps
-  color: '#1abc9c'
-   
-- slug: module-3
-  name: Time Series 
-  color: '#1abc9c' 
-  
-- slug: module-4
-  name: Remote Sensing
+
+- slug: raster
+  name: Raster Data
   color: '#1abc9c'
   
   

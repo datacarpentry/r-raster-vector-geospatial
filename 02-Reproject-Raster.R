@@ -85,3 +85,28 @@ plot(DTM_HARV,
      add=T,
      legend=F)
 
+## ----echo=FALSE----------------------------------------------------------
+
+#import DTM
+DSM_SJER <- raster("NEON_RemoteSensing/SJER/DSM/SJER_dsmcrop.tif")
+#import DTM hillshade
+DSM_hill_SJER_WGS <- raster("NEON_RemoteSensing/SJER/DSM/SJER_DSMhill_WGS84.tif")
+
+#reproject raster 
+DTM_hill_UTMZ18N_SJER <- projectRaster(DSM_hill_SJER_WGS, 
+                                  crs=crs(DSM_SJER),
+                                  res=1)
+#plot hillshade using a grayscale color ramp 
+plot(DTM_hill_UTMZ18N_SJER,
+    col=grey(1:100/100),
+    legend=F,
+    main="NEON Hillshade - DSM\n Harvard Forest")
+
+#overlay the DSM on top of the hillshade
+plot(DSM_SJER,
+     col=terrain.colors(10),
+     alpha=0.4,
+     add=T,
+     legend=F)
+
+

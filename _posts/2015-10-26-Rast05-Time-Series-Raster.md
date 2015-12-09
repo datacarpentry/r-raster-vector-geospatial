@@ -7,10 +7,10 @@ Leah Wasser]
 contributors: [Test Human]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2015-11-18
+lastModified: 2015-11-23
 category: time-series-workshop
-tags: [module-1]
-mainTag: GIS-Spatial-Data
+tags: [raster-ts-wrksp, raster]
+mainTag: raster-ts-wrksp
 description: "This lesson covers how to work with a raster time series, using the
 R RasterStack object. It also covers how practical assessment of data quality in
 Remote Sensing derived imagery. Finally it covers pretty raster time series plotting 
@@ -39,7 +39,8 @@ rasters in `R`.
 After completing this activity, you will know:
 
 * What time series raster format is.
-* How to work with a set of time series rasters.
+* How to work with a set of time series rasters. How to efficiently import a set of 
+rasters in a single directory.
 * How to plot and explore time series raster data using the `plot` function.
 * Advanced plotting using `rasterVis` library and `levelplot`
 
@@ -63,41 +64,71 @@ R studio to write your code.
 
 ####Data to Download
 
-* <a href="http://figshare.com/articles/NEON_AOP_Hyperspectral_Teaching_Dataset_SJER_and_Harvard_forest/1580086" class="btn btn-success"> DOWNLOAD Sample NEON LiDAR data in Raster Format & Vegetation Sampling Data</a>
+Download the raster files for the Harvard Forest dataset:
 
+<a href="http://files.figshare.com/2434040/NEON_RemoteSensing.zip" class="btn btn-success"> DOWNLOAD Sample NEON Airborne Observation Platform Raster Data</a> 
 
 The LiDAR and imagery data used to create the rasters in this dataset were 
-collected over the Harvard and San Joaquin field sites 
+collected over the <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard</a> and 
+<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin</a> field sites 
 and processed at <a href="http://www.neoninc.org" target="_blank" >NEON </a> 
-headquarters. The entire dataset can be accessed by request from the NEON website.  
+headquarters. The entire dataset can be accessed by request from the 
+<a href="http://www.neoninc.org/data-resources/get-data/airborne-data" target="_blank"> NEON 
+website.</a> 
 
 ####Recommended Pre-Lesson Reading
-
 
 * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
 Read more about the `raster` package in R.</a>
 
+####Raster Lesson Series 
+This lesson is a part of a series of raster data in R lessons:
+
+* [Lesson 00 - Intro to Raster Data in R]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R/)
+* [Lesson 01 - Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/)
+* [Lesson 02 - Reproject Raster Data in R]({{ site.baseurl}}/R/Reproject-Raster-In-R/)
+* [Lesson 03 - Raster Calculations in R]({{ site.baseurl}}/R/Raster-Calculations-In-R/)
+* [Lesson 04 - Work With Multi-Band Rasters - Images in R]({{ site.baseurl}}/R/Multi-Band-Rasters-In-R/)
+* [Lesson 05 - Raster Time Series Data in R]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/)
+* [Lesson 06 - Plot Raster Time Series Data in R Using RasterVis and LevelPlot]({{ site.baseurl}}/R/Plot-Raster-Times-Series-Data-In-R/)
+* [Lesson 07- Extract NDVI Summary Values from a Raster Time Series]({{ site.baseurl}}/R/Extract-NDVI-From-Rasters-In-R/)
 </div>
+
+In this lesson, we will use the `raster`, `rgdal` and `rasterVis` libraries.
 
 
     library(raster)
     library(rgdal)
+    library(rasterVis)
 
 #About the Time Series Data
 
 In this lesson, we are working with a set of rasters, that were derived from the 
 Landsat satellite - in `GeoTiff` format. Each
-raster covers the <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>.
+raster covers part of the  <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>.
 
 ##NDVI data
 The first set of rasters, located in the `Landsat_NDVI\HARV\ndvi` is the Normalized
 Difference Vegetation Index (NDVI). NDVI is a quantitative index of greeness ranging
 from 0-1 where 0 is the least amount of greenness and 1 is maximum greenness following 
 the index. NDVI is often used for a quantative measure of vegetation health, cover
-and vegetation phenology (life cycle stage) over large areas.
+and vegetation phenology (life cycle stage) over large areas. 
+The NDVI data is a derived single band product saved as a `geotiff` for different
+times of the year. 
 
-Both sets of rasters are available for the same time periods throughout the year
-of 2013. 
+* <a href="http://earthobservatory.nasa.gov/Features/MeasuringVegetation/measuring_vegetation_2.php" target="_blank">More on NDVI from NASA</a>
+
+<figure>
+ <a href="http://earthobservatory.nasa.gov/Features/MeasuringVegetation/Images/ndvi_example.jpg"><img src="http://earthobservatory.nasa.gov/Features/MeasuringVegetation/Images/ndvi_example.jpg"></a>
+    <figcaption>NDVI is calculated from the visible and near-infrared light reflected by vegetation. Healthy vegetation (left) absorbs most of the visible light that hits it, and reflects a large portion of the near-infrared light. Unhealthy or sparse vegetation (right) reflects more visible light and less near-infrared light. FIGURE AND CAPTION CREDIT: NASA </figcaption>
+</figure>
+
+
+##RGB data
+While the NDVI data is a single band product, the RGB images represent 3 of the 
+7 30m resolution bands available on Landsat. The RGB directory contains RGB
+images (3 band) for each time period that NDVI is available.
+
 
 ##Understanding the metadata
 ?? we could teach this but Leah would need to rename the files to the original
@@ -107,9 +138,16 @@ names -- thoughts?
 
 In this lesson, we will
 
-1. Import NDVI data derived from the Landsat Sensor in raster (`geotiff`)format
+1. Import NDVI data derived from the Landsat Sensor in raster (`geotiff`) format
 2. Plot one full year of NDVI raster time series data. 
 3. Generate an average NDVI value for each time period throughout the year.
+
+<figure>
+    <a href="{{ site.baseurl }}/images/raster_timeseries/GreenessOverTime.png">
+    <img src="{{ site.baseurl }}/images/raster_timeseries/GreenessOverTime.png"></a>
+    <figcaption>A raster dataset can also contain a time series. In R, a stack of rasters 
+    will be in the same extent, CRS and resolution.</figcaption>
+</figure>
 
 ##Getting Started 
 
@@ -183,17 +221,17 @@ key metadata about our data including `Coordinate Reference System (CRS)`,
 
     ## [1] 30
 
-##Challenge
-
-Before you go any further, answer the following questions about our `RasterStack`.
-
-1. What is the `CRS`?
-2. what is the `resolution` of the data? And what `units` is that resolution in?
+> ##Challenge
+> 
+> Before you go any further, answer the following questions about our `RasterStack`.
+> 
+> 1. What is the `CRS`?
+> 2. What is the `resolution` of the data? And what `units` is that resolution in?
 
 #Plotting Time Series Data
 
-Once we have our raster stack, we can visualization our data. Remember from a 
-previous lesson, that we can use the `plot` command to quickly plot a `RasterStack`.
+Once we have created our `RasterStack`, we can visualize our data. Remember 
+from a previous lesson, that we can use the `plot` command to quickly plot a `RasterStack`.
 
 
 
@@ -205,77 +243,50 @@ previous lesson, that we can use the `plot` command to quickly plot a `RasterSta
 
 ![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/plot-time-series-1.png) 
 
-However, if we have the `rasterVis` package loaded, we can create a nicer plot 
-using the `levelplot` function. Let's check it out.
-
-
-    library(rasterVis)
-    
-    #create a level plot - plot
-    levelplot(NDVI_stack,
-              main="Landsat NDVI\nHarvard Forest")
-
-![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/levelplot-time-series-1.png) 
-
-##Adjust the Color Ramp
-
-Let's change the red color ramp to a green one that is more suited to our data.
-We can do that using the `colorRampPalette` function in r in combination with 
-`colorBrewer`. 
-
-
-    #use color brewer which loads with rasterVis to generate
-    #a color ramp of yellow to green
-    cols <- colorRampPalette(brewer.pal(9,"YlGn"))
-    #create a level plot - plot
-    levelplot(NDVI_stack,
-              main="Landsat NDVI better colors \nHarvard Forest",
-              col.regions=cols)
-
-![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/change-color-ramp-1.png) 
-
 
 Note: we can make the `levelplot` even prettier by fixing the individual tile
 names. We will cover this in 
-[{{ site.baseurl }}/R/Plot-Raster-Times-Series-Data-In-R/](Lesson 06 - Plot Time Series Rasters in R)
+[Lesson 06 - Plot Time Series Rasters in R ]({{ site.baseurl }}/R/Plot-Raster-Times-Series-Data-In-R/)
+{ : .notice }
 
 ##Taking a Closer Look at Our Data
 
-Now that we are happy with our base plot, let's take a close look at the data. 
-Given when you might know about the seasons in 
-Massachusettes (where Harvard Forest is located), do you notice anything that 
-seems unusual about the patterns of greening and browning of the vegetation at 
-the site?
+Let's take a close look at the plots of our data. Given what you might know 
+about the seasons in Massachusettes (where Harvard Forest is located), do you 
+notice anything that seems unusual about the patterns of greening and browning 
+of the vegetation atthe site?
 
-It seems like things get green, but there Julian days 277 and 293 look off. 
-A plot of daily temperature for 2014 is below. There are no significant peaks
-or dips in the late summer that might cause the vegetation to brown and then
-quickly green again the following month. 
-
-What is happening here? Maybe we should look at the data!
-
-![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/view-temp-data-1.png) 
-
-Looking at the temperature data, the pattern that we are seeing in NDVI seems
-off. Lucky for us, we have some RGB images creates from the SAME scene, at the same
-time and over the same location as our NDVI data! They are located in the `RGB` 
-directory. 
-
-#CHALLENGE
-
-Open up the RGB images from Julian dates 277 and 293. What do you see?
-{: notice }
+What is another way we can look at these data that is a bit more quantitative 
+than viewing images? 
 
 
     #create histogram
-    hist(NDVI_stack, xlim = c(0, 10000))
-    
-    # TODO: Challenge: two of the times have weird values because of clouds, have them figure that out
-    
-    
-    #http://oscarperpinan.github.io/rastervis/
+    hist(NDVI_stack, 
+         xlim = c(0, 10000))
 
 ![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/view-stack-histogram-1.png) 
+
+It seems like things get green, but the data at Julian days 277 and 293 are 
+unusual. It appears as if the vegetation got green in the spring, but then died
+back and then got green again towards the end of the year. Is this right?
+
+###Exploring Unusual Data Patterns
+A plot of daily temperature for 2014 is below. There are no significant peaks
+or dips in the temperature during the late summer / early fall time period that 
+might cause the vegetation to brown and then quickly green again the following 
+month. 
+
+What is happening here? 
+
+![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/view-temp-data-1.png) 
+
+The temperature data suggests that the pattern of warming and cooling is fairly
+consistent. Maybe we should look at the 3-band RGB imagery to see what that looks like, next. The RGB imagery are located in the `RGB` directory. 
+
+#CHALLENGE
+
+> Open up the RGB images from Julian dates 277 and 293. What do you see?
+
 
 #View All Landsat RGB images for Harvard Forest 2011
 

@@ -1,8 +1,13 @@
+## ----load-libraries------------------------------------------------------
+library(raster)
+library(rgdal)
+
+
 ## ----demonstrate-RGB-Image, echo=FALSE-----------------------------------
 # Use stack function to read in all bands
 RGB_stack_HARV <- stack("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
 
-names(RGB_stack_HARV) <- c("Red Band","Green Band","Blue Band")
+names(RGB_stack_HARV) <- c("Red.Band","Green.Band","Blue.Band")
 
 grayscale_colors <- gray.colors(100, 
                                 start = 0.0, 
@@ -23,6 +28,10 @@ plotRGB(RGB_stack_HARV, r = 1, g = 2, b = 3,
         axes=TRUE, 
         main="3 Band Color Composite Image")
 box(col="white")
+
+
+## ----reset-par, echo=FALSE, results="hide"-------------------------------
+#making sure this doesn't render in the lesson
 par(original_par) # go back to original par
 
 
@@ -70,6 +79,12 @@ plot(RGB_band2_HARV,
 RGB_band2_HARV
 
 
+## ----challenge1-answer, echo=FALSE---------------------------------------
+
+#We'd expect a *brighter* value for the forest in band 2 (green) than in 
+#band 1 (red) because most trees appear green. 
+
+
 ## ----intro-to-raster-stacks----------------------------------------------
 
 # Use stack function to read in all bands
@@ -88,7 +103,8 @@ RGB_stack_HARV@layers
 RGB_stack_HARV[[1]]
 
 #view histogram of all 3 bands
-hist(RGB_stack_HARV)
+hist(RGB_stack_HARV,
+     maxpixels=ncell(RGB_stack_HARV))
 
 #plot one band
 plot(RGB_stack_HARV[[1]], 
@@ -99,7 +115,9 @@ plot(RGB_stack_HARV[[1]],
 plot(RGB_stack_HARV, 
      col=grayscale_colors)
 
-par(mfrow=c(1,1)) # go back 1 plot at time, not 2x2.
+# revert to a single plot layout 
+#par(mfrow=c(1,1)) 
+
 
 ## ----plot-rgb-image------------------------------------------------------
 
@@ -107,13 +125,19 @@ par(mfrow=c(1,1)) # go back 1 plot at time, not 2x2.
 plotRGB(RGB_stack_HARV, 
         r = 1, g = 2, b = 3)
 
+
+
+
+## ----image-stretch-------------------------------------------------------
+
 #what does stretch do?
 plotRGB(RGB_stack_HARV,
         r = 1, g = 2, b = 3, 
         scale=800,
         stretch = "lin")
 
-## ----challenge-code-NoData, echo=FALSE-----------------------------------
+
+## ----challenge-code-NoData, echo=FALSE, results="hide"-------------------
 #1.
 #view attributes
 GDALinfo("NEON_RemoteSensing/HARV/HARV_Ortho_wNA.tif")
@@ -144,6 +168,7 @@ RGB_brick_HARV <- brick(RGB_stack_HARV)
 
 #view size of the brick
 object.size(RGB_brick_HARV)
+
 
 ## ----plot-brick----------------------------------------------------------
 #plot brick
