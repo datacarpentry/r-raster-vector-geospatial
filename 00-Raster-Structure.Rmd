@@ -60,7 +60,6 @@ your computer to complete this lesson.
 
 
 ####Data to Download
-
 Download the raster files for the Harvard Forest dataset:
 
 <a href="http://files.figshare.com/2434040/NEON_RemoteSensing.zip" class="btn btn-success"> DOWNLOAD Sample NEON Airborne Observation Platform Raster Data</a> 
@@ -76,8 +75,8 @@ website.</a>
 ####Setting the Working Directory
 The code in this lesson assumes that you have set your working directory to the
 location of the unzipped file of data downloaded above.  If you would like a
-refresher on setting the working directory, please view the [Setting A Working Directory In R]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") lesson prior to beginning
-this lesson.
+refresher on setting the working directory, please view the [Setting A Working Directory In R]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
+lesson prior to beginning this lesson.
 
 ####Raster Lesson Series 
 This lesson is a part of a lesson series on raster data in R:
@@ -108,7 +107,7 @@ surface.
 
 ![What Is A Raster Dataset]({{ site.baseurl }}/images/raster_timeseries/raster_concept.png)
 
-#Types of data stored as rasters
+#Types of Data Stored as Rasters
 Raster data can be continuous or categorical. Continuous rasters can have a 
 range of quantitative values. Some examples of continuous rasters include:
 
@@ -206,7 +205,7 @@ library(rgdal)
 #setwd("working-dir-path-here")
 ```
 
-##Open a raster in R
+##Open a Raster in R
 We can use the `raster("path-to-raster-here")` function to open a raster in R. 
 
 NAMES: To improve code readability, file and object names should be make it 
@@ -248,7 +247,7 @@ or project the raster in geographic space.
 </figure>
 
 ##What Makes Spatial Data Line Up On A Map?
-There are lots of great resources that describe coordinate reference systems and 
+There are lots of great resources that describe coordinate reference systems and
 projections in greater detail. For the purposes of this activity, what 
 is important to understand is that data from the same location but saved in 
 different projections **will not line up in any GIS or other program**. Thus 
@@ -269,8 +268,6 @@ Check out this short video highlighting how map projections can make continents
 seems proportionally larger or smaller than they actually are!
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/KUF_Ckv8HbE" frameborder="0" allowfullscreen></iframe>
-
-
 
 While we will not go into great depth with respect to understanding Coordinate
 Reference Systems in this lesson, it is important to understand that 
@@ -373,7 +370,8 @@ at the
 edge of the raster will have no data. This often happens when the data were 
 collected by an airplane which only flew over some of a particular region. 
 
-In the image below, the pixels that are black, have no data associated with them.
+In the image below, the pixels that are black, have no data associated with
+them.
 The camera did not collect data in these areas. 
 
 ```{r demonstrate-no-data-blaco, echo=FALSE }
@@ -388,7 +386,7 @@ plotRGB(RGB_stack, r = 1, g = 2, b = 3,
 
 ```
 
-Below - the black edges have been assigned NoDataValues (`NA`). R doesn't render 
+Below - the black edges have been assigned NoDataValues (`NA`). R doesn't render
 pixels that contain no values. Instead they are assigned `NA`.
 
 ```{r demonstrate-no-data, echo=FALSE}
@@ -484,8 +482,8 @@ hist(DSM_HARV,
 Note that the shape of both histograms looks similar to the previous one with
 only 100,000 values. R simple creates a histogram
 with a smaller representative subset of our data. The distribution of elevation
-values for our `Digital Surface Model (DSM)` looks reasonable. It is likely there
-are no bad data values in this particular raster.
+values for our `Digital Surface Model (DSM)` looks reasonable. It is likely
+there are no bad data values in this particular raster.
 
 ##Raster Bands
 
@@ -556,7 +554,7 @@ NOTE: this file is a `hillshade`. We will learn about hillshades in <a href="{{ 
 GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif")
 
 #ANSWERS ###
-# 1. If this file has the same CRS as DSM_HARV?  Yes: UTM Zone 18, WGS84, meters. 
+#1. If this file has the same CRS as DSM_HARV?  Yes: UTM Zone 18, WGS84, meters. 
 #2. What format NoData values take?  -9999
 #3. The resolution of the raster data? 1x1
 #4. How large a 5x5 pixel area would be? 5mx5m How? We are given resolution of 
