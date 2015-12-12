@@ -78,7 +78,7 @@ location of the unzipped file of data downloaded above.  If you would like a
 refresher on setting the working directory, please view the [Setting A Working Directory In R]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
 lesson prior to beginning this lesson.
 
-####Raster Lesson Series 
+###Raster Lesson Series 
 This lesson is a part of a series of raster data in R lessons:
 
 * [Lesson 00 - Intro to Raster Data in R]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R/)
@@ -89,7 +89,6 @@ This lesson is a part of a series of raster data in R lessons:
 * [Lesson 05 - Raster Time Series Data in R]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/)
 * [Lesson 06 - Plot Raster Time Series Data in R Using RasterVis and LevelPlot]({{ site.baseurl}}/R/Plot-Raster-Times-Series-Data-In-R/)
 * [Lesson 07- Extract NDVI Summary Values from a Raster Time Series]({{ site.baseurl}}/R/Extract-NDVI-From-Rasters-In-R/)
-
 
 ###Sources of Additional Information
 
@@ -231,7 +230,7 @@ The output resolution of `DTM_hill_UTMZ18N_HARV` is 1 x 0.998. Yet, we know that
 the resolution for the data should be 1x1 m. We can tell `R` to force our newly
 reprojected raster to be 1m resolution by adding a line of code (`res=`).  
 
-``` {r reproject-assign-resolution}
+``` {r reproject-assign-resolution }
 #adjust the resolution 
 DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV, 
                                   crs=crs(DTM_HARV),
@@ -267,7 +266,7 @@ and `SJER_dsmCrop.tif` files.
 
 Reproject the data as necessary to make things line up!
 
-```{r challenge-code-reprojection echo=FALSE }
+```{r challenge-code-reprojection, echo=FALSE }
 
 #import DTM
 DSM_SJER <- raster("NEON_RemoteSensing/SJER/DSM/SJER_dsmcrop.tif")
@@ -292,6 +291,8 @@ plot(DSM_SJER,
      legend=F)
 
 ```
+
+
 If you completed the San Joaquin plotting challenge in the
 [Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/) 
 lesson, how does the map you just created compare to that map? 

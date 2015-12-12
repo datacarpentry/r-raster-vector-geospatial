@@ -8,7 +8,7 @@ Mike Smorul]
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: `r format(Sys.time(), "%Y-%m-%d")`
+lastModified: 2015-12-11
 category: time-series-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
@@ -101,31 +101,29 @@ lesson. This data is derived from the Landsat satellite and stored in GeoTIFF
 format. Each raster covers the <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>.  
 If you do not yet have this RasterStack, please create it now. 
 
-```{r load-libraries-data }
 
-library(raster)
-library(rgdal)
-library(rasterVis)
-
-# Create list of NDVI file paths
-NDVI_path <- "Landsat_NDVI/HARV/2011/ndvi"  #assign path to object = cleaner code
-all_NDVI <- list.files(NDVI_path, full.names = TRUE, pattern = ".tif$")
-
-# Create a time series raster stack
-NDVI_stack <- stack(all_NDVI)
-```
+    library(raster)
+    library(rgdal)
+    library(rasterVis)
+    
+    # Create list of NDVI file paths
+    NDVI_path <- "Landsat_NDVI/HARV/2011/ndvi"  #assign path to object = cleaner code
+    all_NDVI <- list.files(NDVI_path, full.names = TRUE, pattern = ".tif$")
+    
+    # Create a time series raster stack
+    NDVI_stack <- stack(all_NDVI)
 
 #Plot Raster Time Series Data
 We could used the `plot` function to plot our raster time series data.
 
-```{r plot-time-series }
-#view a histogram of all of the rasters
-#nc specifies number of columns
-plot(NDVI_stack, 
-     zlim = c(1500, 10000), 
-     nc = 4)
 
-``` 
+    #view a histogram of all of the rasters
+    #nc specifies number of columns
+    plot(NDVI_stack, 
+         zlim = c(1500, 10000), 
+         nc = 4)
+
+![ ]({{ site.baseurl }}/images/rfigs/06-Plotting-Time-Series-Rasters-in-R/plot-time-series-1.png) 
 
 Note: The metadata for this NDVI data have a scale factor: 10,000. A scale
 factor is commonly used in larger datasets to remove decimals. {: .notice2}
@@ -138,12 +136,12 @@ could instead plot using `levelplot` from the `rasterVis` package.
 
 The syntax is similar to `plot()`.
 
-```{r levelplot-time-series }
-#create a `levelplot` plot
-levelplot(NDVI_stack,
-          main="Landsat NDVI\nHarvard Forest")
 
-```
+    #create a `levelplot` plot
+    levelplot(NDVI_stack,
+              main="Landsat NDVI\nHarvard Forest")
+
+![ ]({{ site.baseurl }}/images/rfigs/06-Plotting-Time-Series-Rasters-in-R/levelplot-time-series-1.png) 
 
 At least we now have an overall title describing the tiles.  We can customize
 this plot further to make it look even nicer.  
@@ -156,17 +154,16 @@ data.
 We can do that using the `colorRampPalette` function in combination with 
 `colorBrewer`. 
 
-``` {r change-color-ramp }
-#use colorbrewer which loads with the rasterVis package to generate
-#a color ramp of yellow to green
-cols <- colorRampPalette(brewer.pal(9,"YlGn"))
-#create a level plot - plot
-levelplot(NDVI_stack,
-          main="Landsat NDVI better colors \nHarvard Forest",
-          col.regions=cols)
 
+    #use colorbrewer which loads with the rasterVis package to generate
+    #a color ramp of yellow to green
+    cols <- colorRampPalette(brewer.pal(9,"YlGn"))
+    #create a level plot - plot
+    levelplot(NDVI_stack,
+              main="Landsat NDVI better colors \nHarvard Forest",
+              col.regions=cols)
 
-```
+![ ]({{ site.baseurl }}/images/rfigs/06-Plotting-Time-Series-Rasters-in-R/change-color-ramp-1.png) 
 
 For all of the `brewer.pal` ramp names see the <a href="http://www.datavis.ca/sasmac/brewerpal.html" target="_blank"> brewerpal page</a>.
 
@@ -187,24 +184,39 @@ create these replacements we will use the `gsub` function in `R`.
 
 The syntax is `gsub("StringToReplace","TextToReplaceIt", Robject)`. 
 
-```{r clean-up-names }
 
-#view names for each raster layer
-names(NDVI_stack)
+    #view names for each raster layer
+    names(NDVI_stack)
 
-#use gsub to use the names of the layers to create a list of new names
-#that we'll use for the plot 
-rasterNames  <- gsub("X","Day", names(NDVI_stack))
+    ##  [1] "X005_HARV_ndvi_crop" "X037_HARV_ndvi_crop" "X085_HARV_ndvi_crop"
+    ##  [4] "X133_HARV_ndvi_crop" "X181_HARV_ndvi_crop" "X197_HARV_ndvi_crop"
+    ##  [7] "X213_HARV_ndvi_crop" "X229_HARV_ndvi_crop" "X245_HARV_ndvi_crop"
+    ## [10] "X261_HARV_ndvi_crop" "X277_HARV_ndvi_crop" "X293_HARV_ndvi_crop"
+    ## [13] "X309_HARV_ndvi_crop"
 
-#view Names
-rasterNames
+    #use gsub to use the names of the layers to create a list of new names
+    #that we'll use for the plot 
+    rasterNames  <- gsub("X","Day", names(NDVI_stack))
+    
+    #view Names
+    rasterNames
 
-#replace the second part of the string with year
-rasterNames  <- gsub("_HARV_ndvi_crop","",rasterNames)
+    ##  [1] "Day005_HARV_ndvi_crop" "Day037_HARV_ndvi_crop"
+    ##  [3] "Day085_HARV_ndvi_crop" "Day133_HARV_ndvi_crop"
+    ##  [5] "Day181_HARV_ndvi_crop" "Day197_HARV_ndvi_crop"
+    ##  [7] "Day213_HARV_ndvi_crop" "Day229_HARV_ndvi_crop"
+    ##  [9] "Day245_HARV_ndvi_crop" "Day261_HARV_ndvi_crop"
+    ## [11] "Day277_HARV_ndvi_crop" "Day293_HARV_ndvi_crop"
+    ## [13] "Day309_HARV_ndvi_crop"
 
-#view names for each raster layer
-rasterNames
-```
+    #replace the second part of the string with year
+    rasterNames  <- gsub("_HARV_ndvi_crop","",rasterNames)
+    
+    #view names for each raster layer
+    rasterNames
+
+    ##  [1] "Day005" "Day037" "Day085" "Day133" "Day181" "Day197" "Day213"
+    ##  [8] "Day229" "Day245" "Day261" "Day277" "Day293" "Day309"
 
 Bonus: Instead of substituting "x" and "_HARV_ndvi_crop" seperately, we could
 have used use the vertical bar character ( | ) to replace more than one element.
@@ -215,28 +227,28 @@ in the string.  Example code to remove "x" an "_HARV...":
 Once the names for each band have been reassigned, we can render our plot with
 the new labels. 
 
-```{r create-levelplot }
 
-#use level plot to create a nice plot with one legend and a 4x4 layout.
-levelplot(NDVI_stack,
-          layout=c(4, 4), #create a 4x4 layout for the data
-          col.regions=cols, #add a color ramp
-          main="Landsat NDVI - Julian Days \nHarvard Forest 2014",
-          names.attr=rasterNames)
+    #use level plot to create a nice plot with one legend and a 4x4 layout.
+    levelplot(NDVI_stack,
+              layout=c(4, 4), #create a 4x4 layout for the data
+              col.regions=cols, #add a color ramp
+              main="Landsat NDVI - Julian Days \nHarvard Forest 2014",
+              names.attr=rasterNames)
 
-```
+![ ]({{ site.baseurl }}/images/rfigs/06-Plotting-Time-Series-Rasters-in-R/create-levelplot-1.png) 
 
 We can adjust the columns of our plot too using `layout=c(cols,rows)'. Below
 we adjust the layout to be a matrix of 4 columns and 4 rows.
 
-```{r adjust-layout }
-#use level plot to create a nice plot with one legend and a 4x4 layout.
-levelplot(NDVI_stack,
-          layout=c(5, 3), #create a 5x3 layout for the data
-          col.regions=cols, #add a color ramp
-          main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
-          names.attr=rasterNames)
-```
+
+    #use level plot to create a nice plot with one legend and a 4x4 layout.
+    levelplot(NDVI_stack,
+              layout=c(5, 3), #create a 5x3 layout for the data
+              col.regions=cols, #add a color ramp
+              main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
+              names.attr=rasterNames)
+
+![ ]({{ site.baseurl }}/images/rfigs/06-Plotting-Time-Series-Rasters-in-R/adjust-layout-1.png) 
 
 #Challenge: Divergent Color Ramps 
 When we used `gsub` to modify the tile labels we just used Day.  However, it
@@ -248,18 +260,4 @@ represent the data.  Does having a divergent color ramp respresent the data
 better than a sequential color ramp (like "YlGn")?  Can you think of other data
 sets where a divergent color ramp may be best? 
 
-```{r challenge-code-levelplot-divergent, echo=FALSE }
-#change Day### to JulianDay_###
-rasterNames  <- gsub("Day","JulianDay_",rasterNames)
-
-#use level plot to create a nice plot with one legend and a 4x4 layout.
-levelplot(NDVI_stack,
-          layout=c(5, 3), #create a 5x3 layout for the data
-          col.regions=colorRampPalette(brewer.pal(9,"BrBG")), #specify color 
-          main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
-          names.attr=rasterNames)
-
-#The sequential is better than the divergent as it is more akin to the process
-#of greening up, which starts off at one end and just keeps increasing. 
-
-```
+![ ]({{ site.baseurl }}/images/rfigs/06-Plotting-Time-Series-Rasters-in-R/challenge-code-levelplot-divergent-1.png) 

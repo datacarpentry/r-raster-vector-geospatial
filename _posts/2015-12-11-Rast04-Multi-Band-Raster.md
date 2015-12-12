@@ -6,18 +6,19 @@ authors: [Kristina Riemer, Mike Smorul, Zack Brym, Jason Williams, Jeff Holliste
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2015-11-23
+lastModified: 2015-12-11
 category: spatio-temporal-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
 description: "This lesson explores how to import and plot a multi-band raster in
-R. It also covers how to plot a three band color image plotRGB command in R"
+R. It also covers how to plot a three-band color image using the `plotRGB()`
+function in R"
 code1: 
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink: http://www.neoninc.org
-permalink: /R/Multi-Band-Rasters-In-R
+permalink: R/Multi-Band-Rasters-In-R
 comments: false
 ---
 
@@ -25,7 +26,9 @@ comments: false
 
 
 ##About
-This lesson will walk through how to work with multi-band raster data in R.
+This lesson explores how to import and plot a multi-band raster in
+R. It also covers how to plot a three-band color image using the `plotRGB()`
+function in `R`.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
@@ -35,13 +38,20 @@ This lesson will walk through how to work with multi-band raster data in R.
 After completing this activity, you will:
 
 * Know how to identify a single vs. a multi-band raster file.
-* Be able to import multi-band rasters into `R` using the `raster` library.
-* Be able to plot multi-band color image rasters in `R` using `plotRGB`.
-* Understand what a `nodata` value is in rasters.
+* Be able to import multi-band rasters into `R` using the `raster` package.
+* Be able to plot multi-band color image rasters in `R` using `plotRGB()`.
+* Understand what a NoData value is in rasters.
+
+###Challenge Code
+Throughout the lesson we have Challenges that reinforce learned skills. Possible
+solutions to the challenges are not posted on this page, however, the code for 
+each challenge is in the `R` code that can be downloaded for this lesson (see 
+footer on this page).
 
 ###Things You'll Need To Complete This Lesson
 Please be sure you have the most current version of `R` and, preferably,
 R studio to write your code.
+
 ####R Libraries to Install:
 
 * **raster:** `install.packages("raster")`
@@ -61,12 +71,13 @@ headquarters. The entire dataset can be accessed by request from the
 <a href="http://www.neoninc.org/data-resources/get-data/airborne-data" target="_blank"> NEON 
 website.</a>
 
-####Recommended Pre-Lesson Reading
+####Setting the Working Directory
+The code in this lesson assumes that you have set your working directory to the
+location of the unzipped file of data downloaded above.  If you would like a
+refresher on setting the working directory, please view the [Setting A Working Directory In R]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
+lesson prior to beginning this lesson.
 
-<a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
-Read more about the `raster` package in R.</a>
-
-####Raster Lesson Series 
+###Raster Lesson Series 
 This lesson is a part of a series of raster data in R lessons:
 
 * [Lesson 00 - Intro to Raster Data in R]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R/)
@@ -77,41 +88,34 @@ This lesson is a part of a series of raster data in R lessons:
 * [Lesson 05 - Raster Time Series Data in R]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/)
 * [Lesson 06 - Plot Raster Time Series Data in R Using RasterVis and LevelPlot]({{ site.baseurl}}/R/Plot-Raster-Times-Series-Data-In-R/)
 * [Lesson 07- Extract NDVI Summary Values from a Raster Time Series]({{ site.baseurl}}/R/Extract-NDVI-From-Rasters-In-R/)
+
+###Sources of Additional Information
+<a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
+Read more about the `raster` package in R.</a>
 </div>
 
-#About Raster Bands
-
-As discussed in the [Intro to Raster Data Lesson 00]( {{ base.url }} }}NEON-R-Spatial-Raster/R/Introduction-to-Raster-Data-In-R), a raster can
-contain 1 or more bands.
+#About Raster Bands in R 
+As discussed in the [Intro to Raster Data Lesson]( {{ base.url }} }}NEON-R-Spatial-Raster/R/Introduction-to-Raster-Data-In-R), a raster can
+contain one or more bands.
 
 <figure>
     <a href="{{ site.baseurl }}/images/raster_timeseries/single_multi_raster.png">
     <img src="{{ site.baseurl }}/images/raster_timeseries/single_multi_raster.png"></a>
-    <figcaption>A raster dataset can contain one or more bands. We can use the raster 
-    function to import one single band from a single OR multi-band raster.</figcaption>
+    <figcaption>A raster dataset can contain one or more bands. We can use the
+    raster function to import one single band from a single OR multi-band
+    raster.  Image Source: NEON, Inc.</figcaption>
 </figure>
 
-To work with multi-band rasters, we need to change how 
-we import and plot our data in several ways. 
+To work with multi-band rasters in R, we need to change how we import and plot
+our data in several ways. 
 
 * To import multi band raster data we will use the `stack()` function.
 * If our multi-band data are imagery that we wish to composite, we can use
 `plotRGB()` (instead of `plot`) to plot a 3 band raster image.
 
-Want to learn more? The video below, covers the basics of what a multi-band 
-images are:
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/3iaFzafWJQE" frameborder="0" allowfullscreen></iframe>
-
-To work with multi-band rasters, we will use the `raster` and `rgdal` libraries.
-
-
-    library(raster)
-    library(rgdal)
-
 #About Multi-Band Imagery
-A raster dataset can store multiple bands. One type of multi-band raster dataset 
-that is familiar to many of us is a color image. A basic color image consists of 
+A raster dataset can store multiple bands. One type of multi-band raster dataset
+that is familiar to many of us is a color image. A basic color image consists of
 three bands: red, green, and blue. The pixel brightness for each band, when 
 composited creates the colors that we see in an image. 
 
@@ -120,14 +124,15 @@ composited creates the colors that we see in an image.
     <img src="{{ site.baseurl }}/images/raster_timeseries/RGBSTack_1.png"></a>
     <figcaption>A color image consists of 3 bands - red, green and blue. When
     rendered together in a GIS, or even a tool like Photoshop or any other
-    image software, they create a color image.</figcaption>
+    image software, they create a color image. Image Source: NEON,Inc.  
+    </figcaption>
 </figure>
 
 We can plot each band of a multi-band image individually. 
 
-> Note: In many GIS applications, a single band would render as a single
-> image band using a grayscale color palette. We will thus use a grayscale 
-> palette to render individual bands.
+Note: In many GIS applications, a single band would render as a single image in 
+grayscale. We will therefore use a grayscale palette to render individual
+bands. {: .notice2}
 
 ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/demonstrate-RGB-Image-1.png) 
 
@@ -135,42 +140,43 @@ Or we can composite all three bands together to make a color image.
 
 ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/plot-RGB-now-1.png) 
 
+In a multi-band dataset, the rasters will always have the same extent,
+CRS and resolution.  
 
-    ## Warning in par(original_par): graphical parameter "cin" cannot be set
 
-    ## Warning in par(original_par): graphical parameter "cra" cannot be set
 
-    ## Warning in par(original_par): graphical parameter "csi" cannot be set
+Want to learn more? The video below, covers the basics of what a multi-band 
+images are:
 
-    ## Warning in par(original_par): graphical parameter "cxy" cannot be set
-
-    ## Warning in par(original_par): graphical parameter "din" cannot be set
-
-    ## Warning in par(original_par): graphical parameter "page" cannot be set
-
+<iframe width="560" height="315" src="https://www.youtube.com/embed/3iaFzafWJQE" frameborder="0" allowfullscreen></iframe>
 
 #Other Types of Multi-band Raster Data
 
 Multi-band raster data might also contain:
 
-1. Time series: same variable, over the same area, over time. 
-[Check out Lesson 04 - Raster time series data in R to learn more about time series stacks]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/).
-2. Multi-hyperspectral imagery: that might have 4 or more bands up to 400+ bands 
-of image data! Check out a lesson on 
+1. Time series: same variable, over the same area, over time. Check out 
+[Raster Time Series Data in R ]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/) to learn more about time series stacks.
+2. Multi-hyperspectral imagery: rasters that have 4 or more (even 400+) bands 
+image data! Check out the 
 <a href="http://neondataskills.org/HDF5/Imaging-Spectroscopy-HDF5-In-R/" target="_blank">
-hyperspectral imagery here.</a>
+NEON Data Skills Imaging Spectroscopy HDF6 in R lesson.</a>
 
-NOTE: In a multi-band dataset, the rasters will always have the same extent,
-CRS and resolution.
-{: .notice }
+#Getting Started with Multi-Band Data in R
+To work with multi-band raster data we will use the `raster` and `rgdal`
+libraries.
+
+
+    library(raster)
+    library(rgdal)
 
 In this lesson, the multi-band data that we are working with is imagery
-collected using the <a href="http://http://www.neoninc.org/science-design/collection-methods/airborne-remote-sensing" target="_blank">NEON Airborne Observation Platform</a> high resolution camera over
+collected using the <a href="http://www.neoninc.org/science-design/collection-methods/airborne-remote-sensing" target="_blank">NEON Airborne Observation Platform</a> high resolution camera over
 the <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>. 
-Each RGB images is a 3-band raster. However the same steps would apply to working
-with a multi-spectral image that might have 4 or more bands - like Landsat.
+Each RGB images is a 3-band raster. However the same steps would apply to 
+working with a multi-spectral image with 4 or more bands - like 
+Landsat.
 
-#Getting Started with Multi-Band Data
+
 If we read a `rasterStack` into R using the `raster` function, it defaults to 
 reading in just the first band. We can plot this band using the plot function. 
 
@@ -190,7 +196,7 @@ reading in just the first band. We can plot this band using the plot function.
     #Plot band 1
     plot(RGB_band1_HARV, 
          col=grayscale_colors, 
-         main="NEON RGB Imagery - Band 1\nHarvard Forest") 
+         main="NEON RGB Imagery - Band 1-Red\nHarvard Forest") 
 
 ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/read-single-band-1.png) 
 
@@ -204,11 +210,11 @@ reading in just the first band. We can plot this band using the plot function.
     ## resolution  : 0.25, 0.25  (x, y)
     ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif 
+    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif 
     ## names       : HARV_RGB_Ortho 
     ## values      : 0, 255  (min, max)
 
-Note that when we look at the attributes of RGB_Band1, we see :
+Notice that when we look at the attributes of RGB_Band1, we see :
 
 `band: 1  (of  3  bands)`
 
@@ -217,8 +223,7 @@ associated with it!
 
 NOTE: The number of bands associated with a raster object can also be
 determined using the `nbands` slot. Syntax is `ObjectName@file@nbands`, or
-specifically for our file: `RGB_band1@file@nbands`.
-{ : .notice }
+specifically for our file: `RGB_band1@file@nbands`.{ : .notice2 }
 
 ##Raster Data Values for Images
 Take careful note of the min and max values of our raster - What do you see?
@@ -234,9 +239,9 @@ Take careful note of the min and max values of our raster - What do you see?
 
     ## [1] 255
 
-In this raster image, we see values between 0 and 255 are used. These values 
+In this raster image, we see values between 0 and 255. These values 
 represent degrees of brightness associated with the band color being viewed. In 
-the case of a RGB image (red, green and blue), band 1 is the red band. Thus when 
+the case of a RGB image (red, green and blue), band 1 is the red band. Thus when
 you plot that band, larger numbers (towards 255) represent pixels with more red 
 in them. Smaller numbers (towards 0) represent pixels with less red in them. To 
 plot an RGB image, we mix red + green + blue values into one single color.
@@ -255,7 +260,7 @@ that you want to work with. If we want to import the green band we would use
     #plot band 2
     plot(RGB_band2_HARV,
          col=grayscale_colors,   #we already created this palatte & can use it again
-         main="NEON RGB Imagery - Band 2\nHarvard Forest")
+         main="NEON RGB Imagery - Band 2- Green\nHarvard Forest")
 
 ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/read-specific-band-1.png) 
 
@@ -268,25 +273,22 @@ that you want to work with. If we want to import the green band we would use
     ## resolution  : 0.25, 0.25  (x, y)
     ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif 
+    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif 
     ## names       : HARV_RGB_Ortho 
     ## values      : 0, 255  (min, max)
 
-Notice that band 2 is band 2 of 3 bands.
-`band: 2  (of  3  bands)`
+Notice that band 2 is band 2 of 3 bands `band: 2  (of  3  bands)`.  
 
 
-> #Challenge: Making sense of single band images
-> If you compare the plots of band 1 (red) and band 2 (green) you can see subtle 
-> differences in the image. The forest appears paler in band 2 (green). Why?  
-
-Next, we will explore working with all 3 bands - using a `RasterStack`. 
+#Challenge: Making sense of single band images
+If you compare the plots of band 1 (red) and band 2 (green) you can see subtle 
+differences in the image. The forest appears paler in band 2 (green). Why?  
 
 
 
-#Raster Stacks in R
-We have now explored individual bands in a multi-band raster. Let's bring in all
-3 bands of our 3-band image composite it to create a final color RGB plot in `R`. 
+##Raster Stacks in R
+Next, we will explore working with all 3 bands using a *Raster Stack* of our
+3-band image composite to create a final RGB color plot in `R`. 
 
 To bring in all bands of a multi-band raster, we use the`stack()` function.
 
@@ -322,7 +324,7 @@ and `hist()` functions on the `RasterStack` to view each band in the stack.
     ## resolution  : 0.25, 0.25  (x, y)
     ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif 
+    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif 
     ## names       : HARV_RGB_Ortho.1 
     ## values      : 0, 255  (min, max)
     ## 
@@ -334,7 +336,7 @@ and `hist()` functions on the `RasterStack` to view each band in the stack.
     ## resolution  : 0.25, 0.25  (x, y)
     ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif 
+    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif 
     ## names       : HARV_RGB_Ortho.2 
     ## values      : 0, 255  (min, max)
     ## 
@@ -346,7 +348,7 @@ and `hist()` functions on the `RasterStack` to view each band in the stack.
     ## resolution  : 0.25, 0.25  (x, y)
     ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif 
+    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif 
     ## names       : HARV_RGB_Ortho.3 
     ## values      : 0, 255  (min, max)
 
@@ -359,45 +361,35 @@ and `hist()` functions on the `RasterStack` to view each band in the stack.
     ## resolution  : 0.25, 0.25  (x, y)
     ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif 
+    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif 
     ## names       : HARV_RGB_Ortho.1 
     ## values      : 0, 255  (min, max)
 
+    #plot 2x2
+    par(mfrow=c(2,2)) 
+    
     #view histogram of all 3 bands
     hist(RGB_stack_HARV,
          maxpixels=ncell(RGB_stack_HARV))
     
-    #plot one band
-    plot(RGB_stack_HARV[[1]], 
-         main="RGB_stack Band 1", 
-         col=grayscale_colors)
-
-![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/plot-raster-layers-1.png) 
-
     #plot all three bands separately
     plot(RGB_stack_HARV, 
          col=grayscale_colors)
 
-![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/plot-raster-layers-2.png) 
+![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/plot-raster-layers-1.png) ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/plot-raster-layers-2.png) 
 
     # revert to a single plot layout 
-    #par(mfrow=c(1,1)) 
+    par(mfrow=c(1,1)) 
 
 
 #Create A Three Band Image
-To render a final 3 band, color image in `R`, we use `plotRGB()`.
+To render a composite 3-band color image in `R`, we use `plotRGB()`.
 
 This function allows us to also:
-
-1. Determine what order we want to plot the bands.  RGB assumes that the bands 
+1) Determine what order we want to plot the bands.  RGB assumes that the bands 
 are 1=red, 2=green, and 3=blue.  However, bands may not be in that order or bands
 may be of data that is outside the visible human range yet we want to plot them 
-in RGB so that we can visualize it. 
-
-2. Adjust the `stretch` of the image to make it brighter or darker. Adjusting 
-the stretch can help us adjust the contrast in our image.
-
-Let's plot our image.
+in RGB so that we can visualize them.
 
 
     # Create an RGB image from the raster stack
@@ -406,42 +398,54 @@ Let's plot our image.
 
 ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/plot-rgb-image-1.png) 
 
-The image above looks pretty good. We can explore whether applying a stretch to
-the image might improve clarity and contrast using  `stretch="lin"` or 
-`stretch="hist"`.  
+2) Adjust the `stretch` of the image to make it brighter or darker. Adjusting 
+the stretch allows us to adjust the contrast in our image.
 
 <figure>
     <a href="{{ site.baseurl }}/images/raster_timeseries/imageStretch_dark.jpg">
     <img src="{{ site.baseurl }}/images/raster_timeseries/imageStretch_dark.jpg"></a>
-    <figcaption>When the range of pixel brightness values is closer to 0, a darker
-    image is rendered by default. We can stretch the values to extend to the full 
-    0-255 range of potential values to increase the visual contrast of the image.
+    <figcaption>When the range of pixel brightness values is closer to 0, a
+    darker image is rendered by default. We can stretch the values to extend to
+    the full 0-255 range of potential values to increase the visual contrast of
+    the image.  Image Source: NEON, Inc.
     </figcaption>
 </figure>
 
 <figure>
     <a href="{{ site.baseurl }}/images/raster_timeseries/imageStretch_light.jpg">
     <img src="{{ site.baseurl }}/images/raster_timeseries/imageStretch_light.jpg"></a>
-    <figcaption>When the range of pixel brightness values is closer to 255, a lighter
-    image is rendered by default. We can stretch the values to extend to the full 
-    0-255 range of potential values to increase the visual contrast of the image.
+    <figcaption> When the range of pixel brightness values is closer to 255, a
+    lighter image is rendered by default. We can stretch the values to extend to
+    the full 0-255 range of potential values to increase the visual contrast of
+    the image.  Image Source: NEON, Inc. 
     </figcaption>
 </figure>
 
+The RBGplot that we created looks pretty good. We can explore whether applying a
+stretch to the image might improve clarity and contrast.  Strech can be done in 
+two ways: using  `stretch="lin"` or `stretch="hist"`.  
 
 
     #what does stretch do?
     plotRGB(RGB_stack_HARV,
             r = 1, g = 2, b = 3, 
             scale=800,
-            stretch = "lin")
+            stretch = "lin",
+            main="RGB Plot with linear stretch\n Harvard Forest")
 
 ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/image-stretch-1.png) 
 
+    plotRGB(RGB_stack_HARV,
+            r = 1, g = 2, b = 3, 
+            scale=800,
+            stretch = "hist",
+            main="RGB Plot with histogram stretch\n Harvard Forest")
+
+![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/image-stretch-2.png) 
 
 In this case, the stretch doesn't improve the clarity of our image significantly.
-However sometimes it can be useful if the image contrast is low when first plotted.
-
+However, it sometimes can be useful if the image contrast is low when first 
+plotted.
 
 ##Challenge - NoData Values
 To explore what happens with NoData values when using `RasterStack` and `plotRGB`
@@ -455,42 +459,38 @@ directory.
 5. Plot the object as a true color image. 
 6. What happened to the black edges in the data?
 7. What does this tell us about the difference in the data structure between  
-`HARV_Ortho_wNA.tif` and `HARV_RGB_Ortho.tif` (`R` object RGB_stack). How can you
-check?
-
-Answer the questions above using the functions we have covered so far in this
-lesson.
+`HARV_Ortho_wNA.tif` and `HARV_RGB_Ortho.tif` (`R` object RGB_stack). How can
+you check?
 
 ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/challenge-code-NoData-1.png) 
 
-> Bonus: So far we've created a RasterStack from multiple bands in one GeoTIFF, 
-> however, you can also create a RasterStack by combining single bands from 
-> multiple files. We will cover this in [Lesson 05 - Raster Time Series Data in R]({{ site.baseurl }}R/Raster-Times-Series-Data-In-R/).  
+So far we've created a RasterStack from multiple bands in one GeoTIFF, 
+however, you can also create a RasterStack by combining single bands from 
+multiple files. The [Raster Time Series Data in R]({{ site.baseurl }}/R/Raster-Times-Series-Data-In-R/) goes into more details on this. 
 
 ##RasterStack vs RasterBrick in R
-
-Both `RasterStack` and `RasterBrick` are `R` objects with multiple bands. The bands 
-in a `RasterStack` are stored anywhere on your computer. A 
+Both `RasterStack` and `RasterBrick` are `R` objects with multiple bands. The
+bands in a `RasterStack` are stored anywhere on your computer. A 
 `RasterBrick` contains all of the objects stored within the actual R object. In 
-most cases, you can work with a `RasterBrick` in the same way you might work
+most cases, you can work with a `RasterBrick` in the same way you work
 with a `RasterStack`. However a `RasterBrick` is often more efficient and faster
 to process - which is important when working with larger files.
 
-<a href="http://www.inside-r.org/packages/cran/raster/docs/brick" target="_blank">More on Raster Bricks</a>
+<a href="http://www.inside-r.org/packages/cran/raster/docs/brick" target="_blank">More on Raster Bricks</a> from Inside-R.org.  
 
 You can turn a `RasterStack` into a `RasterBrick` in `R` by using
 `brick(StackName)`. Let's use the `object.size()` function to compare `stack` 
 and `brick` `R` objects.
 
 
+    #create a brick by converting stack
+    RGB_brick_HARV <- brick(RGB_stack_HARV)
+    
     #view size of the RGB_stack object that contains our 3 band image
     object.size(RGB_stack_HARV)
 
     ## 40528 bytes
 
-    #convert stack to a brick
-    RGB_brick_HARV <- brick(RGB_stack_HARV)
-    
     #view size of the brick
     object.size(RGB_brick_HARV)
 
@@ -508,64 +508,13 @@ PlotRGB can still be used for plotting bricks.
 ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Raster/plot-brick-1.png) 
 
 
-> #Challenge: What Methods Can I Use on an Object?
-> You can view various methods available to call on an `R` object with 
-> `methods(class=class(objectNameHere))`. Use this to figure out:
->
-> 1) What methods can you use to call on the `RGB_stack_HARV` object? 
-> 2) What methods are available for a single band within `RGB_stack_HARV`? 
-> 3) Why do you think there is a difference? 
+#Challenge: What Methods Can Be Used on an Object?
+You can view various methods available to call on an `R` object with 
+`methods(class=class(objectNameHere))`. Use this to figure out:
+
+1) What methods can you use to call on the `RGB_stack_HARV` object? 
+2) What methods are available for a single band within `RGB_stack_HARV`? 
+3) Why do you think there is a difference? 
 
 
-    ##   [1] !              !=             [              [[            
-    ##   [5] [[<-           [<-            %in%           ==            
-    ##   [9] $              $<-            addLayer       aggregate     
-    ##  [13] all.equal      animate        approxNA       area          
-    ##  [17] Arith          as.array       as.data.frame  as.logical    
-    ##  [21] as.matrix      as.vector      bbox           boxplot       
-    ##  [25] brick          bwplot         calc           cellStats     
-    ##  [29] clamp          click          coerce         colSums       
-    ##  [33] Compare        contourplot    coordinates    corLocal      
-    ##  [37] cover          crop           crosstab       cut           
-    ##  [41] cv             density        densityplot    dim           
-    ##  [45] dim<-          disaggregate   dropLayer      extend        
-    ##  [49] extent         extract        flip           freq          
-    ##  [53] getValues      getValuesBlock getValuesFocal gplot         
-    ##  [57] head           hexbinplot     hist           histogram     
-    ##  [61] horizonplot    hovmoller      identifyRaster image         
-    ##  [65] interpolate    intersect      is.factor      is.finite     
-    ##  [69] is.infinite    is.na          is.nan         isLonLat      
-    ##  [73] KML            labels         length         levelplot     
-    ##  [77] levels         levels<-       log            Logic         
-    ##  [81] mask           match          Math           Math2         
-    ##  [85] maxValue       mean           merge          minValue      
-    ##  [89] modal          mosaic         names          names<-       
-    ##  [93] ncell          ncol           nlayers        nrow          
-    ##  [97] origin         origin<-       overlay        pairs         
-    ## [101] persp          plot           plotRGB        predict       
-    ## [105] print          proj4string    proj4string<-  quantile      
-    ## [109] raster         rasterize      readAll        readStart     
-    ## [113] readStop       reclassify     res            resample      
-    ## [117] rotate         rowSums        sampleRandom   sampleRegular 
-    ## [121] scale          select         setMinMax      setValues     
-    ## [125] shift          show           splom          spplot        
-    ## [129] stack          stackSelect    streamplot     subs          
-    ## [133] subset         Summary        summary        t             
-    ## [137] tail           text           trim           unique        
-    ## [141] unstack        values         values<-       vectorplot    
-    ## [145] weighted.mean  which.max      which.min      writeRaster   
-    ## [149] xmax           xmin           xres           xyplot        
-    ## [153] ymax           ymin           yres           zonal         
-    ## [157] zoom          
-    ## see '?methods' for accessing help and source code
-
-    ##  [1] [             [<-           anyDuplicated as.data.frame as.raster    
-    ##  [6] barchart      boxplot       brick         cloud         coerce       
-    ## [11] contourplot   coordinates   determinant   dotplot       duplicated   
-    ## [16] edit          extent        extract       head          initialize   
-    ## [21] isSymmetric   levelplot     Math          Math2         Ops          
-    ## [26] parallel      parallelplot  raster        rasterize     relist       
-    ## [31] splom         subset        summary       surfaceArea   tail         
-    ## [36] trim          unique        weighted.mean wireframe     writeValues  
-    ## see '?methods' for accessing help and source code
 

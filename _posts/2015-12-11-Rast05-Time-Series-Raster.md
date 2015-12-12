@@ -7,7 +7,7 @@ Brym, Leah Wasser]
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: `r format(Sys.time(), "%Y-%m-%d")`
+lastModified: 2015-12-11
 category: time-series-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
@@ -164,12 +164,9 @@ images for each time period that NDVI is available.
 ##Getting Started 
 In this lesson, we will use the `raster` and `rgdal` packages.
 
-```{r load-libraries }
 
-library(raster)
-library(rgdal)
-
-```
+    library(raster)
+    library(rgdal)
 
 To begin, we will create a list of raster files that can be used to
 generate a `RasterStack`. We can use `list.files()` to designate the list. We
@@ -179,69 +176,85 @@ will tell `R` to only find files with a `.tif` extention using the syntax
 If we specify `full.names=TRUE`, the full path for each file will be added to
 the list. We will be able to create a `RasterStack` directly from the list.
 
-```{r import-ndvi-rasters }
 
-# Create list of NDVI file paths
-NDVI_path <- "Landsat_NDVI/HARV/2011/ndvi"  #assign path to object = cleaner code
-all_NDVI <- list.files(NDVI_path, full.names = TRUE, pattern = ".tif$")
+    # Create list of NDVI file paths
+    NDVI_path <- "Landsat_NDVI/HARV/2011/ndvi"  #assign path to object = cleaner code
+    all_NDVI <- list.files(NDVI_path, full.names = TRUE, pattern = ".tif$")
+    
+    #view list - note the full path, relative to our working directory, is included
+    all_NDVI
 
-#view list - note the full path, relative to our working directory, is included
-all_NDVI
-
-```
+    ##  [1] "Landsat_NDVI/HARV/2011/ndvi/005_HARV_ndvi_crop.tif"
+    ##  [2] "Landsat_NDVI/HARV/2011/ndvi/037_HARV_ndvi_crop.tif"
+    ##  [3] "Landsat_NDVI/HARV/2011/ndvi/085_HARV_ndvi_crop.tif"
+    ##  [4] "Landsat_NDVI/HARV/2011/ndvi/133_HARV_ndvi_crop.tif"
+    ##  [5] "Landsat_NDVI/HARV/2011/ndvi/181_HARV_ndvi_crop.tif"
+    ##  [6] "Landsat_NDVI/HARV/2011/ndvi/197_HARV_ndvi_crop.tif"
+    ##  [7] "Landsat_NDVI/HARV/2011/ndvi/213_HARV_ndvi_crop.tif"
+    ##  [8] "Landsat_NDVI/HARV/2011/ndvi/229_HARV_ndvi_crop.tif"
+    ##  [9] "Landsat_NDVI/HARV/2011/ndvi/245_HARV_ndvi_crop.tif"
+    ## [10] "Landsat_NDVI/HARV/2011/ndvi/261_HARV_ndvi_crop.tif"
+    ## [11] "Landsat_NDVI/HARV/2011/ndvi/277_HARV_ndvi_crop.tif"
+    ## [12] "Landsat_NDVI/HARV/2011/ndvi/293_HARV_ndvi_crop.tif"
+    ## [13] "Landsat_NDVI/HARV/2011/ndvi/309_HARV_ndvi_crop.tif"
 
 Now we have a list of all GeoTIFF files in the `ndvi` directory for Harvard
 Forest. Once we have this list, we can create a stack and begin to work with the
 data. 
 
-```{r create-timeSeries-raster-stack }
-# Create a time series raster stack
-NDVI_stack <- stack(all_NDVI)
-```
+
+    # Create a time series raster stack
+    NDVI_stack <- stack(all_NDVI)
 
 We can also explore the GeoTIFF tags (the embedded metadata) to learn more about
 key metadata for our data including the Coordinate Reference System (`CRS`), 
 `extent` and raster `resolution`.
 
-``` {r explore-RasterStack-tags}
-#view crs of rasters
-crs(NDVI_stack)
 
-#view extent of rasters in stack
-extent(NDVI_stack)
+    #view crs of rasters
+    crs(NDVI_stack)
 
-#view the y resolution of our rasters
-yres(NDVI_stack)
+    ## CRS arguments:
+    ##  +proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs
 
-#view the x resolution of our rasters
-xres(NDVI_stack)
+    #view extent of rasters in stack
+    extent(NDVI_stack)
 
-```
+    ## class       : Extent 
+    ## xmin        : 239415 
+    ## xmax        : 239535 
+    ## ymin        : 4714215 
+    ## ymax        : 4714365
+
+    #view the y resolution of our rasters
+    yres(NDVI_stack)
+
+    ## [1] 30
+
+    #view the x resolution of our rasters
+    xres(NDVI_stack)
+
+    ## [1] 30
 
 #Challenge: Raster Metadata
 Before going further, answer the following questions about our `RasterStack`.
 1. What is the `CRS`?
 2. What is the `resolution` of the data? And what `units` is that resolution in?
 
-``` {r challenge-code-raster-metadata, eval=FALSE, echo=FALSE}
-#1. UTM zone 19 WGS 84
-#2. 30x30 meters
 
-```
 
 #Plotting Time Series Data
 Once we have created our `RasterStack`, we can visualize our data. We can us
 the `plot()` command to quickly plot a `RasterStack`.
 
-```{r plot-time-series }
 
-#view a plot of all of the rasters
-#'nc' specifies number of columns (we will have 13 plots)
-plot(NDVI_stack, 
-     zlim = c(1500, 10000), 
-     nc = 4)
+    #view a plot of all of the rasters
+    #'nc' specifies number of columns (we will have 13 plots)
+    plot(NDVI_stack, 
+         zlim = c(1500, 10000), 
+         nc = 4)
 
-```
+![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/plot-time-series-1.png) 
 
 Wait, NDVI data scale from 0-1, why is this data up to 10,000?  The metadata for this NDVI data have a scale factor: 10,000. A scale factor is
 commonly used in larger datasets to remove decimals. Storing decimal places
@@ -270,13 +283,12 @@ What is another way we can look at these data that is a bit more quantitative
 than viewing images? We could use histograms that show the frequency of pixels
 that occur at each NDVI value.
 
-```{r view-stack-histogram }
 
-#create histograms of each image
-hist(NDVI_stack, 
-     xlim = c(0, 10000))
+    #create histograms of each image
+    hist(NDVI_stack, 
+         xlim = c(0, 10000))
 
-```
+![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/view-stack-histogram-1.png) 
 
 It seems like things get green in the spring and summer like we expect, but the 
 data at Julian days 277 and 293 are unusual. It appears as if the vegetation got
@@ -286,32 +298,7 @@ green in the spring, but then died back only to get green again towards the end 
 The NDVI data that we are using comes from 2011, perhaps a strong freeze around
 Julian day 277 could cause a major plant die off. 
 
-```{r view-temp-data, echo=FALSE }
-
-library(ggplot2)
-library(scales)
-harMetDaily <- read.csv("AtmosData/HARV/hf001-06-daily-m.csv",
-                 stringsAsFactors = FALSE)
-
-#set the field to be a date field
-harMetDaily$date <- as.Date(harMetDaily$date, format = "%Y-%m-%d")
-
-#subset out some of the data - 2010-2013 
-yr.09.11_dailyAvg <- subset(harMetDaily, date >= as.Date('2011-01-01') & date <=
-as.Date('2012-01-01'))
-
-#plot Air Temperature Data (airt) by julian day (jd)
-  
-myPlot <- ggplot(yr.09.11_dailyAvg,aes(jd, airt)) +
-           geom_point() +
-           ggtitle("2011 Air Temperature\nHarvard Forest") +
-           theme(plot.title = element_text(lineheight=.8, face="bold",size = 20)) +
-           theme(text = element_text(size=20)) +
-           xlab("Julian Day") + ylab("Mean Air Temperature")
-
-myPlot
-
-```
+![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/view-temp-data-1.png) 
 
 There are no significant peaks or dips in the temperature during the late summer
 or early fall time period that could logically cause cause the vegetation to
@@ -328,31 +315,5 @@ Load the RGB imagery located in the `RGB` directory. Plot the RGB images.
 Identify the plots for the Julian days 277 and 293.  Does viewing the RGB
 imagery from these two days help explain the NDVI data?  
 
-```{r view-all-rgb, echo=FALSE}
-#open up the cropped files
-#create list of files to make raster stack
-rgb.allCropped <-  list.files("Landsat_NDVI/HARV/2011/RGB/", 
-                              full.names=TRUE, 
-                              pattern = ".tif$")
-
-#create a layout
-par(mfrow=c(4,4))
-
-#Super efficient code
-for (aFile in rgb.allCropped){
-  ndvi.rastStack <- stack(aFile)
-  plotRGB(ndvi.rastStack, stretch="lin")
-}
-
-
-#code parrallel to what was previously taught in lesson
-#RGB_NDVIstack <- stack(rgb.allCropped)
-#plotRGB(RGB_NDVIstack,
-     #r = 1, g = 2, b = 3,
-     #stretch ="lin")
-
-#reset layout
-par(mfrow=c(1,1))
-
-```
+![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/view-all-rgb-1.png) 
 

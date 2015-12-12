@@ -1,13 +1,8 @@
-## ----load-libraries------------------------------------------------------
-library(raster)
-library(rgdal)
-
-
 ## ----demonstrate-RGB-Image, echo=FALSE-----------------------------------
 # Use stack function to read in all bands
 RGB_stack_HARV <- stack("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
 
-names(RGB_stack_HARV) <- c("Red.Band","Green.Band","Blue.Band")
+names(RGB_stack_HARV) <- c("Red Band","Green Band","Blue Band")
 
 grayscale_colors <- gray.colors(100, 
                                 start = 0.0, 
@@ -16,13 +11,15 @@ grayscale_colors <- gray.colors(100,
                                 alpha = NULL)
 
 # Create an RGB image from the raster stack
-plot(RGB_stack_HARV, col=grayscale_colors)
+plot(RGB_stack_HARV, 
+     col=grayscale_colors,
+     axes=F)
 
 
 ## ----plot-RGB-now, echo=FALSE, message=FALSE-----------------------------
 # Create an RGB image from the raster stack
 
-original_par <-par() #original par
+original_par <-par() #create original par for easy reversal at end
 par(col.axis="white",col.lab="white",tck=0)
 plotRGB(RGB_stack_HARV, r = 1, g = 2, b = 3,
         axes=TRUE, 
@@ -30,9 +27,13 @@ plotRGB(RGB_stack_HARV, r = 1, g = 2, b = 3,
 box(col="white")
 
 
-## ----reset-par, echo=FALSE, results="hide"-------------------------------
-#making sure this doesn't render in the lesson
+## ----reset-par, echo=FALSE, results="hide", warning=FALSE----------------
 par(original_par) # go back to original par
+
+
+## ----load-libraries------------------------------------------------------
+library(raster)
+library(rgdal)
 
 
 ## ----read-single-band----------------------------------------------------
@@ -52,7 +53,7 @@ grayscale_colors <- gray.colors(100,            #how many different color levels
 #Plot band 1
 plot(RGB_band1_HARV, 
      col=grayscale_colors, 
-     main="NEON RGB Imagery - Band 1\nHarvard Forest") 
+     main="NEON RGB Imagery - Band 1-Red\nHarvard Forest") 
 
 #view attributes: Check out dimension, CRS, resolution, values attributes, and 
 #band.
@@ -73,17 +74,17 @@ RGB_band2_HARV <- raster("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif",
 #plot band 2
 plot(RGB_band2_HARV,
      col=grayscale_colors,   #we already created this palatte & can use it again
-     main="NEON RGB Imagery - Band 2\nHarvard Forest")
+     main="NEON RGB Imagery - Band 2- Green\nHarvard Forest")
 
 #view attributes of band 2 
 RGB_band2_HARV
 
 
-## ----challenge1-answer, echo=FALSE---------------------------------------
-
-#We'd expect a *brighter* value for the forest in band 2 (green) than in 
-#band 1 (red) because most trees appear green. 
-
+## ----challenge1-answer, eval=FALSE, echo=FALSE---------------------------
+## 
+## #We'd expect a *brighter* value for the forest in band 2 (green) than in
+## #band 1 (red) because most trees appear green.
+## 
 
 ## ----intro-to-raster-stacks----------------------------------------------
 
@@ -102,40 +103,39 @@ RGB_stack_HARV@layers
 #view attributes for one band
 RGB_stack_HARV[[1]]
 
+#plot 2x2
+par(mfrow=c(2,2)) 
+
 #view histogram of all 3 bands
 hist(RGB_stack_HARV,
      maxpixels=ncell(RGB_stack_HARV))
-
-#plot one band
-plot(RGB_stack_HARV[[1]], 
-     main="RGB_stack Band 1", 
-     col=grayscale_colors)
 
 #plot all three bands separately
 plot(RGB_stack_HARV, 
      col=grayscale_colors)
 
 # revert to a single plot layout 
-#par(mfrow=c(1,1)) 
+par(mfrow=c(1,1)) 
 
 
 ## ----plot-rgb-image------------------------------------------------------
-
 # Create an RGB image from the raster stack
 plotRGB(RGB_stack_HARV, 
         r = 1, g = 2, b = 3)
 
-
-
-
 ## ----image-stretch-------------------------------------------------------
-
 #what does stretch do?
 plotRGB(RGB_stack_HARV,
         r = 1, g = 2, b = 3, 
         scale=800,
-        stretch = "lin")
+        stretch = "lin",
+        main="RGB Plot with linear stretch\n Harvard Forest")
 
+plotRGB(RGB_stack_HARV,
+        r = 1, g = 2, b = 3, 
+        scale=800,
+        stretch = "hist",
+        main="RGB Plot with histogram stretch\n Harvard Forest")
 
 ## ----challenge-code-NoData, echo=FALSE, results="hide"-------------------
 #1.
@@ -159,12 +159,11 @@ GDALinfo("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
 
 
 ## ----raster-bricks-------------------------------------------------------
+#create a brick by converting stack
+RGB_brick_HARV <- brick(RGB_stack_HARV)
 
 #view size of the RGB_stack object that contains our 3 band image
 object.size(RGB_stack_HARV)
-
-#convert stack to a brick
-RGB_brick_HARV <- brick(RGB_stack_HARV)
 
 #view size of the brick
 object.size(RGB_brick_HARV)
@@ -175,16 +174,17 @@ object.size(RGB_brick_HARV)
 plotRGB(RGB_brick_HARV)
 
 
-## ----challenge-code-calling-methods, echo=FALSE--------------------------
+## ----challenge-code-calling-methods,include=TRUE, results="hide",echo=FALSE----
 #1
 #methods for calling a stack
 methods(class=class(RGB_stack_HARV))
-# 143 methods!
+# 157 methods!
 
 #2
 #methods for calling a band (1) with a stack
 methods(class=class(RGB_stack_HARV[1]))
+#40 methods
 
-#3 There are far more thing one could or wants to ask of a full stack than of 
+#3 There are far more things one could or wants to ask of a full stack than of 
 #a single band.  
 

@@ -5,7 +5,6 @@ library(raster)
 library(rgdal)
 
 ## ----import-DTM-hillshade------------------------------------------------
-
 #import DTM
 DTM_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_dtmcrop.tif")
 #import DTM hillshade
@@ -26,11 +25,10 @@ plot(DTM_HARV,
 
 
 ## ----plot-DTM------------------------------------------------------------
-
 #Plot DTM 
 plot(DTM_HARV,
      col=terrain.colors(10),
-     alpha=0.4,
+     alpha=1,
      legend=F,
      main="NEON Digital Terrain Model\nHarvard Forest")
 
@@ -56,14 +54,13 @@ extent(DTM_hill_UTMZ18N_HARV)
 extent(DTM_hill_HARV)
 
 
-
 ## ----view-resolution-----------------------------------------------------
-
 #compare resolution
 res(DTM_hill_HARV)
 res(DTM_hill_UTMZ18N_HARV)
 
 ## ----reproject-assign-resolution-----------------------------------------
+#adjust the resolution 
 DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV, 
                                   crs=crs(DTM_HARV),
                                   res=1)
@@ -71,12 +68,11 @@ DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV,
 res(DTM_hill_UTMZ18N_HARV)
 
 ## ----plot-projected-raster-----------------------------------------------
-
 #plot newly reprojected hillshade
 plot(DTM_hill_UTMZ18N_HARV,
     col=grey(1:100/100),
     legend=F,
-    main="NEON Hillshade - DTM\n Harvard Forest")
+    main="NEON DTM with Hillshade\n Harvard Forest")
 
 #overlay the DTM on top of the hillshade
 plot(DTM_HARV,
@@ -85,7 +81,7 @@ plot(DTM_HARV,
      add=T,
      legend=F)
 
-## ----echo=FALSE----------------------------------------------------------
+## ----challenge-code-reprojection, echo=FALSE-----------------------------
 
 #import DTM
 DSM_SJER <- raster("NEON_RemoteSensing/SJER/DSM/SJER_dsmcrop.tif")
@@ -100,7 +96,7 @@ DTM_hill_UTMZ18N_SJER <- projectRaster(DSM_hill_SJER_WGS,
 plot(DTM_hill_UTMZ18N_SJER,
     col=grey(1:100/100),
     legend=F,
-    main="NEON Hillshade - DSM\n Harvard Forest")
+    main="NEON DSM with Hillshade\n San Joaquin Experimental Range")
 
 #overlay the DSM on top of the hillshade
 plot(DSM_SJER,
