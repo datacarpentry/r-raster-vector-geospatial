@@ -10,13 +10,13 @@ require(knitr)
 
 #################### Set up Input Variables #############################
 #Inputs - Where the git repo is on your computer
-gitRepoPath <-"~/Documents/GitHub/NEON-R-Spatial-Raster/"
+gitRepoPath <-"~/Documents/Git_Repositories/NEON-R-Spatial-Raster/"
 
 #jekyll will only render md posts that begin with a date. Add one.
-add.date <- "2015-10-26-Rast"
+add.date <- "2015-12-11-Rast"
 
 #set working dir - this is where the data are located
-wd <- "~/Documents/data/1_DataPortal_Workshop/1_WorkshopData"
+wd <- "~/Documents/data/Spatio_TemporalWorkshop"
 
 
 ################### CONFIG BELOW IS REQUIRED BY JEKYLL - DON"T CHANGE ############

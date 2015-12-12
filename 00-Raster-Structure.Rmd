@@ -78,7 +78,7 @@ location of the unzipped file of data downloaded above.  If you would like a
 refresher on setting the working directory, please view the [Setting A Working Directory In R]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
 lesson prior to beginning this lesson.
 
-####Raster Lesson Series 
+###Raster Lesson Series 
 This lesson is a part of a lesson series on raster data in R:
 
 * [Intro to Raster Data in R]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R/)
@@ -461,7 +461,7 @@ on histograms in R</a>
 
 We can define the max pixels to ensure that all pixel values are included in the
 histogram. **USE THIS WITH CAUTION** as forcing `R` to plot all pixel values
-in a histogram CAN be problematic when dealing with very large datasets.
+in a histogram can be problematic when dealing with very large datasets.
 
 
 ``` {r view-raster-histogram2}

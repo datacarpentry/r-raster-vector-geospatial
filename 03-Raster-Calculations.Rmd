@@ -79,7 +79,7 @@ location of the unzipped file of data downloaded above.  If you would like a
 refresher on setting the working directory, please view the [Setting A Working Directory In R]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
 lesson prior to beginning this lesson.
 
-####Raster Lesson Series 
+###Raster Lesson Series 
 This lesson is a part of a series of raster data in R lessons:
 
 * [Lesson 00 - Intro to Raster Data in R]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R/)
@@ -257,7 +257,7 @@ them using efficient processing methods. The syntax is
 NOTE: If the rasters are stacked and stored as `RasterStack` or `RasterBrick`
 objects in `R`, then we should use `calc()`. `overlay()` will not work on
 stacked rasters. 
-{: .notice}
+{: .notice2}
 
 Let's perform the same calculation between the Digital Surface Model (DSM) and
 the Digital Terrain Model (DTM) using the `overlay()` function.  
@@ -306,7 +306,7 @@ However, be careful to never accidentally re-use a name for a file that already
 exists. We are setting the NA value to -9999, the National Ecological
 Observatory Network's (NEON) standard `NoData` value. 
 
-# Challenge: Explore the <a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >NEON San Joaquin (SJER) Field Site </a>
+# Challenge: Explore the NEON San Joaquin (SJER) Field Site
 
 As ecologists we may want to explore the phenology of two different sites.  The 
  <a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >NEON San Joaquin Experimental Range (SJER) field site </a> located in Southern California is very different ecosystem and climate compared to the 
@@ -318,8 +318,8 @@ Import the San Joaquin DSM and DTM raster files and create a Canopy Height Model
  as follows: objectType_SJER (e.g. `DSM_SJER`). This will help you keep track of  data from different sites!
 
 1. Import the DSM and DTM from the SJER directory (If you didn't aready import
-them in [Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/). Don't
-forget to examine the data for CRS, bad values, etc. 
+them in the [Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/)
+lesson.) Don't forget to examine the data for CRS, bad values, etc. 
  2. Create a CHM from the two raster layers and check to make sure the data are 
 what you expect. 
 3. Plot the CHM from SJER. 
@@ -394,3 +394,6 @@ hist(CHM_SJER,
 
 
 ```
+
+What do these two histograms tell us about the vegetation structure at Harvard 
+and SJER?

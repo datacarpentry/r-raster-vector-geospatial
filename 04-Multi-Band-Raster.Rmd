@@ -28,7 +28,7 @@ comments: false
 ##About
 This lesson explores how to import and plot a multi-band raster in
 R. It also covers how to plot a three-band color image using the `plotRGB()`
-function in R"
+function in `R`.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
@@ -77,7 +77,7 @@ location of the unzipped file of data downloaded above.  If you would like a
 refresher on setting the working directory, please view the [Setting A Working Directory In R]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
 lesson prior to beginning this lesson.
 
-####Raster Lesson Series 
+###Raster Lesson Series 
 This lesson is a part of a series of raster data in R lessons:
 
 * [Lesson 00 - Intro to Raster Data in R]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R/)
@@ -96,7 +96,7 @@ Read more about the `raster` package in R.</a>
 
 #About Raster Bands in R 
 As discussed in the [Intro to Raster Data Lesson]( {{ base.url }} }}NEON-R-Spatial-Raster/R/Introduction-to-Raster-Data-In-R), a raster can
-contain 1 or more bands.
+contain one or more bands.
 
 <figure>
     <a href="{{ site.baseurl }}/images/raster_timeseries/single_multi_raster.png">
@@ -191,10 +191,6 @@ image data! Check out the
 <a href="http://neondataskills.org/HDF5/Imaging-Spectroscopy-HDF5-In-R/" target="_blank">
 NEON Data Skills Imaging Spectroscopy HDF6 in R lesson.</a>
 
-
-
-
-
 #Getting Started with Multi-Band Data in R
 To work with multi-band raster data we will use the `raster` and `rgdal`
 libraries.
@@ -206,7 +202,7 @@ library(rgdal)
 ```
 
 In this lesson, the multi-band data that we are working with is imagery
-collected using the <a href="http://http://www.neoninc.org/science-design/collection-methods/airborne-remote-sensing" target="_blank">NEON Airborne Observation Platform</a> high resolution camera over
+collected using the <a href="http://www.neoninc.org/science-design/collection-methods/airborne-remote-sensing" target="_blank">NEON Airborne Observation Platform</a> high resolution camera over
 the <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>. 
 Each RGB images is a 3-band raster. However the same steps would apply to 
 working with a multi-spectral image with 4 or more bands - like 
@@ -305,11 +301,8 @@ differences in the image. The forest appears paler in band 2 (green). Why?
 ```
 
 ##Raster Stacks in R
-Next, we will explore working with all 3 bands using a *Raster Stack*. 
-
-We have now explored individual bands in a multi-band raster. Let's bring in all
-3 bands of our 3-band image composite it to create a final color RGB plot in
-`R`. 
+Next, we will explore working with all 3 bands using a *Raster Stack* of our
+3-band image composite to create a final RGB color plot in `R`. 
 
 To bring in all bands of a multi-band raster, we use the`stack()` function.
 
@@ -336,87 +329,83 @@ RGB_stack_HARV@layers
 #view attributes for one band
 RGB_stack_HARV[[1]]
 
+#plot 2x2
+par(mfrow=c(2,2)) 
+
 #view histogram of all 3 bands
 hist(RGB_stack_HARV,
      maxpixels=ncell(RGB_stack_HARV))
-
-#plot one band
-plot(RGB_stack_HARV[[1]], 
-     main="RGB_stack Band 1", 
-     col=grayscale_colors)
 
 #plot all three bands separately
 plot(RGB_stack_HARV, 
      col=grayscale_colors)
 
 # revert to a single plot layout 
-#par(mfrow=c(1,1)) 
+par(mfrow=c(1,1)) 
 
 ```
 
 
 #Create A Three Band Image
-To render a final 3 band, color image in `R`, we use `plotRGB()`.
+To render a composite 3-band color image in `R`, we use `plotRGB()`.
 
 This function allows us to also:
-
-1. Determine what order we want to plot the bands.  RGB assumes that the bands 
+1) Determine what order we want to plot the bands.  RGB assumes that the bands 
 are 1=red, 2=green, and 3=blue.  However, bands may not be in that order or bands
 may be of data that is outside the visible human range yet we want to plot them 
-in RGB so that we can visualize it. 
-
-2. Adjust the `stretch` of the image to make it brighter or darker. Adjusting 
-the stretch can help us adjust the contrast in our image.
-
-Let's plot our image.
+in RGB so that we can visualize them.
 
 ```{r plot-rgb-image }
-
 # Create an RGB image from the raster stack
 plotRGB(RGB_stack_HARV, 
         r = 1, g = 2, b = 3)
-
-
-
 ```
 
-The image above looks pretty good. We can explore whether applying a stretch to
-the image might improve clarity and contrast using  `stretch="lin"` or 
-`stretch="hist"`.  
+2) Adjust the `stretch` of the image to make it brighter or darker. Adjusting 
+the stretch allows us to adjust the contrast in our image.
 
 <figure>
     <a href="{{ site.baseurl }}/images/raster_timeseries/imageStretch_dark.jpg">
     <img src="{{ site.baseurl }}/images/raster_timeseries/imageStretch_dark.jpg"></a>
-    <figcaption>When the range of pixel brightness values is closer to 0, a darker
-    image is rendered by default. We can stretch the values to extend to the full 
-    0-255 range of potential values to increase the visual contrast of the image.
+    <figcaption>When the range of pixel brightness values is closer to 0, a
+    darker image is rendered by default. We can stretch the values to extend to
+    the full 0-255 range of potential values to increase the visual contrast of
+    the image.  Image Source: NEON, Inc.
     </figcaption>
 </figure>
 
 <figure>
     <a href="{{ site.baseurl }}/images/raster_timeseries/imageStretch_light.jpg">
     <img src="{{ site.baseurl }}/images/raster_timeseries/imageStretch_light.jpg"></a>
-    <figcaption>When the range of pixel brightness values is closer to 255, a lighter
-    image is rendered by default. We can stretch the values to extend to the full 
-    0-255 range of potential values to increase the visual contrast of the image.
+    <figcaption> When the range of pixel brightness values is closer to 255, a
+    lighter image is rendered by default. We can stretch the values to extend to
+    the full 0-255 range of potential values to increase the visual contrast of
+    the image.  Image Source: NEON, Inc. 
     </figcaption>
 </figure>
 
+The RBGplot that we created looks pretty good. We can explore whether applying a
+stretch to the image might improve clarity and contrast.  Strech can be done in 
+two ways: using  `stretch="lin"` or `stretch="hist"`.  
 
 ```{r image-stretch }
-
 #what does stretch do?
 plotRGB(RGB_stack_HARV,
         r = 1, g = 2, b = 3, 
         scale=800,
-        stretch = "lin")
+        stretch = "lin",
+        main="RGB Plot with linear stretch\n Harvard Forest")
 
+plotRGB(RGB_stack_HARV,
+        r = 1, g = 2, b = 3, 
+        scale=800,
+        stretch = "hist",
+        main="RGB Plot with histogram stretch\n Harvard Forest")
 ```
 
-
 In this case, the stretch doesn't improve the clarity of our image significantly.
-However sometimes it can be useful if the image contrast is low when first plotted.
-
+However, it sometimes can be useful if the image contrast is low when first 
+plotted.
 
 ##Challenge - NoData Values
 To explore what happens with NoData values when using `RasterStack` and `plotRGB`
@@ -430,11 +419,8 @@ directory.
 5. Plot the object as a true color image. 
 6. What happened to the black edges in the data?
 7. What does this tell us about the difference in the data structure between  
-`HARV_Ortho_wNA.tif` and `HARV_RGB_Ortho.tif` (`R` object RGB_stack). How can you
-check?
-
-Answer the questions above using the functions we have covered so far in this
-lesson.
+`HARV_Ortho_wNA.tif` and `HARV_RGB_Ortho.tif` (`R` object RGB_stack). How can
+you check?
 
 ``` {r challenge-code-NoData, echo=FALSE, results="hide"}
 #1.
@@ -458,32 +444,30 @@ GDALinfo("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
 
 ```
 
-> Bonus: So far we've created a RasterStack from multiple bands in one GeoTIFF, 
-> however, you can also create a RasterStack by combining single bands from 
-> multiple files. We will cover this in [Lesson 05 - Raster Time Series Data in R]({{ site.baseurl }}R/Raster-Times-Series-Data-In-R/).  
+So far we've created a RasterStack from multiple bands in one GeoTIFF, 
+however, you can also create a RasterStack by combining single bands from 
+multiple files. The [Raster Time Series Data in R]({{ site.baseurl }}/R/Raster-Times-Series-Data-In-R/) goes into more details on this. 
 
 ##RasterStack vs RasterBrick in R
-
-Both `RasterStack` and `RasterBrick` are `R` objects with multiple bands. The bands 
-in a `RasterStack` are stored anywhere on your computer. A 
+Both `RasterStack` and `RasterBrick` are `R` objects with multiple bands. The
+bands in a `RasterStack` are stored anywhere on your computer. A 
 `RasterBrick` contains all of the objects stored within the actual R object. In 
-most cases, you can work with a `RasterBrick` in the same way you might work
+most cases, you can work with a `RasterBrick` in the same way you work
 with a `RasterStack`. However a `RasterBrick` is often more efficient and faster
 to process - which is important when working with larger files.
 
-<a href="http://www.inside-r.org/packages/cran/raster/docs/brick" target="_blank">More on Raster Bricks</a>
+<a href="http://www.inside-r.org/packages/cran/raster/docs/brick" target="_blank">More on Raster Bricks</a> from Inside-R.org.  
 
 You can turn a `RasterStack` into a `RasterBrick` in `R` by using
 `brick(StackName)`. Let's use the `object.size()` function to compare `stack` 
 and `brick` `R` objects.
 
 ```{r raster-bricks }
+#create a brick by converting stack
+RGB_brick_HARV <- brick(RGB_stack_HARV)
 
 #view size of the RGB_stack object that contains our 3 band image
 object.size(RGB_stack_HARV)
-
-#convert stack to a brick
-RGB_brick_HARV <- brick(RGB_stack_HARV)
 
 #view size of the brick
 object.size(RGB_brick_HARV)
@@ -502,25 +486,26 @@ plotRGB(RGB_brick_HARV)
 ```
 
 
-> #Challenge: What Methods Can I Use on an Object?
-> You can view various methods available to call on an `R` object with 
-> `methods(class=class(objectNameHere))`. Use this to figure out:
->
-> 1) What methods can you use to call on the `RGB_stack_HARV` object? 
-> 2) What methods are available for a single band within `RGB_stack_HARV`? 
-> 3) Why do you think there is a difference? 
+#Challenge: What Methods Can Be Used on an Object?
+You can view various methods available to call on an `R` object with 
+`methods(class=class(objectNameHere))`. Use this to figure out:
 
-``` {r challenge-code-calling-methods, echo=FALSE}
+1) What methods can you use to call on the `RGB_stack_HARV` object? 
+2) What methods are available for a single band within `RGB_stack_HARV`? 
+3) Why do you think there is a difference? 
+
+``` {r challenge-code-calling-methods,include=TRUE, results="hide",echo=FALSE}
 #1
 #methods for calling a stack
 methods(class=class(RGB_stack_HARV))
-# 143 methods!
+# 157 methods!
 
 #2
 #methods for calling a band (1) with a stack
 methods(class=class(RGB_stack_HARV[1]))
+#40 methods
 
-#3 There are far more thing one could or wants to ask of a full stack than of 
+#3 There are far more things one could or wants to ask of a full stack than of 
 #a single band.  
 ```
 

@@ -9,11 +9,11 @@ library(rgdal)
 DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
 # code output here - DEM rendered on the screen
-plot(DSM_HARV, main="NEON Elevation Map\nHarvard Forest")
+plot(DSM_HARV, main="Continuous Elevation Map\nHarvard Forest")
 
 
 ## ----classified-elevation-map, echo=FALSE--------------------------------
-# Just a demonstration image for the lesson
+# Demonstration image for the lesson
 
 #add a color map with 5 colors
 col=terrain.colors(3)
@@ -36,18 +36,17 @@ legend( par()$usr[2], 4713700,
 library(raster)
 library(rgdal)
 
+#set working directory to ensure R can find the file we wish to import
+#setwd("working-dir-path-here")
 
 ## ----open-raster---------------------------------------------------------
-# Make sure to set the directory to your data
-# setwd("path-to-data-here")
-
 # Load raster into R
 DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
 # View raster structure
 DSM_HARV 
 
-#quickly plot the raster
+#simple plot of the raster
 #note \n in the title forces a line break in the title
 plot(DSM_HARV, 
      main="NEON Digital Surface Model\nHarvard Forest")
@@ -60,6 +59,9 @@ crs(DSM_HARV)
 #assign crs to an object (class) to use for reprojection and other tasks
 myCRS <- crs(DSM_HARV)
 myCRS
+
+## ----resolutio-untis-----------------------------------------------------
+DSM_HARV@data
 
 ## ----set-min-max---------------------------------------------------------
 
@@ -105,14 +107,12 @@ plotRGB(newRGBImage, r = 1, g = 2, b = 3,
 #view histogram of data
 hist(DSM_HARV,
      main="Digital Surface Model - Range of Values\n NEON Harvard Forest",
-     xlab="DSM ELevation Value (m)",
+     xlab="DSM Elevation Value (m)",
      ylab="Frequency",
      col="wheat")
 
 
 ## ----view-raster-histogram2----------------------------------------------
-#NOTE: force R to plot all pixel values in the histogram COULD be problematic
-#when dealing with very large datasets. USE WITH CAUTION!
 
 #View the total number of pixels (cells) in is our raster 
 ncell(DSM_HARV)
@@ -120,8 +120,8 @@ ncell(DSM_HARV)
 #create histogram that includes with all pixel values in the raster
 hist(DSM_HARV, 
      maxpixels=ncell(DSM_HARV),
-     main="Digital Surface Model Histogram\n All Pixel values Included",
-     xlab="DSM ELevation Value (m)",
+     main="Digital Surface Model - Range of Values\n All Pixel Values Included\n NEON Harvard Forest",
+     xlab="DSM Elevation Value (m)",
      ylab="Frequency",
      col="wheat4")
 
@@ -142,7 +142,7 @@ GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 ## GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif")
 ## 
 ## #ANSWERS ###
-## # 1. If this file has the same CRS as DSM_HARV?  Yes: UTM Zone 18, WGS84, meters.
+## #1. If this file has the same CRS as DSM_HARV?  Yes: UTM Zone 18, WGS84, meters.
 ## #2. What format NoData values take?  -9999
 ## #3. The resolution of the raster data? 1x1
 ## #4. How large a 5x5 pixel area would be? 5mx5m How? We are given resolution of

@@ -4,10 +4,14 @@ library(raster)
 
 #view info about the dtm & dsm raster data
 GDALinfo("NEON_RemoteSensing/HARV/DTM/HARV_dtmCrop.tif")
-GDALinfo("NEON_RemoteSensing/HARV/DTM/HARV_dsmCrop.tif")
+GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+
+
+## ----load-plot-data------------------------------------------------------
 #load the DTM & DSM rasters
 DTM_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_dtmCrop.tif")
 DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+
 #create a quick plot of each to see what we're dealing with
 plot(DTM_HARV,
      main="Digital Terrain Model (Elevation)\n Harvard Forest")
@@ -21,47 +25,41 @@ CHM_HARV <- DSM_HARV - DTM_HARV
 
 #plot the output CHM
 plot(CHM_HARV,
-     main="NEON Canopy Height Model - Subtracted\n Harvard Forest") 
+     main="NEON Canopy Height Model - Manual Subtract\n Harvard Forest") 
 
 
 ## ----create-hist---------------------------------------------------------
+#histogram of CHM_HARV
 hist(CHM_HARV,
      col="springgreen4",
      main="Histogram of NEON Canopy Height Model\nHarvard Forest",
-     ylab="Tree Height (m)",
-     xlab="Number of Pixels")
+     ylab="Number of Pixels",
+     xlab="Tree Height (m) ")
 
 
-## ----challenge-code-CHM-HARV, echo=FALSE---------------------------------
-#1) Depends on types of trees.  0m to <50m?
-#2) Looks at histogram or min/max values. 
+## ----challenge-code-CHM-HARV,  include=TRUE, results="hide", echo=FALSE----
+#1) 
 minValue(CHM_HARV)
 maxValue(CHM_HARV)
-#3) 
+#2) Looks at histogram, minValue(NAME)/maxValue(NAME), NAME and look at values slot. 
+#3
 hist(CHM_HARV, 
-     maxpixels=ncell(CHM_HARV),
      col="springgreen4",
-     main = "Histogram of NEON Canopy Height Model\n Harvard Forest",)
-
-#4)
-hist(CHM_HARV, 
-     col = "springgreen4",
      main = "Histogram of NEON Canopy Height Model\n Harvard Forest",
-     maxpixels=ncell(CHM),
+     maxpixels=ncell(CHM_HARV))
+#4 
+hist(CHM_HARV, 
+     col="lightgreen",
+     main = "Histogram of NEON Canopy Height Model\n Harvard Forest",
+     maxpixels=ncell(CHM_HARV),
      breaks=6)
-
-
-
-
-## ----challenge-plot, echo=FALSE------------------------------------------
-
-#5)
+#5
 myCol=terrain.colors(4)
 plot(CHM_HARV,
      breaks=c(0,10,20,30),
      col=myCol,
      axes=F,
-     main="NEONCanopy Height Model w Breaks\nHarvard Forest")
+     main="NEON Canopy Height Model \nHarvard Forest")
 
 
 ## ----raster-overlay------------------------------------------------------
@@ -74,13 +72,13 @@ plot(CHM_ov_HARV,
 
 ## ----write-raster--------------------------------------------------------
 #export CHM object to new GeotIFF
-writeRaster(CHM_ov_HARV,"chm_HARV.tiff",
+writeRaster(CHM_ov_HARV, "chm_HARV.tiff",
             format="GTiff",  #specify output format - geotiff
             overwrite=TRUE, #CAUTION if this is true, it will overwrite an existing file
             NAflag=-9999) #set no data value to -9999
 
 
-## ----challenge-code-SJER-CHM, echo=FALSE---------------------------------
+## ----challenge-code-SJER-CHM,include=TRUE, results="hide", echo=FALSE----
 #1.
 #load the DTM
 DTM_SJER <- raster("NEON_RemoteSensing/SJER/DTM/SJER_dtmCrop.tif")
@@ -106,7 +104,7 @@ hist(DSM_SJER,
      xlab="Elevation (m)")
 
 #2.
-#use overlay to subtract the two rasters
+#use overlay to subtract the two rasters & create CHM
 CHM_SJER <- overlay(DSM_SJER,DTM_SJER,
                     fun=function(r1, r2){return(r1-r2)})
 
@@ -129,7 +127,7 @@ writeRaster(CHM_SJER,"chm_ov_SJER.tiff",
             overwrite=TRUE, 
             NAflag=-9999)
 
-#4.  Tree heights are WAY shorter in SJER. 
+#4.Tree heights are WAY shorter in SJER. 
 #view histogram of HARV again. 
 par(mfcol=c(2,1))
 hist(CHM_HARV, 
