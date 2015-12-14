@@ -13,7 +13,7 @@ require(knitr)
 gitRepoPath <-"~/Documents/Git_Repositories/NEON-R-Spatial-Raster/"
 
 #jekyll will only render md posts that begin with a date. Add one.
-add.date <- "2015-12-11-Rast"
+add.date <- "2015-12-14-"
 
 #set working dir - this is where the data are located
 wd <- "~/Documents/data/Spatio_TemporalWorkshop"
@@ -49,7 +49,7 @@ if (file.exists(paste0(wd,"/","images"))){
 
 #NOTE -- delete the image directory at the end!
 
-#################### Get List of RMD files to Render #############################
+#################### Get List of RMD files to Render ###########################
 
 
 #get a list of files to knit / purl
