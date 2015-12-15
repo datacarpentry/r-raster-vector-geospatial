@@ -238,8 +238,8 @@ origin<-as.Date ("2011-01-01")
 #convert "julianDay" from class character to integer
 avg_NDVI_HARV$julianDay <- as.integer(avg_NDVI_HARV$julianDay)
 
-#create a date column
-avg_NDVI_HARV$Date<- origin + avg_NDVI_HARV$julianDay
+#create a date column, -1 added because origin is the 1st.  
+avg_NDVI_HARV$Date<- origin + (avg_NDVI_HARV$julianDay-1)
 
 #did it work? 
 head(avg_NDVI_HARV$Date)
@@ -315,8 +315,8 @@ origin<-as.Date ("2011-01-01")
 #add julianDay values as a column in the data frame
 avg_NDVI_SJER$julianDay <- as.integer(julianDays_SJER)
 
-#create a date column
-avg_NDVI_SJER$Date<- origin + avg_NDVI_SJER$julianDay
+#create a date column, 1 once since the origin IS day 1.  
+avg_NDVI_SJER$Date<- origin + (avg_NDVI_SJER$julianDay-1)
 
 #did it work? 
 avg_NDVI_SJER
@@ -329,7 +329,8 @@ plot our data.
 
 We will use the `ggplot()` function within the `ggplot2` package for this plot. 
 If you are unfamiliar with `ggplot()` or would like to learn more about plotting
-in `ggplot()` see the lesson on [Plotting Time Series with ggplot in R ]({{ site.baseurl}} /R//R/Time-Series-Plot-ggplot/).
+in `ggplot()` see the lesson on
+[Plotting Time Series with ggplot in R ]({{ site.baseurl}}/R/Time-Series-Plot-ggplot/).
 
 ```{r ggplot-data }
 
