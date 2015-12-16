@@ -275,11 +275,13 @@ head(avg_NDVI_HARV)
 ```
 
 #Challenge: NDVI for the San Joaquin Experimental Range
-As ecologist we often want to compare two different sites.  Up to this point,
-we've only worked with data from the Harvard Forest.  However, the National
-Ecological Obseravatory Network (NEON) and Landsat collect data and remote 
-sensing imagery for the <a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range (SJER) </a> located in 
-California.  
+We often want to compare two different sites in ecological studies.  Up to this
+point,
+we've only worked with data from the Harvard Forest.  The National
+Ecological Obseravatory Network (NEON) and Landsat also collect data and remote 
+sensing imagery for the 
+<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range (SJER) </a> 
+located in California.  
 
 In order to faciliate comparison between the Harvard Forests and SJER, create a
 complementary NDVI data set for SJER based on NDVI GeoTIFF files in the
