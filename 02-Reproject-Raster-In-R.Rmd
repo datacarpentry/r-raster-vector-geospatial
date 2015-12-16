@@ -60,14 +60,13 @@ RStudio to write your code.
 * **rgdal:** `install.packages("rgdal")`
 
 ####Data to Download
-Download the raster files teaching dataset:
 
 <a href="https://ndownloader.figshare.com/files/3579867" class="btn btn-success"> Download NEON Airborne Observation Platform Raster Data Teaching Subset</a> 
 
 The LiDAR and imagery data used to create the rasters in this dataset were 
-collected over the <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard</a>
+collected over the NEON <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard Forest</a>
 and 
-<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin</a>
+<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
 field sites and processed at
 <a href="http://www.neoninc.org" target="_blank" >NEON </a> 
 headquarters. The entire dataset can be accessed by request from the 
@@ -166,7 +165,7 @@ crs(DTM_hill_HARV)
 ```
 
 Aha! `DTM_HARV` is in the UTM projection. `DTM_hill_HARV` is in latitude and
-longitude, a non-projected, geographic `CRS`. Because the two rasters are in
+longitude, a non-projected, geographic CRS. Because the two rasters are in
 different CRSs, they won't line up. We will need to *reproject* DTM_HARV into
 the UTM CRS (or reproject the hillshade into lat/long). 
 
@@ -261,8 +260,8 @@ We have now successfully layered the Digital Terrain Model on top of our
 hillshade to produce a nice looking, textured base map! 
 
 ##Challenge
-Create a map of the San Joaquin study site using the `SJER_DSMhill_WGS84.tif`
-and `SJER_dsmCrop.tif` files. 
+Create a map of the <a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
+field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files. 
 
 Reproject the data as necessary to make things line up!
 
