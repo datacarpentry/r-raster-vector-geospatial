@@ -60,7 +60,7 @@ your computer to complete this lesson.
 
 <a href="https://ndownloader.figshare.com/files/3579867" class="btn btn-success"> Download NEON Airborne Observation Platform Raster Data Teaching Subset</a> 
 
-The LiDAR and imagery data used to create the rasters in this dataset were 
+The LiDAR and imagery data used to create this raster teaching data subset were
 collected over the NEON <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard Forest</a>
 and 
 <a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>

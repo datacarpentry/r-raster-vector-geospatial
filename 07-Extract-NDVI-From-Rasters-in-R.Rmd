@@ -42,6 +42,11 @@ After completing this activity, you will:
 * Save summary values to a .csv file.
 * Plot summary pixel values using `ggplot()`. 
 
+###Challenge Code
+Throughout the lesson we have Challenges that reinforce learned skills. Possible
+solutions to the challenges are not posted on this page, however, the code for 
+each challenge is in the `R` code that can be downloaded for this lesson (see 
+footer on this page).
 
 ###Things You'll Need To Complete This Lesson
 
@@ -57,8 +62,8 @@ RStudio to write your code.
 
 <a href=" https://ndownloader.figshare.com/files/3579867" class="btn btn-success"> Download Landsat derived NDVI raster files</a> 
 
-The imagery data used to create the rasters in this dataset were collected over
-the National Ecological Observatory Network's
+The imagery data used to create this raster teaching data subset were collected
+over the National Ecological Observatory Network's
 <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard Forest</a>
 and 
 <a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
@@ -67,7 +72,6 @@ The imagery was created by the U.S. Geological Survey (USGS) using a
 <a href="http://eros.usgs.gov/#/Find_Data/Products_and_Data_Available/MSS" target="_blank" >  multispectral scanner</a>
 on a <a href="http://landsat.usgs.gov" target="_blank" > Landsat Satellite </a>.
 The data files are Geographic Tagged Image-File Format (GeoTIFF). 
-
 
 ####Setting the Working Directory
 The code in this lesson assumes that you have set your working directory to the
