@@ -10,7 +10,7 @@ lastModified: `r format(Sys.time(), "%Y-%m-%d")`
 category: spatio-temporal-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
-description: "This lesson explains how to reproject a raster in R using the
+description: "This lesson explains how to reproject a raster in `R` using the
 `projectRaster()` function in the raster package."
 code1: SR02-Reproject-Raster-In-R.R
 image:
@@ -186,9 +186,8 @@ When using the `projectRaster()` function, you need to define two key things:
 
 The syntax is `projectRaster(RasterObject,crs=CRSToReprojectTo)`
 
-Since we want the CRS of our hillshade to match the `DTM_HARV` raster we can 
-simple tell `R` to use the CRS from `DTM_HARV` as the 
-CRS for this reprojetion.
+Since we want the `CRS` of our hillshade to match the `DTM_HARV` raster we can 
+tell `R` to use the `CRS` from `DTM_HARV` as the `CRS` for this reprojetion.
 
 ```{r reproject-raster }
 #reproject to UTM
@@ -259,7 +258,7 @@ plot(DTM_HARV,
 We have now successfully layered the Digital Terrain Model on top of our
 hillshade to produce a nice looking, textured base map! 
 
-##Challenge
+##Challenge: Reproject, then Plot a Digital Terrain Model 
 Create a map of the <a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
 field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files. 
 
@@ -291,7 +290,11 @@ plot(DSM_SJER,
 
 ```
 
-##Explore the Data 
 If you completed the San Joaquin plotting challenge in the
 [Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/) 
 lesson, how does the map you just created compare to that map? 
+
+```{r challenge-code-reprojection2, echo=FALSE }
+#The maps look identical.  Which is what they should be as the only difference
+# is this one was reprojected from WGS84 to UTM prior ot plotting.  
+```
