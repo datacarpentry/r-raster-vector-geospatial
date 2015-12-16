@@ -184,11 +184,14 @@ the list. We will be able to create a `RasterStack` directly from the list.
 ```{r import-ndvi-rasters }
 
 # Create list of NDVI file paths
-NDVI_path <- "Landsat_NDVI/HARV/2011/ndvi"  #assign path to object = cleaner code
-all_NDVI <- list.files(NDVI_path, full.names = TRUE, pattern = ".tif$")
+ #assign path to object = cleaner code
+NDVI_HARV_path <- "Landsat_NDVI/HARV/2011/ndvi" 
+all_NDVI_HARV <- list.files(NDVI_HARV_path,
+                            full.names = TRUE,
+                            pattern = ".tif$")
 
 #view list - note the full path, relative to our working directory, is included
-all_NDVI
+all_NDVI_HARV
 
 ```
 
@@ -198,7 +201,7 @@ data.
 
 ```{r create-timeSeries-raster-stack }
 # Create a time series raster stack
-NDVI_stack <- stack(all_NDVI)
+NDVI_HARV_stack <- stack(all_NDVI_HARV)
 ```
 
 We can also explore the GeoTIFF tags (the embedded metadata) to learn more about
@@ -207,16 +210,16 @@ key metadata for our data including the Coordinate Reference System (`CRS`),
 
 ``` {r explore-RasterStack-tags}
 #view crs of rasters
-crs(NDVI_stack)
+crs(NDVI_HARV_stack)
 
 #view extent of rasters in stack
-extent(NDVI_stack)
+extent(NDVI_HARV_stack)
 
 #view the y resolution of our rasters
-yres(NDVI_stack)
+yres(NDVI_HARV_stack)
 
 #view the x resolution of our rasters
-xres(NDVI_stack)
+xres(NDVI_HARV_stack)
 
 ```
 
@@ -240,7 +243,7 @@ the `plot()` command to quickly plot a `RasterStack`.
 
 #view a plot of all of the rasters
 #'nc' specifies number of columns (we will have 13 plots)
-plot(NDVI_stack, 
+plot(NDVI_HARV_stack, 
      zlim = c(1500, 10000), 
      nc = 4)
 
@@ -263,9 +266,8 @@ about the seasons in Massachusettes where the Harvard Forest is located, do you
 notice anything that seems unusual about the patterns of greening and browning 
 of the vegetation at the site?  
 
-Hint: the  number after the X in the tile title 
-is the Julian day.  If you are unfamiliar with Julian day, check out the NEON
-Data Skills 
+Hint: the  number after the X in the tile title is the Julian day.  If you are
+unfamiliar with Julian day, check out the NEON Data Skills 
 [Converting to Julian Day ]({{ site.baseurl }}/R/julian-day-conversion/) 
 lesson.
 
@@ -276,7 +278,7 @@ that occur at each NDVI value.
 ```{r view-stack-histogram }
 
 #create histograms of each image
-hist(NDVI_stack, 
+hist(NDVI_HARV_stack, 
      xlim = c(0, 10000))
 
 ```
@@ -334,7 +336,7 @@ imagery from these two days help explain the NDVI data?
 ```{r view-all-rgb, echo=FALSE}
 #open up the cropped files
 #create list of files to make raster stack
-rgb.allCropped <-  list.files("Landsat_NDVI/HARV/2011/RGB/", 
+RGB_HARV_allCropped <-  list.files("Landsat_NDVI/HARV/2011/RGB/", 
                               full.names=TRUE, 
                               pattern = ".tif$")
 
@@ -342,15 +344,14 @@ rgb.allCropped <-  list.files("Landsat_NDVI/HARV/2011/RGB/",
 par(mfrow=c(4,4))
 
 #Super efficient code
-for (aFile in rgb.allCropped){
+for (aFile in RGB_HARV_allCropped){
   ndvi.rastStack <- stack(aFile)
   plotRGB(ndvi.rastStack, stretch="lin")
 }
 
-
 #code parrallel to what was previously taught in lesson
-#RGB_NDVIstack <- stack(rgb.allCropped)
-#plotRGB(RGB_NDVIstack,
+#RGB_NDVI_HARV_stack <- stack(RGB_HARV_allCropped)
+#plotRGB(RGB_HARV_NDVIstack,
      #r = 1, g = 2, b = 3,
      #stretch ="lin")
 
