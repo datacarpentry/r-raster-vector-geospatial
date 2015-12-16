@@ -91,7 +91,7 @@ This lesson is a part of a lesson series on raster data in R:
 * [Plot Raster Time Series Data in R Using RasterVis and LevelPlot]({{ site.baseurl}}/R/Plot-Raster-Times-Series-Data-In-R/)
 * [Extract NDVI Summary Values from a Raster Time Series]({{ site.baseurl}}/R/Extract-NDVI-From-Rasters-In-R/)
 
-###Sources of Additional Information
+###Additional Resources
 
 * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
 Read more about the `raster` package in R.</a>
@@ -133,7 +133,7 @@ library(rgdal)
 DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
 # code output here - DEM rendered on the screen
-plot(DSM_HARV, main="Continuous Elevation Map\nHarvard Forest")
+plot(DSM_HARV, main="Continuous Elevation Map\n NEON Harvard Forest Field Site")
 
 ```
 
@@ -158,7 +158,7 @@ brk <- c(250,350, 380,500)
 # Expand right side of clipping rect to make room for the legend
 par(xpd = FALSE,mar=c(5.1, 4.1, 4.1, 4.5))
 #DEM with a custom legend
-plot(DSM_HARV, col=col, breaks=brk, main="Classified Elevation Map\nHarvard Forest",legend = FALSE)
+plot(DSM_HARV, col=col, breaks=brk, main="Classified Elevation Map\nNEON Harvard Forest Field Site",legend = FALSE)
 #turn xpd back on to force the legend to fit next to the plot.
 par(xpd = TRUE)
 #add a legend - but make it appear outside of the plot
@@ -181,16 +181,16 @@ format with addition spatial (georeferencing) information embedded in the file
 as a tag. These tags can include the following raster metadata:
 
 1. A Coordinate Reference System (`CRS`)
-2. Spatial Extent
-3. `NoData` Values 
+2. Spatial Extent (`extent`)
+3. Values for when no data is provided (`NoDataValues`)
 4. The `resolution` of the data
 
 In this lesson we will discuss all of these metadata tags.
 
-> More about the  `.tif` format:
-> 
-> * <a href="https://en.wikipedia.org/wiki/GeoTIFF" target="_blank"> Geotiff on Wikipedia</a>
-> * <a href="https://trac.osgeo.org/geotiff/" target="_blank"> OSGEO Tiff documentation</a>
+More about the  `.tif` format:
+
+* <a href="https://en.wikipedia.org/wiki/GeoTIFF" target="_blank"> Geotiff on Wikipedia</a>
+* <a href="https://trac.osgeo.org/geotiff/" target="_blank"> OSGEO Tiff documentation</a>
 
 ##Raster Data in R
 
@@ -220,7 +220,7 @@ DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 # View raster structure
 DSM_HARV 
 
-#simple plot of the raster
+#plot raster
 #note \n in the title forces a line break in the title
 plot(DSM_HARV, 
      main="NEON Digital Surface Model\nHarvard Forest")
@@ -254,7 +254,7 @@ is important to understand is that data from the same location but saved in
 different projections **will not line up in any GIS or other program**. Thus 
 it's important when working with spatial data in a program like `R` or `Python` 
 to identify the coordinate reference system applied to the data and retain it 
-throughout the processing and analysing of the data.
+throughout data processing and analysis.
 
 Read More: 
 
@@ -327,7 +327,7 @@ on the ground.
 Resolution units can be viewed using two methods: viewing the 
 coordinate reference system string `crs()` OR using `@data`. 
 
-``` {r resolutio-untis}
+``` {r resolution-units}
 DSM_HARV@data
 ```
 
@@ -360,9 +360,9 @@ maxValue(DSM_HARV)
 We can see that the elevation at our site ranges from 305.07m to 416.07m. Thus, 
 there is not a huge amount of variability in this particular dataset.
 
-##NoData Values in Rasters
+##No Data Values in Rasters
 
-Raster data often has a NoData value associated with it. This is a value 
+Raster data often has a `NoDataValue` associated with it. This is a value 
 assigned to pixels where no data were collected or are available. 
 
 By default the shape of a raster is always square or rectangular. Thus, if we 
@@ -375,7 +375,7 @@ In the image below, the pixels that are black, have no data associated with
 them.
 The camera did not collect data in these areas. 
 
-```{r demonstrate-no-data-blaco, echo=FALSE }
+```{r demonstrate-no-data-black, echo=FALSE }
 #demonstration code below - not being taught - just demonstrating no data values
 # Use stack function to read in all bands
 RGB_stack <- stack("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
@@ -387,8 +387,8 @@ plotRGB(RGB_stack, r = 1, g = 2, b = 3,
 
 ```
 
-Below - the black edges have been assigned NoDataValues (`NA`). R doesn't render
-pixels that contain no values. Instead they are assigned `NA`.
+Below - the black edges have been assigned `NoDataValue`s. `R` doesn't render
+pixels that contain no value or a specified `NoDataValue`. Instead they are assigned `NA` by `R`.
 
 ```{r demonstrate-no-data, echo=FALSE}
 #reassign cells with 0,0,0 to NA
@@ -403,27 +403,26 @@ newRGBImage <- calc(RGB_stack, f)
 par(col.axis="white",col.lab="white",tck=0)
 # Create an RGB image from the raster stack
 plotRGB(newRGBImage, r = 1, g = 2, b = 3,
-        axes=TRUE, main="Raster With No Data Values\nNodata= NA")
+        axes=TRUE, main="Raster With No Data Values\nNoDataValue= NA")
  
 ```
 
 ###No Data Value Standard 
 
-The assigned `NoData` value may vary across disciplines; `-9999` is a common
-value 
-used in both the remote sensing world and the eddy covariance world. It is also
+The assigned `NoDataValue` varies across disciplines; `-9999` is a common value 
+used in both the remote sensing field and the eddy covariance field. It is also
 the standard used by the <a href="http://www.neoninc.org" target="_blank"> National Ecological Observatory Network (NEON)</a>. 
 
-If we are lucky, our geoTIFF file has a tag that tells us what the NoData value 
+If we are lucky, our GeoTIFF file has a tag that tells us what the `NoDataValue`
 is. 
 If we are less lucky, we can find that information in the raster's metadata.
-If a NoData value was stored in the GeoTIFF tag, when `R` opens up the raster,
-it will assign each instance of the value to `NA` (NoData in `R` world). Values
+If a `NoDataValue` was stored in the GeoTIFF tag, when `R` opens up the raster,
+it will assign each instance of the value to `NA` (no data in `R` world). Values
 of `NA` will be ignored by R.
 
 ## Bad Data Values in Rasters
 
-Bad data values are different from NoData values; they are values that show up 
+Bad data values are different from No Data Values; they are values that show up 
 in the data but do not represent anything in the real world.  How do we find bad
 values?   Sometimes a raster's metadata 
 will tell us the range of values for the raster, anything beyond this is 
@@ -441,7 +440,7 @@ outlier or bad data values in our raster.
 
 #view histogram of data
 hist(DSM_HARV,
-     main="Digital Surface Model - Range of Values\n NEON Harvard Forest",
+     main="Distribution of Digital Surface Model Values\n Histogram Default: 100,000 values\n NEON Harvard Forest",
      xlab="DSM Elevation Value (m)",
      ylab="Frequency",
      col="wheat")
@@ -473,7 +472,7 @@ ncell(DSM_HARV)
 #create histogram that includes with all pixel values in the raster
 hist(DSM_HARV, 
      maxpixels=ncell(DSM_HARV),
-     main="Digital Surface Model - Range of Values\n All Pixel Values Included\n NEON Harvard Forest",
+     main="Distribution of Digital Surface Model Values\n All Pixel Values Included\n NEON Harvard Forest",
      xlab="DSM Elevation Value (m)",
      ylab="Frequency",
      col="wheat4")
@@ -529,9 +528,9 @@ GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
 Notice a few things in the output:
 
-1. A projection is described in a string - this format is called `proj4`:
+1. A projection is described using a string in the format `proj4`:
    `+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs `
-2. We can identify a NoData Value: -9999
+2. We can identify a `NoDataValue`: -9999
 3. We can tell how many `bands` the file contains: 1
 4. We can view the x and y `resolution` of the data: 1
 5. We can see the min and max values of the data: `Bmin` and `Bmax`.
@@ -544,7 +543,7 @@ Without using the `raster` function to read the file into `R`, determine the
 following about the  `NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif` file:
 
 1. Does this file has the same `CRS` as `DSM_HARV`?
-2. What is the `NoData` value?
+2. What is the `NoDataValue`?
 3. What is resolution of the raster data? 
 4. How large would a 5x5 pixel area would be on the Earth's surface? 
 5. Is the file is a multi- or single-band raster?
@@ -556,7 +555,7 @@ GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif")
 
 #ANSWERS ###
 #1. If this file has the same CRS as DSM_HARV?  Yes: UTM Zone 18, WGS84, meters. 
-#2. What format NoData values take?  -9999
+#2. What format `NoDataValues` take?  -9999
 #3. The resolution of the raster data? 1x1
 #4. How large a 5x5 pixel area would be? 5mx5m How? We are given resolution of 
 #1x1 and units in meters, therefore rolution of 5x5 means 5x5m. 
