@@ -94,6 +94,8 @@ This lesson is a part of a series of raster data in R lessons:
 Read more about the `raster` package in `R`.</a>
 </div>
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/3iaFzafWJQE" frameborder="0" allowfullscreen></iframe>
+
 #About Raster Bands in R 
 As discussed in the [Intro to Raster Data Lesson]( {{ base.url }} }}NEON-R-Spatial-Raster/R/Introduction-to-Raster-Data-In-R), 
 a raster can contain 1 or more bands.
@@ -175,10 +177,6 @@ par(original_par) # go back to original par
 
 ```
 
-Want to learn more? The video below, covers the basics of what a multi-band 
-images are:
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/3iaFzafWJQE" frameborder="0" allowfullscreen></iframe>
 
 #Other Types of Multi-band Raster Data
 
