@@ -25,13 +25,13 @@ comments: false
 
 ##About
 
-It is common for us to encounter raster data layers that do not "line up". This 
-is most offen to do Coordinate Reference System (CRS) issues and can cause
-problems
-with plotting and analyzing raster data. This lesson explains how to deal with 
-rasters in different, known Coordinate Reference Systems. It will walk though 
-reprojecting rasters in `R` using the `projectRaster()` function in the raster 
-package.
+It is common for us to encounter raster data layers that do not "line up".
+Rasters that don't line up are most often in different Coordinate Reference
+Systems (CRS). This can cause problems with plotting and analyzing raster data.
+
+This lesson explains how to deal with rasters in different, known CRSs. It will
+walk though reprojecting rasters in `R` using the `projectRaster()` function in
+the `raster` package.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
