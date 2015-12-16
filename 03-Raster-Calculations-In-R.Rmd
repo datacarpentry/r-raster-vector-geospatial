@@ -60,14 +60,13 @@ RStudio to write your code.
 * **rgdal:** `install.packages("rgdal")`
 
 ####Data to Download
-Download the raster files teaching dataset:
 
 <a href="https://ndownloader.figshare.com/files/3579867" class="btn btn-success"> Download NEON Airborne Observation Platform Raster Data Teaching Subset</a> 
 
 The LiDAR and imagery data used to create the rasters in this dataset were 
-collected over the <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard</a>
+collected over the NEON <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard Forest</a>
 and 
-<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin</a>
+<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
 field sites and processed at
 <a href="http://www.neoninc.org" target="_blank" >NEON </a> 
 headquarters. The entire dataset can be accessed by request from the 
@@ -129,8 +128,13 @@ GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
 ```
 
-Both rasters are in the same CRS, have the same resolution and mins/maxes are
-already in the tags. Let's load the data. 
+As seen from the  geoTags, both rasters have
+
+* same CRS, 
+* same resolution 
+* defined minimum and maximum values.
+
+Let's load the data. 
 
 ``` {r load-plot-data}
 #load the DTM & DSM rasters
@@ -146,7 +150,8 @@ plot(DSM_HARV,
 ```
 
 Notice that the elevation range for these two maps (DSM and DTM) is different. 
-Why?  Should we be worried about this?  
+Why?  Is there any reason to question our data because of this elevational
+difference?  
 
 ##Two Ways to Calculate
 We can calculate the difference between two rasters in two different ways:
@@ -172,7 +177,7 @@ CHM_HARV <- DSM_HARV - DTM_HARV
 
 #plot the output CHM
 plot(CHM_HARV,
-     main="NEON Canopy Height Model - Manual Subtract\n Harvard Forest") 
+     main="Canopy Height Model - Raster Math Subtract\n NEON Harvard Forest") 
 
 ```
 
@@ -268,7 +273,7 @@ CHM_ov_HARV<- overlay(DSM_HARV,
                       fun=function(r1, r2){return(r1-r2)})
 
 plot(CHM_ov_HARV,
-     main="NEON Canopy Height Model - Overlay Subtract\n Harvard Forest")
+     main="Canopy Height Model - Overlay Subtract\n NEON Harvard Forest")
 ```
 
 How do the plots of the CHM created with manual raster math and the `overlay()`
