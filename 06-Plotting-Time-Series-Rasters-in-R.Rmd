@@ -63,8 +63,8 @@ RStudio to write your code.
 
 <a href=" https://ndownloader.figshare.com/files/3579867" class="btn btn-success"> Download Landsat derived NDVI raster files</a> 
 
-The imagery data used to create the rasters in this dataset were collected over
-the National Ecological Observatory Network's
+The imagery data used to create this raster teaching data subset were collected
+over the National Ecological Observatory Network's
 <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard Forest</a>
 and 
 <a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
