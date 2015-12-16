@@ -116,12 +116,10 @@ library(rgdal)
 library(rasterVis)
 
 # Create list of NDVI file paths
-#assign path to object = cleaner code
-NDVI_path <- "Landsat_NDVI/HARV/2011/ndvi"  
-all_NDVI <- list.files(NDVI_path, full.names = TRUE, pattern = ".tif$")
+all_NDVI_HARV <- list.files("Landsat_NDVI/HARV/2011/ndvi", full.names = TRUE, pattern = ".tif$")
 
 # Create a time series raster stack
-NDVI_stack <- stack(all_NDVI)
+NDVI_HARV_stack <- stack(all_NDVI_HARV)
 ```
 
 #Plot Raster Time Series Data
@@ -130,7 +128,7 @@ We can use the `plot` function to plot our raster time series data.
 ```{r plot-time-series }
 #view a histogram of all of the rasters
 #nc specifies number of columns
-plot(NDVI_stack, 
+plot(NDVI_HARV_stack, 
      zlim = c(1500, 10000), 
      nc = 4)
 
@@ -150,13 +148,13 @@ could instead plot using `levelplot` from the `rasterVis` package.
 
 * <a href="http://oscarperpinan.github.io/rastervis/" target="_blank">More on the rasterVis library</a>
 
-The syntax for the `levelplot` function is similar to that for the `plot()`
+The syntax for the `levelplot` function is similar to that for the `plot`
 function.  We can use main="" to add a title to our plot.
 
 ```{r levelplot-time-series }
 #create a `levelplot` plot
-levelplot(NDVI_stack,
-          main="Landsat NDVI\nHarvard Forest")
+levelplot(NDVI_HARV_stack,
+          main="Landsat NDVI\nNEON Harvard Forest")
 
 ```
 
@@ -176,23 +174,22 @@ We can do that using the `colorRampPalette` function in combination with
 #a color ramp of yellow to green
 cols <- colorRampPalette(brewer.pal(9,"YlGn"))
 #create a level plot - plot
-levelplot(NDVI_stack,
-          main="Landsat NDVI better colors \nHarvard Forest",
+levelplot(NDVI_HARV_stack,
+          main="Landsat NDVI\n Better Colors \nNEONHarvard Forest",
           col.regions=cols)
-
 
 ```
 
-For all of the `brewer.pal` ramp names see the <a href="http://www.datavis.ca/sasmac/brewerpal.html" target="_blank"> brewerpal page</a>.
+The yellow to green color ramp visually represents NDVI well given it's a
+measure of greenness. Someone looking at the plot can quickly understand that
+pixels that are more green, have a higher NDVI value. 
+
+For all of the `brewer.pal` ramp names see the 
+<a href="http://www.datavis.ca/sasmac/brewerpal.html" target="_blank"> brewerpal page</a>.
 
 Note: Cynthia Brewer, the creater of ColorBrewer, offers an online tool to help
 choose suitable color ramps, or to create your own. 
 <a href="http://colorbrewer2.org/" target="_blank">ColorBrewer 2.0; Color Advise for Cartography </a>  {: .notice2}
-
-The yellow to green color ramp visually represents NDVI well given it's a
-measure of greenness. Someone looking at the plot can quickly understand that
-pixels that are more green, have a higher NDVI value. However, the labels for
-eachraster tile are a bit clunky. 
 
 ##Refine Plot & Tile Labels
 Next, let's label each raster in our plot with the Julian day that the raster was for. The current names come from the bands or layers in the
@@ -208,11 +205,11 @@ The syntax is `gsub("StringToReplace","TextToReplaceIt", Robject)`.
 ```{r clean-up-names }
 
 #view names for each raster layer
-names(NDVI_stack)
+names(NDVI_HARV_stack)
 
 #use gsub to modify label names.
 #that we'll use for the plot 
-rasterNames  <- gsub("X","Day", names(NDVI_stack))
+rasterNames  <- gsub("X","Day", names(NDVI_HARV_stack))
 
 #view Names
 rasterNames
@@ -236,7 +233,7 @@ the new labels.
 ```{r create-levelplot }
 
 #use level plot to create a nice plot with one legend and a 4x4 layout.
-levelplot(NDVI_stack,
+levelplot(NDVI_HARV_stack,
           layout=c(4, 4), #create a 4x4 layout for the data
           col.regions=cols, #add a color ramp
           main="Landsat NDVI - Julian Days \nHarvard Forest 2014",
@@ -249,7 +246,7 @@ we adjust the layout to be a matrix of 5 columns and 3 rows.
 
 ```{r adjust-layout }
 #use level plot to create a nice plot with one legend and a 4x4 layout.
-levelplot(NDVI_stack,
+levelplot(NDVI_HARV_stack,
           layout=c(5, 3), #create a 5x3 layout for the data
           col.regions=cols, #add a color ramp
           main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
@@ -273,10 +270,10 @@ sets where a divergent color ramp may be best?
 rasterNames  <- gsub("Day","JulianDay_",rasterNames)
 
 #use level plot to create a nice plot with one legend and a 4x3 layout.
-levelplot(NDVI_stack,
+levelplot(NDVI_HARV_stack,
           layout=c(4, 3), #create a 4x3 layout for the data
           col.regions=colorRampPalette(brewer.pal(9,"BrBG")), #specify color 
-          main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
+          main="Landsat NDVI - Julian Days \nNEON Harvard Forest 2011",
           names.attr=rasterNames)
 
 #The sequential is better than the divergent as it is more akin to the process
