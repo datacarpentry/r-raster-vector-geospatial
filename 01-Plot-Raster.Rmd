@@ -12,8 +12,8 @@ category: spatio-temporal-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
 description: "This lesson reviews how to plot a raster in R using the plot() 
-command. It also covers how to layer a raster on top of a hillshade for a 
-eloquent map.
+command. It also covers how to layer a raster on top of a hillshade to produce 
+an eloquent map.
 output."
 code1: SR01-Plot-Raster-In-R.R
 image:
@@ -130,12 +130,12 @@ Often we may want to view our data subsetted by a range of values rather than
 using a continuous color ramp. This is comparable to a "classified" map in a
 tool like ArcGIS or QGIS.
 
-Unless there is a reason for having specific breaks, we want to use a
-histogram of our data to determine where the breaks in our data should go. We 
-can use `breaks=` to tell `R` to use fewer or more breaks or bins in our 
-histogram. 
-If we name the histogram we can then enter the name an find out much of the
-underlying information in the histogram.  
+We can use a histogram to observe the distribution of values in our data and
+determine where breaks should go. We can use `breaks=` to tell `R` to use fewer
+or more breaks or bins in our histogram. 
+
+If we name the histogram, we can also view counts for each bin and assigned
+break values.  
 
 ```{r create-histogram-breaks }
 #Plot distribution of raster values 
@@ -160,9 +160,9 @@ Looking at our histogram, `R` has binned out the data as follows:
 
 * 300-350m, 350-400m, 400-450m
 
-We have most of our pixel values in the middle range with a few lower values,
-and very few higher values.  If we wanted a more even number of pixels in each
-bin we could specify different breaks. 
+We can determine that most of the pixel values fall in the 350-400m range with a
+few pixels falling in the lower and higher range. We could specify different
+breaks, if we wished to have a different distribution of pixels in each bin.
 
 We can use those bins to plot our raster data. We will use the 
 `terrain.colors(3)` function to create a palette of 3 colors to use in our plot.
@@ -174,18 +174,17 @@ We can include as few or many breaks as we'd like.
 ```{r plot-with-breaks }
 #plot using breaks.
 plot(DSM_HARV, 
-     breaks = c(350, 300, 400, 450), 
+     breaks = c(300, 350, 400, 450), 
      col = terrain.colors(3),
      main="NEON Digital Surface Model\nHarvard Forest Field Site")
 
 ```
 
 ###Formatting Color & Plot Axes
-If we're going to be creating multiple plots and we want to easily be able to
-change the color across the plots, we can create an `R` object (`myCol`) for the
-color we want and use that object in the plot code. Then if we want to change
-the color theme (or number of bins) we can just change the code once, not in all
-plots.  
+If we need to create multiple plots using the same color palette, we can create
+an `R` object (`myCol`) for the set of colors that we want to use. We can then
+quickly change the palette across all plots by simply modifying the `myCol`
+object. 
 
 We can label the x- and y-axes of our plot too. 
 
@@ -198,8 +197,8 @@ plot(DSM_HARV,
      breaks = c(300, 350, 400, 450), 
      col = myCol,
      main="NEON Digital Surface Model\nHarvard Forest Field Site", 
-     xlab = "UTM Westing Coordinate", 
-     ylab = "UTM Northing Coodinate")
+     xlab = "UTM Westing Coordinate (m)", 
+     ylab = "UTM Northing Coodinate (m)")
 ```
 
 Or we can also turn off the axes altogether. 
@@ -217,7 +216,7 @@ plot(DSM_HARV,
 ##Challenge
 Create a plot of the Harvard DSM that has
 
-* has six categories that are evenly divided among the range of pixel values. 
+* six categories that are evenly divided among the range of pixel values. 
 * axis labels
 * a plot title
 
@@ -242,7 +241,7 @@ plot(DSM_HARV,
 ```
 
 
-#Layering One Raster on Another 
+#Layering Rasters
 Sometimes we want to layer a raster on top of another raster and use a
 transparency to give it texture. The most common approach to this is to use a
 *hillshade* layer as the base raster layer. A hillshade is simply a raster that
@@ -262,8 +261,8 @@ plot(DSM_hill_HARV,
 
 ```
 
-Now that we have the hillshade we can then layer another raster on top by
-using `add=TRUE`. Let's overlay `DSM_HARV` on top of the `hill_HARV`.
+We can layer another raster on top of our hillshade using by using `add=TRUE`.
+Let's overlay `DSM_HARV` on top of the `hill_HARV`.
 
 ``` {r overlay-hillshade}
 
@@ -286,13 +285,15 @@ The alpha value determines how transparent the colors will be (0 being
 transparent, 1 being opaque).  Note that here we used the color palette
 `rainbow()` instead of `terrain.color()`.
 
-For information on other <a href="https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/palettes.html" target="_blank">R color palettes</a>. 
+* More information on 
+<a href="https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/palettes.html" target="_blank">`R` color palettes</a>. 
 
 ##Challenge: Create DTM & DSM for SJER
-Use the files in the `NEON_RemoteSensing/SJER/` to create a Digital Terrian
-Model map and Digital Surface Model map of the San Joaquin Experimental Range
-study site.
-Make sure to
+Use the files in the `NEON_RemoteSensing/SJER/` directory to create a Digital
+Terrain Model map and Digital Surface Model map of the San Joaquin Experimental
+Range field site.
+
+Make sure to:
  
  * include hillshade in the maps,
  * label axes on the DSM map and exclude them from the DTM map, 

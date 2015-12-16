@@ -291,7 +291,7 @@ plot(DSM_SJER,
 
 ```
 
-
+##Explore the Data 
 If you completed the San Joaquin plotting challenge in the
 [Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/) 
 lesson, how does the map you just created compare to that map? 
