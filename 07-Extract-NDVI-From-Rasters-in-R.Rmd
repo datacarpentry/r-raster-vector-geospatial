@@ -154,7 +154,7 @@ avg_NDVI_HARV[1,1]
 
 We now have a `data.frame` with `row.names` based on the original
 file name and a mean NDVI value for one. We can also select values by their
-location in the data frame.
+location in the `data.frame`.
 
 It is a bit confusing to have duplicate object & column names (e.g.
 `avg_NDVI_HARV`), additionally the "avg" does not expressely denote how the
