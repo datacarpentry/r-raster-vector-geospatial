@@ -68,7 +68,7 @@ and
 field sites and processed at
 <a href="http://www.neoninc.org" target="_blank" >NEON </a> 
 headquarters. The entire dataset can be accessed by request from the 
-<a href="http://www.neoninc.org/data-resources/get-data/airborne-data" target="_blank"> NEON airborne data website.</a>
+<a href="http://www.neoninc.org/data-resources/get-data/airborne-data" target="_blank"> NEON Airborne Data Request Page on the NEON Website.</a>
 
 ####Setting the Working Directory
 The code in this lesson assumes that you have set your working directory to the
