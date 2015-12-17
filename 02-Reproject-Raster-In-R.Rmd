@@ -25,13 +25,13 @@ comments: false
 
 ##About
 
-It is common for us to encounter raster data layers that do not "line up".
-Rasters that don't line up are most often in different Coordinate Reference
-Systems (CRS). This can cause problems with plotting and analyzing raster data.
+Sometimes we encounter raster datasets that do not "line up" when plotted or 
+analyzed. Rasters that don't line up are most often in different Coordinate Reference
+Systems (`CRS`).
 
-This lesson explains how to deal with rasters in different, known CRSs. It will
-walk though reprojecting rasters in `R` using the `projectRaster()` function in
-the raster package.
+This lesson explains how to deal with rasters in different, known `CRS`s. It will
+walk though reprojecting rasters in `R` using the `projectRaster` function in
+the `raster` library.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
@@ -49,10 +49,8 @@ solutions to the challenges are not posted on this page, however, the code for
 each challenge is in the `R` code that can be downloaded for this lesson (see 
 footer on this page).
 
-###Things You'll Need To Complete This Lesson
-
-Please be sure you have the most current version of `R` and, preferably,
-RStudio to write your code.
+**To complete this lesson:** you will need the most current version of R, and 
+preferably RStudio, loaded on your computer.
 
 ###R Libraries to Install:
 
@@ -72,23 +70,14 @@ field sites and processed at
 headquarters. The entire dataset can be accessed by request from the 
 <a href="http://www.neoninc.org/data-resources/get-data/airborne-data" target="_blank"> NEON Airborne Data Request Page on the NEON Website.</a>
 
-####Setting the Working Directory
-The code in this lesson assumes that you have set your working directory to the
-location of the unzipped file of data downloaded above.  If you would like a
-refresher on setting the working directory, please view the [Setting A Working Directory In R]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
+**Set Working Directory:** This lessons assumes that you have set your working 
+directory to the location of the downloaded and unzipped data subset. [An overview
+of setting the working directory in `R` can be found here.]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
 lesson prior to beginning this lesson.
 
-###Raster Lesson Series 
-This lesson is a part of a series of raster data in R lessons:
-
-* [Lesson 00 - Intro to Raster Data in R]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R/)
-* [Lesson 01 - Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/)
-* [Lesson 02 - Reproject Raster Data in R]({{ site.baseurl}}/R/Reproject-Raster-In-R/)
-* [Lesson 03 - Raster Calculations in R]({{ site.baseurl}}/R/Raster-Calculations-In-R/)
-* [Lesson 04 - Work With Multi-Band Rasters - Images in R]({{ site.baseurl}}/R/Multi-Band-Rasters-In-R/)
-* [Lesson 05 - Raster Time Series Data in R]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/)
-* [Lesson 06 - Plot Raster Time Series Data in R Using RasterVis and LevelPlot]({{ site.baseurl}}/R/Plot-Raster-Times-Series-Data-In-R/)
-* [Lesson 07- Extract NDVI Summary Values from a Raster Time Series]({{ site.baseurl}}/R/Extract-NDVI-From-Rasters-In-R/)
+**Challenge Code:** NEON Data lesson often contain challenges that reinforce 
+learned skills. If available, the code for challenge solutions is found in a 
+downloadable `R` script available on the footer of each lesson page.
 
 ###Additional Resources
 
@@ -101,9 +90,7 @@ Read more about the `raster` package in `R`.</a>
 
 In the [Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/) 
 lesson, we learned how to layer a raster file on top of a hillshade for a nice
-looking basemap.
-This worked well when all of our data were cleaned up for us in advance. But 
-what happens when things don't line up? Let's have a look.
+looking basemap. In this lesson, all of our data were in the same `CRS`. What happens when things don't line up?
 
 We will use the `raster` and `rgdal` packages in this lesson.  
 
@@ -114,8 +101,8 @@ library(raster)
 library(rgdal)
 ```
 
-Let's create an layered map of the Harvard Forest Digital Terrain Model 
-(`DTM_HARV`) with the hillshade (`DTM_hill_HARV`) used as a base layer.
+Let's create an map of the Harvard Forest Digital Terrain Model 
+(`DTM_HARV`) draped or layered on top of the hillshade (`DTM_hill_HARV`).
 
 ```{r import-DTM-hillshade }
 #import DTM
@@ -126,21 +113,25 @@ DTM_hill_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
 #plot hillshade using a grayscale color ramp 
 plot(DTM_hill_HARV,
     col=grey(1:100/100),
-    legend=F,
+    legend=FALSE,
     main="DTM Hillshade\n NEON Harvard Forest")
 
 #overlay the DTM on top of the hillshade
 plot(DTM_HARV,
      col=terrain.colors(10),
      alpha=0.4,
-     add=T,
-     legend=F)
+     add=TRUE,
+     legend=FALSE)
 
 ```
 
 Our results are curious - the Digital Terrain Model (`DTM_HARV`) did not plot on
 top of our hillshade. The hillshade plotted just fine on it's own. Let's try to 
 plot the DTM on it's own to make sure there are data there.
+
+<i class="fa fa-star"></i> **Data Tip:** For boolean R elements such as `add=TRUE`
+you can use `T` and `F` in place of `TRUE` and `FALSE`.
+{: .notice}
 
 ```{r plot-DTM }
 #Plot DTM 
@@ -152,9 +143,8 @@ plot(DTM_HARV,
 
 ```
 
-It appears as if our DTM contains data and plots just fine. The layers likely
-do not line up. A likely culprit for layers not lining up is the Coordinate 
-Reference System (CRS). Let's explore our data.
+Our DTM seems to contain data and plots just fine. Let's next check the Coordinate 
+Reference System (`CRS`) and compare it to our hillshade.
 
 ```{r explore-crs }
 #view crs for DTM
@@ -164,32 +154,31 @@ crs(DTM_HARV)
 crs(DTM_hill_HARV)
 ```
 
-Aha! `DTM_HARV` is in the UTM projection. `DTM_hill_HARV` is in latitude and
-longitude, a non-projected, geographic CRS. Because the two rasters are in
-different CRSs, they won't line up. We will need to *reproject* DTM_HARV into
-the UTM CRS (or reproject the hillshade into lat/long). 
+Aha! `DTM_HARV` is in the UTM projection. `DTM_hill_HARV` is in `Geographic WGS84` -
+which is represented by latitude and longitude values. Because the two rasters 
+are in different CRSs, they don't line up when plotted in `R`. We need to 
+*reproject* `DTM_HARV` into the `UTM CRS`. Alternatively, we could 
+reproject the hillshade into WGS84. 
 
 #Reproject Rasters
-When things don't line up, it is often due to differences in CRS. In this case,
-our DTM is in UTM zone 18. However, our hillshade is in the geographic 
-coordinate system (latitude and longitude). 
-
 We can use the `projectRaster` function to reproject a raster into a new `CRS`.
 Keep in mind that reprojection only works when you first have a *defined* `CRS`
 for the raster object that you want to reproject. It cannot be used if *no*
-`CRS` is defined. In this case, the `DTM_hill_HARV` does have a defined `CRS`. 
+`CRS` is defined. Lucky for us, the `DTM_hill_HARV` has a defined `CRS`. 
 
-When using the `projectRaster()` function, you need to define two key things:
+To use the `projectRaster` function, we need to define two things:
 
-1. the object you want to reproject and 
-2. the CRS that you want to reproject it to. 
+1. the object we want to reproject and 
+2. the CRS that we want to reproject it to. 
 
 The syntax is `projectRaster(RasterObject,crs=CRSToReprojectTo)`
 
-Since we want the `CRS` of our hillshade to match the `DTM_HARV` raster we can 
-tell `R` to use the `CRS` from `DTM_HARV` as the `CRS` for this reprojetion.
+We want the `CRS` of our hillshade to match the `DTM_HARV` raster. We can thus assign
+the `CRS` of our `DTM_HARV` to our hillshade within the `projectRaster` function 
+as follows: `crs=crs(DTM_HARV)`.
 
 ```{r reproject-raster }
+
 #reproject to UTM
 DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV, 
                                        crs=crs(DTM_HARV))
@@ -204,29 +193,32 @@ extent(DTM_hill_HARV)
 
 ```
 
-Notice in the output above that the CRS of `DTM_hillUTMZ18N_HARV` is now UTM. 
-However, the extent of the object is different. 
+Notice in the output above that the `CRS` of `DTM_hill_UTMZ18N_HARV` is now UTM, meters. 
+However, values in the extent of `DTM_hillUTMZ18N_HARV` are different from 
+`DTM_hill_HARV`.
 
 Why do you think this is?  
 
-Note: When you are reprojecting a raster, you are moving it from one "grid" 
-to another. Thus you are modifying the data! Keep this in mind as you work with
-raster data. {: .notice2}
+<i class="fa fa-star"></i> **Data Tip:** When we reproject a raster, we 
+move it from one "grid" to another. Thus, we are modifying the data! Keep this 
+in mind as we work with raster data. 
+{: .notice}
 
 
 ##Dealing with Raster Resolution
 
-Let's next have a look at the resolution of the two rasters.  
+Let's next have a look at the resolution of our reprojected hillshade.  
 
 ```{r view-resolution}
+
 #compare resolution
-res(DTM_hill_HARV)
 res(DTM_hill_UTMZ18N_HARV)
+
 ```
 
 The output resolution of `DTM_hill_UTMZ18N_HARV` is 1 x 0.998. Yet, we know that
 the resolution for the data should be 1m x 1m. We can tell `R` to force our newly
-reprojected raster to be 1m resolution by adding a line of code (`res=`).  
+reprojected raster to be 1m x 1m resolution by adding a line of code (`res=`).  
 
 ``` {r reproject-assign-resolution }
 #adjust the resolution 
@@ -235,10 +227,11 @@ DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV,
                                   res=1)
 #view resolution
 res(DTM_hill_UTMZ18N_HARV)
+
 ```
 
 
-Once we have reprojected the raster, we can try to plot again!
+Let's plot our newly reprojected raster.
 
 ```{r plot-projected-raster }
 #plot newly reprojected hillshade
@@ -255,14 +248,17 @@ plot(DTM_HARV,
      legend=F)
 ```
 
-We have now successfully layered the Digital Terrain Model on top of our
-hillshade to produce a nice looking, textured base map! 
+We have now successfully draped the Digital Terrain Model on top of our
+hillshade to produce a nice looking, textured map! 
 
+<div id="challenge" markdown="1">
 ##Challenge: Reproject, then Plot a Digital Terrain Model 
-Create a map of the <a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
+Create a map of the 
+<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
 field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files. 
 
 Reproject the data as necessary to make things line up!
+</div>
 
 ```{r challenge-code-reprojection, echo=FALSE }
 
@@ -295,6 +291,6 @@ If you completed the San Joaquin plotting challenge in the
 lesson, how does the map you just created compare to that map? 
 
 ```{r challenge-code-reprojection2, echo=FALSE }
-#The maps look identical.  Which is what they should be as the only difference
+#The maps look identical. Which is what they should be as the only difference
 # is this one was reprojected from WGS84 to UTM prior ot plotting.  
 ```
