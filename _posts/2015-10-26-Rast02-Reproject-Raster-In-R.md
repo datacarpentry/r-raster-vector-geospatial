@@ -6,11 +6,11 @@ authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Bry
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2015-12-14
+lastModified: 2015-12-17
 category: spatio-temporal-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
-description: "This lesson explains how to reproject a raster in R using the
+description: "This lesson explains how to reproject a raster in `R` using the
 `projectRaster()` function in the raster package."
 code1: SR02-Reproject-Raster-In-R.R
 image:
@@ -25,13 +25,13 @@ comments: false
 
 ##About
 
-It is common for us to encounter raster data layers that do not "line up". This 
-is most offen to do Coordinate Reference System (CRS) issues and can cause
-problems
-with plotting and analyzing raster data. This lesson explains how to deal with 
-rasters in different, known Coordinate Reference Systems. It will walk though 
-reprojecting rasters in `R` using the `projectRaster()` function in the raster 
-package.
+It is common for us to encounter raster data layers that do not "line up".
+Rasters that don't line up are most often in different Coordinate Reference
+Systems (CRS). This can cause problems with plotting and analyzing raster data.
+
+This lesson explains how to deal with rasters in different, known CRSs. It will
+walk though reprojecting rasters in `R` using the `projectRaster()` function in
+the raster package.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
@@ -60,18 +60,17 @@ RStudio to write your code.
 * **rgdal:** `install.packages("rgdal")`
 
 ####Data to Download
-Download the raster files teaching dataset:
 
 <a href="https://ndownloader.figshare.com/files/3579867" class="btn btn-success"> Download NEON Airborne Observation Platform Raster Data Teaching Subset</a> 
 
-The LiDAR and imagery data used to create the rasters in this dataset were 
-collected over the <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard</a>
+The LiDAR and imagery data used to create this raster teaching data subset were
+collected over the NEON <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard Forest</a>
 and 
-<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin</a>
+<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
 field sites and processed at
 <a href="http://www.neoninc.org" target="_blank" >NEON </a> 
 headquarters. The entire dataset can be accessed by request from the 
-<a href="http://www.neoninc.org/data-resources/get-data/airborne-data" target="_blank"> NEON airborne data website.</a>
+<a href="http://www.neoninc.org/data-resources/get-data/airborne-data" target="_blank"> NEON Airborne Data Request Page on the NEON Website.</a>
 
 ####Setting the Working Directory
 The code in this lesson assumes that you have set your working directory to the
@@ -91,7 +90,7 @@ This lesson is a part of a series of raster data in R lessons:
 * [Lesson 06 - Plot Raster Time Series Data in R Using RasterVis and LevelPlot]({{ site.baseurl}}/R/Plot-Raster-Times-Series-Data-In-R/)
 * [Lesson 07- Extract NDVI Summary Values from a Raster Time Series]({{ site.baseurl}}/R/Extract-NDVI-From-Rasters-In-R/)
 
-###Sources of Additional Information
+###Additional Resources
 
 * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
 Read more about the `raster` package in `R`.</a>
@@ -106,8 +105,7 @@ looking basemap.
 This worked well when all of our data were cleaned up for us in advance. But 
 what happens when things don't line up? Let's have a look.
 
-We will continue to use the `raster` and `rgdal` libraries in this
-lesson.  
+We will use the `raster` and `rgdal` packages in this lesson.  
 
 
     #load raster package
@@ -127,16 +125,16 @@ Let's create an layered map of the Harvard Forest Digital Terrain Model
     plot(DTM_hill_HARV,
         col=grey(1:100/100),
         legend=F,
-        main="NEON Hillshade - DTM\n Harvard Forest")
+        main="DTM Hillshade\n NEON Harvard Forest")
     
-    #overlay the DSM on top of the hillshade
+    #overlay the DTM on top of the hillshade
     plot(DTM_HARV,
          col=terrain.colors(10),
          alpha=0.4,
          add=T,
          legend=F)
 
-![ ]({{ site.baseurl }}/images/rfigs/SR02-Reproject-Raster-In-R/import-DTM-hillshade-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/02-Reproject-Raster-In-R/import-DTM-hillshade-1.png) 
 
 Our results are curious - the Digital Terrain Model (`DTM_HARV`) did not plot on
 top of our hillshade. The hillshade plotted just fine on it's own. Let's try to 
@@ -148,9 +146,9 @@ plot the DTM on it's own to make sure there are data there.
          col=terrain.colors(10),
          alpha=1,
          legend=F,
-         main="NEON Digital Terrain Model\nHarvard Forest")
+         main="Digital Terrain Model\n NEON Harvard Forest")
 
-![ ]({{ site.baseurl }}/images/rfigs/SR02-Reproject-Raster-In-R/plot-DTM-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/02-Reproject-Raster-In-R/plot-DTM-1.png) 
 
 It appears as if our DTM contains data and plots just fine. The layers likely
 do not line up. A likely culprit for layers not lining up is the Coordinate 
@@ -171,7 +169,7 @@ Reference System (CRS). Let's explore our data.
     ##  +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
 
 Aha! `DTM_HARV` is in the UTM projection. `DTM_hill_HARV` is in latitude and
-longitude, a non-projected, geographic `CRS`. Because the two rasters are in
+longitude, a non-projected, geographic CRS. Because the two rasters are in
 different CRSs, they won't line up. We will need to *reproject* DTM_HARV into
 the UTM CRS (or reproject the hillshade into lat/long). 
 
@@ -181,9 +179,9 @@ our DTM is in UTM zone 18. However, our hillshade is in the geographic
 coordinate system (latitude and longitude). 
 
 We can use the `projectRaster` function to reproject a raster into a new `CRS`.
-Keep in mind that reprojection only works when you first have a *defined* CRS
-for the raster object that you want to reproject. It cannot be used if *no* CRS
-is defined. In this case, the `DTM_hill_HARV` does have a defined CRS. 
+Keep in mind that reprojection only works when you first have a *defined* `CRS`
+for the raster object that you want to reproject. It cannot be used if *no*
+`CRS` is defined. In this case, the `DTM_hill_HARV` does have a defined `CRS`. 
 
 When using the `projectRaster()` function, you need to define two key things:
 
@@ -192,9 +190,8 @@ When using the `projectRaster()` function, you need to define two key things:
 
 The syntax is `projectRaster(RasterObject,crs=CRSToReprojectTo)`
 
-Since we want the CRS of our hillshade to match the `DTM_HARV` raster we can 
-simple tell `R` to use the CRS from `DTM_HARV` as the 
-CRS for this reprojetion.
+Since we want the `CRS` of our hillshade to match the `DTM_HARV` raster we can 
+tell `R` to use the `CRS` from `DTM_HARV` as the `CRS` for this reprojetion.
 
 
     #reproject to UTM
@@ -240,7 +237,7 @@ to another. Thus you are modifying the data! Keep this in mind as you work with
 raster data. {: .notice2}
 
 
-##Assigning Resolution to Raster
+##Dealing with Raster Resolution
 
 Let's next have a look at the resolution of the two rasters.  
 
@@ -255,7 +252,7 @@ Let's next have a look at the resolution of the two rasters.
     ## [1] 1.000 0.998
 
 The output resolution of `DTM_hill_UTMZ18N_HARV` is 1 x 0.998. Yet, we know that
-the resolution for the data should be 1x1 m. We can tell `R` to force our newly
+the resolution for the data should be 1m x 1m. We can tell `R` to force our newly
 reprojected raster to be 1m resolution by adding a line of code (`res=`).  
 
 
@@ -276,7 +273,7 @@ Once we have reprojected the raster, we can try to plot again!
     plot(DTM_hill_UTMZ18N_HARV,
         col=grey(1:100/100),
         legend=F,
-        main="NEON DTM with Hillshade\n Harvard Forest")
+        main="DTM with Hillshade\n NEON Harvard Forest Field Site")
     
     #overlay the DTM on top of the hillshade
     plot(DTM_HARV,
@@ -285,20 +282,21 @@ Once we have reprojected the raster, we can try to plot again!
          add=T,
          legend=F)
 
-![ ]({{ site.baseurl }}/images/rfigs/SR02-Reproject-Raster-In-R/plot-projected-raster-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/02-Reproject-Raster-In-R/plot-projected-raster-1.png) 
 
 We have now successfully layered the Digital Terrain Model on top of our
 hillshade to produce a nice looking, textured base map! 
 
-##Challenge
-Create a map of the San Joaquin study site using the `SJER_DSMhill_WGS84.tif`
-and `SJER_dsmCrop.tif` files. 
+##Challenge: Reproject, then Plot a Digital Terrain Model 
+Create a map of the <a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
+field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files. 
 
 Reproject the data as necessary to make things line up!
 
-![ ]({{ site.baseurl }}/images/rfigs/SR02-Reproject-Raster-In-R/challenge-code-reprojection-1.png) 
-
+![ ]({{ site.baseurl }}/images/rfigs/02-Reproject-Raster-In-R/challenge-code-reprojection-1.png) 
 
 If you completed the San Joaquin plotting challenge in the
 [Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/) 
 lesson, how does the map you just created compare to that map? 
+
+
