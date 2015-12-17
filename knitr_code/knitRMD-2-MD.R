@@ -10,13 +10,13 @@ require(knitr)
 
 #################### Set up Input Variables #############################
 #Inputs - Where the git repo is on your computer
-gitRepoPath <-"~/Documents/GitHub/NEON-R-Spatial-Raster/"
+gitRepoPath <-"~/Documents/Git_Repositories/NEON-R-Tabular-Time-Series_mjones01/"
 
 #jekyll will only render md posts that begin with a date. Add one.
-add.date <- "2015-10-26-Rast"
+add.date <- "2015-12-14-"
 
 #set working dir - this is where the data are located
-wd <- "~/Documents/data/1_DataPortal_Workshop/1_WorkshopData"
+wd <- "~/Documents/data/Spatio_TemporalWorkshop"
 
 
 ################### CONFIG BELOW IS REQUIRED BY JEKYLL - DON"T CHANGE ############
@@ -49,7 +49,7 @@ if (file.exists(paste0(wd,"/","images"))){
 
 #NOTE -- delete the image directory at the end!
 
-#################### Get List of RMD files to Render #############################
+#################### Get List of RMD files to Render ###########################
 
 
 #get a list of files to knit / purl
