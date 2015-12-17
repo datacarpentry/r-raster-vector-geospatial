@@ -1,20 +1,21 @@
 ---
 layout: post
-title: "Lesson 06: Plot Raster Time Series Data in R Using RasterVis and LevelPlot"
+title: "Lesson 06: Plot Raster Time Series Data in R Using RasterVis and
+Levelplot"
 date:   2015-10-23
 authors: [Leah Wasser, Kristina Riemer, Zack Bryn, Jason Williams, Jeff Hollister, 
 Mike Smorul]
-contributors: [Test Human]
+contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`
 category: time-series-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
-description: "This lesson covers how to improve plotting output using the rasterVis
-library in R. Specifically it covers using levelplot, and adding meaningful custom 
-names to bands within a RasterStack."
-code1: 
+description: "This lesson covers how to improve plotting output using the
+`rasterVis` package in R. Specifically it covers using `levelplot()` and adding
+meaningful custom names to bands within a RasterStack."
+code1: SR06-Plotting-Time-Series-Rasters-in-R.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
@@ -26,55 +27,62 @@ comments: false
 {% include _toc.html %}
 
 ##About
-This lesson will explore the functions and libraries needed to work with time series
-rasters in `R`. 
+This lesson covers how to improve plotting output using the
+`rasterVis` package in R. Specifically it covers using `levelplot()` and adding
+meaningful custom names to bands within a RasterStack. 
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
 <div id="objectives" markdown="1">
 
 ###Goals / Objectives
+After completing this activity, you will:
 
-After completing this activity, you will know:
+* Be able to assign custom names to bands in a RasterStack for prettier plotting.
+* Understand advanced plotting of rasters using the `rasterVis` package and
+`levelplot`.
 
-* How to assign custom names to bands in a RasterStack for prettier plotting.
-* Advanced plotting using `rasterVis` library and `levelplot`
+###Challenge Code
+Throughout the lesson we have Challenges that reinforce learned skills. Possible
+solutions to the challenges are not posted on this page, however, the code for 
+each challenge is in the `R` code that can be downloaded for this lesson (see 
+footer on this page).
 
 ###Things You'll Need To Complete This Lesson
 
-###R Libraries to Install:
+Please be sure you have the most current version of `R` and, preferably,
+RStudio to write your code.
+
+####R Libraries to Install:
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 * **rasterVis:** `install.packages("rasterVis")`
 
-Note: the `rasterVis` library can be used to create nicer plots of raster time
-series data! <a href="https://cran.r-project.org/web/packages/rasterVis/rasterVis.pdf"
-target="_blank">Learn More about the rasterVis library</a>
-
-####Tools To Install
-
-Please be sure you have the most current version of `R` and preferably
-R studio to write your code.
-
-
 ####Data to Download
 
-* <a href="http://figshare.com/articles/NEON_AOP_Hyperspectral_Teaching_Dataset_SJER_and_Harvard_forest/1580086" class="btn btn-success"> DOWNLOAD Sample NEON LiDAR data in Raster Format & Vegetation Sampling Data</a>
+<a href=" https://ndownloader.figshare.com/files/3579867" class="btn btn-success"> Download Landsat derived NDVI raster files</a> 
+
+The imagery data used to create this raster teaching data subset were collected
+over the National Ecological Observatory Network's
+<a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard Forest</a>
+and 
+<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
+field sites.  
+The imagery was created by the U.S. Geological Survey (USGS) using a 
+<a href="http://eros.usgs.gov/#/Find_Data/Products_and_Data_Available/MSS" target="_blank" >  multispectral scanner</a>
+on a <a href="http://landsat.usgs.gov" target="_blank" > Landsat Satellite </a>.
+The data files are Geographic Tagged Image-File Format (GeoTIFF). 
 
 
-The LiDAR and imagery data used to create the rasters in this dataset were 
-collected over the Harvard and San Joaquin field sites 
-and processed at <a href="http://www.neoninc.org" target="_blank" >NEON </a> 
-headquarters. The entire dataset can be accessed by request from the NEON website.  
 
-####Recommended Pre-Lesson Reading
+####Setting the Working Directory
+The code in this lesson assumes that you have set your working directory to the
+location of the unzipped file of data downloaded above.  If you would like a
+refresher on setting the working directory, please view the [Setting A Working Directory In R]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
+lesson prior to beginning this lesson.
 
-
-* <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
-Read more about the `raster` package in R.</a>
-
-####Raster Lesson Series 
+###Raster Lesson Series 
 This lesson is a part of a series of raster data in R lessons:
 
 * [Lesson 00 - Intro to Raster Data in R]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R/)
@@ -85,159 +93,190 @@ This lesson is a part of a series of raster data in R lessons:
 * [Lesson 05 - Raster Time Series Data in R]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/)
 * [Lesson 06 - Plot Raster Time Series Data in R Using RasterVis and LevelPlot]({{ site.baseurl}}/R/Plot-Raster-Times-Series-Data-In-R/)
 * [Lesson 07- Extract NDVI Summary Values from a Raster Time Series]({{ site.baseurl}}/R/Extract-NDVI-From-Rasters-In-R/)
+
+###Sources of Additional Information
+* <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank"> Read more about the `raster` package in `R`.</a>
+* The `rasterVis` library can be used to create nicer plots of raster time
+series data! <a href="https://cran.r-project.org/web/packages/rasterVis/rasterVis.pdf"
+target="_blank">Learn more about the `rasterVis` package</a>.
+
 </div>
 
-```{r load-libraries }
+##Getting Started 
+In this lesson, we are working with the same set of rasters used in the
+[Raster Time Series Data in R ]({{ site.baseurl}} /R/Raster-Times-Series-Data-In-R/) 
+lesson. This data is derived from the Landsat satellite and stored in GeoTIFF
+format. Each raster covers the <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>.  
+If you do not yet have this RasterStack, please create it now. 
+
+```{r load-libraries-data }
 
 library(raster)
 library(rgdal)
 library(rasterVis)
 
-```
-
-#About the Time Series Data
-
-In this lesson, we are working with the same set of rasters taht we used in 
-[{{ site.baseurl}} /R/Raster-Times-Series-Data-In-R/ ](Lesson 05 - Time Series Rasters in R), 
-that were derived from the Landsat satellite - in `GeoTiff` format. Each
-raster covers the <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>.
-
-
-##Getting Started 
-
-To begin, we will use the same raster stack that we used in the previous lesson.
-
-
-```{r import-ndvi-rasters }
-
 # Create list of NDVI file paths
-NDVI_path <- "Landsat_NDVI/HARV/2011/ndvi"
-all_NDVI <- list.files(NDVI_path, full.names = TRUE, pattern = ".tif$")
-
-#view list - note that the full path (relative to our working directory)
-#is included
-all_NDVI
+all_NDVI_HARV <- list.files("Landsat_NDVI/HARV/2011/ndvi", full.names = TRUE, pattern = ".tif$")
 
 # Create a time series raster stack
-NDVI_stack <- stack(all_NDVI)
-
+NDVI_HARV_stack <- stack(all_NDVI_HARV)
 ```
 
-In the previous lesson, we used the `plot` function
-to plot our raster time series.
+#Plot Raster Time Series Data
+We can use the `plot` function to plot our raster time series data.
 
 ```{r plot-time-series }
-
 #view a histogram of all of the rasters
 #nc specifies number of columns
-plot(NDVI_stack, 
+plot(NDVI_HARV_stack, 
      zlim = c(1500, 10000), 
      nc = 4)
 
 ``` 
 
-In this lesson we will refine our plot using `levelplot` from the `rasterVis`
-library. The syntax is similar to plot.
+Note: The range of values for NDVI is 0-1. However, the data stored in our
+raster ranges from 0 - 10,000. If we view the metadata for the original .tif
+files, we will see a scale factor of 10,000 has been applied to remove decimal
+places. A scale factor allows us to store the NDVI data as an integer (no
+decimals) rather than a floating point format (decimals). This keeps the raster
+file size smaller. 
+{ : .notice2 }
+
+However, we are left with plots using the file name for titles, no indication
+of units, and overall non-customized plots.  To address these deficiencies we
+could instead plot using `levelplot` from the `rasterVis` package. 
 
 * <a href="http://oscarperpinan.github.io/rastervis/" target="_blank">More on the rasterVis library</a>
 
-```{r levelplot-time-series }
+The syntax for the `levelplot` function is similar to that for the `plot`
+function.  We can use main="" to add a title to our plot.
 
-#create a level plot - plot
-levelplot(NDVI_stack,
-          main="Landsat NDVI\nHarvard Forest")
+```{r levelplot-time-series }
+#create a `levelplot` plot
+levelplot(NDVI_HARV_stack,
+          main="Landsat NDVI\nNEON Harvard Forest")
 
 ```
 
-We can customize that plot to make it look nicer too. Let's start by adjusting 
-the color ramp used to render the rasters.
+We now have an overall title describing the figure.  We can customize
+this plot further to make it look even nicer.  
 
 ##Adjust the Color Ramp
+Next, let's adjust the color ramp used to render the rasters. First, we
+can change the red color ramp to a green one that is more suited to our NDVI
+data.
 
-Let's change the red color ramp to a green one that is more suited to our data.
-We can do that using the `colorRampPalette` function in r in combination with 
+We can do that using the `colorRampPalette` function in combination with 
 `colorBrewer`. 
 
 ``` {r change-color-ramp }
-
-#use color brewer which loads with rasterVis to generate
+#use colorbrewer which loads with the rasterVis package to generate
 #a color ramp of yellow to green
 cols <- colorRampPalette(brewer.pal(9,"YlGn"))
 #create a level plot - plot
-levelplot(NDVI_stack,
-          main="Landsat NDVI better colors \nHarvard Forest",
+levelplot(NDVI_HARV_stack,
+          main="Landsat NDVI\n Better Colors \nNEONHarvard Forest",
           col.regions=cols)
-
 
 ```
 
-Now we have a nicer looking plot, with colors that make more sense given the 
-data we are working with. But the labels for each raster are a bit clunky. 
-Let's make sure each label represents the Julian day for the data. The names
-come from the bands or layers in the `RasterStack`.
+The yellow to green color ramp visually represents NDVI well given it's a
+measure of greenness. Someone looking at the plot can quickly understand that
+pixels that are more green, have a higher NDVI value. 
 
-##Refining labels in our plot 
+For all of the `brewer.pal` ramp names see the 
+<a href="http://www.datavis.ca/sasmac/brewerpal.html" target="_blank"> brewerpal page</a>.
 
-The first part of the name is the Julian Day. We might want to remove the "x" and 
-replace it with Julian Day. We might want to remove the  the `_HARV_ndvi_crop` 
-from each label and replace it with the YEAR. We can replace text with different 
-text using the `gsub` function in R as follows: 
+Note: Cynthia Brewer, the creater of ColorBrewer, offers an online tool to help
+choose suitable color ramps, or to create your own. 
+<a href="http://colorbrewer2.org/" target="_blank">ColorBrewer 2.0; Color Advise for Cartography </a>  {: .notice2}
 
-`gsub("stringToReplace","WhatYouWantToReplaceItWith",Robject` allows you to 
-replace one or more patterns with new text. 
+##Refine Plot & Tile Labels
+Next, let's label each raster in our plot with the Julian day that the raster was for. The current names come from the bands or layers in the
+`RasterStack` and first part each name is the Julian day. 
 
-Note that we can use the `|` to replace more than one element. For example
-`X|_HARV` tells R to replace all instances of both `X` and `_HARV` in the string.
-Example: 
-`gsub("X|_HARV_ndvi_crop","","X005_HARV_ndvi_crop")`
-{: .notice }
+To create a more meaningul label we can remove the "x" and replace it with
+"day".
+We will remove "_HARV_ndvi_crop" from each label and replace it with nothing. To
+create these replacements we will use the `gsub` function in `R`.  
 
+The syntax is `gsub("StringToReplace","TextToReplaceIt", Robject)`. 
 
 ```{r clean-up-names }
 
 #view names for each raster layer
-names(NDVI_stack)
+names(NDVI_HARV_stack)
 
-#use gsub to use the names of the layers to create a list of new names
+#use gsub to modify label names.
 #that we'll use for the plot 
-rasterNames  <- gsub("X","",names(NDVI_stack))
+rasterNames  <- gsub("X","Day", names(NDVI_HARV_stack))
 
 #view Names
 rasterNames
 
-#replace the second part of the string
+#replace the second part of the string with year
 rasterNames  <- gsub("_HARV_ndvi_crop","",rasterNames)
 
 #view names for each raster layer
 rasterNames
 ```
 
-Once the names for each band have been reassigned, we can render our plot
+Notice: Instead of substituting "x" and "_HARV_ndvi_crop" separately, we could
+have used use the vertical bar character ( | ) to replace more than one element.
+For example "X|_HARV" tells `R` to replace all instances of both "X" and "_HARV"
+in the string.  Example code to remove "x" an "_HARV...":
+`gsub("X|_HARV_ndvi_crop"," |  ","rasterNames")`  {: .notice2}
 
-```{r create-level-plot }
+Once the names for each band have been reassigned, we can render our plot with
+the new labels. 
+
+```{r create-levelplot }
 
 #use level plot to create a nice plot with one legend and a 4x4 layout.
-levelplot(NDVI_stack, #create a 4x4 layout for the data
+levelplot(NDVI_HARV_stack,
+          layout=c(4, 4), #create a 4x4 layout for the data
           col.regions=cols, #add a color ramp
-          main="Landsat NDVI - Julian Days \nHarvard Forest 2014")
+          main="Landsat NDVI - Julian Days \nHarvard Forest 2014",
+          names.attr=rasterNames)
 
 ```
 
 We can adjust the columns of our plot too using `layout=c(cols,rows)'. Below
-we adjust the layout to be a matrix of 4 columns and 4 rows.
+we adjust the layout to be a matrix of 5 columns and 3 rows.
 
 ```{r adjust-layout }
 #use level plot to create a nice plot with one legend and a 4x4 layout.
-levelplot(NDVI_stack,
-          layout=c(5, 3), #create a 4x4 layout for the data
+levelplot(NDVI_HARV_stack,
+          layout=c(5, 3), #create a 5x3 layout for the data
           col.regions=cols, #add a color ramp
-          main="Landsat NDVI - Julian Days \nHarvard Forest 2014",
+          main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
           names.attr=rasterNames)
 ```
 
-CHALLENGE -- change the X in each layer name to `Julian_` to label each plot.
-{: .notice }
+#Challenge: Divergent Color Ramps 
+When we used `gsub` to modify the tile labels we just used Day.  However, it
+would be nice to be more descriptive and use the full "JulianDay_" so that it is
+clear what is being denoted.  
 
+Create a plot with this change and use a divergent brown to green color ramp to
+represent the data.  Hint: Use the <a href="http://www.datavis.ca/sasmac/brewerpal.html" target="_blank"> brewerpal page</a> to help you choose a color ramp. 
 
+Does having a divergent color ramp respresent the data
+better than a sequential color ramp (like "YlGn")?  Can you think of other data
+sets where a divergent color ramp may be best? 
 
+```{r challenge-code-levelplot-divergent, echo=FALSE }
+#change Day### to JulianDay_###
+rasterNames  <- gsub("Day","JulianDay_",rasterNames)
 
+#use level plot to create a nice plot with one legend and a 4x3 layout.
+levelplot(NDVI_HARV_stack,
+          layout=c(4, 3), #create a 4x3 layout for the data
+          col.regions=colorRampPalette(brewer.pal(9,"BrBG")), #specify color 
+          main="Landsat NDVI - Julian Days \nNEON Harvard Forest 2011",
+          names.attr=rasterNames)
+
+#The sequential is better than the divergent as it is more akin to the process
+#of greening up, which starts off at one end and just keeps increasing. 
+
+```
