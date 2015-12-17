@@ -6,7 +6,7 @@ authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Bry
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2015-12-14
+lastModified: 2015-12-17
 category: spatio-temporal-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
@@ -60,18 +60,17 @@ RStudio to write your code.
 * **rgdal:** `install.packages("rgdal")`
 
 ####Data to Download
-Download the raster files teaching dataset:
 
 <a href="https://ndownloader.figshare.com/files/3579867" class="btn btn-success"> Download NEON Airborne Observation Platform Raster Data Teaching Subset</a> 
 
-The LiDAR and imagery data used to create the rasters in this dataset were 
-collected over the <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard</a>
+The LiDAR and imagery data used to create this raster teaching data subset were
+collected over the NEON <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard Forest</a>
 and 
-<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin</a>
+<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
 field sites and processed at
 <a href="http://www.neoninc.org" target="_blank" >NEON </a> 
 headquarters. The entire dataset can be accessed by request from the 
-<a href="http://www.neoninc.org/data-resources/get-data/airborne-data" target="_blank"> NEON airborne data website.</a>
+<a href="http://www.neoninc.org/data-resources/get-data/airborne-data" target="_blank"> NEON Airborne Data Request Page on the NEON Website.</a>
 
 ####Setting the Working Directory
 The code in this lesson assumes that you have set your working directory to the
@@ -91,9 +90,9 @@ This lesson is a part of a series of raster data in R lessons:
 * [Lesson 06 - Plot Raster Time Series Data in R Using RasterVis and LevelPlot]({{ site.baseurl}}/R/Plot-Raster-Times-Series-Data-In-R/)
 * [Lesson 07- Extract NDVI Summary Values from a Raster Time Series]({{ site.baseurl}}/R/Extract-NDVI-From-Rasters-In-R/)
 
-###Sources of Additional Information
+###Additional Resources
 <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
-Read more about the `raster` package in R.</a>
+Read more about the `raster` package in `R`.</a>
 
 </div>
 
@@ -172,8 +171,13 @@ More on LiDAR CHM, DTM and DSM in this NEON Data Skills overview: <a href="http:
     ## Metadata:
     ## AREA_OR_POINT=Area
 
-Both rasters are in the same CRS, have the same resolution and mins/maxes are
-already in the tags. Let's load the data. 
+As seen from the  geoTags, both rasters have
+
+* same CRS, 
+* same resolution 
+* defined minimum and maximum values.
+
+Let's load the data. 
 
 
     #load the DTM & DSM rasters
@@ -184,15 +188,16 @@ already in the tags. Let's load the data.
     plot(DTM_HARV,
          main="Digital Terrain Model (Elevation)\n Harvard Forest")
 
-![ ]({{ site.baseurl }}/images/rfigs/SR03-Raster-Calculations-In-R/load-plot-data-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/load-plot-data-1.png) 
 
     plot(DSM_HARV,
          main="Digital Surface Model (Elevation)\n Harvard Forest")
 
-![ ]({{ site.baseurl }}/images/rfigs/SR03-Raster-Calculations-In-R/load-plot-data-2.png) 
+![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/load-plot-data-2.png) 
 
 Notice that the elevation range for these two maps (DSM and DTM) is different. 
-Why?  Should we be worried about this?  
+Why?  Is there any reason to question our data because of this elevational
+difference?  
 
 ##Two Ways to Calculate
 We can calculate the difference between two rasters in two different ways:
@@ -205,8 +210,9 @@ complex:
 2. using the `overlay()` function.
 
 ##Raster Math & Canopy Height Models
-First, we'll learn the intuitive process of subtracting layers to create and
-plot a CHM.  In the geospatial world we often call this *raster math*.
+We can perform raster calculations by simply subtracting (or adding,
+multiplying, etc) two rasters. In the geospatial world, we often call this
+*raster math*.
 
 Once the data are loaded, we can perform mathametical operations on them.
 For instance, we can subtract the DTM from the DSM to create a Canopy Height
@@ -218,12 +224,12 @@ Model.
     
     #plot the output CHM
     plot(CHM_HARV,
-         main="NEON Canopy Height Model - Manual Subtract\n Harvard Forest") 
+         main="Canopy Height Model - Raster Math Subtract\n NEON Harvard Forest") 
 
-![ ]({{ site.baseurl }}/images/rfigs/SR03-Raster-Calculations-In-R/raster-math-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/raster-math-1.png) 
 
-Let's have a quick look at the range of values in our newly created Canopy
-Height Model (CHM).
+Let's have a quick look at the distribution of values in our newly created
+Canopy Height Model (CHM).
 
 
     #histogram of CHM_HARV
@@ -233,7 +239,7 @@ Height Model (CHM).
          ylab="Number of Pixels",
          xlab="Tree Height (m) ")
 
-![ ]({{ site.baseurl }}/images/rfigs/SR03-Raster-Calculations-In-R/create-hist-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/create-hist-1.png) 
 
 Notice that the range of values for the output CHM is between 0 and 30 meters.
 Does this make sense for trees in Harvard Forest?
@@ -251,7 +257,7 @@ the histogram.
 5. Plot the `CHM_HARV` raster using breaks that make sense for the data. Include
 a appropriate color palette for the data, plot title and no axes. 
 
-![ ]({{ site.baseurl }}/images/rfigs/SR03-Raster-Calculations-In-R/challenge-code-CHM-HARV-1.png) ![ ]({{ site.baseurl }}/images/rfigs/SR03-Raster-Calculations-In-R/challenge-code-CHM-HARV-2.png) ![ ]({{ site.baseurl }}/images/rfigs/SR03-Raster-Calculations-In-R/challenge-code-CHM-HARV-3.png) 
+![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/challenge-code-CHM-HARV-1.png) ![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/challenge-code-CHM-HARV-2.png) ![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/challenge-code-CHM-HARV-3.png) 
 
 Next, we will perform the same calculations using a more efficient aproach - the
 `overlay()` function. 
@@ -290,14 +296,14 @@ the Digital Terrain Model (DTM) using the `overlay()` function.
                           fun=function(r1, r2){return(r1-r2)})
     
     plot(CHM_ov_HARV,
-         main="NEON Canopy Height Model - Overlay Subtract\n Harvard Forest")
+         main="Canopy Height Model - Overlay Subtract\n NEON Harvard Forest")
 
-![ ]({{ site.baseurl }}/images/rfigs/SR03-Raster-Calculations-In-R/raster-overlay-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/raster-overlay-1.png) 
 
 How do the plots of the CHM created with manual raster math and the `overlay()`
 function compare?  
 
-A quick note on functions: A function consists of a define set of tasks 
+Note: A function consists of a define set of tasks 
 performed on a input object. Functions are particularly useful for tasks that
 need to be repeated over and over in the code. A simplified syntax for a
 function in R is:
@@ -327,15 +333,15 @@ However, be careful to never accidentally re-use a name for a file that already
 exists. We are setting the NA value to -9999, the National Ecological
 Observatory Network's (NEON) standard `NoData` value. 
 
-# Challenge: Explore the NEON San Joaquin (SJER) Field Site
+# Challenge: Explore the NEON San Joaquin Experimental Range Field Site
 
 As ecologists we may want to explore the phenology of two different sites.  The 
- <a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >NEON San Joaquin Experimental Range (SJER) field site </a> located in Southern California is very different ecosystem and climate compared to the 
+ <a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >NEON San Joaquin Experimental Range (SJER) field site </a> located in Southern California has a very different ecosystem and climate than the
   <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >NEON Harvard Forest Field Site</a> in 
  Massachusetts.  
 
-Import the San Joaquin DSM and DTM raster files and create a Canopy Height Model.
- Then compare the two sites. BE sure to name your R objects and outputs carefully,
+Import the SJER DSM and DTM raster files and create a Canopy Height Model.
+ Then compare the two sites. Be sure to name your `R` objects and outputs carefully,
  as follows: objectType_SJER (e.g. `DSM_SJER`). This will help you keep track of  data from different sites!
 
 1. Import the DSM and DTM from the SJER directory (If you didn't aready import
@@ -350,7 +356,7 @@ Experiemental Range.
 Hint: plotting SJER and HARV data side-by-side would be an effective way to see 
 the data at the same time.
 
-![ ]({{ site.baseurl }}/images/rfigs/SR03-Raster-Calculations-In-R/challenge-code-SJER-CHM-1.png) ![ ]({{ site.baseurl }}/images/rfigs/SR03-Raster-Calculations-In-R/challenge-code-SJER-CHM-2.png) ![ ]({{ site.baseurl }}/images/rfigs/SR03-Raster-Calculations-In-R/challenge-code-SJER-CHM-3.png) ![ ]({{ site.baseurl }}/images/rfigs/SR03-Raster-Calculations-In-R/challenge-code-SJER-CHM-4.png) ![ ]({{ site.baseurl }}/images/rfigs/SR03-Raster-Calculations-In-R/challenge-code-SJER-CHM-5.png) 
+![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/challenge-code-SJER-CHM-1.png) ![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/challenge-code-SJER-CHM-2.png) ![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/challenge-code-SJER-CHM-3.png) ![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/challenge-code-SJER-CHM-4.png) ![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/challenge-code-SJER-CHM-5.png) 
 
 What do these two histograms tell us about the vegetation structure at Harvard 
 and SJER?

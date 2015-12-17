@@ -7,7 +7,7 @@ Brym, Leah Wasser]
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2015-12-14
+lastModified: 2015-12-17
 category: time-series-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
@@ -62,15 +62,14 @@ RStudio to write your code.
 * **rgdal:** `install.packages("rgdal")`
 
 ####Data to Download
-Download the NDVI raster files in this teaching dataset:
 
 <a href=" https://ndownloader.figshare.com/files/3579867" class="btn btn-success"> Download Landsat derived NDVI raster files</a> 
 
-The imagery data used to create the rasters in this dataset were collected over
-the National Ecological Observatory Network's
-<a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard</a>
+The imagery data used to create this raster teaching data subset were collected
+over the National Ecological Observatory Network's
+<a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard Forest</a>
 and 
-<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin</a>
+<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
 field sites.  
 The imagery was created by the U.S. Geological Survey (USGS) using a 
 <a href="http://eros.usgs.gov/#/Find_Data/Products_and_Data_Available/MSS" target="_blank" >  multispectral scanner</a>
@@ -95,18 +94,19 @@ This lesson is a part of a series of raster data in R lessons:
 * [Lesson 06 - Plot Raster Time Series Data in R Using RasterVis and LevelPlot]({{ site.baseurl}}/R/Plot-Raster-Times-Series-Data-In-R/)
 * [Lesson 07- Extract NDVI Summary Values from a Raster Time Series]({{ site.baseurl}}/R/Extract-NDVI-From-Rasters-In-R/)
 
-###Sources of Additional Information
+###Additional Resources
 * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
-Read more about the `raster` package in R.</a>
+Read more about the `raster` package in `R`.</a>
 
 </div>
 
 #About Raster Time Series Data
-Raster Data Sets can be made up of multiple files or bands.  These could be
-different specra taken at the same time and location that together offer a
-more complete image of the location. Or these could be single bands taken at
-different times of the same location.  Time series data gives us the ability to 
-measure and monitor changes through time.  
+
+Raster data can be in a single band or data layer format. Or it can contains
+multiple datasets or bands. If the data are images, each band may represent
+reflectance for a different wavelength (color) or set of wavelengths - for
+example red, green and blue. Raster data may also contains layers that represent
+data collected at different times for the same area and of the same resolution.
 
 <figure>
     <a href="{{ site.baseurl }}/images/raster_timeseries/GreenessOverTime.png">
@@ -128,14 +128,13 @@ In this lesson, we will
 3. Compare RGB imagery with NDVI data to understand strange values in the NDVI. 
 
 ##NDVI data
-The rasters that we will work with, located in the source folder
-(`Landsat_NDVI\HARV\ndvi`), is the Normalized Difference Vegetation Index
-(NDVI). NDVI is a quantitative index of greenness ranging from 0-1 where 0 is 
-the least amount of greenness and 1 is maximum greenness following 
-the index. NDVI is often used for a quantative measure of vegetation health, 
-cover and vegetation phenology (life cycle stage) over large areas. 
-The NDVI data is a derived single band product saved as a GeoTIFF for different
-times of the year. 
+The rasters we will use in this lesson, located in the (`Landsat_NDVI\HARV\ndvi`)
+directory, are Normalized Difference Vegetation Index (NDVI) data. NDVI is a
+quantitative index of greenness ranging from 0-1 where 0 represents minimal or
+no greenness and 1 represents maximum greenness. 
+
+NDVI is often used for a quantative measure of vegetation health, cover and
+vegetation phenology (life cycle stage) over large areas. The NDVI data is a Landsat derived single band product saved as a GeoTIFF for different times of the year. 
 
 <figure>
  <a href="http://earthobservatory.nasa.gov/Features/MeasuringVegetation/Images/ndvi_example.jpg"><img src="http://earthobservatory.nasa.gov/Features/MeasuringVegetation/Images/ndvi_example.jpg"></a>
@@ -181,11 +180,14 @@ the list. We will be able to create a `RasterStack` directly from the list.
 
 
     # Create list of NDVI file paths
-    NDVI_path <- "Landsat_NDVI/HARV/2011/ndvi"  #assign path to object = cleaner code
-    all_NDVI <- list.files(NDVI_path, full.names = TRUE, pattern = ".tif$")
+     #assign path to object = cleaner code
+    NDVI_HARV_path <- "Landsat_NDVI/HARV/2011/ndvi" 
+    all_NDVI_HARV <- list.files(NDVI_HARV_path,
+                                full.names = TRUE,
+                                pattern = ".tif$")
     
     #view list - note the full path, relative to our working directory, is included
-    all_NDVI
+    all_NDVI_HARV
 
     ##  [1] "Landsat_NDVI/HARV/2011/ndvi/005_HARV_ndvi_crop.tif"
     ##  [2] "Landsat_NDVI/HARV/2011/ndvi/037_HARV_ndvi_crop.tif"
@@ -207,7 +209,7 @@ data.
 
 
     # Create a time series raster stack
-    NDVI_stack <- stack(all_NDVI)
+    NDVI_HARV_stack <- stack(all_NDVI_HARV)
 
 We can also explore the GeoTIFF tags (the embedded metadata) to learn more about
 key metadata for our data including the Coordinate Reference System (`CRS`), 
@@ -215,13 +217,13 @@ key metadata for our data including the Coordinate Reference System (`CRS`),
 
 
     #view crs of rasters
-    crs(NDVI_stack)
+    crs(NDVI_HARV_stack)
 
     ## CRS arguments:
     ##  +proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs
 
     #view extent of rasters in stack
-    extent(NDVI_stack)
+    extent(NDVI_HARV_stack)
 
     ## class       : Extent 
     ## xmin        : 239415 
@@ -230,12 +232,12 @@ key metadata for our data including the Coordinate Reference System (`CRS`),
     ## ymax        : 4714365
 
     #view the y resolution of our rasters
-    yres(NDVI_stack)
+    yres(NDVI_HARV_stack)
 
     ## [1] 30
 
     #view the x resolution of our rasters
-    xres(NDVI_stack)
+    xres(NDVI_HARV_stack)
 
     ## [1] 30
 
@@ -254,16 +256,18 @@ the `plot()` command to quickly plot a `RasterStack`.
 
     #view a plot of all of the rasters
     #'nc' specifies number of columns (we will have 13 plots)
-    plot(NDVI_stack, 
+    plot(NDVI_HARV_stack, 
          zlim = c(1500, 10000), 
          nc = 4)
 
-![ ]({{ site.baseurl }}/images/rfigs/SR05-Time-Series-Raster-In-R/plot-time-series-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/plot-time-series-1.png) 
 
-Wait, NDVI data scale from 0-1, why is this data up to 10,000?  The metadata for this NDVI data have a scale factor: 10,000. A scale factor is
-commonly used in larger datasets to remove decimals. Storing decimal places
-actually consumes more space and creates larger file sizes compared to storing
-integer values.
+Wait, the accepted values for NDVI range from 0-1. Why does our data range from
+0 - 10,000? 
+
+The metadata for this NDVI data specifies a scale factor: 10,000. A scale factor
+is sometimes used to remove decimals. Storing decimal places creates larger file
+sizes compared to storing integer values.
 
 Note: We could make this plot (`levelplot`) even prettier by fixing the
 individual tile names and adding an overall plot title. How to do this is
@@ -271,28 +275,27 @@ covered in the NEON Data Skills
 [Plot Time Series Rasters in R ]({{ site.baseurl }}/R/Plot-Raster-Times-Series-Data-In-R/) 
 lesson. {: .notice2}
 
-##Taking a Closer Look at Our Data
+##Take a Closer Look at Our Data
 Let's take a close look at the plots of our data. Given what you might know 
-about the seasons in Massachusettes where the Harvard Forest is located, do you 
-notice anything that seems unusual about the patterns of greening and browning 
-of the vegetation at the site?  
+about the seasons in Massachusettes where the NEON Harvard Forest Field Site is
+located, do you notice anything that seems unusual about the patterns of
+greening and browning of the vegetation at the site?  
 
-Hint: the  number after the X in the tile title 
-is the Julian day.  If you are unfamiliar with Julian day, check out the NEON
-Data Skills 
+Hint: the  number after the X in the tile title is the Julian day.  If you are
+unfamiliar with Julian day, check out the NEON Data Skills 
 [Converting to Julian Day ]({{ site.baseurl }}/R/julian-day-conversion/) 
 lesson.
 
 What is another way we can look at these data that is a bit more quantitative 
-than viewing images? We could use histograms that show the frequency of pixels
-that occur at each NDVI value.
+than viewing images? We could use histograms to explore the distribution of NDVI
+values.
 
 
     #create histograms of each image
-    hist(NDVI_stack, 
+    hist(NDVI_HARV_stack, 
          xlim = c(0, 10000))
 
-![ ]({{ site.baseurl }}/images/rfigs/SR05-Time-Series-Raster-In-R/view-stack-histogram-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/view-stack-histogram-1.png) 
 
 It seems like things get green in the spring and summer like we expect, but the 
 data at Julian days 277 and 293 are unusual. It appears as if the vegetation got
@@ -302,7 +305,7 @@ green in the spring, but then died back only to get green again towards the end 
 The NDVI data that we are using comes from 2011, perhaps a strong freeze around
 Julian day 277 could cause a major plant die off. 
 
-![ ]({{ site.baseurl }}/images/rfigs/SR05-Time-Series-Raster-In-R/view-temp-data-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/view-temp-data-1.png) 
 
 There are no significant peaks or dips in the temperature during the late summer
 or early fall time period that could logically cause cause the vegetation to
@@ -311,13 +314,24 @@ brown (around day 277) and then quickly green again (by day 309).
 What is happening here? 
 
 The temperature data suggests that the pattern of warming and cooling is fairly
-consistent. Maybe we should look at the 3-band RGB imagery to see what that
-looks like. 
+consistent. Maybe we should look at the source data that were used to derive our
+NDVI rasters to try to understand what appears to be outlier NDVI values.
 
 #Challenge: Examine RGB Raster Files
-Load the RGB imagery located in the `RGB` directory. Plot the RGB images.
-Identify the plots for the Julian days 277 and 293.  Does viewing the RGB
-imagery from these two days help explain the NDVI data?  
 
-![ ]({{ site.baseurl }}/images/rfigs/SR05-Time-Series-Raster-In-R/view-all-rgb-1.png) 
+1. Load the imagery located in the `RGB` directory. 
+2. Plot the RGB images & identify the plots for the Julian days 277 and 293.
+3. Does viewing the RGB imagery from these two days help explain the NDVI data?  
 
+![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/view-all-rgb-1.png) 
+
+##Explore the Data Source
+The third challenge questions, "Does viewing the RGB imagery from these two days
+help explain the NDVI data?" highlights the importance of exploring the source
+of any data we work with.  
+
+The NDVI values from day 277 to 293 were very low, suggesting vegetation
+unhealthy, senescent or dead vegetation.  However, when we look at the RGB
+images from which the NDVI data was derived we see that nearly the entire 
+image is filled with clouds.  The very low NDVI values resulted from there being
+no growing vegetation in the field of view.  
