@@ -43,12 +43,6 @@ After completing this activity, you will:
 
 * Be able to reproject a raster in R
 
-###Challenge Code
-Throughout the lesson we have Challenges that reinforce learned skills. Possible
-solutions to the challenges are not posted on this page, however, the code for 
-each challenge is in the `R` code that can be downloaded for this lesson (see 
-footer on this page).
-
 **To complete this lesson:** you will need the most current version of R, and 
 preferably RStudio, loaded on your computer.
 
