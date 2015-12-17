@@ -2,7 +2,7 @@
 #load raster package
 library(raster)
 
-#view info about the dtm & dsm raster data
+#view info about the dtm & dsm raster data that we will work with.
 GDALinfo("NEON_RemoteSensing/HARV/DTM/HARV_dtmCrop.tif")
 GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
@@ -25,14 +25,15 @@ CHM_HARV <- DSM_HARV - DTM_HARV
 
 #plot the output CHM
 plot(CHM_HARV,
-     main="NEON Canopy Height Model - Manual Subtract\n Harvard Forest") 
+     main="Canopy Height Model - Raster Math Subtract\n NEON Harvard Forest",
+     axes=FALSE) 
 
 
 ## ----create-hist---------------------------------------------------------
 #histogram of CHM_HARV
 hist(CHM_HARV,
      col="springgreen4",
-     main="Histogram of NEON Canopy Height Model\nHarvard Forest",
+     main="Histogram of NEON Canopy Height Model\nNEON Harvard Forest Field Site",
      ylab="Number of Pixels",
      xlab="Tree Height (m) ")
 
@@ -68,7 +69,7 @@ CHM_ov_HARV<- overlay(DSM_HARV,
                       fun=function(r1, r2){return(r1-r2)})
 
 plot(CHM_ov_HARV,
-     main="NEON Canopy Height Model - Overlay Subtract\n Harvard Forest")
+     main="Canopy Height Model - Overlay Subtract\n NEON Harvard Forest")
 
 ## ----write-raster--------------------------------------------------------
 #export CHM object to new GeotIFF
@@ -127,7 +128,7 @@ writeRaster(CHM_SJER,"chm_ov_SJER.tiff",
             overwrite=TRUE, 
             NAflag=-9999)
 
-#4.Tree heights are WAY shorter in SJER. 
+#4.Tree heights are much shorter in SJER. 
 #view histogram of HARV again. 
 par(mfcol=c(2,1))
 hist(CHM_HARV, 
