@@ -42,17 +42,15 @@ After completing this activity, you will:
 * Understand the difference between single- and mult-band rasters.
 
 
-###Things You'll Need To Complete This Lesson
-You will need the most current version of R, and, preferably, RStudio loaded on
-your computer to complete this lesson.
+**To complete this lesson:** you will need the most current version of R, and 
+preferably RStudio, loaded on your computer.
 
 ####R Libraries to Install:
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
-
-####Data to Download
+####Download Data
 
 <a href="https://ndownloader.figshare.com/files/3579867" class="btn btn-success"> Download NEON Airborne Observation Platform Raster Data Teaching Subset</a> 
 
@@ -74,17 +72,8 @@ lesson prior to beginning this lesson.
 learned skills. If available, the code for challenge solutions is found in a 
 downloadable `R` script available on the footer of each lesson page.
 
-###Raster Lesson Series 
-This lesson is a part of a lesson series on raster data in R:
-
-* [Lesson 00 - Intro to Raster Data in R]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R/)
-* [Lesson 01 - Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/)
-* [Lesson 02 - Reproject Raster Data in R]({{ site.baseurl}}/R/Reproject-Raster-In-R/)
-* [Lesson 03 - Raster Calculations in R]({{ site.baseurl}}/R/Raster-Calculations-In-R/)
-* [Lesson 04 - Work With Multi-Band Rasters - Images in R]({{ site.baseurl}}/R/Multi-Band-Rasters-In-R/)
-* [Lesson 05 - Raster Time Series Data in R]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/)
-* [Lesson 06 - Plot Raster Time Series Data in R Using RasterVis and LevelPlot]({{ site.baseurl}}/R/Plot-Raster-Times-Series-Data-In-R/)
-* [Lesson 07 - Extract NDVI Summary Values from a Raster Time Series]({{ site.baseurl}}/R/Extract-NDVI-From-Rasters-In-R/)
+**Raster Lesson Series : ** This lesson is a part of a lesson series on raster 
+data in R <<link here>>
 
 ###Additional Resources
 
