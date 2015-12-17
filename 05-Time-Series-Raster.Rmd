@@ -368,11 +368,8 @@ The third challenge questions, "Does viewing the RGB imagery from these two days
 help explain the NDVI data?" highlights the importance of exploring the source
 of any data we work with.  
 
-The NDVI values from day 277 to 293 were very low
-suggesting that the vegetation was dead.  However, when we look at the RGB
+The NDVI values from day 277 to 293 were very low, suggesting vegetation
+unhealthy, senescent or dead vegetation.  However, when we look at the RGB
 images from which the NDVI data was derived we see that nearly the entire 
 image is filled with clouds.  The very low NDVI values resulted from there being
 no growing vegetation in the field of view.  
-
-
-
