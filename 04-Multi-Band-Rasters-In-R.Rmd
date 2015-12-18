@@ -16,8 +16,7 @@ function in R"
 code1: SR04-Multi-Band-Rasters-In-R.R
 image:
   feature: NEONCarpentryHeader_2.png
-  credit: A collaboration between the National Ecological Observatory Network 
-  (NEON) and Data Carpentry
+  credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink: http://www.neoninc.org
 permalink: R/Multi-Band-Rasters-In-R
 comments: false
