@@ -32,17 +32,20 @@ par(original_par) # go back to original par
 
 
 ## ----load-libraries------------------------------------------------------
+
+#work with raster data
 library(raster)
+#export geotiffs and other core GIS functions
 library(rgdal)
 
 
 ## ----read-single-band----------------------------------------------------
  
 # Read in multi-band raster with raster function. 
-#Default is the first band only.
+# Default is the first band only.
 RGB_band1_HARV <- raster("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
 
-#create a grayscale color palette to use for the image.
+# create a grayscale color palette to use for the image.
 grayscale_colors <- gray.colors(100,            #how many different color levels 
                                 start = 0.0,    #how black (0) to go
                                 end = 1.0,      #how white (1) to go
@@ -53,6 +56,7 @@ grayscale_colors <- gray.colors(100,            #how many different color levels
 #Plot band 1
 plot(RGB_band1_HARV, 
      col=grayscale_colors, 
+     axes=FALSE,
      main="NEON RGB Imagery - Band 1-Red\nHarvard Forest") 
 
 #view attributes: Check out dimension, CRS, resolution, values attributes, and 
@@ -73,7 +77,8 @@ RGB_band2_HARV <- raster("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif",
 
 #plot band 2
 plot(RGB_band2_HARV,
-     col=grayscale_colors,   #we already created this palatte & can use it again
+     col=grayscale_colors, #we already created this palette & can use it again
+     axes=FALSE,
      main="NEON RGB Imagery - Band 2- Green\nHarvard Forest")
 
 #view attributes of band 2 
@@ -82,8 +87,9 @@ RGB_band2_HARV
 
 ## ----challenge1-answer, eval=FALSE, echo=FALSE---------------------------
 ## 
-## #We'd expect a *brighter* value for the forest in band 2 (green) than in
-## #band 1 (red) because most trees appear green.
+## # We'd expect a *brighter* value for the forest in band 2 (green) than in
+## # band 1 (red) because the leaves on trees of most often appear "green" -
+## # healthy leaves reflect MORE green light compared to red light
 ## 
 
 ## ----intro-to-raster-stacks----------------------------------------------
@@ -106,9 +112,13 @@ RGB_stack_HARV[[1]]
 hist(RGB_stack_HARV,
      maxpixels=ncell(RGB_stack_HARV))
 
-
 #plot all three bands separately
 plot(RGB_stack_HARV, 
+     col=grayscale_colors)
+
+#plot band 2 
+plot(RGB_stack_HARV[[2]], 
+     main="Band 2\n NEON Harvard Forest",
      col=grayscale_colors)
 
 # revert to a single plot layout 
@@ -155,7 +165,9 @@ plotRGB(HARV_NA,
         r = 1, g = 2, b = 3)
 
 #6 The black edges are not plotted. 
-#7 Both have NoData values, however, in RGB_stack they are a number that R #doesn't recognize as a NoData value and therefore doesn't conver it to NA. 
+#7 Both have NoData values, however, in RGB_stack the NoData value is not defined
+#in the tiff tags, thus R renders them as black as the reflectance values are 0. 
+# the black edges in the other file are defined as -9999 and R renders them as NA.
 GDALinfo("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
 
 

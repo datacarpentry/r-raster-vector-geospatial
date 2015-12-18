@@ -73,7 +73,7 @@ learned skills. If available, the code for challenge solutions is found in a
 downloadable `R` script available on the footer of each lesson page.
 
 ###Additional Resources
-<a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
+* <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
 Read more about the `raster` package in `R`.</a>
 
 </div>
