@@ -1,0 +1,43 @@
+---
+layout: post
+title: "GREPL, Filter and Piping Using R DPLYR - An Intro"
+date:   2015-1-28 20:49:52
+dateCreated:   2014-11-17 20:49:52
+lastModified:   2015-05-21 20:49:52
+estimatedTime: 1.0 - 1.5 Hours
+packagesLibraries: dplyr
+authors: Natalie Robinson, Kate Thibault
+contributors: 
+categories: [coding-and-informatics]
+category: coding-and-informatics
+tags: [R]
+mainTag: R
+description: "Explore, extract and visualize temporal temperature data collected from a NEON flux tower from multiple sites and sensors in R. Learn how to extract metadata and how to use nested loops and dplyr to perform more advanced queries and data manipulation."
+code1: 
+image:
+  feature:  
+  credit:  
+  creditlink:  
+permalink: /R/GREPL-Filter-Piping-in-DPLYR-Using-R/
+comments: true
+---
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+
+```{r pleaseNameEachChunk}
+
+#code goes here
+
+```
+
+#Here is a heading Tag
+## Heading 2 tag
+
+Another section follows
+
+```{r anotherName}
+
+```
+
+
