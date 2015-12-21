@@ -6,7 +6,7 @@ authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Bry
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2015-12-17
+lastModified: 2015-12-21
 category: spatio-temporal-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
@@ -73,7 +73,7 @@ learned skills. If available, the code for challenge solutions is found in a
 downloadable `R` script available on the footer of each lesson page.
 
 ###Additional Resources
-<a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
+* <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
 Read more about the `raster` package in `R`.</a>
 
 </div>
