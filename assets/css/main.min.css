@@ -304,7 +304,8 @@ font-size:.75rem;
 } */
 
 .notice {
-    background-color: #E8E8E8;
+ /* lightening the grey */
+    background-color: #f2f2f2;
     border-radius: 10px;
     -webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -328,9 +329,7 @@ blockquote {
 font-size:.875rem
 }
 p {
-	margin: 0 0 1.625rem;
-	line-height: 1.35em;
-	font-size: 1em;
+	margin: 0 0 1.625rem
 }
 p+p {
 	/* margin-top: -1.625rem;
@@ -4505,4 +4504,19 @@ img.load {
 }
 .NEON-header:after {
 	clear: both
+}
+
+/* adding example challenge styles */
+div#challenge {
+    background-color: #ffffe5;
+    border: 1px solid #ccc;
+    padding: 1em;
+    border-radius: 1em;
+}
+
+div#challenge h2 {
+    background-color: #ffffe5;
+    border-bottom: 1px solid #ccc;
+    margin-top: 0;
+    margin-bottom: 1em;
 }

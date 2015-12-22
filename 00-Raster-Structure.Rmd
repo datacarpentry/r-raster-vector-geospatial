@@ -10,9 +10,8 @@ packagesLibraries: [raster, rgdal]
 category:  
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
-description: "This lesson review the fundamental principles, libraries and 
-metadata / raster attributes that you need to be familiar with in order to 
-successfully work with raster data in R."
+description: "This lesson reviews the fundamental principles, libraries and 
+metadata / raster attributes that are needed to work with raster data in R."
 code1: SR00-Raster-Structure.R
 image:
   feature: NEONCarpentryHeader_2.png
@@ -42,24 +41,16 @@ After completing this activity, you will:
 * Be able to quickly plot a raster file in `R`.
 * Understand the difference between single- and mult-band rasters.
 
-###Challenge Code
-Throughout the lesson we have Challenges that reinforce learned skills. Possible
-solutions to the challenges are not posted on this page, however, the code for 
-each challenge is in the `R` code that can be downloaded for this lesson (see 
-footer on this page).
 
-
-###Things You'll Need To Complete This Lesson
-You will need the most current version of R, and, preferably, RStudio loaded on
-your computer to complete this lesson.
+**To complete this lesson:** you will need the most current version of R, and 
+preferably RStudio, loaded on your computer.
 
 ####R Libraries to Install:
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
-
-####Data to Download
+####Download Data
 
 <a href="https://ndownloader.figshare.com/files/3579867" class="btn btn-success"> Download NEON Airborne Observation Platform Raster Data Teaching Subset</a> 
 
@@ -72,23 +63,17 @@ field sites and processed at
 headquarters. The entire dataset can be accessed by request from the 
 <a href="http://www.neoninc.org/data-resources/get-data/airborne-data" target="_blank"> NEON Airborne Data Request Page on the NEON Website.</a>
 
-####Setting the Working Directory
-The code in this lesson assumes that you have set your working directory to the
-location of the unzipped file of data downloaded above.  If you would like a
-refresher on setting the working directory, please view the [Setting A Working Directory In R]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
+**Set Working Directory:** This lessons assumes that you have set your working 
+directory to the location of the downloaded and unzipped data subset. [An overview
+of setting the working directory in `R` can be found here.]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
 lesson prior to beginning this lesson.
 
-###Raster Lesson Series 
-This lesson is a part of a lesson series on raster data in R:
+**Challenge Code:** NEON Data lesson often contain challenges that reinforce 
+learned skills. If available, the code for challenge solutions is found in a 
+downloadable `R` script available on the footer of each lesson page.
 
-* [Lesson 00 - Intro to Raster Data in R]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R/)
-* [Lesson 01 - Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/)
-* [Lesson 02 - Reproject Raster Data in R]({{ site.baseurl}}/R/Reproject-Raster-In-R/)
-* [Lesson 03 - Raster Calculations in R]({{ site.baseurl}}/R/Raster-Calculations-In-R/)
-* [Lesson 04 - Work With Multi-Band Rasters - Images in R]({{ site.baseurl}}/R/Multi-Band-Rasters-In-R/)
-* [Lesson 05 - Raster Time Series Data in R]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/)
-* [Lesson 06 - Plot Raster Time Series Data in R Using RasterVis and LevelPlot]({{ site.baseurl}}/R/Plot-Raster-Times-Series-Data-In-R/)
-* [Lesson 07 - Extract NDVI Summary Values from a Raster Time Series]({{ site.baseurl}}/R/Extract-NDVI-From-Rasters-In-R/)
+**Raster Lesson Series : ** This lesson is a part of a lesson series on raster 
+data in R <<link here>>
 
 ###Additional Resources
 
@@ -136,8 +121,8 @@ plot(DSM_HARV, main="Continuous Elevation Map\n NEON Harvard Forest Field Site")
 
 ```
 
-Some rasters contain categorical data. Thus each pixel represents a class such
-as a landcover class ("forest") rather than a continuous value such as elevation 
+Some rasters contain categorical data. Thus each pixel represents a discrete class 
+such as a landcover type ("forest") rather than a continuous value such as elevation 
 or temperature. Some examples of classified maps include:
 
 1. Landcover / landuse maps.
@@ -176,12 +161,12 @@ or attributes about the file as embedded `tif tags`. For instance, your camera
 might 
 store a tag that describes the make and model of the camera or the date the
 photo was taken when it saves a `.tif`. A GeoTIFF is a standard `.tif` image
-format with addition spatial (georeferencing) information embedded in the file
-as a tag. These tags can include the following raster metadata:
+format with additional spatial (georeferencing) information embedded in the file
+as tags. These tags can include the following raster metadata:
 
 1. A Coordinate Reference System (`CRS`)
 2. Spatial Extent (`extent`)
-3. Values for when no data is provided (`NoDataValues`)
+3. Values for when no data is provided (`NoDataValue`)
 4. The `resolution` of the data
 
 In this lesson we will discuss all of these metadata tags.
@@ -193,7 +178,7 @@ More about the  `.tif` format:
 
 ##Raster Data in R
 
-We will begin by opening up a raster dataset in `R` and exploring its metadata.
+Let's first import a raster dataset into `R` and explore its metadata.
 To open rasters in `R`, we will use the `raster` and `rgdal` packages.
 
 ```{r load-libraries }
@@ -210,7 +195,8 @@ We can use the `raster("path-to-raster-here")` function to open a raster in R.
 
 NAMES: To improve code readability, file and object names should be make it 
 clear what is in the file. The data for this lesson were collected over 
-from Harvard Forest so we'll use a naming convention of data_HARV. {: .notice2}
+from Harvard Forest so we'll use a naming convention of data_HARV. 
+{: .notice }
 
 ```{r open-raster }
 # Load raster into R
@@ -226,9 +212,9 @@ plot(DSM_HARV,
 
 ```
 
-Here is a map showing the elevation of our site in Harvard Forest.  Does this 
-top out at just over 400 meters or 400 feet?  Perhaps we need to learn more 
-about attributes and metadata!
+Here is a map showing the elevation of our site in Harvard Forest. Is the max
+elevation value within this raster greater than 400 meters or 400 feet? Perhaps 
+we need to learn more about the data attributes from the metadata!
 
 ## Coordinate Reference System
 The Coordinate Reference System or `CRS` tells `R` where the raster is located
@@ -269,13 +255,9 @@ seems proportionally larger or smaller than they actually are!
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/KUF_Ckv8HbE" frameborder="0" allowfullscreen></iframe>
 
-While we will not go into great depth with respect to understanding Coordinate
-Reference Systems in this lesson, it is important to understand that 
-if your data are in different CRSs, then they will not line up in `R`. (They may
-line up in a GIS interface that knows how to "reproject on the fly" to make
-things line up visually. 
-
-We can view just the CRS string associated with our `R` object using the`crs()` 
+ 
+##View Raster CRS in R
+We can view the `CRS` string associated with our `R` object using the`crs()` 
 method. We can assign this string to an `R` object too.
 
 ```{r view-resolution-units}
@@ -285,9 +267,10 @@ crs(DSM_HARV)
 #assign crs to an object (class) to use for reprojection and other tasks
 myCRS <- crs(DSM_HARV)
 myCRS
+
 ```
 
-From this we can see that our data are in the UTM projection.
+The `CRS` of our `DSM_HARV` object tells us that our data are in the UTM projection.
 
 <figure>
     <a href="https://en.wikipedia.org/wiki/File:Utm-zones.svg">
@@ -316,27 +299,26 @@ are meters.
 
 ## Resolution
 A raster has horizontal (x and y) resolution. This resolution represents the 
-area on the ground that each pixel covers. We must know the units used 
-to calculate the resolution -- meters, for our data. This means that 
-if the data are 1x1 resolution, that each pixel represents a 1 x 1 meter area
-on the ground.
+area on the ground that each pixel covers. The units for our data are in meters.
+Given our data resolution is 1 x 1, this means that each pixel represents a 
+1 x 1 meter area on the ground.
 
 ![raster resolution]({{ site.baseurl}}/images/raster_timeseries/raster_resolution.png)
 
-Resolution units can be viewed using two methods: viewing the 
-coordinate reference system string `crs()` OR using `@data`. 
+The best way to view resolution units is to look at the 
+coordinate reference system string `crs()`. Notice our data contains the following:
+
+`+units=m`
 
 ``` {r resolution-units}
-DSM_HARV@data
+crs(DSM_HARV)
 ```
 
-When we enter `DSM_HARV@data`, we see that units were not embedded in the
-`tif tags` for this raster file.
 
-#Calculate the Min and Max Values for the Raster
+#Calculate Raster Min and Max Values
 
-When exploring raster data, we often want to know the min or max values. In
-this case, we are working with elevation data, it might be useful to know the
+It is useful to know the minimum or maximum values of a raster dataset. In
+this case, given we are working with elevation data, these values represent the 
 min/max elevation range at our site.
 
 Raster statistics are often calculated and embedded in a `geotiff` for us. 
@@ -357,12 +339,12 @@ maxValue(DSM_HARV)
 ```
 
 We can see that the elevation at our site ranges from 305.07m to 416.07m. Thus, 
-there is not a huge amount of variability in this particular dataset.
+our site is fairly flat.
 
-##No Data Values in Rasters
+##NoData Values in Rasters
 
-Raster data often has a `NoDataValue` associated with it. This is a value 
-assigned to pixels where no data were collected or are available. 
+Raster data often has a `NoData` value associated with it. This is a value 
+assigned to pixels where no data were collected / are available. 
 
 By default the shape of a raster is always square or rectangular. Thus, if we 
 have  a dataset that has a shape that isn't square or rectangular, some pixels
@@ -370,8 +352,7 @@ at the
 edge of the raster will have no data. This often happens when the data were 
 collected by an airplane which only flew over some of a particular region. 
 
-In the image below, the pixels that are black, have no data associated with
-them.
+In the image below, the pixels that are black, have no data values.
 The camera did not collect data in these areas. 
 
 ```{r demonstrate-no-data-black, echo=FALSE }
@@ -386,8 +367,9 @@ plotRGB(RGB_stack, r = 1, g = 2, b = 3,
 
 ```
 
-Below - the black edges have been assigned `NoDataValue`s. `R` doesn't render
-pixels that contain no value or a specified `NoDataValue`. Instead they are assigned `NA` by `R`.
+Below - the black edges have been assigned `NoDataValue`. `R` doesn't render
+pixels that contain no value or a specified `NoData` value. Instead they are 
+assigned `NA` by `R`.
 
 ```{r demonstrate-no-data, echo=FALSE}
 #reassign cells with 0,0,0 to NA
@@ -408,38 +390,50 @@ plotRGB(newRGBImage, r = 1, g = 2, b = 3,
 
 ###No Data Value Standard 
 
-The assigned `NoDataValue` varies across disciplines; `-9999` is a common value 
-used in both the remote sensing field and the eddy covariance field. It is also
-the standard used by the <a href="http://www.neoninc.org" target="_blank"> National Ecological Observatory Network (NEON)</a>. 
+The assigned `NoData` value varies across disciplines; `-9999` is a common value 
+used in both the remote sensing field and the atmospheric fields. It is also
+the standard used by the <a href="http://www.neoninc.org" target="_blank"> 
+National Ecological Observatory Network (NEON)</a>. 
 
-If we are lucky, our GeoTIFF file has a tag that tells us what the `NoDataValue`
+If we are lucky, our GeoTIFF file has a tag that tells us what the `NoData` value
 is. 
 If we are less lucky, we can find that information in the raster's metadata.
-If a `NoDataValue` was stored in the GeoTIFF tag, when `R` opens up the raster,
+If a `NoData` value was stored in the GeoTIFF tag, when `R` opens up the raster,
 it will assign each instance of the value to `NA` (no data in `R` world). Values
 of `NA` will be ignored by R.
 
 ## Bad Data Values in Rasters
 
-Bad data values are different from No Data Values; they are values that show up 
-in the data but do not represent anything in the real world.  How do we find bad
-values?   Sometimes a raster's metadata 
-will tell us the range of values for the raster, anything beyond this is 
-questionable. Sometimes, we just need to use some common sense & scientific 
+Bad data values are different from `NoDataValue`. Bad data values are values that
+fall outside of the applicable range of a dataset. 
+
+Examples of Bad Data Values:
+
+* The normalized difference vegetation index (NDVI), which is a measure of 
+greenness, has a valid range of -1 to 1. Any value outside of that range would 
+be considered a "bad" or miscalculated value.
+* Reflectance data in an image will often range from 0-1 or 0-10,000 depending 
+upon how the data are scaled. Thus a value greater than 1 or greater than 10,000
+is likely caused by an error in either data collection or processing.
+
+## Finding Bad Data Values
+Sometimes a raster's metadata will tell us the range of expected values for a raster.
+Values outside of this range are suspect and we need to consider than when we analyze
+the data. Sometimes, we need to use some common sense & scientific 
 insight as we examine the data - just as we would for field data to identify
 questionable values. 
 
 ## Create A Histogram of Raster Values
 
-We can explore the full range of values contained within our raster using the 
-`hist` function which produces a histogram. This can often help us identify 
-outlier or bad data values in our raster.
+We can explore the distribution of values contained within our raster using the 
+`hist` function which produces a histogram. Histograms are often useful in 
+identifying outliers and bad data values in our raster data.
 
 ```{r view-raster-histogram }
 
 #view histogram of data
 hist(DSM_HARV,
-     main="Distribution of Digital Surface Model Values\n Histogram Default: 100,000 values\n NEON Harvard Forest",
+     main="Distribution of Digital Surface Model Values\n Histogram Default: 100,000 pixels\n NEON Harvard Forest",
      xlab="DSM Elevation Value (m)",
      ylab="Frequency",
      col="wheat")
@@ -478,11 +472,10 @@ hist(DSM_HARV,
 
 ```
 
-Note that the shape of both histograms looks similar to the previous one with
-only 100,000 values. R simple creates a histogram
-with a smaller representative subset of our data. The distribution of elevation
-values for our `Digital Surface Model (DSM)` looks reasonable. It is likely
-there are no bad data values in this particular raster.
+Note that the shape of both histograms looks similar to the previous one that was
+created using a representative 10,000 pixel subset of our raster data. The 
+distribution of elevation values for our `Digital Surface Model (DSM)` looks 
+reasonable. It is likely there are no bad data values in this particular raster.
 
 ##Raster Bands
 
@@ -506,11 +499,11 @@ nlayers(DSM_HARV)
 
 ```
 
-However, raster data can also be multi-band meaning that within one file it
-contains data on multiple variables for each cell. By default the `raster` 
-function only imports the first band in a raster regardless of whether it has 1
-or more bands.  The fourth lesson in this series is a tutorial on multi-band 
-rasters, <a href="{{ site.baseurl }}/NEON-R-Spatial-Raster/R/Multi-Band-Rasters-In-R/" target="_blank">  Work with Multi-band Rasters: Images in R</a>.
+However, raster data can also be multi-band meaning that one raster file 
+contains data for more than one variable or time period for each cell. By default 
+the `raster` function only imports the first band in a raster regardless of whether it has 1
+or more bands. The fourth lesson in this series is a tutorial on multi-band 
+rasters, <a href="{{ site.baseurl }}/NEON-R-Spatial-Raster/R/Multi-Band-Rasters-In-R/" target="_blank">Work with Multi-band Rasters: Images in R</a>.
 
 ##View Raster File Attributes
 Remember that a `GeoTIFF` contains a set of embedded tags that contain 

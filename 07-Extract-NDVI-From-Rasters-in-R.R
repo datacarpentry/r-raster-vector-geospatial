@@ -5,15 +5,20 @@ library(rgdal)
 library(ggplot2)
 
 # Create list of NDVI file paths
-NDVI_path <- "Landsat_NDVI/HARV/2011/ndvi"  #assign path to object = cleaner code
-all_NDVI <- list.files(NDVI_path, full.names = TRUE, pattern = ".tif$")
+all_HARV_NDVI <- list.files("Landsat_NDVI/HARV/2011/ndvi",
+                            full.names = TRUE,
+                            pattern = ".tif$")
 
 # Create a time series raster stack
-NDVI_stack <- stack(all_NDVI)
+NDVI_HARV_stack <- stack(all_HARV_NDVI)
+
+#apply scale factor
+NDVI_HARV_stack <- NDVI_HARV_stack/10000
+
 
 ## ----calculate-avg-NDVI--------------------------------------------------
 #calculate mean NDVI for each raster
-avg_NDVI_HARV <- cellStats(NDVI_stack,mean)
+avg_NDVI_HARV <- cellStats(NDVI_HARV_stack,mean)
 
 #convert output array to data.frame
 avg_NDVI_HARV <- as.data.frame(avg_NDVI_HARV)
@@ -48,13 +53,14 @@ avg_NDVI_HARV$year <- "2011"
 head(avg_NDVI_HARV)
 
 ## ----extract-julian-day--------------------------------------------------
-#note the use of the vertical bar character ( | ) is equivalent to "or". This
+
+# note the use of the vertical bar character ( | ) is equivalent to "or". This
 # allows us to search for more than one pattern in our text strings.
 julianDays <- gsub(pattern = "X|_HARV_ndvi_crop", #the pattern to find 
             x = row.names(avg_NDVI_HARV), #the object containing the strings
             replacement = "") #what to replace each instance of the pattern with
 
-#alternate format
+#alternately you can include the above code on one single line
 #julianDays <- gsub("X|_HARV_ndvi_crop", "", row.names(avg_NDVI_HARV))
 
 #make sure output looks ok
@@ -68,13 +74,14 @@ class(avg_NDVI_HARV$julianDay)
 
 ## ----convert-jd----------------------------------------------------------
 #set the origin for the julian date (1 Jan 2011)
-origin<-as.Date ("2011-01-01")
+origin <- as.Date("2011-01-01")
 
 #convert "julianDay" from class character to integer
 avg_NDVI_HARV$julianDay <- as.integer(avg_NDVI_HARV$julianDay)
 
-#create a date column
-avg_NDVI_HARV$Date<- origin + avg_NDVI_HARV$julianDay
+#create a date column; -1 added because origin is the 1st and indexing begins at 0. 
+# If not -1, 01/01/2011 + 5 = 01/06/2011 which is Julian day 6, not 5.
+avg_NDVI_HARV$Date<- origin + (avg_NDVI_HARV$julianDay-1)
 
 #did it work? 
 head(avg_NDVI_HARV$Date)
@@ -82,14 +89,6 @@ head(avg_NDVI_HARV$Date)
 #What are the classes of the two columns now? 
 class(avg_NDVI_HARV$Date)
 class(avg_NDVI_HARV$julianDay)
-
-
-## ----scale-data----------------------------------------------------------
-#de-scale data by 10,000
-avg_NDVI_HARV$meanNDVI <- avg_NDVI_HARV$meanNDVI / 10000
-
-#view output
-head(avg_NDVI_HARV)
 
 
 ## ----challenge-answers,  include=TRUE, results="hide", echo=FALSE--------
@@ -126,8 +125,8 @@ origin<-as.Date ("2011-01-01")
 #add julianDay values as a column in the data frame
 avg_NDVI_SJER$julianDay <- as.integer(julianDays_SJER)
 
-#create a date column
-avg_NDVI_SJER$Date<- origin + avg_NDVI_SJER$julianDay
+#create a date column, 1 once since the origin IS day 1.  
+avg_NDVI_SJER$Date<- origin + (avg_NDVI_SJER$julianDay-1)
 
 #did it work? 
 avg_NDVI_SJER
@@ -137,7 +136,7 @@ avg_NDVI_SJER
 
 #plot NDVI
 ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI)) +
-  geom_point(size=4,colour = "blue") + 
+  geom_point(size=4,colour = "PeachPuff4") + 
   ggtitle("NDVI for HARV 2011\nLandsat Derived") +
   xlab("Julian Days") + ylab("Mean NDVI") +
   theme(text = element_text(size=20))
@@ -147,7 +146,7 @@ ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI)) +
 
 #plot NDVI
 ggplot(avg_NDVI_SJER, aes(julianDay, meanNDVI)) +
-  geom_point(size=4,colour = "darkgreen") + 
+  geom_point(size=4,colour = "SpringGreen4") + 
   ggtitle("NDVI for SJER 2011\nLandsat Derived") +
   xlab("Julian Day") + ylab("Mean NDVI") +
   theme(text = element_text(size=20))
@@ -163,7 +162,7 @@ ggplot(ndvi_HARV_SJER, aes(julianDay, meanNDVI, colour=site)) +
   geom_line(aes(group=site)) +
   ggtitle("Landsat Derived NDVI - 2011\nNEON Harvard Forest vs San Joaquin") +
   xlab("Julian Day") + ylab("Mean NDVI") +
-  scale_colour_manual(values=c("blue", "darkgreen")) +   #match previous plots
+  scale_colour_manual(values=c("PeachPuff4", "SpringGreen4")) +   #match previous plots
   theme(text = element_text(size=20))
 
 
@@ -174,11 +173,11 @@ ggplot(ndvi_HARV_SJER, aes(Date, meanNDVI, colour=site)) +
   geom_line(aes(group=site)) +
   ggtitle("Landsat Derived NDVI - 2011\n Harvard Forest vs San Joaquin") +
   xlab("Date") + ylab("Mean NDVI") +
-  scale_colour_manual(values=c("blue", "darkgreen")) +   #match previous plots
+  scale_colour_manual(values=c("PeachPuff4", "SpringGreen4")) +   #match previous plots
   theme(text = element_text(size=20))
 
 
-## ----view-all-rgb, echo=FALSE--------------------------------------------
+## ----view-all-rgb-Harv, echo=FALSE---------------------------------------
 #open up the cropped files
 rgb.allCropped <-  list.files("Landsat_NDVI/HARV/2011/RGB/", 
                               full.names=TRUE, 
@@ -195,6 +194,31 @@ for (aFile in rgb.allCropped){
 #reset layout
 par(mfrow=c(1,1))
 
+## ----view-all-rgb-SJER, echo=FALSE---------------------------------------
+#open up the cropped files
+rgb.allCropped.SJER <-  list.files("Landsat_NDVI/SJER/2011/RGB/", 
+                              full.names=TRUE, 
+                              pattern = ".tif$")
+#create a layout
+par(mfrow=c(5,4))
+
+#Super efficient code
+for (aFile in rgb.allCropped.SJER){
+  ndvi.rastStack <- stack(aFile)
+  # 254_SJER_landRGB.tif - the range on the blue band for this layer is 255-255
+  #r cant render that as a stretch function. Not sure how to properly fix this via 
+  #code, for the meantime writing a manual exception
+  if (aFile =="Landsat_NDVI/SJER/2011/RGB//254_SJER_landRGB.tif") {
+    plotRGB(ndvi.rastStack) }
+  else { 
+    plotRGB(ndvi.rastStack, stretch="lin") }
+
+}
+
+#reset layout
+par(mfrow=c(1,1))
+
+
 ## ----remove-bad-values---------------------------------------------------
 #retain only rows with meanNDVI>0.1
 avg_NDVI_HARV_clean<-subset(avg_NDVI_HARV, meanNDVI>0.1)
@@ -205,7 +229,7 @@ avg_NDVI_HARV_clean$meanNDVI<0.1
 ## ----plot-clean-HARV-----------------------------------------------------
 #plot without questionable data
 ggplot(avg_NDVI_HARV_clean, aes(julianDay, meanNDVI)) +
-  geom_point(size=4,colour = "blue") + 
+  geom_point(size=4,colour = "SpringGreen4") + 
   ggtitle("NDVI for HARV 2011\nLandsat Derived") +
   xlab("Julian Days") + ylab("Mean NDVI") +
   theme(text = element_text(size=20))

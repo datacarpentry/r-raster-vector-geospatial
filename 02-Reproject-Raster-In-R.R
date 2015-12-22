@@ -13,15 +13,15 @@ DTM_hill_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
 #plot hillshade using a grayscale color ramp 
 plot(DTM_hill_HARV,
     col=grey(1:100/100),
-    legend=F,
-    main="NEON Hillshade - DTM\n Harvard Forest")
+    legend=FALSE,
+    main="DTM Hillshade\n NEON Harvard Forest")
 
-#overlay the DSM on top of the hillshade
+#overlay the DTM on top of the hillshade
 plot(DTM_HARV,
      col=terrain.colors(10),
      alpha=0.4,
-     add=T,
-     legend=F)
+     add=TRUE,
+     legend=FALSE)
 
 
 ## ----plot-DTM------------------------------------------------------------
@@ -30,7 +30,7 @@ plot(DTM_HARV,
      col=terrain.colors(10),
      alpha=1,
      legend=F,
-     main="NEON Digital Terrain Model\nHarvard Forest")
+     main="Digital Terrain Model\n NEON Harvard Forest")
 
 
 ## ----explore-crs---------------------------------------------------------
@@ -41,6 +41,7 @@ crs(DTM_HARV)
 crs(DTM_hill_HARV)
 
 ## ----reproject-raster----------------------------------------------------
+
 #reproject to UTM
 DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV, 
                                        crs=crs(DTM_HARV))
@@ -55,9 +56,10 @@ extent(DTM_hill_HARV)
 
 
 ## ----view-resolution-----------------------------------------------------
+
 #compare resolution
-res(DTM_hill_HARV)
 res(DTM_hill_UTMZ18N_HARV)
+
 
 ## ----reproject-assign-resolution-----------------------------------------
 #adjust the resolution 
@@ -67,12 +69,13 @@ DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV,
 #view resolution
 res(DTM_hill_UTMZ18N_HARV)
 
+
 ## ----plot-projected-raster-----------------------------------------------
 #plot newly reprojected hillshade
 plot(DTM_hill_UTMZ18N_HARV,
     col=grey(1:100/100),
     legend=F,
-    main="NEON DTM with Hillshade\n Harvard Forest")
+    main="DTM with Hillshade\n NEON Harvard Forest Field Site")
 
 #overlay the DTM on top of the hillshade
 plot(DTM_HARV,
@@ -105,4 +108,8 @@ plot(DSM_SJER,
      add=T,
      legend=F)
 
+
+## ----challenge-code-reprojection2, echo=FALSE----------------------------
+#The maps look identical. Which is what they should be as the only difference
+# is this one was reprojected from WGS84 to UTM prior ot plotting.  
 
