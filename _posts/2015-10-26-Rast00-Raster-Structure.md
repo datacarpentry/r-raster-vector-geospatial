@@ -5,7 +5,7 @@ date:   2015-10-29
 authors: [Kristina Riemer, Zack Brym, Jason Williams, Jeff Hollister,  Mike Smorul, Leah Wasser]
 contributors: [Megan A. Jones]
 dateCreated: 2015-10-23
-lastModified: `r format(Sys.time(), "%Y-%m-%d")`
+lastModified: 2015-12-21
 packagesLibraries: [raster, rgdal]
 category:  
 tags: [raster-ts-wrksp, raster]
@@ -104,22 +104,10 @@ A map of elevation for Harvard Forest derived from the  <a href="http://www.neon
 is below. Notice that elevation is a continuous numeric variable. The legend
 represents the continuous range of values in the data from around 300 to 420 meters.
 
-```{r load-libraries-1, results='hide', echo=FALSE}
-
-library(raster)
-library(rgdal)
-
-```
 
 
-```{r elevation-map, echo=FALSE}
-#render DSM for lesson content background
-DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
-# code output here - DEM rendered on the screen
-plot(DSM_HARV, main="Continuous Elevation Map\n NEON Harvard Forest Field Site")
-
-```
+![ ]({{ site.baseurl }}/images/rfigs/00-Raster-Structure/elevation-map-1.png) 
 
 Some rasters contain categorical data. Thus each pixel represents a discrete class 
 such as a landcover type ("forest") rather than a continuous value such as elevation 
@@ -131,25 +119,7 @@ or temperature. Some examples of classified maps include:
 
 The legend of this map shows the colors representing each discrete class. 
 
-```{r classified-elevation-map, echo=FALSE}
-# Demonstration image for the lesson
-
-#add a color map with 5 colors
-col=terrain.colors(3)
-#add breaks to the colormap (6 breaks = 5 segments)
-brk <- c(250,350, 380,500)
-
-# Expand right side of clipping rect to make room for the legend
-par(xpd = FALSE,mar=c(5.1, 4.1, 4.1, 4.5))
-#DEM with a custom legend
-plot(DSM_HARV, col=col, breaks=brk, main="Classified Elevation Map\nNEON Harvard Forest Field Site",legend = FALSE)
-#turn xpd back on to force the legend to fit next to the plot.
-par(xpd = TRUE)
-#add a legend - but make it appear outside of the plot
-legend( par()$usr[2], 4713700,
-        legend = c("High Elevation", "Middle","Low Elevation"), 
-        fill = rev(col))
-```
+![ ]({{ site.baseurl }}/images/rfigs/00-Raster-Structure/classified-elevation-map-1.png) 
 
 ###Categorical Landcover Map for the United States 
 ![US NLCD Map](http://neondataskills.org/images/spatialData/NLCD06_conus_lg.gif)
@@ -181,14 +151,13 @@ More about the  `.tif` format:
 Let's first import a raster dataset into `R` and explore its metadata.
 To open rasters in `R`, we will use the `raster` and `rgdal` packages.
 
-```{r load-libraries }
-#load libraries
-library(raster)
-library(rgdal)
 
-#set working directory to ensure R can find the file we wish to import
-#setwd("working-dir-path-here")
-```
+    #load libraries
+    library(raster)
+    library(rgdal)
+    
+    #set working directory to ensure R can find the file we wish to import
+    #setwd("working-dir-path-here")
 
 ##Open a Raster in R
 We can use the `raster("path-to-raster-here")` function to open a raster in R. 
@@ -198,19 +167,28 @@ clear what is in the file. The data for this lesson were collected over
 from Harvard Forest so we'll use a naming convention of data_HARV. 
 {: .notice }
 
-```{r open-raster }
-# Load raster into R
-DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
-# View raster structure
-DSM_HARV 
+    # Load raster into R
+    DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+    
+    # View raster structure
+    DSM_HARV 
 
-#plot raster
-#note \n in the title forces a line break in the title
-plot(DSM_HARV, 
-     main="NEON Digital Surface Model\nHarvard Forest")
+    ## class       : RasterLayer 
+    ## dimensions  : 1367, 1697, 2319799  (nrow, ncol, ncell)
+    ## resolution  : 1, 1  (x, y)
+    ## extent      : 731453, 733150, 4712471, 4713838  (xmin, xmax, ymin, ymax)
+    ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif 
+    ## names       : HARV_dsmCrop 
+    ## values      : 305.07, 416.07  (min, max)
 
-```
+    #plot raster
+    #note \n in the title forces a line break in the title
+    plot(DSM_HARV, 
+         main="NEON Digital Surface Model\nHarvard Forest")
+
+![ ]({{ site.baseurl }}/images/rfigs/00-Raster-Structure/open-raster-1.png) 
 
 Here is a map showing the elevation of our site in Harvard Forest. Is the max
 elevation value within this raster greater than 400 meters or 400 feet? Perhaps 
@@ -260,15 +238,21 @@ seems proportionally larger or smaller than they actually are!
 We can view the `CRS` string associated with our `R` object using the`crs()` 
 method. We can assign this string to an `R` object too.
 
-```{r view-resolution-units}
-#view resolution units
-crs(DSM_HARV)
 
-#assign crs to an object (class) to use for reprojection and other tasks
-myCRS <- crs(DSM_HARV)
-myCRS
+    #view resolution units
+    crs(DSM_HARV)
 
-```
+    ## CRS arguments:
+    ##  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84
+    ## +towgs84=0,0,0
+
+    #assign crs to an object (class) to use for reprojection and other tasks
+    myCRS <- crs(DSM_HARV)
+    myCRS
+
+    ## CRS arguments:
+    ##  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84
+    ## +towgs84=0,0,0
 
 The `CRS` of our `DSM_HARV` object tells us that our data are in the UTM projection.
 
@@ -310,9 +294,12 @@ coordinate reference system string `crs()`. Notice our data contains the followi
 
 `+units=m`
 
-``` {r resolution-units}
-crs(DSM_HARV)
-```
+
+    crs(DSM_HARV)
+
+    ## CRS arguments:
+    ##  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84
+    ## +towgs84=0,0,0
 
 
 #Calculate Raster Min and Max Values
@@ -325,18 +312,19 @@ Raster statistics are often calculated and embedded in a `geotiff` for us.
 However if they weren't already calculated, we can calculate them using the
 `setMinMax()` function.
 
-```{r set-min-max }
 
-#This is the code if min/max weren't calculated: 
-#DSM_HARV <- setMinMax(DSM_HARV) 
+    #This is the code if min/max weren't calculated: 
+    #DSM_HARV <- setMinMax(DSM_HARV) 
+    
+    #view the calculated min value
+    minValue(DSM_HARV)
 
-#view the calculated min value
-minValue(DSM_HARV)
+    ## [1] 305.07
 
-#view only max value
-maxValue(DSM_HARV)
+    #view only max value
+    maxValue(DSM_HARV)
 
-```
+    ## [1] 416.07
 
 We can see that the elevation at our site ranges from 305.07m to 416.07m. Thus, 
 our site is fairly flat.
@@ -355,38 +343,13 @@ collected by an airplane which only flew over some of a particular region.
 In the image below, the pixels that are black, have no data values.
 The camera did not collect data in these areas. 
 
-```{r demonstrate-no-data-black, echo=FALSE }
-#demonstration code below - not being taught - just demonstrating no data values
-# Use stack function to read in all bands
-RGB_stack <- stack("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
-
-# Create an RGB image from the raster stack
-par(col.axis="white",col.lab="white",tck=0)
-plotRGB(RGB_stack, r = 1, g = 2, b = 3, 
-        axes=TRUE, main="Raster With No Data Values\nRendered in Black")
-
-```
+![ ]({{ site.baseurl }}/images/rfigs/00-Raster-Structure/demonstrate-no-data-black-1.png) 
 
 Below - the black edges have been assigned `NoDataValue`. `R` doesn't render
 pixels that contain no value or a specified `NoData` value. Instead they are 
 assigned `NA` by `R`.
 
-```{r demonstrate-no-data, echo=FALSE}
-#reassign cells with 0,0,0 to NA
-#this is simply demonstration code - we will not teach this.
-f <- function(x) {
-  x[rowSums(x == 0) == 3, ] <- NA
-  x}
-
-newRGBImage <- calc(RGB_stack, f)
-
-
-par(col.axis="white",col.lab="white",tck=0)
-# Create an RGB image from the raster stack
-plotRGB(newRGBImage, r = 1, g = 2, b = 3,
-        axes=TRUE, main="Raster With No Data Values\nNoDataValue= NA")
- 
-```
+![ ]({{ site.baseurl }}/images/rfigs/00-Raster-Structure/demonstrate-no-data-1.png) 
 
 ###No Data Value Standard 
 
@@ -429,16 +392,18 @@ We can explore the distribution of values contained within our raster using the
 `hist` function which produces a histogram. Histograms are often useful in 
 identifying outliers and bad data values in our raster data.
 
-```{r view-raster-histogram }
 
-#view histogram of data
-hist(DSM_HARV,
-     main="Distribution of Digital Surface Model Values\n Histogram Default: 100,000 pixels\n NEON Harvard Forest",
-     xlab="DSM Elevation Value (m)",
-     ylab="Frequency",
-     col="wheat")
+    #view histogram of data
+    hist(DSM_HARV,
+         main="Distribution of Digital Surface Model Values\n Histogram Default: 100,000 pixels\n NEON Harvard Forest",
+         xlab="DSM Elevation Value (m)",
+         ylab="Frequency",
+         col="wheat")
 
-```
+    ## Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...):
+    ## 4% of the raster cells were used. 100000 values used.
+
+![ ]({{ site.baseurl }}/images/rfigs/00-Raster-Structure/view-raster-histogram-1.png) 
 
 Notice that an error message is thrown when `R` creates the histogram. 
 
@@ -457,20 +422,21 @@ histogram. **USE THIS WITH CAUTION** as forcing `R` to plot all pixel values
 in a histogram can be problematic when dealing with very large datasets.
 
 
-``` {r view-raster-histogram2}
 
-#View the total number of pixels (cells) in is our raster 
-ncell(DSM_HARV)
+    #View the total number of pixels (cells) in is our raster 
+    ncell(DSM_HARV)
 
-#create histogram that includes with all pixel values in the raster
-hist(DSM_HARV, 
-     maxpixels=ncell(DSM_HARV),
-     main="Distribution of Digital Surface Model Values\n All Pixel Values Included\n NEON Harvard Forest",
-     xlab="DSM Elevation Value (m)",
-     ylab="Frequency",
-     col="wheat4")
+    ## [1] 2319799
 
-```
+    #create histogram that includes with all pixel values in the raster
+    hist(DSM_HARV, 
+         maxpixels=ncell(DSM_HARV),
+         main="Distribution of Digital Surface Model Values\n All Pixel Values Included\n NEON Harvard Forest",
+         xlab="DSM Elevation Value (m)",
+         ylab="Frequency",
+         col="wheat4")
+
+![ ]({{ site.baseurl }}/images/rfigs/00-Raster-Structure/view-raster-histogram2-1.png) 
 
 Note that the shape of both histograms looks similar to the previous one that was
 created using a representative 10,000 pixel subset of our raster data. The 
@@ -492,12 +458,11 @@ the raster: surface elevation in meters for one time period.
 
 We can view the number of bands in a raster using the `nlayers()` method. 
 
-```{r view-raster-bands }
 
-#view unmber of bands
-nlayers(DSM_HARV)
+    #view unmber of bands
+    nlayers(DSM_HARV)
 
-```
+    ## [1] 1
 
 However, raster data can also be multi-band meaning that one raster file 
 contains data for more than one variable or time period for each cell. By default 
@@ -511,12 +476,31 @@ metadata about the raster. So far, we've explored raster metadata AFTER
 importing it in `R`. However, we can use the `GDALinfo("path-to-raster-here")`
 function to view raster metadata before we open a file in `R`.
 
-```{r view-attributes-gdal}
 
-# view attributes before opening file
-GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+    # view attributes before opening file
+    GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
-```
+    ## rows        1367 
+    ## columns     1697 
+    ## bands       1 
+    ## lower left origin.x        731453 
+    ## lower left origin.y        4712471 
+    ## res.x       1 
+    ## res.y       1 
+    ## ysign       -1 
+    ## oblique.x   0 
+    ## oblique.y   0 
+    ## driver      GTiff 
+    ## projection  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
+    ## file        NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif 
+    ## apparent band summary:
+    ##    GDType hasNoDataValue NoDataValue blockSize1 blockSize2
+    ## 1 Float64           TRUE       -9999          1       1697
+    ## apparent band statistics:
+    ##     Bmin   Bmax    Bmean      Bsd
+    ## 1 305.07 416.07 359.8531 17.83169
+    ## Metadata:
+    ## AREA_OR_POINT=Area
 
 Notice a few things in the output:
 
@@ -542,16 +526,5 @@ following about the  `NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif` file:
 
 NOTE: this file is a `hillshade`. We will learn about hillshades in <a href="{{ site.baseurl }}/NEON-R-Spatial-Raster/R/Multi-Band-Rasters-In-R/" target="_blank">  Work with Multi-band Rasters: Images in R</a>.
 
-``` {r challenge-code-attributes, eval=FALSE, echo=FALSE}
-GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif")
 
-#ANSWERS ###
-#1. If this file has the same CRS as DSM_HARV?  Yes: UTM Zone 18, WGS84, meters. 
-#2. What format `NoDataValues` take?  -9999
-#3. The resolution of the raster data? 1x1
-#4. How large a 5x5 pixel area would be? 5mx5m How? We are given resolution of 
-#1x1 and units in meters, therefore rolution of 5x5 means 5x5m. 
-#5. If the file is a multi- or single-band raster?  Single 
-
-```
 

@@ -6,7 +6,7 @@ authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Bry
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: `r format(Sys.time(), "%Y-%m-%d")`
+lastModified: 2015-12-21
 category: spatio-temporal-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
@@ -88,36 +88,34 @@ looking basemap. In this lesson, all of our data were in the same `CRS`. What ha
 
 We will use the `raster` and `rgdal` packages in this lesson.  
 
-```{r load-libraries }
 
-#load raster package
-library(raster)
-library(rgdal)
-```
+    #load raster package
+    library(raster)
+    library(rgdal)
 
 Let's create an map of the Harvard Forest Digital Terrain Model 
 (`DTM_HARV`) draped or layered on top of the hillshade (`DTM_hill_HARV`).
 
-```{r import-DTM-hillshade }
-#import DTM
-DTM_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_dtmcrop.tif")
-#import DTM hillshade
-DTM_hill_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
 
-#plot hillshade using a grayscale color ramp 
-plot(DTM_hill_HARV,
-    col=grey(1:100/100),
-    legend=FALSE,
-    main="DTM Hillshade\n NEON Harvard Forest")
+    #import DTM
+    DTM_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_dtmcrop.tif")
+    #import DTM hillshade
+    DTM_hill_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
+    
+    #plot hillshade using a grayscale color ramp 
+    plot(DTM_hill_HARV,
+        col=grey(1:100/100),
+        legend=FALSE,
+        main="DTM Hillshade\n NEON Harvard Forest")
+    
+    #overlay the DTM on top of the hillshade
+    plot(DTM_HARV,
+         col=terrain.colors(10),
+         alpha=0.4,
+         add=TRUE,
+         legend=FALSE)
 
-#overlay the DTM on top of the hillshade
-plot(DTM_HARV,
-     col=terrain.colors(10),
-     alpha=0.4,
-     add=TRUE,
-     legend=FALSE)
-
-```
+![ ]({{ site.baseurl }}/images/rfigs/02-Reproject-Raster-In-R/import-DTM-hillshade-1.png) 
 
 Our results are curious - the Digital Terrain Model (`DTM_HARV`) did not plot on
 top of our hillshade. The hillshade plotted just fine on it's own. Let's try to 
@@ -127,26 +125,32 @@ plot the DTM on it's own to make sure there are data there.
 you can use `T` and `F` in place of `TRUE` and `FALSE`.
 {: .notice}
 
-```{r plot-DTM }
-#Plot DTM 
-plot(DTM_HARV,
-     col=terrain.colors(10),
-     alpha=1,
-     legend=F,
-     main="Digital Terrain Model\n NEON Harvard Forest")
 
-```
+    #Plot DTM 
+    plot(DTM_HARV,
+         col=terrain.colors(10),
+         alpha=1,
+         legend=F,
+         main="Digital Terrain Model\n NEON Harvard Forest")
+
+![ ]({{ site.baseurl }}/images/rfigs/02-Reproject-Raster-In-R/plot-DTM-1.png) 
 
 Our DTM seems to contain data and plots just fine. Let's next check the Coordinate 
 Reference System (`CRS`) and compare it to our hillshade.
 
-```{r explore-crs }
-#view crs for DTM
-crs(DTM_HARV)
 
-#view crs for hillshade
-crs(DTM_hill_HARV)
-```
+    #view crs for DTM
+    crs(DTM_HARV)
+
+    ## CRS arguments:
+    ##  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84
+    ## +towgs84=0,0,0
+
+    #view crs for hillshade
+    crs(DTM_hill_HARV)
+
+    ## CRS arguments:
+    ##  +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
 
 Aha! `DTM_HARV` is in the UTM projection. `DTM_hill_HARV` is in `Geographic WGS84` -
 which is represented by latitude and longitude values. Because the two rasters 
@@ -171,21 +175,39 @@ We want the `CRS` of our hillshade to match the `DTM_HARV` raster. We can thus a
 the `CRS` of our `DTM_HARV` to our hillshade within the `projectRaster` function 
 as follows: `crs=crs(DTM_HARV)`.
 
-```{r reproject-raster }
 
-#reproject to UTM
-DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV, 
-                                       crs=crs(DTM_HARV))
+    #reproject to UTM
+    DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV, 
+                                           crs=crs(DTM_HARV))
+    
+    #compare attributes of DTM_hill_UTMZ18N to DTM_hill
+    crs(DTM_hill_UTMZ18N_HARV)
 
-#compare attributes of DTM_hill_UTMZ18N to DTM_hill
-crs(DTM_hill_UTMZ18N_HARV)
-crs(DTM_hill_HARV)
+    ## CRS arguments:
+    ##  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84
+    ## +towgs84=0,0,0
 
-#compare attributes of DTM_hill_UTMZ18N to DTM_hill
-extent(DTM_hill_UTMZ18N_HARV)
-extent(DTM_hill_HARV)
+    crs(DTM_hill_HARV)
 
-```
+    ## CRS arguments:
+    ##  +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
+
+    #compare attributes of DTM_hill_UTMZ18N to DTM_hill
+    extent(DTM_hill_UTMZ18N_HARV)
+
+    ## class       : Extent 
+    ## xmin        : 731397.3 
+    ## xmax        : 733205.3 
+    ## ymin        : 4712403 
+    ## ymax        : 4713907
+
+    extent(DTM_hill_HARV)
+
+    ## class       : Extent 
+    ## xmin        : -72.18192 
+    ## xmax        : -72.16061 
+    ## ymin        : 42.52941 
+    ## ymax        : 42.54234
 
 Notice in the output above that the `CRS` of `DTM_hill_UTMZ18N_HARV` is now UTM, meters. 
 However, values in the extent of `DTM_hillUTMZ18N_HARV` are different from 
@@ -203,44 +225,44 @@ in mind as we work with raster data.
 
 Let's next have a look at the resolution of our reprojected hillshade.  
 
-```{r view-resolution}
 
-#compare resolution
-res(DTM_hill_UTMZ18N_HARV)
+    #compare resolution
+    res(DTM_hill_UTMZ18N_HARV)
 
-```
+    ## [1] 1.000 0.998
 
 The output resolution of `DTM_hill_UTMZ18N_HARV` is 1 x 0.998. Yet, we know that
 the resolution for the data should be 1m x 1m. We can tell `R` to force our newly
 reprojected raster to be 1m x 1m resolution by adding a line of code (`res=`).  
 
-``` {r reproject-assign-resolution }
-#adjust the resolution 
-DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV, 
-                                  crs=crs(DTM_HARV),
-                                  res=1)
-#view resolution
-res(DTM_hill_UTMZ18N_HARV)
 
-```
+    #adjust the resolution 
+    DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV, 
+                                      crs=crs(DTM_HARV),
+                                      res=1)
+    #view resolution
+    res(DTM_hill_UTMZ18N_HARV)
+
+    ## [1] 1 1
 
 
 Let's plot our newly reprojected raster.
 
-```{r plot-projected-raster }
-#plot newly reprojected hillshade
-plot(DTM_hill_UTMZ18N_HARV,
-    col=grey(1:100/100),
-    legend=F,
-    main="DTM with Hillshade\n NEON Harvard Forest Field Site")
 
-#overlay the DTM on top of the hillshade
-plot(DTM_HARV,
-     col=rainbow(100),
-     alpha=0.4,
-     add=T,
-     legend=F)
-```
+    #plot newly reprojected hillshade
+    plot(DTM_hill_UTMZ18N_HARV,
+        col=grey(1:100/100),
+        legend=F,
+        main="DTM with Hillshade\n NEON Harvard Forest Field Site")
+    
+    #overlay the DTM on top of the hillshade
+    plot(DTM_HARV,
+         col=rainbow(100),
+         alpha=0.4,
+         add=T,
+         legend=F)
+
+![ ]({{ site.baseurl }}/images/rfigs/02-Reproject-Raster-In-R/plot-projected-raster-1.png) 
 
 We have now successfully draped the Digital Terrain Model on top of our
 hillshade to produce a nice looking, textured map! 
@@ -254,37 +276,10 @@ field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files.
 Reproject the data as necessary to make things line up!
 </div>
 
-```{r challenge-code-reprojection, echo=FALSE }
-
-#import DTM
-DSM_SJER <- raster("NEON_RemoteSensing/SJER/DSM/SJER_dsmcrop.tif")
-#import DTM hillshade
-DSM_hill_SJER_WGS <- raster("NEON_RemoteSensing/SJER/DSM/SJER_DSMhill_WGS84.tif")
-
-#reproject raster 
-DTM_hill_UTMZ18N_SJER <- projectRaster(DSM_hill_SJER_WGS, 
-                                  crs=crs(DSM_SJER),
-                                  res=1)
-#plot hillshade using a grayscale color ramp 
-plot(DTM_hill_UTMZ18N_SJER,
-    col=grey(1:100/100),
-    legend=F,
-    main="NEON DSM with Hillshade\n San Joaquin Experimental Range")
-
-#overlay the DSM on top of the hillshade
-plot(DSM_SJER,
-     col=terrain.colors(10),
-     alpha=0.4,
-     add=T,
-     legend=F)
-
-```
+![ ]({{ site.baseurl }}/images/rfigs/02-Reproject-Raster-In-R/challenge-code-reprojection-1.png) 
 
 If you completed the San Joaquin plotting challenge in the
 [Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/) 
 lesson, how does the map you just created compare to that map? 
 
-```{r challenge-code-reprojection2, echo=FALSE }
-#The maps look identical. Which is what they should be as the only difference
-# is this one was reprojected from WGS84 to UTM prior ot plotting.  
-```
+

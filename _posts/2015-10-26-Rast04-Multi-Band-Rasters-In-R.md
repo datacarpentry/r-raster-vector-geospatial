@@ -6,7 +6,7 @@ authors: [Kristina Riemer, Mike Smorul, Zack Brym, Jason Williams, Jeff Holliste
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: `r format(Sys.time(), "%Y-%m-%d")`
+lastModified: 2015-12-21
 category: spatio-temporal-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
@@ -124,46 +124,16 @@ would render as a single image in grayscale. We will therefore use a grayscale
 palette to render individual bands. 
 {: .notice }
 
-```{r demonstrate-RGB-Image, echo=FALSE}
-# Use stack function to read in all bands
-RGB_stack_HARV <- stack("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
-
-names(RGB_stack_HARV) <- c("Red Band","Green Band","Blue Band")
-
-grayscale_colors <- gray.colors(100, 
-                                start = 0.0, 
-                                end = 1.0, 
-                                gamma = 2.2, 
-                                alpha = NULL)
-
-# Create an RGB image from the raster stack
-plot(RGB_stack_HARV, 
-     col=grayscale_colors,
-     axes=F)
-
-```
+![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Rasters-In-R/demonstrate-RGB-Image-1.png) 
 
 Or we can composite all three bands together to make a color image.
 
-```{r plot-RGB-now, echo=FALSE, message=FALSE }
-# Create an RGB image from the raster stack
-
-original_par <-par() #create original par for easy reversal at end
-par(col.axis="white",col.lab="white",tck=0)
-plotRGB(RGB_stack_HARV, r = 1, g = 2, b = 3,
-        axes=TRUE, 
-        main="3 Band Color Composite Image")
-box(col="white")
-
-```
+![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Rasters-In-R/plot-RGB-now-1.png) 
 
 In a multi-band dataset, the rasters will always have the same `extent`,
 `CRS` and `resolution`.  
 
-```{r reset-par, echo=FALSE, results="hide", warning=FALSE}
-par(original_par) # go back to original par
 
-```
 
 
 #Other Types of Multi-band Raster Data
@@ -182,14 +152,11 @@ hyperspectral data cubes.</a>
 To work with multi-band raster data we will use the `raster` and `rgdal`
 libraries.
 
-```{r load-libraries }
 
-#work with raster data
-library(raster)
-#export geotiffs and other core GIS functions
-library(rgdal)
-
-```
+    #work with raster data
+    library(raster)
+    #export geotiffs and other core GIS functions
+    library(rgdal)
 
 In this lesson, the multi-band data that we are working with is imagery
 collected using the <a href="http://http://www.neoninc.org/science-design/collection-methods/airborne-remote-sensing" target="_blank">NEON Airborne Observation Platform</a> high resolution camera over
@@ -200,30 +167,40 @@ working with a multi-spectral image with 4 or more bands - like Landsat.
 If we read a `rasterStack` into `R` using the `raster` function, it only reads in 
 the first band. We can plot this band using the plot function. 
 
-```{r read-single-band }
- 
-# Read in multi-band raster with raster function. 
-# Default is the first band only.
-RGB_band1_HARV <- raster("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
 
-# create a grayscale color palette to use for the image.
-grayscale_colors <- gray.colors(100,            #how many different color levels 
-                                start = 0.0,    #how black (0) to go
-                                end = 1.0,      #how white (1) to go
-                                gamma = 2.2,    #correction between how a digital
-                                #camera sees the world and how human eyes see it
-                                alpha = NULL)   #Null=colors are not transparent
+    # Read in multi-band raster with raster function. 
+    # Default is the first band only.
+    RGB_band1_HARV <- raster("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
+    
+    # create a grayscale color palette to use for the image.
+    grayscale_colors <- gray.colors(100,            #how many different color levels 
+                                    start = 0.0,    #how black (0) to go
+                                    end = 1.0,      #how white (1) to go
+                                    gamma = 2.2,    #correction between how a digital
+                                    #camera sees the world and how human eyes see it
+                                    alpha = NULL)   #Null=colors are not transparent
+    
+    #Plot band 1
+    plot(RGB_band1_HARV, 
+         col=grayscale_colors, 
+         axes=FALSE,
+         main="NEON RGB Imagery - Band 1-Red\nHarvard Forest") 
 
-#Plot band 1
-plot(RGB_band1_HARV, 
-     col=grayscale_colors, 
-     axes=FALSE,
-     main="NEON RGB Imagery - Band 1-Red\nHarvard Forest") 
+![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Rasters-In-R/read-single-band-1.png) 
 
-#view attributes: Check out dimension, CRS, resolution, values attributes, and 
-#band.
-RGB_band1_HARV
-```
+    #view attributes: Check out dimension, CRS, resolution, values attributes, and 
+    #band.
+    RGB_band1_HARV
+
+    ## class       : RasterLayer 
+    ## band        : 1  (of  3  bands)
+    ## dimensions  : 2317, 3073, 7120141  (nrow, ncol, ncell)
+    ## resolution  : 0.25, 0.25  (x, y)
+    ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
+    ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif 
+    ## names       : HARV_RGB_Ortho 
+    ## values      : 0, 255  (min, max)
 
 Notice that when we look at the attributes of RGB_Band1, we see :
 
@@ -240,13 +217,16 @@ raster object can also be determined using the `nbands` slot. Syntax is
 ##Image Raster Data Values
 Let's next examine the raster's min and max values. What is the value range?
 
-```{r min-max-image }
-#view min value
-minValue(RGB_band1_HARV)
 
-#view max value
-maxValue(RGB_band1_HARV)
-```
+    #view min value
+    minValue(RGB_band1_HARV)
+
+    ## [1] 0
+
+    #view max value
+    maxValue(RGB_band1_HARV)
+
+    ## [1] 255
 
 This raster contains values between 0 and 255. These values 
 represent degrees of brightness associated with the image band. In 
@@ -262,21 +242,31 @@ We can use the `raster` function to import specific bands in our raster object b
 specifying which band we want with `band=N` (N represents the band number we want
 to work with). To import the green band, we would use `band=2`.
 
-```{r read-specific-band }
-# Can specify which band we want to read in
-RGB_band2_HARV <- raster("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif", 
-                    band = 2)
 
-#plot band 2
-plot(RGB_band2_HARV,
-     col=grayscale_colors, #we already created this palette & can use it again
-     axes=FALSE,
-     main="NEON RGB Imagery - Band 2- Green\nHarvard Forest")
+    # Can specify which band we want to read in
+    RGB_band2_HARV <- raster("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif", 
+                        band = 2)
+    
+    #plot band 2
+    plot(RGB_band2_HARV,
+         col=grayscale_colors, #we already created this palette & can use it again
+         axes=FALSE,
+         main="NEON RGB Imagery - Band 2- Green\nHarvard Forest")
 
-#view attributes of band 2 
-RGB_band2_HARV
+![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Rasters-In-R/read-specific-band-1.png) 
 
-```
+    #view attributes of band 2 
+    RGB_band2_HARV
+
+    ## class       : RasterLayer 
+    ## band        : 2  (of  3  bands)
+    ## dimensions  : 2317, 3073, 7120141  (nrow, ncol, ncell)
+    ## resolution  : 0.25, 0.25  (x, y)
+    ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
+    ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif 
+    ## names       : HARV_RGB_Ortho 
+    ## values      : 0, 255  (min, max)
 
 Notice that band 2 is band 2 of 3 bands `band: 2  (of  3  bands)`.  
 
@@ -286,13 +276,7 @@ Compare the plots of band 1 (red) and band 2 (green). Is the forested area darke
 or lighter in band 2 (the green band) compared to band 1 (the red band)?  
 </div>
 
-```{r challenge1-answer, eval=FALSE, echo=FALSE }
 
-# We'd expect a *brighter* value for the forest in band 2 (green) than in 
-# band 1 (red) because the leaves on trees of most often appear "green" - 
-# healthy leaves reflect MORE green light compared to red light 
-
-```
 
 ##Raster Stacks in R
 Next, we will work with all three image bands (red, green and blue) as an `R`
@@ -301,15 +285,21 @@ image.
 
 To bring in all bands of a multi-band raster, we use the`stack()` function.
 
-```{r intro-to-raster-stacks }
 
-# Use stack function to read in all bands
-RGB_stack_HARV <- stack("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
+    # Use stack function to read in all bands
+    RGB_stack_HARV <- stack("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
+    
+    #view attributes of stack object
+    RGB_stack_HARV
 
-#view attributes of stack object
-RGB_stack_HARV
-
-```
+    ## class       : RasterStack 
+    ## dimensions  : 2317, 3073, 7120141, 3  (nrow, ncol, ncell, nlayers)
+    ## resolution  : 0.25, 0.25  (x, y)
+    ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
+    ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+    ## names       : HARV_RGB_Ortho.1, HARV_RGB_Ortho.2, HARV_RGB_Ortho.3 
+    ## min values  :                0,                0,                0 
+    ## max values  :              255,              255,              255
 
 We can view the attributes of each band the stack using `RGB_stack_HARV@layers`.
 Or we if we have hundreds of bands, we can specify which band we'd like to view 
@@ -317,30 +307,77 @@ attributes for using an index value: `RGB_stack_HARV[[1]]`. We can also use the 
 and `hist()` functions on the `RasterStack` to plot and view the distribution of
 raster band values.
 
-```{r plot-raster-layers}
-#view raster attributes
-RGB_stack_HARV@layers
 
-#view attributes for one band
-RGB_stack_HARV[[1]]
+    #view raster attributes
+    RGB_stack_HARV@layers
 
-#view histogram of all 3 bands
-hist(RGB_stack_HARV,
-     maxpixels=ncell(RGB_stack_HARV))
+    ## [[1]]
+    ## class       : RasterLayer 
+    ## band        : 1  (of  3  bands)
+    ## dimensions  : 2317, 3073, 7120141  (nrow, ncol, ncell)
+    ## resolution  : 0.25, 0.25  (x, y)
+    ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
+    ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif 
+    ## names       : HARV_RGB_Ortho.1 
+    ## values      : 0, 255  (min, max)
+    ## 
+    ## 
+    ## [[2]]
+    ## class       : RasterLayer 
+    ## band        : 2  (of  3  bands)
+    ## dimensions  : 2317, 3073, 7120141  (nrow, ncol, ncell)
+    ## resolution  : 0.25, 0.25  (x, y)
+    ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
+    ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif 
+    ## names       : HARV_RGB_Ortho.2 
+    ## values      : 0, 255  (min, max)
+    ## 
+    ## 
+    ## [[3]]
+    ## class       : RasterLayer 
+    ## band        : 3  (of  3  bands)
+    ## dimensions  : 2317, 3073, 7120141  (nrow, ncol, ncell)
+    ## resolution  : 0.25, 0.25  (x, y)
+    ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
+    ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif 
+    ## names       : HARV_RGB_Ortho.3 
+    ## values      : 0, 255  (min, max)
 
-#plot all three bands separately
-plot(RGB_stack_HARV, 
-     col=grayscale_colors)
+    #view attributes for one band
+    RGB_stack_HARV[[1]]
 
-#plot band 2 
-plot(RGB_stack_HARV[[2]], 
-     main="Band 2\n NEON Harvard Forest",
-     col=grayscale_colors)
+    ## class       : RasterLayer 
+    ## band        : 1  (of  3  bands)
+    ## dimensions  : 2317, 3073, 7120141  (nrow, ncol, ncell)
+    ## resolution  : 0.25, 0.25  (x, y)
+    ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
+    ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif 
+    ## names       : HARV_RGB_Ortho.1 
+    ## values      : 0, 255  (min, max)
 
-# revert to a single plot layout 
-par(mfrow=c(1,1)) 
+    #view histogram of all 3 bands
+    hist(RGB_stack_HARV,
+         maxpixels=ncell(RGB_stack_HARV))
+    
+    #plot all three bands separately
+    plot(RGB_stack_HARV, 
+         col=grayscale_colors)
 
-```
+![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Rasters-In-R/plot-raster-layers-1.png) ![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Rasters-In-R/plot-raster-layers-2.png) 
+
+    #plot band 2 
+    plot(RGB_stack_HARV[[2]], 
+         main="Band 2\n NEON Harvard Forest",
+         col=grayscale_colors)
+    
+    # revert to a single plot layout 
+    par(mfrow=c(1,1)) 
+
+![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Rasters-In-R/plot-raster-layers-3.png) 
 
 
 #Create A Three Band Image
@@ -357,15 +394,12 @@ infrared image.
 
 Let's plot our 3-band image.
 
-```{r plot-rgb-image }
 
-# Create an RGB image from the raster stack
-plotRGB(RGB_stack_HARV, 
-        r = 1, g = 2, b = 3)
+    # Create an RGB image from the raster stack
+    plotRGB(RGB_stack_HARV, 
+            r = 1, g = 2, b = 3)
 
-
-
-```
+![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Rasters-In-R/plot-rgb-image-1.png) 
 
 The image above looks pretty good. We can explore whether applying a stretch to
 the image might improve clarity and contrast using  `stretch="lin"` or 
@@ -390,20 +424,21 @@ the image might improve clarity and contrast using  `stretch="lin"` or
 </figure>
 
 
-```{r image-stretch }
 
-#what does stretch do?
-plotRGB(RGB_stack_HARV,
-        r = 1, g = 2, b = 3, 
-        scale=800,
-        stretch = "lin")
+    #what does stretch do?
+    plotRGB(RGB_stack_HARV,
+            r = 1, g = 2, b = 3, 
+            scale=800,
+            stretch = "lin")
 
-plotRGB(RGB_stack_HARV,
-        r = 1, g = 2, b = 3, 
-        scale=800,
-        stretch = "hist")
+![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Rasters-In-R/image-stretch-1.png) 
 
-```
+    plotRGB(RGB_stack_HARV,
+            r = 1, g = 2, b = 3, 
+            scale=800,
+            stretch = "hist")
+
+![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Rasters-In-R/image-stretch-2.png) 
 
 
 In this case, the stretch doesn't enhance the contrast our image significantly given
@@ -431,29 +466,7 @@ lesson.
 
 </div>
 
-``` {r challenge-code-NoData, echo=FALSE, results="hide"}
-#1.
-#view attributes
-GDALinfo("NEON_RemoteSensing/HARV/HARV_Ortho_wNA.tif")
-
-#2 Yes it has NoData values as they are assigned as -9999 
-#3 3 bands
-
-#4
-#reading in file
-HARV_NA<- stack("NEON_RemoteSensing/HARV/HARV_Ortho_wNA.tif")
-
-#5
-plotRGB(HARV_NA, 
-        r = 1, g = 2, b = 3)
-
-#6 The black edges are not plotted. 
-#7 Both have NoData values, however, in RGB_stack the NoData value is not defined
-#in the tiff tags, thus R renders them as black as the reflectance values are 0. 
-# the black edges in the other file are defined as -9999 and R renders them as NA.
-GDALinfo("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
-
-```
+![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Rasters-In-R/challenge-code-NoData-1.png) 
 
 <i class="fa fa-star"></i> **Data Tip:** We can create a RasterStack from 
 several, individual single-band geoTiffs too. Check out: [Lesson 05 - Raster Time Series Data in R]({{ site.baseurl }}/R/Raster-Times-Series-Data-In-R/) for a tutorial on how to do this.  
@@ -475,18 +488,19 @@ We can turn a `RasterStack` into a `RasterBrick` in `R` by using
 `brick(StackName)`. Let's use the `object.size()` function to compare `stack` 
 and `brick` `R` objects.
 
-```{r raster-bricks }
 
-#view size of the RGB_stack object that contains our 3 band image
-object.size(RGB_stack_HARV)
+    #view size of the RGB_stack object that contains our 3 band image
+    object.size(RGB_stack_HARV)
 
-#convert stack to a brick
-RGB_brick_HARV <- brick(RGB_stack_HARV)
+    ## 40528 bytes
 
-#view size of the brick
-object.size(RGB_brick_HARV)
+    #convert stack to a brick
+    RGB_brick_HARV <- brick(RGB_stack_HARV)
+    
+    #view size of the brick
+    object.size(RGB_brick_HARV)
 
-```
+    ## 170896080 bytes
 
 Notice that in the `RasterBrick`, all of the bands are stored within the actual 
 object. Thus, the `RasterBrick` object size is much larger than the `RasterStack` 
@@ -494,11 +508,11 @@ object.
 
 You use `plotRGB` to block a `RasterBrick` too. 
 
-``` {r plot-brick}
-#plot brick
-plotRGB(RGB_brick_HARV)
 
-```
+    #plot brick
+    plotRGB(RGB_brick_HARV)
+
+![ ]({{ site.baseurl }}/images/rfigs/04-Multi-Band-Rasters-In-R/plot-brick-1.png) 
 
 
 <div id="challenge" markdown="1">
@@ -512,17 +526,5 @@ We can view various methods available to call on an `R` object with
 
 </div>
 
-``` {r challenge-code-calling-methods, include=TRUE, results="hide", echo=FALSE}
-#1
-#methods for calling a stack
-methods(class=class(RGB_stack_HARV))
-# 143 methods!
 
-#2
-#methods for calling a band (1) with a stack
-methods(class=class(RGB_stack_HARV[1]))
-
-#3 There are far more thing one could or wants to ask of a full stack than of 
-#a single band.  
-```
 

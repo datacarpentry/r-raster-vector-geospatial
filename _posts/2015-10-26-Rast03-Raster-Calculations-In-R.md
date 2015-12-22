@@ -6,7 +6,7 @@ authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Bry
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: `r format(Sys.time(), "%Y-%m-%d")`
+lastModified: 2015-12-21
 category: spatio-temporal-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
@@ -105,15 +105,58 @@ will use the DTM (`NEON_RemoteSensing/HARV/DTM/HARV_dtmCrop.tif`) and DSM
 (`NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif`) from the NEON Harvard Forest 
 Field site.
 
-```{r load-libraries }
-#load raster package
-library(raster)
 
-#view info about the dtm & dsm raster data that we will work with.
-GDALinfo("NEON_RemoteSensing/HARV/DTM/HARV_dtmCrop.tif")
-GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+    #load raster package
+    library(raster)
+    
+    #view info about the dtm & dsm raster data that we will work with.
+    GDALinfo("NEON_RemoteSensing/HARV/DTM/HARV_dtmCrop.tif")
 
-```
+    ## rows        1367 
+    ## columns     1697 
+    ## bands       1 
+    ## lower left origin.x        731453 
+    ## lower left origin.y        4712471 
+    ## res.x       1 
+    ## res.y       1 
+    ## ysign       -1 
+    ## oblique.x   0 
+    ## oblique.y   0 
+    ## driver      GTiff 
+    ## projection  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
+    ## file        NEON_RemoteSensing/HARV/DTM/HARV_dtmCrop.tif 
+    ## apparent band summary:
+    ##    GDType hasNoDataValue NoDataValue blockSize1 blockSize2
+    ## 1 Float64           TRUE       -9999          1       1697
+    ## apparent band statistics:
+    ##     Bmin   Bmax    Bmean      Bsd
+    ## 1 304.56 389.82 344.8979 15.86147
+    ## Metadata:
+    ## AREA_OR_POINT=Area
+
+    GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+
+    ## rows        1367 
+    ## columns     1697 
+    ## bands       1 
+    ## lower left origin.x        731453 
+    ## lower left origin.y        4712471 
+    ## res.x       1 
+    ## res.y       1 
+    ## ysign       -1 
+    ## oblique.x   0 
+    ## oblique.y   0 
+    ## driver      GTiff 
+    ## projection  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
+    ## file        NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif 
+    ## apparent band summary:
+    ##    GDType hasNoDataValue NoDataValue blockSize1 blockSize2
+    ## 1 Float64           TRUE       -9999          1       1697
+    ## apparent band statistics:
+    ##     Bmin   Bmax    Bmean      Bsd
+    ## 1 305.07 416.07 359.8531 17.83169
+    ## Metadata:
+    ## AREA_OR_POINT=Area
 
 As seen from the `geoTiff` tags, both rasters have:
 
@@ -123,18 +166,21 @@ As seen from the `geoTiff` tags, both rasters have:
 
 Let's load the data. 
 
-``` {r load-plot-data}
-#load the DTM & DSM rasters
-DTM_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_dtmCrop.tif")
-DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
-#create a quick plot of each to see what we're dealing with
-plot(DTM_HARV,
-     main="Digital Terrain Model (Elevation)\n Harvard Forest")
+    #load the DTM & DSM rasters
+    DTM_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_dtmCrop.tif")
+    DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+    
+    #create a quick plot of each to see what we're dealing with
+    plot(DTM_HARV,
+         main="Digital Terrain Model (Elevation)\n Harvard Forest")
 
-plot(DSM_HARV,
-     main="Digital Surface Model (Elevation)\n Harvard Forest")
-```
+![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/load-plot-data-1.png) 
+
+    plot(DSM_HARV,
+         main="Digital Surface Model (Elevation)\n Harvard Forest")
+
+![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/load-plot-data-2.png) 
 
 ##Two Ways to Perform Raster Calculations
 
@@ -154,29 +200,29 @@ multiplying, etc) two rasters. In the geospatial world, we call this
 
 Let's subtract the DTM from the DSM to create a Canopy Height Model.
 
-```{r raster-math }
-# Raster math example
-CHM_HARV <- DSM_HARV - DTM_HARV 
 
-#plot the output CHM
-plot(CHM_HARV,
-     main="Canopy Height Model - Raster Math Subtract\n NEON Harvard Forest",
-     axes=FALSE) 
+    # Raster math example
+    CHM_HARV <- DSM_HARV - DTM_HARV 
+    
+    #plot the output CHM
+    plot(CHM_HARV,
+         main="Canopy Height Model - Raster Math Subtract\n NEON Harvard Forest",
+         axes=FALSE) 
 
-```
+![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/raster-math-1.png) 
 
 Let's have a look at the distribution of values in our newly created
 Canopy Height Model (CHM).
 
-```{r create-hist }
-#histogram of CHM_HARV
-hist(CHM_HARV,
-     col="springgreen4",
-     main="Histogram of NEON Canopy Height Model\nNEON Harvard Forest Field Site",
-     ylab="Number of Pixels",
-     xlab="Tree Height (m) ")
 
-```
+    #histogram of CHM_HARV
+    hist(CHM_HARV,
+         col="springgreen4",
+         main="Histogram of NEON Canopy Height Model\nNEON Harvard Forest Field Site",
+         ylab="Number of Pixels",
+         xlab="Tree Height (m) ")
+
+![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/create-hist-1.png) 
 
 Notice that the range of values for the output CHM is between 0 and 30 meters.
 Does this make sense for trees in Harvard Forest?
@@ -197,31 +243,7 @@ a appropriate color palette for the data, plot title and no axes ticks / labels.
 
 </div>
 
-```{r challenge-code-CHM-HARV,  include=TRUE, results="hide", echo=FALSE} 
-#1) 
-minValue(CHM_HARV)
-maxValue(CHM_HARV)
-#2) Looks at histogram, minValue(NAME)/maxValue(NAME), NAME and look at values slot. 
-#3
-hist(CHM_HARV, 
-     col="springgreen4",
-     main = "Histogram of NEON Canopy Height Model\n Harvard Forest",
-     maxpixels=ncell(CHM_HARV))
-#4 
-hist(CHM_HARV, 
-     col="lightgreen",
-     main = "Histogram of NEON Canopy Height Model\n Harvard Forest",
-     maxpixels=ncell(CHM_HARV),
-     breaks=6)
-#5
-myCol=terrain.colors(4)
-plot(CHM_HARV,
-     breaks=c(0,10,20,30),
-     col=myCol,
-     axes=F,
-     main="NEON Canopy Height Model \nHarvard Forest")
-
-```
+![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/challenge-code-CHM-HARV-1.png) ![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/challenge-code-CHM-HARV-2.png) ![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/challenge-code-CHM-HARV-3.png) 
 
 
 #Efficient Raster Calculations: Overlay Function
@@ -252,14 +274,15 @@ as `RasterStack` or `RasterBrick` objects in `R`, then we should use `calc()`.
 Let's perform the same subtraction calculation that we calculated above using 
 raster math, using the `overlay()` function.  
 
-```{r raster-overlay }
-CHM_ov_HARV<- overlay(DSM_HARV,
-                      DTM_HARV,
-                      fun=function(r1, r2){return(r1-r2)})
 
-plot(CHM_ov_HARV,
-     main="Canopy Height Model - Overlay Subtract\n NEON Harvard Forest")
-```
+    CHM_ov_HARV<- overlay(DSM_HARV,
+                          DTM_HARV,
+                          fun=function(r1, r2){return(r1-r2)})
+    
+    plot(CHM_ov_HARV,
+         main="Canopy Height Model - Overlay Subtract\n NEON Harvard Forest")
+
+![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/raster-overlay-1.png) 
 
 How do the plots of the CHM created with manual raster math and the `overlay()`
 function compare?  
@@ -280,14 +303,12 @@ When we write this raster object to a `GeoTIF`F file we'll name it
 default writes the output file to your working directory unless you specify a 
 ull file path.
 
-```{r write-raster }
-#export CHM object to new GeotIFF
-writeRaster(CHM_ov_HARV, "chm_HARV.tiff",
-            format="GTiff",  #specify output format - geotiff
-            overwrite=TRUE, #CAUTION if this is true, it will overwrite an existing file
-            NAflag=-9999) #set no data value to -9999
 
-```
+    #export CHM object to new GeotIFF
+    writeRaster(CHM_ov_HARV, "chm_HARV.tiff",
+                format="GTiff",  #specify output format - geotiff
+                overwrite=TRUE, #CAUTION if this is true, it will overwrite an existing file
+                NAflag=-9999) #set no data value to -9999
 
 ##writeRaster Options
 The options that we used above include:
@@ -327,71 +348,7 @@ datasets!
 
 </div>
 
-```{r challenge-code-SJER-CHM,include=TRUE, results="hide", echo=FALSE}
-#1.
-#load the DTM
-DTM_SJER <- raster("NEON_RemoteSensing/SJER/DTM/SJER_dtmCrop.tif")
-#load the DSM
-DSM_SJER <- raster("NEON_RemoteSensing/SJER/DSM/SJER_dsmCrop.tif")
-
-#check CRS, units, etc
-DTM_SJER
-DSM_SJER
-
-#check values
-hist(DTM_SJER, 
-     maxpixels=ncell(DTM_SJER),
-     main="NEON Digital Terrain Model - Histogram\n SJER",
-     col="slategrey",
-     ylab="Number of Pixels",
-     xlab="Elevation (m)")
-hist(DSM_SJER, 
-     maxpixels=ncell(DSM_SJER),
-     main="NEON Digital Surface Model - Histogram\n SJER",
-     col="slategray2",
-     ylab="Number of Pixels",
-     xlab="Elevation (m)")
-
-#2.
-#use overlay to subtract the two rasters & create CHM
-CHM_SJER <- overlay(DSM_SJER,DTM_SJER,
-                    fun=function(r1, r2){return(r1-r2)})
-
-hist(CHM_SJER, 
-     main="NEON Canopy Height Model - Histogram\n SJER",
-     col="springgreen4",
-     ylab="Number of Pixels",
-     xlab="Elevation (m)")
-
-#3
-#plot the output
-plot(CHM_SJER,
-     main="NEON Canopy Height Model - Overlay Subtract\n SJER",
-     axes=F)
-
-#4 
-#Write to object to file
-writeRaster(CHM_SJER,"chm_ov_SJER.tiff",
-            format="GTiff", 
-            overwrite=TRUE, 
-            NAflag=-9999)
-
-#4.Tree heights are much shorter in SJER. 
-#view histogram of HARV again. 
-par(mfcol=c(2,1))
-hist(CHM_HARV, 
-     main="NEON Canopy Height Model - Histogram\n Harvard Forest",
-     col="springgreen4",
-      ylab="Number of Pixels",
-     xlab="Elevation (m)")
-
-hist(CHM_SJER, 
-     main="NEON Canopy Height Model - Histogram\n San Joachin Experimental Range",
-     col="slategrey", ylab="Number of Pixels",
-     xlab="Elevation (m)")
-
-
-```
+![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/challenge-code-SJER-CHM-1.png) ![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/challenge-code-SJER-CHM-2.png) ![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/challenge-code-SJER-CHM-3.png) ![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/challenge-code-SJER-CHM-4.png) ![ ]({{ site.baseurl }}/images/rfigs/03-Raster-Calculations-In-R/challenge-code-SJER-CHM-5.png) 
 
 What do these two histograms tell us about the vegetation structure at Harvard 
 and SJER?

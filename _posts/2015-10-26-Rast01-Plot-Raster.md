@@ -7,7 +7,7 @@ Zack Brym, Leah Wasser]
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: `r format(Sys.time(), "%Y-%m-%d")`
+lastModified: 2015-12-21
 category: spatio-temporal-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
@@ -93,28 +93,26 @@ We will use the `raster` and `rgdal` libraries in this
 lesson. If you do not have the `DSM_HARV` object from [the Intro To Raster In R lesson]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R "First Lesson in Series"), 
 please create it now.  
 
-```{r load-libraries }
-#if they are not already loaded
-library(rgdal)
-library(raster)
 
-#set working directory to ensure R can find the file we wish to import
-#setwd("working-dir-path-here")
-
-#import raster
-DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
-
-```
+    #if they are not already loaded
+    library(rgdal)
+    library(raster)
+    
+    #set working directory to ensure R can find the file we wish to import
+    #setwd("working-dir-path-here")
+    
+    #import raster
+    DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
 
 First, let's plot our Digital Surface Model object (`DSM_HARV`) using the `plot`
 function. We add a title using `main=""`.
 
-```{r hist-raster }
-#Plot raster object
-plot(DSM_HARV,
-     main="NEON Digital Surface Model\nHarvard Forest Field Site")
 
-```
+    #Plot raster object
+    plot(DSM_HARV,
+         main="NEON Digital Surface Model\nHarvard Forest Field Site")
+
+![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/hist-raster-1.png) 
 
 # Plotting Data Using Breaks
 We can view our data "symbolized" or colored according to ranges of values rather than
@@ -126,19 +124,27 @@ or more breaks or bins.
 If we name the histogram, we can also view counts for each bin and assigned
 break values.  
 
-```{r create-histogram-breaks }
-#Plot distribution of raster values 
-DSMhist<-hist(DSM_HARV,
-     breaks=3,
-     main="Histogram Digital Surface Model\nHarvard Forest Field Site",
-     col="wheat3",  #changes bin color
-     xlab= "Elevation (m)")  #label the x-axis
 
-#Where are breaks and how many pixels in each category?
-DSMhist$breaks
-DSMhist$counts
+    #Plot distribution of raster values 
+    DSMhist<-hist(DSM_HARV,
+         breaks=3,
+         main="Histogram Digital Surface Model\nHarvard Forest Field Site",
+         col="wheat3",  #changes bin color
+         xlab= "Elevation (m)")  #label the x-axis
 
-```
+    ## Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...):
+    ## 4% of the raster cells were used. 100000 values used.
+
+![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/create-histogram-breaks-1.png) 
+
+    #Where are breaks and how many pixels in each category?
+    DSMhist$breaks
+
+    ## [1] 300 350 400 450
+
+    DSMhist$counts
+
+    ## [1] 31993 67525   482
 
 Warning message!? Remember, the default for the histogram is to include only a subset 
 of 100,000 values. We could force it to show all the pixel values or we can use 
@@ -161,14 +167,14 @@ occur, we use the following syntax: `breaks=c(value1,value2,value3)`.
 We can include as few or many breaks as we'd like.
 
 
-```{r plot-with-breaks }
-#plot using breaks.
-plot(DSM_HARV, 
-     breaks = c(300, 350, 400, 450), 
-     col = terrain.colors(3),
-     main="NEON Digital Surface Model\nHarvard Forest Field Site")
 
-```
+    #plot using breaks.
+    plot(DSM_HARV, 
+         breaks = c(300, 350, 400, 450), 
+         col = terrain.colors(3),
+         main="NEON Digital Surface Model\nHarvard Forest Field Site")
+
+![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/plot-with-breaks-1.png) 
 
 <i class="fa fa-star"></i> **Data Tip:** Note that when we assign break values,
 a set of 4 values will result in 3 bins of data.
@@ -182,30 +188,31 @@ object.
 
 We can label the x- and y-axes of our plot too using `xlab` and `ylab`. 
 
-```{r add-plot-title }
-#Assign color to a object for repeat use/ ease of changing
-myCol = terrain.colors(3)
 
-#Add axis labels
-plot(DSM_HARV, 
-     breaks = c(300, 350, 400, 450), 
-     col = myCol,
-     main="NEON Digital Surface Model\nHarvard Forest Field Site", 
-     xlab = "UTM Westing Coordinate (m)", 
-     ylab = "UTM Northing Coodinate (m)")
-```
+    #Assign color to a object for repeat use/ ease of changing
+    myCol = terrain.colors(3)
+    
+    #Add axis labels
+    plot(DSM_HARV, 
+         breaks = c(300, 350, 400, 450), 
+         col = myCol,
+         main="NEON Digital Surface Model\nHarvard Forest Field Site", 
+         xlab = "UTM Westing Coordinate (m)", 
+         ylab = "UTM Northing Coodinate (m)")
+
+![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/add-plot-title-1.png) 
 
 Or we can also turn off the axes altogether. 
 
-```{r turn-off-axes }
-#or we can turn off the axis altogether
-plot(DSM_HARV, 
-     breaks = c(300, 350, 400, 450), 
-     col = myCol,
-     main="NEON Digital Surface Model\nHarvard Forest Field Site", 
-     axes=FALSE)
 
-```
+    #or we can turn off the axis altogether
+    plot(DSM_HARV, 
+         breaks = c(300, 350, 400, 450), 
+         col = myCol,
+         main="NEON Digital Surface Model\nHarvard Forest Field Site", 
+         axes=FALSE)
+
+![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/turn-off-axes-1.png) 
 
 <div id="challenge" markdown="1">
 ##Challenge
@@ -217,25 +224,7 @@ Create a plot of the Harvard Forest Digital Surface Model (DSM) that has:
 
 </div>
 
-``` {r challenge-code-plotting, include=TRUE, results="hide", echo=FALSE}
-#Find min & max
-DSM_HARV@data
-
-#Pixel range & even category width
-(416.07-305.07)/6
-
-# Break every 18.5m starting at 305.07
-
-#Plot with 6 categories at even intervals across the pixel value range. 
-plot(DSM_HARV, 
-     #breaks = c(305, 323.5, 342, 360.5, 379, 397.5, 417),  #manual entry
-     breaks = seq(305, 417, by=18.5),  #define start & end, and interval
-     col = terrain.colors (6),
-      main="NEON Digital Surface Model\nHarvard Forest Field Site", 
-     xlab = "UTM Westing Coordinate", 
-     ylab = "UTM Northing Coodinate")
-
-```
+![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/challenge-code-plotting-1.png) 
 
 
 #Layering Rasters
@@ -245,18 +234,18 @@ is a raster that maps the shadows and texture that you would see from above when
 viewing terrain.
 
 
-```{r hillshade }
-#import DSM hillshade
-DSM_hill_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif")
 
-#plot hillshade using a grayscale color ramp that looks like shadows.
-plot(DSM_hill_HARV,
-    col=grey(1:100/100),  #create a color ramp of grey colors
-    legend=FALSE,
-    main="NEON Hillshade - DSM\n Harvard Forest",
-    axes=FALSE)
+    #import DSM hillshade
+    DSM_hill_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif")
+    
+    #plot hillshade using a grayscale color ramp that looks like shadows.
+    plot(DSM_hill_HARV,
+        col=grey(1:100/100),  #create a color ramp of grey colors
+        legend=FALSE,
+        main="NEON Hillshade - DSM\n Harvard Forest",
+        axes=FALSE)
 
-```
+![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/hillshade-1.png) 
 
 <i class="fa fa-star"></i> **Data Tip:** Turn off or hide the legend on 
 a plot using `legend=FALSE`.
@@ -265,22 +254,22 @@ a plot using `legend=FALSE`.
 We can layer another raster on top of our hillshade using by using `add=TRUE`.
 Let's overlay `DSM_HARV` on top of the `hill_HARV`.
 
-``` {r overlay-hillshade}
 
-#plot hillshade using a grayscale color ramp that looks like shadows.
-plot(DSM_hill_HARV,
-    col=grey(1:100/100),  #create a color ramp of grey colors
-    legend=F,
-    main="NEON DSM with Hillshade \n Harvard Forest",
-    axes=FALSE)
+    #plot hillshade using a grayscale color ramp that looks like shadows.
+    plot(DSM_hill_HARV,
+        col=grey(1:100/100),  #create a color ramp of grey colors
+        legend=F,
+        main="NEON DSM with Hillshade \n Harvard Forest",
+        axes=FALSE)
+    
+    #add the DSM on top of the hillshade
+    plot(DSM_HARV,
+         col=rainbow(100),
+         alpha=0.4,
+         add=T,
+         legend=F)
 
-#add the DSM on top of the hillshade
-plot(DSM_HARV,
-     col=rainbow(100),
-     alpha=0.4,
-     add=T,
-     legend=F)
-```
+![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/overlay-hillshade-1.png) 
 
 The alpha value determines how transparent the colors will be (0 being
 transparent, 1 being opaque). Note that here we used the color palette
@@ -305,46 +294,5 @@ Make sure to:
  
 </div>
 
-```{r challenge-hillshade-layering, echo=FALSE}
-#CREATE DSM MAPS
-#import DSM 
-DSM_SJER <- raster("NEON_RemoteSensing/SJER/DSM/SJER_DSMcrop.tif")
-#import DSM hillshade
-DSM_hill_SJER <- raster("NEON_RemoteSensing/SJER/DSM/SJER_DSMhill.tif")
-
-#plot hillshade using a grayscale color ramp that looks like shadows.
-plot(DSM_hill_SJER,
-    col=grey(1:100/100),  #create a color ramp of grey colors
-    legend=F,
-    main="NEON DSM with Hillshade\n SJER Field Site",
-    axes=FALSE)
-
-#add the DSM on top of the hillshade
-plot(DSM_SJER,
-     col=terrain.colors(100),
-     alpha=0.7,
-     add=T,
-     legend=F)
-
-#CREATE SJER DTM MAP
-#import DTM 
-DTM_SJER <- raster("NEON_RemoteSensing/SJER/DTM/SJER_DTMcrop.tif")
-#import DTM hillshade
-DTM_hill_SJER <- raster("NEON_RemoteSensing/SJER/DTM/SJER_DTMhill.tif")
-
-#plot hillshade using a grayscale color ramp that looks like shadows.
-plot(DTM_hill_SJER,
-    col=grey(1:100/100),  #create a color ramp of grey colors
-    legend=F,
-    main="NEON DTM with Hillshade\n SJER Field Site",
-    axes=FALSE)
-
-#add the DSM on top of the hillshade
-plot(DTM_SJER,
-     col=terrain.colors(100),
-     alpha=0.4,
-     add=T,
-     legend=F)
-
-```
+![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/challenge-hillshade-layering-1.png) ![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/challenge-hillshade-layering-2.png) 
 
