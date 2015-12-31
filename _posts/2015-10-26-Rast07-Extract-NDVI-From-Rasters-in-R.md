@@ -7,7 +7,7 @@ Hollister,  Mike Smorul]
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal]
 dateCreated: 2014-11-26
-lastModified: 2015-12-21
+lastModified: 2015-12-30
 category: time-series-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp

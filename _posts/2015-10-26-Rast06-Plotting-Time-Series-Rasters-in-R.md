@@ -8,7 +8,7 @@ Mike Smorul]
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2015-12-21
+lastModified: 2015-12-30
 category: time-series-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
@@ -95,7 +95,17 @@ please create it now.
     library(raster)
     library(rgdal)
     library(rasterVis)
-    
+
+    ## Loading required package: lattice
+    ## Loading required package: latticeExtra
+    ## Loading required package: RColorBrewer
+    ## 
+    ## Attaching package: 'latticeExtra'
+    ## 
+    ## The following object is masked from 'package:ggplot2':
+    ## 
+    ##     layer
+
     # Create list of NDVI file paths
     all_NDVI_HARV <- list.files("Landsat_NDVI/HARV/2011/ndvi", full.names = TRUE, pattern = ".tif$")
     
