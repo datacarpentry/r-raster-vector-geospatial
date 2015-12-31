@@ -2,8 +2,8 @@
 layout: post
 title: "Lesson 02: When Rasters Don't Line Up - Reproject Raster Data in R"
 date:   2015-10-27
-authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym, Leah Wasser]
-contributors: [Megan A. Jones]
+authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym, Leah Wasser, Megan A. Jones]
+contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`
@@ -12,7 +12,7 @@ tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
 description: "This lesson explains how to reproject a raster in `R` using the
 `projectRaster()` function in the raster package."
-code1: SR02-Reproject-Raster-In-R.R
+code1: 02-Reproject-Raster-In-R.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
@@ -26,12 +26,12 @@ comments: false
 ##About
 
 Sometimes we encounter raster datasets that do not "line up" when plotted or 
-analyzed. Rasters that don't line up are most often in different Coordinate Reference
-Systems (`CRS`).
+analyzed. Rasters that don't line up are most often in different Coordinate
+Reference Systems (`CRS`).
 
-This lesson explains how to deal with rasters in different, known `CRS`s. It will
-walk though reprojecting rasters in `R` using the `projectRaster` function in
-the `raster` library.
+This lesson explains how to deal with rasters in different, known `CRS`s. It
+will walk though reprojecting rasters in `R` using the `projectRaster` function
+in the `raster` library.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
@@ -41,7 +41,7 @@ the `raster` library.
 
 After completing this activity, you will:
 
-* Be able to reproject a raster in R
+* Be able to reproject a raster in R.
 
 **To complete this lesson:** you will need the most current version of R, and 
 preferably RStudio, loaded on your computer.
@@ -52,22 +52,11 @@ preferably RStudio, loaded on your computer.
 * **rgdal:** `install.packages("rgdal")`
 
 ####Data to Download
-
-<a href="https://ndownloader.figshare.com/files/3579867" class="btn btn-success"> Download NEON Airborne Observation Platform Raster Data Teaching Subset</a> 
-
-The LiDAR and imagery data used to create this raster teaching data subset were
-collected over the NEON <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard Forest</a>
-and 
-<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
-field sites and processed at
-<a href="http://www.neoninc.org" target="_blank" >NEON </a> 
-headquarters. The entire dataset can be accessed by request from the 
-<a href="http://www.neoninc.org/data-resources/get-data/airborne-data" target="_blank"> NEON Airborne Data Request Page on the NEON Website.</a>
+{% include/dataSubsets/_data_Airborne-Remote-Sensing.html %}
 
 **Set Working Directory:** This lessons assumes that you have set your working 
-directory to the location of the downloaded and unzipped data subset. [An overview
-of setting the working directory in `R` can be found here.]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
-lesson prior to beginning this lesson.
+directory to the location of the downloaded and unzipped data subset. 
+[An overview of setting the working directory in `R` can be found here.]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
 
 **Challenge Code:** NEON Data lesson often contain challenges that reinforce 
 learned skills. If available, the code for challenge solutions is found in a 
@@ -100,9 +89,10 @@ Let's create an map of the Harvard Forest Digital Terrain Model
 
 ```{r import-DTM-hillshade }
 #import DTM
-DTM_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_dtmcrop.tif")
+DTM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmcrop.tif")
 #import DTM hillshade
-DTM_hill_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
+DTM_hill_HARV <- 
+  raster("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
 
 #plot hillshade using a grayscale color ramp 
 plot(DTM_hill_HARV,
@@ -257,9 +247,10 @@ Reproject the data as necessary to make things line up!
 ```{r challenge-code-reprojection, echo=FALSE }
 
 #import DTM
-DSM_SJER <- raster("NEON_RemoteSensing/SJER/DSM/SJER_dsmcrop.tif")
+DSM_SJER <- raster("NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmcrop.tif")
 #import DTM hillshade
-DSM_hill_SJER_WGS <- raster("NEON_RemoteSensing/SJER/DSM/SJER_DSMhill_WGS84.tif")
+DSM_hill_SJER_WGS <- 
+  raster("NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMhill_WGS84.tif")
 
 #reproject raster 
 DTM_hill_UTMZ18N_SJER <- projectRaster(DSM_hill_SJER_WGS, 
