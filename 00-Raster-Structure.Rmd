@@ -2,8 +2,8 @@
 layout: post
 title: "Lesson 00: Intro to Raster Data in R"
 date:   2015-10-29
-authors: [Kristina Riemer, Zack Brym, Jason Williams, Jeff Hollister,  Mike Smorul, Leah Wasser]
-contributors: [Megan A. Jones]
+authors: [Kristina Riemer, Zack Brym, Jason Williams, Jeff Hollister,  Mike Smorul, Leah Wasser, Megan A. Jones]
+contributors: [ ]
 dateCreated: 2015-10-23
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`
 packagesLibraries: [raster, rgdal]
@@ -12,7 +12,7 @@ tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
 description: "This lesson reviews the fundamental principles, libraries and 
 metadata / raster attributes that are needed to work with raster data in R."
-code1: SR00-Raster-Structure.R
+code1: 00-Raster-Structure.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
@@ -39,7 +39,7 @@ After completing this activity, you will:
 * Know how to explore raster attributes in `R`.
 * Be able to import rasters into `R` using the `raster` library.
 * Be able to quickly plot a raster file in `R`.
-* Understand the difference between single- and mult-band rasters.
+* Understand the difference between single- and multi-band rasters.
 
 
 **To complete this lesson:** you will need the most current version of R, and 
@@ -51,22 +51,11 @@ preferably RStudio, loaded on your computer.
 * **rgdal:** `install.packages("rgdal")`
 
 ####Download Data
-
-<a href="https://ndownloader.figshare.com/files/3579867" class="btn btn-success"> Download NEON Airborne Observation Platform Raster Data Teaching Subset</a> 
-
-The LiDAR and imagery data used to create this raster teaching data subset were
-collected over the NEON <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard Forest</a>
-and 
-<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
-field sites and processed at
-<a href="http://www.neoninc.org" target="_blank" >NEON </a> 
-headquarters. The entire dataset can be accessed by request from the 
-<a href="http://www.neoninc.org/data-resources/get-data/airborne-data" target="_blank"> NEON Airborne Data Request Page on the NEON Website.</a>
+{% include/dataSubsets/_data_Airborne-Remote-Sensing.html %}
 
 **Set Working Directory:** This lessons assumes that you have set your working 
-directory to the location of the downloaded and unzipped data subset. [An overview
-of setting the working directory in `R` can be found here.]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
-lesson prior to beginning this lesson.
+directory to the location of the downloaded and unzipped data subset. 
+[An overview of setting the working directory in `R` can be found here.]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
 
 **Challenge Code:** NEON Data lesson often contain challenges that reinforce 
 learned skills. If available, the code for challenge solutions is found in a 
@@ -114,16 +103,16 @@ library(rgdal)
 
 ```{r elevation-map, echo=FALSE}
 #render DSM for lesson content background
-DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+DSM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 # code output here - DEM rendered on the screen
 plot(DSM_HARV, main="Continuous Elevation Map\n NEON Harvard Forest Field Site")
 
 ```
 
-Some rasters contain categorical data. Thus each pixel represents a discrete class 
-such as a landcover type ("forest") rather than a continuous value such as elevation 
-or temperature. Some examples of classified maps include:
+Some rasters contain categorical data. Thus each pixel represents a discrete
+class such as a landcover type ("forest") rather than a continuous value such as
+elevation or temperature. Some examples of classified maps include:
 
 1. Landcover / landuse maps.
 2. Tree height maps classified short, medium, tall trees.
@@ -136,7 +125,7 @@ The legend of this map shows the colors representing each discrete class.
 
 #add a color map with 5 colors
 col=terrain.colors(3)
-#add breaks to the colormap (6 breaks = 5 segments)
+#add breaks to the colormap (4 breaks = 3 segments)
 brk <- c(250,350, 380,500)
 
 # Expand right side of clipping rect to make room for the legend
@@ -200,7 +189,7 @@ from Harvard Forest so we'll use a naming convention of data_HARV.
 
 ```{r open-raster }
 # Load raster into R
-DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+DSM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 # View raster structure
 DSM_HARV 
@@ -358,7 +347,8 @@ The camera did not collect data in these areas.
 ```{r demonstrate-no-data-black, echo=FALSE }
 #demonstration code below - not being taught - just demonstrating no data values
 # Use stack function to read in all bands
-RGB_stack <- stack("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
+RGB_stack <- 
+  stack("NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
 # Create an RGB image from the raster stack
 par(col.axis="white",col.lab="white",tck=0)
@@ -514,7 +504,7 @@ function to view raster metadata before we open a file in `R`.
 ```{r view-attributes-gdal}
 
 # view attributes before opening file
-GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+GDALinfo("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 ```
 
@@ -543,7 +533,7 @@ following about the  `NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif` file:
 NOTE: this file is a `hillshade`. We will learn about hillshades in <a href="{{ site.baseurl }}/NEON-R-Spatial-Raster/R/Multi-Band-Rasters-In-R/" target="_blank">  Work with Multi-band Rasters: Images in R</a>.
 
 ``` {r challenge-code-attributes, eval=FALSE, echo=FALSE}
-GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif")
+GDALinfo("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 
 #ANSWERS ###
 #1. If this file has the same CRS as DSM_HARV?  Yes: UTM Zone 18, WGS84, meters. 
