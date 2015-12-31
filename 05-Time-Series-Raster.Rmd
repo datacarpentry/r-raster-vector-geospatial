@@ -321,7 +321,7 @@ Let's next view some temperature data for our field site to see whether there
 were some unusual fluctuations that may explain this pattern of greening and browning
 seen in the NDVI data.
 
-```{r view-temp-data, echo=FALSE }
+```{r view-temp-data, echo=FALSE, warning=FALSE }
 
 library(ggplot2)
 library(scales)
