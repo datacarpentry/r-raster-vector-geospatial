@@ -7,7 +7,7 @@ Zack Brym, Leah Wasser]
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2015-12-21
+lastModified: 2015-12-30
 category: spatio-temporal-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
@@ -144,7 +144,7 @@ break values.
 
     DSMhist$counts
 
-    ## [1] 31993 67525   482
+    ## [1] 31914 67641   445
 
 Warning message!? Remember, the default for the histogram is to include only a subset 
 of 100,000 values. We could force it to show all the pixel values or we can use 
