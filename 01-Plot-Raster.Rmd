@@ -2,9 +2,8 @@
 layout: post
 title: "Lesson 01: Plot Raster Data in R"
 date:   2015-10-28
-authors: [Kristina Riemer, Jason Williams, Jeff Hollister, Mike Smorul, 
-Zack Brym, Leah Wasser]
-contributors: [Megan A. Jones]
+authors: [Kristina Riemer, Jason Williams, Jeff Hollister, Mike Smorul, Zack Brym, Leah Wasser, Megan A. Jones]
+contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`
@@ -14,7 +13,7 @@ mainTag: raster-ts-wrksp
 description: "This lesson reviews how to plot a raster in R using the plot() 
 command. It also covers how to layer a raster on top of a hillshade to produce 
 an eloquent map."
-code1: SR01-Plot-Raster-In-R.R
+code1: 01-Plot-Raster-In-R.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
@@ -26,8 +25,8 @@ comments: false
 {% include _toc.html %}
 
 ##About
-This lesson reviews how to plot a raster in R using the plot() 
-command. It also covers how to layer a raster on top of a hillshade to produce 
+This lesson reviews how to plot a raster in R using the `plot()` 
+function. It also covers how to layer a raster on top of a hillshade to produce 
 an eloquent map.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
@@ -42,7 +41,6 @@ After completing this activity, you will:
 * Know how to layer a raster dataset on top of a hillshade to create an elegant 
 basemap.
 
-
 **To complete this lesson:** you will need the most current version of R, and 
 preferably RStudio, loaded on your computer.
 
@@ -52,23 +50,11 @@ preferably RStudio, loaded on your computer.
 * **rgdal:** `install.packages("rgdal")`
 
 ####Download Data
-
-<a href="https://ndownloader.figshare.com/files/3579867" class="btn btn-success"> Download NEON Airborne Observation Platform Raster Data Teaching Subset</a> 
-
-The LiDAR and imagery data used to create this raster teaching data subset were
-collected over the NEON <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard Forest</a>
-and 
-<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
-field sites and processed at
-<a href="http://www.neoninc.org" target="_blank" >NEON </a> 
-headquarters. The entire dataset can be accessed by request from the 
-<a href="http://www.neoninc.org/data-resources/get-data/airborne-data" target="_blank"> NEON Airborne Data Request Page on the NEON Website.</a>
-
+{% include/dataSubsets/_data_Airborne-Remote-Sensing.html %}
 
 **Set Working Directory:** This lessons assumes that you have set your working 
-directory to the location of the downloaded and unzipped data subset. [An overview
-of setting the working directory in `R` can be found here.]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
-lesson prior to beginning this lesson.
+directory to the location of the downloaded and unzipped data subset. 
+[An overview of setting the working directory in `R` can be found here.]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
 
 **Challenge Code:** NEON Data lesson often contain challenges that reinforce 
 learned skills. If available, the code for challenge solutions is found in a 
@@ -102,7 +88,7 @@ library(raster)
 #setwd("working-dir-path-here")
 
 #import raster
-DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+DSM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 ```
 
@@ -117,11 +103,11 @@ plot(DSM_HARV,
 ```
 
 # Plotting Data Using Breaks
-We can view our data "symbolized" or colored according to ranges of values rather than
-using a continuous color ramp. This is comparable to a "classified" map. However,
- to assign breaks, it is useful to first explore the distribution of the data
- using a histogram. The `breaks=` element in the `hist` function tells `R` to use fewer
-or more breaks or bins. 
+We can view our data "symbolized" or colored according to ranges of values
+rather than using a continuous color ramp. This is comparable to a "classified"
+map. However, to assign breaks, it is useful to first explore the distribution
+of the data using a histogram. The `breaks=` element in the `hist` function
+tells `R` to use fewer or more breaks or bins. 
 
 If we name the histogram, we can also view counts for each bin and assigned
 break values.  
@@ -140,10 +126,10 @@ DSMhist$counts
 
 ```
 
-Warning message!? Remember, the default for the histogram is to include only a subset 
-of 100,000 values. We could force it to show all the pixel values or we can use 
-the histogram as is and figure that the sample of 100,000 values represents our 
-data well. 
+Warning message!? Remember, the default for the histogram is to include only a
+subset of 100,000 values. We could force it to show all the pixel values or we
+can use the histogram as is and figure that the sample of 100,000 values
+represents our data well. 
 
 Looking at our histogram, `R` has binned out the data as follows:
 
@@ -240,14 +226,14 @@ plot(DSM_HARV,
 
 #Layering Rasters
 We can layer a raster on top of hillshade raster for the same area, and use a 
-transparency factor to created a shaded 3 dimensional, shaded effect. A hillshade 
-is a raster that maps the shadows and texture that you would see from above when 
-viewing terrain.
-
+transparency factor to created a shaded 3 dimensional, shaded effect. A
+hillshade is a raster that maps the shadows and texture that you would see from
+above when viewing terrain.
 
 ```{r hillshade }
 #import DSM hillshade
-DSM_hill_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif")
+DSM_hill_HARV <- 
+  raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 
 #plot hillshade using a grayscale color ramp that looks like shadows.
 plot(DSM_hill_HARV,
@@ -308,9 +294,10 @@ Make sure to:
 ```{r challenge-hillshade-layering, echo=FALSE}
 #CREATE DSM MAPS
 #import DSM 
-DSM_SJER <- raster("NEON_RemoteSensing/SJER/DSM/SJER_DSMcrop.tif")
+DSM_SJER <- raster("NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMcrop.tif")
 #import DSM hillshade
-DSM_hill_SJER <- raster("NEON_RemoteSensing/SJER/DSM/SJER_DSMhill.tif")
+DSM_hill_SJER <- 
+  raster("NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMhill.tif")
 
 #plot hillshade using a grayscale color ramp that looks like shadows.
 plot(DSM_hill_SJER,
@@ -328,9 +315,10 @@ plot(DSM_SJER,
 
 #CREATE SJER DTM MAP
 #import DTM 
-DTM_SJER <- raster("NEON_RemoteSensing/SJER/DTM/SJER_DTMcrop.tif")
+DTM_SJER <- raster("NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_DTMcrop.tif")
 #import DTM hillshade
-DTM_hill_SJER <- raster("NEON_RemoteSensing/SJER/DTM/SJER_DTMhill.tif")
+DTM_hill_SJER <- 
+  raster("NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_DTMhill.tif")
 
 #plot hillshade using a grayscale color ramp that looks like shadows.
 plot(DTM_hill_SJER,
