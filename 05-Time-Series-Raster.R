@@ -57,21 +57,24 @@ plot(NDVI_HARV_stack,
 #apply scale factor to data
 NDVI_HARV_stack <- NDVI_HARV_stack/10000
 #plot stack with scale factor applied
-plot(NDVI_HARV_stack)
+#apply scale factor to limits to ensure uniform plottin
+plot(NDVI_HARV_stack,
+     zlim = c(.15, 1),  
+     nc = 4)
 
 
 ## ----view-stack-histogram------------------------------------------------
 
 #create histograms of each raster
 hist(NDVI_HARV_stack, 
-     xlim = c(0, 10000))
+     xlim = c(0, 1))
 
 
 ## ----view-temp-data, echo=FALSE------------------------------------------
 
 library(ggplot2)
 library(scales)
-harMetDaily <- read.csv("AtmosData/HARV/hf001-06-daily-m.csv",
+harMetDaily <- read.csv("NEON-DS-Met-Time-Series/HARV/FisherTower-Met/hf001-06-daily-m.csv",
                  stringsAsFactors = FALSE)
 
 #set the field to be a date field
