@@ -95,7 +95,9 @@
           {% include _author-bio.html %}
         </div>
         <p class="byline id="post-meta"><strong>{{ page.title }}</strong> was {{ category_content }}{{ tags_content }}
-       on <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>{% if page.modified %} and last modified on <time datetime="{{ page.modified | date: "%Y-%m-%d" }}">{{ page.modified | date: "%B %d, %Y" }}</time>{% endif %} by {{ page.authors }}. {% if page.contributors %} Contributors: Huge thanks to <strong>{{ page.contributors }} </strong> for input and feedback! {% endif %} <a href="{{ site.url }}/about" title="About {{ site.owner.name }}">About {{ site.owner.name }}</a>.</p>
+       on <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>{% if page.modified %} and last modified on <time datetime="{{ page.modified | date: "%Y-%m-%d" }}">{{ page.modified | date: "%B %d, %Y" }}</time>{% endif %} 
+       <!--by {{ page.authors }}. {% if page.contributors %} Contributors: Huge thanks to <strong>{{ page.contributors }} </strong> for input and feedback! {% endif %} --> 
+       <a href="{{ site.url }}/about" title="About {{ site.owner.name }}">About {{ site.owner.name }}</a>.</p>
       </footer>
 
 
@@ -114,7 +116,7 @@
 <div class="footer-wrap">
   <div class="related-articles">
   <!-- <h4>You might also enjoy <small class="pull-right">(<a href="{{ site.url }}/posts/">View all activities</a>)</small></h4> -->
-<h2><a>Related Content:{{ page.mainTag }}</a></h2>
+<h2><a>Related Content: {{ page.mainTag }}</a></h2>
 {% for post in site.posts %}
     {% if post.tags contains page.mainTag  %}
         <ul class="posts">

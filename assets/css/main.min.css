@@ -304,8 +304,8 @@ font-size:.75rem;
 } */
 
 .notice {
- /* lightening the grey */
-    background-color: #f2f2f2;
+ /* grey is now light blue! */
+    background-color: #bde9f5;
     border-radius: 10px;
     -webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -1039,7 +1039,7 @@ svg:not(:root) {
 	padding: 8px 20px;
 	margin-bottom: 20px;
 	font-size: 14px;
-font-size:.875rem;
+    font-size:.875rem;
 	color: #fff;
 	background-color: #111;
 	border-color: #111;
@@ -1058,14 +1058,19 @@ font-size:.875rem;
 }
 .btn-success {
 	color: #fff;
+	background-color: #1ea0c1;
+	border-color: #1ea0c1;
+	/* 
 	background-color: #5cb85c;
 	border-color: #5cb85c
+	*/
+
 }
 .btn-success:visited {
 	color: #fff
 }
 .btn-success:hover {
-	color: #5cb85c;
+	color: #1ea0c1;
 	background-color: #fff
 }
 .btn-warning {
@@ -4341,7 +4346,17 @@ div.article-author-side h5 a{
 	color:#525252
 }
 
+.post-date {
+	font-size: 0.85em;
+	font-style: italic;
+	}
+	
+/* GREY BOX CODE */ 
 
+#objectives > h1 {
+    font-size: 1.75rem;
+    margin: 1rem 0 .925rem;
+}
 	
 /* ################### table Formating ################# */
 
@@ -4367,9 +4382,6 @@ td a {
 
 
 
-.post-date {font-size: 0.85em;
-	font-style:italic
-	}
 
 /* ################### code Formating ################# */	
 	
@@ -4512,6 +4524,7 @@ div#challenge {
     border: 1px solid #ccc;
     padding: 1em;
     border-radius: 1em;
+    box-shadow: 1px 5px 3px #ccc;
 }
 
 div#challenge h2 {

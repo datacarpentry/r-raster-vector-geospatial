@@ -9,8 +9,12 @@
       "{{ site.url }}/images/banners/{{ page.image.feature }}"
     {% endif %}
   alt="{{ page.title }} feature image">
-  {% if page.image.credit %}
-    <span class="image-credit">Photo Credit: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></span>
-  {% endif %}
+    <span class="image-credit">Source: 
+    {% if page.image.credit %} 
+    {{ page.image.credit }} 
+    {% else %}
+    National Ecological Observatory Network (NEON)
+    {% endif %}
+    </span>
   </div><!-- /.image-wrap -->
 {% endif %}
