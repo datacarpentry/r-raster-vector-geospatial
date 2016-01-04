@@ -10,7 +10,7 @@ packagesLibraries: [raster, rgdal]
 category:  
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
-description: "This lesson reviews the fundamental principles, libraries and 
+description: "This lesson reviews the fundamental principles, packages and 
 metadata / raster attributes that are needed to work with raster data in R."
 code1: 00-Raster-Structure.R
 image:
@@ -31,55 +31,68 @@ plot and explore raster data properties in `R`.
 
 <div id="objectives" markdown="1">
 
-###Goals / Objectives
+##Goals / Objectives
 
 After completing this activity, you will:
 
 * Understand what a raster dataset is and its fundamental attributes.
 * Know how to explore raster attributes in `R`.
-* Be able to import rasters into `R` using the `raster` library.
+* Be able to import rasters into `R` using the `raster` package.
 * Be able to quickly plot a raster file in `R`.
 * Understand the difference between single- and multi-band rasters.
 
-
-**To complete this lesson:** you will need the most current version of R, and 
+##Things You’ll Need To Complete This Lesson
+To complete this lesson: you will need the most current version of R, and 
 preferably RStudio, loaded on your computer.
 
-####R Libraries to Install:
+###Install R Packages
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
-####Download Data
+* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}R/Packages-In-R/)
+
+###Download Data
 {% include/dataSubsets/_data_Airborne-Remote-Sensing.html %}
 
-**Set Working Directory:** This lessons assumes that you have set your working 
-directory to the location of the downloaded and unzipped data subset. 
-[An overview of setting the working directory in `R` can be found here.]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
+****
 
-**Challenge Code:** NEON Data lesson often contain challenges that reinforce 
-learned skills. If available, the code for challenge solutions is found in a 
-downloadable `R` script available on the footer of each lesson page.
+{% include/_greyBox-wd-rscript.html %}
 
-**Raster Lesson Series : ** This lesson is a part of a lesson series on raster 
-data in R <<link here>>
+**Raster Lesson Series:** This lesson is part of a lesson series on 
+[raster data in R ]({{ site.baseurl }}Tutorials/Raster-Pheno-Series). It is also
+part of a larger spatio-temporal 
+[Data Carpentry Workshop ]({{ site.baseurl }}Workshops/Spatio-Temporal-Workshop)
+that includes working with vector data in R 
+[raster data in R ]({{ site.baseurl }}Tutorials/Vector-Pheno-Series) 
+and tabular time series in R 
+[raster data in R ]({{ site.baseurl }}Tutorials/Tabular-Time-Pheno-Series).
+
+****
 
 ###Additional Resources
 
 * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
 Read more about the `raster` package in `R`.</a>
-* <a href="http://neondataskills.org/R/Raster-Data-In-R/" target="_blank" >  NEON Data Skills: Raster Data in R - The Basics</a>
-* <a href="http://neondataskills.org/R/Image-Raster-Data-In-R/" target="_blank" > NEON Data Skills: Image Raster Data in R - An Intro</a>
+* <a href="http://neondataskills.org/R/Raster-Data-In-R/" target="_blank" >
+NEON Data Skills: Raster Data in R - The Basics</a>
+* <a href="http://neondataskills.org/R/Image-Raster-Data-In-R/" target="_blank" >
+NEON Data Skills: Image Raster Data in R - An Intro</a>
 
 </div>
-
 
 #About Raster Data
 Raster or "gridded" data are saved on a regular grid which is rendered on a map
 as pixels. Each pixel contains a value that represents an area on the Earth's 
 surface.
 
-![What Is A Raster Dataset]({{ site.baseurl }}/images/raster_timeseries/raster_concept.png)
+<figure>
+    <a href="{{site.baseurl}}/images/raster_timeseries/raster_concept.png">
+    <img src="{{site.baseurl}}/images/raster_timeseries/raster_concept.png">
+    </a>
+    <figcaption> Source: National Ecological Observatory Network (NEON)
+    </figcaption>
+</figure>
 
 #Types of Data Stored in Raster Format
 Raster data can be continuous or categorical. Continuous rasters can have a 
@@ -89,7 +102,9 @@ range of quantitative values. Some examples of continuous rasters include:
 2. Maps of tree height derived from LiDAR data.
 3. Elevation values for a region. 
 
-A map of elevation for Harvard Forest derived from the  <a href="http://www.neoninc.org/science-design/collection-methods/airborne-remote-sensing" target="_blank"> NEON AOP LiDAR sensor</a> 
+A map of elevation for Harvard Forest derived from the  
+<a href="http://www.neoninc.org/science-design/collection-methods/airborne-remote-sensing" target="_blank"> 
+NEON AOP LiDAR sensor</a> 
 is below. Notice that elevation is a continuous numeric variable. The legend
 represents the continuous range of values in the data from around 300 to 420 meters.
 
@@ -141,7 +156,16 @@ legend( par()$usr[2], 4713700,
 ```
 
 ###Categorical Landcover Map for the United States 
-![US NLCD Map](http://neondataskills.org/images/spatialData/NLCD06_conus_lg.gif)
+<figure>
+    <a href="http://neondataskills.org/images/spatialData/NLCD06_conus_lg.gif ">
+    <img src="http://neondataskills.org/images/spatialData/NLCD06_conus_lg.gif">
+    </a>
+    <figcaption> Map of the United States showing landcover as categorical data.
+    Each color is a different landcover category.  Source: 
+    <a href="http://www.mrlc.gov/nlcd06_data.php" target="_blank">
+    Multi-Resolution Land Characteristics Consortium, USGS</a> 
+    </figcaption>
+</figure>
 
 #What is a GeoTIFF??
 Raster data can come in many different formats. In this lesson, we will use the 
@@ -162,8 +186,8 @@ In this lesson we will discuss all of these metadata tags.
 
 More about the  `.tif` format:
 
-* <a href="https://en.wikipedia.org/wiki/GeoTIFF" target="_blank"> Geotiff on Wikipedia</a>
-* <a href="https://trac.osgeo.org/geotiff/" target="_blank"> OSGEO Tiff documentation</a>
+* <a href="https://en.wikipedia.org/wiki/GeoTIFF" target="_blank"> GeoTIFF on Wikipedia</a>
+* <a href="https://trac.osgeo.org/geotiff/" target="_blank"> OSGEO TIFF documentation</a>
 
 ##Raster Data in R
 
@@ -218,7 +242,7 @@ or project the raster in geographic space.
     <figcaption> Maps of the United States in different projections. Notice the 
     differences in shape associated with each different projection. These 
     differences are a direct result of the calculations used to "flatten" the 
-    data onto a 2 dimensional map. Image source: opennews.org</figcaption>
+    data onto a 2 dimensional map. Source: opennews.org</figcaption>
 </figure>
 
 ##What Makes Spatial Data Line Up On A Map?
@@ -476,8 +500,10 @@ the raster: surface elevation in meters for one time period.
 <figure>
     <a href="{{ site.baseurl }}/images/raster_timeseries/single_multi_raster.png">
     <img src="{{ site.baseurl }}/images/raster_timeseries/single_multi_raster.png"></a>
-    <figcaption>A raster dataset can contain one or more bands. We can use the raster 
-    function to import one single band from a single OR multi-band raster. Source: NEON, Inc.</figcaption>
+    <figcaption>A raster dataset can contain one or more bands. We can use the
+    raster function to import one single band from a single OR multi-band 
+    raster. Source: National Ecological Observatory Network (NEON).
+    </figcaption>
 </figure>
 
 We can view the number of bands in a raster using the `nlayers()` method. 
