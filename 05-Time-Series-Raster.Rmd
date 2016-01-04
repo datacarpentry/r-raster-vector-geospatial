@@ -33,7 +33,7 @@ in remote sensing derived imagery.
 
 <div id="objectives" markdown="1">
 
-###Goals / Objectives
+##Goals / Objectives
 
 After completing this activity, you will:
 
@@ -43,24 +43,34 @@ After completing this activity, you will:
 * Be able to plot and explore time series raster data using the `plot()`
 function in `R`.
 
-**To complete this lesson:** you will need the most current version of R, and 
+##Things You’ll Need To Complete This Lesson
+To complete this lesson: you will need the most current version of R, and 
 preferably RStudio, loaded on your computer.
 
-####R Libraries to Install:
+###Install R Packages
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
+* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}R/Packages-In-R/)
+
 ####Data to Download
 {% include/dataSubsets/_data_Landsat-NDVI.html %}
 
-**Set Working Directory:** This lessons assumes that you have set your working 
-directory to the location of the downloaded and unzipped data subset. 
-[An overview of setting the working directory in `R` can be found here.]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
+****
 
-**Challenge Code:** NEON Data lesson often contain challenges that reinforce 
-learned skills. If available, the code for challenge solutions is found in a 
-downloadable `R` script available on the footer of each lesson page.
+{% include/_greyBox-wd-rscript.html %}
+
+**Raster Lesson Series:** This lesson is part of a lesson series on 
+[raster data in R ]({{ site.baseurl }}Tutorials/Raster-Pheno-Series). It is also
+part of a larger spatio-temporal 
+[Data Carpentry Workshop ]({{ site.baseurl }}Workshops/Spatio-Temporal-Workshop)
+that includes working with vector data in R 
+[raster data in R ]({{ site.baseurl }}Tutorials/Vector-Pheno-Series) 
+and tabular time series in R 
+[raster data in R ]({{ site.baseurl }}Tutorials/Tabular-Time-Pheno-Series).
+
+****
 
 ###Additional Resources
 * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
