@@ -6,7 +6,7 @@ authors: [Kristina Riemer, Mike Smorul, Zack Brym, Jason Williams, Jeff Holliste
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2015-12-21
+lastModified: 2015-12-30
 category: spatio-temporal-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp

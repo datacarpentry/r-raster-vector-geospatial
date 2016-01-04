@@ -7,7 +7,7 @@ Brym, Leah Wasser]
 contributors: [Megan A. Jones]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2015-12-21
+lastModified: 2015-12-30
 category: time-series-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
@@ -277,7 +277,10 @@ lesson.
     #apply scale factor to data
     NDVI_HARV_stack <- NDVI_HARV_stack/10000
     #plot stack with scale factor applied
-    plot(NDVI_HARV_stack)
+    #apply scale factor to limits to ensure uniform plottin
+    plot(NDVI_HARV_stack,
+         zlim = c(.15, 1),  
+         nc = 4)
 
 ![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/apply-scale-factor-1.png) 
 
@@ -308,7 +311,7 @@ each raster.
 
     #create histograms of each raster
     hist(NDVI_HARV_stack, 
-         xlim = c(0, 10000))
+         xlim = c(0, 1))
 
 ![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/view-stack-histogram-1.png) 
 
@@ -326,6 +329,9 @@ thereafter.
 Let's next view some temperature data for our field site to see whether there 
 were some unusual fluctuations that may explain this pattern of greening and browning
 seen in the NDVI data.
+
+
+    ## Warning: package 'ggplot2' was built under R version 3.2.3
 
 ![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/view-temp-data-1.png) 
 
