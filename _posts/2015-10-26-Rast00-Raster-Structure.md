@@ -5,7 +5,7 @@ date:   2015-10-29
 authors: [Kristina Riemer, Zack Brym, Jason Williams, Jeff Hollister,  Mike Smorul, Leah Wasser]
 contributors: [Megan A. Jones]
 dateCreated: 2015-10-23
-lastModified: 2015-12-21
+lastModified: 2015-12-30
 packagesLibraries: [raster, rgdal]
 category:  
 tags: [raster-ts-wrksp, raster]
@@ -105,6 +105,14 @@ is below. Notice that elevation is a continuous numeric variable. The legend
 represents the continuous range of values in the data from around 300 to 420 meters.
 
 
+    ## Loading required package: sp
+    ## rgdal: version: 1.1-1, (SVN revision 572)
+    ##  Geospatial Data Abstraction Library extensions to R successfully loaded
+    ##  Loaded GDAL runtime: GDAL 1.11.3, released 2015/09/16
+    ##  Path to GDAL shared files: /usr/local/Cellar/gdal/1.11.3/share/gdal
+    ##  Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
+    ##  Path to PROJ.4 shared files: (autodetected)
+    ##  Linking to sp version: 1.2-1
 
 
 ![ ]({{ site.baseurl }}/images/rfigs/00-Raster-Structure/elevation-map-1.png) 

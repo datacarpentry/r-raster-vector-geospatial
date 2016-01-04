@@ -258,7 +258,10 @@ lesson.
 #apply scale factor to data
 NDVI_HARV_stack <- NDVI_HARV_stack/10000
 #plot stack with scale factor applied
-plot(NDVI_HARV_stack)
+#apply scale factor to limits to ensure uniform plottin
+plot(NDVI_HARV_stack,
+     zlim = c(.15, 1),  
+     nc = 4)
 
 ```
 
@@ -290,7 +293,7 @@ each raster.
 
 #create histograms of each raster
 hist(NDVI_HARV_stack, 
-     xlim = c(0, 10000))
+     xlim = c(0, 1))
 
 ```
 
@@ -309,7 +312,7 @@ Let's next view some temperature data for our field site to see whether there
 were some unusual fluctuations that may explain this pattern of greening and
 browning seen in the NDVI data.
 
-```{r view-temp-data, echo=FALSE }
+```{r view-temp-data, echo=FALSE, warning=FALSE }
 
 library(ggplot2)
 library(scales)
