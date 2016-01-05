@@ -33,7 +33,7 @@ in remote sensing derived imagery.
 
 <div id="objectives" markdown="1">
 
-##Goals / Objectives
+#Goals / Objectives
 
 After completing this activity, you will:
 
@@ -91,7 +91,7 @@ same `resolution`.
     <a href="{{ site.baseurl }}/images/raster_timeseries/GreenessOverTime.png">
     <img src="{{ site.baseurl }}/images/raster_timeseries/GreenessOverTime.png"></a>
     <figcaption>A multi-band raster dataset can contain time series data. 
-    Image Source: NEON, Inc. 
+    Image Source: National Ecological Observatory Network (NEON). 
     </figcaption>
 </figure>
 
@@ -144,7 +144,7 @@ period that NDVI is available.
     <img src="{{ site.baseurl }}/images/raster_timeseries/RGBSTack_1.png"></a>
     <figcaption>A "true" color image consists of 3 bands - red, green and blue. 
     When composited or rendered together in a GIS, or even a image-editor like
-    Photoshop the bands create a color image. Image Source: NEON, Inc.  
+    Photoshop the bands create a color image. Image Source: National Ecological Observatory Network (NEON).  
     </figcaption>
 </figure>
 

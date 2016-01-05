@@ -93,7 +93,7 @@ buildings, etc with the influence of ground elevation removed.
     <figcaption> A canopy height model represents the difference between the
     digital surface model and a digital terrain model. It represents the actual
     height of the trees with the influence of elevation removed. Image source:
-    NEON, Inc.</figcaption>
+    National Ecological Observatory Network (NEON).</figcaption>
 </figure>
 
 <i class="fa fa-star"></i> **More Info:** More on LiDAR CHM, DTM and DSM in this

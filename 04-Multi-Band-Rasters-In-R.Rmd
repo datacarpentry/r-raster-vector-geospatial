@@ -85,7 +85,7 @@ a raster can contain 1 or more bands.
     </a>
     <figcaption>A raster can contain one or more bands. We can use the
     raster function to import one single band from a single OR multi-band
-    raster.  Image Source: NEON, Inc.</figcaption>
+    raster.  Image Source: National Ecological Observatory Network (NEON).</figcaption>
 </figure>
 
 To work with multi-band rasters in `R`, we need to change how we import and plot
@@ -107,7 +107,7 @@ creates the colors that we see in an image.
     <img src="{{ site.baseurl }}/images/raster_timeseries/RGBSTack_1.png"></a>
     <figcaption>A color image consists of 3 bands - red, green and blue. When
     rendered together in a GIS, or even a tool like Photoshop or any other
-    image software, they create a color image. Image Source: NEON,Inc.  
+    image software, they create a color image. Image Source: National Ecological Observatory Network (NEON).  
     </figcaption>
 </figure>
 
