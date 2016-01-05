@@ -31,7 +31,7 @@ plot and explore raster data properties in `R`.
 
 <div id="objectives" markdown="1">
 
-##Goals / Objectives
+#Goals / Objectives
 
 After completing this activity, you will:
 
