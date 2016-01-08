@@ -2,76 +2,74 @@
 layout: post
 title: "Lesson 02: When Rasters Don't Line Up - Reproject Raster Data in R"
 date:   2015-10-27
-authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym, Leah Wasser]
-contributors: [Megan A. Jones]
+authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym, Leah Wasser, Megan A. Jones]
+contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2015-12-30
+lastModified: 2016-01-07
 category: spatio-temporal-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
-description: "This lesson explains how to reproject a raster in `R` using the
-`projectRaster()` function in the raster package."
-code1: SR02-Reproject-Raster-In-R.R
+description: "This lesson explains how to reproject a raster in R using the
+projectRaster() function in the raster package."
+code1: 02-Reproject-Raster-In-R.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink: http://www.neoninc.org
-permalink: /R/Reproject-Raster-In-R
+permalink: R/Reproject-Raster-In-R
 comments: false
 ---
 
 {% include _toc.html %}
 
 ##About
-
 Sometimes we encounter raster datasets that do not "line up" when plotted or 
-analyzed. Rasters that don't line up are most often in different Coordinate Reference
-Systems (`CRS`).
+analyzed. Rasters that don't line up are most often in different Coordinate
+Reference Systems (`CRS`).
 
-This lesson explains how to deal with rasters in different, known `CRS`s. It will
-walk though reprojecting rasters in `R` using the `projectRaster` function in
-the `raster` library.
+This lesson explains how to deal with rasters in different, known `CRS`s. It
+will walk though reprojecting rasters in `R` using the `projectRaster` function
+in the `raster` library.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
 <div id="objectives" markdown="1">
 
-###Goals / Objectives
+#Goals / Objectives
 
 After completing this activity, you will:
 
-* Be able to reproject a raster in R
+* Be able to reproject a raster in R.
 
-**To complete this lesson:** you will need the most current version of R, and 
+##Things You’ll Need To Complete This Lesson
+To complete this lesson: you will need the most current version of R, and 
 preferably RStudio, loaded on your computer.
 
-###R Libraries to Install:
+###Install R Packages
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
+* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}R/Packages-In-R/)
+
 ####Data to Download
+{% include/dataSubsets/_data_Airborne-Remote-Sensing.html %}
 
-<a href="https://ndownloader.figshare.com/files/3579867" class="btn btn-success"> Download NEON Airborne Observation Platform Raster Data Teaching Subset</a> 
+****
 
-The LiDAR and imagery data used to create this raster teaching data subset were
-collected over the NEON <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard Forest</a>
-and 
-<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
-field sites and processed at
-<a href="http://www.neoninc.org" target="_blank" >NEON </a> 
-headquarters. The entire dataset can be accessed by request from the 
-<a href="http://www.neoninc.org/data-resources/get-data/airborne-data" target="_blank"> NEON Airborne Data Request Page on the NEON Website.</a>
+{% include/_greyBox-wd-rscript.html %}
 
-**Set Working Directory:** This lessons assumes that you have set your working 
-directory to the location of the downloaded and unzipped data subset. [An overview
-of setting the working directory in `R` can be found here.]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
-lesson prior to beginning this lesson.
+**Raster Lesson Series:** This lesson is part of a lesson series on 
+[raster data in `R` ]({{ site.baseurl }}tutorial/spatial-raster-series). It is
+also part of a larger spatio-temporal 
+[spatio-temporal Data Carpentry Workshop ]({{ site.baseurl }}workshops/spatio-temporal-workshop)
+that includes working with  
+[vector data in R ]({{ site.baseurl }}tutorial/spatial-vector-series) 
+and  
+[tabular time series in R ]({{ site.baseurl }}tutorial/tabular-time-series).
 
-**Challenge Code:** NEON Data lesson often contain challenges that reinforce 
-learned skills. If available, the code for challenge solutions is found in a 
-downloadable `R` script available on the footer of each lesson page.
+****
 
 ###Additional Resources
 
@@ -80,7 +78,7 @@ Read more about the `raster` package in `R`.</a>
 
 </div>
 
-#Raster Projection in R
+##Raster Projection in R
 
 In the [Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/) 
 lesson, we learned how to layer a raster file on top of a hillshade for a nice
@@ -98,15 +96,16 @@ Let's create an map of the Harvard Forest Digital Terrain Model
 
 
     #import DTM
-    DTM_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_dtmcrop.tif")
+    DTM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmcrop.tif")
     #import DTM hillshade
-    DTM_hill_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
+    DTM_hill_HARV <- 
+      raster("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
     
     #plot hillshade using a grayscale color ramp 
     plot(DTM_hill_HARV,
         col=grey(1:100/100),
         legend=FALSE,
-        main="DTM Hillshade\n NEON Harvard Forest")
+        main="DTM Hillshade\n NEON Harvard Forest Field Site")
     
     #overlay the DTM on top of the hillshade
     plot(DTM_HARV,
@@ -121,8 +120,8 @@ Our results are curious - the Digital Terrain Model (`DTM_HARV`) did not plot on
 top of our hillshade. The hillshade plotted just fine on it's own. Let's try to 
 plot the DTM on it's own to make sure there are data there.
 
-<i class="fa fa-star"></i> **Data Tip:** For boolean R elements such as `add=TRUE`
-you can use `T` and `F` in place of `TRUE` and `FALSE`.
+<i class="fa fa-star"></i> **Data Tip:** For boolean R elements such as
+ `add=TRUE` you can use `T` and `F` in place of `TRUE` and `FALSE`.
 {: .notice}
 
 
@@ -131,12 +130,12 @@ you can use `T` and `F` in place of `TRUE` and `FALSE`.
          col=terrain.colors(10),
          alpha=1,
          legend=F,
-         main="Digital Terrain Model\n NEON Harvard Forest")
+         main="Digital Terrain Model\n NEON Harvard Forest Field Site")
 
 ![ ]({{ site.baseurl }}/images/rfigs/02-Reproject-Raster-In-R/plot-DTM-1.png) 
 
-Our DTM seems to contain data and plots just fine. Let's next check the Coordinate 
-Reference System (`CRS`) and compare it to our hillshade.
+Our DTM seems to contain data and plots just fine. Let's next check the
+ Coordinate Reference System (`CRS`) and compare it to our hillshade.
 
 
     #view crs for DTM
@@ -152,13 +151,13 @@ Reference System (`CRS`) and compare it to our hillshade.
     ## CRS arguments:
     ##  +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
 
-Aha! `DTM_HARV` is in the UTM projection. `DTM_hill_HARV` is in `Geographic WGS84` -
-which is represented by latitude and longitude values. Because the two rasters 
-are in different CRSs, they don't line up when plotted in `R`. We need to 
-*reproject* `DTM_HARV` into the `UTM CRS`. Alternatively, we could 
-reproject the hillshade into WGS84. 
+Aha! `DTM_HARV` is in the UTM projection. `DTM_hill_HARV` is in
+ `Geographic WGS84` - which is represented by latitude and longitude values.
+ Because the two rasters are in different CRSs, they don't line up when plotted
+ in `R`. We need to *reproject* `DTM_HARV` into the `UTM CRS`. Alternatively,
+ we could reproject the hillshade into WGS84. 
 
-#Reproject Rasters
+##Reproject Rasters
 We can use the `projectRaster` function to reproject a raster into a new `CRS`.
 Keep in mind that reprojection only works when you first have a *defined* `CRS`
 for the raster object that you want to reproject. It cannot be used if *no*
@@ -171,9 +170,9 @@ To use the `projectRaster` function, we need to define two things:
 
 The syntax is `projectRaster(RasterObject,crs=CRSToReprojectTo)`
 
-We want the `CRS` of our hillshade to match the `DTM_HARV` raster. We can thus assign
-the `CRS` of our `DTM_HARV` to our hillshade within the `projectRaster` function 
-as follows: `crs=crs(DTM_HARV)`.
+We want the `CRS` of our hillshade to match the `DTM_HARV` raster. We can thus
+assign the `CRS` of our `DTM_HARV` to our hillshade within the `projectRaster`
+functionas follows: `crs=crs(DTM_HARV)`.
 
 
     #reproject to UTM
@@ -221,7 +220,7 @@ in mind as we work with raster data.
 {: .notice}
 
 
-##Dealing with Raster Resolution
+##Deal with Raster Resolution
 
 Let's next have a look at the resolution of our reprojected hillshade.  
 
@@ -244,7 +243,6 @@ reprojected raster to be 1m x 1m resolution by adding a line of code (`res=`).
     res(DTM_hill_UTMZ18N_HARV)
 
     ## [1] 1 1
-
 
 Let's plot our newly reprojected raster.
 
