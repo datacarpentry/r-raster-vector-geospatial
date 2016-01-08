@@ -6,7 +6,7 @@ library(rgdal)
 
 ## ----elevation-map, echo=FALSE-------------------------------------------
 #render DSM for lesson content background
-DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+DSM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 # code output here - DEM rendered on the screen
 plot(DSM_HARV, main="Continuous Elevation Map\n NEON Harvard Forest Field Site")
@@ -17,13 +17,19 @@ plot(DSM_HARV, main="Continuous Elevation Map\n NEON Harvard Forest Field Site")
 
 #add a color map with 5 colors
 col=terrain.colors(3)
-#add breaks to the colormap (6 breaks = 5 segments)
+#add breaks to the colormap (4 breaks = 3 segments)
 brk <- c(250,350, 380,500)
 
 # Expand right side of clipping rect to make room for the legend
 par(xpd = FALSE,mar=c(5.1, 4.1, 4.1, 4.5))
 #DEM with a custom legend
-plot(DSM_HARV, col=col, breaks=brk, main="Classified Elevation Map\nNEON Harvard Forest Field Site",legend = FALSE)
+plot(DSM_HARV, 
+	col=col, 
+	breaks=brk, 
+	main="Classified Elevation Map\nNEON Harvard Forest Field Site",
+	legend = FALSE
+	)
+
 #turn xpd back on to force the legend to fit next to the plot.
 par(xpd = TRUE)
 #add a legend - but make it appear outside of the plot
@@ -41,7 +47,7 @@ library(rgdal)
 
 ## ----open-raster---------------------------------------------------------
 # Load raster into R
-DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+DSM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 # View raster structure
 DSM_HARV 
@@ -79,7 +85,8 @@ maxValue(DSM_HARV)
 ## ----demonstrate-no-data-black, echo=FALSE-------------------------------
 #demonstration code below - not being taught - just demonstrating no data values
 # Use stack function to read in all bands
-RGB_stack <- stack("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
+RGB_stack <- 
+  stack("NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
 # Create an RGB image from the raster stack
 par(col.axis="white",col.lab="white",tck=0)
@@ -121,7 +128,7 @@ ncell(DSM_HARV)
 #create histogram that includes with all pixel values in the raster
 hist(DSM_HARV, 
      maxpixels=ncell(DSM_HARV),
-     main="Distribution of Digital Surface Model Values\n All Pixel Values Included\n NEON Harvard Forest",
+     main="Distribution of DSM Values\n All Pixel Values Included\n NEON Harvard Forest Field Site",
      xlab="DSM Elevation Value (m)",
      ylab="Frequency",
      col="wheat4")
@@ -136,11 +143,11 @@ nlayers(DSM_HARV)
 ## ----view-attributes-gdal------------------------------------------------
 
 # view attributes before opening file
-GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+GDALinfo("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 
 ## ----challenge-code-attributes, eval=FALSE, echo=FALSE-------------------
-## GDALinfo("NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif")
+## GDALinfo("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 ## 
 ## #ANSWERS ###
 ## #1. If this file has the same CRS as DSM_HARV?  Yes: UTM Zone 18, WGS84, meters.
