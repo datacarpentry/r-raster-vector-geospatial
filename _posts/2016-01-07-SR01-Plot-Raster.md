@@ -2,39 +2,38 @@
 layout: post
 title: "Lesson 01: Plot Raster Data in R"
 date:   2015-10-28
-authors: [Kristina Riemer, Jason Williams, Jeff Hollister, Mike Smorul, 
-Zack Brym, Leah Wasser]
-contributors: [Megan A. Jones]
+authors: [Kristina Riemer, Jason Williams, Jeff Hollister, Mike Smorul, Zack Brym, Leah Wasser, Megan A. Jones]
+contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2015-12-30
+lastModified: 2016-01-07
 category: spatio-temporal-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
 description: "This lesson reviews how to plot a raster in R using the plot() 
 command. It also covers how to layer a raster on top of a hillshade to produce 
 an eloquent map."
-code1: SR01-Plot-Raster-In-R.R
+code1: 01-Plot-Raster-In-R.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink: http://www.neoninc.org
-permalink: /R/Plot-Rasters-In-R
+permalink: R/Plot-Rasters-In-R
 comments: false
 ---
 
 {% include _toc.html %}
 
 ##About
-This lesson reviews how to plot a raster in R using the plot() 
-command. It also covers how to layer a raster on top of a hillshade to produce 
+This lesson reviews how to plot a raster in R using the `plot()` 
+function. It also covers how to layer a raster on top of a hillshade to produce 
 an eloquent map.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
 <div id="objectives" markdown="1">
 
-###Goals / Objectives
+#Goals / Objectives
 
 After completing this activity, you will:
 
@@ -42,40 +41,34 @@ After completing this activity, you will:
 * Know how to layer a raster dataset on top of a hillshade to create an elegant 
 basemap.
 
-
-**To complete this lesson:** you will need the most current version of R, and 
+##Things You’ll Need To Complete This Lesson
+To complete this lesson: you will need the most current version of R, and 
 preferably RStudio, loaded on your computer.
 
-####R Libraries to Install:
+###Install R Packages
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
+* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}R/Packages-In-R/)
+
 ####Download Data
+{% include/dataSubsets/_data_Airborne-Remote-Sensing.html %}
 
-<a href="https://ndownloader.figshare.com/files/3579867" class="btn btn-success"> Download NEON Airborne Observation Platform Raster Data Teaching Subset</a> 
+****
 
-The LiDAR and imagery data used to create this raster teaching data subset were
-collected over the NEON <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >Harvard Forest</a>
-and 
-<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
-field sites and processed at
-<a href="http://www.neoninc.org" target="_blank" >NEON </a> 
-headquarters. The entire dataset can be accessed by request from the 
-<a href="http://www.neoninc.org/data-resources/get-data/airborne-data" target="_blank"> NEON Airborne Data Request Page on the NEON Website.</a>
+{% include/_greyBox-wd-rscript.html %}
 
+**Raster Lesson Series:** This lesson is part of a lesson series on 
+[raster data in `R` ]({{ site.baseurl }}tutorial/spatial-raster-series). It is
+also part of a larger spatio-temporal 
+[spatio-temporal Data Carpentry Workshop ]({{ site.baseurl }}workshops/spatio-temporal-workshop)
+that includes working with  
+[vector data in R ]({{ site.baseurl }}tutorial/spatial-vector-series) 
+and  
+[tabular time series in R ]({{ site.baseurl }}tutorial/tabular-time-series).
 
-**Set Working Directory:** This lessons assumes that you have set your working 
-directory to the location of the downloaded and unzipped data subset. [An overview
-of setting the working directory in `R` can be found here.]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
-lesson prior to beginning this lesson.
-
-**Challenge Code:** NEON Data lesson often contain challenges that reinforce 
-learned skills. If available, the code for challenge solutions is found in a 
-downloadable `R` script available on the footer of each lesson page.
-
-**Raster Lesson Series : ** This lesson is a part of a lesson series on raster 
-data in R <<link here>>
+****
 
 ###Additional Resources
 
@@ -90,7 +83,8 @@ tool to explore raster values. And render categorical plots, using `breaks` or
 bins that are meaningful representations of our data. 
 
 We will use the `raster` and `rgdal` libraries in this
-lesson. If you do not have the `DSM_HARV` object from [the Intro To Raster In R lesson]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R "First Lesson in Series"), 
+lesson. If you do not have the `DSM_HARV` object from 
+[the Intro To Raster In R lesson]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R), 
 please create it now.  
 
 
@@ -102,7 +96,7 @@ please create it now.
     #setwd("working-dir-path-here")
     
     #import raster
-    DSM_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_dsmCrop.tif")
+    DSM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 First, let's plot our Digital Surface Model object (`DSM_HARV`) using the `plot`
 function. We add a title using `main=""`.
@@ -110,16 +104,16 @@ function. We add a title using `main=""`.
 
     #Plot raster object
     plot(DSM_HARV,
-         main="NEON Digital Surface Model\nHarvard Forest Field Site")
+         main="Digital Surface Model\nNEON Harvard Forest Field Site")
 
 ![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/hist-raster-1.png) 
 
-# Plotting Data Using Breaks
-We can view our data "symbolized" or colored according to ranges of values rather than
-using a continuous color ramp. This is comparable to a "classified" map. However,
- to assign breaks, it is useful to first explore the distribution of the data
- using a histogram. The `breaks=` element in the `hist` function tells `R` to use fewer
-or more breaks or bins. 
+##Plotting Data Using Breaks
+We can view our data "symbolized" or colored according to ranges of values
+rather than using a continuous color ramp. This is comparable to a "classified"
+map. However, to assign breaks, it is useful to first explore the distribution
+of the data using a histogram. The `breaks=` element in the `hist` function
+tells `R` to use fewer or more breaks or bins. 
 
 If we name the histogram, we can also view counts for each bin and assigned
 break values.  
@@ -128,7 +122,7 @@ break values.
     #Plot distribution of raster values 
     DSMhist<-hist(DSM_HARV,
          breaks=3,
-         main="Histogram Digital Surface Model\nHarvard Forest Field Site",
+         main="Histogram Digital Surface Model\n NEON Harvard Forest Field Site",
          col="wheat3",  #changes bin color
          xlab= "Elevation (m)")  #label the x-axis
 
@@ -144,12 +138,12 @@ break values.
 
     DSMhist$counts
 
-    ## [1] 31914 67641   445
+    ## [1] 31901 67613   486
 
-Warning message!? Remember, the default for the histogram is to include only a subset 
-of 100,000 values. We could force it to show all the pixel values or we can use 
-the histogram as is and figure that the sample of 100,000 values represents our 
-data well. 
+Warning message!? Remember, the default for the histogram is to include only a
+subset of 100,000 values. We could force it to show all the pixel values or we
+can use the histogram as is and figure that the sample of 100,000 values
+represents our data well. 
 
 Looking at our histogram, `R` has binned out the data as follows:
 
@@ -172,7 +166,7 @@ We can include as few or many breaks as we'd like.
     plot(DSM_HARV, 
          breaks = c(300, 350, 400, 450), 
          col = terrain.colors(3),
-         main="NEON Digital Surface Model\nHarvard Forest Field Site")
+         main="Digital Surface Model (DSM)\n NEON Harvard Forest Field Site")
 
 ![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/plot-with-breaks-1.png) 
 
@@ -196,9 +190,9 @@ We can label the x- and y-axes of our plot too using `xlab` and `ylab`.
     plot(DSM_HARV, 
          breaks = c(300, 350, 400, 450), 
          col = myCol,
-         main="NEON Digital Surface Model\nHarvard Forest Field Site", 
+         main="Digital Surface Model\nNEON Harvard Forest Field Site", 
          xlab = "UTM Westing Coordinate (m)", 
-         ylab = "UTM Northing Coodinate (m)")
+         ylab = "UTM Northing Coordinate (m)")
 
 ![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/add-plot-title-1.png) 
 
@@ -209,13 +203,13 @@ Or we can also turn off the axes altogether.
     plot(DSM_HARV, 
          breaks = c(300, 350, 400, 450), 
          col = myCol,
-         main="NEON Digital Surface Model\nHarvard Forest Field Site", 
+         main="Digital Surface Model\n NEON Harvard Forest Field Site", 
          axes=FALSE)
 
 ![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/turn-off-axes-1.png) 
 
 <div id="challenge" markdown="1">
-##Challenge
+##Challenge: Create a Labeled Plots
 Create a plot of the Harvard Forest Digital Surface Model (DSM) that has:
 
 * Six categories that are evenly divided among the range of pixel values. 
@@ -224,25 +218,25 @@ Create a plot of the Harvard Forest Digital Surface Model (DSM) that has:
 
 </div>
 
+
 ![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/challenge-code-plotting-1.png) 
 
-
-#Layering Rasters
+##Layering Rasters
 We can layer a raster on top of hillshade raster for the same area, and use a 
-transparency factor to created a shaded 3 dimensional, shaded effect. A hillshade 
-is a raster that maps the shadows and texture that you would see from above when 
-viewing terrain.
-
+transparency factor to created a shaded 3 dimensional, shaded effect. A
+hillshade is a raster that maps the shadows and texture that you would see from
+above when viewing terrain.
 
 
     #import DSM hillshade
-    DSM_hill_HARV <- raster("NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif")
+    DSM_hill_HARV <- 
+      raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
     
     #plot hillshade using a grayscale color ramp that looks like shadows.
     plot(DSM_hill_HARV,
         col=grey(1:100/100),  #create a color ramp of grey colors
         legend=FALSE,
-        main="NEON Hillshade - DSM\n Harvard Forest",
+        main="Hillshade - DSM\n NEON Harvard Forest Field Site",
         axes=FALSE)
 
 ![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/hillshade-1.png) 
@@ -259,7 +253,7 @@ Let's overlay `DSM_HARV` on top of the `hill_HARV`.
     plot(DSM_hill_HARV,
         col=grey(1:100/100),  #create a color ramp of grey colors
         legend=F,
-        main="NEON DSM with Hillshade \n Harvard Forest",
+        main="DSM with Hillshade \n NEON Harvard Forest Field Site",
         axes=FALSE)
     
     #add the DSM on top of the hillshade
@@ -293,6 +287,7 @@ Make sure to:
  data.
  
 </div>
+
 
 ![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/challenge-hillshade-layering-1.png) ![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/challenge-hillshade-layering-2.png) 
 

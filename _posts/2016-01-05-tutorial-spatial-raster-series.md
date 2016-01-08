@@ -1,5 +1,5 @@
 ---
-layout: tutorial
+layout: workshop
 title: "Self-paced Tutorial: Working with Spatial Raster Time Series Data Series"
 estimatedTime: 3.0 Hours
 packagesLibraries: [rgdal, sp, raster, rasterVis, ggplot2]

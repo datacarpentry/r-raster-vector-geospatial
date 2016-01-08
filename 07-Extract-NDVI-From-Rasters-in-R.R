@@ -5,7 +5,7 @@ library(rgdal)
 library(ggplot2)
 
 # Create list of NDVI file paths
-all_HARV_NDVI <- list.files("Landsat_NDVI/HARV/2011/ndvi",
+all_HARV_NDVI <- list.files("NEON-DS-Landsat-NDVI/HARV/2011/NDVI",
                             full.names = TRUE,
                             pattern = ".tif$")
 
@@ -61,7 +61,7 @@ julianDays <- gsub(pattern = "X|_HARV_ndvi_crop", #the pattern to find
             replacement = "") #what to replace each instance of the pattern with
 
 #alternately you can include the above code on one single line
-#julianDays <- gsub("X|_HARV_ndvi_crop", "", row.names(avg_NDVI_HARV))
+#julianDays <- gsub("X|_HARV_NDVI_crop", "", row.names(avg_NDVI_HARV))
 
 #make sure output looks ok
 head(julianDays)
@@ -93,12 +93,13 @@ class(avg_NDVI_HARV$julianDay)
 
 ## ----challenge-answers,  include=TRUE, results="hide", echo=FALSE--------
 # Create list of NDVI file paths
-NDVI_path_SJER <- "Landsat_NDVI/SJER/2011/ndvi"
-all_NDVI_SJER <- list.files(NDVI_path_SJER, full.names = TRUE, pattern = ".tif$")
+NDVI_path_SJER <- "NEON-DS-Landsat-NDVI/SJER/2011/NDVI"
+all_NDVI_SJER <- list.files(NDVI_path_SJER,
+                            full.names = TRUE,
+                            pattern = ".tif$")
 
 # Create a time series raster stack
 NDVI_stack_SJER <- stack(all_NDVI_SJER)
-
 
 #Calculate Mean, Scale Data, convert to data.frame all in 1 line!
 avg_NDVI_SJER <- as.data.frame(cellStats(NDVI_stack_SJER,mean)/10000)
@@ -135,9 +136,9 @@ avg_NDVI_SJER
 ## ----ggplot-data---------------------------------------------------------
 
 #plot NDVI
-ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI)) +
+ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI), na.rm=TRUE) +
   geom_point(size=4,colour = "PeachPuff4") + 
-  ggtitle("NDVI for HARV 2011\nLandsat Derived") +
+  ggtitle("Landsat Derived NDVI - 2011\n NEON Harvard Forest Field Site") +
   xlab("Julian Days") + ylab("Mean NDVI") +
   theme(text = element_text(size=20))
 
@@ -147,20 +148,20 @@ ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI)) +
 #plot NDVI
 ggplot(avg_NDVI_SJER, aes(julianDay, meanNDVI)) +
   geom_point(size=4,colour = "SpringGreen4") + 
-  ggtitle("NDVI for SJER 2011\nLandsat Derived") +
+  ggtitle("Landsat Derived NDVI - 2011\n NEON SJER Field Site") +
   xlab("Julian Day") + ylab("Mean NDVI") +
   theme(text = element_text(size=20))
 
 
 ## ----merge-df-single-plot------------------------------------------------
 #Merge Data Frames
-ndvi_HARV_SJER <- rbind(avg_NDVI_HARV,avg_NDVI_SJER)  
+NDVI_HARV_SJER <- rbind(avg_NDVI_HARV,avg_NDVI_SJER)  
   
 #plot NDVI values for both sites
-ggplot(ndvi_HARV_SJER, aes(julianDay, meanNDVI, colour=site)) +
+ggplot(NDVI_HARV_SJER, aes(julianDay, meanNDVI, colour=site)) +
   geom_point(size=4,aes(group=site)) + 
   geom_line(aes(group=site)) +
-  ggtitle("Landsat Derived NDVI - 2011\nNEON Harvard Forest vs San Joaquin") +
+  ggtitle("Landsat Derived NDVI - 2011\n Harvard Forest vs San Joaquin \n NEON Field Sites") +
   xlab("Julian Day") + ylab("Mean NDVI") +
   scale_colour_manual(values=c("PeachPuff4", "SpringGreen4")) +   #match previous plots
   theme(text = element_text(size=20))
@@ -168,10 +169,10 @@ ggplot(ndvi_HARV_SJER, aes(julianDay, meanNDVI, colour=site)) +
 
 ## ----challenge-code-plot2, echo=FALSE------------------------------------
 #plot NDVI values for both sites
-ggplot(ndvi_HARV_SJER, aes(Date, meanNDVI, colour=site)) +
+ggplot(NDVI_HARV_SJER, aes(Date, meanNDVI, colour=site)) +
   geom_point(size=4,aes(group=site)) + 
   geom_line(aes(group=site)) +
-  ggtitle("Landsat Derived NDVI - 2011\n Harvard Forest vs San Joaquin") +
+  ggtitle("Landsat Derived NDVI - 2011\n Harvard Forest vs San Joaquin \n NEON Field Sites") +
   xlab("Date") + ylab("Mean NDVI") +
   scale_colour_manual(values=c("PeachPuff4", "SpringGreen4")) +   #match previous plots
   theme(text = element_text(size=20))
@@ -179,7 +180,7 @@ ggplot(ndvi_HARV_SJER, aes(Date, meanNDVI, colour=site)) +
 
 ## ----view-all-rgb-Harv, echo=FALSE---------------------------------------
 #open up the cropped files
-rgb.allCropped <-  list.files("Landsat_NDVI/HARV/2011/RGB/", 
+rgb.allCropped <-  list.files("NEON-DS-Landsat-NDVI/HARV/2011/RGB/", 
                               full.names=TRUE, 
                               pattern = ".tif$")
 #create a layout
@@ -187,33 +188,33 @@ par(mfrow=c(4,4))
 
 #Super efficient code
 for (aFile in rgb.allCropped){
-  ndvi.rastStack <- stack(aFile)
-  plotRGB(ndvi.rastStack, stretch="lin")
-}
+  NDVI.rastStack <- stack(aFile)
+  plotRGB(NDVI.rastStack, stretch="lin")
+  }
 
 #reset layout
 par(mfrow=c(1,1))
 
 ## ----view-all-rgb-SJER, echo=FALSE---------------------------------------
 #open up the cropped files
-rgb.allCropped.SJER <-  list.files("Landsat_NDVI/SJER/2011/RGB/", 
+rgb.allCropped.SJER <-  list.files("NEON-DS-Landsat-NDVI/SJER/2011/RGB/", 
                               full.names=TRUE, 
                               pattern = ".tif$")
 #create a layout
 par(mfrow=c(5,4))
 
 #Super efficient code
-for (aFile in rgb.allCropped.SJER){
-  ndvi.rastStack <- stack(aFile)
+for (aFile in rgb.allCropped.SJER)
+  {NDVI.rastStack <- stack(aFile)
+  if (aFile =="NEON-DS-Landsat-NDVI/SJER/2011/RGB/254_SJER_landRGB.tif")
+    {plotRGB(NDVI.rastStack) }
+  else { plotRGB(NDVI.rastStack) }
+  }
   # 254_SJER_landRGB.tif - the range on the blue band for this layer is 255-255
-  #r cant render that as a stretch function. Not sure how to properly fix this via 
-  #code, for the meantime writing a manual exception
-  if (aFile =="Landsat_NDVI/SJER/2011/RGB//254_SJER_landRGB.tif") {
-    plotRGB(ndvi.rastStack) }
-  else { 
-    plotRGB(ndvi.rastStack, stretch="lin") }
-
-}
+  #R cant render that as a stretch function. Not sure how to properly fix this
+  #via code, for the meantime writing a manual exception -> This manual fix not
+  # rendering on mjones01 computer pulled out ", stretch="lin" " from else 
+  #statement.  NEED TO FIX
 
 #reset layout
 par(mfrow=c(1,1))
@@ -223,14 +224,14 @@ par(mfrow=c(1,1))
 #retain only rows with meanNDVI>0.1
 avg_NDVI_HARV_clean<-subset(avg_NDVI_HARV, meanNDVI>0.1)
 
-#work?
+#Did it work?
 avg_NDVI_HARV_clean$meanNDVI<0.1
 
 ## ----plot-clean-HARV-----------------------------------------------------
 #plot without questionable data
 ggplot(avg_NDVI_HARV_clean, aes(julianDay, meanNDVI)) +
   geom_point(size=4,colour = "SpringGreen4") + 
-  ggtitle("NDVI for HARV 2011\nLandsat Derived") +
+  ggtitle("Landsat Derived NDVI - 2011\n NEON Harvard Forest Field Site") +
   xlab("Julian Days") + ylab("Mean NDVI") +
   theme(text = element_text(size=20))
 
