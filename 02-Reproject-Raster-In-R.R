@@ -6,15 +6,16 @@ library(rgdal)
 
 ## ----import-DTM-hillshade------------------------------------------------
 #import DTM
-DTM_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_dtmcrop.tif")
+DTM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmcrop.tif")
 #import DTM hillshade
-DTM_hill_HARV <- raster("NEON_RemoteSensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
+DTM_hill_HARV <- 
+  raster("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
 
 #plot hillshade using a grayscale color ramp 
 plot(DTM_hill_HARV,
     col=grey(1:100/100),
     legend=FALSE,
-    main="DTM Hillshade\n NEON Harvard Forest")
+    main="DTM Hillshade\n NEON Harvard Forest Field Site")
 
 #overlay the DTM on top of the hillshade
 plot(DTM_HARV,
@@ -30,7 +31,7 @@ plot(DTM_HARV,
      col=terrain.colors(10),
      alpha=1,
      legend=F,
-     main="Digital Terrain Model\n NEON Harvard Forest")
+     main="Digital Terrain Model\n NEON Harvard Forest Field Site")
 
 
 ## ----explore-crs---------------------------------------------------------
@@ -87,9 +88,10 @@ plot(DTM_HARV,
 ## ----challenge-code-reprojection, echo=FALSE-----------------------------
 
 #import DTM
-DSM_SJER <- raster("NEON_RemoteSensing/SJER/DSM/SJER_dsmcrop.tif")
+DSM_SJER <- raster("NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmcrop.tif")
 #import DTM hillshade
-DSM_hill_SJER_WGS <- raster("NEON_RemoteSensing/SJER/DSM/SJER_DSMhill_WGS84.tif")
+DSM_hill_SJER_WGS <- 
+  raster("NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMhill_WGS84.tif")
 
 #reproject raster 
 DTM_hill_UTMZ18N_SJER <- projectRaster(DSM_hill_SJER_WGS, 
@@ -99,7 +101,7 @@ DTM_hill_UTMZ18N_SJER <- projectRaster(DSM_hill_SJER_WGS,
 plot(DTM_hill_UTMZ18N_SJER,
     col=grey(1:100/100),
     legend=F,
-    main="NEON DSM with Hillshade\n San Joaquin Experimental Range")
+    main="DSM with Hillshade\n NEON SJER Field Site")
 
 #overlay the DSM on top of the hillshade
 plot(DSM_SJER,

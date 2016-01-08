@@ -1,6 +1,7 @@
 ## ----demonstrate-RGB-Image, echo=FALSE-----------------------------------
 # Use stack function to read in all bands
-RGB_stack_HARV <- stack("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
+RGB_stack_HARV <- 
+  stack("NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
 names(RGB_stack_HARV) <- c("Red Band","Green Band","Blue Band")
 
@@ -23,7 +24,7 @@ original_par <-par() #create original par for easy reversal at end
 par(col.axis="white",col.lab="white",tck=0)
 plotRGB(RGB_stack_HARV, r = 1, g = 2, b = 3,
         axes=TRUE, 
-        main="3 Band Color Composite Image")
+        main="3 Band Color Composite Image\n NEON Harvard Forest Field Site")
 box(col="white")
 
 
@@ -35,7 +36,7 @@ par(original_par) # go back to original par
 
 #work with raster data
 library(raster)
-#export geotiffs and other core GIS functions
+#export GeoTIFFs and other core GIS functions
 library(rgdal)
 
 
@@ -43,7 +44,8 @@ library(rgdal)
  
 # Read in multi-band raster with raster function. 
 # Default is the first band only.
-RGB_band1_HARV <- raster("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
+RGB_band1_HARV <- 
+  raster("NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
 # create a grayscale color palette to use for the image.
 grayscale_colors <- gray.colors(100,            #how many different color levels 
@@ -57,7 +59,7 @@ grayscale_colors <- gray.colors(100,            #how many different color levels
 plot(RGB_band1_HARV, 
      col=grayscale_colors, 
      axes=FALSE,
-     main="NEON RGB Imagery - Band 1-Red\nHarvard Forest") 
+     main="RGB Imagery - Band 1-Red\nNEON Harvard Forest Field Site") 
 
 #view attributes: Check out dimension, CRS, resolution, values attributes, and 
 #band.
@@ -72,14 +74,15 @@ maxValue(RGB_band1_HARV)
 
 ## ----read-specific-band--------------------------------------------------
 # Can specify which band we want to read in
-RGB_band2_HARV <- raster("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif", 
-                    band = 2)
+RGB_band2_HARV <- 
+  raster("NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif", 
+           band = 2)
 
 #plot band 2
 plot(RGB_band2_HARV,
      col=grayscale_colors, #we already created this palette & can use it again
      axes=FALSE,
-     main="NEON RGB Imagery - Band 2- Green\nHarvard Forest")
+     main="RGB Imagery - Band 2- Green\nNEON Harvard Forest Field Site")
 
 #view attributes of band 2 
 RGB_band2_HARV
@@ -95,7 +98,8 @@ RGB_band2_HARV
 ## ----intro-to-raster-stacks----------------------------------------------
 
 # Use stack function to read in all bands
-RGB_stack_HARV <- stack("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
+RGB_stack_HARV <- 
+  stack("NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
 #view attributes of stack object
 RGB_stack_HARV
@@ -116,13 +120,13 @@ hist(RGB_stack_HARV,
 plot(RGB_stack_HARV, 
      col=grayscale_colors)
 
-#plot band 2 
-plot(RGB_stack_HARV[[2]], 
-     main="Band 2\n NEON Harvard Forest",
-     col=grayscale_colors)
-
 # revert to a single plot layout 
 par(mfrow=c(1,1)) 
+
+#plot band 2 
+plot(RGB_stack_HARV[[2]], 
+     main="Band 2\n NEON Harvard Forest Field Site",
+     col=grayscale_colors)
 
 
 ## ----plot-rgb-image------------------------------------------------------
@@ -151,24 +155,26 @@ plotRGB(RGB_stack_HARV,
 ## ----challenge-code-NoData, echo=FALSE, results="hide"-------------------
 #1.
 #view attributes
-GDALinfo("NEON_RemoteSensing/HARV/HARV_Ortho_wNA.tif")
+GDALinfo("NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif")
 
 #2 Yes it has NoData values as they are assigned as -9999 
 #3 3 bands
 
 #4
 #reading in file
-HARV_NA<- stack("NEON_RemoteSensing/HARV/HARV_Ortho_wNA.tif")
+HARV_NA<- 
+  stack("NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif")
 
 #5
 plotRGB(HARV_NA, 
         r = 1, g = 2, b = 3)
 
 #6 The black edges are not plotted. 
-#7 Both have NoData values, however, in RGB_stack the NoData value is not defined
-#in the tiff tags, thus R renders them as black as the reflectance values are 0. 
-# the black edges in the other file are defined as -9999 and R renders them as NA.
-GDALinfo("NEON_RemoteSensing/HARV/HARV_RGB_Ortho.tif")
+#7 Both have NoData values, however, in RGB_stack the NoData value is not
+# defined in the tiff tags, thus R renders them as black as the reflectance
+# values are 0. The black edges in the other file are defined as -9999 and R
+# renders them as NA.
+GDALinfo("NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
 
 ## ----raster-bricks-------------------------------------------------------
