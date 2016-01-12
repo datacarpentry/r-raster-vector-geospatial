@@ -11,7 +11,11 @@ category:
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
 description: "This lesson reviews the fundamental principles, packages and 
-metadata / raster attributes that are needed to work with raster data in R."
+metadata / raster attributes that are needed to work with raster data in R. It 
+covers the three core metadata elements that we need to understand to work with
+rasters in R: CRS, Extent and Resolution. It also explores no and bad data values
+as stored in a raster and R handles these elements. Finally it introduces the
+GeoTiff file format."
 code1: 00-Raster-Structure.R
 image:
   feature: NEONCarpentryHeader_2.png
