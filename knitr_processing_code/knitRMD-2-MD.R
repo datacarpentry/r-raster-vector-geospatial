@@ -24,7 +24,7 @@ wd <- "~/Documents/data/Spatio_TemporalWorkshop"
 setwd(wd)
 
 #don't change - this is the posts dir location required by jekyll
-postsDir <- ("_posts/")
+postsDir <- ("_posts/R/dc-spatial-raster")
 
 #images path
 imagePath <- "images/rfigs/"
@@ -90,9 +90,8 @@ for (files in rmd.files) {
   
   #delete local repo copies of RMD files just so things are cleaned up??
   
-  ## OUTPUT STUFF TO R ##
-  #output code in R format
-  rCodeOutput <- paste0(gitRepoPath, sub(".Rmd$", "", basename(files)), ".R")
+  ## OUTPUT CODE (PURL) TO .R format -keep just code chunks ##
+  rCodeOutput <- paste0(gitRepoPath, "code/", sub(".Rmd$", "", basename(files)), ".R")
   
   #purl the code to R
   purl(files, output = rCodeOutput)
