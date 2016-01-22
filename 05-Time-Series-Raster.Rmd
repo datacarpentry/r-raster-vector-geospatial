@@ -18,7 +18,7 @@ image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink: http://www.neoninc.org
-permalink: /R/Raster-Times-Series-Data-In-R/
+permalink: R/Raster-Times-Series-Data-In-R/
 comments: false
 ---
 
@@ -33,7 +33,7 @@ in remote sensing derived imagery.
 
 <div id="objectives" markdown="1">
 
-###Goals / Objectives
+#Goals / Objectives
 
 After completing this activity, you will:
 
@@ -43,24 +43,34 @@ After completing this activity, you will:
 * Be able to plot and explore time series raster data using the `plot()`
 function in `R`.
 
-**To complete this lesson:** you will need the most current version of R, and 
+##Things You’ll Need To Complete This Lesson
+To complete this lesson: you will need the most current version of R, and 
 preferably RStudio, loaded on your computer.
 
-####R Libraries to Install:
+###Install R Packages
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
+* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}R/Packages-In-R/)
+
 ####Data to Download
 {% include/dataSubsets/_data_Landsat-NDVI.html %}
 
-**Set Working Directory:** This lessons assumes that you have set your working 
-directory to the location of the downloaded and unzipped data subset. 
-[An overview of setting the working directory in `R` can be found here.]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
+****
 
-**Challenge Code:** NEON Data lesson often contain challenges that reinforce 
-learned skills. If available, the code for challenge solutions is found in a 
-downloadable `R` script available on the footer of each lesson page.
+{% include/_greyBox-wd-rscript.html %}
+
+**Raster Lesson Series:** This lesson is part of a lesson series on 
+[raster data in `R` ]({{ site.baseurl }}tutorial/spatial-raster-series). It is
+also part of a larger spatio-temporal 
+[spatio-temporal Data Carpentry Workshop ]({{ site.baseurl }}workshops/spatio-temporal-workshop)
+that includes working with  
+[vector data in R ]({{ site.baseurl }}tutorial/spatial-vector-series) 
+and  
+[tabular time series in R ]({{ site.baseurl }}tutorial/tabular-time-series).
+
+****
 
 ###Additional Resources
 * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
@@ -68,7 +78,7 @@ Read more about the `raster` package in `R`.</a>
 
 </div>
 
-#About Raster Time Series Data
+##About Raster Time Series Data
 
 A raster data file can contain one single band or many bands. If the raster data
 contains imagery data, each band may represent reflectance for a different 
@@ -81,7 +91,7 @@ same `resolution`.
     <a href="{{ site.baseurl }}/images/raster_timeseries/GreenessOverTime.png">
     <img src="{{ site.baseurl }}/images/raster_timeseries/GreenessOverTime.png"></a>
     <figcaption>A multi-band raster dataset can contain time series data. 
-    Image Source: NEON, Inc. 
+    Source: National Ecological Observatory Network (NEON). 
     </figcaption>
 </figure>
 
@@ -122,7 +132,7 @@ derived single band product saved as a GeoTIFF for different times of the year.
 * <a href="http://earthobservatory.nasa.gov/Features/MeasuringVegetation/measuring_vegetation_2.php" target="_blank">
 More on NDVI from NASA</a>
 
-##RGB data
+##RGB Data
 While the NDVI data is a single band product, the RGB images that contain the
 red band used to derive NDVI, contain 3 (of the 7) 30m resolution bands
 available from Landsat data. The RGB directory contains RGB images for each time
@@ -134,11 +144,12 @@ period that NDVI is available.
     <img src="{{ site.baseurl }}/images/raster_timeseries/RGBSTack_1.png"></a>
     <figcaption>A "true" color image consists of 3 bands - red, green and blue. 
     When composited or rendered together in a GIS, or even a image-editor like
-    Photoshop the bands create a color image. Image Source: NEON, Inc.  
+    Photoshop the bands create a color image. 
+	Source: National Ecological Observatory Network (NEON).  
     </figcaption>
 </figure>
 
-##Getting Started 
+###Getting Started 
 In this lesson, we will use the `raster` and `rgdal` libraries.
 
 ```{r load-libraries }
@@ -203,7 +214,6 @@ xres(NDVI_HARV_stack)
 
 <div id="challenge" markdown="1">
 ##Challenge: Raster Metadata
-
 Answer the following questions about our `RasterStack`.
 
 1. What is the `CRS`?
@@ -215,10 +225,11 @@ Answer the following questions about our `RasterStack`.
 ``` {r challenge-code-raster-metadata, eval=FALSE, echo=FALSE}
 #1. UTM zone 19 WGS 84
 #2. 30x30 meters
+#3. meters
 
 ```
 
-#Plotting Time Series Data
+##Plotting Time Series Data
 Once we have created our `RasterStack`, we can visualize our data. We can use
 the `plot()` command to quickly plot a `RasterStack`.
 
@@ -265,7 +276,6 @@ plot(NDVI_HARV_stack,
 
 ```
 
-
 ##Take a Closer Look at Our Data
 Let's take a closer look at the plots of our data. Note that Massachusettes, 
 where the NEON Harvard Forest Field Site is located has a fairly consistent
@@ -304,7 +314,7 @@ of the year. Is this right?
 
 ###Explore Unusual Data Patterns
 The NDVI data that we are using comes from 2011, perhaps a strong freeze around
-Julian day 277 could cause a vegetation to senesce early, however in the Eastern
+Julian day 277 could cause a vegetation to senesce early, however in the eastern
 United States, it seems unusual that it would proceed to green up again shortly 
 thereafter. 
 
@@ -323,16 +333,16 @@ harMetDaily <-
 #set the field to be a date field
 harMetDaily$date <- as.Date(harMetDaily$date, format = "%Y-%m-%d")
 
-#subset out some of the data - 2010-2013 
-yr.09.11_dailyAvg <- subset(harMetDaily, 
+#subset out some of the data - 2011
+yr.11_dailyAvg <- subset(harMetDaily, 
                             date >= as.Date('2011-01-01') & 
-                            date <= as.Date('2012-01-01'))
+                            date <= as.Date('2011-12-31'))
 
 #plot Air Temperature Data (airt) by julian day (jd)
   
-myPlot <- ggplot(yr.09.11_dailyAvg,aes(jd, airt)) +
+myPlot <- ggplot(yr.11_dailyAvg,aes(jd, airt)) +
            geom_point() +
-           ggtitle("2011 Air Temperature\nNEON Harvard Forest Field Site") +
+           ggtitle("Daily Mean Air Temperature\nNEON Harvard Forest Field Site") +
            theme(plot.title = element_text(lineheight=.8, face="bold",
                                            size = 20)) +
            theme(text = element_text(size=20)) +
@@ -386,7 +396,7 @@ par(mfrow=c(1,1))
 
 ```
 
-##Explore Your Data's Source
+##Explore The Data's Source
 The third challenge question, "Does the RGB imagery from these two days explain 
 the low NDVI values observed on these days?" highlights the importance of
 exploring the source of a derived data product. In this case, the NDVI data

@@ -10,21 +10,21 @@ require(knitr)
 
 #################### Set up Input Variables #############################
 #Inputs - Where the git repo is on your computer
-gitRepoPath <-"~/Documents/GitHub/NEON-R-Spatial-Raster/"
+gitRepoPath <-"~/Documents/Git_Repositories/NEON-R-Spatial-Raster/"
 
 #jekyll will only render md posts that begin with a date. Add one.
-add.date <- "2015-10-26-Rast"
+add.date <- "2016-01-07-SR"
 
 #set working dir - this is where the data are located
-wd <- "~/Documents/data/1_DataPortal_Workshop/1_WorkshopData"
+wd <- "~/Documents/data/Spatio_TemporalWorkshop"
 
 
-################### CONFIG BELOW IS REQUIRED BY JEKYLL - DON"T CHANGE ############
+################### CONFIG BELOW IS REQUIRED BY JEKYLL - DON"T CHANGE ##########
 #set data working dir
 setwd(wd)
 
 #don't change - this is the posts dir location required by jekyll
-postsDir <- ("_posts/")
+postsDir <- ("_posts/R/dc-spatial-raster")
 
 #images path
 imagePath <- "images/rfigs/"
@@ -90,9 +90,8 @@ for (files in rmd.files) {
   
   #delete local repo copies of RMD files just so things are cleaned up??
   
-  ## OUTPUT STUFF TO R ##
-  #output code in R format
-  rCodeOutput <- paste0(gitRepoPath, sub(".Rmd$", "", basename(files)), ".R")
+  ## OUTPUT CODE (PURL) TO .R format -keep just code chunks ##
+  rCodeOutput <- paste0(gitRepoPath, "code/", sub(".Rmd$", "", basename(files)), ".R")
   
   #purl the code to R
   purl(files, output = rCodeOutput)

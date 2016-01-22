@@ -5,11 +5,11 @@ library(raster)
 library(rgdal)
 
 
-## ----import-ndvi-rasters-------------------------------------------------
+## ----import-NDVI-rasters-------------------------------------------------
 
 # Create list of NDVI file paths
 # assign path to object = cleaner code
-NDVI_HARV_path <- "Landsat_NDVI/HARV/2011/ndvi" 
+NDVI_HARV_path <- "NEON-DS-Landsat-NDVI/HARV/2011/NDVI" 
 all_NDVI_HARV <- list.files(NDVI_HARV_path,
                             full.names = TRUE,
                             pattern = ".tif$")
@@ -41,6 +41,7 @@ xres(NDVI_HARV_stack)
 ## ----challenge-code-raster-metadata, eval=FALSE, echo=FALSE--------------
 ## #1. UTM zone 19 WGS 84
 ## #2. 30x30 meters
+## #3. meters
 ## 
 
 ## ----plot-time-series----------------------------------------------------
@@ -70,28 +71,31 @@ hist(NDVI_HARV_stack,
      xlim = c(0, 1))
 
 
-## ----view-temp-data, echo=FALSE------------------------------------------
+## ----view-temp-data, echo=FALSE, warning=FALSE---------------------------
 
 library(ggplot2)
 library(scales)
-harMetDaily <- read.csv("NEON-DS-Met-Time-Series/HARV/FisherTower-Met/hf001-06-daily-m.csv",
+harMetDaily <- 
+  read.csv("NEON-DS-Met-Time-Series/HARV/FisherTower-Met/hf001-06-daily-m.csv",
                  stringsAsFactors = FALSE)
 
 #set the field to be a date field
 harMetDaily$date <- as.Date(harMetDaily$date, format = "%Y-%m-%d")
 
-#subset out some of the data - 2010-2013 
-yr.09.11_dailyAvg <- subset(harMetDaily, date >= as.Date('2011-01-01') & date <=
-as.Date('2012-01-01'))
+#subset out some of the data - 2011
+yr.11_dailyAvg <- subset(harMetDaily, 
+                            date >= as.Date('2011-01-01') & 
+                            date <= as.Date('2011-12-31'))
 
 #plot Air Temperature Data (airt) by julian day (jd)
   
-myPlot <- ggplot(yr.09.11_dailyAvg,aes(jd, airt)) +
+myPlot <- ggplot(yr.11_dailyAvg,aes(jd, airt)) +
            geom_point() +
-           ggtitle("2011 Air Temperature\nNEON Harvard Forest Field Site") +
-           theme(plot.title = element_text(lineheight=.8, face="bold",size = 20)) +
+           ggtitle("Daily Mean Air Temperature\nNEON Harvard Forest Field Site") +
+           theme(plot.title = element_text(lineheight=.8, face="bold",
+                                           size = 20)) +
            theme(text = element_text(size=20)) +
-           xlab("Julian Day 2011") + ylab("Mean Air Temperature (Degrees C)")
+           xlab("Julian Day 2011") + ylab("Mean Air Temperature (Celcius)")
 
 myPlot
 
@@ -99,7 +103,7 @@ myPlot
 ## ----view-all-rgb, echo=FALSE--------------------------------------------
 #open up the cropped files
 #create list of files to make raster stack
-RGB_HARV_allCropped <-  list.files("Landsat_NDVI/HARV/2011/RGB/", 
+RGB_HARV_allCropped <-  list.files("NEON-DS-Landsat-NDVI/HARV/2011/RGB/", 
                               full.names=TRUE, 
                               pattern = ".tif$")
 
@@ -108,8 +112,8 @@ par(mfrow=c(4,4))
 
 #Super efficient code
 for (aFile in RGB_HARV_allCropped){
-  ndvi.rastStack <- stack(aFile)
-  plotRGB(ndvi.rastStack, stretch="lin")
+  NDVI.rastStack <- stack(aFile)
+  plotRGB(NDVI.rastStack, stretch="lin")
 }
 
 #code parrallel to what was previously taught in lesson
