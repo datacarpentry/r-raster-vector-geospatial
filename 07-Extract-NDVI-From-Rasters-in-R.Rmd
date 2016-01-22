@@ -11,14 +11,14 @@ category: time-series-workshop
 tags: [raster-ts-wrksp, raster]
 mainTag: raster-ts-wrksp
 description: "This lesson will explore a way to extract NDVI values from a
-raster time series in `R` and plot them using `ggplot`. Methods learned in this 
+raster time series in R and plot them using ggplot. Methods learned in this 
 lesson could be applied to any raster format time series data."
 code1: 07-Extract-NDVI-From-Rasters-in-R.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink: http://www.neoninc.org
-permalink: /R/Extract-NDVI-From-Rasters-In-R/
+permalink: R/Extract-NDVI-From-Rasters-In-R/
 comments: false
 ---
 
@@ -32,7 +32,7 @@ In this lesson, we will extract NDVI values from a raster time series dataset in
 
 <div id="objectives" markdown="1">
 
-###Goals / Objectives
+#Goals / Objectives
 
 After completing this activity, you will:
 
@@ -41,40 +41,43 @@ After completing this activity, you will:
 * Be able to plot summary pixel values using `ggplot()`.
 * Have experience comparing NDVI values between two different sites. 
 
-**To complete this lesson:** you will need the most current version of R, and 
+##Things You'll Need To Complete This Lesson
+To complete this lesson: you will need the most current version of R, and 
 preferably RStudio, loaded on your computer.
 
-###R Libraries to Install:
+###Install R Packages
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
+* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}R/Packages-In-R/)
+
 ####Data to Download
 {% include/dataSubsets/_data_Landsat-NDVI.html %}
 
-**Set Working Directory:** This lessons assumes that you have set your working 
-directory to the location of the downloaded and unzipped data subset. 
-[An overview of setting the working directory in `R` can be found here.]({{site.baseurl}}/R/Set-Working-Directory "R Working Directory Lesson") 
+****
 
-**Challenge Code:** NEON Data lesson often contain challenges that reinforce 
-learned skills. If available, the code for challenge solutions is found in a 
-downloadable `R` script available on the footer of each lesson page.
+{% include/_greyBox-wd-rscript.html %}
 
-###Additional Resources
-
-* <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
-Read more about the `raster` package in `R`.</a>
+**Raster Lesson Series:** This lesson is part of a lesson series on 
+[raster data in `R` ]({{ site.baseurl }}tutorial/spatial-raster-series). It is
+also part of a larger spatio-temporal 
+[spatio-temporal Data Carpentry Workshop ]({{ site.baseurl }}workshops/spatio-temporal-workshop)
+that includes working with  
+[vector data in R ]({{ site.baseurl }}tutorial/spatial-vector-series) 
+and  
+[tabular time series in R ]({{ site.baseurl }}tutorial/tabular-time-series).
 
 </div>
 
-#Extracting Summary Statistics From Raster Data
+##Extract Summary Statistics From Raster Data
 In science, we often want to extract summary values from raster data. For
 example, we might want to understand overall greeness across a field site or at
 each plot within a field site. These values can then be compared betweeen 
 different field sites and combined with other
 related metrics to support modeling and further analysis.
 
-##Getting Started 
+##Get Started 
 In this lesson, we will work with the same set of rasters used in the
 [Raster Time Series Data in R ]({{ site.baseurl}} /R/Raster-Times-Series-Data-In-R/) 
 and
@@ -101,7 +104,7 @@ NDVI_HARV_stack <- NDVI_HARV_stack/10000
 
 ```
 
-#Calculate Average NDVI
+##Calculate Average NDVI
 Our goal in this lesson, is to create a `data.frame` that contains a single, 
 mean NDVI value for each raster in our time series. This value represents the 
 mean NDVI value for this area on a given day.  
@@ -167,7 +170,7 @@ head(avg_NDVI_HARV)
 We now have data frame that contains a row for each raster file processed, and a
 column for `meanNDVI`,  `site` and `year`.  
 
-#Extract Julian Day from row.names
+##Extract Julian Day from row.names
 We'd like to produce a plot where Julian days (the numeric day of the year,
 0 - 365/366) is on the x-axis and NDVI is on the y-axis. To create this plot,
 we'll need a column that contains the Julian day value.
@@ -182,7 +185,7 @@ Day value:
 
 # note the use of the vertical bar character ( | ) is equivalent to "or". This
 # allows us to search for more than one pattern in our text strings.
-julianDays <- gsub(pattern = "X|_HARV_NDVI_crop", #the pattern to find 
+julianDays <- gsub(pattern = "X|_HARV_ndvi_crop", #the pattern to find 
             x = row.names(avg_NDVI_HARV), #the object containing the strings
             replacement = "") #what to replace each instance of the pattern with
 
@@ -256,12 +259,12 @@ stored as 1, and so on.
 <div id="challenge" markdown="1">
 ##Challenge: NDVI for the San Joaquin Experimental Range
 We often want to compare two different sites. The National Ecological
-Obseravatory Network (NEON) also has a field site in Southern California
+Observatory Network (NEON) also has a field site in Southern California
 at the
 <a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range (SJER) </a>.  
 
-Let's compare NDVI values for the NEON Harvard Forest and San Joaquin 
-Experimental Range field sites. NDVI data for SJER are located in the
+For this challenge, compare NDVI values for the NEON Harvard Forest and San
+Joaquin Experimental Range field sites. NDVI data for SJER are located in the
 `NEON-DS-Landsat-NDVI/SJER/2011/NDVI` directory.
 
 </div>
@@ -269,7 +272,9 @@ Experimental Range field sites. NDVI data for SJER are located in the
 ```{r challenge-answers,  include=TRUE, results="hide", echo=FALSE} 
 # Create list of NDVI file paths
 NDVI_path_SJER <- "NEON-DS-Landsat-NDVI/SJER/2011/NDVI"
-all_NDVI_SJER <- list.files(NDVI_path_SJER, full.names = TRUE, pattern = ".tif$")
+all_NDVI_SJER <- list.files(NDVI_path_SJER,
+                            full.names = TRUE,
+                            pattern = ".tif$")
 
 # Create a time series raster stack
 NDVI_stack_SJER <- stack(all_NDVI_SJER)
@@ -287,7 +292,7 @@ avg_NDVI_SJER$site <- "SJER"
 avg_NDVI_SJER$year <- "2011"
 
 #Create Julian Day Column 
-julianDays_SJER <- gsub(pattern = "X|_SJER_NDVI_crop", #the pattern to find 
+julianDays_SJER <- gsub(pattern = "X|_SJER_ndvi_crop", #the pattern to find 
             x = row.names(avg_NDVI_SJER), #the object containing the strings
             replacement = "") #what to replace each instance of the pattern with
 
@@ -307,7 +312,7 @@ avg_NDVI_SJER
 
 ```
 
-#Plot NDVI Using ggplot
+##Plot NDVI Using ggplot
 We now have a clean data.frame with properly scaled NDVI and Julian days. Let's
 plot our data.  
 
@@ -319,16 +324,16 @@ in `ggplot()` see the lesson on
 ```{r ggplot-data }
 
 #plot NDVI
-ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI)) +
+ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI), na.rm=TRUE) +
   geom_point(size=4,colour = "PeachPuff4") + 
-  ggtitle("NDVI for HARV 2011\nLandsat Derived") +
+  ggtitle("Landsat Derived NDVI - 2011\n NEON Harvard Forest Field Site") +
   xlab("Julian Days") + ylab("Mean NDVI") +
   theme(text = element_text(size=20))
 
 ```
 
 <div id="challenge" markdown="1">
-##Challenge: ggplot for San Joaquin Experimental Range Data
+##Challenge: ggplot with San Joaquin Experimental Range Data
 Create a complementary plot for the SJER data. Plot the data points in a
 different color. 
 </div>
@@ -338,13 +343,13 @@ different color.
 #plot NDVI
 ggplot(avg_NDVI_SJER, aes(julianDay, meanNDVI)) +
   geom_point(size=4,colour = "SpringGreen4") + 
-  ggtitle("NDVI for SJER 2011\nLandsat Derived") +
+  ggtitle("Landsat Derived NDVI - 2011\n NEON SJER Field Site") +
   xlab("Julian Day") + ylab("Mean NDVI") +
   theme(text = element_text(size=20))
 
 ```
 
-#Compare NDVI from Two Different Sites in One Plot
+##Compare NDVI from Two Different Sites in One Plot
 Comparison of plots is often easiest when both plots are side by side. Or, even 
 better, if both sets of data are plotted in the same plot. We can do this by 
 binding the two data sets together. The date frames must have the same number
@@ -358,7 +363,7 @@ NDVI_HARV_SJER <- rbind(avg_NDVI_HARV,avg_NDVI_SJER)
 ggplot(NDVI_HARV_SJER, aes(julianDay, meanNDVI, colour=site)) +
   geom_point(size=4,aes(group=site)) + 
   geom_line(aes(group=site)) +
-  ggtitle("Landsat Derived NDVI - 2011\nNEON Harvard Forest vs San Joaquin") +
+  ggtitle("Landsat Derived NDVI - 2011\n Harvard Forest vs San Joaquin \n NEON Field Sites") +
   xlab("Julian Day") + ylab("Mean NDVI") +
   scale_colour_manual(values=c("PeachPuff4", "SpringGreen4")) +   #match previous plots
   theme(text = element_text(size=20))
@@ -377,18 +382,18 @@ on the x-axis.
 ggplot(NDVI_HARV_SJER, aes(Date, meanNDVI, colour=site)) +
   geom_point(size=4,aes(group=site)) + 
   geom_line(aes(group=site)) +
-  ggtitle("Landsat Derived NDVI - 2011\n Harvard Forest vs San Joaquin") +
+  ggtitle("Landsat Derived NDVI - 2011\n Harvard Forest vs San Joaquin \n NEON Field Sites") +
   xlab("Date") + ylab("Mean NDVI") +
   scale_colour_manual(values=c("PeachPuff4", "SpringGreen4")) +   #match previous plots
   theme(text = element_text(size=20))
 
 ```
 
-#Remove Outlier Data
+##Remove Outlier Data
 As we look at these plots we see variation in greenness across the year.
 However, the pattern is interrupted by a few points where NDVI quickly drops
 towards 0 during a time period when we might expect the vegetation to have a
-larger greenness value. Is the vegetation truely senescent or gone or are these
+larger greenness value. Is the vegetation truly senescent or gone or are these
 outlier values that should be removed from the data?  
 
 Let's look at the RGB images from Harvard Forest.
@@ -405,7 +410,7 @@ par(mfrow=c(4,4))
 for (aFile in rgb.allCropped){
   NDVI.rastStack <- stack(aFile)
   plotRGB(NDVI.rastStack, stretch="lin")
-}
+  }
 
 #reset layout
 par(mfrow=c(1,1))
@@ -415,8 +420,7 @@ Notice that the data points with very low NDVI values can be associated with
 images that are filled with clouds. Thus, we can attribute the low NDVI values
 to high levels of cloud cover. 
 
-
-Is the same happening at SJER?
+Is the same thing happening at SJER?
 
 ```{r view-all-rgb-SJER, echo=FALSE}
 #open up the cropped files
@@ -429,19 +433,20 @@ par(mfrow=c(5,4))
 #Super efficient code
 for (aFile in rgb.allCropped.SJER)
   {NDVI.rastStack <- stack(aFile)
-  # 254_SJER_landRGB.tif - the range on the blue band for this layer is 255-255
-  #r cant render that as a stretch function. Not sure how to properly fix this
-  #via code, for the meantime writing a manual exception
   if (aFile =="NEON-DS-Landsat-NDVI/SJER/2011/RGB/254_SJER_landRGB.tif")
     {plotRGB(NDVI.rastStack) }
-  else { plotRGB(NDVI.rastStack, stretch="lin") }
+  else { plotRGB(NDVI.rastStack) }
   }
+  # 254_SJER_landRGB.tif - the range on the blue band for this layer is 255-255
+  #R cant render that as a stretch function. Not sure how to properly fix this
+  #via code, for the meantime writing a manual exception -> This manual fix not
+  # rendering on mjones01 computer pulled out ", stretch="lin" " from else 
+  #statement.  NEED TO FIX
 
 #reset layout
 par(mfrow=c(1,1))
 
 ```
-
 
 Without significant additional processing, we will not be able to retrieve a
 strong reflection from a remotely sensed image that is predominantly cloud
@@ -455,8 +460,8 @@ lessons. We can then use the subset function to remove outlier datapoints
 
 <i class="fa fa-star"></i> **Data Tip:** Thresholding, or removing outlier data,
 can be tricky business. In this case, we can be confident that some of our NDVI
-values are not valid due to cloud cover. However, a theshold value may not 
-always be sufficicient given 0.1 could be a valid NDVI value in some areas. This
+values are not valid due to cloud cover. However, a threshold value may not 
+always be sufficient given 0.1 could be a valid NDVI value in some areas. This
 is where decision making should be fueled by practical scientific knowledge of
 the data and the desired outcomes!
 {: .notice }
@@ -465,7 +470,7 @@ the data and the desired outcomes!
 #retain only rows with meanNDVI>0.1
 avg_NDVI_HARV_clean<-subset(avg_NDVI_HARV, meanNDVI>0.1)
 
-#work?
+#Did it work?
 avg_NDVI_HARV_clean$meanNDVI<0.1
 ```
 
@@ -475,7 +480,7 @@ Now we can create another plot without the suspect data.
 #plot without questionable data
 ggplot(avg_NDVI_HARV_clean, aes(julianDay, meanNDVI)) +
   geom_point(size=4,colour = "SpringGreen4") + 
-  ggtitle("NDVI for HARV 2011\nLandsat Derived") +
+  ggtitle("Landsat Derived NDVI - 2011\n NEON Harvard Forest Field Site") +
   xlab("Julian Days") + ylab("Mean NDVI") +
   theme(text = element_text(size=20))
 ```  
@@ -483,7 +488,7 @@ ggplot(avg_NDVI_HARV_clean, aes(julianDay, meanNDVI)) +
 Now our outlier data points are removed and the pattern of "green-up" and
 "brown-down" makes a bit more sense.
 
-#Write NDVI data to a .csv File
+##Write NDVI data to a .csv File
 We can write our final NDVI `data.frame` out to a text format, to quickly share
 with a colleague or to resuse for analysis or visualization purposes. We will
 export in Comma Seperated Value (.csv) file format given it is usable in many
@@ -521,12 +526,11 @@ write.csv(NDVI_HARV_toWrite, file="meanNDVI_HARV_2011.csv")
 ```
 
 <div id="challenge" markdown="1">
-
 ##Challenge: Write to .csv
 
-1. Create a NDVI .csv file for the NEON SJER field site that is compatable with the 
-one we just created for the Harvard Forest. Be sure to inspect for questionable values 
-before writing any data to a .csv file. 
+1. Create a NDVI .csv file for the NEON SJER field site that is comparable with
+the one we just created for the Harvard Forest. Be sure to inspect for
+questionable values before writing any data to a .csv file. 
 2. Create a NDVI .csv file that stacks data from both field sites.
 </div>
 

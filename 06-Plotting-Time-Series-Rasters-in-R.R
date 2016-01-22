@@ -5,7 +5,7 @@ library(rgdal)
 library(rasterVis)
 
 # Create list of NDVI file paths
-all_NDVI_HARV <- list.files("Landsat_NDVI/HARV/2011/ndvi", full.names = TRUE, pattern = ".tif$")
+all_NDVI_HARV <- list.files("NEON-DS-Landsat-NDVI/HARV/2011/NDVI", full.names = TRUE, pattern = ".tif$")
 
 # Create a time series raster stack
 NDVI_HARV_stack <- stack(all_NDVI_HARV)
@@ -34,8 +34,8 @@ levelplot(NDVI_HARV_stack,
 cols <- colorRampPalette(brewer.pal(9,"YlGn"))
 #create a level plot - plot
 levelplot(NDVI_HARV_stack,
-          main="Landsat NDVI\n Improved Colors \nNEON Harvard Forest Field Site",
-          col.regions=cols)
+        main="Landsat NDVI -- Improved Colors \nNEON Harvard Forest Field Site",
+        col.regions=cols)
 
 
 ## ----clean-up-names------------------------------------------------------
@@ -50,8 +50,8 @@ rasterNames  <- gsub("X","Day", names(NDVI_HARV_stack))
 #view Names
 rasterNames
 
-#Remove HARV_ndvi_crop from the second part of the string 
-rasterNames  <- gsub("_HARV_ndvi_crop","",rasterNames)
+#Remove HARV_NDVI_crop from the second part of the string 
+rasterNames  <- gsub("_HARV_NDVI_crop","",rasterNames)
 
 #view names for each raster layer
 rasterNames
@@ -85,14 +85,14 @@ levelplot(NDVI_HARV_stack,
 
 ## ----challenge-code-levelplot-divergent, echo=FALSE----------------------
 #change Day### to Julian Day ###
-rasterNames  <- gsub("Day","Julian Day ",rasterNames)
+rasterNames  <- gsub("Day","Julian Day ", rasterNames)
 
 #use level plot to create a nice plot with one legend and a 5x3 layout.
 levelplot(NDVI_HARV_stack,
-          layout=c(5, 3), #create a 4x3 layout for the data
-          col.regions=colorRampPalette(brewer.pal(9,"BrBG")), #specify color 
-          main="Landsat NDVI - Julian Days \nNEON Harvard Forest 2011",
-          names.attr=rasterNames)
+      layout=c(5, 3), #create a 4x3 layout for the data
+      col.regions=colorRampPalette(brewer.pal(9,"BrBG")), #specify color 
+      main="Landsat NDVI - Julian Days - 2011 \nNEON Harvard Forest Field Site",
+      names.attr=rasterNames)
 
 #The sequential is better than the divergent as it is more akin to the process
 #of greening up, which starts off at one end and just keeps increasing. 
