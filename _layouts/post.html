@@ -116,7 +116,24 @@
 <div class="footer-wrap">
   <div class="related-articles">
   <!-- <h4>You might also enjoy <small class="pull-right">(<a href="{{ site.url }}/posts/">View all activities</a>)</small></h4> -->
+
+<!-- This looks to see if there is a workshop tag, if there is, it will list related
+workshop pages rather than tagged pages -->
+
 <h2><a>Related Content: {{ page.mainTag }}</a></h2>
+
+{% if page.workshopSeries  %} 
+<p>This lesson is a part of a larger workshop series:</p>
+{% for post in site.posts %}
+	{% if post.workshopSeries contains page.mainTag %}
+        <ul class="posts">
+		<li><a href="{{ site.baseurl }}{{ post.url }}" class="post-link" >{{ post.title }}</a></li>
+		</ul>
+	{% endif %}
+{% endfor %}
+
+{% else %}
+
 {% for post in site.posts %}
     {% if post.tags contains page.mainTag  %}
         <ul class="posts">
@@ -124,6 +141,8 @@
         </ul>
     {% endif %}
 {% endfor %}
+
+{% endif %}
   </div><!-- /.related-articles -->
   <footer>
     {% include _footer.html %}

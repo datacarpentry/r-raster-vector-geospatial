@@ -15,45 +15,43 @@
 
 {% include _imageFeature.html %}
 
+
 <div class="article-author-side">
   {% include _author-bio.html %}
 </div>
 
 <div id="index">
   <h1>{{ page.title }}</h1>
-  {{ content }}
-  
+ <header id="post-header">
+    <!-- <h1 id="post-title">{{ page.tag }}</h1>
+    <h4 id="post-subtitle">Articles by tag</h4>-->
+</header>
 
+<div id="post-content">
+<div id="cat_tag_content">
+{{ content }}
+</div>
 
-
-{% for category in site.categories %}
-  {% assign t = category | first %}
-  {% assign posts = category | last %}
-
-{% for acategory in site.data.categories %}
-{% if acategory.slug == t %}
-  <h3><a href="{{ site.baseurl }}/{{ acategory.slug }}">{{ acategory.name }} </a></h3>
-  {% endif %}
-{% endfor %}
-
-
-{% for post in posts %}
-  {% if post.categories contains t %}
-  <article>
-    <h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
-    <span class="post-date">
+{% for post in site.posts %}
+	{% if post.packagesLibraries contains page.packagesLibraries %}
+	{% assign counter = counter | plus: 1 %}
+		<article>
+			<a href="{{ site.baseurl }}{{ post.url }}" class="list-group-item">
+				<h2 class="list-group-item-heading">{{ post.title }}</h2>
+				<span class="post-date">
 				{% if post.lastModified %}Last modified: {{ post.lastModified | date: "%b %-d, %Y" }}{% endif %}
 				{% if post.time %}Time: {{ post.time }}{% endif %}
 				{% if post.catalog-entry-type %}, Type: {{ post.catalog-entry-type }} {% endif %}
-	</span>
-    <p>{% if post.description %}{{ post.description }}{% else %}{{ post.content | strip_html | strip_newlines | truncate: 120 }}{% endif %}</p>
-  </article>         
-   <!-- <span class="date">{{ post.date | date: "%B %-d, %Y"  }}</span> -->
-  {% endif %}
-{% endfor %}
+				</span>
+				<p>{% if post.description %}{{ post.description }}{% else %}{{ post.content | strip_html | strip_newlines | truncate: 120 }}{% endif %}</p>
+			</a>
+		</article>
+	{% endif %}
 {% endfor %}
 
 
+
+</div>
 
 
 
@@ -69,3 +67,33 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
