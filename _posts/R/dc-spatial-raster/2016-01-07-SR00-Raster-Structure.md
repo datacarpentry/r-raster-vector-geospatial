@@ -1,16 +1,17 @@
 ---
 layout: post
-title: "Lesson 00: Intro to Raster Data in R"
+title: "Raster 00: Intro to Raster Data in R"
 date:   2015-10-29
-authors: [Kristina Riemer, Zack Brym, Jason Williams, Jeff Hollister,  Mike Smorul, Leah Wasser, Megan A. Jones]
+authors: [Kristina Riemer, Zack Brym, Jason Williams, Jeff Hollister,  Mike Smorul, Leah A. Wasser, Megan A. Jones]
 contributors: [ ]
 dateCreated: 2015-10-23
-lastModified: 2016-01-07
+lastModified: 2016-01-22
 packagesLibraries: [raster, rgdal]
-category:  
-tags: [raster-ts-wrksp, raster]
-mainTag: raster-ts-wrksp
-description: "This lesson reviews the fundamental principles, packages and 
+categories:  [self-paced-tutorial]
+tags: [R, raster, spatial-data-gis]
+workshopSeries: [raster-data]
+mainTag: raster-data
+description: "This tutorial reviews the fundamental principles, packages and 
 metadata / raster attributes that are needed to work with raster data in R. It 
 covers the three core metadata elements that we need to understand to work with
 rasters in R: CRS, Extent and Resolution. It also explores no and bad data values
@@ -20,7 +21,7 @@ code1: 00-Raster-Structure.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
-  creditlink: http://www.neoninc.org
+  creditlink:
 permalink: R/Introduction-to-Raster-Data-In-R
 comments: false
 ---
@@ -91,8 +92,8 @@ as pixels. Each pixel contains a value that represents an area on the Earth's
 surface.
 
 <figure>
-    <a href="{{site.baseurl}}/images/raster_timeseries/raster_concept.png">
-    <img src="{{site.baseurl}}/images/raster_timeseries/raster_concept.png">
+    <a href="{{site.baseurl}}/images/dc-spatial-raster/raster_concept.png">
+    <img src="{{site.baseurl}}/images/dc-spatial-raster/raster_concept.png">
     </a>
     <figcaption> Source: National Ecological Observatory Network (NEON)
     </figcaption>
@@ -198,7 +199,7 @@ convention of data_HARV.
     ## resolution  : 1, 1  (x, y)
     ## extent      : 731453, 733150, 4712471, 4713838  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif 
     ## names       : HARV_dsmCrop 
     ## values      : 305.07, 416.07  (min, max)
 
@@ -308,7 +309,13 @@ area on the ground that each pixel covers. The units for our data are in meters.
 Given our data resolution is 1 x 1, this means that each pixel represents a 
 1 x 1 meter area on the ground.
 
-![raster resolution]({{ site.baseurl}}/images/raster_timeseries/raster_resolution.png)
+<figure>
+    <a href="{{ site.baseurl}}/images/dc-spatial-raster/raster_resolution.png">
+    <img src="{{ site.baseurl}}/images/dc-spatial-raster/raster_resolution.png">
+    </a>
+    <figcaption> Source: National Ecological Observatory Network (NEON)
+    </figcaption>
+</figure>
 
 The best way to view resolution units is to look at the 
 coordinate reference system string `crs()`. Notice our data contains the
@@ -471,8 +478,8 @@ is a single band raster. This means that there is only one dataset stored in
 the raster: surface elevation in meters for one time period.
 
 <figure>
-    <a href="{{ site.baseurl }}/images/raster_timeseries/single_multi_raster.png">
-    <img src="{{ site.baseurl }}/images/raster_timeseries/single_multi_raster.png"></a>
+    <a href="{{ site.baseurl }}/images/dc-spatial-raster/single_multi_raster.png">
+    <img src="{{ site.baseurl }}/images/dc-spatial-raster/single_multi_raster.png"></a>
     <figcaption>A raster dataset can contain one or more bands. We can use the
     raster function to import one single band from a single OR multi-band 
     raster. Source: National Ecological Observatory Network (NEON).

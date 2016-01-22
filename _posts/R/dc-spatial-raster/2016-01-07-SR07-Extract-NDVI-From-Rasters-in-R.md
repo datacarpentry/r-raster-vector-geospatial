@@ -1,23 +1,23 @@
 ---
 layout: post
-title: "Lesson 07: Extract NDVI Summary Values from a Raster Time Series"
+title: "Raster 07: Extract NDVI Summary Values from a Raster Time Series"
 date: 2015-10-22
-authors: [Leah Wasser, Kristina Riemer, Zack Bryn, Jason Williams, Jeff Hollister,  Mike Smorul, Megan A. Jones]
+authors: [Leah A. Wasser, Kristina Riemer, Zack Bryn, Jason Williams, Jeff Hollister,  Mike Smorul, Megan A. Jones]
 contributors: [ ]
-packagesLibraries: [raster, rgdal]
+packagesLibraries: [raster, rgdal, ggplot2]
 dateCreated: 2014-11-26
-lastModified: 2016-01-07
-category: time-series-workshop
-tags: [raster-ts-wrksp, raster]
-mainTag: raster-ts-wrksp
-description: "This lesson will explore a way to extract NDVI values from a
-raster time series in R and plot them using ggplot. Methods learned in this 
-lesson could be applied to any raster format time series data."
+lastModified: 2016-01-22
+categories:  [self-paced-tutorial]
+tags: [R, raster, spatial-data-gis]
+mainTag: raster-data
+workshopSeries: [raster-data, raster-time-series]
+description: "This tutorial covers how to extract and plot NDVI pixel values from a
+raster time series stack in R. We will use ggplot2 to plot our data."
 code1: 07-Extract-NDVI-From-Rasters-in-R.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
-  creditlink: http://www.neoninc.org
+  creditlink:
 permalink: R/Extract-NDVI-From-Rasters-In-R/
 comments: false
 ---
