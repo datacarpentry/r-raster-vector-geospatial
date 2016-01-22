@@ -1,23 +1,24 @@
 ---
 layout: post
-title: "Lesson 05: Raster Time Series Data in R"
+title: "Raster 05: Raster Time Series Data in R"
 date:   2015-10-24
-authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym, Leah Wasser, Megan A. Jones]
+authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym, Leah A. Wasser, Megan A. Jones]
 contributors: [ ]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2016-01-07
-category: time-series-workshop
-tags: [raster-ts-wrksp, raster]
-mainTag: raster-ts-wrksp
-description: "This lesson covers how to work with and plot a raster time series,
+lastModified: 2016-01-22
+categories:  [self-paced-tutorial]
+tags: [R, raster, spatial-data-gis]
+workshopSeries: [raster-data, raster-time-series]
+mainTag: raster-data
+description: "This tutorial covers how to work with and plot a raster time series,
 using an R RasterStack object. It also covers the basics of practical data
 quality assessment of remote sensing imagery."
 code1: 05-Time-Series-Raster-In-R.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
-  creditlink: http://www.neoninc.org
+  creditlink:
 permalink: R/Raster-Times-Series-Data-In-R/
 comments: false
 ---
@@ -88,8 +89,8 @@ of data collected at different times for the same `extent` (region) and of the
 same `resolution`.
 
 <figure>
-    <a href="{{ site.baseurl }}/images/raster_timeseries/GreenessOverTime.png">
-    <img src="{{ site.baseurl }}/images/raster_timeseries/GreenessOverTime.png"></a>
+    <a href="{{ site.baseurl }}/images/dc-spatial-raster/GreenessOverTime.png">
+    <img src="{{ site.baseurl }}/images/dc-spatial-raster/GreenessOverTime.png"></a>
     <figcaption>A multi-band raster dataset can contain time series data. 
     Source: National Ecological Observatory Network (NEON). 
     </figcaption>
@@ -140,8 +141,8 @@ period that NDVI is available.
 
 
 <figure>
-    <a href="{{ site.baseurl }}/images/raster_timeseries/RGBSTack_1.png">
-    <img src="{{ site.baseurl }}/images/raster_timeseries/RGBSTack_1.png"></a>
+    <a href="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.png">
+    <img src="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.png"></a>
     <figcaption>A "true" color image consists of 3 bands - red, green and blue. 
     When composited or rendered together in a GIS, or even a image-editor like
     Photoshop the bands create a color image. 
