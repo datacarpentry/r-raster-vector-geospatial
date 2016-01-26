@@ -1,23 +1,24 @@
 ---
 layout: post
-title: "Lesson 04: Work With Multi-Band Rasters - Image Data in R"
+title: "Raster 04: Work With Multi-Band Rasters - Image Data in R"
 date:   2015-10-25
-authors: [Kristina Riemer, Mike Smorul, Zack Brym, Jason Williams, Jeff Hollister, Leah Wasser, Megan A. Jones]
+authors: [Kristina Riemer, Mike Smorul, Zack Brym, Jason Williams, Jeff Hollister, Leah A. Wasser, Megan A. Jones]
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`
-category: spatio-temporal-workshop
-tags: [raster-ts-wrksp, raster]
-mainTag: raster-ts-wrksp
-description: "This lesson explores how to import and plot a multi-band raster in
-R. It also covers how to plot a three-band color image using the `plotRGB()`
-function in R"
+categories:  [self-paced-tutorial]
+tags: [R, raster, spatial-data-gis]
+workshopSeries: [raster-data, raster-time-series]
+mainTag: raster-data
+description: "This tutorial explores how to import and plot a multi-band raster in
+R. It also covers how to plot a three-band color image using the plotRGB
+function in R."
 code1: 04-Multi-Band-Rasters-In-R.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
-  creditlink: http://www.neoninc.org
+  creditlink:
 permalink: R/Multi-Band-Rasters-In-R
 comments: false
 ---
@@ -80,8 +81,8 @@ As discussed in the
 a raster can contain 1 or more bands.
 
 <figure>
-    <a href="{{ site.baseurl }}/images/raster_timeseries/single_multi_raster.png">
-    <img src="{{ site.baseurl }}/images/raster_timeseries/single_multi_raster.png">
+    <a href="{{ site.baseurl }}/images/dc-spatial-raster/single_multi_raster.png">
+    <img src="{{ site.baseurl }}/images/dc-spatial-raster/single_multi_raster.png">
     </a>
     <figcaption>A raster can contain one or more bands. We can use the
     raster function to import one single band from a single OR multi-band
@@ -103,8 +104,8 @@ electromagnetic spectrum. The pixel brightness for each band, when composited
 creates the colors that we see in an image. 
 
 <figure>
-    <a href="{{ site.baseurl }}/images/raster_timeseries/RGBSTack_1.png">
-    <img src="{{ site.baseurl }}/images/raster_timeseries/RGBSTack_1.png"></a>
+    <a href="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.png">
+    <img src="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.png"></a>
     <figcaption>A color image consists of 3 bands - red, green and blue. When
     rendered together in a GIS, or even a tool like Photoshop or any other
     image software, they create a color image. 
@@ -376,8 +377,8 @@ the image might improve clarity and contrast using  `stretch="lin"` or
 `stretch="hist"`.  
 
 <figure>
-    <a href="{{ site.baseurl }}/images/raster_timeseries/imageStretch_dark.jpg">
-    <img src="{{ site.baseurl }}/images/raster_timeseries/imageStretch_dark.jpg">
+    <a href="{{ site.baseurl }}/images/dc-spatial-raster/imageStretch_dark.jpg">
+    <img src="{{ site.baseurl }}/images/dc-spatial-raster/imageStretch_dark.jpg">
     </a>
     <figcaption>When the range of pixel brightness values is closer to 0, a
     darker image is rendered by default. We can stretch the values to extend to
@@ -387,8 +388,8 @@ the image might improve clarity and contrast using  `stretch="lin"` or
 </figure>
 
 <figure>
-    <a href="{{ site.baseurl }}/images/raster_timeseries/imageStretch_light.jpg">
-    <img src="{{ site.baseurl }}/images/raster_timeseries/imageStretch_light.jpg">
+    <a href="{{ site.baseurl }}/images/dc-spatial-raster/imageStretch_light.jpg">
+    <img src="{{ site.baseurl }}/images/dc-spatial-raster/imageStretch_light.jpg">
     </a>
     <figcaption>When the range of pixel brightness values is closer to 255, a
     lighter image is rendered by default. We can stretch the values to extend to

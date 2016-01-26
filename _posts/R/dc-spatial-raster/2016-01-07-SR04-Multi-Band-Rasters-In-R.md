@@ -1,23 +1,24 @@
 ---
 layout: post
-title: "Lesson 04: Work With Multi-Band Rasters - Image Data in R"
+title: "Raster 04: Work With Multi-Band Rasters - Image Data in R"
 date:   2015-10-25
-authors: [Kristina Riemer, Mike Smorul, Zack Brym, Jason Williams, Jeff Hollister, Leah Wasser, Megan A. Jones]
+authors: [Kristina Riemer, Mike Smorul, Zack Brym, Jason Williams, Jeff Hollister, Leah A. Wasser, Megan A. Jones]
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2016-01-07
-category: spatio-temporal-workshop
-tags: [raster-ts-wrksp, raster]
-mainTag: raster-ts-wrksp
-description: "This lesson explores how to import and plot a multi-band raster in
-R. It also covers how to plot a three-band color image using the `plotRGB()`
-function in R"
+lastModified: 2016-01-22
+categories:  [self-paced-tutorial]
+tags: [R, raster, spatial-data-gis]
+workshopSeries: [raster-data, raster-time-series]
+mainTag: raster-data
+description: "This tutorial explores how to import and plot a multi-band raster in
+R. It also covers how to plot a three-band color image using the plotRGB
+function in R."
 code1: 04-Multi-Band-Rasters-In-R.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
-  creditlink: http://www.neoninc.org
+  creditlink:
 permalink: R/Multi-Band-Rasters-In-R
 comments: false
 ---
@@ -80,8 +81,8 @@ As discussed in the
 a raster can contain 1 or more bands.
 
 <figure>
-    <a href="{{ site.baseurl }}/images/raster_timeseries/single_multi_raster.png">
-    <img src="{{ site.baseurl }}/images/raster_timeseries/single_multi_raster.png">
+    <a href="{{ site.baseurl }}/images/dc-spatial-raster/single_multi_raster.png">
+    <img src="{{ site.baseurl }}/images/dc-spatial-raster/single_multi_raster.png">
     </a>
     <figcaption>A raster can contain one or more bands. We can use the
     raster function to import one single band from a single OR multi-band
@@ -103,8 +104,8 @@ electromagnetic spectrum. The pixel brightness for each band, when composited
 creates the colors that we see in an image. 
 
 <figure>
-    <a href="{{ site.baseurl }}/images/raster_timeseries/RGBSTack_1.png">
-    <img src="{{ site.baseurl }}/images/raster_timeseries/RGBSTack_1.png"></a>
+    <a href="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.png">
+    <img src="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.png"></a>
     <figcaption>A color image consists of 3 bands - red, green and blue. When
     rendered together in a GIS, or even a tool like Photoshop or any other
     image software, they create a color image. 
@@ -199,7 +200,7 @@ in the first band. We can plot this band using the plot function.
     ## resolution  : 0.25, 0.25  (x, y)
     ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
     ## names       : HARV_RGB_Ortho 
     ## values      : 0, 255  (min, max)
 
@@ -266,7 +267,7 @@ want to work with). To import the green band, we would use `band=2`.
     ## resolution  : 0.25, 0.25  (x, y)
     ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
     ## names       : HARV_RGB_Ortho 
     ## values      : 0, 255  (min, max)
 
@@ -321,7 +322,7 @@ attributes for using an index value: `RGB_stack_HARV[[1]]`. We can also use the
     ## resolution  : 0.25, 0.25  (x, y)
     ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
     ## names       : HARV_RGB_Ortho.1 
     ## values      : 0, 255  (min, max)
     ## 
@@ -333,7 +334,7 @@ attributes for using an index value: `RGB_stack_HARV[[1]]`. We can also use the
     ## resolution  : 0.25, 0.25  (x, y)
     ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
     ## names       : HARV_RGB_Ortho.2 
     ## values      : 0, 255  (min, max)
     ## 
@@ -345,7 +346,7 @@ attributes for using an index value: `RGB_stack_HARV[[1]]`. We can also use the
     ## resolution  : 0.25, 0.25  (x, y)
     ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
     ## names       : HARV_RGB_Ortho.3 
     ## values      : 0, 255  (min, max)
 
@@ -358,7 +359,7 @@ attributes for using an index value: `RGB_stack_HARV[[1]]`. We can also use the
     ## resolution  : 0.25, 0.25  (x, y)
     ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
     ## names       : HARV_RGB_Ortho.1 
     ## values      : 0, 255  (min, max)
 
@@ -409,8 +410,8 @@ the image might improve clarity and contrast using  `stretch="lin"` or
 `stretch="hist"`.  
 
 <figure>
-    <a href="{{ site.baseurl }}/images/raster_timeseries/imageStretch_dark.jpg">
-    <img src="{{ site.baseurl }}/images/raster_timeseries/imageStretch_dark.jpg">
+    <a href="{{ site.baseurl }}/images/dc-spatial-raster/imageStretch_dark.jpg">
+    <img src="{{ site.baseurl }}/images/dc-spatial-raster/imageStretch_dark.jpg">
     </a>
     <figcaption>When the range of pixel brightness values is closer to 0, a
     darker image is rendered by default. We can stretch the values to extend to
@@ -420,8 +421,8 @@ the image might improve clarity and contrast using  `stretch="lin"` or
 </figure>
 
 <figure>
-    <a href="{{ site.baseurl }}/images/raster_timeseries/imageStretch_light.jpg">
-    <img src="{{ site.baseurl }}/images/raster_timeseries/imageStretch_light.jpg">
+    <a href="{{ site.baseurl }}/images/dc-spatial-raster/imageStretch_light.jpg">
+    <img src="{{ site.baseurl }}/images/dc-spatial-raster/imageStretch_light.jpg">
     </a>
     <figcaption>When the range of pixel brightness values is closer to 255, a
     lighter image is rendered by default. We can stretch the values to extend to
@@ -500,7 +501,7 @@ and `brick` `R` objects.
     #view size of the RGB_stack object that contains our 3 band image
     object.size(RGB_stack_HARV)
 
-    ## 40528 bytes
+    ## 40552 bytes
 
     #convert stack to a brick
     RGB_brick_HARV <- brick(RGB_stack_HARV)

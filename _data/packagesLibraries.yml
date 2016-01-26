@@ -1,0 +1,48 @@
+- slug: dplyr 
+  name: dplyr
+  
+- slug: ggplot
+  name: ggplot
+  
+- slug: ggplot2
+  name: ggplot2  
+
+- slug: h5py
+  name: h5py
+  
+- slug: lubridate
+  name: lubridate (time series)  
+  
+- slug: maps
+  name: maps
+
+- slug: maptools
+  name: maptools
+
+- slug: plyr
+  name: plyr
+    
+- slug: raster
+  name: raster   
+  
+- slug: rasterVis
+  name: rasterVis (raster time series) 
+  
+- slug: rgdal
+  name: rgdal (GIS) 
+  
+- slug: rgeos
+  name: rgeos
+
+- slug: rhdf5
+  name: rhdf5
+
+- slug: sp
+  name: sp  
+  
+
+
+
+  
+
+  

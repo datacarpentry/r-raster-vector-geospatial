@@ -1,23 +1,24 @@
 ---
 layout: post
-title: "Lesson 01: Plot Raster Data in R"
+title: "Raster 01: Plot Raster Data in R"
 date:   2015-10-28
-authors: [Kristina Riemer, Jason Williams, Jeff Hollister, Mike Smorul, Zack Brym, Leah Wasser, Megan A. Jones]
+authors: [Kristina Riemer, Jason Williams, Jeff Hollister, Mike Smorul, Zack Brym, Leah A. Wasser, Megan A. Jones]
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2016-01-07
-category: spatio-temporal-workshop
-tags: [raster-ts-wrksp, raster]
-mainTag: raster-ts-wrksp
-description: "This lesson reviews how to plot a raster in R using the plot() 
-command. It also covers how to layer a raster on top of a hillshade to produce 
+lastModified: 2016-01-22
+categories:  [self-paced-tutorial]
+tags: [R, raster, spatial-data-gis]
+workshopSeries: [raster-data]
+mainTag: raster-data
+description: "This tutorial explains how to plot a raster in R using R's base plot
+function. It also covers how to layer a raster on top of a hillshade to produce 
 an eloquent map."
 code1: 01-Plot-Raster-In-R.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
-  creditlink: http://www.neoninc.org
+  creditlink:
 permalink: R/Plot-Rasters-In-R
 comments: false
 ---
@@ -138,7 +139,7 @@ break values.
 
     DSMhist$counts
 
-    ## [1] 31901 67613   486
+    ## [1] 32219 67328   453
 
 Warning message!? Remember, the default for the histogram is to include only a
 subset of 100,000 values. We could force it to show all the pixel values or we

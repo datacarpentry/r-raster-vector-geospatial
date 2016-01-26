@@ -1,13 +1,26 @@
-- slug: spatial-data-workshop
-  name: Spatial Data Workshop
+- slug: data-workshop
+  name: Data Workshops
+  description: "sets of themed, self paced lessons that can be worked through in order"
   color: '#1abc9c'
   
-- slug: remote-sensing-workshop
-  name: Remote Sensing Workshop
+- slug: self-paced-tutorial
+  name: Self Paced Data Tutorials
+  description: "Individual data tutorials / lessons that focus on a specific data type and
+  associated skill or set of skills."
   color: '#1abc9c'
    
-- slug: time-series-workshop
-  name: Time Series Workshop
-  color: '#1abc9c' 
+- slug: science-video
+  name: NEON Science Videos
+  description: "Videos that focus on a particular science topic and how we can address it using
+  data."
+  color: '#1abc9c'
+  
+- slug: teaching-module
+  name: Teaching Modules
+  description: "A teaching activity with a science focus that utilizes data to explore a particular
+  science topic. These modules often include associated data tutorials for advanced classes
+  and include data visualizations for classes that will not incorporate coding or other
+  hands-on data manipulation tasks."
+  color: '#1abc9c'   
 
 
