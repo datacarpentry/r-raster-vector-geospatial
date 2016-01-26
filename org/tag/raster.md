@@ -1,11 +1,12 @@
 ---
 layout: post_by_tag
-title: 'Raster Data Lessons'
-tag: module-1
+title: 'Tutorials by Tag: Raster Data'
+tag: raster
 permalink: raster/
 image:
-  feature: NEONCarpentryHeader_2.png
-  credit: National Ecological Observatory Network (NEON)
-  creditlink: http://www.neoninc.org 
+  feature: lidar_GrandMesa.png
+  credit: 
+  creditlink: 
 ---
 
+This lists all pages tagged with Raster Data.

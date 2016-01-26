@@ -11,8 +11,24 @@
 <h3>{{ site.owner.name }}</h3>
 <p>{{ site.owner.bio }}</p>
 
+<h3>Lesson Series</h3>
+<p>A set of lessons that teach a particular theme.</p>
+{% for member in site.data.workshopSeries %}
+{% assign counter = 0 %}
+<!-- this code counts the number of posts associated with the member -->
+{% for post in site.posts %}
+	{% if post.workshopSeries contains member.slug %}
+	{% assign counter = counter | plus: 1 %}
+	{% endif %}
+{% endfor %}	
+  <h5>
+  <a href="{{ site.baseurl }}/workshop-series/{{ member.slug }}">{{ member.name }} ({{ counter }})</a>
+  </h5> 
+{% endfor %}
 
-<h3>Activities By Topic</h3>
+
+<h3>Tutorial by Tag</h3>
+
 {% for tag in site.tags %}
 {% assign t = tag | first %}
   {% for atag in site.data.tags %}
@@ -24,11 +40,26 @@
      </a></h5>
 {% endfor %} 
 
-<!--
-<h4><a href="{{ site.baseurl }}/activities/">View ALL Activities</a></h4>
-<h4><a href="{{ site.baseurl }}/activities-by-tag/">Activities by Tag</a></h4>
+<h3>Lessons by R Package</h3>
 
--->
+{% for member in site.data.packagesLibraries %}
+{% assign counter = 0 %}
+<!-- this code counts the number of posts associated with the member -->
+{% for post in site.posts %}
+	{% if post.packagesLibraries contains member.slug %}
+	{% assign counter = counter | plus: 1 %}
+	{% endif %}
+{% endfor %}	
+  <h5><a href="{{ site.baseurl }}/R-package/{{ member.slug }}">{{ member.name }} ({{ counter }})</h5>
+  	
+
+{% endfor %}
+
+
+
+<h4><a href="{{ site.baseurl }}/activities/">View ALL Activities</a></h4>
+<!-- <h4><a href="{{ site.baseurl }}/activities-by-tag/">Activities by Tag</a></h4> -->
+
 <br><br><br>
 
 
@@ -48,3 +79,5 @@
 {% if site.owner.steam %}<a href="http://steamcommunity.com/id/{{ site.owner.steam }}" class="author-social" target="_blank"><i class="fa fa-steam-square"></i> Steam</a>{% endif %}
 
 <br><br><br>
+<h3>Blog.Roll</h3>
+<a href="http://www.r-bloggers.com" target="_blank">R Bloggers</a>

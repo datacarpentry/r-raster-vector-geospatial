@@ -2,21 +2,24 @@
 layout: post
 title: "Lesson 02: When Rasters Don't Line Up - Reproject Raster Data in R"
 date:   2015-10-27
-authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym, Leah Wasser, Megan A. Jones]
+authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym, Leah A. Wasser, Megan A. Jones]
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`
-category: spatio-temporal-workshop
-tags: [raster-ts-wrksp, raster]
-mainTag: raster-ts-wrksp
-description: "This lesson explains how to reproject a raster in R using the
-projectRaster() function in the raster package."
+categories:  [self-paced-tutorial]
+tags: [R, raster, spatial-data-gis]
+workshopSeries: [raster-data]
+mainTag: raster-data
+description: "This tutorial explores issues associated with working with rasters in different
+Coordinate Reference Systems (CRS) / projections. When two rasters are in different CRS, 
+they will not plot nicely together on a map. We will learn how to reproject a raster 
+in R using the projectRaster function in the raster package."
 code1: 02-Reproject-Raster-In-R.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
-  creditlink: http://www.neoninc.org
+  creditlink:
 permalink: R/Reproject-Raster-In-R
 comments: false
 ---
