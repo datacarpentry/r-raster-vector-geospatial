@@ -6,14 +6,14 @@ authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Bry
 contributors: [ ]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2016-01-22
+lastModified: 2016-02-08
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 workshopSeries: [raster-data, raster-time-series]
 mainTag: raster-data
-description: "This tutorial covers how to work with and plot a raster time series,
-using an R RasterStack object. It also covers the basics of practical data
-quality assessment of remote sensing imagery."
+description: "This tutorial covers how to work with and plot a raster time
+series, using an R RasterStack object. It also covers the basics of practical
+data quality assessment of remote sensing imagery."
 code1: 05-Time-Series-Raster-In-R.R
 image:
   feature: NEONCarpentryHeader_2.png
@@ -25,16 +25,16 @@ comments: false
 
 {% include _toc.html %}
 
-##About
-This lesson covers how to work with and plot a raster time series, using an `R`
-`RasterStack` object. It also covers practical assessment of data quality
-in remote sensing derived imagery.
+## About
+This tutorial covers how to work with and plot a raster time series, using an `R`
+`RasterStack` object. It also covers practical assessment of data quality in 
+remote sensing derived imagery.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
 <div id="objectives" markdown="1">
 
-#Goals / Objectives
+# Goals / Objectives
 
 After completing this activity, you will:
 
@@ -44,42 +44,34 @@ After completing this activity, you will:
 * Be able to plot and explore time series raster data using the `plot()`
 function in `R`.
 
-##Things You’ll Need To Complete This Lesson
+## Things You’ll Need To Complete This Lesson
 To complete this lesson: you will need the most current version of R, and 
 preferably RStudio, loaded on your computer.
 
-###Install R Packages
+### Install R Packages
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
 * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}R/Packages-In-R/)
 
-####Data to Download
+#### Data to Download
 {% include/dataSubsets/_data_Landsat-NDVI.html %}
 
 ****
 
 {% include/_greyBox-wd-rscript.html %}
-
-**Raster Lesson Series:** This lesson is part of a lesson series on 
-[raster data in `R` ]({{ site.baseurl }}tutorial/spatial-raster-series). It is
-also part of a larger spatio-temporal 
-[spatio-temporal Data Carpentry Workshop ]({{ site.baseurl }}workshops/spatio-temporal-workshop)
-that includes working with  
-[vector data in R ]({{ site.baseurl }}tutorial/spatial-vector-series) 
-and  
-[tabular time series in R ]({{ site.baseurl }}tutorial/tabular-time-series).
+{% include/tutorialSeries/_series_dc-spatial-raster.html %}
 
 ****
 
-###Additional Resources
+### Additional Resources
 * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
 Read more about the `raster` package in `R`.</a>
 
 </div>
 
-##About Raster Time Series Data
+## About Raster Time Series Data
 
 A raster data file can contain one single band or many bands. If the raster data
 contains imagery data, each band may represent reflectance for a different 
@@ -89,8 +81,8 @@ of data collected at different times for the same `extent` (region) and of the
 same `resolution`.
 
 <figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-raster/GreenessOverTime.png">
-    <img src="{{ site.baseurl }}/images/dc-spatial-raster/GreenessOverTime.png"></a>
+    <a href="{{ site.baseurl }}/images/dc-spatial-raster/GreennessOverTime.jpg">
+    <img src="{{ site.baseurl }}/images/dc-spatial-raster/GreennessOverTime.jpg"></a>
     <figcaption>A multi-band raster dataset can contain time series data. 
     Source: National Ecological Observatory Network (NEON). 
     </figcaption>
@@ -110,7 +102,7 @@ year.
 3. View the RGB imagery used to derived the NDVI time series to better
 understand unusual / outlier values. 
 
-##NDVI data
+## NDVI Data
 The Normalized Difference Vegetation Index or NDVI is a quantitative index of 
 greenness ranging from 0-1 where 0 represents minimal or no greenness and 1 
 represents maximum greenness. 
@@ -133,7 +125,7 @@ derived single band product saved as a GeoTIFF for different times of the year.
 * <a href="http://earthobservatory.nasa.gov/Features/MeasuringVegetation/measuring_vegetation_2.php" target="_blank">
 More on NDVI from NASA</a>
 
-##RGB Data
+## RGB Data
 While the NDVI data is a single band product, the RGB images that contain the
 red band used to derive NDVI, contain 3 (of the 7) 30m resolution bands
 available from Landsat data. The RGB directory contains RGB images for each time
@@ -141,8 +133,8 @@ period that NDVI is available.
 
 
 <figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.png">
-    <img src="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.png"></a>
+    <a href="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.jpg">
+    <img src="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.jpg"></a>
     <figcaption>A "true" color image consists of 3 bands - red, green and blue. 
     When composited or rendered together in a GIS, or even a image-editor like
     Photoshop the bands create a color image. 
@@ -150,7 +142,7 @@ period that NDVI is available.
     </figcaption>
 </figure>
 
-###Getting Started 
+### Getting Started 
 In this lesson, we will use the `raster` and `rgdal` libraries.
 
 
@@ -229,8 +221,32 @@ same syntax that we used on single-band raster objects in `R` including: `CRS`
 
     ## [1] 30
 
+Notice that the CRS is `+proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs`. The
+**CRS** is in UTM Zone 19.  If you have completed the previous tutorials in 
+this 
+[raster data in `R` series ]({{ site.baseurl }}tutorial/spatial-raster-series),
+you should notice that the UTM Zone for the remote sensing non-Landsat-derived
+data was 18, not 19.  Why is it now Zone 19?  It this an error in our data?  
+
+<figure>
+    <a href="{{ site.baseurl }}/images/dc-spatial-raster/UTM_zones_18-19.jpg">
+    <img src="{{ site.baseurl }}/images/dc-spatial-raster/UTM_zones_18-19.jpg"></a>
+    <figcaption> Landsat imagery swaths are over 170 km N-S and 180 km E-W. As 
+	a result a given image may overlap two UTM zones. The designated zone is 
+	determined by the zone that the majority of the image is in.  In this
+	example, our point of interest is in UTM Zone 18 but the Landsat image will 
+	be classified as UTM Zone 19. Source: National Ecological Observatory 
+	Network (NEON).  
+    </figcaption>
+</figure>
+
+As this graphic illustrates, the tower is in UTM Zone 18, however, most of the 
+Landsat-derived raster comes from an image swath that is much larger and is 
+primarily in UTM Zone 19. Therefore, the whole raster is given the UTM Zone 19.
+However, the coordinates will still be correct for the tower location. 
+
 <div id="challenge" markdown="1">
-##Challenge: Raster Metadata
+## Challenge: Raster Metadata
 Answer the following questions about our `RasterStack`.
 
 1. What is the `CRS`?
@@ -241,7 +257,7 @@ Answer the following questions about our `RasterStack`.
 
 
 
-##Plotting Time Series Data
+## Plotting Time Series Data
 Once we have created our `RasterStack`, we can visualize our data. We can use
 the `plot()` command to quickly plot a `RasterStack`.
 
@@ -258,7 +274,7 @@ Have a look at the range of NDVI values observed in the plot above. We know that
 the accepted values for NDVI range from 0-1. Why does our data range from
 0 - 10,000? 
 
-##Scale Factors
+## Scale Factors
 The metadata for this NDVI data specifies a scale factor: 10,000. A scale factor
 is sometimes used to maintain smaller file sizes by removing decimal places. 
 Storing data in integer format keeps files sizes smaller.
@@ -271,7 +287,7 @@ quickly apply this factor using raster math on the entire stack as follows:
 <i class="fa fa-star"></i> **Data Tip:** We can make this plot  
 even prettier by fixing the individual tile names, adding an plot title and by
 using the (`levelplot`) function. This is covered in the NEON Data Skills 
-[Plot Time Series Rasters in R ]({{ site.baseurl }}/R/Plot-Raster-Times-Series-Data-In-R/) 
+[Plot Time Series Rasters in R ]({{ site.baseurl }}/R/Plot-Raster-Times-Series-Data-In-R/)
 lesson. 
 {: .notice }
 
@@ -286,7 +302,7 @@ lesson.
 
 ![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/apply-scale-factor-1.png) 
 
-##Take a Closer Look at Our Data
+## Take a Closer Look at Our Data
 Let's take a closer look at the plots of our data. Note that Massachusettes, 
 where the NEON Harvard Forest Field Site is located has a fairly consistent
 fall, winter, spring and summer season where vegetation turns green in the
@@ -300,7 +316,7 @@ with Julian day, check out the NEON Data Skills
 [Converting to Julian Day ]({{ site.baseurl }}/R/julian-day-conversion/) 
 lesson.
 
-##View Distribution of Raster Values
+## View Distribution of Raster Values
 In the above exercise, we viewed plots of our NDVI time series and noticed a 
 few images seem to be unusually light. However this was only a visual
 representation of potential issues in our data. What is another way we can look
@@ -321,7 +337,7 @@ data at Julian days 277 and 293 are unusual. It appears as if the vegetation got
 green in the spring, but then died back only to get green again towards the end 
 of the year. Is this right?
 
-###Explore Unusual Data Patterns
+### Explore Unusual Data Patterns
 The NDVI data that we are using comes from 2011, perhaps a strong freeze around
 Julian day 277 could cause a vegetation to senesce early, however in the eastern
 United States, it seems unusual that it would proceed to green up again shortly 
@@ -342,7 +358,7 @@ Let's have a look at the source Landsat imagery that was partially used used to
 derive our NDVI rasters to try to understand what appears to be outlier NDVI values.
 
 <div id="challenge" markdown="1">
-##Challenge: Examine RGB Raster Files
+## Challenge: Examine RGB Raster Files
 
 1. Load the imagery located in the `RGB` directory. 
 2. Plot the RGB images & identify the plots for the Julian days 277 and 293.
@@ -352,7 +368,7 @@ on these days?
 
 ![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/view-all-rgb-1.png) 
 
-##Explore The Data's Source
+## Explore The Data's Source
 The third challenge question, "Does the RGB imagery from these two days explain 
 the low NDVI values observed on these days?" highlights the importance of
 exploring the source of a derived data product. In this case, the NDVI data

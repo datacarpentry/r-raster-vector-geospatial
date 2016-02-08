@@ -7,14 +7,14 @@ authors: [Leah A. Wasser, Kristina Riemer, Zack Bryn, Jason Williams, Jeff Holli
 contributors: [ ]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2016-01-22
+lastModified: 2016-02-08
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 mainTag: raster-data
 workshopSeries: [raster-data, raster-time-series]
-description: "This tutorial covers how to efficiently and effectively plot a stack of rasters, 
-using rasterVis package in R. Specifically it covers using levelplot and adding
-meaningful custom names to band labels in a RasterStack."
+description: "This tutorial covers how to efficiently and effectively plot a 
+stack of rasters using rasterVis package in R. Specifically it covers using 
+levelplot and adding meaningful, custom names to band labels in a RasterStack."
 code1: 06-Plotting-Time-Series-Rasters-in-R.R
 image:
   feature: NEONCarpentryHeader_2.png
@@ -26,8 +26,8 @@ comments: false
 
 {% include _toc.html %}
 
-##About
-This lesson covers how to improve plotting output using the `rasterVis` package
+## About
+This tutorial covers how to improve plotting output using the `rasterVis` package
 in `R`. Specifically it covers using `levelplot()` and adding meaningful custom
 names to bands within a RasterStack. 
 
@@ -35,7 +35,7 @@ names to bands within a RasterStack.
 
 <div id="objectives" markdown="1">
 
-#Goals / Objectives
+# Goals / Objectives
 After completing this activity, you will:
 
 * Be able to assign custom names to bands in a RasterStack for prettier
@@ -43,11 +43,11 @@ plotting.
 * Understand advanced plotting of rasters using the `rasterVis` package and
 `levelplot`.
 
-##Things You’ll Need To Complete This Lesson
+## Things You’ll Need To Complete This Lesson
 To complete this lesson: you will need the most current version of R, and 
 preferably RStudio, loaded on your computer.
 
-###Install R Packages
+### Install R Packages
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
@@ -55,31 +55,25 @@ preferably RStudio, loaded on your computer.
 
 * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}R/Packages-In-R/)
 
-####Data to Download
+#### Data to Download
 {% include/dataSubsets/_data_Landsat-NDVI.html %}
 
 ****
 
 {% include/_greyBox-wd-rscript.html %}
-
-**Raster Lesson Series:** This lesson is part of a lesson series on 
-[raster data in `R` ]({{ site.baseurl }}tutorial/spatial-raster-series). It is
-also part of a larger spatio-temporal 
-[spatio-temporal Data Carpentry Workshop ]({{ site.baseurl }}workshops/spatio-temporal-workshop)
-that includes working with  
-[vector data in R ]({{ site.baseurl }}tutorial/spatial-vector-series) 
-and  
-[tabular time series in R ]({{ site.baseurl }}tutorial/tabular-time-series).
+{% include/tutorialSeries/_series_dc-spatial-raster.html %}
 
 </div>
 
-##Get Started 
+## Get Started 
 In this lesson, we are working with the same set of rasters used in the
 [Raster Time Series Data in R ]({{ site.baseurl}} /R/Raster-Times-Series-Data-In-R/) 
-lesson. This data is derived from the Landsat satellite and stored in `GeoTIFF`
-format. Each raster covers the 
+tutorial. This data is derived from the Landsat satellite and stored in 
+`GeoTIFF` format. Each raster covers the 
 <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>.  
-If you have not already created the RasterStack, created in the lesson above,
+
+If you have not already created the RasterStack, originally created in 
+[Raster Time Series Data in R ]({{ site.baseurl}} /R/Raster-Times-Series-Data-In-R/),
 please create it now. 
 
 
@@ -96,7 +90,7 @@ please create it now.
     #apply scale factor
     NDVI_HARV_stack <- NDVI_HARV_stack/10000
 
-##Plot Raster Time Series Data
+## Plot Raster Time Series Data
 We can use the `plot` function to plot our raster time series data.
 
 
@@ -112,7 +106,6 @@ We can use the `plot` function to plot our raster time series data.
 However, the data stored in our raster ranges from 0 - 10,000. If we view the 
 metadata for the original .tif files, we will see a scale factor of 10,000 is
 defined.
-
 Multiplying values with decimal places by a factor of 10, allows the data to be 
 stored in integer format (no decimals) rather than a floating point format 
 (containing decimals). This keeps the file size smaller. 
@@ -126,7 +119,7 @@ can use `levelplot` from the `rasterVis` package to make our plot prettier!
 the `rasterVis` library</a>
 
 The syntax for the `levelplot` function is similar to that for the `plot`
-function. We use main="" to add a title to the entire plot series.
+function. We use `main="TITLE"` to add a title to the entire plot series.
 
 
     #create a `levelplot` plot
@@ -135,7 +128,7 @@ function. We use main="" to add a title to the entire plot series.
 
 ![ ]({{ site.baseurl }}/images/rfigs/06-Plotting-Time-Series-Rasters-in-R/levelplot-time-series-1.png) 
 
-##Adjust the Color Ramp
+## Adjust the Color Ramp
 Next, let's adjust the color ramp used to render the rasters. First, we
 can change the red color ramp to a green one that is more visually suited to our 
 NDVI (greenness) data using the `colorRampPalette` function in combination with 
@@ -156,7 +149,7 @@ The yellow to green color ramp visually represents NDVI well given it's a
 measure of greenness. Someone looking at the plot can quickly understand that
 pixels that are more green, have a higher NDVI value. 
 
-For all of the `brewer.pal` ramp names see the 
+* For all of the `brewer.pal` ramp names see the 
 <a href="http://www.datavis.ca/sasmac/brewerpal.html" target="_blank">
 brewerpal page.</a>.
 
@@ -237,7 +230,7 @@ the new labels using `names.attr=rasterNames`.
 
 ![ ]({{ site.baseurl }}/images/rfigs/06-Plotting-Time-Series-Rasters-in-R/create-levelplot-1.png) 
 
-We can adjust the columns of our plot too using `layout=c(cols,rows)'. Below
+We can adjust the columns of our plot too using `layout=c(cols,rows)`. Below
 we adjust the layout to be a matrix of 5 columns and 3 rows.
 
 
@@ -264,7 +257,7 @@ Finally, let's remove the axis ticks from the plot.
 ![ ]({{ site.baseurl }}/images/rfigs/06-Plotting-Time-Series-Rasters-in-R/adjust-layout-1.png) 
 
 <div id="challenge" markdown="1">
-#Challenge: Divergent Color Ramps 
+## Challenge: Divergent Color Ramps 
 When we used `gsub` to modify the tile labels we replaced the beginning of each 
 tile title with "Day". A more descriptive name could be "Julian Day".
 
