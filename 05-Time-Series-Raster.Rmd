@@ -14,7 +14,7 @@ mainTag: raster-data
 description: "This tutorial covers how to work with and plot a raster time
 series, using an R RasterStack object. It also covers the basics of practical
 data quality assessment of remote sensing imagery."
-code1: 05-Time-Series-Raster-In-R.R
+code1: 05-Time-Series-Raster.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
@@ -61,15 +61,7 @@ preferably RStudio, loaded on your computer.
 ****
 
 {% include/_greyBox-wd-rscript.html %}
-
-**Raster Lesson Series:** This lesson is part of a lesson series on 
-[raster data in `R` ]({{ site.baseurl }}tutorial/spatial-raster-series). It is
-also part of a larger spatio-temporal 
-[spatio-temporal Data Carpentry Workshop ]({{ site.baseurl }}workshops/spatio-temporal-workshop)
-that includes working with  
-[vector data in R ]({{ site.baseurl }}tutorial/spatial-vector-series) 
-and  
-[tabular time series in R ]({{ site.baseurl }}tutorial/tabular-time-series).
+{% include/tutorialSeries/_series_dc-spatial-raster.html %}
 
 ****
 
@@ -89,8 +81,8 @@ of data collected at different times for the same `extent` (region) and of the
 same `resolution`.
 
 <figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-raster/GreenessOverTime.png">
-    <img src="{{ site.baseurl }}/images/dc-spatial-raster/GreenessOverTime.png"></a>
+    <a href="{{ site.baseurl }}/images/dc-spatial-raster/GreennessOverTime.jpg">
+    <img src="{{ site.baseurl }}/images/dc-spatial-raster/GreennessOverTime.jpg"></a>
     <figcaption>A multi-band raster dataset can contain time series data. 
     Source: National Ecological Observatory Network (NEON). 
     </figcaption>
@@ -141,8 +133,8 @@ period that NDVI is available.
 
 
 <figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.png">
-    <img src="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.png"></a>
+    <a href="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.jpg">
+    <img src="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.jpg"></a>
     <figcaption>A "true" color image consists of 3 bands - red, green and blue. 
     When composited or rendered together in a GIS, or even a image-editor like
     Photoshop the bands create a color image. 
@@ -212,6 +204,30 @@ yres(NDVI_HARV_stack)
 xres(NDVI_HARV_stack)
 
 ```
+
+Notice that the CRS is `+proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs`. The
+**CRS** is in UTM Zone 19.  If you have completed the previous tutorials in 
+this 
+[raster data in `R` series ]({{ site.baseurl }}tutorial/spatial-raster-series),
+you should notice that the UTM Zone for the remote sensing non-Landsat-derived
+data was 18, not 19.  Why is it now Zone 19?  It this an error in our data?  
+
+<figure>
+    <a href="{{ site.baseurl }}/images/dc-spatial-raster/UTM_zones_18-19.jpg">
+    <img src="{{ site.baseurl }}/images/dc-spatial-raster/UTM_zones_18-19.jpg"></a>
+    <figcaption> Landsat imagery swaths are over 170 km N-S and 180 km E-W. As 
+	a result a given image may overlap two UTM zones. The designated zone is 
+	determined by the zone that the majority of the image is in.  In this
+	example, our point of interest is in UTM Zone 18 but the Landsat image will 
+	be classified as UTM Zone 19. Source: National Ecological Observatory 
+	Network (NEON).  
+    </figcaption>
+</figure>
+
+As this graphic illustrates, the tower is in UTM Zone 18, however, most of the 
+Landsat-derived raster comes from an image swath that is much larger and is 
+primarily in UTM Zone 19. Therefore, the whole raster is given the UTM Zone 19.
+However, the coordinates will still be correct for the tower location. 
 
 <div id="challenge" markdown="1">
 ## Challenge: Raster Metadata

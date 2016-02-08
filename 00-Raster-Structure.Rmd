@@ -67,15 +67,7 @@ preferably RStudio, loaded on your computer.
 ****
 
 {% include/_greyBox-wd-rscript.html %}
-
-**Raster Lesson Series:** This lesson is part of a lesson series on 
-[raster data in `R` ]({{ site.baseurl }}tutorial/spatial-raster-series). It is
-also part of a larger spatio-temporal 
-[spatio-temporal Data Carpentry Workshop ]({{ site.baseurl }}workshops/spatio-temporal-workshop)
-that includes working with  
-[vector data in R ]({{ site.baseurl }}tutorial/spatial-vector-series) 
-and  
-[tabular time series in R ]({{ site.baseurl }}tutorial/tabular-time-series).
+{% include/tutorialSeries/_series_dc-spatial-raster.html %}
 
 ****
 
@@ -199,7 +191,7 @@ as tags. These tags can include the following raster metadata:
 3. Values for when no data is provided (`NoData Value`)
 4. The `resolution` of the data
 
-In this lesson we will discuss all of these metadata tags.
+In this tutorial we will discuss all of these metadata tags.
 
 More about the  `.tif` format:
 
@@ -327,6 +319,21 @@ tells you which zone the data is in. Harvard Forest is in Zone 18.
 projection. Our raster uses the `WGS84` datum.
 * `+units=m` This is the horizontal units that the data are in. Our units 
 are meters. 
+
+## Extent
+The spatial extent is the geographic area that the raster data covers. 
+
+<figure>
+    <a href="{{ site.baseurl}}/images/dc-spatial-raster/spatial_extent.png">
+    <img src="{{ site.baseurl}}/images/dc-spatial-raster/spatial_extent.png">
+    </a>
+    <figcaption> The spatial extent of an R spatial object 
+	represents the geographic "edge" or location that is the furthest north, 
+	south, east and west. Thus is represents the overall geographic coverage of
+	the spatial object. 
+    Image Source: National Ecological Observatory Network (NEON)
+    </figcaption>
+</figure>
 
 ## Resolution
 A raster has horizontal (x and y) resolution. This resolution represents the 

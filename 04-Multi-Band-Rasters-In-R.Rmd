@@ -59,15 +59,7 @@ preferably RStudio, loaded on your computer.
 ****
 
 {% include/_greyBox-wd-rscript.html %}
-
-**Raster Lesson Series:** This lesson is part of a lesson series on 
-[raster data in `R` ]({{ site.baseurl }}tutorial/spatial-raster-series). It is
-also part of a larger spatio-temporal 
-[spatio-temporal Data Carpentry Workshop ]({{ site.baseurl }}workshops/spatio-temporal-workshop)
-that includes working with  
-[vector data in R ]({{ site.baseurl }}tutorial/spatial-vector-series) 
-and  
-[tabular time series in R ]({{ site.baseurl }}tutorial/tabular-time-series).
+{% include/tutorialSeries/_series_dc-spatial-raster.html %}
 
 </div>
 
@@ -104,8 +96,8 @@ electromagnetic spectrum. The pixel brightness for each band, when composited
 creates the colors that we see in an image. 
 
 <figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.png">
-    <img src="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.png"></a>
+    <a href="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.jpg">
+    <img src="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.jpg"></a>
     <figcaption>A color image consists of 3 bands - red, green and blue. When
     rendered together in a GIS, or even a tool like Photoshop or any other
     image software, they create a color image. 
