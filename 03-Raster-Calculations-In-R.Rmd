@@ -62,15 +62,7 @@ preferably RStudio, loaded on your computer.
 ****
 
 {% include/_greyBox-wd-rscript.html %}
-
-**Raster Lesson Series:** This lesson is part of a lesson series on 
-[raster data in `R` ]({{ site.baseurl }}tutorial/spatial-raster-series). It is
-also part of a larger spatio-temporal 
-[spatio-temporal Data Carpentry Workshop ]({{ site.baseurl }}workshops/spatio-temporal-workshop)
-that includes working with  
-[vector data in R ]({{ site.baseurl }}tutorial/spatial-vector-series) 
-and  
-[tabular time series in R ]({{ site.baseurl }}tutorial/tabular-time-series).
+{% include/tutorialSeries/_series_dc-spatial-raster.html %}
 
 ****
 
@@ -300,8 +292,8 @@ writeRaster(CHM_ov_HARV, "chm_HARV.tiff",
 The options that we used above include:
 
 * **format:** specify that the format will be `GTiff` or `geoTiff`. 
-* **overwrite:** If TRUE, R will overwrite an existing file in the specified
-directory if it exists, with the same name. USE THIS SETTING with CAUTION!
+* **overwrite:** If TRUE, `R` will overwrite any existing file  with the same
+name in the specified directory. USE THIS SETTING WITH CAUTION!
 * **NAflag:** set the `geotiff` tag for `NoData` to -9999, the National
 Ecological Observatory Network's (NEON) standard `NoData` value. 
 

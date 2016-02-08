@@ -14,7 +14,7 @@ mainTag: raster-data
 description: "This tutorial explains how to plot a raster in R using R's base plot
 function. It also covers how to layer a raster on top of a hillshade to produce 
 an eloquent map."
-code1: 01-Plot-Raster-In-R.R
+code1: 01-Plot-Raster.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
@@ -59,15 +59,7 @@ preferably RStudio, loaded on your computer.
 ****
 
 {% include/_greyBox-wd-rscript.html %}
-
-**Raster Lesson Series:** This lesson is part of a lesson series on 
-[raster data in `R` ]({{ site.baseurl }}tutorial/spatial-raster-series). It is
-also part of a larger spatio-temporal 
-[spatio-temporal Data Carpentry Workshop ]({{ site.baseurl }}workshops/spatio-temporal-workshop)
-that includes working with  
-[vector data in R ]({{ site.baseurl }}tutorial/spatial-vector-series) 
-and  
-[tabular time series in R ]({{ site.baseurl }}tutorial/tabular-time-series).
+{% include/tutorialSeries/_series_dc-spatial-raster.html %}
 
 ****
 
