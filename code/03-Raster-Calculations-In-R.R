@@ -76,7 +76,7 @@ plot(CHM_ov_HARV,
 #export CHM object to new GeotIFF
 writeRaster(CHM_ov_HARV, "chm_HARV.tiff",
             format="GTiff",  #specify output format - GeoTIFF
-            overwrite=TRUE, #CAUTION if this is true, it will overwrite an
+            overwrite=TRUE, #CAUTION: if this is true, it will overwrite an
                             # existing file
             NAflag=-9999) #set no data value to -9999
 
