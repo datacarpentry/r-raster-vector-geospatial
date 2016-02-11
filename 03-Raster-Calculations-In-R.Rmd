@@ -11,10 +11,11 @@ categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 workshopSeries: [raster-data]
 mainTag: raster-data
-description: "This tutorial covers how to subtract one raster from another using efficient
-methods - the overlay function compared to basic subtraction. We also cover how to extract
-pixel values from a set of locations - for example a buffer region around plot locations 
-at a field site. Finally, it explains the basic principles of writing functions in R."
+description: "This tutorial covers how to subtract one raster from another using
+efficient methods - the overlay function compared to basic subtraction. We also 
+cover how to extract pixel values from a set of locations - for example a buffer
+region around plot locations at a field site. Finally, it explains the basic 
+principles of writing functions in R."
 code1: 03-Raster-Calculations-In-R.R
 image:
   feature: NEONCarpentryHeader_2.png
@@ -26,16 +27,16 @@ comments: false
 
 {% include _toc.html %}
 
-##About
+## About
 We often want to combine values of and perform calculations on rasters to create 
-a new output raster. This lesson will cover three commonly used R functions 
+a new output raster. This tutorial covers three commonly used R functions 
 including: `overlay`,`calc` and raster math.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
 <div id="objectives" markdown="1">
 
-#Goals / Objectives
+# Goals / Objectives
 
 After completing this activity, you will:
 
@@ -44,42 +45,34 @@ raster math.
 * Know how to perform a more efficient subtraction (difference) between two 
 rasters using the raster `overlay()` function in R.
 
-##Things You’ll Need To Complete This Lesson
+## Things You’ll Need To Complete This Lesson
 To complete this lesson: you will need the most current version of R, and 
 preferably RStudio, loaded on your computer.
 
-###Install R Packages
+### Install R Packages
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
 * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}R/Packages-In-R/)
 
-####Data to Download
+#### Data to Download
 {% include/dataSubsets/_data_Airborne-Remote-Sensing.html %}
 
 ****
 
 {% include/_greyBox-wd-rscript.html %}
-
-**Raster Lesson Series:** This lesson is part of a lesson series on 
-[raster data in `R` ]({{ site.baseurl }}tutorial/spatial-raster-series). It is
-also part of a larger spatio-temporal 
-[spatio-temporal Data Carpentry Workshop ]({{ site.baseurl }}workshops/spatio-temporal-workshop)
-that includes working with  
-[vector data in R ]({{ site.baseurl }}tutorial/spatial-vector-series) 
-and  
-[tabular time series in R ]({{ site.baseurl }}tutorial/tabular-time-series).
+{% include/tutorialSeries/_series_dc-spatial-raster.html %}
 
 ****
 
-###Additional Resources
+### Additional Resources
 * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf"
 target="_blank">Read more about the `raster` package in `R`.</a>
 
 </div>
 
-##Raster Calculations in R
+## Raster Calculations in R
 We often want to perform calculations on two or more rasters to create a new 
 output raster. For example, if we are interested in mapping the heights of trees
 across an entire field site, we might want to calculate the *difference* between
@@ -98,14 +91,13 @@ buildings, etc with the influence of ground elevation removed.
     National Ecological Observatory Network (NEON).</figcaption>
 </figure>
 
-<i class="fa fa-star"></i> **More Info:** More on LiDAR CHM, DTM and DSM in this
-NEON Data Skills overview: 
+* More on LiDAR CHM, DTM and DSM in this NEON Data Skills overview lesson: 
 <a href="http://neondataskills.org/remote-sensing/2_LiDAR-Data-Concepts_Activity2/" target="_blank"> 
 What is a CHM, DSM and DTM? About Gridded, Raster LiDAR Data</a>. 
-{: .notice}
 
-###Load the Data 
-We will need the `raster` library to import and perform raster calculations. We
+
+### Load the Data 
+We will need the `raster` package to import and perform raster calculations. We
 will use the DTM (`NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif`) 
 and DSM (`NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif`) from the
 NEON Harvard Forest Field site.
@@ -141,18 +133,18 @@ plot(DSM_HARV,
      main="Digital Surface Model (Elevation)\n NEON Harvard Forest Field Site")
 ```
 
-##Two Ways to Perform Raster Calculations
+## Two Ways to Perform Raster Calculations
 
 We can calculate the difference between two rasters in two different ways:
 
-1. by directly subtracting the two rasters in `R` using raster math
+* by directly subtracting the two rasters in `R` using raster math
 
 or for more efficient processing - particularly if our rasters are large and/or
 the calculations we are performing are complex:
 
-2. using the `overlay()` function.
+* using the `overlay()` function.
 
-##Raster Math & Canopy Height Models
+## Raster Math & Canopy Height Models
 We can perform raster calculations by simply subtracting (or adding,
 multiplying, etc) two rasters. In the geospatial world, we call this
 *raster math*.
@@ -187,7 +179,7 @@ Notice that the range of values for the output CHM is between 0 and 30 meters.
 Does this make sense for trees in Harvard Forest?
 
 <div id="challenge" markdown="1">
-##Challenge: Explore CHM Raster Values
+## Challenge: Explore CHM Raster Values
 It's often a good idea to explore the range of values in a raster dataset just
 like we might explore a dataset that we collected in the field.  
 
@@ -229,7 +221,7 @@ plot(CHM_HARV,
 
 ```
 
-##Efficient Raster Calculations: Overlay Function
+## Efficient Raster Calculations: Overlay Function
 Raster math, like we just did, is an appropriate approach to raster calculations
 if:
 
@@ -276,7 +268,7 @@ function in R is:
 `functionName <- function(variable1, variable2){WhatYouWantDone, WhatToReturn}`
 {: .notice }
 
-##Export a GeoTIFF
+## Export a GeoTIFF
 Now that we've created a new raster, let's export the data as a `GeoTIFF` using
 the `writeRaster` function. 
 
@@ -290,23 +282,23 @@ full file path.
 #export CHM object to new GeotIFF
 writeRaster(CHM_ov_HARV, "chm_HARV.tiff",
             format="GTiff",  #specify output format - GeoTIFF
-            overwrite=TRUE, #CAUTION if this is true, it will overwrite an
+            overwrite=TRUE, #CAUTION: if this is true, it will overwrite an
                             # existing file
             NAflag=-9999) #set no data value to -9999
 
 ```
 
-###writeRaster Options
+### writeRaster Options
 The options that we used above include:
 
 * **format:** specify that the format will be `GTiff` or `geoTiff`. 
-* **overwrite:** If TRUE, R will overwrite an existing file in the specified
-directory if it exists, with the same name. USE THIS SETTING with CAUTION!
+* **overwrite:** If TRUE, `R` will overwrite any existing file  with the same
+name in the specified directory. USE THIS SETTING WITH CAUTION!
 * **NAflag:** set the `geotiff` tag for `NoData` to -9999, the National
 Ecological Observatory Network's (NEON) standard `NoData` value. 
 
 <div id="challenge" markdown="1">
-##Challenge: Explore the NEON San Joaquin Experimental Range Field Site
+## Challenge: Explore the NEON San Joaquin Experimental Range Field Site
 
 Data are often more interesting and powerful when we compare them across various 
 locations. Let's compare some data collected over Harvard Forest to data

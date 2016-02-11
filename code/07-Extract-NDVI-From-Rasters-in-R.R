@@ -91,7 +91,7 @@ class(avg_NDVI_HARV$Date)
 class(avg_NDVI_HARV$julianDay)
 
 
-## ----challenge-answers,  include=TRUE, results="hide", echo=FALSE--------
+## ----challenge-answers, include=TRUE, results="hide", echo=FALSE---------
 # Create list of NDVI file paths
 NDVI_path_SJER <- "NEON-DS-Landsat-NDVI/SJER/2011/NDVI"
 all_NDVI_SJER <- list.files(NDVI_path_SJER,
@@ -143,7 +143,7 @@ ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI), na.rm=TRUE) +
   theme(text = element_text(size=20))
 
 
-## ----challenge-code-ggplot-data------------------------------------------
+## ----challenge-code-ggplot-data, echo=FALSE------------------------------
 
 #plot NDVI
 ggplot(avg_NDVI_SJER, aes(julianDay, meanNDVI)) +

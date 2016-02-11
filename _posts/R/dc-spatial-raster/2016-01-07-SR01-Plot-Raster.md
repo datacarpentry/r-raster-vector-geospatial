@@ -6,7 +6,7 @@ authors: [Kristina Riemer, Jason Williams, Jeff Hollister, Mike Smorul, Zack Bry
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2016-01-22
+lastModified: 2016-02-08
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 workshopSeries: [raster-data]
@@ -14,7 +14,7 @@ mainTag: raster-data
 description: "This tutorial explains how to plot a raster in R using R's base plot
 function. It also covers how to layer a raster on top of a hillshade to produce 
 an eloquent map."
-code1: 01-Plot-Raster-In-R.R
+code1: 01-Plot-Raster.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
@@ -25,8 +25,8 @@ comments: false
 
 {% include _toc.html %}
 
-##About
-This lesson reviews how to plot a raster in R using the `plot()` 
+## About
+This tutorial reviews how to plot a raster in `R` using the `plot()` 
 function. It also covers how to layer a raster on top of a hillshade to produce 
 an eloquent map.
 
@@ -34,7 +34,7 @@ an eloquent map.
 
 <div id="objectives" markdown="1">
 
-#Goals / Objectives
+# Goals / Objectives
 
 After completing this activity, you will:
 
@@ -42,42 +42,34 @@ After completing this activity, you will:
 * Know how to layer a raster dataset on top of a hillshade to create an elegant 
 basemap.
 
-##Things You’ll Need To Complete This Lesson
+## Things You’ll Need To Complete This Lesson
 To complete this lesson: you will need the most current version of R, and 
 preferably RStudio, loaded on your computer.
 
-###Install R Packages
+### Install R Packages
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
 * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}R/Packages-In-R/)
 
-####Download Data
+#### Download Data
 {% include/dataSubsets/_data_Airborne-Remote-Sensing.html %}
 
 ****
 
 {% include/_greyBox-wd-rscript.html %}
-
-**Raster Lesson Series:** This lesson is part of a lesson series on 
-[raster data in `R` ]({{ site.baseurl }}tutorial/spatial-raster-series). It is
-also part of a larger spatio-temporal 
-[spatio-temporal Data Carpentry Workshop ]({{ site.baseurl }}workshops/spatio-temporal-workshop)
-that includes working with  
-[vector data in R ]({{ site.baseurl }}tutorial/spatial-vector-series) 
-and  
-[tabular time series in R ]({{ site.baseurl }}tutorial/tabular-time-series).
+{% include/tutorialSeries/_series_dc-spatial-raster.html %}
 
 ****
 
-###Additional Resources
+### Additional Resources
 
 * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank"> Read more about the `raster` package in `R`.</a>
 
 </div>
 
-##Plot Raster Data in R
+## Plot Raster Data in R
 In this lesson, we will plot the Digital Surface Model (DSM) raster 
 for the NEON Harvard Forest Field Site. We will use the `hist()` function as a 
 tool to explore raster values. And render categorical plots, using `breaks` or
@@ -109,7 +101,7 @@ function. We add a title using `main=""`.
 
 ![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/hist-raster-1.png) 
 
-##Plotting Data Using Breaks
+## Plotting Data Using Breaks
 We can view our data "symbolized" or colored according to ranges of values
 rather than using a continuous color ramp. This is comparable to a "classified"
 map. However, to assign breaks, it is useful to first explore the distribution
@@ -139,7 +131,7 @@ break values.
 
     DSMhist$counts
 
-    ## [1] 32219 67328   453
+    ## [1] 32027 67540   433
 
 Warning message!? Remember, the default for the histogram is to include only a
 subset of 100,000 values. We could force it to show all the pixel values or we
@@ -171,11 +163,11 @@ We can include as few or many breaks as we'd like.
 
 ![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/plot-with-breaks-1.png) 
 
-<i class="fa fa-star"></i> **Data Tip:** Note that when we assign break values,
+<i class="fa fa-star"></i> **Data Tip:** Note that when we assign break values
 a set of 4 values will result in 3 bins of data.
 {: .notice}
 
-###Format Plot
+### Format Plot
 If we need to create multiple plots using the same color palette, we can create
 an `R` object (`myCol`) for the set of colors that we want to use. We can then
 quickly change the palette across all plots by simply modifying the `myCol`
@@ -210,7 +202,7 @@ Or we can also turn off the axes altogether.
 ![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/turn-off-axes-1.png) 
 
 <div id="challenge" markdown="1">
-##Challenge: Create a Labeled Plots
+## Challenge: Create a Labeled Plots
 Create a plot of the Harvard Forest Digital Surface Model (DSM) that has:
 
 * Six categories that are evenly divided among the range of pixel values. 
@@ -219,10 +211,9 @@ Create a plot of the Harvard Forest Digital Surface Model (DSM) that has:
 
 </div>
 
-
 ![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/challenge-code-plotting-1.png) 
 
-##Layering Rasters
+## Layering Rasters
 We can layer a raster on top of hillshade raster for the same area, and use a 
 transparency factor to created a shaded 3 dimensional, shaded effect. A
 hillshade is a raster that maps the shadows and texture that you would see from
@@ -242,7 +233,7 @@ above when viewing terrain.
 
 ![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/hillshade-1.png) 
 
-<i class="fa fa-star"></i> **Data Tip:** Turn off or hide the legend on 
+<i class="fa fa-star"></i> **Data Tip:** Turn off, or hide, the legend on 
 a plot using `legend=FALSE`.
 {: .notice}
 
@@ -270,11 +261,11 @@ The alpha value determines how transparent the colors will be (0 being
 transparent, 1 being opaque). Note that here we used the color palette
 `rainbow()` instead of `terrain.color()`.
 
-* More information on 
-<a href="https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/palettes.html" target="_blank">`R` color palettes</a>. 
+* More information in the 
+<a href="https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/palettes.html" target="_blank">`R` color palettes documentation</a>. 
 
 <div id="challenge" markdown="1">
-##Challenge: Create DTM & DSM for SJER
+## Challenge: Create DTM & DSM for SJER
 Use the files in the `NEON_RemoteSensing/SJER/` directory to create a Digital
 Terrain Model map and Digital Surface Model map of the San Joaquin Experimental
 Range field site.
