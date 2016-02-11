@@ -12,11 +12,11 @@ tags: [R, raster, spatial-data-gis]
 workshopSeries: [raster-data]
 mainTag: raster-data
 description: "This tutorial reviews the fundamental principles, packages and 
-metadata / raster attributes that are needed to work with raster data in R. It 
+metadata/raster attributes that are needed to work with raster data in R. It 
 covers the three core metadata elements that we need to understand to work with
-rasters in R: CRS, Extent and Resolution. It also explores no and bad data values
-as stored in a raster and R handles these elements. Finally it introduces the
-GeoTiff file format."
+rasters in R: CRS, Extent and Resolution. It also explores no and bad data 
+values as stored in a raster and how R handles these elements. Finally, it 
+introduces the GeoTiff file format."
 code1: 00-Raster-Structure.R
 image:
   feature: NEONCarpentryHeader_2.png
@@ -28,15 +28,19 @@ comments: false
 
 {% include _toc.html %}
 
-##About
-In this lesson, we will cover the basics of raster data and how to how to open, 
-plot and explore raster data properties in `R`.
+## About
+In this tutorial, we will review the fundamental principles, packages and 
+metadata/raster attributes that are needed to work with raster data in `R`. 
+We discuss the three core metadata elements that we need to understand to work 
+with rasters in R: `CRS`, `extent` and `resolution`. It also explores no and bad
+data values as stored in a raster and how `R` handles these elements. Finally, 
+it introduces the GeoTiff file format.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
 <div id="objectives" markdown="1">
 
-#Goals / Objectives
+# Goals / Objectives
 
 After completing this activity, you will:
 
@@ -46,36 +50,28 @@ After completing this activity, you will:
 * Be able to quickly plot a raster file in `R`.
 * Understand the difference between single- and multi-band rasters.
 
-##Things You’ll Need To Complete This Lesson
+## Things You’ll Need To Complete This Lesson
 To complete this lesson: you will need the most current version of R, and 
 preferably RStudio, loaded on your computer.
 
-###Install R Packages
+### Install R Packages
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
 * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}R/Packages-In-R/)
 
-###Download Data
+### Download Data
 {% include/dataSubsets/_data_Airborne-Remote-Sensing.html %}
 
 ****
 
 {% include/_greyBox-wd-rscript.html %}
-
-**Raster Lesson Series:** This lesson is part of a lesson series on 
-[raster data in `R` ]({{ site.baseurl }}tutorial/spatial-raster-series). It is
-also part of a larger spatio-temporal 
-[spatio-temporal Data Carpentry Workshop ]({{ site.baseurl }}workshops/spatio-temporal-workshop)
-that includes working with  
-[vector data in R ]({{ site.baseurl }}tutorial/spatial-vector-series) 
-and  
-[tabular time series in R ]({{ site.baseurl }}tutorial/tabular-time-series).
+{% include/tutorialSeries/_series_dc-spatial-raster.html %}
 
 ****
 
-###Additional Resources
+### Additional Resources
 
 * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
 Read more about the `raster` package in `R`.</a>
@@ -86,7 +82,7 @@ NEON Data Skills: Image Raster Data in R - An Intro</a>
 
 </div>
 
-##About Raster Data
+## About Raster Data
 Raster or "gridded" data are saved on a regular grid which is rendered on a map
 as pixels. Each pixel contains a value that represents an area on the Earth's 
 surface.
@@ -99,7 +95,7 @@ surface.
     </figcaption>
 </figure>
 
-##Types of Data Stored in Raster Format
+## Types of Data Stored in Raster Format
 Raster data can be continuous or categorical. Continuous rasters can have a 
 range of quantitative values. Some examples of continuous rasters include:
 
@@ -107,7 +103,7 @@ range of quantitative values. Some examples of continuous rasters include:
 2. Maps of tree height derived from LiDAR data.
 3. Elevation values for a region. 
 
-A map of elevation for Harvard Forest derived from the  
+A map of elevation for Harvard Forest derived from the 
 <a href="http://www.neoninc.org/science-design/collection-methods/airborne-remote-sensing" target="_blank"> 
 NEON AOP LiDAR sensor</a> 
 is below. Notice that elevation is a continuous numeric variable. The legend
@@ -131,14 +127,15 @@ plot(DSM_HARV, main="Continuous Elevation Map\n NEON Harvard Forest Field Site")
 ```
 
 Some rasters contain categorical data. Thus each pixel represents a discrete
-class such as a landcover type ("forest") rather than a continuous value such as
-elevation or temperature. Some examples of classified maps include:
+class such as a landcover type (e.g., "forest" or "grassland") rather than a
+continuous value such as elevation or temperature. Some examples of classified
+maps include:
 
 1. Landcover / landuse maps.
 2. Tree height maps classified short, medium, tall trees.
 3. Elevation maps classified low, medium and high elevation.
 
-####Categorical Landcover Map for the United States 
+#### Categorical Landcover Map for the United States 
 <figure>
     <a href="http://neondataskills.org/images/spatialData/NLCD06_conus_lg.gif ">
     <img src="http://neondataskills.org/images/spatialData/NLCD06_conus_lg.gif">
@@ -150,7 +147,7 @@ elevation or temperature. Some examples of classified maps include:
     </figcaption>
 </figure>
 
-####Categorical Elevation Map of the NEON Harvard Forest Site
+#### Categorical Elevation Map of the NEON Harvard Forest Site
 The legend of this map shows the colors representing each discrete class. 
 
 ```{r classified-elevation-map, echo=FALSE}
@@ -179,7 +176,7 @@ legend( par()$usr[2], 4713700,
         fill = rev(col))
 ```
 
-##What is a GeoTIFF??
+## What is a GeoTIFF??
 Raster data can come in many different formats. In this lesson, we will use the 
 geotiff format which has the extension `.tif`. A `.tif` file stores metadata
 or attributes about the file as embedded `tif tags`. For instance, your camera
@@ -194,14 +191,14 @@ as tags. These tags can include the following raster metadata:
 3. Values for when no data is provided (`NoData Value`)
 4. The `resolution` of the data
 
-In this lesson we will discuss all of these metadata tags.
+In this tutorial we will discuss all of these metadata tags.
 
 More about the  `.tif` format:
 
 * <a href="https://en.wikipedia.org/wiki/GeoTIFF" target="_blank"> GeoTIFF on Wikipedia</a>
 * <a href="https://trac.osgeo.org/geotiff/" target="_blank"> OSGEO TIFF documentation</a>
 
-##Raster Data in R
+## Raster Data in R
 
 Let's first import a raster dataset into `R` and explore its metadata.
 To open rasters in `R`, we will use the `raster` and `rgdal` packages.
@@ -215,7 +212,7 @@ library(rgdal)
 #setwd("working-dir-path-here")
 ```
 
-##Open a Raster in R
+## Open a Raster in R
 We can use the `raster("path-to-raster-here")` function to open a raster in R. 
 
 <i class="fa fa-star"></i> **Data Tip:**  NAMES! To improve code readability, 
@@ -242,7 +239,7 @@ Here is a map showing the elevation of our site in Harvard Forest. Is the max
 elevation value within this raster greater than 400 meters or 400 feet? Perhaps 
 we need to learn more about the data attributes from the metadata!
 
-##Coordinate Reference System
+## Coordinate Reference System
 The Coordinate Reference System or `CRS` tells `R` where the raster is located
 in geographic space. It also tells `R` what method should be used to "flatten"
 or project the raster in geographic space. 
@@ -255,14 +252,14 @@ or project the raster in geographic space.
     <figcaption> Maps of the United States in different projections. Notice the 
     differences in shape associated with each different projection. These 
     differences are a direct result of the calculations used to "flatten" the 
-    data onto a 2 dimensional map. Source: opennews.org</figcaption>
+    data onto a 2-dimensional map. Source: opennews.org</figcaption>
 </figure>
 
-###What Makes Spatial Data Line Up On A Map?
+### What Makes Spatial Data Line Up On A Map?
 There are lots of great resources that describe coordinate reference systems and
 projections in greater detail. For the purposes of this activity, what 
 is important to understand is that data from the same location but saved in 
-different projections **will not line up in any GIS or other program**. Thus 
+**different projections will not line up in any GIS or other program**. Thus 
 it's important when working with spatial data in a program like `R` or `Python` 
 to identify the coordinate reference system applied to the data and retain it 
 throughout data processing and analysis.
@@ -270,18 +267,18 @@ throughout data processing and analysis.
 Read More: 
 
 * <a href="http://spatialreference.org/ref/epsg/" target="_blank"> A comprehensive online library of CRS information.</a>
-* <a href="http://docs.qgis.org/2.0/en/docs/gentle_gis_introduction/coordinate_reference_systems.html" target="_blank">QGIS Documentation - CRS Overview</a>
+* <a href="http://docs.qgis.org/2.0/en/docs/gentle_gis_introduction/coordinate_reference_systems.html" target="_blank">QGIS Documentation - CRS Overview.</a>
 * <a href="https://source.opennews.org/en-US/learning/choosing-right-map-projection/" target="_blank">Choosing the Right Map Projection.</a>
-* <a href="https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf" target="_blank"> NCEAS Overview of CRS in R</a>
+* <a href="https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf" target="_blank"> NCEAS Overview of CRS in R.</a>
 
-###How Map Projections Can Fool the Eye
+### How Map Projections Can Fool the Eye
 Check out this short video highlighting how map projections can make continents 
 seems proportionally larger or smaller than they actually are!
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/KUF_Ckv8HbE" frameborder="0" allowfullscreen></iframe>
 
  
-###View Raster Coordinate Reference System (CRS) in R
+### View Raster Coordinate Reference System (CRS) in R
 We can view the `CRS` string associated with our `R` object using the`crs()` 
 method. We can assign this string to an `R` object too.
 
@@ -300,12 +297,10 @@ projection.
 
 <figure>
     <a href="https://en.wikipedia.org/wiki/File:Utm-zones.svg">
-    <img src="http://upload.wikimedia.org/wikipedia/en/thumb/5/57/Utm-zones.svg/720px-Utm-zones.svg.png">
-    </a>
-    
-    <figcaption> The UTM zones across the continental United States.  
-	Image source: Chrismurf, wikimedia.org
-	</figcaption>
+    <img src="http://upload.wikimedia.org/wikipedia/en/thumb/5/57/Utm-zones.svg/720px-Utm-zones.svg.png"></a>
+   	<figcaption> The UTM zones across the continental United States. Source: 
+   	Chrismurf, wikimedia.org.
+		</figcaption>
 </figure>
 
 The CRS in this case is in a `PROJ 4` format. This means that the projection
@@ -325,7 +320,22 @@ projection. Our raster uses the `WGS84` datum.
 * `+units=m` This is the horizontal units that the data are in. Our units 
 are meters. 
 
-##Resolution
+## Extent
+The spatial extent is the geographic area that the raster data covers. 
+
+<figure>
+    <a href="{{ site.baseurl}}/images/dc-spatial-raster/spatial_extent.png">
+    <img src="{{ site.baseurl}}/images/dc-spatial-raster/spatial_extent.png">
+    </a>
+    <figcaption> The spatial extent of an R spatial object 
+	represents the geographic "edge" or location that is the furthest north, 
+	south, east and west. Thus is represents the overall geographic coverage of
+	the spatial object. 
+    Image Source: National Ecological Observatory Network (NEON)
+    </figcaption>
+</figure>
+
+## Resolution
 A raster has horizontal (x and y) resolution. This resolution represents the 
 area on the ground that each pixel covers. The units for our data are in meters.
 Given our data resolution is 1 x 1, this means that each pixel represents a 
@@ -340,16 +350,13 @@ Given our data resolution is 1 x 1, this means that each pixel represents a
 </figure>
 
 The best way to view resolution units is to look at the 
-coordinate reference system string `crs()`. Notice our data contains the
-following:
-
-`+units=m`
+coordinate reference system string `crs()`. Notice our data contains: `+units=m`.
 
 ``` {r resolution-units}
 crs(DSM_HARV)
 ```
 
-##Calculate Raster Min and Max Values
+## Calculate Raster Min and Max Values
 
 It is useful to know the minimum or maximum values of a raster dataset. In
 this case, given we are working with elevation data, these values represent the 
@@ -375,7 +382,7 @@ maxValue(DSM_HARV)
 We can see that the elevation at our site ranges from 305.07m to 416.07m. Thus, 
 our site is fairly flat.
 
-##NoData Values in Rasters
+## NoData Values in Rasters
 
 Raster data often has a `NoData` value associated with it. This is a value 
 assigned to pixels where no data were collected / are available. 
@@ -386,7 +393,7 @@ at the
 edge of the raster will have no data. This often happens when the data were 
 collected by an airplane which only flew over some of a particular region. 
 
-In the image below, the pixels that are black, have no data values.
+In the image below, the pixels that are black have no data values.
 The camera did not collect data in these areas. 
 
 ```{r demonstrate-no-data-black, echo=FALSE }
@@ -423,7 +430,7 @@ plotRGB(newRGBImage, r = 1, g = 2, b = 3,
  
 ```
 
-###NoData Value Standard 
+### NoData Value Standard 
 
 The assigned `NoData` value varies across disciplines; `-9999` is a common value 
 used in both the remote sensing field and the atmospheric fields. It is also
@@ -437,7 +444,7 @@ If a `NoData` value was stored in the GeoTIFF tag, when `R` opens up the raster,
 it will assign each instance of the value to `NA` (no data in `R` world). Values
 of `NA` will be ignored by R.
 
-##Bad Data Values in Rasters
+## Bad Data Values in Rasters
 
 Bad data values are different from `NoDataValue`. Bad data values are values that
 fall outside of the applicable range of a dataset. 
@@ -451,14 +458,14 @@ be considered a "bad" or miscalculated value.
 upon how the data are scaled. Thus a value greater than 1 or greater than 10,000
 is likely caused by an error in either data collection or processing.
 
-###Find Bad Data Values
+### Find Bad Data Values
 Sometimes a raster's metadata will tell us the range of expected values for a
  raster. Values outside of this range are suspect and we need to consider than
  when we analyze the data. Sometimes, we need to use some common sense and
  scientific insight as we examine the data - just as we would for field data t
  identify questionable values. 
 
-##Create A Histogram of Raster Values
+## Create A Histogram of Raster Values
 
 We can explore the distribution of values contained within our raster using the 
 `hist` function which produces a histogram. Histograms are often useful in 
@@ -477,15 +484,15 @@ hist(DSM_HARV,
 
 Notice that an error message is thrown when `R` creates the histogram. 
 
-`Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...): 4%
+`Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...): 4%  
 of the raster cells were used. 100000 values used.`
 
 This error is caused by the default maximum pixels value of 100,000 associated 
 with the `hist` function. This maximum value is to ensure processing efficiency
 as our data become larger!
 
-<a href="http://www.r-bloggers.com/basics-of-histograms/" target="_blank">More 
-on histograms in R</a>
+* More on 
+<a href="http://www.r-bloggers.com/basics-of-histograms/" target="_blank">histograms in R from R-bloggers</a>
 
 We can define the max pixels to ensure that all pixel values are included in the
 histogram. **USE THIS WITH CAUTION** as forcing `R` to plot all pixel values
@@ -512,8 +519,7 @@ Note that the shape of both histograms looks similar to the previous one that
 distribution of elevation values for our `Digital Surface Model (DSM)` looks 
 reasonable. It is likely there are no bad data values in this particular raster.
 
-##Raster Bands
-
+## Raster Bands
 The Digital Surface Model object (`DSM_HARV`) that we've been working with 
 is a single band raster. This means that there is only one dataset stored in 
 the raster: surface elevation in meters for one time period.
@@ -538,15 +544,15 @@ nlayers(DSM_HARV)
 
 However, raster data can also be multi-band meaning that one raster file 
 contains data for more than one variable or time period for each cell. By
- default the `raster` function only imports the first band in a raster
- regardless of whether it has 1 or more bands. The fourth lesson in this series
- is a tutorial on multi-band rasters,
- <a href="{{ site.baseurl }}/NEON-R-Spatial-Raster/R/Multi-Band-Rasters-In-R/" target="_blank">
+default the `raster` function only imports the first band in a raster
+regardless of whether it has 1 or more bands. The fourth lesson in this series
+is a tutorial on multi-band rasters, 
+<a href="{{ site.baseurl }}/NEON-R-Spatial-Raster/R/Multi-Band-Rasters-In-R/" target="_blank">
 Work with Multi-band Rasters: Images in R</a>.
 
 ##View Raster File Attributes
 Remember that a `GeoTIFF` contains a set of embedded tags that contain 
-metadata about the raster. So far, we've explored raster metadata AFTER
+metadata about the raster. So far, we've explored raster metadata **after**
 importing it in `R`. However, we can use the `GDALinfo("path-to-raster-here")`
 function to view raster metadata before we open a file in `R`.
 
@@ -559,14 +565,15 @@ GDALinfo("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 Notice a few things in the output:
 
-1. A projection is described using a string in the format `proj4`:
-   `+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs `
+1. A projection is described using a string in the `proj4` format :
+`+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs `
 2. We can identify a `NoDataValue`: -9999
 3. We can tell how many `bands` the file contains: 1
 4. We can view the x and y `resolution` of the data: 1
 5. We can see the min and max values of the data: `Bmin` and `Bmax`.
 
-It is ideal to use `GDALinfo` to explore your file BEFORE reading it into `R`.
+It is ideal to use `GDALinfo` to explore your file **before** reading it into 
+`R`.
 
 <div id="challenge" markdown="1">
 
