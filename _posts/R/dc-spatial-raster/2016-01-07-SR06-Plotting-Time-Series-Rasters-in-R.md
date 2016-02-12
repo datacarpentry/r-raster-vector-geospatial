@@ -7,7 +7,7 @@ authors: [Leah A. Wasser, Kristina Riemer, Zack Bryn, Jason Williams, Jeff Holli
 contributors: [ ]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2016-02-11
+lastModified: 2016-02-12
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 mainTag: raster-data
@@ -100,7 +100,7 @@ We can use the `plot` function to plot our raster time series data.
          zlim = c(.15, 1), 
          nc = 4)
 
-![ ]({{ site.baseurl }}/images/rfigs/06-Plotting-Time-Series-Rasters-in-R/plot-time-series-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/plot-time-series-1.png) 
 
 <i class="fa fa-star"></i> **Data Tip:** The range of values for NDVI is 0-1. 
 However, the data stored in our raster ranges from 0 - 10,000. If we view the 
@@ -126,7 +126,7 @@ function. We use `main="TITLE"` to add a title to the entire plot series.
     levelplot(NDVI_HARV_stack,
               main="Landsat NDVI\nNEON Harvard Forest")
 
-![ ]({{ site.baseurl }}/images/rfigs/06-Plotting-Time-Series-Rasters-in-R/levelplot-time-series-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/levelplot-time-series-1.png) 
 
 ## Adjust the Color Ramp
 Next, let's adjust the color ramp used to render the rasters. First, we
@@ -143,7 +143,7 @@ NDVI (greenness) data using the `colorRampPalette` function in combination with
             main="Landsat NDVI -- Improved Colors \nNEON Harvard Forest Field Site",
             col.regions=cols)
 
-![ ]({{ site.baseurl }}/images/rfigs/06-Plotting-Time-Series-Rasters-in-R/change-color-ramp-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/change-color-ramp-1.png) 
 
 The yellow to green color ramp visually represents NDVI well given it's a
 measure of greenness. Someone looking at the plot can quickly understand that
@@ -228,7 +228,7 @@ the new labels using `names.attr=rasterNames`.
               main="Landsat NDVI - Julian Days \nHarvard Forest 2014",
               names.attr=rasterNames)
 
-![ ]({{ site.baseurl }}/images/rfigs/06-Plotting-Time-Series-Rasters-in-R/create-levelplot-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/create-levelplot-1.png) 
 
 We can adjust the columns of our plot too using `layout=c(cols,rows)`. Below
 we adjust the layout to be a matrix of 5 columns and 3 rows.
@@ -241,7 +241,7 @@ we adjust the layout to be a matrix of 5 columns and 3 rows.
               main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
               names.attr=rasterNames)
 
-![ ]({{ site.baseurl }}/images/rfigs/06-Plotting-Time-Series-Rasters-in-R/adjust-layout-axes-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/adjust-layout-axes-1.png) 
 
 Finally, let's remove the axis ticks from the plot.
 
@@ -254,7 +254,7 @@ Finally, let's remove the axis ticks from the plot.
               names.attr=rasterNames,
               axes=FALSE)
 
-![ ]({{ site.baseurl }}/images/rfigs/06-Plotting-Time-Series-Rasters-in-R/adjust-layout-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/adjust-layout-1.png) 
 
 <div id="challenge" markdown="1">
 ## Challenge: Divergent Color Ramps 
@@ -274,4 +274,4 @@ better than a sequential color ramp (like "YlGn")? Can you think of other data
 sets where a divergent color ramp may be best? 
 </div>
 
-![ ]({{ site.baseurl }}/images/rfigs/06-Plotting-Time-Series-Rasters-in-R/challenge-code-levelplot-divergent-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/challenge-code-levelplot-divergent-1.png) 

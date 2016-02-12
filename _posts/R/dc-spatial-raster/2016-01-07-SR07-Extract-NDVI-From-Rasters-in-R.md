@@ -6,7 +6,7 @@ authors: [Leah A. Wasser, Kristina Riemer, Zack Bryn, Jason Williams, Jeff Holli
 contributors: [ ]
 packagesLibraries: [raster, rgdal, ggplot2]
 dateCreated: 2014-11-26
-lastModified: 2016-02-11
+lastModified: 2016-02-12
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 mainTag: raster-data
@@ -312,7 +312,7 @@ in `ggplot()` see the lesson on
       xlab("Julian Days") + ylab("Mean NDVI") +
       theme(text = element_text(size=20))
 
-![ ]({{ site.baseurl }}/images/rfigs/07-Extract-NDVI-From-Rasters-in-R/ggplot-data-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/ggplot-data-1.png) 
 
 <div id="challenge" markdown="1">
 ## Challenge: ggplot with San Joaquin Experimental Range Data
@@ -320,7 +320,7 @@ Create a complementary plot for the SJER data. Plot the data points in a
 different color. 
 </div>
 
-![ ]({{ site.baseurl }}/images/rfigs/07-Extract-NDVI-From-Rasters-in-R/challenge-code-ggplot-data-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/challenge-code-ggplot-data-1.png) 
 
 ##Compare NDVI from Two Different Sites in One Plot
 Comparison of plots is often easiest when both plots are side by side. Or, even 
@@ -341,7 +341,7 @@ of columns and exact same column names to be bound.
       scale_colour_manual(values=c("PeachPuff4", "SpringGreen4")) +   #match previous plots
       theme(text = element_text(size=20))
 
-![ ]({{ site.baseurl }}/images/rfigs/07-Extract-NDVI-From-Rasters-in-R/merge-df-single-plot-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/merge-df-single-plot-1.png) 
 
 <div id="challenge" markdown="1">
 ## Challenge: Plot NDVI with Date
@@ -350,7 +350,7 @@ on the x-axis.
 
 </div>
 
-![ ]({{ site.baseurl }}/images/rfigs/07-Extract-NDVI-From-Rasters-in-R/challenge-code-plot2-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/challenge-code-plot2-1.png) 
 
 ## Remove Outlier Data
 As we look at these plots we see variation in greenness across the year.
@@ -361,7 +361,7 @@ outlier values that should be removed from the data?
 
 Let's look at the RGB images from Harvard Forest.
 
-![ ]({{ site.baseurl }}/images/rfigs/07-Extract-NDVI-From-Rasters-in-R/view-all-rgb-Harv-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/view-all-rgb-Harv-1.png) 
 
 Notice that the data points with very low NDVI values can be associated with
 images that are filled with clouds. Thus, we can attribute the low NDVI values
@@ -369,7 +369,7 @@ to high levels of cloud cover.
 
 Is the same thing happening at SJER?
 
-![ ]({{ site.baseurl }}/images/rfigs/07-Extract-NDVI-From-Rasters-in-R/view-all-rgb-SJER-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/view-all-rgb-SJER-1.png) 
 
 Without significant additional processing, we will not be able to retrieve a
 strong reflection from a remotely sensed image that is predominantly cloud
@@ -408,7 +408,7 @@ Now we can create another plot without the suspect data.
       xlab("Julian Days") + ylab("Mean NDVI") +
       theme(text = element_text(size=20))
 
-![ ]({{ site.baseurl }}/images/rfigs/07-Extract-NDVI-From-Rasters-in-R/plot-clean-HARV-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/plot-clean-HARV-1.png) 
   
 Now our outlier data points are removed and the pattern of "green-up" and
 "brown-down" makes a bit more sense.

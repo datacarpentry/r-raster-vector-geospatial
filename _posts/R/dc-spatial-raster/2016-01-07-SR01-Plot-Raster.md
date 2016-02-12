@@ -6,7 +6,7 @@ authors: [Kristina Riemer, Jason Williams, Jeff Hollister, Mike Smorul, Zack Bry
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2016-02-11
+lastModified: 2016-02-12
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 workshopSeries: [raster-data]
@@ -99,7 +99,7 @@ function. We add a title using `main=""`.
     plot(DSM_HARV,
          main="Digital Surface Model\nNEON Harvard Forest Field Site")
 
-![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/hist-raster-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/01-Plot-Raster/hist-raster-1.png) 
 
 ## Plotting Data Using Breaks
 We can view our data "symbolized" or colored according to ranges of values
@@ -122,7 +122,7 @@ break values.
     ## Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...):
     ## 4% of the raster cells were used. 100000 values used.
 
-![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/create-histogram-breaks-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/01-Plot-Raster/create-histogram-breaks-1.png) 
 
     #Where are breaks and how many pixels in each category?
     DSMhist$breaks
@@ -131,7 +131,7 @@ break values.
 
     DSMhist$counts
 
-    ## [1] 31952 67583   465
+    ## [1] 32034 67503   463
 
 Warning message!? Remember, the default for the histogram is to include only a
 subset of 100,000 values. We could force it to show all the pixel values or we
@@ -161,7 +161,7 @@ We can include as few or many breaks as we'd like.
          col = terrain.colors(3),
          main="Digital Surface Model (DSM)\n NEON Harvard Forest Field Site")
 
-![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/plot-with-breaks-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/01-Plot-Raster/plot-with-breaks-1.png) 
 
 <i class="fa fa-star"></i> **Data Tip:** Note that when we assign break values
 a set of 4 values will result in 3 bins of data.
@@ -187,7 +187,7 @@ We can label the x- and y-axes of our plot too using `xlab` and `ylab`.
          xlab = "UTM Westing Coordinate (m)", 
          ylab = "UTM Northing Coordinate (m)")
 
-![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/add-plot-title-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/01-Plot-Raster/add-plot-title-1.png) 
 
 Or we can also turn off the axes altogether. 
 
@@ -199,7 +199,7 @@ Or we can also turn off the axes altogether.
          main="Digital Surface Model\n NEON Harvard Forest Field Site", 
          axes=FALSE)
 
-![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/turn-off-axes-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/01-Plot-Raster/turn-off-axes-1.png) 
 
 <div id="challenge" markdown="1">
 ## Challenge: Create a Labeled Plots
@@ -211,7 +211,7 @@ Create a plot of the Harvard Forest Digital Surface Model (DSM) that has:
 
 </div>
 
-![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/challenge-code-plotting-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/01-Plot-Raster/challenge-code-plotting-1.png) 
 
 ## Layering Rasters
 We can layer a raster on top of hillshade raster for the same area, and use a 
@@ -231,7 +231,7 @@ above when viewing terrain.
         main="Hillshade - DSM\n NEON Harvard Forest Field Site",
         axes=FALSE)
 
-![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/hillshade-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/01-Plot-Raster/hillshade-1.png) 
 
 <i class="fa fa-star"></i> **Data Tip:** Turn off, or hide, the legend on 
 a plot using `legend=FALSE`.
@@ -255,7 +255,7 @@ Let's overlay `DSM_HARV` on top of the `hill_HARV`.
          add=T,
          legend=F)
 
-![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/overlay-hillshade-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/01-Plot-Raster/overlay-hillshade-1.png) 
 
 The alpha value determines how transparent the colors will be (0 being
 transparent, 1 being opaque). Note that here we used the color palette
@@ -281,5 +281,5 @@ Make sure to:
 </div>
 
 
-![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/challenge-hillshade-layering-1.png) ![ ]({{ site.baseurl }}/images/rfigs/01-Plot-Raster/challenge-hillshade-layering-2.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/01-Plot-Raster/challenge-hillshade-layering-1.png) ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/01-Plot-Raster/challenge-hillshade-layering-2.png) 
 
