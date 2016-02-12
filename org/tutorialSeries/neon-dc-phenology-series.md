@@ -1,6 +1,6 @@
 ---
 layout: tutorial-series-landing
-title: 'The overview NEON / DC series landing page`
+title: 'The overview NEON / DC series landing page'
 categories: [tutorial-series]
 tutorialSeriesName: neon-dc-phenology-series
 permalink: tutorial-series/neon-dc-phenology-series/
