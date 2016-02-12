@@ -11,8 +11,74 @@
 <h3>{{ site.owner.name }}</h3>
 <p>{{ site.owner.bio }}</p>
 
-<h3>Lesson Series</h3>
-<p>A set of lessons that teach a particular theme.</p>
+<!-- If the page is a tutorial but it's a part of a series-->
+{% if page.tutorialSeries and page.layout contains 'post' %}
+
+<h3 style="color:#1ea0c1">This tutorial is a part of a series! </h3>
+<p>Click below to view all lessons in the series!</p>
+{% for member in site.data.tutorialSeries %}
+	{% if page.tutorialSeries contains  member.slug %}
+	  <div id="workshopLink">
+		<h4>
+			<a href="{{ site.baseurl }}/tutorial-series/{{ member.slug }}" alt="{{ member.description }}" title="{{ member.description }}" class="post-link">
+			<div>{{ member.name  }}
+			 </div>
+			</a>
+		</h4>
+	   </div>         
+	{% endif %}
+{% endfor %}
+
+
+{% if page.tutorialSeriesName and page.layout contains 'tutorial-series-landing' %}
+
+<h5>Other Data Series</h5>
+{% for member in site.data.tutorialSeries %}
+  <div id="workshopLink">
+	<h4>	
+        <a href="{{ site.baseurl }}/tutorial-series/{{ member.slug }}" class="post-link">
+        <div>{{ member.name  }}
+         </div>
+        </a>
+	</h4>
+   </div>         
+{% endfor %}
+	{% endif %}
+
+
+
+
+{% for post in site.posts %}
+	{% if post.workshopSeries contains page.mainTag %}
+	 	<div id="workshopLink">
+        <h4>
+		<a href="{{ site.baseurl }}{{ post.url }}" class="post-link" ><div>{{ post.title }}</div></a>
+		</h4>
+		</div>
+	{% endif %}
+{% endfor %}
+{% endif %}
+
+
+{% if page.workshopSeries %}
+
+<h5>Workshop: <br>{{ page.mainTag }}</h5>
+{% for post in site.posts %}
+	{% if post.workshopSeries contains page.mainTag %}
+	 	<div id="workshopLink">
+        <h4>
+		<a href="{{ site.baseurl }}{{ post.url }}" class="post-link" ><div>{{ post.title }}</div></a>
+		</h4>
+		</div>
+	{% endif %}
+{% endfor %}
+
+{% else %}
+
+<!-- commenting this out for now 
+<h3>Workshops</h3>
+-->
+{% comment %}
 {% for member in site.data.workshopSeries %}
 {% assign counter = 0 %}
 <!-- this code counts the number of posts associated with the member -->
@@ -22,12 +88,14 @@
 	{% endif %}
 {% endfor %}	
   <h5>
-  <a href="{{ site.baseurl }}/workshop-series/{{ member.slug }}">{{ member.name }} ({{ counter }})</a>
+  <a href="{{ site.baseurl }}/data-workshop/{{ member.slug }}">{{ member.name }} ({{ counter }})</a>
   </h5> 
 {% endfor %}
 
+{% endcomment %}
 
-<h3>Tutorial by Tag</h3>
+
+<h3>Tags</h3>
 
 {% for tag in site.tags %}
 {% assign t = tag | first %}
@@ -40,7 +108,7 @@
      </a></h5>
 {% endfor %} 
 
-<h3>Lessons by R Package</h3>
+<h3>Tutorial by R Package</h3>
 
 {% for member in site.data.packagesLibraries %}
 {% assign counter = 0 %}
@@ -55,9 +123,10 @@
 
 {% endfor %}
 
+{% endif %}
 
-
-<h4><a href="{{ site.baseurl }}/activities/">View ALL Activities</a></h4>
+<h4><a href="{{ site.baseurl }}/activities/">View ALL Tutorials</a></h4>
+<h4><a href="{{ site.baseurl }}/data-workshops/">View ALL Workshops</a></h4>
 <!-- <h4><a href="{{ site.baseurl }}/activities-by-tag/">Activities by Tag</a></h4> -->
 
 <br><br><br>

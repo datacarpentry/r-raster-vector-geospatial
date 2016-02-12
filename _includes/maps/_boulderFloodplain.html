@@ -1,0 +1,27 @@
+<p>A map will go here - it needs to be a standard</p>
+
+
+
+<div id="map"></div>
+
+<script>  
+  var map = L.map('map').setView([40.0274, -105.2519], 13);
+  //var map = L.map('map').setView([{{ page.event-coordinates }}], 13);
+  
+  //add marker for event location
+  var marker = L.marker([40.0274, -105.2519]).addTo(map);
+  //var marker = L.marker([{{ page.event-coordinates }}]).addTo(map);
+  
+  //marker.bindPopup("<b>{{ page.title }}</b><br>{% if page.event-location %}{{ page.event-location }}{% endif %}").openPopup();
+  
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 18,
+    id: 'lwasser.ciehgoxzo00azsrm37yajmw24',
+    accessToken: 'pk.eyJ1IjoibHdhc3NlciIsImEiOiJjaWVoZ295bWQwMGN2c2trZ2k4emphbjVyIn0.kh9tT2wNwvt-d83-8KLhng'
+}).addTo(map);
+
+  var geojsonLayer = new L.GeoJSON.AJAX("{{ site.baseurl}}/mapLayers/inundated.geojson");       
+  geojsonLayer.addTo(map);
+  //http://gis.stackexchange.com/questions/68489/how-to-load-external-geojson-file-into-leaflet-map
+</script>
