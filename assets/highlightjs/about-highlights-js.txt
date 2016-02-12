@@ -1,0 +1,2 @@
+NOTE - the css uses highlights.js
+i created a custom JS file (from the website) that only looks for R code, XML and Python
