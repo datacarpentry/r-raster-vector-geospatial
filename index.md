@@ -9,7 +9,7 @@ image:
 ---
 
 
-##Raster Data in R - Data Lessons
+## Raster Data in R - Data Lessons
 
 
 
