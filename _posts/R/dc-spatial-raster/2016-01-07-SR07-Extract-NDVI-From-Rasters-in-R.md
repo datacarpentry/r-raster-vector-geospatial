@@ -6,7 +6,7 @@ authors: [Leah A. Wasser, Kristina Riemer, Zack Bryn, Jason Williams, Jeff Holli
 contributors: [ ]
 packagesLibraries: [raster, rgdal, ggplot2]
 dateCreated: 2014-11-26
-lastModified: 2016-02-08
+lastModified: 2016-02-11
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 mainTag: raster-data
@@ -252,7 +252,7 @@ column is also stored as class `Date`.
     #convert "julianDay" from class character to integer
     avg_NDVI_HARV$julianDay <- as.integer(avg_NDVI_HARV$julianDay)
     
-    #create a date column; -1 added because origin is the 1st and indexing begins at 0. 
+    #create a date column; -1 added because origin is the 1st. 
     # If not -1, 01/01/2011 + 5 = 01/06/2011 which is Julian day 6, not 5.
     avg_NDVI_HARV$Date<- origin + (avg_NDVI_HARV$julianDay-1)
     
@@ -271,13 +271,14 @@ column is also stored as class `Date`.
 
     ## [1] "integer"
 
-## Zero-Based Indexing
-Note that when converting our character formatted Julian Day values to dates, 
-we subtracted one as follows: 
+Note that when we convert our integer class `julianDay` values to dates, we 
+subtracted 1 as follows: 
 `avg_NDVI_HARV$Date <- origin + (avg_NDVI_HARV$julianDay-1)`
-This is because `R` stores Julian days using 0-based indexing. That is the first
-value is 0, rather than 1. Thus Julian Day 1, is stored as 0, Julian day 2 is
-stored as 1, and so on.
+This is because the origin day is 01 January 2011, so the extracted day is 01. 
+The Julian Day (or year day) for this is also 01. When we convert from the 
+integer 05 `julianDay` value (indicating 5th of January), we cannot simply add 
+`origin + julianDay` because `01 + 05 = 06` or 06 January 2011. To correct, this
+error we then subtract 1 to get the correct day, January 05 2011.
 
 <div id="challenge" markdown="1">
 ## Challenge: NDVI for the San Joaquin Experimental Range

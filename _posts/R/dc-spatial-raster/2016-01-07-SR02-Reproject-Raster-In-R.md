@@ -6,7 +6,7 @@ authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Bry
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2016-02-08
+lastModified: 2016-02-11
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 workshopSeries: [raster-data]

@@ -6,7 +6,7 @@ authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Bry
 contributors: [ ]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2016-02-08
+lastModified: 2016-02-11
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 workshopSeries: [raster-data, raster-time-series]
@@ -14,7 +14,7 @@ mainTag: raster-data
 description: "This tutorial covers how to work with and plot a raster time
 series, using an R RasterStack object. It also covers the basics of practical
 data quality assessment of remote sensing imagery."
-code1: 05-Time-Series-Raster-In-R.R
+code1: 05-Time-Series-Raster.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
@@ -225,8 +225,8 @@ Notice that the CRS is `+proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs`. The
 **CRS** is in UTM Zone 19.  If you have completed the previous tutorials in 
 this 
 [raster data in `R` series ]({{ site.baseurl }}tutorial/spatial-raster-series),
-you should notice that the UTM Zone for the remote sensing non-Landsat-derived
-data was 18, not 19.  Why is it now Zone 19?  It this an error in our data?  
+you may have noticed that the UTM zone for the NEON collected remote sensing 
+data was in Zone 18 rather than Zone 19. Why are the Landsat data in Zone 19?  
 
 <figure>
     <a href="{{ site.baseurl }}/images/dc-spatial-raster/UTM_zones_18-19.jpg">
@@ -240,10 +240,12 @@ data was 18, not 19.  Why is it now Zone 19?  It this an error in our data?
     </figcaption>
 </figure>
 
-As this graphic illustrates, the tower is in UTM Zone 18, however, most of the 
-Landsat-derived raster comes from an image swath that is much larger and is 
-primarily in UTM Zone 19. Therefore, the whole raster is given the UTM Zone 19.
-However, the coordinates will still be correct for the tower location. 
+The width of a Landsat scene is extremely wide - spanning over 170km north to 
+south and 180km east to west. This means that Landsat data often cover multiple 
+UTM zones. When the data are processed, the zone in which the majority of the
+data cover, is the zone which is used for the final CRS. Thus, our field site at
+Harvard Forest is located in UTM Zone 18, but the Landsat data is in a `CRS` of
+UTM Zone 19.
 
 <div id="challenge" markdown="1">
 ## Challenge: Raster Metadata
