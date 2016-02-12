@@ -1,0 +1,40 @@
+- slug: raster-data-series
+  name: Intro to Raster Data in R Series
+  description: "something about the series here."
+  lastModified:  2015-10-15
+  
+- slug: raster-time-series
+  name: Raster Time Series in R Series
+  description: "something else the series here."
+  lastModified:  2015-10-15
+  
+- slug: vector-data-series
+  name: Intro to Vector Data in R 
+  description: "something sdfsdfsd the series here."  
+  lastModified:  2015-10-15
+  
+- slug: tabular-time-series
+  name: Tabular Time Series Data in R 
+  description: "somsdfsdfething about the series here."  
+  lastModified:  2015-12-15
+  
+- slug: spatial-data-management-series
+  name: Getting Started With Spatial Data in R   
+  description: "something about the sdfsdf sdoihohi series here." 
+  lastModified:  2016-12-15 
+  
+- slug: intro-hdf5-r-series
+  name: Introduction to the Hierarchical Data Format (HDF5) - Using HDFview & R    
+  description: "something about the sdfsdf sdoihohi series here." 
+  lastModified:  2016-12-15 
+  
+- slug: intro-lidar-r-series
+  name: Introduction to LiDAR Data - Explore Point Clouds and Work with LiDAR Raster Data in R   
+  description: "something about the sdfsdf sdoihohi series here." 
+  lastModified:  2016-12-15     
+
+- slug: intro-hsi-r-series
+  name: Introduction to Hyperspectral Remote Sensing Data - (in R)   
+  description: "something about the sdfsdf sdoihohi series here." 
+  lastModified:  2016-12-15 
+  

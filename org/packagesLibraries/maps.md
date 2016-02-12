@@ -9,4 +9,4 @@ image:
   creditlink: 
 ---
 
-Data tutorials that use the `R`, `maps` package.
+Data tutorials that use the `R` `maps` package.
