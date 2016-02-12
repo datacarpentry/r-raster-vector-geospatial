@@ -30,7 +30,7 @@ setwd(wd)
 postsDir <- ("_posts/R/dc-spatial-raster/")
 
 #images path
-imagePath <- "images/rfigs/"
+imagePath <- "images/rfigs/dc-spatial-raster/"
 
 #set the base url for images and links in the md file
 base.url="{{ site.baseurl }}/"
@@ -40,17 +40,29 @@ opts_knit$set(base.url = base.url)
 #make sure image directory exists
 #if it doesn't exist, create it
 #note this will fail if the sub dir doesn't exist
-if (file.exists(paste0(wd,"/","images"))){
+if (dir.exists(paste0(wd,"/",imagePath))){
   print("image dir exists - all good")
 } else {
   #create image directory structure
   dir.create(file.path(wd, "images/"))
   dir.create(file.path(wd, "images/rfigs"))
+  dir.create(file.path(wd, imagePath))
   dir.create(file.path(wd, figDir))
   print("image directories created!")
 }
 
 #NOTE -- delete the image directory at the end!
+
+#make sure image subdir exists
+#note this will fail if the sub dir doesn't exist
+if (file.exists(paste0(gitRepoPath, imagePath))){
+  print("image dir exists - all good")
+} else {
+  #create image directory structure
+  dir.create(file.path(gitRepoPath, "images/rfigs"))
+  dir.create(file.path(gitRepoPath, imagePath))
+  print("git image directories created!")
+}
 
 #################### Get List of RMD files to Render #############################
 
