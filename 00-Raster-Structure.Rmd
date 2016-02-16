@@ -114,7 +114,7 @@ library(rgdal)
 
 
 ```{r elevation-map, echo=FALSE}
-#render DSM for lesson content background
+# render DSM for lesson content background
 DSM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 # code output here - DEM rendered on the screen
@@ -149,14 +149,14 @@ The legend of this map shows the colors representing each discrete class.
 ```{r classified-elevation-map, echo=FALSE}
 # Demonstration image for the lesson
 
-#add a color map with 5 colors
+# add a color map with 5 colors
 col=terrain.colors(3)
-#add breaks to the colormap (4 breaks = 3 segments)
+# add breaks to the colormap (4 breaks = 3 segments)
 brk <- c(250,350, 380,500)
 
 # Expand right side of clipping rect to make room for the legend
 par(xpd = FALSE,mar=c(5.1, 4.1, 4.1, 4.5))
-#DEM with a custom legend
+# DEM with a custom legend
 plot(DSM_HARV, 
 	col=col, 
 	breaks=brk, 
@@ -164,9 +164,9 @@ plot(DSM_HARV,
 	legend = FALSE
 	)
 
-#turn xpd back on to force the legend to fit next to the plot.
+# turn xpd back on to force the legend to fit next to the plot.
 par(xpd = TRUE)
-#add a legend - but make it appear outside of the plot
+# add a legend - but make it appear outside of the plot
 legend( par()$usr[2], 4713700,
         legend = c("High Elevation", "Middle","Low Elevation"), 
         fill = rev(col))
@@ -200,12 +200,12 @@ Let's first import a raster dataset into `R` and explore its metadata.
 To open rasters in `R`, we will use the `raster` and `rgdal` packages.
 
 ```{r load-libraries }
-#load libraries
+# load libraries
 library(raster)
 library(rgdal)
 
-#set working directory to ensure R can find the file we wish to import
-#setwd("working-dir-path-here")
+# set working directory to ensure R can find the file we wish to import
+# setwd("working-dir-path-here")
 ```
 
 ## Open a Raster in R
@@ -224,8 +224,8 @@ DSM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 # View raster structure
 DSM_HARV 
 
-#plot raster
-#note \n in the title forces a line break in the title
+# plot raster
+# note \n in the title forces a line break in the title
 plot(DSM_HARV, 
      main="NEON Digital Surface Model\nHarvard Forest")
 
@@ -279,10 +279,10 @@ We can view the `CRS` string associated with our `R` object using the`crs()`
 method. We can assign this string to an `R` object, too.
 
 ```{r view-resolution-units}
-#view resolution units
+# view resolution units
 crs(DSM_HARV)
 
-#assign crs to an object (class) to use for reprojection and other tasks
+# assign crs to an object (class) to use for reprojection and other tasks
 myCRS <- crs(DSM_HARV)
 myCRS
 
@@ -362,13 +362,13 @@ However if they weren't already calculated, we can calculate them using the
 
 ```{r set-min-max }
 
-#This is the code if min/max weren't calculated: 
-#DSM_HARV <- setMinMax(DSM_HARV) 
+# This is the code if min/max weren't calculated: 
+# DSM_HARV <- setMinMax(DSM_HARV) 
 
-#view the calculated min value
+# view the calculated min value
 minValue(DSM_HARV)
 
-#view only max value
+# view only max value
 maxValue(DSM_HARV)
 
 ```
@@ -390,7 +390,7 @@ In the image below, the pixels that are black have `NoDataValue`s.
 The camera did not collect data in these areas. 
 
 ```{r demonstrate-no-data-black, echo=FALSE }
-#demonstration code below - not being taught - just demonstrating no data values
+# no data demonstration code - not being taught 
 # Use stack function to read in all bands
 RGB_stack <- 
   stack("NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
@@ -405,8 +405,8 @@ plotRGB(RGB_stack, r = 1, g = 2, b = 3,
 In the next image, the black edges have been assigned `NoDataValue`. `R` doesn't render pixels that contain a specified `NoDataValue`. `R` assigns missing data with the `NoDataValue` as `NA`.
 
 ```{r demonstrate-no-data, echo=FALSE}
-#reassign cells with 0,0,0 to NA
-#this is simply demonstration code - we will not teach this.
+# reassign cells with 0,0,0 to NA
+# this is simply demonstration code - we will not teach this.
 f <- function(x) {
   x[rowSums(x == 0) == 3, ] <- NA
   x}
@@ -462,7 +462,7 @@ identifying outliers and bad data values in our raster data.
 
 ```{r view-raster-histogram }
 
-#view histogram of data
+# view histogram of data
 hist(DSM_HARV,
      main="Distribution of Digital Surface Model Values\n Histogram Default: 100,000 pixels\n NEON Harvard Forest",
      xlab="DSM Elevation Value (m)",
@@ -490,10 +490,10 @@ in a histogram can be problematic when dealing with very large datasets.
 
 ``` {r view-raster-histogram2}
 
-#View the total number of pixels (cells) in is our raster 
+# View the total number of pixels (cells) in is our raster 
 ncell(DSM_HARV)
 
-#create histogram that includes with all pixel values in the raster
+# create histogram that includes with all pixel values in the raster
 hist(DSM_HARV, 
      maxpixels=ncell(DSM_HARV),
      main="Distribution of DSM Values\n All Pixel Values Included\n NEON Harvard Forest Field Site",
@@ -524,7 +524,7 @@ A raster dataset can contain one or more bands. We can use the `raster()` functi
 
 ```{r view-raster-bands }
 
-#view number of bands
+# view number of bands
 nlayers(DSM_HARV)
 
 ```
