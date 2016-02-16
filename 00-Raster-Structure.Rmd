@@ -574,7 +574,7 @@ following about the  `NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif` file:
 2. What is the `NoDataValue`?
 3. What is resolution of the raster data? 
 4. How large would a 5x5 pixel area would be on the Earth's surface? 
-5. Is the file is a multi- or single-band raster?
+5. Is the file a multi- or single-band raster?
 
 Notice: this file is a `hillshade`. We will learn about hillshades in
  <a href="{{ site.baseurl }}/NEON-R-Spatial-Raster/R/Multi-Band-Rasters-In-R/" target="_blank">  Work with Multi-band Rasters: Images in R</a>.
@@ -590,7 +590,7 @@ GDALinfo("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 #3. The resolution of the raster data? 1x1
 #4. How large a 5x5 pixel area would be? 5mx5m How? We are given resolution of 
 #1x1 and units in meters, therefore resolution of 5x5 means 5x5m. 
-#5. If the file is a multi- or single-band raster?  Single 
+#5. Is the file a multi- or single-band raster?  Single 
 
 ```
 
