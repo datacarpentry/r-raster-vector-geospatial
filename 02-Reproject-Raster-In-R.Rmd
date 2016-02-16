@@ -91,7 +91,7 @@ Let's create a map of the Harvard Forest Digital Terrain Model
 
 ```{r import-DTM-hillshade }
 # import DTM
-DTM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmcrop.tif")
+DTM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 # import DTM hillshade
 DTM_hill_HARV <- 
   raster("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
