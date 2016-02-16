@@ -330,7 +330,14 @@ font-size:.875rem
 }
 p {
 	margin: 0 0 1.625rem
+	line-height: 1.2rem;
 }
+
+.article-wrap li {
+    line-height: 1.2rem;
+    margin-bottom: 0.3rem;
+}
+
 p+p {
 	/* margin-top: -1.625rem;
 	text-indent: 1.625rem */
@@ -367,8 +374,8 @@ pre {
 	margin-bottom: 1.5em;
 	font-family: Monaco, "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
 	font-size: 12px;
-font-size:.75rem;
-	line-height: 2.1667;
+	font-size:.75rem;
+	line-height: 1.4;
 	color: #333332;
 	background-color: #efefef;
 	-webkit-border-radius: 4px;
@@ -4357,6 +4364,10 @@ div.article-author-side h5 a{
     font-size: 1.75rem;
     margin: 1rem 0 .925rem;
 }
+
+p .btn.btn-success {
+    margin: 0;
+}
 	
 /* ################### table Formating ################# */
 
@@ -4532,4 +4543,31 @@ div#challenge h2 {
     border-bottom: 1px solid #ccc;
     margin-top: 0;
     margin-bottom: 1em;
+}
+
+/* Workshop Sidebar Styles*/
+
+.post-link > div {
+    border-top: 1px solid #00a5cc;
+    border-left: 1px solid #ccc;
+    margin: 0em;
+    padding: 0.5em;
+    box-shadow: 2px 2px 5px #ccc;
+}
+
+a:hover.post-link > div {
+	background-color:#ffffcc;
+
+}
+
+#workshopLink > h4 {
+    margin: 0;
+}
+
+#index > h1 {
+    color: #1ea0c1;
+}
+
+.workshop div#objectives, .tutorialSeries  div#objectives {
+    background-color: #d4eff7;
 }

@@ -6,7 +6,7 @@ authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Bry
 contributors: [ ]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2016-02-08
+lastModified: 2016-02-12
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 workshopSeries: [raster-data, raster-time-series]
@@ -14,7 +14,7 @@ mainTag: raster-data
 description: "This tutorial covers how to work with and plot a raster time
 series, using an R RasterStack object. It also covers the basics of practical
 data quality assessment of remote sensing imagery."
-code1: 05-Time-Series-Raster-In-R.R
+code1: 05-Time-Series-Raster.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
@@ -225,8 +225,8 @@ Notice that the CRS is `+proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs`. The
 **CRS** is in UTM Zone 19.  If you have completed the previous tutorials in 
 this 
 [raster data in `R` series ]({{ site.baseurl }}tutorial/spatial-raster-series),
-you should notice that the UTM Zone for the remote sensing non-Landsat-derived
-data was 18, not 19.  Why is it now Zone 19?  It this an error in our data?  
+you may have noticed that the UTM zone for the NEON collected remote sensing 
+data was in Zone 18 rather than Zone 19. Why are the Landsat data in Zone 19?  
 
 <figure>
     <a href="{{ site.baseurl }}/images/dc-spatial-raster/UTM_zones_18-19.jpg">
@@ -240,10 +240,12 @@ data was 18, not 19.  Why is it now Zone 19?  It this an error in our data?
     </figcaption>
 </figure>
 
-As this graphic illustrates, the tower is in UTM Zone 18, however, most of the 
-Landsat-derived raster comes from an image swath that is much larger and is 
-primarily in UTM Zone 19. Therefore, the whole raster is given the UTM Zone 19.
-However, the coordinates will still be correct for the tower location. 
+The width of a Landsat scene is extremely wide - spanning over 170km north to 
+south and 180km east to west. This means that Landsat data often cover multiple 
+UTM zones. When the data are processed, the zone in which the majority of the
+data cover, is the zone which is used for the final CRS. Thus, our field site at
+Harvard Forest is located in UTM Zone 18, but the Landsat data is in a `CRS` of
+UTM Zone 19.
 
 <div id="challenge" markdown="1">
 ## Challenge: Raster Metadata
@@ -268,7 +270,7 @@ the `plot()` command to quickly plot a `RasterStack`.
          zlim = c(1500, 10000), 
          nc = 4)
 
-![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/plot-time-series-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/plot-time-series-1.png) 
 
 Have a look at the range of NDVI values observed in the plot above. We know that
 the accepted values for NDVI range from 0-1. Why does our data range from
@@ -300,7 +302,7 @@ lesson.
          zlim = c(.15, 1),  
          nc = 4)
 
-![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/apply-scale-factor-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/apply-scale-factor-1.png) 
 
 ## Take a Closer Look at Our Data
 Let's take a closer look at the plots of our data. Note that Massachusettes, 
@@ -330,7 +332,7 @@ each raster.
     hist(NDVI_HARV_stack, 
          xlim = c(0, 1))
 
-![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/view-stack-histogram-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/view-stack-histogram-1.png) 
 
 It seems like things get green in the spring and summer like we expect, but the 
 data at Julian days 277 and 293 are unusual. It appears as if the vegetation got
@@ -347,7 +349,7 @@ Let's next view some temperature data for our field site to see whether there
 were some unusual fluctuations that may explain this pattern of greening and
 browning seen in the NDVI data.
 
-![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/view-temp-data-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/view-temp-data-1.png) 
 
 There are no significant peaks or dips in the temperature during the late summer
 or early fall time period that might account for patterns seen in the NDVI data.
@@ -366,7 +368,7 @@ derive our NDVI rasters to try to understand what appears to be outlier NDVI val
 on these days?  
 </div>
 
-![ ]({{ site.baseurl }}/images/rfigs/05-Time-Series-Raster/view-all-rgb-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/view-all-rgb-1.png) 
 
 ## Explore The Data's Source
 The third challenge question, "Does the RGB imagery from these two days explain 

@@ -25,8 +25,8 @@
 - slug: time-series
   name: Time Series
   
-- slug: metadata-eml
-  name: Metadata (EML)
+- slug: metadata
+  name: Metadata
   
 - slug: informatics
   name: Informatics       
@@ -37,3 +37,5 @@
 - slug: vector-data
   name: Vector Data 
   
+- slug: phenology
+  name: Phenology

@@ -9,4 +9,4 @@ image:
   creditlink: 
 ---
 
-Data tutorials that use the `R`, `rgdal` package.
+Data tutorials that use the `R` `rgdal` package.

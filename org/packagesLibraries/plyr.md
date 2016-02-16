@@ -9,4 +9,4 @@ image:
   creditlink: 
 ---
 
-Data tutorials that use the `R`, `plyr` package.
+Data tutorials that use the `R` `plyr` package.
