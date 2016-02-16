@@ -9,4 +9,4 @@ image:
   creditlink: 
 ---
 
-Self-paced data tutorials that use the `R`, `ggplot` package.
+Self-paced data tutorials that use the `R` `ggplot` package.

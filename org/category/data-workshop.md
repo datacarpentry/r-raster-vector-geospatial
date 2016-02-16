@@ -8,5 +8,7 @@ image:
   credit: 
 ---
 
-The pages below contain groups of lessons that were designed for a workshop setting
-OR that could be taught in a workshop setting.
+NEONDataSkills self-paced tutorials can be grouped to make up data-themed workshops. 
+Below, you will find workshop pages - that contain groups of data-tutorials that 
+were designed to be taught in a workshop setting but also could be worked through 
+independently at your own pace!

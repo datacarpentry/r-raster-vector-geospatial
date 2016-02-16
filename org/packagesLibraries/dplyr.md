@@ -9,4 +9,4 @@ image:
   creditlink: 
 ---
 
-Data tutorials that use the `R`, `dplyr` package.
+Data tutorials that use the `R` `dplyr` package.

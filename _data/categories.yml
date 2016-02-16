@@ -1,6 +1,7 @@
-- slug: data-workshop
+- slug: workshop-event
   name: Data Workshops
-  description: "sets of themed, self paced lessons that can be worked through in order"
+  description: "Workshop events held at a particular location that often uses a tutorial
+  series of self-paced lessons."
   color: '#1abc9c'
   
 - slug: self-paced-tutorial
@@ -21,6 +22,11 @@
   science topic. These modules often include associated data tutorials for advanced classes
   and include data visualizations for classes that will not incorporate coding or other
   hands-on data manipulation tasks."
-  color: '#1abc9c'   
+  color: '#1abc9c' 
+  
+- slug: tutorial-series
+  name: Self Paced Tutorial Series
+  description: "sets of themed, self paced lessons that can be worked through in order"
+  color: '#1abc9c'    
 
 

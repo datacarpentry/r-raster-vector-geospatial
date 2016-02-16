@@ -79,7 +79,7 @@ origin <- as.Date("2011-01-01")
 #convert "julianDay" from class character to integer
 avg_NDVI_HARV$julianDay <- as.integer(avg_NDVI_HARV$julianDay)
 
-#create a date column; -1 added because origin is the 1st and indexing begins at 0. 
+#create a date column; -1 added because origin is the 1st. 
 # If not -1, 01/01/2011 + 5 = 01/06/2011 which is Julian day 6, not 5.
 avg_NDVI_HARV$Date<- origin + (avg_NDVI_HARV$julianDay-1)
 
