@@ -64,12 +64,12 @@ preferably `RStudio`, loaded on your computer.
 ### Download Data
 {% include/dataSubsets/_data_Airborne-Remote-Sensing.html %}
 
-## Things To Know To Complete This Lesson
+****
 
 {% include/_greyBox-wd-rscript.html %}
 {% include/tutorialSeries/_series_dc-spatial-raster.html %}
 
-### Additional Resources
+****
 
 * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
 Read more about the `raster` package in `R`.</a>
@@ -81,7 +81,8 @@ NEON Data Skills: Image Raster Data in R - An Intro</a>
 </div>
 
 ## About Raster Data
-Raster or "gridded" data are stored as a grid of values which are rendered on a map as pixels. Each pixel value represents an area on the Earth's surface.
+Raster or "gridded" data are stored as a grid of values which are rendered on a 
+map as pixels. Each pixel value represents an area on the Earth's surface.
 
 <figure>
     <a href="{{site.baseurl}}/images/dc-spatial-raster/raster_concept.png">
@@ -102,8 +103,8 @@ range of quantitative values. Some examples of continuous rasters include:
 A map of elevation for Harvard Forest derived from the 
 <a href="http://www.neoninc.org/science-design/collection-methods/airborne-remote-sensing" target="_blank"> 
 NEON AOP LiDAR sensor</a> 
-is below. Elevation is represented as continuous numeric variable in this map. The legend shows the 
-continuous range of values in the data from around 300 to 420 meters.
+is below. Elevation is represented as continuous numeric variable in this map. The legend 
+shows the continuous range of values in the data from around 300 to 420 meters.
 
 ```{r load-libraries-1, results='hide', echo=FALSE}
 
@@ -327,7 +328,9 @@ The spatial extent is the geographic area that the raster data covers.
     </figcaption>
 </figure>
 
-The spatial extent of an R spatial object represents the geographic "edge" or location that is the furthest north, south, east and west. In other words, `extent` represents the overall geographic coverage of the spatial object.
+The spatial extent of an R spatial object represents the geographic "edge" or 
+location that is the furthest north, south, east and west. In other words, `extent` 
+represents the overall geographic coverage of the spatial object.
 
 ## Resolution
 A raster has horizontal (x and y) resolution. This resolution represents the 
@@ -428,10 +431,11 @@ used in both the remote sensing field and the atmospheric fields. It is also
 the standard used by the <a href="http://www.neoninc.org" target="_blank"> 
 National Ecological Observatory Network (NEON)</a>. 
 
-If we are lucky, our GeoTIFF file has a tag that tells us what is the `NoDataValue`. If we are less lucky, we can find that information in the 
-raster's metadata. If a `NoDataValue` was stored in the GeoTIFF tag, when `R` 
-opens up the raster, it will assign each instance of the value to `NA`. Values 
-of `NA` will be ignored by R as demonstrated above.
+If we are lucky, our GeoTIFF file has a tag that tells us what is the `NoDataValue`. 
+If we are less lucky, we can find that information in the raster's metadata. If a 
+`NoDataValue` was stored in the GeoTIFF tag, when `R` opens up the raster, it will 
+assign each instance of the value to `NA`. Values of `NA` will be ignored by R as 
+demonstrated above.
 
 ## Bad Data Values in Rasters
 
@@ -520,7 +524,9 @@ the raster: surface elevation in meters for one time period.
     </figcaption>
 </figure>
 
-A raster dataset can contain one or more bands. We can use the `raster()` function to import one single band from a single OR multi-band raster. We can view the number of bands in a raster using the `nlayers()` function. 
+A raster dataset can contain one or more bands. We can use the `raster()` function 
+to import one single band from a single OR multi-band raster. We can view the number 
+of bands in a raster using the `nlayers()` function. 
 
 ```{r view-raster-bands }
 
