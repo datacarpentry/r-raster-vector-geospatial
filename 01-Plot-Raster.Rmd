@@ -57,10 +57,12 @@ preferably RStudio, loaded on your computer.
 #### Download Data
 {% include/dataSubsets/_data_Airborne-Remote-Sensing.html %}
 
-## Things To Know to Complete This Lesson
+****
 
 {% include/_greyBox-wd-rscript.html %}
 {% include/tutorialSeries/_series_dc-spatial-raster.html %}
+
+****
 
 ### Additional Resources
 
@@ -91,7 +93,8 @@ DSM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 ```
 
-First, let's plot our Digital Surface Model object (`DSM_HARV`) using the `plot()` function. We add a title using the argument `main`.
+First, let's plot our Digital Surface Model object (`DSM_HARV`) using the `plot()` 
+function. We add a title using the argument `main`.
 
 ```{r hist-raster }
 #Plot raster object
