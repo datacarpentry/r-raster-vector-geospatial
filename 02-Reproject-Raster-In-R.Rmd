@@ -60,10 +60,12 @@ preferably `RStudio`, loaded on your computer.
 #### Data to Download
 {% include/dataSubsets/_data_Airborne-Remote-Sensing.html %}
 
-## Things To Know To Complete This Lesson
+****
 
 {% include/_greyBox-wd-rscript.html %}
 {% include/tutorialSeries/_series_dc-spatial-raster.html %}
+
+****
 
 ### Additional Resources
 
@@ -76,7 +78,8 @@ Read more about the `raster` package in `R`.</a>
 
 In the [Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/) 
 lesson, we learned how to layer a raster file on top of a hillshade for a nice
-looking basemap. In this lesson, all of our data were in the same `CRS`. What happens when things don't line up?
+looking basemap. In this lesson, all of our data were in the same `CRS`. What 
+happens when things don't line up?
 
 We will use the `raster` and `rgdal` packages in this lesson.  
 
@@ -179,9 +182,9 @@ extent(DTM_hill_HARV)
 
 ```
 
-Notice in the output above that the `CRS` of `DTM_hill_UTMZ18N_HARV` is now UTM, meters. 
-However, values in the extent of `DTM_hillUTMZ18N_HARV` are different from 
-`DTM_hill_HARV`.
+Notice in the output above that the `CRS` of `DTM_hill_UTMZ18N_HARV` is now UTM, 
+meters. However, values in the extent of `DTM_hillUTMZ18N_HARV` are different 
+from `DTM_hill_HARV`.
 
 Why do you think this is?  
 
