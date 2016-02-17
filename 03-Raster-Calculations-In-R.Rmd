@@ -62,10 +62,12 @@ preferably RStudio, loaded on your computer.
 #### Data to Download
 {% include/dataSubsets/_data_Airborne-Remote-Sensing.html %}
 
-## Things To Know To Complete This Lesson
+****
 
 {% include/_greyBox-wd-rscript.html %}
 {% include/tutorialSeries/_series_dc-spatial-raster.html %}
+
+****
 
 ### Additional Resources
 * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf"
@@ -259,7 +261,10 @@ plot(CHM_ov_HARV,
 How do the plots of the CHM created with manual raster math and the `overlay()`
 function compare?  
 
-<i class="fa fa-star"></i> **Data Tip:** A custom function consists of a defined set of commands performed on a input object. Custom functions are particularly useful for tasks that need to be repeated over and over in the code. A simplified syntax for writing a custom function in R is:
+<i class="fa fa-star"></i> **Data Tip:** A custom function consists of a defined 
+set of commands performed on a input object. Custom functions are particularly 
+useful for tasks that need to be repeated over and over in the code. A simplified 
+syntax for writing a custom function in R is:
 ```
 functionName <- function(variable1, variable2){
   something_new <- do_something_to_variable1_and_variable2  
