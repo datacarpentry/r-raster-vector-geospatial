@@ -4,7 +4,7 @@ title: "Raster 05: Raster Time Series Data in R"
 date:   2015-10-24
 authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym, Leah A. Wasser, Megan A. Jones]
 contributors: [ ]
-packagesLibraries: [raster, rgdal, rasterVis]
+packagesLibraries: [raster, rgdal]
 dateCreated:  2014-11-26
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`
 categories:  [self-paced-tutorial]
