@@ -9,8 +9,8 @@ dateCreated:  2015-10-23
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
-workshopSeries: [raster-data, raster-time-series]
-mainTag: raster-data
+tutorialSeries: [raster-data-series, raster-time-series]
+mainTag: raster-data-series
 description: "This tutorial explores how to import and plot a multi-band raster in
 R. It also covers how to plot a three-band color image using the plotRGB
 function in R."
@@ -59,7 +59,6 @@ preferably RStudio, loaded on your computer.
 ****
 
 {% include/_greyBox-wd-rscript.html %}
-{% include/tutorialSeries/_series_dc-spatial-raster.html %}
 
 </div>
 

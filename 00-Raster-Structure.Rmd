@@ -9,8 +9,8 @@ lastModified: `r format(Sys.time(), "%Y-%m-%d")`
 packagesLibraries: [raster, rgdal]
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
-workshopSeries: [raster-data]
-mainTag: raster-data
+tutorialSeries: [raster-data-series]
+mainTag: raster-data-series
 description: "This tutorial reviews the fundamental principles, packages and 
 metadata/raster attributes that are needed to work with raster data in R. It 
 covers the three core metadata elements that we need to understand to work with
@@ -67,7 +67,6 @@ preferably RStudio, loaded on your computer.
 ****
 
 {% include/_greyBox-wd-rscript.html %}
-{% include/tutorialSeries/_series_dc-spatial-raster.html %}
 
 ****
 
