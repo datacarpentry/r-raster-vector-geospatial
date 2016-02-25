@@ -4,13 +4,13 @@ title: "Raster 05: Raster Time Series Data in R"
 date:   2015-10-24
 authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym, Leah A. Wasser, Megan A. Jones]
 contributors: [ ]
-packagesLibraries: [raster, rgdal, rasterVis]
+packagesLibraries: [raster, rgdal]
 dateCreated:  2014-11-26
-lastModified: 2016-02-12
+lastModified: 2016-02-25
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
-workshopSeries: [raster-data, raster-time-series]
-mainTag: raster-data
+tutorialSeries: [raster-data-series, raster-time-series]
+mainTag: raster-data-series
 description: "This tutorial covers how to work with and plot a raster time
 series, using an R RasterStack object. It also covers the basics of practical
 data quality assessment of remote sensing imagery."
@@ -61,7 +61,6 @@ preferably RStudio, loaded on your computer.
 ****
 
 {% include/_greyBox-wd-rscript.html %}
-{% include/tutorialSeries/_series_dc-spatial-raster.html %}
 
 ****
 

@@ -6,11 +6,11 @@ authors: [Leah A. Wasser, Kristina Riemer, Zack Bryn, Jason Williams, Jeff Holli
 contributors: [ ]
 packagesLibraries: [raster, rgdal, ggplot2]
 dateCreated: 2014-11-26
-lastModified: 2016-02-12
+lastModified: 2016-02-25
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
-mainTag: raster-data
-workshopSeries: [raster-data, raster-time-series]
+mainTag: raster-data-series
+tutorialSeries: [raster-data-series, raster-time-series]
 description: "This tutorial covers how to extract and plot NDVI pixel values from a
 raster time series stack in R. We will use ggplot2 to plot our data."
 code1: 07-Extract-NDVI-From-Rasters-in-R.R
@@ -49,6 +49,7 @@ preferably RStudio, loaded on your computer.
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
+* **ggplot2:** `install.packages("ggplot2")`
 
 * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}R/Packages-In-R/)
 
@@ -58,7 +59,6 @@ preferably RStudio, loaded on your computer.
 ****
 
 {% include/_greyBox-wd-rscript.html %}
-{% include/tutorialSeries/_series_dc-spatial-raster.html %}
 
 </div>
 
