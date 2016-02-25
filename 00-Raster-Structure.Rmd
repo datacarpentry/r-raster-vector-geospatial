@@ -577,7 +577,7 @@ It is ideal to use `GDALinfo` to explore your file **before** reading it into
 
 <div id="challenge" markdown="1">
 
-##Challenge: Explore Raster Metadata 
+## Challenge: Explore Raster Metadata 
 
 Without using the `raster` function to read the file into `R`, determine the
 following about the  `NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif` file:
