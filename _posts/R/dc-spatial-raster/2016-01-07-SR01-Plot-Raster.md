@@ -6,11 +6,11 @@ authors: [Kristina Riemer, Jason Williams, Jeff Hollister, Mike Smorul, Zack Bry
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2016-02-12
+lastModified: 2016-02-25
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
-workshopSeries: [raster-data]
-mainTag: raster-data
+tutorialSeries: [raster-data-series]
+mainTag: raster-data-series
 description: "This tutorial explains how to plot a raster in R using R's base plot
 function. It also covers how to layer a raster on top of a hillshade to produce 
 an eloquent map."
@@ -38,11 +38,12 @@ an eloquent map.
 
 After completing this activity, you will:
 
-* Know how to plot a single band raster in R.
+* Know how to plot a single band raster in `R`.
 * Know how to layer a raster dataset on top of a hillshade to create an elegant 
 basemap.
 
 ## Things You’ll Need To Complete This Lesson
+
 To complete this lesson: you will need the most current version of R, and 
 preferably RStudio, loaded on your computer.
 
@@ -59,7 +60,6 @@ preferably RStudio, loaded on your computer.
 ****
 
 {% include/_greyBox-wd-rscript.html %}
-{% include/tutorialSeries/_series_dc-spatial-raster.html %}
 
 ****
 
@@ -72,8 +72,7 @@ preferably RStudio, loaded on your computer.
 ## Plot Raster Data in R
 In this lesson, we will plot the Digital Surface Model (DSM) raster 
 for the NEON Harvard Forest Field Site. We will use the `hist()` function as a 
-tool to explore raster values. And render categorical plots, using `breaks` or
-bins that are meaningful representations of our data. 
+tool to explore raster values. And render categorical plots, using the `breaks` argument to get bins that are meaningful representations of our data. 
 
 We will use the `raster` and `rgdal` libraries in this
 lesson. If you do not have the `DSM_HARV` object from 
@@ -91,8 +90,8 @@ please create it now.
     #import raster
     DSM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
-First, let's plot our Digital Surface Model object (`DSM_HARV`) using the `plot`
-function. We add a title using `main=""`.
+First, let's plot our Digital Surface Model object (`DSM_HARV`) using the `plot()` 
+function. We add a title using the argument `main`.
 
 
     #Plot raster object
@@ -105,33 +104,33 @@ function. We add a title using `main=""`.
 We can view our data "symbolized" or colored according to ranges of values
 rather than using a continuous color ramp. This is comparable to a "classified"
 map. However, to assign breaks, it is useful to first explore the distribution
-of the data using a histogram. The `breaks=` element in the `hist` function
+of the data using a histogram. The `breaks` argument in the `hist()` function
 tells `R` to use fewer or more breaks or bins. 
 
 If we name the histogram, we can also view counts for each bin and assigned
 break values.  
 
 
-    #Plot distribution of raster values 
+    # Plot distribution of raster values 
     DSMhist<-hist(DSM_HARV,
          breaks=3,
          main="Histogram Digital Surface Model\n NEON Harvard Forest Field Site",
-         col="wheat3",  #changes bin color
-         xlab= "Elevation (m)")  #label the x-axis
+         col="wheat3",  # changes bin color
+         xlab= "Elevation (m)")  # label the x-axis
 
     ## Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...):
     ## 4% of the raster cells were used. 100000 values used.
 
 ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/01-Plot-Raster/create-histogram-breaks-1.png) 
 
-    #Where are breaks and how many pixels in each category?
+    # Where are breaks and how many pixels in each category?
     DSMhist$breaks
 
     ## [1] 300 350 400 450
 
     DSMhist$counts
 
-    ## [1] 32034 67503   463
+    ## [1] 31858 67696   446
 
 Warning message!? Remember, the default for the histogram is to include only a
 subset of 100,000 values. We could force it to show all the pixel values or we
@@ -147,15 +146,15 @@ few pixels falling in the lower and higher range. We could specify different
 breaks, if we wished to have a different distribution of pixels in each bin.
 
 We can use those bins to plot our raster data. We will use the 
-`terrain.colors(3)` function to create a palette of 3 colors to use in our plot.
+`terrain.colors()` function to create a palette of 3 colors to use in our plot.
 
-The `breaks` method allows us to add breaks. To specify where the breaks
+The `breaks` argument allows us to add breaks. To specify where the breaks
 occur, we use the following syntax: `breaks=c(value1,value2,value3)`.
 We can include as few or many breaks as we'd like.
 
 
 
-    #plot using breaks.
+    # plot using breaks.
     plot(DSM_HARV, 
          breaks = c(300, 350, 400, 450), 
          col = terrain.colors(3),
@@ -214,19 +213,19 @@ Create a plot of the Harvard Forest Digital Surface Model (DSM) that has:
 ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/01-Plot-Raster/challenge-code-plotting-1.png) 
 
 ## Layering Rasters
-We can layer a raster on top of hillshade raster for the same area, and use a 
-transparency factor to created a shaded 3 dimensional, shaded effect. A
+We can layer a raster on top of a hillshade raster for the same area, and use a 
+transparency factor to created a 3-dimensional shaded effect. A
 hillshade is a raster that maps the shadows and texture that you would see from
 above when viewing terrain.
 
 
-    #import DSM hillshade
+    # import DSM hillshade
     DSM_hill_HARV <- 
       raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
     
-    #plot hillshade using a grayscale color ramp that looks like shadows.
+    # plot hillshade using a grayscale color ramp that looks like shadows.
     plot(DSM_hill_HARV,
-        col=grey(1:100/100),  #create a color ramp of grey colors
+        col=grey(1:100/100),  # create a color ramp of grey colors
         legend=FALSE,
         main="Hillshade - DSM\n NEON Harvard Forest Field Site",
         axes=FALSE)
@@ -241,14 +240,14 @@ We can layer another raster on top of our hillshade using by using `add=TRUE`.
 Let's overlay `DSM_HARV` on top of the `hill_HARV`.
 
 
-    #plot hillshade using a grayscale color ramp that looks like shadows.
+    # plot hillshade using a grayscale color ramp that looks like shadows.
     plot(DSM_hill_HARV,
         col=grey(1:100/100),  #create a color ramp of grey colors
         legend=F,
         main="DSM with Hillshade \n NEON Harvard Forest Field Site",
         axes=FALSE)
     
-    #add the DSM on top of the hillshade
+    # add the DSM on top of the hillshade
     plot(DSM_HARV,
          col=rainbow(100),
          alpha=0.4,

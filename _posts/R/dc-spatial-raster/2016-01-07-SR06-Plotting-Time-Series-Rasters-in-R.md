@@ -7,11 +7,11 @@ authors: [Leah A. Wasser, Kristina Riemer, Zack Bryn, Jason Williams, Jeff Holli
 contributors: [ ]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2016-02-12
+lastModified: 2016-02-25
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
-mainTag: raster-data
-workshopSeries: [raster-data, raster-time-series]
+mainTag: raster-data-series
+tutorialSeries: [raster-data-series, raster-time-series]
 description: "This tutorial covers how to efficiently and effectively plot a 
 stack of rasters using rasterVis package in R. Specifically it covers using 
 levelplot and adding meaningful, custom names to band labels in a RasterStack."
@@ -61,7 +61,6 @@ preferably RStudio, loaded on your computer.
 ****
 
 {% include/_greyBox-wd-rscript.html %}
-{% include/tutorialSeries/_series_dc-spatial-raster.html %}
 
 </div>
 
@@ -80,7 +79,17 @@ please create it now.
     library(raster)
     library(rgdal)
     library(rasterVis)
-    
+
+    ## Loading required package: lattice
+    ## Loading required package: latticeExtra
+    ## Loading required package: RColorBrewer
+    ## 
+    ## Attaching package: 'latticeExtra'
+    ## 
+    ## The following object is masked from 'package:ggplot2':
+    ## 
+    ##     layer
+
     # Create list of NDVI file paths
     all_NDVI_HARV <- list.files("NEON-DS-Landsat-NDVI/HARV/2011/NDVI", full.names = TRUE, pattern = ".tif$")
     
