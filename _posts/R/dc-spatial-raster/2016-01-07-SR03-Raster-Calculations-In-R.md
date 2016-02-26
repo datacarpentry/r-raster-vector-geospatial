@@ -6,11 +6,11 @@ authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Bry
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2016-02-12
+lastModified: 2016-02-25
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
-workshopSeries: [raster-data]
-mainTag: raster-data
+tutorialSeries: [raster-data-series]
+mainTag: raster-data-series
 description: "This tutorial covers how to subtract one raster from another using
 efficient methods - the overlay function compared to basic subtraction. We also 
 cover how to extract pixel values from a set of locations - for example a buffer
@@ -29,8 +29,10 @@ comments: false
 
 ## About
 We often want to combine values of and perform calculations on rasters to create 
-a new output raster. This tutorial covers three commonly used R functions 
-including: `overlay`,`calc` and raster math.
+a new output raster. This tutorial covers how to subtract one raster from 
+another using basic raster math and the `overlay()` function. It also covers how 
+to extract pixel values from a set of locations - for example a buffer region 
+around plot locations at a field site. 
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
@@ -46,6 +48,7 @@ raster math.
 rasters using the raster `overlay()` function in R.
 
 ## Things You’ll Need To Complete This Lesson
+
 To complete this lesson: you will need the most current version of R, and 
 preferably RStudio, loaded on your computer.
 
@@ -62,7 +65,6 @@ preferably RStudio, loaded on your computer.
 ****
 
 {% include/_greyBox-wd-rscript.html %}
-{% include/tutorialSeries/_series_dc-spatial-raster.html %}
 
 ****
 
@@ -79,22 +81,19 @@ across an entire field site, we might want to calculate the *difference* between
 the Digital Surface Model (DSM, tops of trees) and the 
 Digital Terrain Model (DTM, ground level). The resulting dataset is referred to 
 as a Canopy Height Model (CHM) and represents the actual height of trees, 
-buildings, etc with the influence of ground elevation removed.
+buildings, etc. with the influence of ground elevation removed.
 
 <figure>
     <a href="{{ site.baseurl }}/images/dc-spatial-raster/lidarTree-height.png">
     <img src="{{ site.baseurl }}/images/dc-spatial-raster/lidarTree-height.png">
     </a>
-    <figcaption> A canopy height model represents the difference between the
-    digital surface model and a digital terrain model. It represents the actual
-    height of the trees with the influence of elevation removed. Source:
-    National Ecological Observatory Network (NEON).</figcaption>
+    <figcaption> Source: National Ecological Observatory Network (NEON)
+    </figcaption>
 </figure>
 
-* More on LiDAR CHM, DTM and DSM in this NEON Data Skills overview lesson: 
+* Check out more on LiDAR CHM, DTM and DSM in this NEON Data Skills overview lesson: 
 <a href="http://neondataskills.org/remote-sensing/2_LiDAR-Data-Concepts_Activity2/" target="_blank"> 
 What is a CHM, DSM and DTM? About Gridded, Raster LiDAR Data</a>. 
-
 
 ### Load the Data 
 We will need the `raster` package to import and perform raster calculations. We
@@ -103,10 +102,10 @@ and DSM (`NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif`) from the
 NEON Harvard Forest Field site.
 
 
-    #load raster package
+    # load raster package
     library(raster)
     
-    #view info about the dtm & dsm raster data that we will work with.
+    # view info about the dtm & dsm raster data that we will work with.
     GDALinfo("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 
     ## rows        1367 
@@ -164,18 +163,18 @@ As seen from the `geoTiff` tags, both rasters have:
 Let's load the data. 
 
 
-    #load the DTM & DSM rasters
+    # load the DTM & DSM rasters
     DTM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
     DSM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
     
-    #create a quick plot of each to see what we're dealing with
+    # create a quick plot of each to see what we're dealing with
     plot(DTM_HARV,
-         main="Digital Terrain Model (Elevation)\n NEON Harvard Forest Field Site")
+         main="Digital Terrain Model \n NEON Harvard Forest Field Site")
 
 ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/load-plot-data-1.png) 
 
     plot(DSM_HARV,
-         main="Digital Surface Model (Elevation)\n NEON Harvard Forest Field Site")
+         main="Digital Surface Model \n NEON Harvard Forest Field Site")
 
 ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/load-plot-data-2.png) 
 
@@ -193,7 +192,7 @@ the calculations we are performing are complex:
 ## Raster Math & Canopy Height Models
 We can perform raster calculations by simply subtracting (or adding,
 multiplying, etc) two rasters. In the geospatial world, we call this
-*raster math*.
+"raster math".
 
 Let's subtract the DTM from the DSM to create a Canopy Height Model.
 
@@ -201,7 +200,7 @@ Let's subtract the DTM from the DSM to create a Canopy Height Model.
     # Raster math example
     CHM_HARV <- DSM_HARV - DTM_HARV 
     
-    #plot the output CHM
+    # plot the output CHM
     plot(CHM_HARV,
          main="Canopy Height Model - Raster Math Subtract\n NEON Harvard Forest Field Site",
          axes=FALSE) 
@@ -212,7 +211,7 @@ Let's have a look at the distribution of values in our newly created
 Canopy Height Model (CHM).
 
 
-    #histogram of CHM_HARV
+    # histogram of CHM_HARV
     hist(CHM_HARV,
       col="springgreen4",
       main="Histogram of Canopy Height Model\nNEON Harvard Forest Field Site",
@@ -283,16 +282,21 @@ raster math, using the `overlay()` function.
 How do the plots of the CHM created with manual raster math and the `overlay()`
 function compare?  
 
-<i class="fa fa-star"></i> **Data Tip:** A function consists of a define set of 
-tasks performed on a input object. Functions are particularly useful for tasks
-that need to be repeated over and over in the code. A simplified syntax for a
-function in R is:
-`functionName <- function(variable1, variable2){WhatYouWantDone, WhatToReturn}`
+<i class="fa fa-star"></i> **Data Tip:** A custom function consists of a defined 
+set of commands performed on a input object. Custom functions are particularly 
+useful for tasks that need to be repeated over and over in the code. A simplified 
+syntax for writing a custom function in R is:
+```
+functionName <- function(variable1, variable2){
+  something_new <- do_something_to_variable1_and_variable2  
+  return(something_new)
+}
+```
 {: .notice }
 
 ## Export a GeoTIFF
 Now that we've created a new raster, let's export the data as a `GeoTIFF` using
-the `writeRaster` function. 
+the `writeRaster()` function. 
 
 When we write this raster object to a `GeoTIFF` file we'll name it 
 `chm_HARV.tiff`. This name allows us to quickly remember both what the data
@@ -309,13 +313,13 @@ full file path.
                 NAflag=-9999) #set no data value to -9999
 
 ### writeRaster Options
-The options that we used above include:
+The function arguments that we used above include:
 
 * **format:** specify that the format will be `GTiff` or `geoTiff`. 
 * **overwrite:** If TRUE, `R` will overwrite any existing file  with the same
 name in the specified directory. USE THIS SETTING WITH CAUTION!
-* **NAflag:** set the `geotiff` tag for `NoData` to -9999, the National
-Ecological Observatory Network's (NEON) standard `NoData` value. 
+* **NAflag:** set the `geotiff` tag for `NoDataValue` to -9999, the National
+Ecological Observatory Network's (NEON) standard `NoDataValue`. 
 
 <div id="challenge" markdown="1">
 ## Challenge: Explore the NEON San Joaquin Experimental Range Field Site

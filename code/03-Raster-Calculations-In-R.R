@@ -1,36 +1,36 @@
 ## ----load-libraries------------------------------------------------------
-#load raster package
+# load raster package
 library(raster)
 
-#view info about the dtm & dsm raster data that we will work with.
+# view info about the dtm & dsm raster data that we will work with.
 GDALinfo("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 GDALinfo("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 
 ## ----load-plot-data------------------------------------------------------
-#load the DTM & DSM rasters
+# load the DTM & DSM rasters
 DTM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 DSM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
-#create a quick plot of each to see what we're dealing with
+# create a quick plot of each to see what we're dealing with
 plot(DTM_HARV,
-     main="Digital Terrain Model (Elevation)\n NEON Harvard Forest Field Site")
+     main="Digital Terrain Model \n NEON Harvard Forest Field Site")
 
 plot(DSM_HARV,
-     main="Digital Surface Model (Elevation)\n NEON Harvard Forest Field Site")
+     main="Digital Surface Model \n NEON Harvard Forest Field Site")
 
 ## ----raster-math---------------------------------------------------------
 # Raster math example
 CHM_HARV <- DSM_HARV - DTM_HARV 
 
-#plot the output CHM
+# plot the output CHM
 plot(CHM_HARV,
      main="Canopy Height Model - Raster Math Subtract\n NEON Harvard Forest Field Site",
      axes=FALSE) 
 
 
 ## ----create-hist---------------------------------------------------------
-#histogram of CHM_HARV
+# histogram of CHM_HARV
 hist(CHM_HARV,
   col="springgreen4",
   main="Histogram of Canopy Height Model\nNEON Harvard Forest Field Site",

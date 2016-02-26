@@ -6,11 +6,11 @@ authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Bry
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2016-02-12
+lastModified: 2016-02-25
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
-workshopSeries: [raster-data]
-mainTag: raster-data
+tutorialSeries: [raster-data-series]
+mainTag: raster-data-series
 description: "This tutorial explores issues associated with working with rasters
 in different Coordinate Reference Systems (CRS) / projections. When two rasters 
 are in different CRS, they will not plot nicely together on a map. We will learn
@@ -44,11 +44,11 @@ in the `raster` library.
 
 After completing this activity, you will:
 
-* Be able to reproject a raster in R.
+* Be able to reproject a raster in `R`.
 
 ## Things You’ll Need To Complete This Lesson
-To complete this lesson: you will need the most current version of R, and 
-preferably RStudio, loaded on your computer.
+To complete this lesson: you will need the most current version of `R`, and 
+preferably `RStudio`, loaded on your computer.
 
 ### Install R Packages
 
@@ -63,7 +63,6 @@ preferably RStudio, loaded on your computer.
 ****
 
 {% include/_greyBox-wd-rscript.html %}
-{% include/tutorialSeries/_series_dc-spatial-raster.html %}
 
 ****
 
@@ -78,32 +77,33 @@ Read more about the `raster` package in `R`.</a>
 
 In the [Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/) 
 lesson, we learned how to layer a raster file on top of a hillshade for a nice
-looking basemap. In this lesson, all of our data were in the same `CRS`. What happens when things don't line up?
+looking basemap. In this lesson, all of our data were in the same `CRS`. What 
+happens when things don't line up?
 
 We will use the `raster` and `rgdal` packages in this lesson.  
 
 
-    #load raster package
+    # load raster package
     library(raster)
     library(rgdal)
 
-Let's create an map of the Harvard Forest Digital Terrain Model 
+Let's create a map of the Harvard Forest Digital Terrain Model 
 (`DTM_HARV`) draped or layered on top of the hillshade (`DTM_hill_HARV`).
 
 
-    #import DTM
-    DTM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmcrop.tif")
-    #import DTM hillshade
+    # import DTM
+    DTM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
+    # import DTM hillshade
     DTM_hill_HARV <- 
       raster("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
     
-    #plot hillshade using a grayscale color ramp 
+    # plot hillshade using a grayscale color ramp 
     plot(DTM_hill_HARV,
         col=grey(1:100/100),
         legend=FALSE,
         main="DTM Hillshade\n NEON Harvard Forest Field Site")
     
-    #overlay the DTM on top of the hillshade
+    # overlay the DTM on top of the hillshade
     plot(DTM_HARV,
          col=terrain.colors(10),
          alpha=0.4,
@@ -116,12 +116,12 @@ Our results are curious - the Digital Terrain Model (`DTM_HARV`) did not plot on
 top of our hillshade. The hillshade plotted just fine on it's own. Let's try to 
 plot the DTM on it's own to make sure there are data there.
 
-<i class="fa fa-star"></i> **Data Tip:** For boolean ``R elements, such as
+<i class="fa fa-star"></i> **Code Tip:** For boolean `R` elements, such as
  `add=TRUE`, you can use `T` and `F` in place of `TRUE` and `FALSE`.
 {: .notice}
 
 
-    #Plot DTM 
+    # Plot DTM 
     plot(DTM_HARV,
          col=terrain.colors(10),
          alpha=1,
@@ -134,14 +134,14 @@ Our DTM seems to contain data and plots just fine. Let's next check the
  Coordinate Reference System (`CRS`) and compare it to our hillshade.
 
 
-    #view crs for DTM
+    # view crs for DTM
     crs(DTM_HARV)
 
     ## CRS arguments:
     ##  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84
     ## +towgs84=0,0,0
 
-    #view crs for hillshade
+    # view crs for hillshade
     crs(DTM_hill_HARV)
 
     ## CRS arguments:
@@ -168,14 +168,14 @@ The syntax is `projectRaster(RasterObject,crs=CRSToReprojectTo)`
 
 We want the `CRS` of our hillshade to match the `DTM_HARV` raster. We can thus
 assign the `CRS` of our `DTM_HARV` to our hillshade within the `projectRaster`
-functionas follows: `crs=crs(DTM_HARV)`.
+function as follows: `crs=crs(DTM_HARV)`.
 
 
-    #reproject to UTM
+    # reproject to UTM
     DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV, 
                                            crs=crs(DTM_HARV))
     
-    #compare attributes of DTM_hill_UTMZ18N to DTM_hill
+    # compare attributes of DTM_hill_UTMZ18N to DTM_hill
     crs(DTM_hill_UTMZ18N_HARV)
 
     ## CRS arguments:
@@ -187,7 +187,7 @@ functionas follows: `crs=crs(DTM_HARV)`.
     ## CRS arguments:
     ##  +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
 
-    #compare attributes of DTM_hill_UTMZ18N to DTM_hill
+    # compare attributes of DTM_hill_UTMZ18N to DTM_hill
     extent(DTM_hill_UTMZ18N_HARV)
 
     ## class       : Extent 
@@ -204,9 +204,9 @@ functionas follows: `crs=crs(DTM_HARV)`.
     ## ymin        : 42.52941 
     ## ymax        : 42.54234
 
-Notice in the output above that the `CRS` of `DTM_hill_UTMZ18N_HARV` is now UTM, meters. 
-However, values in the extent of `DTM_hillUTMZ18N_HARV` are different from 
-`DTM_hill_HARV`.
+Notice in the output above that the `CRS` of `DTM_hill_UTMZ18N_HARV` is now UTM, 
+meters. However, values in the extent of `DTM_hillUTMZ18N_HARV` are different 
+from `DTM_hill_HARV`.
 
 Why do you think this is?  
 
@@ -221,7 +221,7 @@ in mind as we work with raster data.
 Let's next have a look at the resolution of our reprojected hillshade.  
 
 
-    #compare resolution
+    # compare resolution
     res(DTM_hill_UTMZ18N_HARV)
 
     ## [1] 1.000 0.998
@@ -231,11 +231,11 @@ the resolution for the data should be 1m x 1m. We can tell `R` to force our newl
 reprojected raster to be 1m x 1m resolution by adding a line of code (`res=`).  
 
 
-    #adjust the resolution 
+    # adjust the resolution 
     DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV, 
                                       crs=crs(DTM_HARV),
                                       res=1)
-    #view resolution
+    # view resolution
     res(DTM_hill_UTMZ18N_HARV)
 
     ## [1] 1 1
@@ -243,13 +243,13 @@ reprojected raster to be 1m x 1m resolution by adding a line of code (`res=`).
 Let's plot our newly reprojected raster.
 
 
-    #plot newly reprojected hillshade
+    # plot newly reprojected hillshade
     plot(DTM_hill_UTMZ18N_HARV,
         col=grey(1:100/100),
         legend=F,
         main="DTM with Hillshade\n NEON Harvard Forest Field Site")
     
-    #overlay the DTM on top of the hillshade
+    # overlay the DTM on top of the hillshade
     plot(DTM_HARV,
          col=rainbow(100),
          alpha=0.4,
