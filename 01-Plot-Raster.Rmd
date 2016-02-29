@@ -75,8 +75,8 @@ for the NEON Harvard Forest Field Site. We will use the `hist()` function as a
 tool to explore raster values. And render categorical plots, using the `breaks` argument to get bins that are meaningful representations of our data. 
 
 We will use the `raster` and `rgdal` libraries in this tutorial. If you do not
-have the `DSM_HARV` object from 
-[the Intro To Raster In R tutorial]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R), 
+have the `DSM_HARV` object from the 
+[Intro To Raster In R tutorial]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R), 
 please create it now.  
 
 ```{r load-libraries }
@@ -92,8 +92,8 @@ DSM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 ```
 
-First, let's plot our Digital Surface Model object (`DSM_HARV`) using the `plot()` 
-function. We add a title using the argument `main`.
+First, let's plot our Digital Surface Model object (`DSM_HARV`) using the
+`plot()` function. We add a title using the argument `main="title"`.
 
 ```{r hist-raster }
 #Plot raster object

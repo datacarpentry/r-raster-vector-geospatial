@@ -30,11 +30,11 @@ comments: true
 ## About
 Sometimes we encounter raster datasets that do not "line up" when plotted or 
 analyzed. Rasters that don't line up are most often in different Coordinate
-Reference Systems (`CRS`).
+Reference Systems (CRS).
 
-This tutorial explains how to deal with rasters in different, known `CRS`s. It
-will walk though reprojecting rasters in `R` using the `projectRaster` function
-in the `raster` library.
+This tutorial explains how to deal with rasters in different, known CRSs. It
+will walk though reprojecting rasters in `R` using the `projectRaster()`
+function in the `raster` package.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
@@ -77,7 +77,7 @@ Read more about the `raster` package in `R`.</a>
 
 In the [Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/) 
 tutorial, we learned how to layer a raster file on top of a hillshade for a nice
-looking basemap. In this tutorial, all of our data were in the same `CRS`. What 
+looking basemap. In this tutorial, all of our data were in the same CRS. What 
 happens when things don't line up?
 
 We will use the `raster` and `rgdal` packages in this tutorial.  
@@ -132,7 +132,7 @@ plot(DTM_HARV,
 ```
 
 Our DTM seems to contain data and plots just fine. Let's next check the
- Coordinate Reference System (`CRS`) and compare it to our hillshade.
+ Coordinate Reference System (CRS) and compare it to our hillshade.
 
 ```{r explore-crs }
 # view crs for DTM
@@ -145,14 +145,19 @@ crs(DTM_hill_HARV)
 Aha! `DTM_HARV` is in the UTM projection. `DTM_hill_HARV` is in
 `Geographic WGS84` - which is represented by latitude and longitude values.
 Because the two rasters are in different CRSs, they don't line up when plotted
-in `R`. We need to *reproject* `DTM_HARV` into the `UTM CRS`. Alternatively,
+in `R`. We need to *reproject* `DTM_HARV` into the UTM CRS. Alternatively,
 we could reproject the hillshade into WGS84. 
 
 ## Reproject Rasters
-We can use the `projectRaster` function to reproject a raster into a new `CRS`.
-Keep in mind that reprojection only works when you first have a *defined* `CRS`
+We can use the `projectRaster` function to reproject a raster into a new CRS.
+Keep in mind that reprojection only works when you first have a *defined* CRS
 for the raster object that you want to reproject. It cannot be used if *no*
-`CRS` is defined. Lucky for us, the `DTM_hill_HARV` has a defined `CRS`. 
+CRS is defined. Lucky for us, the `DTM_hill_HARV` has a defined CRS. 
+
+<i class="fa fa-star"></i> **Data Tip:** When we reproject a raster, we 
+move it from one "grid" to another. Thus, we are modifying the data! Keep this 
+in mind as we work with raster data. 
+{: .notice}
 
 To use the `projectRaster` function, we need to define two things:
 
@@ -161,8 +166,8 @@ To use the `projectRaster` function, we need to define two things:
 
 The syntax is `projectRaster(RasterObject,crs=CRSToReprojectTo)`
 
-We want the `CRS` of our hillshade to match the `DTM_HARV` raster. We can thus
-assign the `CRS` of our `DTM_HARV` to our hillshade within the `projectRaster`
+We want the CRS of our hillshade to match the `DTM_HARV` raster. We can thus
+assign the CRS of our `DTM_HARV` to our hillshade within the `projectRaster()`
 function as follows: `crs=crs(DTM_HARV)`.
 
 ```{r reproject-raster }
@@ -181,16 +186,20 @@ extent(DTM_hill_HARV)
 
 ```
 
-Notice in the output above that the `CRS` of `DTM_hill_UTMZ18N_HARV` is now UTM, 
-meters. However, values in the extent of `DTM_hillUTMZ18N_HARV` are different 
-from `DTM_hill_HARV`.
+Notice in the output above that the `crs()` of `DTM_hill_UTMZ18N_HARV` is now
+UTM. However, the extent values of `DTM_hillUTMZ18N_HARV` are different from
+`DTM_hill_HARV`.
 
-Why do you think this is?  
+<div id="challenge" markdown="1">
+## Challenge: Extent Change with CRS Change
+Why do you think the two extents differ?  
+</div>
 
-<i class="fa fa-star"></i> **Data Tip:** When we reproject a raster, we 
-move it from one "grid" to another. Thus, we are modifying the data! Keep this 
-in mind as we work with raster data. 
-{: .notice}
+```{r challenge-code-extent-crs, echo=FALSE}
+# The extent for DTM_hill_UTMZ18N_HARV is in UTMs so the extent is in meters. 
+# The extent for DTM_hill_HARV is still in lat/long so the extent is expressed
+# in decimal degrees.  
+```
 
 
 ## Deal with Raster Resolution
@@ -205,8 +214,9 @@ res(DTM_hill_UTMZ18N_HARV)
 ```
 
 The output resolution of `DTM_hill_UTMZ18N_HARV` is 1 x 0.998. Yet, we know that
-the resolution for the data should be 1m x 1m. We can tell `R` to force our newly
-reprojected raster to be 1m x 1m resolution by adding a line of code (`res=`).  
+the resolution for the data should be 1m x 1m. We can tell `R` to force our
+newly reprojected raster to be 1m x 1m resolution by adding a line of code
+(`res=`).  
 
 ``` {r reproject-assign-resolution }
 # adjust the resolution 
@@ -276,7 +286,7 @@ plot(DSM_SJER,
 
 <div id="challenge" markdown="1">
 If you completed the San Joaquin plotting challenge in the
-[Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/) 
+[Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/#challenge-create-dtm--dsm-for-sjer) 
 tutorial, how does the map you just created compare to that map? 
 </div>
 
