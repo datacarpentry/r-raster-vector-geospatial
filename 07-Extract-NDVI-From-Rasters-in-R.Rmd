@@ -51,7 +51,7 @@ on your computer to complete this tutorial.
 * **rgdal:** `install.packages("rgdal")`
 * **ggplot2:** `install.packages("ggplot2")`
 
-* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}R/Packages-In-R/)
+* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 
 #### Data to Download
 {% include/dataSubsets/_data_Landsat-NDVI.html %}
@@ -312,7 +312,7 @@ plot our data.
 We will use the `ggplot()` function within the `ggplot2` package for this plot. 
 If you are unfamiliar with `ggplot()` or would like to learn more about plotting
 in `ggplot()` see the tutorial on
-[Plotting Time Series with ggplot in R]({{site.baseurl}}/R/Time-Series-Plot-ggplot/).
+[Plotting Time Series with ggplot in R]({{site.baseurl}}/R/time-series-plot-ggplot/).
 
 ```{r ggplot-data }
 

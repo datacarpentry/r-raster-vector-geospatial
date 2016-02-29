@@ -51,7 +51,7 @@ on your computer to complete this tutorial.
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
-* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}R/Packages-In-R/)
+* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 
 #### Data to Download
 {% include/dataSubsets/_data_Airborne-Remote-Sensing.html %}
@@ -159,7 +159,7 @@ par(original_par) # go back to original par
 Multi-band raster data might also contain:
 
 1. **Time series:** the same variable, over the same area, over time. Check out 
-[Raster Time Series Data in R ]({{ site.baseurl}}/R/Raster-Times-Series-Data-In-R/)
+[Raster Time Series Data in R ]({{site.baseurl}}/R/Raster-Times-Series-Data-In-R/)
 to learn more about time series stacks.
 2. **Multi or hyperspectral imagery:** image rasters that have 4 or more
 (multi-spectral) or more than 10-15 (hyperspectral) bands. Check out the NEON

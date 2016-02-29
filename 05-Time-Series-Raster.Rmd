@@ -53,7 +53,7 @@ on your computer to complete this tutorial.
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
-* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}R/Packages-In-R/)
+* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 
 #### Data to Download
 {% include/dataSubsets/_data_Landsat-NDVI.html %}
@@ -207,7 +207,7 @@ xres(NDVI_HARV_stack)
 Notice that the CRS is `+proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs`. The
 **CRS** is in UTM Zone 19.  If you have completed the previous tutorials in 
 this 
-[raster data in `R` series ]({{ site.baseurl }}tutorial/spatial-raster-series),
+[raster data in `R` series ]({{ site.baseurl }}tutorial-series/raster-data-series/),
 you may have noticed that the UTM zone for the NEON collected remote sensing 
 data was in Zone 18 rather than Zone 19. Why are the Landsat data in Zone 19?  
 
