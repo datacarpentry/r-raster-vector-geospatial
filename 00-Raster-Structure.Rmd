@@ -2,7 +2,7 @@
 layout: post
 title: "Raster 00: Intro to Raster Data in R"
 date:   2015-10-29
-authors: [Kristina Riemer, Zack Brym, Jason Williams, Jeff Hollister,  Mike Smorul, Leah A. Wasser, Megan A. Jones]
+authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul]
 contributors: [ ]
 dateCreated: 2015-10-23
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`
@@ -22,7 +22,7 @@ image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink:
-permalink: R/Introduction-to-Raster-Data-In-R
+permalink: /R/Introduction-to-Raster-Data-In-R
 comments: true
 ---
 
