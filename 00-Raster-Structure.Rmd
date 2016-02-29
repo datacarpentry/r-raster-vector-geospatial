@@ -538,7 +538,7 @@ However, raster data can also be multi-band meaning that one raster file
 contains data for more than one variable or time period for each cell. By
 default the `raster()` function only imports the first band in a raster
 regardless of whether it has one or more bands. Jump to the fourth tutorial in 
-this series for a tutorial on multi-band rasters, 
+this series for a tutorial on multi-band rasters: 
 <a href="{{ site.baseurl }}/R/Multi-Band-Rasters-In-R/" target="_blank">
 Work with Multi-band Rasters: Images in R</a>.
 
@@ -582,7 +582,7 @@ following about the  `NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif` file:
 5. Is the file a multi- or single-band raster?
 
 Notice: this file is a `hillshade`. We will learn about hillshades in
- <a href="{{ site.baseurl }}R/Multi-Band-Rasters-In-R/" target="_blank">  Work with Multi-band Rasters: Images in R</a>.
+<a href="{{ site.baseurl }}/R/Multi-Band-Rasters-In-R/" target="_blank">  Work with Multi-band Rasters: Images in R</a>.
  
 </div>
 
