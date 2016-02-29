@@ -46,9 +46,9 @@ After completing this activity, you will:
 
 * Be able to reproject a raster in `R`.
 
-## Things You’ll Need To Complete This Lesson
-To complete this lesson: you will need the most current version of `R`, and 
-preferably `RStudio`, loaded on your computer.
+## Things You’ll Need To Complete This Tutorial
+You will need the most current version of `R` and, preferably, `RStudio` loaded
+on your computer to complete this tutorial.
 
 ### Install R Packages
 
@@ -76,11 +76,11 @@ Read more about the `raster` package in `R`.</a>
 ## Raster Projection in R
 
 In the [Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/) 
-lesson, we learned how to layer a raster file on top of a hillshade for a nice
-looking basemap. In this lesson, all of our data were in the same `CRS`. What 
+tutorial, we learned how to layer a raster file on top of a hillshade for a nice
+looking basemap. In this tutorial, all of our data were in the same `CRS`. What 
 happens when things don't line up?
 
-We will use the `raster` and `rgdal` packages in this lesson.  
+We will use the `raster` and `rgdal` packages in this tutorial.  
 
 ```{r load-libraries }
 # load raster package
@@ -277,7 +277,7 @@ plot(DSM_SJER,
 <div id="challenge" markdown="1">
 If you completed the San Joaquin plotting challenge in the
 [Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/) 
-lesson, how does the map you just created compare to that map? 
+tutorial, how does the map you just created compare to that map? 
 </div>
 
 ```{r challenge-code-reprojection2, echo=FALSE }

@@ -42,10 +42,10 @@ After completing this activity, you will:
 * Know how to layer a raster dataset on top of a hillshade to create an elegant 
 basemap.
 
-## Things You’ll Need To Complete This Lesson
+## Things You’ll Need To Complete This Tutorial
 
-To complete this lesson: you will need the most current version of R, and 
-preferably RStudio, loaded on your computer.
+You will need the most current version of `R` and, preferably, `RStudio` loaded
+on your computer to complete this tutorial.
 
 ### Install R Packages
 
@@ -70,13 +70,13 @@ preferably RStudio, loaded on your computer.
 </div>
 
 ## Plot Raster Data in R
-In this lesson, we will plot the Digital Surface Model (DSM) raster 
+In this tutorial, we will plot the Digital Surface Model (DSM) raster 
 for the NEON Harvard Forest Field Site. We will use the `hist()` function as a 
 tool to explore raster values. And render categorical plots, using the `breaks` argument to get bins that are meaningful representations of our data. 
 
-We will use the `raster` and `rgdal` libraries in this
-lesson. If you do not have the `DSM_HARV` object from 
-[the Intro To Raster In R lesson]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R), 
+We will use the `raster` and `rgdal` libraries in this tutorial. If you do not
+have the `DSM_HARV` object from 
+[the Intro To Raster In R tutorial]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R), 
 please create it now.  
 
 ```{r load-libraries }

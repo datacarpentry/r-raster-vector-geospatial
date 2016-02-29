@@ -47,10 +47,10 @@ raster math.
 * Know how to perform a more efficient subtraction (difference) between two 
 rasters using the raster `overlay()` function in R.
 
-## Things You’ll Need To Complete This Lesson
+## Things You’ll Need To Complete This Tutorial
 
-To complete this lesson: you will need the most current version of R, and 
-preferably RStudio, loaded on your computer.
+You will need the most current version of `R` and, preferably, `RStudio` loaded
+on your computer to complete this tutorial.
 
 ### Install R Packages
 
@@ -91,7 +91,7 @@ buildings, etc. with the influence of ground elevation removed.
     </figcaption>
 </figure>
 
-* Check out more on LiDAR CHM, DTM and DSM in this NEON Data Skills overview lesson: 
+* Check out more on LiDAR CHM, DTM and DSM in this NEON Data Skills overview tutorial: 
 <a href="http://neondataskills.org/remote-sensing/2_LiDAR-Data-Concepts_Activity2/" target="_blank"> 
 What is a CHM, DSM and DTM? About Gridded, Raster LiDAR Data</a>. 
 
@@ -227,8 +227,8 @@ if:
 1. The rasters we are using are small in size.
 2. The calculations we are performing are simple.
 
-However, raster math is a less efficient
-approach as computation becomes more complex or as file sizes become large. 
+However, raster math is a less efficient approach as computation becomes more
+complex or as file sizes become large. 
 The `overlay()` function is more efficient when:
 
 1. The rasters we are using are larger in size. 
@@ -321,7 +321,7 @@ keep track of data from different sites!
 1. Import the DSM and DTM from the SJER directory (if not aready imported
 in the 
 [Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/) 
-lesson.) Don't forget to examine the data for `CRS`, bad values, etc. 
+tutorial.) Don't forget to examine the data for `CRS`, bad values, etc. 
 2. Create a `CHM` from the two raster layers and check to make sure the data
 are what you expect. 
 3. Plot the `CHM` from SJER. 
