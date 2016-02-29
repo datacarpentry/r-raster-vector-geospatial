@@ -2,7 +2,7 @@
 layout: post
 title: "Raster 01: Plot Raster Data in R"
 date:   2015-10-28
-authors: [Kristina Riemer, Jason Williams, Jeff Hollister, Mike Smorul, Zack Brym, Leah A. Wasser, Megan A. Jones]
+authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul]
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
@@ -19,8 +19,8 @@ image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink:
-permalink: R/Plot-Rasters-In-R
-comments: false
+permalink: /R/Plot-Rasters-In-R
+comments: true
 ---
 
 {% include _toc.html %}
@@ -42,17 +42,17 @@ After completing this activity, you will:
 * Know how to layer a raster dataset on top of a hillshade to create an elegant 
 basemap.
 
-## Things You’ll Need To Complete This Lesson
+## Things You’ll Need To Complete This Tutorial
 
-To complete this lesson: you will need the most current version of R, and 
-preferably RStudio, loaded on your computer.
+You will need the most current version of `R` and, preferably, `RStudio` loaded
+on your computer to complete this tutorial.
 
 ### Install R Packages
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
-* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}R/Packages-In-R/)
+* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 
 #### Download Data
 {% include/dataSubsets/_data_Airborne-Remote-Sensing.html %}
@@ -70,13 +70,13 @@ preferably RStudio, loaded on your computer.
 </div>
 
 ## Plot Raster Data in R
-In this lesson, we will plot the Digital Surface Model (DSM) raster 
+In this tutorial, we will plot the Digital Surface Model (DSM) raster 
 for the NEON Harvard Forest Field Site. We will use the `hist()` function as a 
 tool to explore raster values. And render categorical plots, using the `breaks` argument to get bins that are meaningful representations of our data. 
 
-We will use the `raster` and `rgdal` libraries in this
-lesson. If you do not have the `DSM_HARV` object from 
-[the Intro To Raster In R lesson]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R), 
+We will use the `raster` and `rgdal` libraries in this tutorial. If you do not
+have the `DSM_HARV` object from the 
+[Intro To Raster In R tutorial]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R), 
 please create it now.  
 
 ```{r load-libraries }
@@ -92,8 +92,8 @@ DSM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 ```
 
-First, let's plot our Digital Surface Model object (`DSM_HARV`) using the `plot()` 
-function. We add a title using the argument `main`.
+First, let's plot our Digital Surface Model object (`DSM_HARV`) using the
+`plot()` function. We add a title using the argument `main="title"`.
 
 ```{r hist-raster }
 #Plot raster object
