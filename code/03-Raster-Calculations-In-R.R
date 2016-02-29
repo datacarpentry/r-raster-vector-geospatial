@@ -39,23 +39,23 @@ hist(CHM_HARV,
 
 
 ## ----challenge-code-CHM-HARV,  include=TRUE, results="hide", echo=FALSE----
-#1) 
+# 1) 
 minValue(CHM_HARV)
 maxValue(CHM_HARV)
-#2) Looks at histogram, minValue(NAME)/maxValue(NAME), NAME and look at values
+# 2) Looks at histogram, minValue(NAME)/maxValue(NAME), NAME and look at values
 # slot. 
-#3
+# 3
 hist(CHM_HARV, 
      col="springgreen4",
      main = "Histogram of Canopy Height Model\nNEON Harvard Forest Field Site",
      maxpixels=ncell(CHM_HARV))
-#4 
+# 4 
 hist(CHM_HARV, 
      col="lightgreen",
      main = "Histogram of Canopy Height Model\nNEON Harvard Forest Field Site",
      maxpixels=ncell(CHM_HARV),
      breaks=6)
-#5
+# 5
 myCol=terrain.colors(4)
 plot(CHM_HARV,
      breaks=c(0,10,20,30),
@@ -73,26 +73,26 @@ plot(CHM_ov_HARV,
   main="Canopy Height Model - Overlay Subtract\n NEON Harvard Forest Field Site")
 
 ## ----write-raster--------------------------------------------------------
-#export CHM object to new GeotIFF
+# export CHM object to new GeotIFF
 writeRaster(CHM_ov_HARV, "chm_HARV.tiff",
-            format="GTiff",  #specify output format - GeoTIFF
-            overwrite=TRUE, #CAUTION: if this is true, it will overwrite an
+            format="GTiff",  # specify output format - GeoTIFF
+            overwrite=TRUE, # CAUTION: if this is true, it will overwrite an
                             # existing file
-            NAflag=-9999) #set no data value to -9999
+            NAflag=-9999) # set no data value to -9999
 
 
 ## ----challenge-code-SJER-CHM,include=TRUE, results="hide", echo=FALSE----
-#1.
-#load the DTM
+# 1.
+# load the DTM
 DTM_SJER <- raster("NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
-#load the DSM
+# load the DSM
 DSM_SJER <- raster("NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
 
-#check CRS, units, etc
+# check CRS, units, etc
 DTM_SJER
 DSM_SJER
 
-#check values
+# check values
 hist(DTM_SJER, 
      maxpixels=ncell(DTM_SJER),
      main="Digital Terrain Model - Histogram\n NEON SJER Field Site",
@@ -106,8 +106,8 @@ hist(DSM_SJER,
      ylab="Number of Pixels",
      xlab="Elevation (m)")
 
-#2.
-#use overlay to subtract the two rasters & create CHM
+# 2.
+# use overlay to subtract the two rasters & create CHM
 CHM_SJER <- overlay(DSM_SJER,DTM_SJER,
                     fun=function(r1, r2){return(r1-r2)})
 
@@ -117,21 +117,21 @@ hist(CHM_SJER,
      ylab="Number of Pixels",
      xlab="Elevation (m)")
 
-#3
-#plot the output
+# 3
+# plot the output
 plot(CHM_SJER,
      main="Canopy Height Model - Overlay Subtract\n NEON SJER Field Site",
      axes=F)
 
-#4 
-#Write to object to file
+# 4 
+# Write to object to file
 writeRaster(CHM_SJER,"chm_ov_SJER.tiff",
             format="GTiff", 
             overwrite=TRUE, 
             NAflag=-9999)
 
-#4.Tree heights are much shorter in SJER. 
-#view histogram of HARV again. 
+# 4.Tree heights are much shorter in SJER. 
+# view histogram of HARV again. 
 par(mfcol=c(2,1))
 hist(CHM_HARV, 
      main="Canopy Height Model - Histogram\nNEON Harvard Forest Field Site",

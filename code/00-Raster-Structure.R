@@ -5,7 +5,7 @@ library(rgdal)
 
 
 ## ----elevation-map, echo=FALSE-------------------------------------------
-# render DSM for lesson content background
+# render DSM for tutorial content background
 DSM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 # code output here - DEM rendered on the screen
@@ -13,7 +13,7 @@ plot(DSM_HARV, main="Continuous Elevation Map\n NEON Harvard Forest Field Site")
 
 
 ## ----classified-elevation-map, echo=FALSE--------------------------------
-# Demonstration image for the lesson
+# Demonstration image for the tutorial
 
 # add a color map with 5 colors
 col=terrain.colors(3)

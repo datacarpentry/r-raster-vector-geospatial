@@ -2,11 +2,11 @@
 layout: post
 title: "Raster 03: Raster Calculations in R - Subtract One Raster from Another and Extract Pixel Values For Defined Locations "
 date:   2015-10-26
-authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym, Leah A. Wasser, Megan A. Jones]
+authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul]
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2016-02-25
+lastModified: 2016-02-29
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]
@@ -21,8 +21,8 @@ image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink:
-permalink: R/Raster-Calculations-In-R
-comments: false
+permalink: /R/Raster-Calculations-In-R
+comments: true
 ---
 
 {% include _toc.html %}
@@ -47,17 +47,17 @@ raster math.
 * Know how to perform a more efficient subtraction (difference) between two 
 rasters using the raster `overlay()` function in R.
 
-## Things You’ll Need To Complete This Lesson
+## Things You’ll Need To Complete This Tutorial
 
-To complete this lesson: you will need the most current version of R, and 
-preferably RStudio, loaded on your computer.
+You will need the most current version of `R` and, preferably, `RStudio` loaded
+on your computer to complete this tutorial.
 
 ### Install R Packages
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
-* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}R/Packages-In-R/)
+* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 
 #### Data to Download
 {% include/dataSubsets/_data_Airborne-Remote-Sensing.html %}
@@ -91,8 +91,8 @@ buildings, etc. with the influence of ground elevation removed.
     </figcaption>
 </figure>
 
-* Check out more on LiDAR CHM, DTM and DSM in this NEON Data Skills overview lesson: 
-<a href="http://neondataskills.org/remote-sensing/2_LiDAR-Data-Concepts_Activity2/" target="_blank"> 
+* Check out more on LiDAR CHM, DTM and DSM in this NEON Data Skills overview tutorial: 
+<a href="http://neondataskills.org/self-paced-tutorial/2_LiDAR-Data-Concepts_Activity2/" target="_blank"> 
 What is a CHM, DSM and DTM? About Gridded, Raster LiDAR Data</a>. 
 
 ### Load the Data 
@@ -156,8 +156,8 @@ NEON Harvard Forest Field site.
 
 As seen from the `geoTiff` tags, both rasters have:
 
-* the same `CRS`, 
-* the same `resolution` 
+* the same CRS, 
+* the same resolution 
 * defined minimum and maximum values.
 
 Let's load the data. 
@@ -248,8 +248,8 @@ if:
 1. The rasters we are using are small in size.
 2. The calculations we are performing are simple.
 
-However, raster math is a less efficient
-approach as computation becomes more complex or as file sizes become large. 
+However, raster math is a less efficient approach as computation becomes more
+complex or as file sizes become large. 
 The `overlay()` function is more efficient when:
 
 1. The rasters we are using are larger in size. 
@@ -282,16 +282,11 @@ raster math, using the `overlay()` function.
 How do the plots of the CHM created with manual raster math and the `overlay()`
 function compare?  
 
-<i class="fa fa-star"></i> **Data Tip:** A custom function consists of a defined 
+<i class="fa fa-star"></i> **Data Tip:** A custom function consists of a defined
 set of commands performed on a input object. Custom functions are particularly 
-useful for tasks that need to be repeated over and over in the code. A simplified 
-syntax for writing a custom function in R is:
-```
-functionName <- function(variable1, variable2){
-  something_new <- do_something_to_variable1_and_variable2  
-  return(something_new)
-}
-```
+useful for tasks that need to be repeated over and over in the code. A
+simplified syntax for writing a custom function in R is:
+`functionName <- function(variable1, variable2){WhatYouWantDone, WhatToReturn}`
 {: .notice }
 
 ## Export a GeoTIFF
@@ -305,17 +300,17 @@ by default writes the output file to your working directory unless you specify a
 full file path.
 
 
-    #export CHM object to new GeotIFF
+    # export CHM object to new GeotIFF
     writeRaster(CHM_ov_HARV, "chm_HARV.tiff",
-                format="GTiff",  #specify output format - GeoTIFF
-                overwrite=TRUE, #CAUTION: if this is true, it will overwrite an
+                format="GTiff",  # specify output format - GeoTIFF
+                overwrite=TRUE, # CAUTION: if this is true, it will overwrite an
                                 # existing file
-                NAflag=-9999) #set no data value to -9999
+                NAflag=-9999) # set no data value to -9999
 
 ### writeRaster Options
 The function arguments that we used above include:
 
-* **format:** specify that the format will be `GTiff` or `geoTiff`. 
+* **format:** specify that the format will be `GTiff` or `GeoTiff`. 
 * **overwrite:** If TRUE, `R` will overwrite any existing file  with the same
 name in the specified directory. USE THIS SETTING WITH CAUTION!
 * **NAflag:** set the `geotiff` tag for `NoDataValue` to -9999, the National
@@ -341,7 +336,7 @@ keep track of data from different sites!
 1. Import the DSM and DTM from the SJER directory (if not aready imported
 in the 
 [Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/) 
-lesson.) Don't forget to examine the data for `CRS`, bad values, etc. 
+tutorial.) Don't forget to examine the data for `CRS`, bad values, etc. 
 2. Create a `CHM` from the two raster layers and check to make sure the data
 are what you expect. 
 3. Plot the `CHM` from SJER. 
