@@ -42,9 +42,9 @@ After completing this activity, you will:
 * Be able to plot multi-band color image rasters in `R` using `plotRGB`.
 * Understand what a `NoData` value is in a raster.
 
-## Things You’ll Need To Complete This Lesson
-To complete this lesson: you will need the most current version of R, and 
-preferably RStudio, loaded on your computer.
+## Things You’ll Need To Complete This Tutorial
+You will need the most current version of `R` and, preferably, `RStudio` loaded
+on your computer to complete this tutorial.
 
 ### Install R Packages
 
@@ -68,7 +68,7 @@ preferably RStudio, loaded on your computer.
 
 ## About Raster Bands in R 
 As discussed in the
-[Intro to Raster Data Lesson]( {{ base.url }} NEON-R-Spatial-Raster/R/Introduction-to-Raster-Data-In-R), 
+[Intro to Raster Data tutorial]( {{ base.url }} NEON-R-Spatial-Raster/R/Introduction-to-Raster-Data-In-R), 
 a raster can contain 1 or more bands.
 
 <figure>
@@ -165,7 +165,7 @@ to learn more about time series stacks.
 (multi-spectral) or more than 10-15 (hyperspectral) bands. Check out the NEON
 Data Skills
 [Imaging Spectroscopy HDF5 in R ]({{site.baseurl}}/HDF5/Imaging-Spectroscopy-HDF5-In-R/)
-lesson for more about working with hyperspectral data cubes.
+tutorial for more about working with hyperspectral data cubes.
 
 ## Getting Started with Multi-Band Data in R
 To work with multi-band raster data we will use the `raster` and `rgdal`
@@ -180,7 +180,7 @@ library(rgdal)
 
 ```
 
-In this lesson, the multi-band data that we are working with is imagery
+In this tutorial, the multi-band data that we are working with is imagery
 collected using the 
 <a href="http://http://www.neoninc.org/science-design/collection-methods/airborne-remote-sensing"
 target="_blank">NEON Airborne Observation Platform</a>

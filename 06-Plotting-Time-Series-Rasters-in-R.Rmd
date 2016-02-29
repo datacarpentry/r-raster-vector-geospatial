@@ -43,9 +43,9 @@ plotting.
 * Understand advanced plotting of rasters using the `rasterVis` package and
 `levelplot`.
 
-## Things You’ll Need To Complete This Lesson
-To complete this lesson: you will need the most current version of R, and 
-preferably RStudio, loaded on your computer.
+## Things You’ll Need To Complete This Tutorial
+You will need the most current version of `R` and, preferably, `RStudio` loaded
+on your computer to complete this tutorial.
 
 ### Install R Packages
 
@@ -65,7 +65,7 @@ preferably RStudio, loaded on your computer.
 </div>
 
 ## Get Started 
-In this lesson, we are working with the same set of rasters used in the
+In this tutorial, we are working with the same set of rasters used in the
 [Raster Time Series Data in R ]({{ site.baseurl}} /R/Raster-Times-Series-Data-In-R/) 
 tutorial. This data is derived from the Landsat satellite and stored in 
 `GeoTIFF` format. Each raster covers the 

@@ -44,9 +44,9 @@ After completing this activity, you will:
 * Be able to plot and explore time series raster data using the `plot()`
 function in `R`.
 
-## Things You’ll Need To Complete This Lesson
-To complete this lesson: you will need the most current version of R, and 
-preferably RStudio, loaded on your computer.
+## Things You’ll Need To Complete This Tutorial
+You will need the most current version of `R` and, preferably, `RStudio` loaded
+on your computer to complete this tutorial.
 
 ### Install R Packages
 
@@ -87,13 +87,13 @@ same `resolution`.
     </figcaption>
 </figure>
 
-The raster data that we will use in this lesson are located in the
+The raster data that we will use in this tutorial are located in the
 (`NEON-DS-Landsat-NDVI\HARV\2011\NDVI`)
 directory and cover part of the 
 <a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank">
 NEON Harvard Forest field site</a>.
 
-In this lesson, we will:
+In this tutorial, we will:
 
 1. Import NDVI data in `GeoTIFF` format.
 2. Import, explore and plot NDVI data derived for several dates throughout the
@@ -142,7 +142,7 @@ period that NDVI is available.
 </figure>
 
 ### Getting Started 
-In this lesson, we will use the `raster` and `rgdal` libraries.
+In this tutorial, we will use the `raster` and `rgdal` libraries.
 
 ```{r load-libraries }
 
@@ -279,7 +279,7 @@ quickly apply this factor using raster math on the entire stack as follows:
 even prettier by fixing the individual tile names, adding an plot title and by
 using the (`levelplot`) function. This is covered in the NEON Data Skills 
 [Plot Time Series Rasters in R ]({{ site.baseurl }}/R/Plot-Raster-Times-Series-Data-In-R/)
-lesson. 
+tutorial. 
 {: .notice }
 
 ```{r apply-scale-factor }
@@ -306,7 +306,7 @@ Hint: the number after the "X" in each tile title is the Julian day which in
 this case represents the number of days into each year. If you are unfamiliar
 with Julian day, check out the NEON Data Skills 
 [Converting to Julian Day ]({{ site.baseurl }}/R/julian-day-conversion/) 
-lesson.
+tutorial.
 
 ## View Distribution of Raster Values
 In the above exercise, we viewed plots of our NDVI time series and noticed a 
@@ -403,7 +403,7 @@ for (aFile in RGB_HARV_allCropped){
   plotRGB(NDVI.rastStack, stretch="lin")
 }
 
-#code parrallel to what was previously taught in lesson
+#code parrallel to what was previously taught in tutorial
 #RGB_NDVI_HARV_stack <- stack(RGB_HARV_allCropped)
 #plotRGB(RGB_HARV_NDVIstack,
      #r = 1, g = 2, b = 3,
