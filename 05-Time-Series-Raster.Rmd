@@ -381,35 +381,63 @@ derive our NDVI rasters to try to understand what appears to be outlier NDVI val
 <div id="challenge" markdown="1">
 ## Challenge: Examine RGB Raster Files
 
-1. Load the imagery located in the `RGB` directory. 
-2. Plot the RGB images & identify the plots for the Julian days 277 and 293.
+1. View the imagery located in the `/NEON-DS-Landsat-NDVI/HARV/2011` directory. 
+2. Plot the RGB images for the Julian days 277 and 293 then plot and compare
+those images to jdays 133 and 197.
 3. Does the RGB imagery from these two days explain the low NDVI values observed
 on these days?  
 </div>
 
 ```{r view-all-rgb, echo=FALSE}
-#open up the cropped files
-#create list of files to make raster stack
-RGB_HARV_allCropped <-  list.files("NEON-DS-Landsat-NDVI/HARV/2011/RGB/", 
-                              full.names=TRUE, 
-                              pattern = ".tif$")
+# open up file for Jday 277 
+RGB_277 <- 
+  stack("NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif")
 
-#create a layout
-par(mfrow=c(4,4))
+plotRGB(RGB_277)
 
-#Super efficient code
-for (aFile in RGB_HARV_allCropped){
-  NDVI.rastStack <- stack(aFile)
-  plotRGB(NDVI.rastStack, stretch="lin")
-}
+# open up file for jday 293
+RGB_293 <- 
+  stack("NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")
 
-#code parrallel to what was previously taught in lesson
-#RGB_NDVI_HARV_stack <- stack(RGB_HARV_allCropped)
-#plotRGB(RGB_HARV_NDVIstack,
+plotRGB(RGB_293)
+
+# view a few other images
+# open up file for jday 293
+RGB_133 <- 
+  stack("NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
+
+plotRGB(RGB_133, 
+        stretch="lin")
+
+
+RGB_197 <- 
+  stack("NEON-DS-Landsat-NDVI/HARV/2011/RGB/197_HARV_landRGB.tif")
+
+plotRGB(RGB_197, 
+        stretch="lin")
+
+# create list of files to make raster stack
+# RGB_HARV_allCropped <-  list.files("NEON-DS-Landsat-NDVI/HARV/2011/RGB/", 
+#                              full.names=TRUE, 
+#                              pattern = ".tif$")
+
+
+# create a layout
+# par(mfrow=c(4,4))
+
+# Super efficient code - plot using a loop
+# for (aFile in RGB_HARV_allCropped){
+#  NDVI.rastStack <- stack(aFile)
+#  plotRGB(NDVI.rastStack, stretch="lin")
+# }
+
+# code parrallel to what was previously taught in lesson
+# RGB_NDVI_HARV_stack <- stack(RGB_HARV_allCropped)
+# plotRGB(RGB_HARV_NDVIstack,
      #r = 1, g = 2, b = 3,
      #stretch ="lin")
 
-#reset layout
+# reset layout
 par(mfrow=c(1,1))
 
 ```
