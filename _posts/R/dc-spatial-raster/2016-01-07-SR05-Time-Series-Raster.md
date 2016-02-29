@@ -2,11 +2,11 @@
 layout: post
 title: "Raster 05: Raster Time Series Data in R"
 date:   2015-10-24
-authors: [Jason Williams, Jeff Hollister, Kristina Riemer, Mike Smorul, Zack Brym, Leah A. Wasser, Megan A. Jones]
+authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul]
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2014-11-26
-lastModified: 2016-02-25
+lastModified: 2016-02-29
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series, raster-time-series]
@@ -19,15 +19,15 @@ image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink:
-permalink: R/Raster-Times-Series-Data-In-R/
-comments: false
+permalink: /R/Raster-Times-Series-Data-In-R/
+comments: true
 ---
 
 {% include _toc.html %}
 
 ## About
-This tutorial covers how to work with and plot a raster time series, using an `R`
-`RasterStack` object. It also covers practical assessment of data quality in 
+This tutorial covers how to work with and plot a raster time series, using an 
+`R` `RasterStack` object. It also covers practical assessment of data quality in
 remote sensing derived imagery.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
@@ -44,16 +44,16 @@ After completing this activity, you will:
 * Be able to plot and explore time series raster data using the `plot()`
 function in `R`.
 
-## Things You’ll Need To Complete This Lesson
-To complete this lesson: you will need the most current version of R, and 
-preferably RStudio, loaded on your computer.
+## Things You’ll Need To Complete This Tutorial
+You will need the most current version of `R` and, preferably, `RStudio` loaded
+on your computer to complete this tutorial.
 
 ### Install R Packages
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
-* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}R/Packages-In-R/)
+* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 
 #### Data to Download
 {% include/dataSubsets/_data_Landsat-NDVI.html %}
@@ -76,8 +76,8 @@ A raster data file can contain one single band or many bands. If the raster data
 contains imagery data, each band may represent reflectance for a different 
 wavelength (color or type of light) or set of wavelengths - for
 example red, green and blue. A multi-band raster may two or more bands or layers
-of data collected at different times for the same `extent` (region) and of the 
-same `resolution`.
+of data collected at different times for the same **extent** (region) and of the 
+same **resolution**.
 
 <figure>
     <a href="{{ site.baseurl }}/images/dc-spatial-raster/GreennessOverTime.jpg">
@@ -87,13 +87,11 @@ same `resolution`.
     </figcaption>
 </figure>
 
-The raster data that we will use in this lesson are located in the
-(`NEON-DS-Landsat-NDVI\HARV\2011\NDVI`)
-directory and cover part of the 
-<a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank">
-NEON Harvard Forest field site</a>.
+The raster data that we will use in this tutorial are located in the
+(`NEON-DS-Landsat-NDVI\HARV\2011\NDVI`) directory and cover part of the 
+<a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>.
 
-In this lesson, we will:
+In this tutorial, we will:
 
 1. Import NDVI data in `GeoTIFF` format.
 2. Import, explore and plot NDVI data derived for several dates throughout the
@@ -142,10 +140,10 @@ period that NDVI is available.
 </figure>
 
 ### Getting Started 
-In this lesson, we will use the `raster` and `rgdal` libraries.
+In this tutorial, we will use the `raster` and `rgdal` libraries.
 
 
-    #load libraries
+    # load packages
     library(raster)
     library(rgdal)
 
@@ -165,7 +163,7 @@ the list.
                                 full.names = TRUE,
                                 pattern = ".tif$")
     
-    #view list - note the full path, relative to our working directory, is included
+    # view list - note the full path, relative to our working directory, is included
     all_NDVI_HARV
 
     ##  [1] "NEON-DS-Landsat-NDVI/HARV/2011/NDVI/005_HARV_ndvi_crop.tif"
@@ -191,17 +189,18 @@ function.
     NDVI_HARV_stack <- stack(all_NDVI_HARV)
 
 We can explore the GeoTIFF tags (the embedded metadata) in a `stack` using the
-same syntax that we used on single-band raster objects in `R` including: `CRS`
-(coordinate reference system), `extent` and `res` (resolution).
+same syntax that we used on single-band raster objects in `R` including: `crs()`
+(coordinate reference system), `extent()` and `res()` (resolution; specifically
+`yres()` and `xres()`).
 
 
-    #view crs of rasters
+    # view crs of rasters
     crs(NDVI_HARV_stack)
 
     ## CRS arguments:
     ##  +proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs
 
-    #view extent of rasters in stack
+    # view extent of rasters in stack
     extent(NDVI_HARV_stack)
 
     ## class       : Extent 
@@ -210,20 +209,20 @@ same syntax that we used on single-band raster objects in `R` including: `CRS`
     ## ymin        : 4714215 
     ## ymax        : 4714365
 
-    #view the y resolution of our rasters
+    # view the y resolution of our rasters
     yres(NDVI_HARV_stack)
 
     ## [1] 30
 
-    #view the x resolution of our rasters
+    # view the x resolution of our rasters
     xres(NDVI_HARV_stack)
 
     ## [1] 30
 
 Notice that the CRS is `+proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs`. The
-**CRS** is in UTM Zone 19.  If you have completed the previous tutorials in 
+CRS is in UTM Zone 19.  If you have completed the previous tutorials in 
 this 
-[raster data in `R` series ]({{ site.baseurl }}tutorial/spatial-raster-series),
+[raster data in `R` series ]({{ site.baseurl }}tutorial-series/raster-data-series/),
 you may have noticed that the UTM zone for the NEON collected remote sensing 
 data was in Zone 18 rather than Zone 19. Why are the Landsat data in Zone 19?  
 
@@ -250,9 +249,9 @@ UTM Zone 19.
 ## Challenge: Raster Metadata
 Answer the following questions about our `RasterStack`.
 
-1. What is the `CRS`?
-2. What is the x and y `resolution` of the data? 
-3. What `units` is the above resolution in?
+1. What is the CRS?
+2. What is the x and y resolution of the data? 
+3. What units is the above resolution in?
 
 </div>
 
@@ -263,8 +262,8 @@ Once we have created our `RasterStack`, we can visualize our data. We can use
 the `plot()` command to quickly plot a `RasterStack`.
 
 
-    #view a plot of all of the rasters
-    #'nc' specifies number of columns (we will have 13 plots)
+    # view a plot of all of the rasters
+    # 'nc' specifies number of columns (we will have 13 plots)
     plot(NDVI_HARV_stack, 
          zlim = c(1500, 10000), 
          nc = 4)
@@ -289,14 +288,14 @@ quickly apply this factor using raster math on the entire stack as follows:
 even prettier by fixing the individual tile names, adding an plot title and by
 using the (`levelplot`) function. This is covered in the NEON Data Skills 
 [Plot Time Series Rasters in R ]({{ site.baseurl }}/R/Plot-Raster-Times-Series-Data-In-R/)
-lesson. 
+tutorial. 
 {: .notice }
 
 
-    #apply scale factor to data
+    # apply scale factor to data
     NDVI_HARV_stack <- NDVI_HARV_stack/10000
-    #plot stack with scale factor applied
-    #apply scale factor to limits to ensure uniform plottin
+    # plot stack with scale factor applied
+    # apply scale factor to limits to ensure uniform plottin
     plot(NDVI_HARV_stack,
          zlim = c(.15, 1),  
          nc = 4)
@@ -315,7 +314,7 @@ Hint: the number after the "X" in each tile title is the Julian day which in
 this case represents the number of days into each year. If you are unfamiliar
 with Julian day, check out the NEON Data Skills 
 [Converting to Julian Day ]({{ site.baseurl }}/R/julian-day-conversion/) 
-lesson.
+tutorial.
 
 ## View Distribution of Raster Values
 In the above exercise, we viewed plots of our NDVI time series and noticed a 
@@ -327,7 +326,7 @@ Next we will use histograms to explore the distribution of NDVI values stored in
 each raster.
 
 
-    #create histograms of each raster
+    # create histograms of each raster
     hist(NDVI_HARV_stack, 
          xlim = c(0, 1))
 

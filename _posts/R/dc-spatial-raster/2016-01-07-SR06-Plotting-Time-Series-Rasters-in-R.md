@@ -3,11 +3,11 @@ layout: post
 title: "Raster 06: Plot Raster Time Series Data in R Using RasterVis and
 Levelplot"
 date: 2015-10-23
-authors: [Leah A. Wasser, Kristina Riemer, Zack Bryn, Jason Williams, Jeff Hollister, Mike Smorul, Megan A. Jones]
+authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul]
 contributors: [ ]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2016-02-25
+lastModified: 2016-02-29
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 mainTag: raster-data-series
@@ -20,8 +20,8 @@ image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink:
-permalink: R/Plot-Raster-Times-Series-Data-In-R/
-comments: false
+permalink: /R/Plot-Raster-Times-Series-Data-In-R/
+comments: true
 ---
 
 {% include _toc.html %}
@@ -29,7 +29,7 @@ comments: false
 ## About
 This tutorial covers how to improve plotting output using the `rasterVis` package
 in `R`. Specifically it covers using `levelplot()` and adding meaningful custom
-names to bands within a RasterStack. 
+names to bands within a `RasterStack`. 
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
@@ -43,9 +43,9 @@ plotting.
 * Understand advanced plotting of rasters using the `rasterVis` package and
 `levelplot`.
 
-## Things You’ll Need To Complete This Lesson
-To complete this lesson: you will need the most current version of R, and 
-preferably RStudio, loaded on your computer.
+## Things You’ll Need To Complete This Tutorial
+You will need the most current version of `R` and, preferably, `RStudio` loaded
+on your computer to complete this tutorial.
 
 ### Install R Packages
 
@@ -53,7 +53,7 @@ preferably RStudio, loaded on your computer.
 * **rgdal:** `install.packages("rgdal")`
 * **rasterVis:** `install.packages("rasterVis")`
 
-* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}R/Packages-In-R/)
+* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 
 #### Data to Download
 {% include/dataSubsets/_data_Landsat-NDVI.html %}
@@ -65,7 +65,7 @@ preferably RStudio, loaded on your computer.
 </div>
 
 ## Get Started 
-In this lesson, we are working with the same set of rasters used in the
+In this tutorial, we are working with the same set of rasters used in the
 [Raster Time Series Data in R ]({{ site.baseurl}} /R/Raster-Times-Series-Data-In-R/) 
 tutorial. This data is derived from the Landsat satellite and stored in 
 `GeoTIFF` format. Each raster covers the 
@@ -79,32 +79,22 @@ please create it now.
     library(raster)
     library(rgdal)
     library(rasterVis)
-
-    ## Loading required package: lattice
-    ## Loading required package: latticeExtra
-    ## Loading required package: RColorBrewer
-    ## 
-    ## Attaching package: 'latticeExtra'
-    ## 
-    ## The following object is masked from 'package:ggplot2':
-    ## 
-    ##     layer
-
+    
     # Create list of NDVI file paths
     all_NDVI_HARV <- list.files("NEON-DS-Landsat-NDVI/HARV/2011/NDVI", full.names = TRUE, pattern = ".tif$")
     
     # Create a time series raster stack
     NDVI_HARV_stack <- stack(all_NDVI_HARV)
     
-    #apply scale factor
+    # apply scale factor
     NDVI_HARV_stack <- NDVI_HARV_stack/10000
 
 ## Plot Raster Time Series Data
 We can use the `plot` function to plot our raster time series data.
 
 
-    #view a histogram of all of the rasters
-    #nc specifies number of columns
+    # view a histogram of all of the rasters
+    # nc specifies number of columns
     plot(NDVI_HARV_stack, 
          zlim = c(.15, 1), 
          nc = 4)
@@ -125,13 +115,13 @@ readable titles. It also contains a legend that is repeated for each image. We
 can use `levelplot` from the `rasterVis` package to make our plot prettier! 
 
 * <a href="http://oscarperpinan.github.io/rastervis/" target="_blank">More on
-the `rasterVis` library</a>
+the `rasterVis` package</a>
 
-The syntax for the `levelplot` function is similar to that for the `plot`
+The syntax for the `levelplot()` function is similar to that for the `plot()`
 function. We use `main="TITLE"` to add a title to the entire plot series.
 
 
-    #create a `levelplot` plot
+    # create a `levelplot` plot
     levelplot(NDVI_HARV_stack,
               main="Landsat NDVI\nNEON Harvard Forest")
 
@@ -140,14 +130,14 @@ function. We use `main="TITLE"` to add a title to the entire plot series.
 ## Adjust the Color Ramp
 Next, let's adjust the color ramp used to render the rasters. First, we
 can change the red color ramp to a green one that is more visually suited to our 
-NDVI (greenness) data using the `colorRampPalette` function in combination with 
+NDVI (greenness) data using the `colorRampPalette()` function in combination with 
 `colorBrewer`. 
 
 
-    #use colorbrewer which loads with the rasterVis package to generate
-    #a color ramp of yellow to green
+    # use colorbrewer which loads with the rasterVis package to generate
+    # a color ramp of yellow to green
     cols <- colorRampPalette(brewer.pal(9,"YlGn"))
-    #create a level plot - plot
+    # create a level plot - plot
     levelplot(NDVI_HARV_stack,
             main="Landsat NDVI -- Improved Colors \nNEON Harvard Forest Field Site",
             col.regions=cols)
@@ -160,7 +150,7 @@ pixels that are more green, have a higher NDVI value.
 
 * For all of the `brewer.pal` ramp names see the 
 <a href="http://www.datavis.ca/sasmac/brewerpal.html" target="_blank">
-brewerpal page.</a>.
+brewerpal page</a>.
 
 <i class="fa fa-star"></i> **Data Tip:** Cynthia Brewer, the creater of 
 ColorBrewer, offers an online tool to help choose suitable color ramps, or to 
@@ -174,13 +164,13 @@ represents. The current names come from the band (layer names) stored in the
 `RasterStack` and first part each name is the Julian day. 
 
 To create a more meaningful label we can remove the "x" and replace it with
-"day" using the `gsub` function in `R`. The syntax is as follows:
+"day" using the `gsub()` function in `R`. The syntax is as follows:
 `gsub("StringToReplace","TextToReplaceIt", Robject)`. 
 
 First let's remove "_HARV_NDVI_crop" from each label. 
 
 
-    #view names for each raster layer
+    # view names for each raster layer
     names(NDVI_HARV_stack)
 
     ##  [1] "X005_HARV_ndvi_crop" "X037_HARV_ndvi_crop" "X085_HARV_ndvi_crop"
@@ -189,11 +179,11 @@ First let's remove "_HARV_NDVI_crop" from each label.
     ## [10] "X261_HARV_ndvi_crop" "X277_HARV_ndvi_crop" "X293_HARV_ndvi_crop"
     ## [13] "X309_HARV_ndvi_crop"
 
-    #use gsub to modify label names.
-    #that we'll use for the plot 
+    # use gsub to modify label names.
+    # that we'll use for the plot 
     rasterNames  <- gsub("X","Day", names(NDVI_HARV_stack))
     
-    #view Names
+    # view Names
     rasterNames
 
     ##  [1] "Day005_HARV_ndvi_crop" "Day037_HARV_ndvi_crop"
@@ -204,10 +194,10 @@ First let's remove "_HARV_NDVI_crop" from each label.
     ## [11] "Day277_HARV_ndvi_crop" "Day293_HARV_ndvi_crop"
     ## [13] "Day309_HARV_ndvi_crop"
 
-    #Remove HARV_NDVI_crop from the second part of the string 
+    # Remove HARV_NDVI_crop from the second part of the string 
     rasterNames  <- gsub("_HARV_NDVI_crop","",rasterNames)
     
-    #view names for each raster layer
+    # view names for each raster layer
     rasterNames
 
     ##  [1] "Day005_HARV_ndvi_crop" "Day037_HARV_ndvi_crop"
@@ -219,21 +209,21 @@ First let's remove "_HARV_NDVI_crop" from each label.
     ## [13] "Day309_HARV_ndvi_crop"
 
 <i class="fa fa-star"></i> **Data Tip:** Instead of substituting "x" and
-"_HARV_NDVI_crop" separately, we could
-have used use the vertical bar character ( | ) to replace more than one element.
+"_HARV_NDVI_crop" separately, we could have used use the vertical bar character 
+( | ) to replace more than one element.
 For example "X|_HARV" tells `R` to replace all instances of both "X" and "_HARV"
-in the string.  Example code to remove "x" an "_HARV...":
-`gsub("X|_HARV_NDVI_crop"," |  ","rasterNames")`  
+in the string. Example code to remove "x" an "_HARV...":
+`gsub("X|_HARV_NDVI_crop"," |  ","rasterNames")` 
 {: .notice }
 
 Once the names for each band have been reassigned, we can render our plot with
 the new labels using `names.attr=rasterNames`. 
 
 
-    #use level plot to create a nice plot with one legend and a 4x4 layout.
+    # use level plot to create a nice plot with one legend and a 4x4 layout.
     levelplot(NDVI_HARV_stack,
-              layout=c(4, 4), #create a 4x4 layout for the data
-              col.regions=cols, #add a color ramp
+              layout=c(4, 4), # create a 4x4 layout for the data
+              col.regions=cols, # add a color ramp
               main="Landsat NDVI - Julian Days \nHarvard Forest 2014",
               names.attr=rasterNames)
 
@@ -243,10 +233,10 @@ We can adjust the columns of our plot too using `layout=c(cols,rows)`. Below
 we adjust the layout to be a matrix of 5 columns and 3 rows.
 
 
-    #use level plot to create a nice plot with one legend and a 4x4 layout.
+    # use level plot to create a nice plot with one legend and a 4x4 layout.
     levelplot(NDVI_HARV_stack,
-              layout=c(5, 3), #create a 5x3 layout for the data
-              col.regions=cols, #add a color ramp
+              layout=c(5, 3), # create a 5x3 layout for the data
+              col.regions=cols, # add a color ramp
               main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
               names.attr=rasterNames)
 
@@ -255,10 +245,10 @@ we adjust the layout to be a matrix of 5 columns and 3 rows.
 Finally, let's remove the axis ticks from the plot.
 
 
-    #use level plot to create a nice plot with one legend and a 4x4 layout.
+    # use level plot to create a nice plot with one legend and a 4x4 layout.
     levelplot(NDVI_HARV_stack,
-              layout=c(5, 3), #create a 5x3 layout for the data
-              col.regions=cols, #add a color ramp
+              layout=c(5, 3), # create a 5x3 layout for the data
+              col.regions=cols, # add a color ramp
               main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
               names.attr=rasterNames,
               axes=FALSE)

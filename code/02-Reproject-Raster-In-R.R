@@ -55,6 +55,11 @@ extent(DTM_hill_UTMZ18N_HARV)
 extent(DTM_hill_HARV)
 
 
+## ----challenge-code-extent-crs, echo=FALSE-------------------------------
+# The extent for DTM_hill_UTMZ18N_HARV is in UTMs so the extent is in meters. 
+# The extent for DTM_hill_HARV is still in lat/long so the extent is expressed
+# in decimal degrees.  
+
 ## ----view-resolution-----------------------------------------------------
 
 # compare resolution
