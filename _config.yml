@@ -3,12 +3,12 @@ description: 	A set of lessons .
 #Comment out url when working locally to resolve base urls correctly ok
 #use this when pushing to git for live version
 
-url:      http://data-lessons.github.io/NEON-R-Spatial-Raster/
-baseurl:   http://data-lessons.github.io/NEON-R-Spatial-Raster/
+url:      http://data-lessons.github.io/NEON-R-Spatial-Raster
+baseurl:   http://data-lessons.github.io/NEON-R-Spatial-Raster
 
 #use this when working locally
 #just uncomment the first localhost.
-#gurl: http://localhost:4000
+#url: http://localhost:4000
 #baseurl: http://localhost:4000
 
 #we might not need comments here???
@@ -78,7 +78,7 @@ kramdown:
   footnote_nr: 1
   entity_output: as_char
   toc_levels: 1..1
-  use_coderay: false
+  enable_coderay: false
 
   coderay:
     coderay_line_numbers: 
