@@ -2,10 +2,10 @@
 layout: post
 title: "Raster 00: Intro to Raster Data in R"
 date:   2015-10-29
-authors: [Kristina Riemer, Zack Brym, Jason Williams, Jeff Hollister,  Mike Smorul, Leah A. Wasser, Megan A. Jones]
+authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul]
 contributors: [ ]
 dateCreated: 2015-10-23
-lastModified: 2016-02-25
+lastModified: 2016-02-29
 packagesLibraries: [raster, rgdal]
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
@@ -22,8 +22,8 @@ image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink:
-permalink: R/Introduction-to-Raster-Data-In-R
-comments: false
+permalink: /R/Introduction-to-Raster-Data-In-R
+comments: true
 ---
 
 {% include _toc.html %}
@@ -32,9 +32,9 @@ comments: false
 In this tutorial, we will review the fundamental principles, packages and 
 metadata/raster attributes that are needed to work with raster data in `R`. 
 We discuss the three core metadata elements that we need to understand to work 
-with rasters in `R`: `CRS`, `extent` and `resolution`. It also explores missing 
-and bad data values as stored in a raster and how `R` handles these elements. 
-Finally, it introduces the GeoTiff file format.
+with rasters in `R`: **CRS**, **extent** and **resolution**. It also explores
+missing and bad data values as stored in a raster and how `R` handles these
+elements. Finally, it introduces the GeoTiff file format.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
@@ -50,16 +50,16 @@ After completing this activity, you will:
 * Be able to quickly plot a raster file in `R`.
 * Understand the difference between single- and multi-band rasters.
 
-## Things You’ll Need To Complete This Lesson
-To complete this lesson: you will need the most current version of `R`, and 
-preferably `RStudio`, loaded on your computer.
+## Things You’ll Need To Complete This Tutorial
+You will need the most current version of `R` and, preferably, `RStudio` loaded
+on your computer to complete this tutorial.
 
 ### Install R Packages
 
 * **raster:** `install.packages("raster")`
 * **rgdal:** `install.packages("rgdal")`
 
-* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}R/Packages-In-R/)
+* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 
 ### Download Data
 {% include/dataSubsets/_data_Airborne-Remote-Sensing.html %}
@@ -137,7 +137,7 @@ The legend of this map shows the colors representing each discrete class.
 ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/00-Raster-Structure/classified-elevation-map-1.png) 
 
 ## What is a GeoTIFF??
-Raster data can come in many different formats. In this lesson, we will use the 
+Raster data can come in many different formats. In this tutorial, we will use the 
 geotiff format which has the extension `.tif`. A `.tif` file stores metadata
 or attributes about the file as embedded `tif tags`. For instance, your camera
 might 
@@ -176,7 +176,7 @@ We can use the `raster("path-to-raster-here")` function to open a raster in R.
 
 <i class="fa fa-star"></i> **Data Tip:**  OBJECT NAMES! To improve code 
 readability, file and object names should be used that make it clear what is in 
-the file. The data for this lesson were collected over from Harvard Forest so 
+the file. The data for this tutorial were collected over from Harvard Forest so 
 we'll use a naming convention of `datatype_HARV`. 
 {: .notice }
 
@@ -192,7 +192,7 @@ we'll use a naming convention of `datatype_HARV`.
     ## resolution  : 1, 1  (x, y)
     ## extent      : 731453, 733150, 4712471, 4713838  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif 
+    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif 
     ## names       : HARV_dsmCrop 
     ## values      : 305.07, 416.07  (min, max)
 
@@ -283,7 +283,7 @@ begins with a `+` sign.
 
  `+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0`
 
-We'll focus on the first few components of the CRS in this lesson.
+We'll focus on the first few components of the CRS in this tutorial.
 
 * `+proj=utm` The projection of the dataset. Our data are in Universal 
 Transverse Mercator (UTM).  
@@ -386,11 +386,11 @@ used in both the remote sensing field and the atmospheric fields. It is also
 the standard used by the <a href="http://www.neoninc.org" target="_blank"> 
 National Ecological Observatory Network (NEON)</a>. 
 
-If we are lucky, our GeoTIFF file has a tag that tells us what is the `NoDataValue`. 
-If we are less lucky, we can find that information in the raster's metadata. If a 
-`NoDataValue` was stored in the GeoTIFF tag, when `R` opens up the raster, it will 
-assign each instance of the value to `NA`. Values of `NA` will be ignored by R as 
-demonstrated above.
+If we are lucky, our GeoTIFF file has a tag that tells us what is the
+`NoDataValue`. If we are less lucky, we can find that information in the
+raster's metadata. If a `NoDataValue` was stored in the GeoTIFF tag, when `R`
+opens up the raster, it will assign each instance of the value to `NA`. Values
+of `NA` will be ignored by `R` as demonstrated above.
 
 ## Bad Data Values in Rasters
 
@@ -495,9 +495,9 @@ of bands in a raster using the `nlayers()` function.
 However, raster data can also be multi-band meaning that one raster file 
 contains data for more than one variable or time period for each cell. By
 default the `raster()` function only imports the first band in a raster
-regardless of whether it has one or more bands. Jump to the fourth lesson in 
-this series for a tutorial on multi-band rasters, 
-<a href="{{ site.baseurl }}/NEON-R-Spatial-Raster/R/Multi-Band-Rasters-In-R/" target="_blank">
+regardless of whether it has one or more bands. Jump to the fourth tutorial in 
+this series for a tutorial on multi-band rasters: 
+<a href="{{ site.baseurl }}/R/Multi-Band-Rasters-In-R/" target="_blank">
 Work with Multi-band Rasters: Images in R</a>.
 
 ## View Raster File Attributes
@@ -559,7 +559,7 @@ following about the  `NEON_RemoteSensing/HARV/DSM/HARV_DSMhill.tif` file:
 5. Is the file a multi- or single-band raster?
 
 Notice: this file is a `hillshade`. We will learn about hillshades in
- <a href="{{ site.baseurl }}/NEON-R-Spatial-Raster/R/Multi-Band-Rasters-In-R/" target="_blank">  Work with Multi-band Rasters: Images in R</a>.
+<a href="{{ site.baseurl }}/R/Multi-Band-Rasters-In-R/" target="_blank">  Work with Multi-band Rasters: Images in R</a>.
  
 </div>
 
