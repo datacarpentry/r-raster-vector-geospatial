@@ -360,13 +360,14 @@ derive our NDVI rasters to try to understand what appears to be outlier NDVI val
 <div id="challenge" markdown="1">
 ## Challenge: Examine RGB Raster Files
 
-1. Load the imagery located in the `RGB` directory. 
-2. Plot the RGB images & identify the plots for the Julian days 277 and 293.
+1. View the imagery located in the `/NEON-DS-Landsat-NDVI/HARV/2011` directory. 
+2. Plot the RGB images for the Julian days 277 and 293 then plot and compare
+those images to jdays 133 and 197.
 3. Does the RGB imagery from these two days explain the low NDVI values observed
 on these days?  
 </div>
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/view-all-rgb-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/view-all-rgb-1.png) ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/view-all-rgb-2.png) ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/view-all-rgb-3.png) ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/view-all-rgb-4.png) 
 
 ## Explore The Data's Source
 The third challenge question, "Does the RGB imagery from these two days explain 

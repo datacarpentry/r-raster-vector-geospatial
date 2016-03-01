@@ -42,6 +42,7 @@ names(avg_NDVI_HARV) <- "meanNDVI"
 # view cleaned column names
 names(avg_NDVI_HARV)
 
+
 ## ----insert-site-name----------------------------------------------------
 # add a site column to our data
 avg_NDVI_HARV$site <- "HARV"
@@ -179,8 +180,9 @@ ggplot(NDVI_HARV_SJER, aes(Date, meanNDVI, colour=site)) +
   theme(text = element_text(size=20))
 
 
-## ----view-all-rgb-Harv, echo=FALSE---------------------------------------
-# open up the cropped files
+## ----view-all-rgb-Harv---------------------------------------------------
+# open up RGB imagery
+
 rgb.allCropped <-  list.files("NEON-DS-Landsat-NDVI/HARV/2011/RGB/", 
                               full.names=TRUE, 
                               pattern = ".tif$")
@@ -196,6 +198,7 @@ for (aFile in rgb.allCropped){
 # reset layout
 par(mfrow=c(1,1))
 
+
 ## ----view-all-rgb-SJER, echo=FALSE---------------------------------------
 # open up the cropped files
 rgb.allCropped.SJER <-  list.files("NEON-DS-Landsat-NDVI/SJER/2011/RGB/", 
@@ -205,39 +208,51 @@ rgb.allCropped.SJER <-  list.files("NEON-DS-Landsat-NDVI/SJER/2011/RGB/",
 par(mfrow=c(5,4))
 
 # Super efficient code
+# note that there is an issue with one of the rasters
+# NEON-DS-Landsat-NDVI/SJER/2011/RGB/254_SJER_landRGB.tif has a blue band with no range
+# thus you can't apply a stretch to it. The code below skips the stretch for
+# that one image. You could automate this by testing the range of each band in each image
+
 for (aFile in rgb.allCropped.SJER)
   {NDVI.rastStack <- stack(aFile)
-  if (aFile =="NEON-DS-Landsat-NDVI/SJER/2011/RGB/254_SJER_landRGB.tif")
+  if (aFile =="NEON-DS-Landsat-NDVI/SJER/2011/RGB//254_SJER_landRGB.tif")
     {plotRGB(NDVI.rastStack) }
-  else { plotRGB(NDVI.rastStack) }
-  }
-  # 254_SJER_landRGB.tif - the range on the blue band for this layer is 255-255
-  # R cant render that as a stretch function. 
+  else { plotRGB(NDVI.rastStack, stretch="lin") }
+}
 
 # reset layout
 par(mfrow=c(1,1))
 
 
 ## ----remove-bad-values---------------------------------------------------
+
 # retain only rows with meanNDVI>0.1
 avg_NDVI_HARV_clean<-subset(avg_NDVI_HARV, meanNDVI>0.1)
 
 # Did it work?
 avg_NDVI_HARV_clean$meanNDVI<0.1
 
+
 ## ----plot-clean-HARV-----------------------------------------------------
+
 # plot without questionable data
+
 ggplot(avg_NDVI_HARV_clean, aes(julianDay, meanNDVI)) +
   geom_point(size=4,colour = "SpringGreen4") + 
   ggtitle("Landsat Derived NDVI - 2011\n NEON Harvard Forest Field Site") +
   xlab("Julian Days") + ylab("Mean NDVI") +
   theme(text = element_text(size=20))
 
+
 ## ----write-csv-----------------------------------------------------------
+
 # confirm data frame is the way we want it
+
 head(avg_NDVI_HARV_clean)
 
+
 ## ----drop-rownames-write-csv---------------------------------------------
+
 # create new df to prevent changes to avg_NDVI_HARV
 NDVI_HARV_toWrite<-avg_NDVI_HARV_clean
 
@@ -251,7 +266,9 @@ head(NDVI_HARV_toWrite)
 # write.csv(DateFrameName, file="NewFileName")
 write.csv(NDVI_HARV_toWrite, file="meanNDVI_HARV_2011.csv")
 
+
 ## ----challenge-code-write-sjer,  include=TRUE, results="hide", echo=FALSE----
+
 # retain only rows with meanNDVI>0.1
 avg_NDVI_SJER_clean<-subset(avg_NDVI_SJER, meanNDVI>0.1)
 
@@ -267,4 +284,5 @@ head(NDVI_SJER_toWrite)
 # create a .csv of mean NDVI values being sure to give descriptive name
 # write.csv(DateFrameName, file="NewFileName")
 write.csv(NDVI_SJER_toWrite, file="meanNDVI_SJER_2011.csv")
+
 
