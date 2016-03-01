@@ -425,7 +425,7 @@ to high levels of cloud cover.
 
 Is the same thing happening at SJER?
 
-```{r view-all-rgb-SJER, echo=FALSE}
+```{r view-all-rgb-SJER }
 # open up the cropped files
 rgb.allCropped.SJER <-  list.files("NEON-DS-Landsat-NDVI/SJER/2011/RGB/", 
                               full.names=TRUE, 

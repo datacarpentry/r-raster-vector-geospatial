@@ -384,9 +384,17 @@ derive our NDVI rasters to try to understand what appears to be outlier NDVI val
 those images to jdays 133 and 197.
 3. Does the RGB imagery from these two days explain the low NDVI values observed
 on these days?  
+
+HINT: if you want to plot 4 images in a tiled set, you can use 
+`par(mfrow=c(2,2))` to create a 2x2 tiled layout. When you are done, be sure to
+reset your layout using: `par(mfrow=c(1,1))`.
+
 </div>
 
 ```{r view-all-rgb, echo=FALSE}
+
+# reset layout
+par(mfrow=c(2,2))
 
 # open up file for Jday 277 
 RGB_277 <- 
@@ -401,14 +409,14 @@ RGB_293 <-
 plotRGB(RGB_293)
 
 # view a few other images
-# open up file for jday 293
+# open up file for jday 133
 RGB_133 <- 
   stack("NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
 
 plotRGB(RGB_133, 
         stretch="lin")
 
-
+# open up file for jday 197
 RGB_197 <- 
   stack("NEON-DS-Landsat-NDVI/HARV/2011/RGB/197_HARV_landRGB.tif")
 
