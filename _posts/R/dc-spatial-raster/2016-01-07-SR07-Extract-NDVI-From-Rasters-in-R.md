@@ -394,6 +394,30 @@ to high levels of cloud cover.
 
 Is the same thing happening at SJER?
 
+
+    # open up the cropped files
+    rgb.allCropped.SJER <-  list.files("NEON-DS-Landsat-NDVI/SJER/2011/RGB/", 
+                                  full.names=TRUE, 
+                                  pattern = ".tif$")
+    # create a layout
+    par(mfrow=c(5,4))
+    
+    # Super efficient code
+    # note that there is an issue with one of the rasters
+    # NEON-DS-Landsat-NDVI/SJER/2011/RGB/254_SJER_landRGB.tif has a blue band with no range
+    # thus you can't apply a stretch to it. The code below skips the stretch for
+    # that one image. You could automate this by testing the range of each band in each image
+    
+    for (aFile in rgb.allCropped.SJER)
+      {NDVI.rastStack <- stack(aFile)
+      if (aFile =="NEON-DS-Landsat-NDVI/SJER/2011/RGB//254_SJER_landRGB.tif")
+        {plotRGB(NDVI.rastStack) }
+      else { plotRGB(NDVI.rastStack, stretch="lin") }
+    }
+    
+    # reset layout
+    par(mfrow=c(1,1))
+
 ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/view-all-rgb-SJER-1.png) 
 
 Without significant additional processing, we will not be able to retrieve a

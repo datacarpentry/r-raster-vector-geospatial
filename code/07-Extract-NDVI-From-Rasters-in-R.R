@@ -199,7 +199,7 @@ for (aFile in rgb.allCropped){
 par(mfrow=c(1,1))
 
 
-## ----view-all-rgb-SJER, echo=FALSE---------------------------------------
+## ----view-all-rgb-SJER---------------------------------------------------
 # open up the cropped files
 rgb.allCropped.SJER <-  list.files("NEON-DS-Landsat-NDVI/SJER/2011/RGB/", 
                               full.names=TRUE, 

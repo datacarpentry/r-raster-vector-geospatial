@@ -365,9 +365,14 @@ derive our NDVI rasters to try to understand what appears to be outlier NDVI val
 those images to jdays 133 and 197.
 3. Does the RGB imagery from these two days explain the low NDVI values observed
 on these days?  
+
+HINT: if you want to plot 4 images in a tiled set, you can use 
+`par(mfrow=c(2,2))` to create a 2x2 tiled layout. When you are done, be sure to
+reset your layout using: `par(mfrow=c(1,1))`.
+
 </div>
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/view-all-rgb-1.png) ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/view-all-rgb-2.png) ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/view-all-rgb-3.png) ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/view-all-rgb-4.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/view-all-rgb-1.png) 
 
 ## Explore The Data's Source
 The third challenge question, "Does the RGB imagery from these two days explain 

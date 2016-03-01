@@ -101,6 +101,9 @@ myPlot
 
 ## ----view-all-rgb, echo=FALSE--------------------------------------------
 
+# reset layout
+par(mfrow=c(2,2))
+
 # open up file for Jday 277 
 RGB_277 <- 
   stack("NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif")
@@ -114,14 +117,14 @@ RGB_293 <-
 plotRGB(RGB_293)
 
 # view a few other images
-# open up file for jday 293
+# open up file for jday 133
 RGB_133 <- 
   stack("NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
 
 plotRGB(RGB_133, 
         stretch="lin")
 
-
+# open up file for jday 197
 RGB_197 <- 
   stack("NEON-DS-Landsat-NDVI/HARV/2011/RGB/197_HARV_landRGB.tif")
 
