@@ -75,7 +75,7 @@ Read more about the `raster` package in `R`.</a>
 
 ## Raster Projection in R
 
-In the [Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/) 
+In the [Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R) 
 tutorial, we learned how to layer a raster file on top of a hillshade for a nice
 looking basemap. In this tutorial, all of our data were in the same CRS. What 
 happens when things don't line up?
