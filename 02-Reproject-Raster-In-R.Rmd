@@ -286,7 +286,7 @@ plot(DSM_SJER,
 
 <div id="challenge" markdown="1">
 If you completed the San Joaquin plotting challenge in the
-[Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/#challenge-create-dtm--dsm-for-sjer) 
+[Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R#challenge-create-dtm--dsm-for-sjer) 
 tutorial, how does the map you just created compare to that map? 
 </div>
 
