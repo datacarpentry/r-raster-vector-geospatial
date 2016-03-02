@@ -6,7 +6,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2016-02-29
+lastModified: 2016-03-02
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]
@@ -21,7 +21,7 @@ image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink:
-permalink: /R/Raster-Calculations-In-R
+permalink: /R/Raster-Calculations-In-R/
 comments: true
 ---
 
@@ -322,10 +322,10 @@ Ecological Observatory Network's (NEON) standard `NoDataValue`.
 Data are often more interesting and powerful when we compare them across various 
 locations. Let's compare some data collected over Harvard Forest to data
 collected in Southern California. The 
-<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >NEON San Joaquin Experimental Range (SJER) field site </a> 
+<a href="http://www.neonscience.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >NEON San Joaquin Experimental Range (SJER) field site </a> 
 located in Southern California has a very different ecosystem and climate than
 the
-<a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank" >NEON Harvard Forest Field Site</a>
+<a href="http://www.neonscience.org/science-design/field-sites/harvard-forest" target="_blank" >NEON Harvard Forest Field Site</a>
 in Massachusetts.  
 
 Import the SJER DSM and DTM raster files and create a Canopy Height Model.
@@ -335,7 +335,7 @@ keep track of data from different sites!
 
 1. Import the DSM and DTM from the SJER directory (if not aready imported
 in the 
-[Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/) 
+[Plot Raster Data in R]({{ site.baseurl }}/R/Plot-Rasters-In-R/) 
 tutorial.) Don't forget to examine the data for `CRS`, bad values, etc. 
 2. Create a `CHM` from the two raster layers and check to make sure the data
 are what you expect. 

@@ -6,7 +6,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2016-02-29
+lastModified: 2016-03-02
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]
@@ -21,7 +21,7 @@ image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink:
-permalink: /R/Reproject-Raster-In-R
+permalink: /R/Reproject-Raster-In-R/
 comments: true
 ---
 
@@ -75,7 +75,7 @@ Read more about the `raster` package in `R`.</a>
 
 ## Raster Projection in R
 
-In the [Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/) 
+In the [Plot Raster Data in R]({{ site.baseurl }}/R/Plot-Rasters-In-R/) 
 tutorial, we learned how to layer a raster file on top of a hillshade for a nice
 looking basemap. In this tutorial, all of our data were in the same CRS. What 
 happens when things don't line up?
@@ -280,7 +280,7 @@ Reproject the data as necessary to make things line up!
 
 <div id="challenge" markdown="1">
 If you completed the San Joaquin plotting challenge in the
-[Plot Raster Data in R]({{ site.baseurl}}/R/Plot-Rasters-In-R/#challenge-create-dtm--dsm-for-sjer) 
+[Plot Raster Data in R]({{ site.baseurl }}/R/Plot-Rasters-In-R#challenge-create-dtm--dsm-for-sjer) 
 tutorial, how does the map you just created compare to that map? 
 </div>
 

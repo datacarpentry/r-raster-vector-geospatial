@@ -6,7 +6,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2014-11-26
-lastModified: 2016-02-29
+lastModified: 2016-03-02
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series, raster-time-series]
@@ -89,7 +89,7 @@ same **resolution**.
 
 The raster data that we will use in this tutorial are located in the
 (`NEON-DS-Landsat-NDVI\HARV\2011\NDVI`) directory and cover part of the 
-<a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>.
+<a href="http://www.neonscience.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>.
 
 In this tutorial, we will:
 
