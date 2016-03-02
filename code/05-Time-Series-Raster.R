@@ -100,26 +100,51 @@ myPlot
 
 
 ## ----view-all-rgb, echo=FALSE--------------------------------------------
-# open up the cropped files
+
+# reset layout
+par(mfrow=c(2,2))
+
+# open up file for Jday 277 
+RGB_277 <- 
+  stack("NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif")
+
+plotRGB(RGB_277)
+
+# open up file for jday 293
+RGB_293 <- 
+  stack("NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")
+
+plotRGB(RGB_293)
+
+# view a few other images
+# open up file for jday 133
+RGB_133 <- 
+  stack("NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
+
+plotRGB(RGB_133, 
+        stretch="lin")
+
+# open up file for jday 197
+RGB_197 <- 
+  stack("NEON-DS-Landsat-NDVI/HARV/2011/RGB/197_HARV_landRGB.tif")
+
+plotRGB(RGB_197, 
+        stretch="lin")
+
 # create list of files to make raster stack
-RGB_HARV_allCropped <-  list.files("NEON-DS-Landsat-NDVI/HARV/2011/RGB/", 
-                              full.names=TRUE, 
-                              pattern = ".tif$")
+# RGB_HARV_allCropped <-  list.files("NEON-DS-Landsat-NDVI/HARV/2011/RGB/", 
+#                              full.names=TRUE, 
+#                              pattern = ".tif$")
+
 
 # create a layout
-par(mfrow=c(4,4))
+# par(mfrow=c(4,4))
 
-# Super efficient code
-for (aFile in RGB_HARV_allCropped){
-  NDVI.rastStack <- stack(aFile)
-  plotRGB(NDVI.rastStack, stretch="lin")
-}
-
-# code parrallel to what was previously taught in tutorial
-# RGB_NDVI_HARV_stack <- stack(RGB_HARV_allCropped)
-# plotRGB(RGB_HARV_NDVIstack,
-     # r = 1, g = 2, b = 3,
-     # stretch ="lin")
+# Super efficient code - plot using a loop
+# for (aFile in RGB_HARV_allCropped){
+#  NDVI.rastStack <- stack(aFile)
+#  plotRGB(NDVI.rastStack, stretch="lin")
+# }
 
 # reset layout
 par(mfrow=c(1,1))

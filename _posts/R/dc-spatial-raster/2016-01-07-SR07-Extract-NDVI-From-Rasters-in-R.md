@@ -315,14 +315,16 @@ in `ggplot()` see the tutorial on
 ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/ggplot-data-1.png) 
 
 <div id="challenge" markdown="1">
-## Challenge: ggplot with San Joaquin Experimental Range Data
+
+## Challenge: Plot San Joaquin Experimental Range Data
+
 Create a complementary plot for the SJER data. Plot the data points in a
 different color. 
 </div>
 
 ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/challenge-code-ggplot-data-1.png) 
 
-##Compare NDVI from Two Different Sites in One Plot
+## Compare NDVI from Two Different Sites in One Plot
 Comparison of plots is often easiest when both plots are side by side. Or, even 
 better, if both sets of data are plotted in the same plot. We can do this by 
 binding the two data sets together. The date frames must have the same number
@@ -362,6 +364,28 @@ outlier values that should be removed from the data?
 
 Let's look at the RGB images from Harvard Forest.
 
+
+NOTE: the code below uses loops which we will not teach in this tutorial. 
+However the code demonstrates one way to plot multiple RGB rasters in a grid.
+
+
+    # open up RGB imagery
+    
+    rgb.allCropped <-  list.files("NEON-DS-Landsat-NDVI/HARV/2011/RGB/", 
+                                  full.names=TRUE, 
+                                  pattern = ".tif$")
+    # create a layout
+    par(mfrow=c(4,4))
+    
+    # super efficient code
+    for (aFile in rgb.allCropped){
+      NDVI.rastStack <- stack(aFile)
+      plotRGB(NDVI.rastStack, stretch="lin")
+      }
+    
+    # reset layout
+    par(mfrow=c(1,1))
+
 ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/view-all-rgb-Harv-1.png) 
 
 Notice that the data points with very low NDVI values can be associated with
@@ -370,11 +394,36 @@ to high levels of cloud cover.
 
 Is the same thing happening at SJER?
 
+
+    # open up the cropped files
+    rgb.allCropped.SJER <-  list.files("NEON-DS-Landsat-NDVI/SJER/2011/RGB/", 
+                                  full.names=TRUE, 
+                                  pattern = ".tif$")
+    # create a layout
+    par(mfrow=c(5,4))
+    
+    # Super efficient code
+    # note that there is an issue with one of the rasters
+    # NEON-DS-Landsat-NDVI/SJER/2011/RGB/254_SJER_landRGB.tif has a blue band with no range
+    # thus you can't apply a stretch to it. The code below skips the stretch for
+    # that one image. You could automate this by testing the range of each band in each image
+    
+    for (aFile in rgb.allCropped.SJER)
+      {NDVI.rastStack <- stack(aFile)
+      if (aFile =="NEON-DS-Landsat-NDVI/SJER/2011/RGB//254_SJER_landRGB.tif")
+        {plotRGB(NDVI.rastStack) }
+      else { plotRGB(NDVI.rastStack, stretch="lin") }
+    }
+    
+    # reset layout
+    par(mfrow=c(1,1))
+
 ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/view-all-rgb-SJER-1.png) 
 
 Without significant additional processing, we will not be able to retrieve a
-strong reflection from a remotely sensed image that is predominantly cloud
-covered. Thus, these points are likely bad data points. Let's remove them.
+strong reflection from vegetation, from a remotely sensed image that is 
+predominantly cloud covered. Thus, these points are likely bad data points. 
+Let's remove them.
 
 First, we will identify the good data points - that should be retained. One way 
 to do this is by identifying a threhold value. All values below that threshold 
@@ -403,6 +452,7 @@ Now we can create another plot without the suspect data.
 
 
     # plot without questionable data
+    
     ggplot(avg_NDVI_HARV_clean, aes(julianDay, meanNDVI)) +
       geom_point(size=4,colour = "SpringGreen4") + 
       ggtitle("Landsat Derived NDVI - 2011\n NEON Harvard Forest Field Site") +
@@ -429,6 +479,7 @@ want as an output format.
 
 
     # confirm data frame is the way we want it
+    
     head(avg_NDVI_HARV_clean)
 
     ##                     meanNDVI site year julianDay       Date

@@ -130,7 +130,7 @@ break values.
 
     DSMhist$counts
 
-    ## [1] 32283 67246   471
+    ## [1] 31844 67690   466
 
 Warning message!? Remember, the default for the histogram is to include only a
 subset of 100,000 values. We could force it to show all the pixel values or we

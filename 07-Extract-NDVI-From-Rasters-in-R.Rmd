@@ -139,6 +139,7 @@ names(avg_NDVI_HARV) <- "meanNDVI"
 
 # view cleaned column names
 names(avg_NDVI_HARV)
+
 ```
 
 By renaming the column, we lose the "HARV" in the header that reminds us what
@@ -326,7 +327,9 @@ ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI), na.rm=TRUE) +
 ```
 
 <div id="challenge" markdown="1">
-## Challenge: ggplot with San Joaquin Experimental Range Data
+
+## Challenge: Plot San Joaquin Experimental Range Data
+
 Create a complementary plot for the SJER data. Plot the data points in a
 different color. 
 </div>
@@ -342,7 +345,7 @@ ggplot(avg_NDVI_SJER, aes(julianDay, meanNDVI)) +
 
 ```
 
-##Compare NDVI from Two Different Sites in One Plot
+## Compare NDVI from Two Different Sites in One Plot
 Comparison of plots is often easiest when both plots are side by side. Or, even 
 better, if both sets of data are plotted in the same plot. We can do this by 
 binding the two data sets together. The date frames must have the same number
@@ -392,8 +395,13 @@ outlier values that should be removed from the data?
 
 Let's look at the RGB images from Harvard Forest.
 
-```{r view-all-rgb-Harv, echo=FALSE}
-# open up the cropped files
+
+NOTE: the code below uses loops which we will not teach in this tutorial. 
+However the code demonstrates one way to plot multiple RGB rasters in a grid.
+
+```{r view-all-rgb-Harv }
+# open up RGB imagery
+
 rgb.allCropped <-  list.files("NEON-DS-Landsat-NDVI/HARV/2011/RGB/", 
                               full.names=TRUE, 
                               pattern = ".tif$")
@@ -408,6 +416,7 @@ for (aFile in rgb.allCropped){
 
 # reset layout
 par(mfrow=c(1,1))
+
 ```
 
 Notice that the data points with very low NDVI values can be associated with
@@ -416,7 +425,7 @@ to high levels of cloud cover.
 
 Is the same thing happening at SJER?
 
-```{r view-all-rgb-SJER, echo=FALSE}
+```{r view-all-rgb-SJER }
 # open up the cropped files
 rgb.allCropped.SJER <-  list.files("NEON-DS-Landsat-NDVI/SJER/2011/RGB/", 
                               full.names=TRUE, 
@@ -425,14 +434,17 @@ rgb.allCropped.SJER <-  list.files("NEON-DS-Landsat-NDVI/SJER/2011/RGB/",
 par(mfrow=c(5,4))
 
 # Super efficient code
+# note that there is an issue with one of the rasters
+# NEON-DS-Landsat-NDVI/SJER/2011/RGB/254_SJER_landRGB.tif has a blue band with no range
+# thus you can't apply a stretch to it. The code below skips the stretch for
+# that one image. You could automate this by testing the range of each band in each image
+
 for (aFile in rgb.allCropped.SJER)
   {NDVI.rastStack <- stack(aFile)
-  if (aFile =="NEON-DS-Landsat-NDVI/SJER/2011/RGB/254_SJER_landRGB.tif")
+  if (aFile =="NEON-DS-Landsat-NDVI/SJER/2011/RGB//254_SJER_landRGB.tif")
     {plotRGB(NDVI.rastStack) }
-  else { plotRGB(NDVI.rastStack) }
-  }
-  # 254_SJER_landRGB.tif - the range on the blue band for this layer is 255-255
-  # R cant render that as a stretch function. 
+  else { plotRGB(NDVI.rastStack, stretch="lin") }
+}
 
 # reset layout
 par(mfrow=c(1,1))
@@ -440,8 +452,9 @@ par(mfrow=c(1,1))
 ```
 
 Without significant additional processing, we will not be able to retrieve a
-strong reflection from a remotely sensed image that is predominantly cloud
-covered. Thus, these points are likely bad data points. Let's remove them.
+strong reflection from vegetation, from a remotely sensed image that is 
+predominantly cloud covered. Thus, these points are likely bad data points. 
+Let's remove them.
 
 First, we will identify the good data points - that should be retained. One way 
 to do this is by identifying a threhold value. All values below that threshold 
@@ -458,22 +471,27 @@ the data and the desired outcomes!
 {: .notice }
 
 ```{r remove-bad-values}
+
 # retain only rows with meanNDVI>0.1
 avg_NDVI_HARV_clean<-subset(avg_NDVI_HARV, meanNDVI>0.1)
 
 # Did it work?
 avg_NDVI_HARV_clean$meanNDVI<0.1
+
 ```
 
 Now we can create another plot without the suspect data. 
 
 ``` {r plot-clean-HARV}
+
 # plot without questionable data
+
 ggplot(avg_NDVI_HARV_clean, aes(julianDay, meanNDVI)) +
   geom_point(size=4,colour = "SpringGreen4") + 
   ggtitle("Landsat Derived NDVI - 2011\n NEON Harvard Forest Field Site") +
   xlab("Julian Days") + ylab("Mean NDVI") +
   theme(text = element_text(size=20))
+
 ```  
   
 Now our outlier data points are removed and the pattern of "green-up" and
@@ -493,8 +511,11 @@ Before saving our file, let's quickly view the format to make sure it is what we
 want as an output format.
 
 ``` {r write-csv }
+
 # confirm data frame is the way we want it
+
 head(avg_NDVI_HARV_clean)
+
 ```
 
 It looks like we have a series of `row.names` that we do not need given we have 
@@ -502,6 +523,7 @@ this information stored in individual columns in our data.frame. Let's remove
 the row names.
 
 ``` {r drop-rownames-write-csv}
+
 # create new df to prevent changes to avg_NDVI_HARV
 NDVI_HARV_toWrite<-avg_NDVI_HARV_clean
 
@@ -514,6 +536,7 @@ head(NDVI_HARV_toWrite)
 # create a .csv of mean NDVI values being sure to give descriptive name
 # write.csv(DateFrameName, file="NewFileName")
 write.csv(NDVI_HARV_toWrite, file="meanNDVI_HARV_2011.csv")
+
 ```
 
 <div id="challenge" markdown="1">
@@ -526,6 +549,7 @@ questionable values before writing any data to a .csv file.
 </div>
 
 ``` {r challenge-code-write-sjer,  include=TRUE, results="hide", echo=FALSE}
+
 # retain only rows with meanNDVI>0.1
 avg_NDVI_SJER_clean<-subset(avg_NDVI_SJER, meanNDVI>0.1)
 
@@ -541,4 +565,5 @@ head(NDVI_SJER_toWrite)
 # create a .csv of mean NDVI values being sure to give descriptive name
 # write.csv(DateFrameName, file="NewFileName")
 write.csv(NDVI_SJER_toWrite, file="meanNDVI_SJER_2011.csv")
+
 ```
