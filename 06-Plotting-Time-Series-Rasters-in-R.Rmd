@@ -207,7 +207,7 @@ the new labels using `names.attr=rasterNames`.
 levelplot(NDVI_HARV_stack,
           layout=c(4, 4), # create a 4x4 layout for the data
           col.regions=cols, # add a color ramp
-          main="Landsat NDVI - Julian Days \nHarvard Forest 2014",
+          main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
           names.attr=rasterNames)
 
 ```
@@ -215,7 +215,7 @@ levelplot(NDVI_HARV_stack,
 We can adjust the columns of our plot too using `layout=c(cols,rows)`. Below
 we adjust the layout to be a matrix of 5 columns and 3 rows.
 
-```{r adjust-layout-axes }
+```{r adjust-layout }
 # use level plot to create a nice plot with one legend and a 4x4 layout.
 levelplot(NDVI_HARV_stack,
           layout=c(5, 3), # create a 5x3 layout for the data
@@ -224,16 +224,17 @@ levelplot(NDVI_HARV_stack,
           names.attr=rasterNames)
 ```
 
-Finally, let's remove the axis ticks from the plot.
+Finally, `scales` allows us to modify the x and y-axis scale. Let's simply
+remove the axis ticks from the plot with `scales =list(draw=FALSE)`.
 
-```{r adjust-layout }
+```{r remove-axis-ticks }
 # use level plot to create a nice plot with one legend and a 4x4 layout.
 levelplot(NDVI_HARV_stack,
           layout=c(5, 3), # create a 5x3 layout for the data
           col.regions=cols, # add a color ramp
           main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
           names.attr=rasterNames,
-          axes=FALSE)
+          scales=list(draw=FALSE )) # remove axes labels & ticks
 ```
 
 <div id="challenge" markdown="1">
