@@ -61,17 +61,9 @@ rasterNames
 levelplot(NDVI_HARV_stack,
           layout=c(4, 4), # create a 4x4 layout for the data
           col.regions=cols, # add a color ramp
-          main="Landsat NDVI - Julian Days \nHarvard Forest 2014",
-          names.attr=rasterNames)
-
-
-## ----adjust-layout-axes--------------------------------------------------
-# use level plot to create a nice plot with one legend and a 4x4 layout.
-levelplot(NDVI_HARV_stack,
-          layout=c(5, 3), # create a 5x3 layout for the data
-          col.regions=cols, # add a color ramp
           main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
           names.attr=rasterNames)
+
 
 ## ----adjust-layout-------------------------------------------------------
 # use level plot to create a nice plot with one legend and a 4x4 layout.
@@ -79,8 +71,16 @@ levelplot(NDVI_HARV_stack,
           layout=c(5, 3), # create a 5x3 layout for the data
           col.regions=cols, # add a color ramp
           main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
+          names.attr=rasterNames)
+
+## ----remove-axis-ticks---------------------------------------------------
+# use level plot to create a nice plot with one legend and a 4x4 layout.
+levelplot(NDVI_HARV_stack,
+          layout=c(5, 3), # create a 5x3 layout for the data
+          col.regions=cols, # add a color ramp
+          main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
           names.attr=rasterNames,
-          axes=FALSE)
+          scales=list(draw=FALSE )) # remove axes labels & ticks
 
 ## ----challenge-code-levelplot-divergent, echo=FALSE----------------------
 # change Day to Julian Day 
