@@ -5,7 +5,7 @@ date:   2015-10-29
 authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul]
 contributors: [ ]
 dateCreated: 2015-10-23
-lastModified: 2016-03-02
+lastModified: 2016-03-04
 packagesLibraries: [raster, rgdal]
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
@@ -427,8 +427,9 @@ identifying outliers and bad data values in our raster data.
          ylab="Frequency",
          col="wheat")
 
-    ## Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...):
-    ## 4% of the raster cells were used. 100000 values used.
+    ## Warning in .hist1(x, maxpixels = maxpixels, main = main,
+    ## plot = plot, ...): 4% of the raster cells were used. 100000
+    ## values used.
 
 ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/00-Raster-Structure/view-raster-histogram-1.png) 
 

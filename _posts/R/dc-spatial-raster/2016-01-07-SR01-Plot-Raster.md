@@ -6,7 +6,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2016-03-02
+lastModified: 2016-03-04
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]
@@ -130,7 +130,7 @@ break values.
 
     DSMhist$counts
 
-    ## [1] 31798 67731   471
+    ## [1] 31838 67711   451
 
 Warning message!? Remember, the default for the histogram is to include only a
 subset of 100,000 values. We could force it to show all the pixel values or we

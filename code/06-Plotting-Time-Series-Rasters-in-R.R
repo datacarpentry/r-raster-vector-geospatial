@@ -43,15 +43,14 @@ levelplot(NDVI_HARV_stack,
 # view names for each raster layer
 names(NDVI_HARV_stack)
 
-# use gsub to modify label names.
-# that we'll use for the plot 
-rasterNames  <- gsub("X","Day", names(NDVI_HARV_stack))
+# use gsub to modify label names.that we'll use for the plot 
+rasterNames  <- gsub("X","Day ", names(NDVI_HARV_stack))
 
 # view Names
 rasterNames
 
 # Remove HARV_NDVI_crop from the second part of the string 
-rasterNames  <- gsub("_HARV_NDVI_crop","",rasterNames)
+rasterNames  <- gsub("_HARV_ndvi_crop","",rasterNames)
 
 # view names for each raster layer
 rasterNames
