@@ -218,7 +218,7 @@ the new labels using `names.attr=rasterNames`.
     levelplot(NDVI_HARV_stack,
               layout=c(4, 4), # create a 4x4 layout for the data
               col.regions=cols, # add a color ramp
-              main="Landsat NDVI - Julian Days \nHarvard Forest 2014",
+              main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
               names.attr=rasterNames)
 
 ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/create-levelplot-1.png) 
@@ -234,9 +234,10 @@ we adjust the layout to be a matrix of 5 columns and 3 rows.
               main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
               names.attr=rasterNames)
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/adjust-layout-axes-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/adjust-layout-1.png) 
 
-Finally, let's remove the axis ticks from the plot.
+Finally, `scales` allows us to modify the x and y-axis scale. Let's simply
+remove the axis ticks from the plot with `scales =list(draw=FALSE)`.
 
 
     # use level plot to create a nice plot with one legend and a 4x4 layout.
@@ -245,9 +246,9 @@ Finally, let's remove the axis ticks from the plot.
               col.regions=cols, # add a color ramp
               main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
               names.attr=rasterNames,
-              axes=FALSE)
+              scales=list(draw=FALSE )) # remove axes labels & ticks
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/adjust-layout-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/remove-axis-ticks-1.png) 
 
 <div id="challenge" markdown="1">
 ## Challenge: Divergent Color Ramps 

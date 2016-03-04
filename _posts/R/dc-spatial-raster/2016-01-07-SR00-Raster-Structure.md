@@ -427,9 +427,8 @@ identifying outliers and bad data values in our raster data.
          ylab="Frequency",
          col="wheat")
 
-    ## Warning in .hist1(x, maxpixels = maxpixels, main = main,
-    ## plot = plot, ...): 4% of the raster cells were used. 100000
-    ## values used.
+    ## Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...):
+    ## 4% of the raster cells were used. 100000 values used.
 
 ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/00-Raster-Structure/view-raster-histogram-1.png) 
 
