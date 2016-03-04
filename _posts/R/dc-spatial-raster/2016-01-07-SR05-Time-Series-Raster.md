@@ -6,7 +6,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2014-11-26
-lastModified: 2016-03-02
+lastModified: 2016-03-04
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series, raster-time-series]
@@ -346,6 +346,14 @@ thereafter.
 Let's next view some temperature data for our field site to see whether there 
 were some unusual fluctuations that may explain this pattern of greening and
 browning seen in the NDVI data.
+
+
+    ## 
+    ## Attaching package: 'ggplot2'
+    ## 
+    ## The following object is masked from 'package:latticeExtra':
+    ## 
+    ##     layer
 
 ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/view-temp-data-1.png) 
 
