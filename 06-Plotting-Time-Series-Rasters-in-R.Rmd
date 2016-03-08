@@ -66,13 +66,13 @@ on your computer to complete this tutorial.
 
 ## Get Started 
 In this tutorial, we are working with the same set of rasters used in the
-[Raster Time Series Data in R ]({{ site.baseurl}} /R/Raster-Times-Series-Data-In-R/) 
+[Raster Time Series Data in R ]({{ site.baseurl }}/R/Raster-Times-Series-Data-In-R/) 
 tutorial. This data is derived from the Landsat satellite and stored in 
 `GeoTIFF` format. Each raster covers the 
-<a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>.  
+<a href="http://www.neonscience.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>.  
 
 If you have not already created the RasterStack, originally created in 
-[Raster Time Series Data in R ]({{ site.baseurl}} /R/Raster-Times-Series-Data-In-R/),
+[Raster Time Series Data in R ]({{ site.baseurl }}/R/Raster-Times-Series-Data-In-R/),
 please create it now. 
 
 ```{r load-libraries-data }
@@ -177,15 +177,14 @@ First let's remove "_HARV_NDVI_crop" from each label.
 # view names for each raster layer
 names(NDVI_HARV_stack)
 
-# use gsub to modify label names.
-# that we'll use for the plot 
-rasterNames  <- gsub("X","Day", names(NDVI_HARV_stack))
+# use gsub to modify label names.that we'll use for the plot 
+rasterNames  <- gsub("X","Day ", names(NDVI_HARV_stack))
 
 # view Names
 rasterNames
 
 # Remove HARV_NDVI_crop from the second part of the string 
-rasterNames  <- gsub("_HARV_NDVI_crop","",rasterNames)
+rasterNames  <- gsub("_HARV_ndvi_crop","",rasterNames)
 
 # view names for each raster layer
 rasterNames
@@ -208,7 +207,7 @@ the new labels using `names.attr=rasterNames`.
 levelplot(NDVI_HARV_stack,
           layout=c(4, 4), # create a 4x4 layout for the data
           col.regions=cols, # add a color ramp
-          main="Landsat NDVI - Julian Days \nHarvard Forest 2014",
+          main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
           names.attr=rasterNames)
 
 ```
@@ -216,7 +215,7 @@ levelplot(NDVI_HARV_stack,
 We can adjust the columns of our plot too using `layout=c(cols,rows)`. Below
 we adjust the layout to be a matrix of 5 columns and 3 rows.
 
-```{r adjust-layout-axes }
+```{r adjust-layout }
 # use level plot to create a nice plot with one legend and a 4x4 layout.
 levelplot(NDVI_HARV_stack,
           layout=c(5, 3), # create a 5x3 layout for the data
@@ -225,16 +224,17 @@ levelplot(NDVI_HARV_stack,
           names.attr=rasterNames)
 ```
 
-Finally, let's remove the axis ticks from the plot.
+Finally, `scales` allows us to modify the x and y-axis scale. Let's simply
+remove the axis ticks from the plot with `scales =list(draw=FALSE)`.
 
-```{r adjust-layout }
+```{r remove-axis-ticks }
 # use level plot to create a nice plot with one legend and a 4x4 layout.
 levelplot(NDVI_HARV_stack,
           layout=c(5, 3), # create a 5x3 layout for the data
           col.regions=cols, # add a color ramp
           main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
           names.attr=rasterNames,
-          axes=FALSE)
+          scales=list(draw=FALSE )) # remove axes labels & ticks
 ```
 
 <div id="challenge" markdown="1">

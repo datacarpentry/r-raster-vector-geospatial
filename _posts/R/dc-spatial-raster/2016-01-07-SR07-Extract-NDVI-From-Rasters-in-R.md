@@ -6,7 +6,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal, ggplot2]
 dateCreated: 2014-11-26
-lastModified: 2016-02-29
+lastModified: 2016-03-04
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 mainTag: raster-data-series
@@ -71,9 +71,9 @@ related metrics to support modeling and further analysis.
 
 ## Get Started 
 In this tutorial, we will work with the same set of rasters used in the
-[Raster Time Series Data in R ]({{ site.baseurl}} /R/Raster-Times-Series-Data-In-R/) 
+[Raster Time Series Data in R ]({{ site.baseurl }}/R/Raster-Times-Series-Data-In-R/) 
 and
-[Plot Raster Time Series Data in R Using RasterVis and Levelplot ]({{ site.baseurl}}/R/Plot-Raster-Times-Series-Data-In-R/)
+[Plot Raster Time Series Data in R Using RasterVis and Levelplot ]({{ site.baseurl }}/R/Plot-Raster-Times-Series-Data-In-R/)
 tutorials. To begin, we will create a raster stack (also created in the previous
 tutorials so you may be able to skip this first step!). 
 
@@ -233,7 +233,7 @@ Storing this data as a date object is better - for plotting, data subsetting and
 working with our data. Let's convert.
 
 For more information on date-time classes, see the NEON Data Skills tutorial 
-[Convert Date & Time Data from Character Class to Date-Time Class (POSIX) in R]({{ site.baseurl}}/R/time-series-convert-date-time-class-POSIX/).  
+[Convert Date & Time Data from Character Class to Date-Time Class (POSIX) in R]({{ site.baseurl }}/R/time-series-convert-date-time-class-POSIX/).  
 
 To convert a Julian Day number to a date class, we need to set the **origin**
 of the day which "counting" Julian Days began. Our data is from 2011, and we 
@@ -285,7 +285,7 @@ error we then subtract 1 to get the correct day, January 05 2011.
 We often want to compare two different sites. The National Ecological
 Observatory Network (NEON) also has a field site in Southern California
 at the
-<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range (SJER) </a>.  
+<a href="http://www.neonscience.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range (SJER) </a>.  
 
 For this challenge, compare NDVI values for the NEON Harvard Forest and San
 Joaquin Experimental Range field sites. NDVI data for SJER are located in the
@@ -302,7 +302,7 @@ plot our data.
 We will use the `ggplot()` function within the `ggplot2` package for this plot. 
 If you are unfamiliar with `ggplot()` or would like to learn more about plotting
 in `ggplot()` see the tutorial on
-[Plotting Time Series with ggplot in R]({{site.baseurl}}/R/time-series-plot-ggplot/).
+[Plotting Time Series with ggplot in R]({{ site.baseurl }}/R/time-series-plot-ggplot/).
 
 
     # plot NDVI

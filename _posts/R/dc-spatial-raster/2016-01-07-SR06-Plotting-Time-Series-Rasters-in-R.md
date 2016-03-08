@@ -7,7 +7,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2016-02-29
+lastModified: 2016-03-04
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 mainTag: raster-data-series
@@ -66,30 +66,20 @@ on your computer to complete this tutorial.
 
 ## Get Started 
 In this tutorial, we are working with the same set of rasters used in the
-[Raster Time Series Data in R ]({{ site.baseurl}} /R/Raster-Times-Series-Data-In-R/) 
+[Raster Time Series Data in R ]({{ site.baseurl }}/R/Raster-Times-Series-Data-In-R/) 
 tutorial. This data is derived from the Landsat satellite and stored in 
 `GeoTIFF` format. Each raster covers the 
-<a href="http://www.neoninc.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>.  
+<a href="http://www.neonscience.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>.  
 
 If you have not already created the RasterStack, originally created in 
-[Raster Time Series Data in R ]({{ site.baseurl}} /R/Raster-Times-Series-Data-In-R/),
+[Raster Time Series Data in R ]({{ site.baseurl }}/R/Raster-Times-Series-Data-In-R/),
 please create it now. 
 
 
     library(raster)
     library(rgdal)
     library(rasterVis)
-
-    ## Loading required package: lattice
-    ## Loading required package: latticeExtra
-    ## Loading required package: RColorBrewer
-    ## 
-    ## Attaching package: 'latticeExtra'
-    ## 
-    ## The following object is masked from 'package:ggplot2':
-    ## 
-    ##     layer
-
+    
     # Create list of NDVI file paths
     all_NDVI_HARV <- list.files("NEON-DS-Landsat-NDVI/HARV/2011/NDVI", full.names = TRUE, pattern = ".tif$")
     
@@ -189,34 +179,28 @@ First let's remove "_HARV_NDVI_crop" from each label.
     ## [10] "X261_HARV_ndvi_crop" "X277_HARV_ndvi_crop" "X293_HARV_ndvi_crop"
     ## [13] "X309_HARV_ndvi_crop"
 
-    # use gsub to modify label names.
-    # that we'll use for the plot 
-    rasterNames  <- gsub("X","Day", names(NDVI_HARV_stack))
+    # use gsub to modify label names.that we'll use for the plot 
+    rasterNames  <- gsub("X","Day ", names(NDVI_HARV_stack))
     
     # view Names
     rasterNames
 
-    ##  [1] "Day005_HARV_ndvi_crop" "Day037_HARV_ndvi_crop"
-    ##  [3] "Day085_HARV_ndvi_crop" "Day133_HARV_ndvi_crop"
-    ##  [5] "Day181_HARV_ndvi_crop" "Day197_HARV_ndvi_crop"
-    ##  [7] "Day213_HARV_ndvi_crop" "Day229_HARV_ndvi_crop"
-    ##  [9] "Day245_HARV_ndvi_crop" "Day261_HARV_ndvi_crop"
-    ## [11] "Day277_HARV_ndvi_crop" "Day293_HARV_ndvi_crop"
-    ## [13] "Day309_HARV_ndvi_crop"
+    ##  [1] "Day 005_HARV_ndvi_crop" "Day 037_HARV_ndvi_crop"
+    ##  [3] "Day 085_HARV_ndvi_crop" "Day 133_HARV_ndvi_crop"
+    ##  [5] "Day 181_HARV_ndvi_crop" "Day 197_HARV_ndvi_crop"
+    ##  [7] "Day 213_HARV_ndvi_crop" "Day 229_HARV_ndvi_crop"
+    ##  [9] "Day 245_HARV_ndvi_crop" "Day 261_HARV_ndvi_crop"
+    ## [11] "Day 277_HARV_ndvi_crop" "Day 293_HARV_ndvi_crop"
+    ## [13] "Day 309_HARV_ndvi_crop"
 
     # Remove HARV_NDVI_crop from the second part of the string 
-    rasterNames  <- gsub("_HARV_NDVI_crop","",rasterNames)
+    rasterNames  <- gsub("_HARV_ndvi_crop","",rasterNames)
     
     # view names for each raster layer
     rasterNames
 
-    ##  [1] "Day005_HARV_ndvi_crop" "Day037_HARV_ndvi_crop"
-    ##  [3] "Day085_HARV_ndvi_crop" "Day133_HARV_ndvi_crop"
-    ##  [5] "Day181_HARV_ndvi_crop" "Day197_HARV_ndvi_crop"
-    ##  [7] "Day213_HARV_ndvi_crop" "Day229_HARV_ndvi_crop"
-    ##  [9] "Day245_HARV_ndvi_crop" "Day261_HARV_ndvi_crop"
-    ## [11] "Day277_HARV_ndvi_crop" "Day293_HARV_ndvi_crop"
-    ## [13] "Day309_HARV_ndvi_crop"
+    ##  [1] "Day 005" "Day 037" "Day 085" "Day 133" "Day 181" "Day 197" "Day 213"
+    ##  [8] "Day 229" "Day 245" "Day 261" "Day 277" "Day 293" "Day 309"
 
 <i class="fa fa-star"></i> **Data Tip:** Instead of substituting "x" and
 "_HARV_NDVI_crop" separately, we could have used use the vertical bar character 
@@ -234,7 +218,7 @@ the new labels using `names.attr=rasterNames`.
     levelplot(NDVI_HARV_stack,
               layout=c(4, 4), # create a 4x4 layout for the data
               col.regions=cols, # add a color ramp
-              main="Landsat NDVI - Julian Days \nHarvard Forest 2014",
+              main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
               names.attr=rasterNames)
 
 ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/create-levelplot-1.png) 
@@ -250,9 +234,10 @@ we adjust the layout to be a matrix of 5 columns and 3 rows.
               main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
               names.attr=rasterNames)
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/adjust-layout-axes-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/adjust-layout-1.png) 
 
-Finally, let's remove the axis ticks from the plot.
+Finally, `scales` allows us to modify the x and y-axis scale. Let's simply
+remove the axis ticks from the plot with `scales =list(draw=FALSE)`.
 
 
     # use level plot to create a nice plot with one legend and a 4x4 layout.
@@ -261,9 +246,9 @@ Finally, let's remove the axis ticks from the plot.
               col.regions=cols, # add a color ramp
               main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
               names.attr=rasterNames,
-              axes=FALSE)
+              scales=list(draw=FALSE )) # remove axes labels & ticks
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/adjust-layout-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/remove-axis-ticks-1.png) 
 
 <div id="challenge" markdown="1">
 ## Challenge: Divergent Color Ramps 

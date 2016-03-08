@@ -5,7 +5,7 @@ date:   2015-10-29
 authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul]
 contributors: [ ]
 dateCreated: 2015-10-23
-lastModified: 2016-02-29
+lastModified: 2016-03-04
 packagesLibraries: [raster, rgdal]
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
@@ -22,7 +22,7 @@ image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink:
-permalink: /R/Introduction-to-Raster-Data-In-R
+permalink: /R/Introduction-to-Raster-Data-In-R/
 comments: true
 ---
 
@@ -100,19 +100,12 @@ range of quantitative values. Some examples of continuous rasters include:
 3. Elevation values for a region. 
 
 A map of elevation for Harvard Forest derived from the 
-<a href="http://www.neoninc.org/science-design/collection-methods/airborne-remote-sensing" target="_blank"> 
+<a href="http://www.neonscience.org/science-design/collection-methods/airborne-remote-sensing" target="_blank"> 
 NEON AOP LiDAR sensor</a> 
 is below. Elevation is represented as continuous numeric variable in this map. The legend 
 shows the continuous range of values in the data from around 300 to 420 meters.
 
 
-    ## rgdal: version: 1.1-1, (SVN revision 572)
-    ##  Geospatial Data Abstraction Library extensions to R successfully loaded
-    ##  Loaded GDAL runtime: GDAL 1.11.3, released 2015/09/16
-    ##  Path to GDAL shared files: /usr/local/Cellar/gdal/1.11.3/share/gdal
-    ##  Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
-    ##  Path to PROJ.4 shared files: (autodetected)
-    ##  Linking to sp version: 1.2-1
 
 
 ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/00-Raster-Structure/elevation-map-1.png) 
@@ -199,7 +192,7 @@ we'll use a naming convention of `datatype_HARV`.
     ## resolution  : 1, 1  (x, y)
     ## extent      : 731453, 733150, 4712471, 4713838  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif 
+    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif 
     ## names       : HARV_dsmCrop 
     ## values      : 305.07, 416.07  (min, max)
 
@@ -390,7 +383,7 @@ In the next image, the black edges have been assigned `NoDataValue`. `R` doesn't
 
 The assigned `NoDataValue` varies across disciplines; `-9999` is a common value 
 used in both the remote sensing field and the atmospheric fields. It is also
-the standard used by the <a href="http://www.neoninc.org" target="_blank"> 
+the standard used by the <a href="http://www.neonscience.org" target="_blank"> 
 National Ecological Observatory Network (NEON)</a>. 
 
 If we are lucky, our GeoTIFF file has a tag that tells us what is the

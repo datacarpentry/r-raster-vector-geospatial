@@ -1,17 +1,17 @@
 ## ----load-libraries------------------------------------------------------
-#if they are not already loaded
+# if they are not already loaded
 library(rgdal)
 library(raster)
 
-#set working directory to ensure R can find the file we wish to import
-#setwd("working-dir-path-here")
+# set working directory to ensure R can find the file we wish to import
+# setwd("working-dir-path-here")
 
-#import raster
+# import raster
 DSM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 
 ## ----hist-raster---------------------------------------------------------
-#Plot raster object
+# Plot raster object
 plot(DSM_HARV,
      main="Digital Surface Model\nNEON Harvard Forest Field Site")
 
@@ -38,10 +38,10 @@ plot(DSM_HARV,
 
 
 ## ----add-plot-title------------------------------------------------------
-#Assign color to a object for repeat use/ ease of changing
+# Assign color to a object for repeat use/ ease of changing
 myCol = terrain.colors(3)
 
-#Add axis labels
+# Add axis labels
 plot(DSM_HARV, 
      breaks = c(300, 350, 400, 450), 
      col = myCol,
@@ -50,7 +50,7 @@ plot(DSM_HARV,
      ylab = "UTM Northing Coordinate (m)")
 
 ## ----turn-off-axes-------------------------------------------------------
-#or we can turn off the axis altogether
+# or we can turn off the axis altogether
 plot(DSM_HARV, 
      breaks = c(300, 350, 400, 450), 
      col = myCol,
