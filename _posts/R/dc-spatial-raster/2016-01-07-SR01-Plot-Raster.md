@@ -6,7 +6,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2016-02-29
+lastModified: 2016-03-04
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]
@@ -19,7 +19,7 @@ image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink:
-permalink: /R/Plot-Rasters-In-R
+permalink: /R/Plot-Rasters-In-R/
 comments: true
 ---
 
@@ -74,27 +74,27 @@ In this tutorial, we will plot the Digital Surface Model (DSM) raster
 for the NEON Harvard Forest Field Site. We will use the `hist()` function as a 
 tool to explore raster values. And render categorical plots, using the `breaks` argument to get bins that are meaningful representations of our data. 
 
-We will use the `raster` and `rgdal` libraries in this tutorial. If you do not
+We will use the `raster` and `rgdal` packages in this tutorial. If you do not
 have the `DSM_HARV` object from the 
-[Intro To Raster In R tutorial]({{ site.baseurl}}/R/Introduction-to-Raster-Data-In-R), 
+[Intro To Raster In R tutorial]({{ site.baseurl }}/R/Introduction-to-Raster-Data-In-R/), 
 please create it now.  
 
 
-    #if they are not already loaded
+    # if they are not already loaded
     library(rgdal)
     library(raster)
     
-    #set working directory to ensure R can find the file we wish to import
-    #setwd("working-dir-path-here")
+    # set working directory to ensure R can find the file we wish to import
+    # setwd("working-dir-path-here")
     
-    #import raster
+    # import raster
     DSM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 First, let's plot our Digital Surface Model object (`DSM_HARV`) using the
 `plot()` function. We add a title using the argument `main="title"`.
 
 
-    #Plot raster object
+    # Plot raster object
     plot(DSM_HARV,
          main="Digital Surface Model\nNEON Harvard Forest Field Site")
 
@@ -130,7 +130,7 @@ break values.
 
     DSMhist$counts
 
-    ## [1] 31844 67690   466
+    ## [1] 32041 67507   452
 
 Warning message!? Remember, the default for the histogram is to include only a
 subset of 100,000 values. We could force it to show all the pixel values or we
@@ -175,10 +175,10 @@ object.
 We can label the x- and y-axes of our plot too using `xlab` and `ylab`. 
 
 
-    #Assign color to a object for repeat use/ ease of changing
+    # Assign color to a object for repeat use/ ease of changing
     myCol = terrain.colors(3)
     
-    #Add axis labels
+    # Add axis labels
     plot(DSM_HARV, 
          breaks = c(300, 350, 400, 450), 
          col = myCol,
@@ -191,7 +191,7 @@ We can label the x- and y-axes of our plot too using `xlab` and `ylab`.
 Or we can also turn off the axes altogether. 
 
 
-    #or we can turn off the axis altogether
+    # or we can turn off the axis altogether
     plot(DSM_HARV, 
          breaks = c(300, 350, 400, 450), 
          col = myCol,

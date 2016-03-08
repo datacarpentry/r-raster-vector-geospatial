@@ -19,7 +19,7 @@ image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
   creditlink:
-permalink: /R/Multi-Band-Rasters-In-R
+permalink: /R/Multi-Band-Rasters-In-R/
 comments: true
 ---
 
@@ -182,10 +182,10 @@ library(rgdal)
 
 In this tutorial, the multi-band data that we are working with is imagery
 collected using the 
-<a href="http://http://www.neoninc.org/science-design/collection-methods/airborne-remote-sensing"
+<a href="http://www.neonscience.org/science-design/collection-methods/airborne-remote-sensing"
 target="_blank">NEON Airborne Observation Platform</a>
 high resolution camera over the 
-<a href="http://www.neoninc.org/science-design/field-sites/harvard-forest"
+<a href="http://www.neonscience.org/science-design/field-sites/harvard-forest"
 target="_blank">NEON Harvard Forest field site</a>. 
 Each RGB image is a 3-band raster. The same steps would apply to 
 working with a multi-spectral image with 4 or more bands - like Landsat imagery.
