@@ -16,7 +16,7 @@ efficient methods - the overlay function compared to basic subtraction. We also
 cover how to extract pixel values from a set of locations - for example a buffer
 region around plot locations at a field site. Finally, it explains the basic 
 principles of writing functions in R."
-code1: 03-Raster-Calculations-In-R.R
+code1: /R/dc-spatial-raster/03-Raster-Calculations-In-R.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
