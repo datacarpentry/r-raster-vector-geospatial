@@ -79,20 +79,7 @@ please create it now.
     library(raster)
     library(rgdal)
     library(rasterVis)
-
-    ## Loading required package: lattice
-
-    ## Loading required package: latticeExtra
-
-    ## Loading required package: RColorBrewer
-
-    ## 
-    ## Attaching package: 'latticeExtra'
-
-    ## The following object is masked from 'package:ggplot2':
-    ## 
-    ##     layer
-
+    
     # Create list of NDVI file paths
     all_NDVI_HARV <- list.files("NEON-DS-Landsat-NDVI/HARV/2011/NDVI", full.names = TRUE, pattern = ".tif$")
     
