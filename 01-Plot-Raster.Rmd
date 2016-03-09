@@ -14,7 +14,7 @@ mainTag: raster-data-series
 description: "This tutorial explains how to plot a raster in R using R's base plot
 function. It also covers how to layer a raster on top of a hillshade to produce 
 an eloquent map."
-code1: 01-Plot-Raster.R
+code1: /R/dc-spatial-raster/01-Plot-Raster.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry

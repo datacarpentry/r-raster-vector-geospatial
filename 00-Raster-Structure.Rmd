@@ -17,7 +17,7 @@ covers the three core metadata elements that we need to understand to work with
 rasters in R: CRS, Extent and Resolution. It also explores missing and bad data 
 values as stored in a raster and how R handles these elements. Finally, it 
 introduces the GeoTiff file format."
-code1: 00-Raster-Structure.R
+code1: /R/dc-spatial-raster/00-Raster-Structure.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry

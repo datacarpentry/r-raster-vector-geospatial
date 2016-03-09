@@ -6,7 +6,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2014-11-26
-lastModified: 2016-03-04
+lastModified: 2016-03-09
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series, raster-time-series]
@@ -14,7 +14,7 @@ mainTag: raster-data-series
 description: "This tutorial covers how to work with and plot a raster time
 series, using an R RasterStack object. It also covers the basics of practical
 data quality assessment of remote sensing imagery."
-code1: 05-Time-Series-Raster.R
+code1: /R/dc-spatial-raster/05-Time-Series-Raster.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
@@ -268,7 +268,7 @@ the `plot()` command to quickly plot a `RasterStack`.
          zlim = c(1500, 10000), 
          nc = 4)
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/plot-time-series-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/plot-time-series-1.png)
 
 Have a look at the range of NDVI values observed in the plot above. We know that
 the accepted values for NDVI range from 0-1. Why does our data range from
@@ -300,7 +300,7 @@ tutorial.
          zlim = c(.15, 1),  
          nc = 4)
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/apply-scale-factor-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/apply-scale-factor-1.png)
 
 ## Take a Closer Look at Our Data
 Let's take a closer look at the plots of our data. Note that Massachusettes, 
@@ -330,7 +330,7 @@ each raster.
     hist(NDVI_HARV_stack, 
          xlim = c(0, 1))
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/view-stack-histogram-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/view-stack-histogram-1.png)
 
 It seems like things get green in the spring and summer like we expect, but the 
 data at Julian days 277 and 293 are unusual. It appears as if the vegetation got
@@ -347,7 +347,7 @@ Let's next view some temperature data for our field site to see whether there
 were some unusual fluctuations that may explain this pattern of greening and
 browning seen in the NDVI data.
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/view-temp-data-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/view-temp-data-1.png)
 
 There are no significant peaks or dips in the temperature during the late summer
 or early fall time period that might account for patterns seen in the NDVI data.
@@ -372,7 +372,7 @@ reset your layout using: `par(mfrow=c(1,1))`.
 
 </div>
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/view-all-rgb-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/05-Time-Series-Raster/view-all-rgb-1.png)
 
 ## Explore The Data's Source
 The third challenge question, "Does the RGB imagery from these two days explain 

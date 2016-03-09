@@ -14,7 +14,7 @@ mainTag: raster-data-series
 description: "This tutorial covers how to work with and plot a raster time
 series, using an R RasterStack object. It also covers the basics of practical
 data quality assessment of remote sensing imagery."
-code1: 05-Time-Series-Raster.R
+code1: /R/dc-spatial-raster/05-Time-Series-Raster.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry

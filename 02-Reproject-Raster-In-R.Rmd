@@ -16,7 +16,7 @@ in different Coordinate Reference Systems (CRS) / projections. When two rasters
 are in different CRS, they will not plot nicely together on a map. We will learn
 how to reproject a raster in R using the projectRaster function in the raster 
 package."
-code1: 02-Reproject-Raster-In-R.R
+code1: /R/dc-spatial-raster/02-Reproject-Raster-In-R.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
