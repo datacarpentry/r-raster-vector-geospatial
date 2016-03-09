@@ -161,7 +161,7 @@ create your own. <a href="http://colorbrewer2.org/" target="_blank">
 ColorBrewer 2.0; Color Advise for Cartography </a>  
 {: .notice }
 
-##Refine Plot & Tile Labels
+## Refine Plot & Tile Labels
 Next, let's label each raster in our plot with the Julian day that the raster
 represents. The current names come from the band (layer names) stored in the
 `RasterStack` and first part each name is the Julian day. 
