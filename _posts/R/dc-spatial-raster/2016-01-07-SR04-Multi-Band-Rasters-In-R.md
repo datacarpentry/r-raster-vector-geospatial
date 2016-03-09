@@ -6,7 +6,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2016-03-04
+lastModified: 2016-03-09
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series, raster-time-series]
@@ -14,7 +14,7 @@ mainTag: raster-data-series
 description: "This tutorial explores how to import and plot a multi-band raster in
 R. It also covers how to plot a three-band color image using the plotRGB
 function in R."
-code1: 04-Multi-Band-Rasters-In-R.R
+code1: /R/dc-spatial-raster/04-Multi-Band-Rasters-In-R.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
@@ -111,11 +111,11 @@ would render as a single image in grayscale. We will therefore use a grayscale
 palette to render individual bands. 
 {: .notice }
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/demonstrate-RGB-Image-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/demonstrate-RGB-Image-1.png)
 
 Or we can composite all three bands together to make a color image.
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/plot-RGB-now-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/plot-RGB-now-1.png)
 
 In a multi-band dataset, the rasters will always have the same *extent*,
 *CRS* and *resolution*.  
@@ -179,7 +179,7 @@ in the first band. We can plot this band using the plot function.
          axes=FALSE,
          main="RGB Imagery - Band 1-Red\nNEON Harvard Forest Field Site") 
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/read-single-band-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/read-single-band-1.png)
 
     # view attributes: Check out dimension, CRS, resolution, values attributes, and 
     # band.
@@ -247,7 +247,7 @@ want to work with). To import the green band, we would use `band=2`.
          axes=FALSE,
          main="RGB Imagery - Band 2- Green\nNEON Harvard Forest Field Site")
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/read-specific-band-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/read-specific-band-1.png)
 
     # view attributes of band 2 
     RGB_band2_HARV
@@ -362,7 +362,7 @@ attributes for using an index value: `RGB_stack_HARV[[1]]`. We can also use the
     plot(RGB_stack_HARV, 
          col=grayscale_colors)
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/plot-raster-layers-1.png) ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/plot-raster-layers-2.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/plot-raster-layers-1.png)![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/plot-raster-layers-2.png)
 
     # revert to a single plot layout 
     par(mfrow=c(1,1)) 
@@ -372,7 +372,7 @@ attributes for using an index value: `RGB_stack_HARV[[1]]`. We can also use the
          main="Band 2\n NEON Harvard Forest Field Site",
          col=grayscale_colors)
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/plot-raster-layers-3.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/plot-raster-layers-3.png)
 
 
 ### Create A Three Band Image
@@ -394,7 +394,7 @@ Let's plot our 3-band image.
     plotRGB(RGB_stack_HARV, 
             r = 1, g = 2, b = 3)
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/plot-rgb-image-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/plot-rgb-image-1.png)
 
 The image above looks pretty good. We can explore whether applying a stretch to
 the image might improve clarity and contrast using  `stretch="lin"` or 
@@ -429,14 +429,14 @@ the image might improve clarity and contrast using  `stretch="lin"` or
             scale=800,
             stretch = "lin")
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/image-stretch-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/image-stretch-1.png)
 
     plotRGB(RGB_stack_HARV,
             r = 1, g = 2, b = 3, 
             scale=800,
             stretch = "hist")
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/image-stretch-2.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/image-stretch-2.png)
 
 In this case, the stretch doesn't enhance the contrast our image significantly
 given the distribution of reflectance (or brightness) values is distributed well
@@ -463,7 +463,7 @@ tutorial.
 
 </div>
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/challenge-code-NoData-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/challenge-code-NoData-1.png)
 
 <i class="fa fa-star"></i> **Data Tip:** We can create a RasterStack from 
 several, individual single-band GeoTIFFs too. Check out:
@@ -512,7 +512,7 @@ You use `plotRGB` to block a `RasterBrick` too.
     # plot brick
     plotRGB(RGB_brick_HARV)
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/plot-brick-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/04-Multi-Band-Rasters-In-R/plot-brick-1.png)
 
 
 <div id="challenge" markdown="1">

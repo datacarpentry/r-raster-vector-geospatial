@@ -6,14 +6,14 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal, ggplot2]
 dateCreated: 2014-11-26
-lastModified: 2016-03-04
+lastModified: 2016-03-09
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 mainTag: raster-data-series
 tutorialSeries: [raster-data-series, raster-time-series]
 description: "This tutorial covers how to extract and plot NDVI pixel values
 from a raster time series stack in R. We will use ggplot2 to plot our data."
-code1: 07-Extract-NDVI-From-Rasters-in-R.R
+code1: /R/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
@@ -312,7 +312,7 @@ in `ggplot()` see the tutorial on
       xlab("Julian Days") + ylab("Mean NDVI") +
       theme(text = element_text(size=20))
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/ggplot-data-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/ggplot-data-1.png)
 
 <div id="challenge" markdown="1">
 
@@ -322,7 +322,7 @@ Create a complementary plot for the SJER data. Plot the data points in a
 different color. 
 </div>
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/challenge-code-ggplot-data-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/challenge-code-ggplot-data-1.png)
 
 ## Compare NDVI from Two Different Sites in One Plot
 Comparison of plots is often easiest when both plots are side by side. Or, even 
@@ -344,7 +344,7 @@ of columns and exact same column names to be bound.
     	# scale_colour : match previous plots
       theme(text = element_text(size=20))
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/merge-df-single-plot-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/merge-df-single-plot-1.png)
 
 <div id="challenge" markdown="1">
 ## Challenge: Plot NDVI with Date
@@ -353,7 +353,7 @@ on the x-axis.
 
 </div>
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/challenge-code-plot2-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/challenge-code-plot2-1.png)
 
 ## Remove Outlier Data
 As we look at these plots we see variation in greenness across the year.
@@ -386,7 +386,7 @@ However the code demonstrates one way to plot multiple RGB rasters in a grid.
     # reset layout
     par(mfrow=c(1,1))
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/view-all-rgb-Harv-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/view-all-rgb-Harv-1.png)
 
 Notice that the data points with very low NDVI values can be associated with
 images that are filled with clouds. Thus, we can attribute the low NDVI values
@@ -418,7 +418,7 @@ Is the same thing happening at SJER?
     # reset layout
     par(mfrow=c(1,1))
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/view-all-rgb-SJER-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/view-all-rgb-SJER-1.png)
 
 Without significant additional processing, we will not be able to retrieve a
 strong reflection from vegetation, from a remotely sensed image that is 
@@ -459,7 +459,7 @@ Now we can create another plot without the suspect data.
       xlab("Julian Days") + ylab("Mean NDVI") +
       theme(text = element_text(size=20))
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/plot-clean-HARV-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R/plot-clean-HARV-1.png)
   
 Now our outlier data points are removed and the pattern of "green-up" and
 "brown-down" makes a bit more sense.

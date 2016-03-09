@@ -7,7 +7,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2016-03-04
+lastModified: 2016-03-09
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 mainTag: raster-data-series
@@ -15,7 +15,7 @@ tutorialSeries: [raster-data-series, raster-time-series]
 description: "This tutorial covers how to efficiently and effectively plot a 
 stack of rasters using rasterVis package in R. Specifically it covers using 
 levelplot and adding meaningful, custom names to band labels in a RasterStack."
-code1: 06-Plotting-Time-Series-Rasters-in-R.R
+code1: /R/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
@@ -99,7 +99,7 @@ We can use the `plot` function to plot our raster time series data.
          zlim = c(.15, 1), 
          nc = 4)
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/plot-time-series-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/plot-time-series-1.png)
 
 <i class="fa fa-star"></i> **Data Tip:** The range of values for NDVI is 0-1. 
 However, the data stored in our raster ranges from 0 - 10,000. If we view the 
@@ -125,7 +125,7 @@ function. We use `main="TITLE"` to add a title to the entire plot series.
     levelplot(NDVI_HARV_stack,
               main="Landsat NDVI\nNEON Harvard Forest")
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/levelplot-time-series-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/levelplot-time-series-1.png)
 
 ## Adjust the Color Ramp
 Next, let's adjust the color ramp used to render the rasters. First, we
@@ -142,7 +142,7 @@ NDVI (greenness) data using the `colorRampPalette()` function in combination wit
             main="Landsat NDVI -- Improved Colors \nNEON Harvard Forest Field Site",
             col.regions=cols)
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/change-color-ramp-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/change-color-ramp-1.png)
 
 The yellow to green color ramp visually represents NDVI well given it's a
 measure of greenness. Someone looking at the plot can quickly understand that
@@ -158,7 +158,7 @@ create your own. <a href="http://colorbrewer2.org/" target="_blank">
 ColorBrewer 2.0; Color Advise for Cartography </a>  
 {: .notice }
 
-##Refine Plot & Tile Labels
+## Refine Plot & Tile Labels
 Next, let's label each raster in our plot with the Julian day that the raster
 represents. The current names come from the band (layer names) stored in the
 `RasterStack` and first part each name is the Julian day. 
@@ -221,7 +221,7 @@ the new labels using `names.attr=rasterNames`.
               main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
               names.attr=rasterNames)
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/create-levelplot-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/create-levelplot-1.png)
 
 We can adjust the columns of our plot too using `layout=c(cols,rows)`. Below
 we adjust the layout to be a matrix of 5 columns and 3 rows.
@@ -234,7 +234,7 @@ we adjust the layout to be a matrix of 5 columns and 3 rows.
               main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
               names.attr=rasterNames)
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/adjust-layout-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/adjust-layout-1.png)
 
 Finally, `scales` allows us to modify the x and y-axis scale. Let's simply
 remove the axis ticks from the plot with `scales =list(draw=FALSE)`.
@@ -248,7 +248,7 @@ remove the axis ticks from the plot with `scales =list(draw=FALSE)`.
               names.attr=rasterNames,
               scales=list(draw=FALSE )) # remove axes labels & ticks
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/remove-axis-ticks-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/remove-axis-ticks-1.png)
 
 <div id="challenge" markdown="1">
 ## Challenge: Divergent Color Ramps 
@@ -268,4 +268,4 @@ better than a sequential color ramp (like "YlGn")? Can you think of other data
 sets where a divergent color ramp may be best? 
 </div>
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/challenge-code-levelplot-divergent-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/06-Plotting-Time-Series-Rasters-in-R/challenge-code-levelplot-divergent-1.png)

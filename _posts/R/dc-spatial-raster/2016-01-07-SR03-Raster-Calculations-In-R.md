@@ -6,7 +6,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2016-03-04
+lastModified: 2016-03-09
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]
@@ -16,7 +16,7 @@ efficient methods - the overlay function compared to basic subtraction. We also
 cover how to extract pixel values from a set of locations - for example a buffer
 region around plot locations at a field site. Finally, it explains the basic 
 principles of writing functions in R."
-code1: 03-Raster-Calculations-In-R.R
+code1: /R/dc-spatial-raster/03-Raster-Calculations-In-R.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
@@ -171,12 +171,12 @@ Let's load the data.
     plot(DTM_HARV,
          main="Digital Terrain Model \n NEON Harvard Forest Field Site")
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/load-plot-data-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/load-plot-data-1.png)
 
     plot(DSM_HARV,
          main="Digital Surface Model \n NEON Harvard Forest Field Site")
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/load-plot-data-2.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/load-plot-data-2.png)
 
 ## Two Ways to Perform Raster Calculations
 
@@ -205,7 +205,7 @@ Let's subtract the DTM from the DSM to create a Canopy Height Model.
          main="Canopy Height Model - Raster Math Subtract\n NEON Harvard Forest Field Site",
          axes=FALSE) 
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/raster-math-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/raster-math-1.png)
 
 Let's have a look at the distribution of values in our newly created
 Canopy Height Model (CHM).
@@ -218,7 +218,7 @@ Canopy Height Model (CHM).
       ylab="Number of Pixels",
       xlab="Tree Height (m) ")
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/create-hist-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/create-hist-1.png)
 
 Notice that the range of values for the output CHM is between 0 and 30 meters.
 Does this make sense for trees in Harvard Forest?
@@ -239,7 +239,7 @@ a appropriate color palette for the data, plot title and no axes ticks / labels.
 
 </div>
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/challenge-code-CHM-HARV-1.png) ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/challenge-code-CHM-HARV-2.png) ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/challenge-code-CHM-HARV-3.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/challenge-code-CHM-HARV-1.png)![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/challenge-code-CHM-HARV-2.png)![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/challenge-code-CHM-HARV-3.png)
 
 ## Efficient Raster Calculations: Overlay Function
 Raster math, like we just did, is an appropriate approach to raster calculations
@@ -277,7 +277,7 @@ raster math, using the `overlay()` function.
     plot(CHM_ov_HARV,
       main="Canopy Height Model - Overlay Subtract\n NEON Harvard Forest Field Site")
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/raster-overlay-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/raster-overlay-1.png)
 
 How do the plots of the CHM created with manual raster math and the `overlay()`
 function compare?  
@@ -349,7 +349,7 @@ both datasets!
 
 </div>
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/challenge-code-SJER-CHM-1.png) ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/challenge-code-SJER-CHM-2.png) ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/challenge-code-SJER-CHM-3.png) ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/challenge-code-SJER-CHM-4.png) ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/challenge-code-SJER-CHM-5.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/challenge-code-SJER-CHM-1.png)![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/challenge-code-SJER-CHM-2.png)![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/challenge-code-SJER-CHM-3.png)![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/challenge-code-SJER-CHM-4.png)![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/03-Raster-Calculations-In-R/challenge-code-SJER-CHM-5.png)
 
 What do these two histograms tell us about the vegetation structure at Harvard 
 and SJER?
