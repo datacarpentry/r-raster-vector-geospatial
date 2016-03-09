@@ -13,7 +13,7 @@ mainTag: raster-data-series
 tutorialSeries: [raster-data-series, raster-time-series]
 description: "This tutorial covers how to extract and plot NDVI pixel values
 from a raster time series stack in R. We will use ggplot2 to plot our data."
-code1: 07-Extract-NDVI-From-Rasters-in-R.R
+code1: /R/dc-spatial-raster/07-Extract-NDVI-From-Rasters-in-R.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry

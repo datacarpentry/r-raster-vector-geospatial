@@ -5,7 +5,7 @@ date:   2015-10-29
 authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul]
 contributors: [ ]
 dateCreated: 2015-10-23
-lastModified: 2016-03-04
+lastModified: 2016-03-09
 packagesLibraries: [raster, rgdal]
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
@@ -17,7 +17,7 @@ covers the three core metadata elements that we need to understand to work with
 rasters in R: CRS, Extent and Resolution. It also explores missing and bad data 
 values as stored in a raster and how R handles these elements. Finally, it 
 introduces the GeoTiff file format."
-code1: 00-Raster-Structure.R
+code1: /R/dc-spatial-raster/00-Raster-Structure.R
 image:
   feature: NEONCarpentryHeader_2.png
   credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
@@ -108,7 +108,7 @@ shows the continuous range of values in the data from around 300 to 420 meters.
 
 
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/00-Raster-Structure/elevation-map-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/00-Raster-Structure/elevation-map-1.png)
 
 Some rasters contain categorical data where each pixel represents a discrete
 class such as a landcover type (e.g., "forest" or "grassland") rather than a
@@ -134,7 +134,7 @@ maps include:
 #### Categorical Elevation Map of the NEON Harvard Forest Site
 The legend of this map shows the colors representing each discrete class. 
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/00-Raster-Structure/classified-elevation-map-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/00-Raster-Structure/classified-elevation-map-1.png)
 
 ## What is a GeoTIFF??
 Raster data can come in many different formats. In this tutorial, we will use the 
@@ -201,7 +201,7 @@ we'll use a naming convention of `datatype_HARV`.
     plot(DSM_HARV, 
          main="NEON Digital Surface Model\nHarvard Forest")
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/00-Raster-Structure/open-raster-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/00-Raster-Structure/open-raster-1.png)
 
 Here is a map showing the elevation of our site in Harvard Forest. Is the max
 elevation value within this raster greater than 400 meters or 400 feet? Perhaps 
@@ -373,11 +373,11 @@ region.
 In the image below, the pixels that are black have `NoDataValue`s.
 The camera did not collect data in these areas. 
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/00-Raster-Structure/demonstrate-no-data-black-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/00-Raster-Structure/demonstrate-no-data-black-1.png)
 
 In the next image, the black edges have been assigned `NoDataValue`. `R` doesn't render pixels that contain a specified `NoDataValue`. `R` assigns missing data with the `NoDataValue` as `NA`.
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/00-Raster-Structure/demonstrate-no-data-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/00-Raster-Structure/demonstrate-no-data-1.png)
 
 ### NoData Value Standard 
 
@@ -430,7 +430,7 @@ identifying outliers and bad data values in our raster data.
     ## Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...):
     ## 4% of the raster cells were used. 100000 values used.
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/00-Raster-Structure/view-raster-histogram-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/00-Raster-Structure/view-raster-histogram-1.png)
 
 Notice that an error message is thrown when `R` creates the histogram. 
 
@@ -463,7 +463,7 @@ in a histogram can be problematic when dealing with very large datasets.
          ylab="Frequency",
          col="wheat4")
 
-![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/00-Raster-Structure/view-raster-histogram2-1.png) 
+![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/00-Raster-Structure/view-raster-histogram2-1.png)
 
 Note that the shape of both histograms looks similar to the previous one that
  was created using a representative 10,000 pixel subset of our raster data. The 
