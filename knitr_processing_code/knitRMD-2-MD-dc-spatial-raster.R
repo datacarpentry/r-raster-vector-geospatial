@@ -13,7 +13,7 @@ require(knitr)
 gitRepoPath <-"~/Documents/GitHub/NEON-R-Spatial-Raster/"
 
 #jekyll will only render md posts that begin with a date. Add one.
-add.date <- "2016-01-12-SI"
+add.date <- "2016-01-07-SR"
 
 #set working dir - this is where the data are located
 #wd <- "~/Documents/data/1_DataPortal_Workshop/1_WorkshopData"
