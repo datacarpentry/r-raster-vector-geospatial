@@ -16,8 +16,8 @@ gitRepoPath <-"~/Documents/GitHub/NEON-R-Spatial-Raster/"
 add.date <- "2016-01-07-SR"
 
 #set working dir - this is where the data are located
-#wd <- "~/Documents/data/1_DataPortal_Workshop/1_WorkshopData"
-wd <- "~/Documents/data/Spatio_TemporalWorkshop"
+wd <- "~/Documents/data/1_DataPortal_Workshop/1_WorkshopData"
+#wd <- "~/Documents/data/Spatio_TemporalWorkshop"
 
 ################### CONFIG BELOW IS REQUIRED BY JEKYLL - DON"T CHANGE ##########
 #set data working dir

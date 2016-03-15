@@ -6,7 +6,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2016-03-09
+lastModified: 2016-03-15
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]

@@ -7,7 +7,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2016-03-09
+lastModified: 2016-03-15
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 mainTag: raster-data-series
@@ -79,7 +79,20 @@ please create it now.
     library(raster)
     library(rgdal)
     library(rasterVis)
-    
+
+    ## Loading required package: lattice
+
+    ## Loading required package: latticeExtra
+
+    ## Loading required package: RColorBrewer
+
+    ## 
+    ## Attaching package: 'latticeExtra'
+
+    ## The following object is masked from 'package:ggplot2':
+    ## 
+    ##     layer
+
     # Create list of NDVI file paths
     all_NDVI_HARV <- list.files("NEON-DS-Landsat-NDVI/HARV/2011/NDVI", full.names = TRUE, pattern = ".tif$")
     

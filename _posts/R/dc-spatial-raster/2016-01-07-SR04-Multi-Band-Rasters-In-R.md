@@ -6,7 +6,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2016-03-09
+lastModified: 2016-03-15
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series, raster-time-series]
@@ -121,6 +121,7 @@ In a multi-band dataset, the rasters will always have the same *extent*,
 *CRS* and *resolution*.  
 
 
+    ## Error in par(original_par): (converted from warning) graphical parameter "cin" cannot be set
 
 
 ## Other Types of Multi-band Raster Data
@@ -191,7 +192,7 @@ in the first band. We can plot this band using the plot function.
     ## resolution  : 0.25, 0.25  (x, y)
     ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
     ## names       : HARV_RGB_Ortho 
     ## values      : 0, 255  (min, max)
 
@@ -258,7 +259,7 @@ want to work with). To import the green band, we would use `band=2`.
     ## resolution  : 0.25, 0.25  (x, y)
     ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
     ## names       : HARV_RGB_Ortho 
     ## values      : 0, 255  (min, max)
 
@@ -313,7 +314,7 @@ attributes for using an index value: `RGB_stack_HARV[[1]]`. We can also use the
     ## resolution  : 0.25, 0.25  (x, y)
     ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
     ## names       : HARV_RGB_Ortho.1 
     ## values      : 0, 255  (min, max)
     ## 
@@ -325,7 +326,7 @@ attributes for using an index value: `RGB_stack_HARV[[1]]`. We can also use the
     ## resolution  : 0.25, 0.25  (x, y)
     ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
     ## names       : HARV_RGB_Ortho.2 
     ## values      : 0, 255  (min, max)
     ## 
@@ -337,7 +338,7 @@ attributes for using an index value: `RGB_stack_HARV[[1]]`. We can also use the
     ## resolution  : 0.25, 0.25  (x, y)
     ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
     ## names       : HARV_RGB_Ortho.3 
     ## values      : 0, 255  (min, max)
 
@@ -350,7 +351,7 @@ attributes for using an index value: `RGB_stack_HARV[[1]]`. We can also use the
     ## resolution  : 0.25, 0.25  (x, y)
     ## extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-    ## data source : /Users/mjones01/Documents/data/Spatio_TemporalWorkshop/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+    ## data source : /Users/lwasser/Documents/data/1_DataPortal_Workshop/1_WorkshopData/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
     ## names       : HARV_RGB_Ortho.1 
     ## values      : 0, 255  (min, max)
 
@@ -492,7 +493,7 @@ and `brick` `R` objects.
     # view size of the RGB_stack object that contains our 3 band image
     object.size(RGB_stack_HARV)
 
-    ## 40528 bytes
+    ## 40552 bytes
 
     # convert stack to a brick
     RGB_brick_HARV <- brick(RGB_stack_HARV)
