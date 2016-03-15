@@ -6,7 +6,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Bryn, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2016-03-09
+lastModified: 2016-03-15
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]
@@ -130,7 +130,7 @@ break values.
 
     DSMhist$counts
 
-    ## [1] 32026 67528   446
+    ## [1] 32077 67470   453
 
 Warning message!? Remember, the default for the histogram is to include only a
 subset of 100,000 values. We could force it to show all the pixel values or we
@@ -201,10 +201,12 @@ Or we can also turn off the axes altogether.
 ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/01-Plot-Raster/turn-off-axes-1.png)
 
 <div id="challenge" markdown="1">
-## Challenge: Create a Labeled Plots
+## Challenge: Plot Using Custom Breaks
+
 Create a plot of the Harvard Forest Digital Surface Model (DSM) that has:
 
-* Six categories that are evenly divided among the range of pixel values. 
+* Six classified ranges of values (break points) that are evenly divided among 
+the range of pixel values. 
 * Axis labels
 * A plot title
 

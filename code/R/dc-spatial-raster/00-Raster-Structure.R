@@ -149,12 +149,12 @@ GDALinfo("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 ## ----challenge-code-attributes, eval=FALSE, echo=FALSE-------------------
 ## GDALinfo("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 ## 
-## #ANSWERS ###
-## #1. If this file has the same CRS as DSM_HARV?  Yes: UTM Zone 18, WGS84, meters.
-## #2. What format `NoDataValues` take?  -9999
-## #3. The resolution of the raster data? 1x1
-## #4. How large a 5x5 pixel area would be? 5mx5m How? We are given resolution of
-## #1x1 and units in meters, therefore resolution of 5x5 means 5x5m.
-## #5. Is the file a multi- or single-band raster?  Single
+## # ANSWERS ###
+## # 1. If this file has the same CRS as DSM_HARV?  Yes: UTM Zone 18, WGS84, meters.
+## # 2. What format `NoDataValues` take?  -9999
+## # 3. The resolution of the raster data? 1x1
+## # 4. How large a 5x5 pixel area would be? 5mx5m How? We are given resolution of
+## # 1x1 and units in meters, therefore resolution of 5x5 means 5x5m.
+## # 5. Is the file a multi- or single-band raster?  Single
 ## 
 

@@ -194,10 +194,12 @@ plot(DSM_HARV,
 ```
 
 <div id="challenge" markdown="1">
-## Challenge: Create a Labeled Plots
+## Challenge: Plot Using Custom Breaks
+
 Create a plot of the Harvard Forest Digital Surface Model (DSM) that has:
 
-* Six categories that are evenly divided among the range of pixel values. 
+* Six classified ranges of values (break points) that are evenly divided among 
+the range of pixel values. 
 * Axis labels
 * A plot title
 
