@@ -1,2 +1,3 @@
 # NEON-R-spatial-raster
-NEON and Data Carpentry lesson for Raster spatial data
+Lessons on using raster data in R, created through a collaboration between
+Data Carpentry and NEON.
