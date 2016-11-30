@@ -432,12 +432,12 @@ identifying outliers and bad data values in our raster data.
 
 ![ ]({{ site.baseurl }}/images/rfigs/dc-spatial-raster/00-Raster-Structure/view-raster-histogram-1.png)
 
-Notice that an error message is thrown when `R` creates the histogram. 
+Notice that an warning message is thrown when `R` creates the histogram. 
 
 `Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...): 4%  
 of the raster cells were used. 100000 values used.`
 
-This error is caused by the default maximum pixels value of 100,000 associated 
+This warning is caused by the default maximum pixels value of 100,000 associated 
 with the `hist` function. This maximum value is to ensure processing efficiency
 as our data become larger!
 
