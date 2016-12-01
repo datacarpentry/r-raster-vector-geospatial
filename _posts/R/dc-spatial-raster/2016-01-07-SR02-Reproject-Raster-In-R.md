@@ -150,8 +150,8 @@ Our DTM seems to contain data and plots just fine. Let's next check the
 Aha! `DTM_HARV` is in the UTM projection. `DTM_hill_HARV` is in
 `Geographic WGS84` - which is represented by latitude and longitude values.
 Because the two rasters are in different CRSs, they don't line up when plotted
-in `R`. We need to *reproject* `DTM_HARV` into the UTM CRS. Alternatively,
-we could reproject the hillshade into WGS84. 
+in `R`. We need to *reproject* `DTM_hill_HARV` into the UTM CRS. Alternatively,
+we could project `DTM_HARV` into WGS84. 
 
 ## Reproject Rasters
 We can use the `projectRaster` function to reproject a raster into a new CRS.
