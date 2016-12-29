@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Vector 03: When Data Don't Line Up - Handling Spatial
+title: "Vector 03: When Vector Data Don't Line Up - Handling Spatial
 Projection & CRS in R"
 date:   2015-10-24
 authors: [Joseph Stachelek, Leah Wasser, Megan A. Jones]
