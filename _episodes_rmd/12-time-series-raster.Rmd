@@ -334,9 +334,9 @@ were some unusual fluctuations that may explain this pattern of greening and
 browning seen in the NDVI data.
 
 ```{r view-temp-data, echo=FALSE, warning=FALSE }
-
 library(ggplot2)
 library(scales)
+
 harMetDaily <- 
   read.csv("data/NEON-DS-Met-Time-Series/HARV/FisherTower-Met/hf001-06-daily-m.csv",
                  stringsAsFactors = FALSE)
