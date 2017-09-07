@@ -4,7 +4,11 @@ title: Setup
 permalink: /setup/
 ---
 > ## Data
-Data for this lesson is the National Ecological Observatory Network - available on FigShare as two parts: [site layout shapefiles](https://ndownloader.figshare.com/files/3708751) and [airborne remote sensing data](https://ndownloader.figshare.com/files/3701578). 
+Data for this lesson is the National Ecological Observatory Network - available on FigShare as four parts: 
+* [site layout shapefiles](https://ndownloader.figshare.com/files/3708751)
+* [airborne remote sensing data](https://ndownloader.figshare.com/files/3701578)
+* [Landsat NDVI raster data](https://ndownloader.figshare.com/files/4933582)
+* [meteorological data](https://ndownloader.figshare.com/files/3701572)
 {: .prereq} 
 
 Once you click on them they will be automatically downloaded to your default download directory.

@@ -7,5 +7,5 @@ The tutorials in this series cover how to open, work with and plot vector and ra
 
 > ## Prerequisites
 >
-> Nothing to do: you’re ready to go!
+> Data Carpentry’s teaching is hands-on, so participants are encouraged to use their own computers to ensure the proper setup of tools for an efficient workflow. These lessons assume no prior knowledge of the skills or tools, but working through this lesson requires working copies of the software described below. To most effectively use these materials, please make sure to download the data and install everything before working through this lesson.
 {: .prereq}
