@@ -88,10 +88,10 @@ Let's create a map of the Harvard Forest Digital Terrain Model
 
 ```{r import-DTM-hillshade }
 # import DTM
-DTM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
+DTM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 # import DTM hillshade
 DTM_hill_HARV <- 
-  raster("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
+  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
 
 # plot hillshade using a grayscale color ramp 
 plot(DTM_hill_HARV,
@@ -255,10 +255,10 @@ Reproject the data as necessary to make things line up!
 ```{r challenge-code-reprojection, echo=FALSE }
 
 # import DTM
-DSM_SJER <- raster("NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
+DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
 # import DTM hillshade
 DSM_hill_SJER_WGS <- 
-  raster("NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMhill_WGS84.tif")
+  raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMhill_WGS84.tif")
 
 # reproject raster 
 DTM_hill_UTMZ18N_SJER <- projectRaster(DSM_hill_SJER_WGS, 

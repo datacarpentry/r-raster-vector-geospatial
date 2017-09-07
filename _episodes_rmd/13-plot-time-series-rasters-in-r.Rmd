@@ -76,7 +76,7 @@ library(rgdal)
 library(rasterVis)
 
 # Create list of NDVI file paths
-all_NDVI_HARV <- list.files("NEON-DS-Landsat-NDVI/HARV/2011/NDVI", full.names = TRUE, pattern = ".tif$")
+all_NDVI_HARV <- list.files("data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI", full.names = TRUE, pattern = ".tif$")
 
 # Create a time series raster stack
 NDVI_HARV_stack <- stack(all_NDVI_HARV)

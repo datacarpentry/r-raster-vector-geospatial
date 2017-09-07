@@ -47,8 +47,7 @@ on your computer to complete this tutorial.
 ### Install R Packages
 
 * **raster:** `install.packages("raster")`
-* **rgdal:** `install.packages("rgdal")`
-* **sp:** `install.packages("sp")`
+* **sf:** `install.packages("sf")`
 
 * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 
@@ -84,94 +83,43 @@ and a raster file, that we will introduce this tutorial:
 
 
 ~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
+Reading layer `HarClip_UTMZ18' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp' using driver `ESRI Shapefile'
+Simple feature collection with 1 feature and 1 field
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: 732128 ymin: 4713209 xmax: 732251.1 ymax: 4713359
+epsg (SRID):    32618
+proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 ~~~
-{: .error}
-
-
-
-~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
-~~~
-{: .error}
-
-
-
-~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
-~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
-Error in .rasterObjectFromFile(x, band = band, objecttype = "RasterLayer", : Cannot create a RasterLayer object from this file. (file does not exist)
+Reading layer `HARV_roads' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp' using driver `ESRI Shapefile'
+Simple feature collection with 13 features and 15 fields
+geometry type:  MULTILINESTRING
+dimension:      XY
+bbox:           xmin: 730741.2 ymin: 4711942 xmax: 733295.5 ymax: 4714260
+epsg (SRID):    32618
+proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 ~~~
-{: .error}
-
-
-
-~~~
-Error in crs(point_HARV): object 'point_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Warning in file(file, "rt"): cannot open file 'NEON-DS-Site-Layout-Files/
-HARV/HARV_PlotLocations.csv': No such file or directory
-~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
-Error in file(file, "rt"): cannot open the connection
+Reading layer `HARVtower_UTM18N' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp' using driver `ESRI Shapefile'
+Simple feature collection with 1 feature and 14 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: 732183.2 ymin: 4713265 xmax: 732183.2 ymax: 4713265
+epsg (SRID):    32618
+proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 ~~~
-{: .error}
+{: .output}
 
-
-
-~~~
-Error in is(coords, "SpatialPoints"): object 'plot.locations_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in extent(lines_HARV): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in extent(plot.locationsSp_HARV): object 'plot.locationsSp_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in extent(aoiBoundary_HARV): object 'aoiBoundary_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in extent(chm_HARV): object 'chm_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in strwidth(legend, units = "user", cex = cex, font = text.font): plot.new has not been called yet
-~~~
-{: .error}
+<img src="../fig/rmd-view-extents-1.png" title="plot of chunk view-extents" alt="plot of chunk view-extents" style="display: block; margin: auto;" />
 
 
 
@@ -198,74 +146,26 @@ series, you can skip this code as you have already created these object.)
 
 ~~~
 # load necessary packages
-library(rgdal)  # for vector work; sp package should always load with rgdal. 
-library (raster)
+library(sf)
+library(raster)
 
 # set working directory to data folder
 # setwd("pathToDirHere")
 
 # Imported in Vector 00: Vector Data in R - Open & Plot Data
 # shapefile 
-aoiBoundary_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV/",
-                            "HarClip_UTMZ18")
-~~~
-{: .r}
-
-
-
-~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
-~~~
-{: .error}
-
-
-
-~~~
+aoiBoundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 # Import a line shapefile
-lines_HARV <- readOGR( "NEON-DS-Site-Layout-Files/HARV/",
-                       "HARV_roads")
-~~~
-{: .r}
-
-
-
-~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
-~~~
-{: .error}
-
-
-
-~~~
+lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 # Import a point shapefile 
-point_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV/",
-                      "HARVtower_UTM18N")
-~~~
-{: .r}
+point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 
-
-
-~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
-~~~
-{: .error}
-
-
-
-~~~
 # Imported in  Vector 02: .csv to Shapefile in R
 # import raster Canopy Height Model (CHM)
 chm_HARV <- 
-  raster("NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
+  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 ~~~
 {: .r}
-
-
-
-~~~
-Error in .rasterObjectFromFile(x, band = band, objecttype = "RasterLayer", : Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
 
 ## Crop a Raster Using Vector Extent
 We can use the `crop` function to crop a raster to the extent of another spatial 
@@ -281,78 +181,31 @@ plot(chm_HARV,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(chm_HARV, main = "LiDAR CHM - Not Cropped\nNEON Harvard Forest Field Site"): object 'chm_HARV' not found
-~~~
-{: .error}
-
-
+<img src="../fig/rmd-Crop-by-vector-extent-1.png" title="plot of chunk Crop-by-vector-extent" alt="plot of chunk Crop-by-vector-extent" style="display: block; margin: auto;" />
 
 ~~~
 # crop the chm
-chm_HARV_Crop <- crop(x = chm_HARV, y = aoiBoundary_HARV)
-~~~
-{: .r}
+chm_HARV_Crop <- crop(x = chm_HARV, y = as(aoiBoundary_HARV, "Spatial"))
 
-
-
-~~~
-Error in crop(x = chm_HARV, y = aoiBoundary_HARV): object 'chm_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # plot full CHM
 plot(extent(chm_HARV),
      lwd=4,col="springgreen",
      main="LiDAR CHM - Cropped\nNEON Harvard Forest Field Site",
      xlab="easting", ylab="northing")
-~~~
-{: .r}
 
-
-
-~~~
-Error in extent(chm_HARV): object 'chm_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 plot(chm_HARV_Crop,
      add=TRUE)
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(chm_HARV_Crop, add = TRUE): object 'chm_HARV_Crop' not found
-~~~
-{: .error}
+<img src="../fig/rmd-Crop-by-vector-extent-2.png" title="plot of chunk Crop-by-vector-extent" alt="plot of chunk Crop-by-vector-extent" style="display: block; margin: auto;" />
 
 We can see from the plot above that the full CHM extent (plotted in green) is
 much larger than the resulting cropped raster. Our new cropped CHM now has the 
 same extent as the `aoiBoundary_HARV` object that was used as a crop extent 
 (blue boarder below).
 
-
-~~~
-Error in plot(aoiBoundary_HARV, lwd = 8, border = "blue", main = "Cropped LiDAR Canopy Height Model \n NEON Harvard Forest Field Site"): object 'aoiBoundary_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(chm_HARV_Crop, add = TRUE): object 'chm_HARV_Crop' not found
-~~~
-{: .error}
+<img src="../fig/rmd-view-crop-extent-1.png" title="plot of chunk view-crop-extent" alt="plot of chunk view-crop-extent" style="display: block; margin: auto;" />
 
 We can look at the extent of all the other objects. 
 
@@ -366,9 +219,13 @@ extent(chm_HARV)
 
 
 ~~~
-Error in extent(chm_HARV): object 'chm_HARV' not found
+class       : Extent 
+xmin        : 731453 
+xmax        : 733150 
+ymin        : 4712471 
+ymax        : 4713838 
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -380,23 +237,28 @@ extent(chm_HARV_Crop)
 
 
 ~~~
-Error in extent(chm_HARV_Crop): object 'chm_HARV_Crop' not found
+class       : Extent 
+xmin        : 732128 
+xmax        : 732251 
+ymin        : 4713209 
+ymax        : 4713359 
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
-extent(aoiBoundary_HARV)
+st_bbox(aoiBoundary_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in extent(aoiBoundary_HARV): object 'aoiBoundary_HARV' not found
+     xmin      ymin      xmax      ymax 
+ 732128.0 4713208.7  732251.1 4713359.2 
 ~~~
-{: .error}
+{: .output}
 
 Which object has the largest extent?  Our plot location extent is not the 
 largest but is larger than the AOI Boundary. It would be nice to see our
@@ -416,32 +278,7 @@ you have these plot locations as the spatial `R` spatial object
 
 </div>
 
-
-~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
-~~~
-{: .error}
-
-
-
-~~~
-Error in crop(x = chm_HARV, y = plot.locationsSp_HARV): object 'chm_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(CHM_plots_HARVcrop, main = "Study Plot Locations\n NEON Harvard Forest"): object 'CHM_plots_HARVcrop' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(plot.locationSp_HARV, add = TRUE, pch = 19, col = "blue"): object 'plot.locationSp_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-challenge-code-crop-raster-points-1.png" title="plot of chunk challenge-code-crop-raster-points" alt="plot of chunk challenge-code-crop-raster-points" style="display: block; margin: auto;" />
 
 In the plot above, created in the challenge, all the vegetation plot locations
 (blue) appear on the Canopy Height Model raster layer except for one. One is
@@ -455,39 +292,7 @@ will not expand the extent in areas where there are no data. Thus, extent of our
 vegetation plot layer will still extend further west than the extent of our 
 (cropped) raster data (dark green).
 
-
-~~~
-Error in extent(lines_HARV): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in extent(plot.locationsSp_HARV): object 'plot.locationsSp_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in extent(chm_HARV): object 'chm_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in extent(CHM_plots_HARVcrop): object 'CHM_plots_HARVcrop' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in strwidth(legend, units = "user", cex = cex, font = text.font): plot.new has not been called yet
-~~~
-{: .error}
+<img src="../fig/rmd-raster-extents-cropped-1.png" title="plot of chunk raster-extents-cropped" alt="plot of chunk raster-extents-cropped" style="display: block; margin: auto;" />
 
 ## Define an Extent
 We can also use an `extent()` method to define an extent to be used as a cropping
@@ -517,63 +322,20 @@ raster.
 ~~~
 # crop raster
 CHM_HARV_manualCrop <- crop(x = chm_HARV, y = new.extent)
-~~~
-{: .r}
 
-
-
-~~~
-Error in crop(x = chm_HARV, y = new.extent): object 'chm_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # plot extent boundary and newly cropped raster
-plot(aoiBoundary_HARV, 
+plot(aoiBoundary_HARV$geometry, 
      main = "Manually Cropped Raster\n NEON Harvard Forest Field Site")
-~~~
-{: .r}
-
-
-
-~~~
-Error in plot(aoiBoundary_HARV, main = "Manually Cropped Raster\n NEON Harvard Forest Field Site"): object 'aoiBoundary_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 plot(new.extent, 
      col="brown", 
      lwd=4,
      add = TRUE)
-~~~
-{: .r}
-
-
-
-~~~
-Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
-~~~
-{: .error}
-
-
-
-~~~
 plot(CHM_HARV_manualCrop, 
      add = TRUE)
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(CHM_HARV_manualCrop, add = TRUE): object 'CHM_HARV_manualCrop' not found
-~~~
-{: .error}
+<img src="../fig/rmd-crop-using-drawn-extent-1.png" title="plot of chunk crop-using-drawn-extent" alt="plot of chunk crop-using-drawn-extent" style="display: block; margin: auto;" />
 
 Notice that our manual `new.extent` (in red) is smaller than the
 `aoiBoundary_HARV` and that the raster is now the same as the `new.extent`
@@ -620,21 +382,9 @@ Forest field site.
 # extract tree height for AOI
 # set df=TRUE to return a data.frame rather than a list of values
 tree_height <- extract(x = chm_HARV, 
-                       y = aoiBoundary_HARV, 
+                       y = as(aoiBoundary_HARV, "Spatial"), 
                        df=TRUE)
-~~~
-{: .r}
 
-
-
-~~~
-Error in extract(x = chm_HARV, y = aoiBoundary_HARV, df = TRUE): object 'chm_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # view the object
 head(tree_height)
 ~~~
@@ -643,9 +393,15 @@ head(tree_height)
 
 
 ~~~
-Error in head(tree_height): object 'tree_height' not found
+  ID HARV_chmCrop
+1  1        21.20
+2  1        23.85
+3  1        23.83
+4  1        22.36
+5  1        23.95
+6  1        23.89
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -657,9 +413,9 @@ nrow(tree_height)
 
 
 ~~~
-Error in nrow(tree_height): object 'tree_height' not found
+[1] 18450
 ~~~
-{: .error}
+{: .output}
 
 When we use the extract command, `R` extracts the value for each pixel located 
 within the boundary of the polygon being used to perform the extraction - in
@@ -686,14 +442,7 @@ hist(tree_height$HARV_chmCrop,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in hist(tree_height$HARV_chmCrop, main = "Histogram of CHM Height Values (m) \nNEON Harvard Forest Field Site", : object 'tree_height' not found
-~~~
-{: .error}
-
-
+<img src="../fig/rmd-view-extract-histogram-1.png" title="plot of chunk view-extract-histogram" alt="plot of chunk view-extract-histogram" style="display: block; margin: auto;" />
 
 ~~~
 # view summary of values
@@ -704,9 +453,10 @@ summary(tree_height$HARV_chmCrop)
 
 
 ~~~
-Error in summary(tree_height$HARV_chmCrop): object 'tree_height' not found
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   2.03   21.36   22.81   22.43   23.97   38.17 
 ~~~
-{: .error}
+{: .output}
 
 * Check out the documentation for the `extract()` function for more details 
 (`??raster::extract`).
@@ -722,22 +472,10 @@ a mean height value for our AOI.
 # extract the average tree height (calculated using the raster pixels)
 # located within the AOI polygon
 av_tree_height_AOI <- extract(x = chm_HARV, 
-                              y = aoiBoundary_HARV,
+                              y = as(aoiBoundary_HARV, "Spatial"),
                               fun=mean, 
                               df=TRUE)
-~~~
-{: .r}
 
-
-
-~~~
-Error in extract(x = chm_HARV, y = aoiBoundary_HARV, fun = mean, df = TRUE): object 'chm_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # view output
 av_tree_height_AOI
 ~~~
@@ -746,9 +484,10 @@ av_tree_height_AOI
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'av_tree_height_AOI' not found
+  ID HARV_chmCrop
+1  1     22.43018
 ~~~
-{: .error}
+{: .output}
 
 It appears that the mean height value, extracted from our LiDAR data derived
 canopy height model is 22.43 meters.
@@ -777,16 +516,23 @@ Let's put this into practice by figuring out the average tree height in the
 
 ~~~
 # what are the units of our buffer
-crs(point_HARV)
+st_crs(point_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in crs(point_HARV): object 'point_HARV' not found
+$epsg
+[1] 32618
+
+$proj4string
+[1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
+
+attr(,"class")
+[1] "crs"
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -795,23 +541,11 @@ Error in crs(point_HARV): object 'point_HARV' not found
 # at the tower location
 # use a buffer of 20 meters and mean function (fun) 
 av_tree_height_tower <- extract(x = chm_HARV, 
-                                y = point_HARV, 
+                                y = as(point_HARV, "Spatial"), 
                                 buffer=20,
                                 fun=mean, 
                                 df=TRUE)
-~~~
-{: .r}
 
-
-
-~~~
-Error in extract(x = chm_HARV, y = point_HARV, buffer = 20, fun = mean, : object 'chm_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # view data
 head(av_tree_height_tower)
 ~~~
@@ -820,9 +554,10 @@ head(av_tree_height_tower)
 
 
 ~~~
-Error in head(av_tree_height_tower): object 'av_tree_height_tower' not found
+  ID HARV_chmCrop
+1  1     22.38812
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -835,9 +570,9 @@ nrow(av_tree_height_tower)
 
 
 ~~~
-Error in nrow(av_tree_height_tower): object 'av_tree_height_tower' not found
+[1] 1
 ~~~
-{: .error}
+{: .output}
 
 <div id="challenge" markdown="1">
 ## Challenge: Extract Raster Height Values For Plot Locations
@@ -851,29 +586,4 @@ function in base-R.
 </div>
 
 
-
-~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
-~~~
-{: .error}
-
-
-
-~~~
-Error in extract(x = chm_HARV, y = plot.locationsSp_HARV, buffer = 20, : object 'chm_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'meanTreeHt_plots_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(meanTreeHt_plots_HARV, main = "MeanTree Height at each Plot\nNEON Harvard Forest Field Site", : object 'meanTreeHt_plots_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-challenge-code-extract-plot-tHeight-1.png" title="plot of chunk challenge-code-extract-plot-tHeight" alt="plot of chunk challenge-code-extract-plot-tHeight" style="display: block; margin: auto;" />

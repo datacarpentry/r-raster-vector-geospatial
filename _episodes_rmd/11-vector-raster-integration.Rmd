@@ -49,8 +49,7 @@ on your computer to complete this tutorial.
 ### Install R Packages
 
 * **raster:** `install.packages("raster")`
-* **rgdal:** `install.packages("rgdal")`
-* **sp:** `install.packages("sp")`
+* **sf:** `install.packages("sf")`
 
 * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 
@@ -84,38 +83,35 @@ and a raster file, that we will introduce this tutorial:
 
 * A canopy height model (CHM) in GeoTIFF format -- green
 
-```{r view-extents, echo=FALSE, results='hide'}
+```{r view-extents, echo=FALSE}
 ## Load Packages
-library(rgdal)  # for vector work; sp package should always load with rgdal. 
-library (raster)
+library(sf)
+library(raster)
 
 # Import a polygon shapefile 
-aoiBoundary_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV/",
-                            "HarClip_UTMZ18")
+aoiBoundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 
 # Import a line shapefile
-lines_HARV <- readOGR( "NEON-DS-Site-Layout-Files/HARV/", 
-                       "HARV_roads")
+lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 
 # Import a point shapefile 
-point_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV/",
-                      "HARVtower_UTM18N")
+point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 
-chm_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
+chm_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 
-utm18nCRS <- crs(point_HARV)
+utm18nCRS <- st_crs(point_HARV)
 
 # Read the .csv file
 plot.locations_HARV <- 
-  read.csv("NEON-DS-Site-Layout-Files/HARV/HARV_PlotLocations.csv",
+  read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_PlotLocations.csv",
            stringsAsFactors = FALSE)
 
 # note that the easting and northing columns are in columns 1 and 2
-plot.locationsSp_HARV <- SpatialPointsDataFrame(plot.locations_HARV[,1:2],
-                    plot.locations_HARV,    # the R object to convert
-                    proj4string = utm18nCRS)   # assign a CRS 
+plot.locationsSp_HARV <- st_as_sf(plot.locations_HARV, 
+                                  coords = c("easting", "northing"), 
+                                  crs = utm18nCRS)
 
-plot(extent(lines_HARV),
+plot(st_convex_hull(st_union(lines_HARV)),
      col="purple", lwd="3",
      xlab="Easting", ylab="Northing",
     main="Extent Boundary of Several Spatial Files",
@@ -123,11 +119,11 @@ plot(extent(lines_HARV),
     col.lab = 'grey', # set axis label color
     col.axis = 'grey') # set axis tick label color
 
-plot(extent(plot.locationsSp_HARV),
+plot(st_convex_hull(st_union(plot.locationsSp_HARV)),
      col="black",
      add=TRUE)
 
-plot(extent(aoiBoundary_HARV),
+plot(st_convex_hull(aoiBoundary_HARV),
      add=TRUE,
      col="blue", 
      lwd=4)
@@ -173,27 +169,24 @@ series, you can skip this code as you have already created these object.)
 
 ```{r load-libraries-data, results="hide", warning=FALSE }
 # load necessary packages
-library(rgdal)  # for vector work; sp package should always load with rgdal. 
-library (raster)
+library(sf)
+library(raster)
 
 # set working directory to data folder
 # setwd("pathToDirHere")
 
 # Imported in Vector 00: Vector Data in R - Open & Plot Data
 # shapefile 
-aoiBoundary_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV/",
-                            "HarClip_UTMZ18")
+aoiBoundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 # Import a line shapefile
-lines_HARV <- readOGR( "NEON-DS-Site-Layout-Files/HARV/",
-                       "HARV_roads")
+lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 # Import a point shapefile 
-point_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV/",
-                      "HARVtower_UTM18N")
+point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 
 # Imported in  Vector 02: .csv to Shapefile in R
 # import raster Canopy Height Model (CHM)
 chm_HARV <- 
-  raster("NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
+  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 
 ```
 
@@ -209,7 +202,7 @@ plot(chm_HARV,
      main="LiDAR CHM - Not Cropped\nNEON Harvard Forest Field Site")
 
 # crop the chm
-chm_HARV_Crop <- crop(x = chm_HARV, y = aoiBoundary_HARV)
+chm_HARV_Crop <- crop(x = chm_HARV, y = as(aoiBoundary_HARV, "Spatial"))
 
 # plot full CHM
 plot(extent(chm_HARV),
@@ -229,7 +222,7 @@ same extent as the `aoiBoundary_HARV` object that was used as a crop extent
 
 ```{r view-crop-extent, echo=FALSE}
 # view the data in a plot
-plot(aoiBoundary_HARV, lwd=8, border="blue",
+plot(aoiBoundary_HARV$geometry, lwd=8, border="blue",
      main = "Cropped LiDAR Canopy Height Model \n NEON Harvard Forest Field Site")
 
 plot(chm_HARV_Crop, add = TRUE)
@@ -241,7 +234,7 @@ We can look at the extent of all the other objects.
 # lets look at the extent of all of our objects
 extent(chm_HARV)
 extent(chm_HARV_Crop)
-extent(aoiBoundary_HARV)
+st_bbox(aoiBoundary_HARV)
 
 ```
 
@@ -266,16 +259,15 @@ you have these plot locations as the spatial `R` spatial object
 ```{r challenge-code-crop-raster-points, include=TRUE, results="hide", echo=FALSE}
 
 # Created/imported in L02: .csv to Shapefile in R
-plot.locationSp_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV/",
-																"PlotLocations_HARV")
+plot.locationSp_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
 
 # crop the chm 
-CHM_plots_HARVcrop <- crop(x = chm_HARV, y = plot.locationsSp_HARV)
+CHM_plots_HARVcrop <- crop(x = chm_HARV, y = as(plot.locationsSp_HARV, "Spatial"))
 
 plot(CHM_plots_HARVcrop,
      main="Study Plot Locations\n NEON Harvard Forest")
 
-plot(plot.locationSp_HARV, 
+plot(plot.locationSp_HARV$geometry, 
      add=TRUE,
      pch=19,
      col="blue")
@@ -295,12 +287,12 @@ vegetation plot layer will still extend further west than the extent of our
 (cropped) raster data (dark green).
 
 ``` {r raster-extents-cropped, echo=FALSE}
-plot(extent(lines_HARV),
+plot(st_convex_hull(st_union(lines_HARV)),
      col="purple", lwd="3",
      xlab="Easting", ylab="Northing",
     main="Extent Boundary of Several Spatial Files")
 
-plot(extent(plot.locationsSp_HARV),
+plot(st_convex_hull(st_union(plot.locationsSp_HARV)),
      col="black",
      add=TRUE)
 
@@ -342,7 +334,7 @@ raster.
 CHM_HARV_manualCrop <- crop(x = chm_HARV, y = new.extent)
 
 # plot extent boundary and newly cropped raster
-plot(aoiBoundary_HARV, 
+plot(aoiBoundary_HARV$geometry, 
      main = "Manually Cropped Raster\n NEON Harvard Forest Field Site")
 plot(new.extent, 
      col="brown", 
@@ -398,7 +390,7 @@ Forest field site.
 # extract tree height for AOI
 # set df=TRUE to return a data.frame rather than a list of values
 tree_height <- extract(x = chm_HARV, 
-                       y = aoiBoundary_HARV, 
+                       y = as(aoiBoundary_HARV, "Spatial"), 
                        df=TRUE)
 
 # view the object
@@ -447,7 +439,7 @@ a mean height value for our AOI.
 # extract the average tree height (calculated using the raster pixels)
 # located within the AOI polygon
 av_tree_height_AOI <- extract(x = chm_HARV, 
-                              y = aoiBoundary_HARV,
+                              y = as(aoiBoundary_HARV, "Spatial"),
                               fun=mean, 
                               df=TRUE)
 
@@ -482,13 +474,13 @@ Let's put this into practice by figuring out the average tree height in the
 
 ```{r extract-point-to-buffer }
 # what are the units of our buffer
-crs(point_HARV)
+st_crs(point_HARV)
 
 # extract the average tree height (height is given by the raster pixel value)
 # at the tower location
 # use a buffer of 20 meters and mean function (fun) 
 av_tree_height_tower <- extract(x = chm_HARV, 
-                                y = point_HARV, 
+                                y = as(point_HARV, "Spatial"), 
                                 buffer=20,
                                 fun=mean, 
                                 df=TRUE)
@@ -516,12 +508,11 @@ function in base-R.
 ```{r challenge-code-extract-plot-tHeight, include=TRUE, results="hide", echo=FALSE}
 
 # first import the plot location file.
-plot.locationsSp_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV/",
-                            "PlotLocations_HARV")
+plot.locationsSp_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
 
 # extract data at each plot location
 meanTreeHt_plots_HARV <- extract(x = chm_HARV, 
-                               y = plot.locationsSp_HARV, 
+                               y = as(plot.locationsSp_HARV, "Spatial"), 
                                buffer=20,
                                fun=mean, 
                                df=TRUE)
@@ -534,5 +525,4 @@ plot(meanTreeHt_plots_HARV,
      main="MeanTree Height at each Plot\nNEON Harvard Forest Field Site",
      xlab="Plot ID", ylab="Tree Height (m)",
      pch=16)
-
 ```

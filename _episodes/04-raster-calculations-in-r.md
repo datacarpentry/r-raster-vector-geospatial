@@ -100,30 +100,70 @@ NEON Harvard Forest Field site.
 library(raster)
 
 # view info about the dtm & dsm raster data that we will work with.
-GDALinfo("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
+GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in .local(.Object, ...): 
+rows        1367 
+columns     1697 
+bands       1 
+lower left origin.x        731453 
+lower left origin.y        4712471 
+res.x       1 
+res.y       1 
+ysign       -1 
+oblique.x   0 
+oblique.y   0 
+driver      GTiff 
+projection  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
+file        data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif 
+apparent band summary:
+   GDType hasNoDataValue NoDataValue blockSize1 blockSize2
+1 Float64           TRUE       -9999          1       1697
+apparent band statistics:
+    Bmin   Bmax    Bmean      Bsd
+1 304.56 389.82 344.8979 15.86147
+Metadata:
+AREA_OR_POINT=Area 
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
-GDALinfo("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in .local(.Object, ...): 
+rows        1367 
+columns     1697 
+bands       1 
+lower left origin.x        731453 
+lower left origin.y        4712471 
+res.x       1 
+res.y       1 
+ysign       -1 
+oblique.x   0 
+oblique.y   0 
+driver      GTiff 
+projection  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
+file        data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif 
+apparent band summary:
+   GDType hasNoDataValue NoDataValue blockSize1 blockSize2
+1 Float64           TRUE       -9999          1       1697
+apparent band statistics:
+    Bmin   Bmax    Bmean      Bsd
+1 305.07 416.07 359.8531 17.83169
+Metadata:
+AREA_OR_POINT=Area 
 ~~~
-{: .error}
+{: .output}
 
 As seen from the `geoTiff` tags, both rasters have:
 
@@ -136,48 +176,16 @@ Let's load the data.
 
 ~~~
 # load the DTM & DSM rasters
-DTM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
-~~~
-{: .r}
+DTM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
+DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
-
-
-~~~
-Error in .rasterObjectFromFile(x, band = band, objecttype = "RasterLayer", : Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
-DSM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
-~~~
-{: .r}
-
-
-
-~~~
-Error in .rasterObjectFromFile(x, band = band, objecttype = "RasterLayer", : Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
 # create a quick plot of each to see what we're dealing with
 plot(DTM_HARV,
      main="Digital Terrain Model \n NEON Harvard Forest Field Site")
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(DTM_HARV, main = "Digital Terrain Model \n NEON Harvard Forest Field Site"): object 'DTM_HARV' not found
-~~~
-{: .error}
-
-
+<img src="../fig/rmd-load-plot-data-1.png" title="plot of chunk load-plot-data" alt="plot of chunk load-plot-data" style="display: block; margin: auto;" />
 
 ~~~
 plot(DSM_HARV,
@@ -185,12 +193,7 @@ plot(DSM_HARV,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(DSM_HARV, main = "Digital Surface Model \n NEON Harvard Forest Field Site"): object 'DSM_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-load-plot-data-2.png" title="plot of chunk load-plot-data" alt="plot of chunk load-plot-data" style="display: block; margin: auto;" />
 
 ## Two Ways to Perform Raster Calculations
 
@@ -214,19 +217,7 @@ Let's subtract the DTM from the DSM to create a Canopy Height Model.
 ~~~
 # Raster math example
 CHM_HARV <- DSM_HARV - DTM_HARV 
-~~~
-{: .r}
 
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'DSM_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # plot the output CHM
 plot(CHM_HARV,
      main="Canopy Height Model - Raster Math Subtract\n NEON Harvard Forest Field Site",
@@ -234,12 +225,7 @@ plot(CHM_HARV,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(CHM_HARV, main = "Canopy Height Model - Raster Math Subtract\n NEON Harvard Forest Field Site", : object 'CHM_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-raster-math-1.png" title="plot of chunk raster-math" alt="plot of chunk raster-math" style="display: block; margin: auto;" />
 
 Let's have a look at the distribution of values in our newly created
 Canopy Height Model (CHM).
@@ -255,12 +241,7 @@ hist(CHM_HARV,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in hist(CHM_HARV, col = "springgreen4", main = "Histogram of Canopy Height Model\nNEON Harvard Forest Field Site", : object 'CHM_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-create-hist-1.png" title="plot of chunk create-hist" alt="plot of chunk create-hist" style="display: block; margin: auto;" />
 
 Notice that the range of values for the output CHM is between 0 and 30 meters.
 Does this make sense for trees in Harvard Forest?
@@ -281,39 +262,7 @@ a appropriate color palette for the data, plot title and no axes ticks / labels.
 
 </div>
 
-
-~~~
-Error in minValue(CHM_HARV): object 'CHM_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in maxValue(CHM_HARV): object 'CHM_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in hist(CHM_HARV, col = "springgreen4", main = "Histogram of Canopy Height Model\nNEON Harvard Forest Field Site", : object 'CHM_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in hist(CHM_HARV, col = "lightgreen", main = "Histogram of Canopy Height Model\nNEON Harvard Forest Field Site", : object 'CHM_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(CHM_HARV, breaks = c(0, 10, 20, 30), col = myCol, axes = F, : object 'CHM_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-challenge-code-CHM-HARV-1.png" title="plot of chunk challenge-code-CHM-HARV" alt="plot of chunk challenge-code-CHM-HARV" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-code-CHM-HARV-2.png" title="plot of chunk challenge-code-CHM-HARV" alt="plot of chunk challenge-code-CHM-HARV" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-code-CHM-HARV-3.png" title="plot of chunk challenge-code-CHM-HARV" alt="plot of chunk challenge-code-CHM-HARV" style="display: block; margin: auto;" />
 
 ## Efficient Raster Calculations: Overlay Function
 Raster math, like we just did, is an appropriate approach to raster calculations
@@ -348,30 +297,13 @@ raster math, using the `overlay()` function.
 CHM_ov_HARV<- overlay(DSM_HARV,
                       DTM_HARV,
                       fun=function(r1, r2){return(r1-r2)})
-~~~
-{: .r}
 
-
-
-~~~
-Error in overlay(DSM_HARV, DTM_HARV, fun = function(r1, r2) {: object 'DSM_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 plot(CHM_ov_HARV,
   main="Canopy Height Model - Overlay Subtract\n NEON Harvard Forest Field Site")
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(CHM_ov_HARV, main = "Canopy Height Model - Overlay Subtract\n NEON Harvard Forest Field Site"): object 'CHM_ov_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-raster-overlay-1.png" title="plot of chunk raster-overlay" alt="plot of chunk raster-overlay" style="display: block; margin: auto;" />
 
 How do the plots of the CHM created with manual raster math and the `overlay()`
 function compare?  
@@ -403,13 +335,6 @@ writeRaster(CHM_ov_HARV, "chm_HARV.tiff",
             NAflag=-9999) # set no data value to -9999
 ~~~
 {: .r}
-
-
-
-~~~
-Error in writeRaster(CHM_ov_HARV, "chm_HARV.tiff", format = "GTiff", overwrite = TRUE, : object 'CHM_ov_HARV' not found
-~~~
-{: .error}
 
 ### writeRaster Options
 The function arguments that we used above include:
@@ -453,88 +378,7 @@ both datasets!
 
 </div>
 
-
-~~~
-Error in .rasterObjectFromFile(x, band = band, objecttype = "RasterLayer", : Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
-Error in .rasterObjectFromFile(x, band = band, objecttype = "RasterLayer", : Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'DTM_SJER' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'DSM_SJER' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in hist(DTM_SJER, maxpixels = ncell(DTM_SJER), main = "Digital Terrain Model - Histogram\n NEON SJER Field Site", : object 'DTM_SJER' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in hist(DSM_SJER, maxpixels = ncell(DSM_SJER), main = "Digital Surface Model - Histogram\n NEON SJER Field Site", : object 'DSM_SJER' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in overlay(DSM_SJER, DTM_SJER, fun = function(r1, r2) {: object 'DSM_SJER' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in hist(CHM_SJER, main = "Canopy Height Model - Histogram\n NEON SJER Field Site", : object 'CHM_SJER' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(CHM_SJER, main = "Canopy Height Model - Overlay Subtract\n NEON SJER Field Site", : object 'CHM_SJER' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in writeRaster(CHM_SJER, "chm_ov_SJER.tiff", format = "GTiff", overwrite = TRUE, : object 'CHM_SJER' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in hist(CHM_HARV, main = "Canopy Height Model - Histogram\nNEON Harvard Forest Field Site", : object 'CHM_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in hist(CHM_SJER, main = "Canopy Height Model - Histogram\nNEON SJER Field Site", : object 'CHM_SJER' not found
-~~~
-{: .error}
+<img src="../fig/rmd-challenge-code-SJER-CHM-1.png" title="plot of chunk challenge-code-SJER-CHM" alt="plot of chunk challenge-code-SJER-CHM" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-code-SJER-CHM-2.png" title="plot of chunk challenge-code-SJER-CHM" alt="plot of chunk challenge-code-SJER-CHM" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-code-SJER-CHM-3.png" title="plot of chunk challenge-code-SJER-CHM" alt="plot of chunk challenge-code-SJER-CHM" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-code-SJER-CHM-4.png" title="plot of chunk challenge-code-SJER-CHM" alt="plot of chunk challenge-code-SJER-CHM" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-code-SJER-CHM-5.png" title="plot of chunk challenge-code-SJER-CHM" alt="plot of chunk challenge-code-SJER-CHM" style="display: block; margin: auto;" />
 
 What do these two histograms tell us about the vegetation structure at Harvard 
 and SJER?

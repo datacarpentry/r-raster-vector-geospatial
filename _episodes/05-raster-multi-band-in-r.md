@@ -107,40 +107,11 @@ would render as a single image in grayscale. We will therefore use a grayscale
 palette to render individual bands. 
 {: .notice }
 
-
-~~~
-Error in .rasterObjectFromFile(x, objecttype = "RasterBrick", ...): Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
-Error in names(RGB_stack_HARV) <- c("Red Band", "Green Band", "Blue Band"): object 'RGB_stack_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(RGB_stack_HARV, col = grayscale_colors, axes = F): object 'RGB_stack_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-demonstrate-RGB-Image-1.png" title="plot of chunk demonstrate-RGB-Image" alt="plot of chunk demonstrate-RGB-Image" style="display: block; margin: auto;" />
 
 Or we can composite all three bands together to make a color image.
 
-
-~~~
-Error in plotRGB(RGB_stack_HARV, r = 1, g = 2, b = 3, axes = TRUE, main = "3 Band Color Composite Image\n NEON Harvard Forest Field Site"): object 'RGB_stack_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in box(col = "white"): plot.new has not been called yet
-~~~
-{: .error}
+<img src="../fig/rmd-plot-RGB-now-1.png" title="plot of chunk plot-RGB-now" alt="plot of chunk plot-RGB-now" style="display: block; margin: auto;" />
 
 In a multi-band dataset, the rasters will always have the same *extent*,
 *CRS* and *resolution*.  
@@ -192,20 +163,8 @@ in the first band. We can plot this band using the plot function.
 # Read in multi-band raster with raster function. 
 # Default is the first band only.
 RGB_band1_HARV <- 
-  raster("NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
-~~~
-{: .r}
+  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
-
-
-~~~
-Error in .rasterObjectFromFile(x, band = band, objecttype = "RasterLayer", : Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
 # create a grayscale color palette to use for the image.
 grayscale_colors <- gray.colors(100,            # number of different color levels 
                                 start = 0.0,    # how black (0) to go
@@ -222,14 +181,7 @@ plot(RGB_band1_HARV,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(RGB_band1_HARV, col = grayscale_colors, axes = FALSE, main = "RGB Imagery - Band 1-Red\nNEON Harvard Forest Field Site"): object 'RGB_band1_HARV' not found
-~~~
-{: .error}
-
-
+<img src="../fig/rmd-read-single-band-1.png" title="plot of chunk read-single-band" alt="plot of chunk read-single-band" style="display: block; margin: auto;" />
 
 ~~~
 # view attributes: Check out dimension, CRS, resolution, values attributes, and 
@@ -241,9 +193,17 @@ RGB_band1_HARV
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'RGB_band1_HARV' not found
+class       : RasterLayer 
+band        : 1  (of  3  bands)
+dimensions  : 2317, 3073, 7120141  (nrow, ncol, ncell)
+resolution  : 0.25, 0.25  (x, y)
+extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
+coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+data source : /home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+names       : HARV_RGB_Ortho 
+values      : 0, 255  (min, max)
 ~~~
-{: .error}
+{: .output}
 
 Notice that when we look at the attributes of RGB_Band1, we see :
 
@@ -270,9 +230,9 @@ minValue(RGB_band1_HARV)
 
 
 ~~~
-Error in minValue(RGB_band1_HARV): object 'RGB_band1_HARV' not found
+[1] 0
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -285,9 +245,9 @@ maxValue(RGB_band1_HARV)
 
 
 ~~~
-Error in maxValue(RGB_band1_HARV): object 'RGB_band1_HARV' not found
+[1] 255
 ~~~
-{: .error}
+{: .output}
 
 This raster contains values between 0 and 255. These values 
 represent degrees of brightness associated with the image band. In 
@@ -307,21 +267,9 @@ want to work with). To import the green band, we would use `band=2`.
 ~~~
 # Can specify which band we want to read in
 RGB_band2_HARV <- 
-  raster("NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif", 
+  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif", 
            band = 2)
-~~~
-{: .r}
 
-
-
-~~~
-Error in .rasterObjectFromFile(x, band = band, objecttype = "RasterLayer", : Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
 # plot band 2
 plot(RGB_band2_HARV,
      col=grayscale_colors, # we already created this palette & can use it again
@@ -330,14 +278,7 @@ plot(RGB_band2_HARV,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(RGB_band2_HARV, col = grayscale_colors, axes = FALSE, main = "RGB Imagery - Band 2- Green\nNEON Harvard Forest Field Site"): object 'RGB_band2_HARV' not found
-~~~
-{: .error}
-
-
+<img src="../fig/rmd-read-specific-band-1.png" title="plot of chunk read-specific-band" alt="plot of chunk read-specific-band" style="display: block; margin: auto;" />
 
 ~~~
 # view attributes of band 2 
@@ -348,9 +289,17 @@ RGB_band2_HARV
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'RGB_band2_HARV' not found
+class       : RasterLayer 
+band        : 2  (of  3  bands)
+dimensions  : 2317, 3073, 7120141  (nrow, ncol, ncell)
+resolution  : 0.25, 0.25  (x, y)
+extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
+coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+data source : /home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+names       : HARV_RGB_Ortho 
+values      : 0, 255  (min, max)
 ~~~
-{: .error}
+{: .output}
 
 Notice that band 2 is the second of 3 bands `band: 2  (of  3  bands)`.  
 
@@ -373,20 +322,8 @@ To bring in all bands of a multi-band raster, we use the`stack()` function.
 ~~~
 # Use stack function to read in all bands
 RGB_stack_HARV <- 
-  stack("NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
-~~~
-{: .r}
+  stack("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
-
-
-~~~
-Error in .rasterObjectFromFile(x, objecttype = "RasterBrick", ...): Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
 # view attributes of stack object
 RGB_stack_HARV
 ~~~
@@ -395,9 +332,16 @@ RGB_stack_HARV
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'RGB_stack_HARV' not found
+class       : RasterStack 
+dimensions  : 2317, 3073, 7120141, 3  (nrow, ncol, ncell, nlayers)
+resolution  : 0.25, 0.25  (x, y)
+extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
+coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+names       : HARV_RGB_Ortho.1, HARV_RGB_Ortho.2, HARV_RGB_Ortho.3 
+min values  :                0,                0,                0 
+max values  :              255,              255,              255 
 ~~~
-{: .error}
+{: .output}
 
 We can view the attributes of each band the stack using `RGB_stack_HARV@layers`.
 Or we if we have hundreds of bands, we can specify which band we'd like to view 
@@ -415,9 +359,42 @@ RGB_stack_HARV@layers
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'RGB_stack_HARV' not found
+[[1]]
+class       : RasterLayer 
+band        : 1  (of  3  bands)
+dimensions  : 2317, 3073, 7120141  (nrow, ncol, ncell)
+resolution  : 0.25, 0.25  (x, y)
+extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
+coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+data source : /home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+names       : HARV_RGB_Ortho.1 
+values      : 0, 255  (min, max)
+
+
+[[2]]
+class       : RasterLayer 
+band        : 2  (of  3  bands)
+dimensions  : 2317, 3073, 7120141  (nrow, ncol, ncell)
+resolution  : 0.25, 0.25  (x, y)
+extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
+coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+data source : /home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+names       : HARV_RGB_Ortho.2 
+values      : 0, 255  (min, max)
+
+
+[[3]]
+class       : RasterLayer 
+band        : 3  (of  3  bands)
+dimensions  : 2317, 3073, 7120141  (nrow, ncol, ncell)
+resolution  : 0.25, 0.25  (x, y)
+extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
+coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+data source : /home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+names       : HARV_RGB_Ortho.3 
+values      : 0, 255  (min, max)
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -430,9 +407,17 @@ RGB_stack_HARV[[1]]
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'RGB_stack_HARV' not found
+class       : RasterLayer 
+band        : 1  (of  3  bands)
+dimensions  : 2317, 3073, 7120141  (nrow, ncol, ncell)
+resolution  : 0.25, 0.25  (x, y)
+extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
+coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+data source : /home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+names       : HARV_RGB_Ortho.1 
+values      : 0, 255  (min, max)
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -440,33 +425,14 @@ Error in eval(expr, envir, enclos): object 'RGB_stack_HARV' not found
 # view histogram of all 3 bands
 hist(RGB_stack_HARV,
      maxpixels=ncell(RGB_stack_HARV))
-~~~
-{: .r}
 
-
-
-~~~
-Error in hist(RGB_stack_HARV, maxpixels = ncell(RGB_stack_HARV)): object 'RGB_stack_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # plot all three bands separately
 plot(RGB_stack_HARV, 
      col=grayscale_colors)
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(RGB_stack_HARV, col = grayscale_colors): object 'RGB_stack_HARV' not found
-~~~
-{: .error}
-
-
+<img src="../fig/rmd-plot-raster-layers-1.png" title="plot of chunk plot-raster-layers" alt="plot of chunk plot-raster-layers" style="display: block; margin: auto;" /><img src="../fig/rmd-plot-raster-layers-2.png" title="plot of chunk plot-raster-layers" alt="plot of chunk plot-raster-layers" style="display: block; margin: auto;" />
 
 ~~~
 # revert to a single plot layout 
@@ -479,12 +445,7 @@ plot(RGB_stack_HARV[[2]],
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(RGB_stack_HARV[[2]], main = "Band 2\n NEON Harvard Forest Field Site", : object 'RGB_stack_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-plot-raster-layers-3.png" title="plot of chunk plot-raster-layers" alt="plot of chunk plot-raster-layers" style="display: block; margin: auto;" />
 
 
 ### Create A Three Band Image
@@ -509,12 +470,7 @@ plotRGB(RGB_stack_HARV,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plotRGB(RGB_stack_HARV, r = 1, g = 2, b = 3): object 'RGB_stack_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-plot-rgb-image-1.png" title="plot of chunk plot-rgb-image" alt="plot of chunk plot-rgb-image" style="display: block; margin: auto;" />
 
 The image above looks pretty good. We can explore whether applying a stretch to
 the image might improve clarity and contrast using  `stretch="lin"` or 
@@ -552,14 +508,7 @@ plotRGB(RGB_stack_HARV,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plotRGB(RGB_stack_HARV, r = 1, g = 2, b = 3, scale = 800, stretch = "lin"): object 'RGB_stack_HARV' not found
-~~~
-{: .error}
-
-
+<img src="../fig/rmd-image-stretch-1.png" title="plot of chunk image-stretch" alt="plot of chunk image-stretch" style="display: block; margin: auto;" />
 
 ~~~
 plotRGB(RGB_stack_HARV,
@@ -569,12 +518,7 @@ plotRGB(RGB_stack_HARV,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plotRGB(RGB_stack_HARV, r = 1, g = 2, b = 3, scale = 800, stretch = "hist"): object 'RGB_stack_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-image-stretch-2.png" title="plot of chunk image-stretch" alt="plot of chunk image-stretch" style="display: block; margin: auto;" />
 
 In this case, the stretch doesn't enhance the contrast our image significantly
 given the distribution of reflectance (or brightness) values is distributed well
@@ -607,21 +551,7 @@ Error in .local(.Object, ...):
 ~~~
 {: .error}
 
-
-
-~~~
-Error in .rasterObjectFromFile(x, objecttype = "RasterBrick", ...): Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
-Error in plotRGB(HARV_NA, r = 1, g = 2, b = 3): object 'HARV_NA' not found
-~~~
-{: .error}
-
-
+<img src="../fig/rmd-challenge-code-NoData-1.png" title="plot of chunk challenge-code-NoData" alt="plot of chunk challenge-code-NoData" style="display: block; margin: auto;" />
 
 ~~~
 Error in .local(.Object, ...): 
@@ -661,28 +591,16 @@ object.size(RGB_stack_HARV)
 
 
 ~~~
-Error in structure(.Call(C_objectSize, x), class = "object_size"): object 'RGB_stack_HARV' not found
+41928 bytes
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # convert stack to a brick
 RGB_brick_HARV <- brick(RGB_stack_HARV)
-~~~
-{: .r}
 
-
-
-~~~
-Error in brick(RGB_stack_HARV): object 'RGB_stack_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # view size of the brick
 object.size(RGB_brick_HARV)
 ~~~
@@ -691,9 +609,9 @@ object.size(RGB_brick_HARV)
 
 
 ~~~
-Error in structure(.Call(C_objectSize, x), class = "object_size"): object 'RGB_brick_HARV' not found
+170896376 bytes
 ~~~
-{: .error}
+{: .output}
 
 Notice that in the `RasterBrick`, all of the bands are stored within the actual 
 object. Thus, the `RasterBrick` object size is much larger than the
@@ -708,12 +626,7 @@ plotRGB(RGB_brick_HARV)
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plotRGB(RGB_brick_HARV): object 'RGB_brick_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-plot-brick-1.png" title="plot of chunk plot-brick" alt="plot of chunk plot-brick" style="display: block; margin: auto;" />
 
 
 <div id="challenge" markdown="1">
@@ -728,15 +641,4 @@ We can view various methods available to call on an `R` object with
 </div>
 
 
-~~~
-Error in methods(class = class(RGB_stack_HARV)): object 'RGB_stack_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in methods(class = class(RGB_stack_HARV[1])): object 'RGB_stack_HARV' not found
-~~~
-{: .error}
 

@@ -50,14 +50,16 @@ on your computer to complete this tutorial.
 ### Install R Packages
 
 * **raster:** `install.packages("raster")`
-* **rgdal:** `install.packages("rgdal")`
-* **sp:** `install.packages("sp")`
+* **sf:** `install.packages("sf")`
 
 [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 
 
 ## Download Data
+
+
 ****
+
 
 </div>
 
@@ -112,14 +114,13 @@ information about each stream line object.
 ## Import Shapefiles
 
 We will use the `rgdal` package to work with vector data in `R`. Notice that the
-`sp` package automatically loads when `rgdal` is loaded. We will also load the
+`sf` package automatically loads when `rgdal` is loaded. We will also load the
 `raster` package so we can explore raster and vector spatial metadata using similar commands.
 
 ```{r load-libraries }
-
 # load required libraries
-# for vector work; sp package will load with rgdal.
-library(rgdal)  
+# for vector work
+library(sf)  
 # for metadata/attributes- vectors or rasters
 library(raster) 
 
@@ -149,12 +150,9 @@ shapefiles we use the `R` function `readOGR()`.
 Let's import our AOI.
 
 ```{r Import-Shapefile}
-
-# Import a polygon shapefile: readOGR("path","fileName")
-# no extension needed as readOGR only imports shapefiles
-aoiBoundary_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV",
-                            "HarClip_UTMZ18")
-
+# Import a polygon shapefile
+aoiBoundary_HARV <- st_read(
+  "data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 ```
 
 <i class="fa fa-star"></i> **Data Tip:** The acronym, OGR, refers to the
@@ -189,15 +187,15 @@ extent for ALL spatial objects in the shapefile.
 
 We can view shapefile metadata using the `class`, `crs` and `extent` methods:
 
-```{r view-metadata }
+```{r view-metadata}
 # view just the class for the shapefile
 class(aoiBoundary_HARV)
 
 # view just the crs for the shapefile
-crs(aoiBoundary_HARV)
+st_crs(aoiBoundary_HARV)
 
 # view just the extent for the shapefile
-extent(aoiBoundary_HARV)
+st_bbox(aoiBoundary_HARV)
 
 # view all metadata at same time
 aoiBoundary_HARV
@@ -246,8 +244,7 @@ We view the attributes of a `SpatialPolygonsDataFrame` using `objectName@data`
 
 ``` {r Shapefile-attributes-2}
 # alternate way to view attributes 
-aoiBoundary_HARV@data
-
+data.frame(aoiBoundary_HARV)
 ```
 
 In this case, our polygon object only has one attribute: `id`.
@@ -294,34 +291,28 @@ Answer the following questions:
 4. How many spatial objects are in each file?
 </div>
 
-```{r import-point-line, echo=FALSE, results="hide" }
+```{r import-point-line, echo=FALSE, results="hide"}
 # import line shapefile
-lines_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV",layer = "HARV_roads")
+lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 # import point shapefile
-point_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV", layer="HARVtower_UTM18N")
+point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 
 # 1
 class(lines_HARV)
 class(point_HARV)
 
 # 2
-crs(lines_HARV)
-extent(lines_HARV)
-crs(point_HARV)
-extent(point_HARV)
+st_crs(lines_HARV)
+st_bbox(lines_HARV)
+st_crs(point_HARV)
+st_bbox(point_HARV)
 
 # 3 
 #lines_HARV contains only lines and point_HARV contains only 1 point
 
 # 4 -> numerous ways to find this; lines_HARV=13,
-length(lines_HARV)  #easiest, but not previously taught
+nrow(lines_HARV)  #easiest, but not previously taught
 lines_HARV  #look at 'features'
-attributes(lines_HARV)  #found in the $data section as above
-
-# Alternative code for 1-4: view metadata/attributes all at once
-lines_HARV
-attributes(lines_HARV)
-
 ```
 
 ## Plot Multiple Shapefiles
@@ -332,7 +323,7 @@ we would when creating a map in a typical GIS application like QGIS.
 We can use `main=""` to give our plot a title. If we want the title to span two
 lines, we use `\n` where the line should break.
 
-```{r plot-multiple-shapefiles }
+```{r plot-multiple-shapefiles}
 # Plot multiple shapefiles
 plot(aoiBoundary_HARV, col = "lightgreen", 
      main="NEON Harvard Forest\nField Site")
@@ -371,7 +362,7 @@ tutorials.
 ```{r challenge-vector-raster-overlay, echo=FALSE }
 
 # import CHM
-chm_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
+chm_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 
 plot(chm_HARV,
      main="Map of Study Area\n w/ Canopy Height Model\nNEON Harvard Forest Field Site")

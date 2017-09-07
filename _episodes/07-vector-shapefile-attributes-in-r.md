@@ -47,8 +47,7 @@ on your computer to complete this tutorial.
 ### Install R Packages
 
 * **raster:** `install.packages("raster")`
-* **rgdal:** `install.packages("rgdal")`
-* **sp:** `install.packages("sp")`
+* **sp:** `install.packages("sf")`
 
 [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 
@@ -81,7 +80,7 @@ tutorial, you can skip this code.
 ~~~
 # load packages
 # rgdal: for vector work; sp package should always load with rgdal. 
-library(rgdal)  
+library(sf)  
 # raster: for metadata/attributes- vectors or rasters
 library (raster)   
 
@@ -89,48 +88,64 @@ library (raster)
 # setwd("pathToDirHere")
 
 # Import a polygon shapefile 
-aoiBoundary_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV/",
-                            "HarClip_UTMZ18")
+aoiBoundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
+Reading layer `HarClip_UTMZ18' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp' using driver `ESRI Shapefile'
+Simple feature collection with 1 feature and 1 field
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: 732128 ymin: 4713209 xmax: 732251.1 ymax: 4713359
+epsg (SRID):    32618
+proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # Import a line shapefile
-lines_HARV <- readOGR( "NEON-DS-Site-Layout-Files/HARV/", "HARV_roads")
+lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
+Reading layer `HARV_roads' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp' using driver `ESRI Shapefile'
+Simple feature collection with 13 features and 15 fields
+geometry type:  MULTILINESTRING
+dimension:      XY
+bbox:           xmin: 730741.2 ymin: 4711942 xmax: 733295.5 ymax: 4714260
+epsg (SRID):    32618
+proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # Import a point shapefile 
-point_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV/",
-                      "HARVtower_UTM18N")
+point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
+Reading layer `HARVtower_UTM18N' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp' using driver `ESRI Shapefile'
+Simple feature collection with 1 feature and 14 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: 732183.2 ymin: 4713265 xmax: 732183.2 ymax: 4713265
+epsg (SRID):    32618
+proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 ~~~
-{: .error}
+{: .output}
 
 ## Query Shapefile Metadata 
 Remember, as covered in 
@@ -149,62 +164,70 @@ Let's explore the metadata for our `point_HARV` object.
 
 ~~~
 # view class
-class(x = point_HARV)
+class(point_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'point_HARV' not found
+[1] "sf"         "data.frame"
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # x= isn't actually needed; it just specifies which object
 # view features count
-length(point_HARV)
+nrow(point_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'point_HARV' not found
+[1] 1
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # view crs - note - this only works with the raster package loaded
-crs(point_HARV)
+st_crs(point_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in crs(point_HARV): object 'point_HARV' not found
+$epsg
+[1] 32618
+
+$proj4string
+[1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
+
+attr(,"class")
+[1] "crs"
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # view extent- note - this only works with the raster package loaded
-extent(point_HARV)
+st_bbox(point_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in extent(point_HARV): object 'point_HARV' not found
+     xmin      ymin      xmax      ymax 
+ 732183.2 4713265.0  732183.2 4713265.0 
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -217,9 +240,20 @@ point_HARV
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'point_HARV' not found
+Simple feature collection with 1 feature and 14 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: 732183.2 ymin: 4713265 xmax: 732183.2 ymax: 4713265
+epsg (SRID):    32618
+proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
+  Un_ID Domain DomainName       SiteName Type       Sub_Type     Lat
+1     A      1  Northeast Harvard Forest Core Advanced Tower 42.5369
+       Long Zone  Easting Northing                Ownership    County
+1 -72.17266   18 732183.2  4713265 Harvard University, LTER Worcester
+  annotation                       geometry
+1         C1 POINT (732183.193775523 471...
 ~~~
-{: .error}
+{: .output}
 
 ## About Shapefile Attributes
 Shapefiles often contain an associated database or spreadsheet of values called
@@ -252,31 +286,64 @@ function to count the number of attributes associated with a spatial object too.
 
 ~~~
 # just view the attributes & first 6 attribute values of the data
-head(lines_HARV@data)
+head(lines_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in head(lines_HARV@data): object 'lines_HARV' not found
+Simple feature collection with 6 features and 15 fields
+geometry type:  MULTILINESTRING
+dimension:      XY
+bbox:           xmin: 730741.2 ymin: 4712685 xmax: 732232.3 ymax: 4713726
+epsg (SRID):    32618
+proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
+  OBJECTID_1 OBJECTID       TYPE             NOTES MISCNOTES RULEID
+1         14       48 woods road Locust Opening Rd      <NA>      5
+2         40       91   footpath              <NA>      <NA>      6
+3         41      106   footpath              <NA>      <NA>      6
+4        211      279 stone wall              <NA>      <NA>      1
+5        212      280 stone wall              <NA>      <NA>      1
+6        213      281 stone wall              <NA>      <NA>      1
+           MAPLABEL SHAPE_LENG             LABEL BIKEHORSE RESVEHICLE
+1 Locust Opening Rd 1297.35706 Locust Opening Rd         Y         R1
+2              <NA>  146.29984              <NA>         Y         R1
+3              <NA>  676.71804              <NA>         Y         R2
+4              <NA>  231.78957              <NA>      <NA>       <NA>
+5              <NA>   45.50864              <NA>      <NA>       <NA>
+6              <NA>  198.39043              <NA>      <NA>       <NA>
+  RECMAP Shape_Le_1                            ResVehic_1
+1      Y 1297.10617    R1 - All Research Vehicles Allowed
+2      Y  146.29983    R1 - All Research Vehicles Allowed
+3      Y  676.71807 R2 - 4WD/High Clearance Vehicles Only
+4   <NA>  231.78962                                  <NA>
+5   <NA>   45.50859                                  <NA>
+6   <NA>  198.39041                                  <NA>
+                   BicyclesHo                       geometry
+1 Bicycles and Horses Allowed MULTILINESTRING ((730819.18...
+2 Bicycles and Horses Allowed MULTILINESTRING ((732040.22...
+3 Bicycles and Horses Allowed MULTILINESTRING ((732056.98...
+4                        <NA> MULTILINESTRING ((731903.61...
+5                        <NA> MULTILINESTRING ((732039.10...
+6                        <NA> MULTILINESTRING ((732056.22...
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # how many attributes are in our vector data object?
-length(lines_HARV@data)
+nrow(lines_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
+[1] 13
 ~~~
-{: .error}
+{: .output}
 
 We can view the individual **name of each attribute** using the
 `names(lines_HARV@data)` method in `R`. We could also view just the first 6 rows
@@ -287,16 +354,19 @@ Let's give it a try.
 
 ~~~
 # view just the attribute names for the lines_HARV spatial object
-names(lines_HARV@data)
+names(lines_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
+ [1] "OBJECTID_1" "OBJECTID"   "TYPE"       "NOTES"      "MISCNOTES" 
+ [6] "RULEID"     "MAPLABEL"   "SHAPE_LENG" "LABEL"      "BIKEHORSE" 
+[11] "RESVEHICLE" "RECMAP"     "Shape_Le_1" "ResVehic_1" "BicyclesHo"
+[16] "geometry"  
 ~~~
-{: .error}
+{: .output}
 
 <div id="challenge" markdown="1">
 ## Challenge: Attributes for Different Spatial Classes
@@ -311,31 +381,6 @@ spatial objects.
 </div>
 
 
-~~~
-Error in eval(expr, envir, enclos): object 'point_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'aoiBoundary_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in head(point_HARV@data): object 'point_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'point_HARV' not found
-~~~
-{: .error}
 
 ## Explore Values within One Attribute
 We can explore individual values stored within a particular attribute.
@@ -353,24 +398,27 @@ lines_HARV$TYPE
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
+ [1] woods road footpath   footpath   stone wall stone wall stone wall
+ [7] stone wall stone wall stone wall boardwalk  woods road woods road
+[13] woods road
+Levels: boardwalk footpath stone wall woods road
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # view unique values within the "TYPE" attributes
-levels(lines_HARV@data$TYPE)
+levels(lines_HARV$TYPE)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in levels(lines_HARV@data$TYPE): object 'lines_HARV' not found
+[1] "boardwalk"  "footpath"   "stone wall" "woods road"
 ~~~
-{: .error}
+{: .output}
 
 Notice that two of our TYPE attribute values consist of two separate words: 
 stone wall and woods road. There are really four unique TYPE values, not six 
@@ -392,28 +440,32 @@ lines_HARV[lines_HARV$TYPE == "footpath",]
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
+Simple feature collection with 2 features and 15 fields
+geometry type:  MULTILINESTRING
+dimension:      XY
+bbox:           xmin: 731954.5 ymin: 4713131 xmax: 732232.3 ymax: 4713726
+epsg (SRID):    32618
+proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
+  OBJECTID_1 OBJECTID     TYPE NOTES MISCNOTES RULEID MAPLABEL SHAPE_LENG
+2         40       91 footpath  <NA>      <NA>      6     <NA>   146.2998
+3         41      106 footpath  <NA>      <NA>      6     <NA>   676.7180
+  LABEL BIKEHORSE RESVEHICLE RECMAP Shape_Le_1
+2  <NA>         Y         R1      Y   146.2998
+3  <NA>         Y         R2      Y   676.7181
+                             ResVehic_1                  BicyclesHo
+2    R1 - All Research Vehicles Allowed Bicycles and Horses Allowed
+3 R2 - 4WD/High Clearance Vehicles Only Bicycles and Horses Allowed
+                        geometry
+2 MULTILINESTRING ((732040.22...
+3 MULTILINESTRING ((732056.98...
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # save an object with only footpath lines
 footpath_HARV <- lines_HARV[lines_HARV$TYPE == "footpath",]
-~~~
-{: .r}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 footpath_HARV
 ~~~
 {: .r}
@@ -421,24 +473,41 @@ footpath_HARV
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'footpath_HARV' not found
+Simple feature collection with 2 features and 15 fields
+geometry type:  MULTILINESTRING
+dimension:      XY
+bbox:           xmin: 731954.5 ymin: 4713131 xmax: 732232.3 ymax: 4713726
+epsg (SRID):    32618
+proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
+  OBJECTID_1 OBJECTID     TYPE NOTES MISCNOTES RULEID MAPLABEL SHAPE_LENG
+2         40       91 footpath  <NA>      <NA>      6     <NA>   146.2998
+3         41      106 footpath  <NA>      <NA>      6     <NA>   676.7180
+  LABEL BIKEHORSE RESVEHICLE RECMAP Shape_Le_1
+2  <NA>         Y         R1      Y   146.2998
+3  <NA>         Y         R2      Y   676.7181
+                             ResVehic_1                  BicyclesHo
+2    R1 - All Research Vehicles Allowed Bicycles and Horses Allowed
+3 R2 - 4WD/High Clearance Vehicles Only Bicycles and Horses Allowed
+                        geometry
+2 MULTILINESTRING ((732040.22...
+3 MULTILINESTRING ((732056.98...
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # how many features are in our new object
-length(footpath_HARV)
+nrow(footpath_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'footpath_HARV' not found
+[1] 2
 ~~~
-{: .error}
+{: .output}
 
 Our subsetting operation reduces the `features` count from 13 to 2. This means
 that only two feature lines in our spatial object have the attribute
@@ -449,18 +518,13 @@ We can plot our subsetted shapefiles.
 
 ~~~
 # plot just footpaths
-plot(footpath_HARV,
+plot(footpath_HARV$geometry,
      lwd=6,
      main="NEON Harvard Forest Field Site\n Footpaths")
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(footpath_HARV, lwd = 6, main = "NEON Harvard Forest Field Site\n Footpaths"): object 'footpath_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-plot-subset-shapefile-1.png" title="plot of chunk plot-subset-shapefile" alt="plot of chunk plot-subset-shapefile" style="display: block; margin: auto;" />
 
 Interesting. Above, it appeared as if we had 2 features in our footpaths subset.
 Why does the plot look like there is only one feature?
@@ -476,19 +540,14 @@ to do this.
 
 ~~~
 # plot just footpaths
-plot(footpath_HARV,
+plot(footpath_HARV$geometry,
      col=c("green","blue"), # set color for each feature 
      lwd=6,
      main="NEON Harvard Forest Field Site\n Footpaths \n Feature one = blue, Feature two= green")
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(footpath_HARV, col = c("green", "blue"), lwd = 6, main = "NEON Harvard Forest Field Site\n Footpaths \n Feature one = blue, Feature two= green"): object 'footpath_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-plot-subset-shapefile-unique-colors-1.png" title="plot of chunk plot-subset-shapefile-unique-colors" alt="plot of chunk plot-subset-shapefile-unique-colors" style="display: block; margin: auto;" />
 
 Now, we see that there are in fact two features in our plot! 
 
@@ -503,60 +562,7 @@ Subset out all:
 For each plot, color each feature using a unique color.
 </div>
 
-
-~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'boardwalk_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'boardwalk_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(boardwalk_HARV, col = c("green"), lwd = 6, main = "NEON Harvard Forest Field Site\n Boardwalks\n Feature one = blue, Feature two= green"): object 'boardwalk_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'stoneWall_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'stoneWall_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(stoneWall_HARV, col = c("green", "blue", "orange", "brown", : object 'stoneWall_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-challenge-code-feature-subset-1.png" title="plot of chunk challenge-code-feature-subset" alt="plot of chunk challenge-code-feature-subset" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-code-feature-subset-2.png" title="plot of chunk challenge-code-feature-subset" alt="plot of chunk challenge-code-feature-subset" style="display: block; margin: auto;" />
 
 ## Plot Lines by Attribute Value
 To plot vector data with the color determined by a set of attribute values, the 
@@ -582,9 +588,9 @@ class(lines_HARV$TYPE)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
+[1] "factor"
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -598,9 +604,9 @@ levels(lines_HARV$TYPE)
 
 
 ~~~
-Error in levels(lines_HARV$TYPE): object 'lines_HARV' not found
+[1] "boardwalk"  "footpath"   "stone wall" "woods road"
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -619,9 +625,10 @@ summary(lines_HARV$TYPE)
 
 
 ~~~
-Error in summary(lines_HARV$TYPE): object 'lines_HARV' not found
+ boardwalk   footpath stone wall woods road 
+         1          2          6          4 
 ~~~
-{: .error}
+{: .output}
 
 When we use `plot()`, we can specify the colors to use for each attribute using
 the `col=` element. To ensure that `R` renders each feature by it's associated 
@@ -650,9 +657,9 @@ class(lines_HARV$TYPE)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
+[1] "factor"
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -666,9 +673,9 @@ levels(lines_HARV$TYPE)
 
 
 ~~~
-Error in levels(lines_HARV$TYPE): object 'lines_HARV' not found
+[1] "boardwalk"  "footpath"   "stone wall" "woods road"
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -681,9 +688,9 @@ length(levels(lines_HARV$TYPE))
 
 
 ~~~
-Error in levels(lines_HARV$TYPE): object 'lines_HARV' not found
+[1] 4
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -707,19 +714,6 @@ roadPalette
 # create a vector of colors - one for each feature in our vector object
 # according to its attribute value
 roadColors <- c("blue","green","grey","purple")[lines_HARV$TYPE]
-~~~
-{: .r}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 roadColors
 ~~~
 {: .r}
@@ -727,27 +721,23 @@ roadColors
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'roadColors' not found
+ [1] "purple" "green"  "green"  "grey"   "grey"   "grey"   "grey"  
+ [8] "grey"   "grey"   "blue"   "purple" "purple" "purple"
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # plot the lines data, apply a diff color to each factor level)
-plot(lines_HARV, 
+plot(lines_HARV$geometry, 
      col=roadColors,
      lwd=3,
      main="NEON Harvard Forest Field Site\n Roads & Trails")
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(lines_HARV, col = roadColors, lwd = 3, main = "NEON Harvard Forest Field Site\n Roads & Trails"): object 'lines_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-palette-and-plot-1.png" title="plot of chunk palette-and-plot" alt="plot of chunk palette-and-plot" style="display: block; margin: auto;" />
 
 ### Adjust Line Width
 We can also adjust the width of our plot lines using `lwd`. We can set all lines
@@ -756,19 +746,14 @@ to be thicker or thinner using `lwd=`.
 
 ~~~
 # make all lines thicker
-plot(lines_HARV, 
+plot(lines_HARV$geometry, 
      col=roadColors,
      main="NEON Harvard Forest Field Site\n Roads & Trails\n All Lines Thickness=6",
      lwd=6)
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(lines_HARV, col = roadColors, main = "NEON Harvard Forest Field Site\n Roads & Trails\n All Lines Thickness=6", : object 'lines_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-adjust-line-width-1.png" title="plot of chunk adjust-line-width" alt="plot of chunk adjust-line-width" style="display: block; margin: auto;" />
 
 ### Adjust Line Width by Attribute
 
@@ -789,9 +774,9 @@ class(lines_HARV$TYPE)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
+[1] "factor"
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -803,43 +788,25 @@ levels(lines_HARV$TYPE)
 
 
 ~~~
-Error in levels(lines_HARV$TYPE): object 'lines_HARV' not found
+[1] "boardwalk"  "footpath"   "stone wall" "woods road"
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # create vector of line widths
 lineWidths <- (c(1,2,3,4))[lines_HARV$TYPE]
-~~~
-{: .r}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # adjust line width by level
 # in this case, boardwalk (the first level) is the narrowest.
-plot(lines_HARV, 
+plot(lines_HARV$geometry, 
      col=roadColors,
      main="NEON Harvard Forest Field Site\n Roads & Trails \n Line width varies by TYPE Attribute Value",
      lwd=lineWidths)
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(lines_HARV, col = roadColors, main = "NEON Harvard Forest Field Site\n Roads & Trails \n Line width varies by TYPE Attribute Value", : object 'lines_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-line-width-unique-1.png" title="plot of chunk line-width-unique" alt="plot of chunk line-width-unique" style="display: block; margin: auto;" />
 
 <div id="challenge" markdown="1">
 ## Challenge: Plot Line Width by Attribute 
@@ -857,32 +824,7 @@ Create a plot of roads using the following line thicknesses:
  
 </div>
 
-
-~~~
-Error in levels(lines_HARV$TYPE): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lineWidth' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(lines_HARV, col = roadColors, main = "NEON Harvard Forest Field Site\n Roads & Trails \n Line width varies by Type Attribute Value", : object 'lines_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-bicycle-map-1.png" title="plot of chunk bicycle-map" alt="plot of chunk bicycle-map" style="display: block; margin: auto;" />
 
 <i class="fa fa-star"></i> **Data Tip:** Given we have a factor with 4 levels, 
 we can create an vector of numbers, each of which specifies the thickness of each
@@ -905,22 +847,10 @@ Let's add a legend to our plot.
 
 
 ~~~
-plot(lines_HARV, 
+plot(lines_HARV$geometry, 
      col=roadColors,
      main="NEON Harvard Forest Field Site\n Roads & Trails\n Default Legend")
-~~~
-{: .r}
 
-
-
-~~~
-Error in plot(lines_HARV, col = roadColors, main = "NEON Harvard Forest Field Site\n Roads & Trails\n Default Legend"): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # we can use the color object that we created above to color the legend objects
 roadPalette
 ~~~
@@ -944,12 +874,7 @@ legend("bottomright",   # location of legend
 ~~~
 {: .r}
 
-
-
-~~~
-Error in levels(lines_HARV$TYPE): object 'lines_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-add-legend-to-plot-1.png" title="plot of chunk add-legend-to-plot" alt="plot of chunk add-legend-to-plot" style="display: block; margin: auto;" />
 
 We can tweak the appearance of our legend too.
 
@@ -960,22 +885,9 @@ Let's try it out.
 
 
 ~~~
-plot(lines_HARV, 
+plot(lines_HARV$geometry, 
      col=roadColors,
      main="NEON Harvard Forest Field Site\n Roads & Trails \n Modified Legend")
-~~~
-{: .r}
-
-
-
-~~~
-Error in plot(lines_HARV, col = roadColors, main = "NEON Harvard Forest Field Site\n Roads & Trails \n Modified Legend"): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # add a legend to our map
 legend("bottomright", 
        legend=levels(lines_HARV$TYPE), 
@@ -985,12 +897,7 @@ legend("bottomright",
 ~~~
 {: .r}
 
-
-
-~~~
-Error in levels(lines_HARV$TYPE): object 'lines_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-modify-legend-plot-1.png" title="plot of chunk modify-legend-plot" alt="plot of chunk modify-legend-plot" style="display: block; margin: auto;" />
 
 We can modify the colors used to plot our lines by creating a new color vector,
 directly in the plot code too rather than creating a separate object.
@@ -1018,22 +925,10 @@ newColors
 
 ~~~
 # plot using new colors
-plot(lines_HARV, 
+plot(lines_HARV$geometry, 
      col=(newColors)[lines_HARV$TYPE],
      main="NEON Harvard Forest Field Site\n Roads & Trails \n Pretty Colors")
-~~~
-{: .r}
 
-
-
-~~~
-Error in plot(lines_HARV, col = (newColors)[lines_HARV$TYPE], main = "NEON Harvard Forest Field Site\n Roads & Trails \n Pretty Colors"): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # add a legend to our map
 legend("bottomright", 
        levels(lines_HARV$TYPE), 
@@ -1042,12 +937,7 @@ legend("bottomright",
 ~~~
 {: .r}
 
-
-
-~~~
-Error in levels(lines_HARV$TYPE): object 'lines_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-plot-different-colors-1.png" title="plot of chunk plot-different-colors" alt="plot of chunk plot-different-colors" style="display: block; margin: auto;" />
 
 <i class="fa fa-star"></i> **Data Tip:** You can modify the defaul R color palette 
 using the palette method. For example `palette(rainbow(6))` or
@@ -1069,74 +959,7 @@ other lines can be grey.
 
 </div>
 
-
-~~~
-Error in levels(lines_HARV$BicyclesHo): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in as.factor(lines_HARV$BicyclesHo): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in levels(lines_HARV$BicyclesHo): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in levels(lines_HARV$BicyclesHo): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(lines_HARV, col = (challengeColors)[lines_HARV$BicyclesHo], : object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in levels(lines_HARV$BicyclesHo): object 'lines_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-bicycle-map-2-1.png" title="plot of chunk bicycle-map-2" alt="plot of chunk bicycle-map-2" style="display: block; margin: auto;" />
 
 <div id="challenge" markdown="1">
 ## Challenge: Plot Polygon by Attribute
@@ -1158,85 +981,4 @@ use google to find a list of pch symbols that you can use in `R`.
 
 </div>
 
-
-~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
-~~~
-{: .error}
-
-
-
-~~~
-Error in levels(State.Boundary.US$region): object 'State.Boundary.US' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(State.Boundary.US, col = (colors)[State.Boundary.US$region], : object 'State.Boundary.US' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in levels(State.Boundary.US$region): object 'State.Boundary.US' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
-~~~
-{: .error}
-
-
-
-~~~
-Error in unique(plotLocations$soilTypeOr): object 'plotLocations' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(plotLocations, col = (blueGreen)[plotLocations$soilTypeOr], : object 'plotLocations' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in strwidth(legend, units = "user", cex = cex, font = text.font): plot.new has not been called yet
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'plotLocations' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'plSymbols' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(plotLocations, col = plotLocations$soilTypeOr, pch = plSymbols, : object 'plotLocations' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in strwidth(legend, units = "user", cex = cex, font = text.font): plot.new has not been called yet
-~~~
-{: .error}
+<img src="../fig/rmd-challenge-code-plot-color-1.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-code-plot-color-2.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-code-plot-color-3.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />

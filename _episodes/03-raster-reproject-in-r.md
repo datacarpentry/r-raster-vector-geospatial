@@ -89,54 +89,17 @@ Let's create a map of the Harvard Forest Digital Terrain Model
 
 ~~~
 # import DTM
-DTM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
-~~~
-{: .r}
-
-
-
-~~~
-Error in .rasterObjectFromFile(x, band = band, objecttype = "RasterLayer", : Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
+DTM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 # import DTM hillshade
 DTM_hill_HARV <- 
-  raster("NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
-~~~
-{: .r}
+  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
 
-
-
-~~~
-Error in .rasterObjectFromFile(x, band = band, objecttype = "RasterLayer", : Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
 # plot hillshade using a grayscale color ramp 
 plot(DTM_hill_HARV,
     col=grey(1:100/100),
     legend=FALSE,
     main="DTM Hillshade\n NEON Harvard Forest Field Site")
-~~~
-{: .r}
 
-
-
-~~~
-Error in plot(DTM_hill_HARV, col = grey(1:100/100), legend = FALSE, main = "DTM Hillshade\n NEON Harvard Forest Field Site"): object 'DTM_hill_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # overlay the DTM on top of the hillshade
 plot(DTM_HARV,
      col=terrain.colors(10),
@@ -146,12 +109,7 @@ plot(DTM_HARV,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(DTM_HARV, col = terrain.colors(10), alpha = 0.4, add = TRUE, : object 'DTM_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-import-DTM-hillshade-1.png" title="plot of chunk import-DTM-hillshade" alt="plot of chunk import-DTM-hillshade" style="display: block; margin: auto;" />
 
 Our results are curious - the Digital Terrain Model (`DTM_HARV`) did not plot on
 top of our hillshade. The hillshade plotted just fine on it's own. Let's try to 
@@ -172,12 +130,7 @@ plot(DTM_HARV,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(DTM_HARV, col = terrain.colors(10), alpha = 1, legend = F, : object 'DTM_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-plot-DTM-1.png" title="plot of chunk plot-DTM" alt="plot of chunk plot-DTM" style="display: block; margin: auto;" />
 
 Our DTM seems to contain data and plots just fine. Let's next check the
  Coordinate Reference System (CRS) and compare it to our hillshade.
@@ -192,9 +145,11 @@ crs(DTM_HARV)
 
 
 ~~~
-Error in crs(DTM_HARV): object 'DTM_HARV' not found
+CRS arguments:
+ +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84
++towgs84=0,0,0 
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -207,9 +162,10 @@ crs(DTM_hill_HARV)
 
 
 ~~~
-Error in crs(DTM_hill_HARV): object 'DTM_hill_HARV' not found
+CRS arguments:
+ +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
 ~~~
-{: .error}
+{: .output}
 
 Aha! `DTM_HARV` is in the UTM projection. `DTM_hill_HARV` is in
 `Geographic WGS84` - which is represented by latitude and longitude values.
@@ -244,19 +200,7 @@ function as follows: `crs=crs(DTM_HARV)`.
 # reproject to UTM
 DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV, 
                                        crs=crs(DTM_HARV))
-~~~
-{: .r}
 
-
-
-~~~
-Error in methods::extends(class(x), "BasicRaster"): object 'DTM_hill_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # compare attributes of DTM_hill_UTMZ18N to DTM_hill
 crs(DTM_hill_UTMZ18N_HARV)
 ~~~
@@ -265,9 +209,11 @@ crs(DTM_hill_UTMZ18N_HARV)
 
 
 ~~~
-Error in crs(DTM_hill_UTMZ18N_HARV): object 'DTM_hill_UTMZ18N_HARV' not found
+CRS arguments:
+ +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84
++towgs84=0,0,0 
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -279,9 +225,10 @@ crs(DTM_hill_HARV)
 
 
 ~~~
-Error in crs(DTM_hill_HARV): object 'DTM_hill_HARV' not found
+CRS arguments:
+ +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -294,9 +241,13 @@ extent(DTM_hill_UTMZ18N_HARV)
 
 
 ~~~
-Error in extent(DTM_hill_UTMZ18N_HARV): object 'DTM_hill_UTMZ18N_HARV' not found
+class       : Extent 
+xmin        : 731397.3 
+xmax        : 733205.3 
+ymin        : 4712403 
+ymax        : 4713907 
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -308,9 +259,13 @@ extent(DTM_hill_HARV)
 
 
 ~~~
-Error in extent(DTM_hill_HARV): object 'DTM_hill_HARV' not found
+class       : Extent 
+xmin        : -72.18192 
+xmax        : -72.16061 
+ymin        : 42.52941 
+ymax        : 42.54234 
 ~~~
-{: .error}
+{: .output}
 
 Notice in the output above that the `crs()` of `DTM_hill_UTMZ18N_HARV` is now
 UTM. However, the extent values of `DTM_hillUTMZ18N_HARV` are different from
@@ -338,9 +293,9 @@ res(DTM_hill_UTMZ18N_HARV)
 
 
 ~~~
-Error in res(DTM_hill_UTMZ18N_HARV): object 'DTM_hill_UTMZ18N_HARV' not found
+[1] 1.000 0.998
 ~~~
-{: .error}
+{: .output}
 
 The output resolution of `DTM_hill_UTMZ18N_HARV` is 1 x 0.998. Yet, we know that
 the resolution for the data should be 1m x 1m. We can tell `R` to force our
@@ -353,19 +308,6 @@ newly reprojected raster to be 1m x 1m resolution by adding a line of code
 DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV, 
                                   crs=crs(DTM_HARV),
                                   res=1)
-~~~
-{: .r}
-
-
-
-~~~
-Error in methods::extends(class(x), "BasicRaster"): object 'DTM_hill_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # view resolution
 res(DTM_hill_UTMZ18N_HARV)
 ~~~
@@ -374,9 +316,9 @@ res(DTM_hill_UTMZ18N_HARV)
 
 
 ~~~
-Error in res(DTM_hill_UTMZ18N_HARV): object 'DTM_hill_UTMZ18N_HARV' not found
+[1] 1 1
 ~~~
-{: .error}
+{: .output}
 
 Let's plot our newly reprojected raster.
 
@@ -387,19 +329,7 @@ plot(DTM_hill_UTMZ18N_HARV,
     col=grey(1:100/100),
     legend=F,
     main="DTM with Hillshade\n NEON Harvard Forest Field Site")
-~~~
-{: .r}
 
-
-
-~~~
-Error in plot(DTM_hill_UTMZ18N_HARV, col = grey(1:100/100), legend = F, : object 'DTM_hill_UTMZ18N_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # overlay the DTM on top of the hillshade
 plot(DTM_HARV,
      col=rainbow(100),
@@ -409,12 +339,7 @@ plot(DTM_HARV,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(DTM_HARV, col = rainbow(100), alpha = 0.4, add = T, legend = F): object 'DTM_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-plot-projected-raster-1.png" title="plot of chunk plot-projected-raster" alt="plot of chunk plot-projected-raster" style="display: block; margin: auto;" />
 
 We have now successfully draped the Digital Terrain Model on top of our
 hillshade to produce a nice looking, textured map! 
@@ -428,39 +353,7 @@ field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files.
 Reproject the data as necessary to make things line up!
 </div>
 
-
-~~~
-Error in .rasterObjectFromFile(x, band = band, objecttype = "RasterLayer", : Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
-Error in .rasterObjectFromFile(x, band = band, objecttype = "RasterLayer", : Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
-Error in methods::extends(class(x), "BasicRaster"): object 'DSM_hill_SJER_WGS' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(DTM_hill_UTMZ18N_SJER, col = grey(1:100/100), legend = F, : object 'DTM_hill_UTMZ18N_SJER' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(DSM_SJER, col = terrain.colors(10), alpha = 0.4, add = T, : object 'DSM_SJER' not found
-~~~
-{: .error}
+<img src="../fig/rmd-challenge-code-reprojection-1.png" title="plot of chunk challenge-code-reprojection" alt="plot of chunk challenge-code-reprojection" style="display: block; margin: auto;" />
 
 <div id="challenge" markdown="1">
 If you completed the San Joaquin plotting challenge in the

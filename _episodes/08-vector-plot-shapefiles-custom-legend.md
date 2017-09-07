@@ -46,13 +46,11 @@ on your computer to complete this tutorial.
 ### Install R Packages
 
 * **raster:** `install.packages("raster")`
-* **rgdal:** `install.packages("rgdal")`
-* **sp:** `install.packages("sp")`
+* **sf:** `install.packages("sp")`
 
 [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 
 ## Download Data
-
 
 ****
 
@@ -75,7 +73,7 @@ location. These latter two we worked with in the
 ~~~
 # load packages
 # rgdal: for vector work; sp package should always load with rgdal. 
-library(rgdal)  
+library(sf)  
 # raster: for metadata/attributes- vectors or rasters
 library(raster)   
 
@@ -83,48 +81,64 @@ library(raster)
 # setwd("pathToDirHere")
 
 # Import a polygon shapefile 
-aoiBoundary_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV/",
-                            "HarClip_UTMZ18")
+aoiBoundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
+Reading layer `HarClip_UTMZ18' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp' using driver `ESRI Shapefile'
+Simple feature collection with 1 feature and 1 field
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: 732128 ymin: 4713209 xmax: 732251.1 ymax: 4713359
+epsg (SRID):    32618
+proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # Import a line shapefile
-lines_HARV <- readOGR( "NEON-DS-Site-Layout-Files/HARV/", "HARV_roads")
+lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
+Reading layer `HARV_roads' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp' using driver `ESRI Shapefile'
+Simple feature collection with 13 features and 15 fields
+geometry type:  MULTILINESTRING
+dimension:      XY
+bbox:           xmin: 730741.2 ymin: 4711942 xmax: 733295.5 ymax: 4714260
+epsg (SRID):    32618
+proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # Import a point shapefile 
-point_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV/",
-                      "HARVtower_UTM18N")
+point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
+Reading layer `HARVtower_UTM18N' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp' using driver `ESRI Shapefile'
+Simple feature collection with 1 feature and 14 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: 732183.2 ymin: 4713265 xmax: 732183.2 ymax: 4713265
+epsg (SRID):    32618
+proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 ~~~
-{: .error}
+{: .output}
 
 ## Plot Data
 
@@ -145,28 +159,15 @@ levels(lines_HARV$TYPE)
 
 
 ~~~
-Error in levels(lines_HARV$TYPE): object 'lines_HARV' not found
+[1] "boardwalk"  "footpath"   "stone wall" "woods road"
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # create vector of line width values
 lineWidth <- c(2,4,3,8)[lines_HARV$TYPE]
-~~~
-{: .r}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # view vector
 lineWidth
 ~~~
@@ -175,9 +176,9 @@ lineWidth
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'lineWidth' not found
+ [1] 8 4 4 3 3 3 3 3 3 2 8 8 8
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -201,19 +202,6 @@ roadPalette
 # create a vector of colors - one for each feature in our vector object
 # according to its attribute value
 roadColors <- c("blue","green","grey","purple")[lines_HARV$TYPE]
-~~~
-{: .r}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 roadColors
 ~~~
 {: .r}
@@ -221,28 +209,16 @@ roadColors
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'roadColors' not found
+ [1] "purple" "green"  "green"  "grey"   "grey"   "grey"   "grey"  
+ [8] "grey"   "grey"   "blue"   "purple" "purple" "purple"
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # create vector of line width values
 lineWidth <- c(2,4,3,8)[lines_HARV$TYPE]
-~~~
-{: .r}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # view vector
 lineWidth
 ~~~
@@ -251,27 +227,22 @@ lineWidth
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'lineWidth' not found
+ [1] 8 4 4 3 3 3 3 3 3 2 8 8 8
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # in this case, boardwalk (the first level) is the widest.
-plot(lines_HARV, 
+plot(lines_HARV$geometry, 
      col=roadColors,
      main="NEON Harvard Forest Field Site\n Roads & Trails \nLine Width Varies by Type Attribute Value",
      lwd=lineWidth)
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(lines_HARV, col = roadColors, main = "NEON Harvard Forest Field Site\n Roads & Trails \nLine Width Varies by Type Attribute Value", : object 'lines_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-plot-unique-lines-1.png" title="plot of chunk plot-unique-lines" alt="plot of chunk plot-unique-lines" style="display: block; margin: auto;" />
 
 <i class="fa fa-star"></i> **Data Tip:** Given we have a factor with 4 levels, 
 we can create a vector of numbers, each of which specifies the thickness of each
@@ -295,22 +266,10 @@ Let's add a legend to our plot.
 
 
 ~~~
-plot(lines_HARV, 
+plot(lines_HARV$geometry, 
      col=roadColors,
      main="NEON Harvard Forest Field Site\n Roads & Trails\n Default Legend")
-~~~
-{: .r}
 
-
-
-~~~
-Error in plot(lines_HARV, col = roadColors, main = "NEON Harvard Forest Field Site\n Roads & Trails\n Default Legend"): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # we can use the color object that we created above to color the legend objects
 roadPalette
 ~~~
@@ -335,12 +294,7 @@ legend("bottomright",
 ~~~
 {: .r}
 
-
-
-~~~
-Error in levels(lines_HARV$TYPE): object 'lines_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-add-legend-to-plot-1.png" title="plot of chunk add-legend-to-plot" alt="plot of chunk add-legend-to-plot" style="display: block; margin: auto;" />
 
 However, what if we want to create a more complex plot with many shapefiles
 and unique symbols that need to be represented clearly in a legend?
@@ -356,54 +310,23 @@ the tower location and road data on top using `add=TRUE`.
 
 ~~~
 # Plot multiple shapefiles
-plot(aoiBoundary_HARV, 
+plot(aoiBoundary_HARV$geometry, 
      col = "grey93", 
      border="grey",
      main="NEON Harvard Forest Field Site")
-~~~
-{: .r}
 
-
-
-~~~
-Error in plot(aoiBoundary_HARV, col = "grey93", border = "grey", main = "NEON Harvard Forest Field Site"): object 'aoiBoundary_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-plot(lines_HARV, 
-     col=roadColors,
+plot(lines_HARV$geometry, 
+     col = roadColors,
      add = TRUE)
-~~~
-{: .r}
 
-
-
-~~~
-Error in plot(lines_HARV, col = roadColors, add = TRUE): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-plot(point_HARV, 
-     add  = TRUE, 
+plot(point_HARV$geometry, 
+     add = TRUE, 
      pch = 19, 
      col = "purple")
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(point_HARV, add = TRUE, pch = 19, col = "purple"): object 'point_HARV' not found
-~~~
-{: .error}
-
-
+<img src="../fig/rmd-plot-many-shapefiles-1.png" title="plot of chunk plot-many-shapefiles" alt="plot of chunk plot-many-shapefiles" style="display: block; margin: auto;" />
 
 ~~~
 # assign plot to an object for easy modification!
@@ -431,19 +354,6 @@ them. We will start with the labels.
 ~~~
 # create a list of all labels
 labels <- c("Tower", "AOI", levels(lines_HARV$TYPE))
-~~~
-{: .r}
-
-
-
-~~~
-Error in levels(lines_HARV$TYPE): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 labels
 ~~~
 {: .r}
@@ -451,13 +361,8 @@ labels
 
 
 ~~~
-standardGeneric for "labels" defined from package "base"
-
-function (object, ...) 
-standardGeneric("labels")
-<environment: 0x62d6e10>
-Methods may be defined for arguments: object
-Use  showMethods("labels")  for currently available ones.
+[1] "Tower"      "AOI"        "boardwalk"  "footpath"   "stone wall"
+[6] "woods road"
 ~~~
 {: .output}
 
@@ -469,18 +374,13 @@ plot_HARV
 
 # add a legend to our map
 legend("bottomright", 
-       legend=labels, 
-       bty="n", # turn off the legend border
-       cex=.8) # decrease the font / legend size
+       legend = labels, 
+       bty = "n", # turn off the legend border
+       cex = .8) # decrease the font / legend size
 ~~~
 {: .r}
 
-
-
-~~~
-Error in as.vector(x, "character"): cannot coerce type 'closure' to vector of type 'character'
-~~~
-{: .error}
+<img src="../fig/rmd-create-custom-labels-1.png" title="plot of chunk create-custom-labels" alt="plot of chunk create-custom-labels" style="display: block; margin: auto;" />
 
 Now we have a legend with the labels identified. Let's add colors to each legend
 element next. We can use the vectors of colors that we created earlier to do this.
@@ -523,19 +423,14 @@ plot_HARV
 
 # add a legend to our map
 legend("bottomright", 
-       legend=labels, 
-       fill=plotColors,
-       bty="n", # turn off the legend border
-       cex=.8) # decrease the font / legend size
+       legend = labels, 
+       fill = plotColors,
+       bty = "n", # turn off the legend border
+       cex = .8) # decrease the font / legend size
 ~~~
 {: .r}
 
-
-
-~~~
-Error in as.vector(x, "character"): cannot coerce type 'closure' to vector of type 'character'
-~~~
-{: .error}
+<img src="../fig/rmd-add-colors-1.png" title="plot of chunk add-colors" alt="plot of chunk add-colors" style="display: block; margin: auto;" />
 
 Great - now we have a legend however this legend uses boxes to symbolize each 
 element in the plot. It might be better if the lines were symbolized as a line 
@@ -580,12 +475,7 @@ legend("bottomright",
 ~~~
 {: .r}
 
-
-
-~~~
-Error in as.vector(x, "character"): cannot coerce type 'closure' to vector of type 'character'
-~~~
-{: .error}
+<img src="../fig/rmd-custom-symbols-1.png" title="plot of chunk custom-symbols" alt="plot of chunk custom-symbols" style="display: block; margin: auto;" />
 
 Now we've added a point symbol to represent our point element in the plot. However
 it might be more useful to use line symbols in our legend
@@ -653,12 +543,7 @@ legend("bottomright",
 ~~~
 {: .r}
 
-
-
-~~~
-Error in as.vector(x, "character"): cannot coerce type 'closure' to vector of type 'character'
-~~~
-{: .error}
+<img src="../fig/rmd-refine-legend-1.png" title="plot of chunk refine-legend" alt="plot of chunk refine-legend" style="display: block; margin: auto;" />
 
 
 <div id="challenge" markdown="1">
@@ -678,71 +563,4 @@ Create a custom legend.
 
 </div>
 
-
-~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
-~~~
-{: .error}
-
-
-
-~~~
-Error in unique(plotLocations$soilTypeOr): object 'plotLocations' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(lines_HARV, col = roadColors, main = "NEON Harvard Forest Field Site\n Study Plots by Soil Type\n One Symbol for All Types"): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(plotLocations, col = (blueGreen)[plotLocations$soilTypeOr], : object 'plotLocations' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in levels(lines_HARV$TYPE): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'plotLocations' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'plSymbols' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(lines_HARV, col = roadColors, main = "NEON Harvard Forest Field Site\n Study Plots by Soil Type\n Different Symbols for Types"): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(plotLocations, col = (blueGreen)[plotLocations$soilTypeOr], : object 'plotLocations' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in levels(lines_HARV$TYPE): object 'lines_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-challenge-code-plot-color-1.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-code-plot-color-2.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />

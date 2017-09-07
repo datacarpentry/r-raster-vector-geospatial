@@ -49,8 +49,7 @@ on your computer to complete this tutorial.
 ### Install R Packages
 
 * **raster:** `install.packages("raster")`
-* **rgdal:** `install.packages("rgdal")`
-* **sp:** `install.packages("sp")`
+* **sp:** `install.packages("sf")`
 
 [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 
@@ -82,7 +81,7 @@ tutorial, you can skip this code.
 ```{r load-packages-data }
 # load packages
 # rgdal: for vector work; sp package should always load with rgdal. 
-library(rgdal)  
+library(sf)  
 # raster: for metadata/attributes- vectors or rasters
 library (raster)   
 
@@ -90,15 +89,13 @@ library (raster)
 # setwd("pathToDirHere")
 
 # Import a polygon shapefile 
-aoiBoundary_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV/",
-                            "HarClip_UTMZ18")
+aoiBoundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 
 # Import a line shapefile
-lines_HARV <- readOGR( "NEON-DS-Site-Layout-Files/HARV/", "HARV_roads")
+lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 
 # Import a point shapefile 
-point_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV/",
-                      "HARVtower_UTM18N")
+point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 
 ```
 
@@ -118,17 +115,17 @@ Let's explore the metadata for our `point_HARV` object.
 
 ```{r view-shapefile-metadata }
 # view class
-class(x = point_HARV)
+class(point_HARV)
 
 # x= isn't actually needed; it just specifies which object
 # view features count
-length(point_HARV)
+nrow(point_HARV)
 
 # view crs - note - this only works with the raster package loaded
-crs(point_HARV)
+st_crs(point_HARV)
 
 # view extent- note - this only works with the raster package loaded
-extent(point_HARV)
+st_bbox(point_HARV)
 
 # view metadata summary
 point_HARV
@@ -164,10 +161,10 @@ function to count the number of attributes associated with a spatial object too.
 
 ```{r shapefile-attributes}
 # just view the attributes & first 6 attribute values of the data
-head(lines_HARV@data)
+head(lines_HARV)
 
 # how many attributes are in our vector data object?
-length(lines_HARV@data)
+nrow(lines_HARV)
 
 ```
 
@@ -179,7 +176,7 @@ Let's give it a try.
 
 ```{r view-shapefile-attributes }
 # view just the attribute names for the lines_HARV spatial object
-names(lines_HARV@data)
+names(lines_HARV)
 
 ```
 
@@ -197,14 +194,14 @@ spatial objects.
 
 ```{r challenge-code-attributes-classes, results="hide", echo=FALSE}
 # 1
-length(names(point_HARV@data))  #14 attributes
-names(aoiBoundary_HARV@data)  #1 attribute
+length(names(point_HARV))  #14 attributes
+names(aoiBoundary_HARV)  #1 attribute
 
 # 2
-head(point_HARV@data)  #Harvard University, LTER
+head(point_HARV)  #Harvard University, LTER
 
 # 3
-point_HARV@data  # C Country
+point_HARV  # C Country
 ```
 
 ## Explore Values within One Attribute
@@ -218,7 +215,7 @@ the attribute: `objectName$attributeName`.
 lines_HARV$TYPE
 
 # view unique values within the "TYPE" attributes
-levels(lines_HARV@data$TYPE)
+levels(lines_HARV$TYPE)
 
 ```
 
@@ -241,7 +238,7 @@ footpath_HARV <- lines_HARV[lines_HARV$TYPE == "footpath",]
 footpath_HARV
 
 # how many features are in our new object
-length(footpath_HARV)
+nrow(footpath_HARV)
 ```
 
 Our subsetting operation reduces the `features` count from 13 to 2. This means
@@ -252,7 +249,7 @@ We can plot our subsetted shapefiles.
 
 ```{r plot-subset-shapefile}
 # plot just footpaths
-plot(footpath_HARV,
+plot(footpath_HARV$geometry,
      lwd=6,
      main="NEON Harvard Forest Field Site\n Footpaths")
 
@@ -271,7 +268,7 @@ to do this.
 
 ```{r plot-subset-shapefile-unique-colors }
 # plot just footpaths
-plot(footpath_HARV,
+plot(footpath_HARV$geometry,
      col=c("green","blue"), # set color for each feature 
      lwd=6,
      main="NEON Harvard Forest Field Site\n Footpaths \n Feature one = blue, Feature two= green")
@@ -298,23 +295,23 @@ boardwalk_HARV<-lines_HARV[lines_HARV$TYPE == "boardwalk",]
 boardwalk_HARV
 
 # how many features are in our new object
-length(boardwalk_HARV)
+nrow(boardwalk_HARV)
 
 # plot just footpaths
-plot(boardwalk_HARV,
+plot(boardwalk_HARV$geometry,
      col=c("green"), # set color for feature 
      lwd=6,
      main="NEON Harvard Forest Field Site\n Boardwalks\n Feature one = blue, Feature two= green")
 
 # save an object with only boardwalk lines
-stoneWall_HARV<-lines_HARV[lines_HARV$TYPE == "stone wall",]
+stoneWall_HARV <- lines_HARV[lines_HARV$TYPE == "stone wall",]
 stoneWall_HARV
 
 # how many features are in our new object?
-length(stoneWall_HARV)
+nrow(stoneWall_HARV)
 
 # plot just footpaths
-plot(stoneWall_HARV,
+plot(stoneWall_HARV$geometry,
      col=c("green", "blue", "orange", "brown", "darkgreen", "purple"), 
         # set color for each feature 
      lwd=6,
@@ -390,11 +387,10 @@ roadColors <- c("blue","green","grey","purple")[lines_HARV$TYPE]
 roadColors
 
 # plot the lines data, apply a diff color to each factor level)
-plot(lines_HARV, 
+plot(lines_HARV$geometry, 
      col=roadColors,
      lwd=3,
      main="NEON Harvard Forest Field Site\n Roads & Trails")
-
 ```
 
 ### Adjust Line Width
@@ -403,11 +399,10 @@ to be thicker or thinner using `lwd=`.
 
 ```{r adjust-line-width}
 # make all lines thicker
-plot(lines_HARV, 
+plot(lines_HARV$geometry, 
      col=roadColors,
      main="NEON Harvard Forest Field Site\n Roads & Trails\n All Lines Thickness=6",
      lwd=6)
-
 ```     
 
 ### Adjust Line Width by Attribute
@@ -427,7 +422,7 @@ levels(lines_HARV$TYPE)
 lineWidths <- (c(1,2,3,4))[lines_HARV$TYPE]
 # adjust line width by level
 # in this case, boardwalk (the first level) is the narrowest.
-plot(lines_HARV, 
+plot(lines_HARV$geometry, 
      col=roadColors,
      main="NEON Harvard Forest Field Site\n Roads & Trails \n Line width varies by TYPE Attribute Value",
      lwd=lineWidths)
@@ -459,11 +454,10 @@ lineWidth <- c(2,4,3,8)[lines_HARV$TYPE]
 lineWidth
 
 # in this case, boardwalk (the first level) is the widest.
-plot(lines_HARV, 
+plot(lines_HARV$geometry, 
      col=roadColors,
      main="NEON Harvard Forest Field Site\n Roads & Trails \n Line width varies by Type Attribute Value",
      lwd=lineWidth)
-
 ```
 
 <i class="fa fa-star"></i> **Data Tip:** Given we have a factor with 4 levels, 
@@ -486,7 +480,7 @@ the default set of colors that `R` applies to all plots.
 Let's add a legend to our plot.
 
 ```{r add-legend-to-plot }
-plot(lines_HARV, 
+plot(lines_HARV$geometry, 
      col=roadColors,
      main="NEON Harvard Forest Field Site\n Roads & Trails\n Default Legend")
 
@@ -510,7 +504,7 @@ Let's try it out.
 
 ```{r modify-legend-plot }
 
-plot(lines_HARV, 
+plot(lines_HARV$geometry, 
      col=roadColors,
      main="NEON Harvard Forest Field Site\n Roads & Trails \n Modified Legend")
 # add a legend to our map
@@ -536,7 +530,7 @@ newColors <- c("springgreen", "blue", "magenta", "orange")
 newColors
 
 # plot using new colors
-plot(lines_HARV, 
+plot(lines_HARV$geometry, 
      col=(newColors)[lines_HARV$TYPE],
      main="NEON Harvard Forest Field Site\n Roads & Trails \n Pretty Colors")
 
@@ -593,7 +587,7 @@ lines_HARV$BicyclesHo
 c(4,1,1)[lines_HARV$BicyclesHo]
 
 # plot using new colors
-plot(lines_HARV,
+plot(lines_HARV$geometry,
      col=(challengeColors)[lines_HARV$BicyclesHo],
      lwd=c(4,1,1)[lines_HARV$BicyclesHo],
      main="NEON Harvard Forest Field Site\n Roads Where Bikes and Horses Are Allowed")
@@ -630,15 +624,14 @@ use google to find a list of pch symbols that you can use in `R`.
 ``` {r challenge-code-plot-color, results="hide", warning= FALSE, echo=FALSE}
 ## 1
 # Read the shapefile file
-State.Boundary.US <- readOGR("NEON-DS-Site-Layout-Files/US-Boundary-Layers",
-          "US-State-Boundaries-Census-2014")
+State.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp")
 
 # how many levels?
 levels(State.Boundary.US$region)
 colors <- c("purple","springgreen","yellow","brown","grey")
 colors
 
-plot(State.Boundary.US,
+plot(State.Boundary.US$geometry,
      col=(colors)[State.Boundary.US$region],
      main="Contiguous U.S. State Boundaries \n 50 Colors")
 
@@ -651,8 +644,7 @@ legend("bottomright",
 
 ## 2
 # open plot locations
-plotLocations <- readOGR("NEON-DS-Site-Layout-Files/HARV",
-          "PlotLocations_HARV")
+plotLocations <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
 
 # how many unique soils?  Two
 unique(plotLocations$soilTypeOr)
@@ -662,7 +654,7 @@ blueGreen <- c("blue","springgreen")
 blueGreen
 
 # plot the locations 
-plot(plotLocations,
+plot(plotLocations$geometry,
      col=(blueGreen)[plotLocations$soilTypeOr], 
      pch=18,
      main="NEON Harvard Forest Field Site\n Study Plots by Soil Type\n One Symbol for All Types")
@@ -681,7 +673,7 @@ plSymbols <- c(15,17)[plotLocations$soilTypeOr]
 plSymbols
 
 # plot the locations 
-plot(plotLocations,
+plot(plotLocations$geometry,
      col=plotLocations$soilTypeOr, 
      pch=plSymbols,
      main="NEON Harvard Forest Field Site\n Study Plots by Soil Type\n Unique Symbol for Each Type")

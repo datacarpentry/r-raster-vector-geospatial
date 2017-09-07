@@ -77,36 +77,17 @@ library(rgdal)
 library(ggplot2)
 
 # Create list of NDVI file paths
-all_HARV_NDVI <- list.files("NEON-DS-Landsat-NDVI/HARV/2011/NDVI",
+all_HARV_NDVI <- list.files("data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI",
                             full.names = TRUE,
                             pattern = ".tif$")
 
 # Create a time series raster stack
 NDVI_HARV_stack <- stack(all_HARV_NDVI)
-~~~
-{: .r}
 
-
-
-~~~
-Error in x[[1]]: subscript out of bounds
-~~~
-{: .error}
-
-
-
-~~~
 # apply scale factor
 NDVI_HARV_stack <- NDVI_HARV_stack/10000
 ~~~
 {: .r}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'NDVI_HARV_stack' not found
-~~~
-{: .error}
 
 ## Calculate Average NDVI
 Our goal in this tutorial, is to create a `data.frame` that contains a single, 
@@ -121,34 +102,10 @@ array format output to a data.frame using `as.data.frame()`.
 ~~~
 # calculate mean NDVI for each raster
 avg_NDVI_HARV <- cellStats(NDVI_HARV_stack,mean)
-~~~
-{: .r}
 
-
-
-~~~
-Error in cellStats(NDVI_HARV_stack, mean): object 'NDVI_HARV_stack' not found
-~~~
-{: .error}
-
-
-
-~~~
 # convert output array to data.frame
 avg_NDVI_HARV <- as.data.frame(avg_NDVI_HARV)
-~~~
-{: .r}
 
-
-
-~~~
-Error in as.data.frame(avg_NDVI_HARV): object 'avg_NDVI_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # To be more efficient we could do the above two steps with one line of code
 # avg_NDVI_HARV <- as.data.frame(cellStats(NDVI_stack_HARV,mean))
 
@@ -160,9 +117,22 @@ avg_NDVI_HARV
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'avg_NDVI_HARV' not found
+                    avg_NDVI_HARV
+X005_HARV_ndvi_crop      0.365150
+X037_HARV_ndvi_crop      0.242645
+X085_HARV_ndvi_crop      0.251390
+X133_HARV_ndvi_crop      0.599300
+X181_HARV_ndvi_crop      0.878725
+X197_HARV_ndvi_crop      0.893250
+X213_HARV_ndvi_crop      0.878395
+X229_HARV_ndvi_crop      0.881505
+X245_HARV_ndvi_crop      0.850120
+X261_HARV_ndvi_crop      0.796360
+X277_HARV_ndvi_crop      0.033050
+X293_HARV_ndvi_crop      0.056895
+X309_HARV_ndvi_crop      0.541130
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -175,9 +145,9 @@ avg_NDVI_HARV[1,1]
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'avg_NDVI_HARV' not found
+[1] 0.36515
 ~~~
-{: .error}
+{: .output}
 
 We now have a `data.frame` with `row.names` based on the original file name and
 a mean NDVI value for each file. Next, let's clean up the column names in our
@@ -197,28 +167,16 @@ names(avg_NDVI_HARV)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'avg_NDVI_HARV' not found
+[1] "avg_NDVI_HARV"
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # rename the NDVI column
 names(avg_NDVI_HARV) <- "meanNDVI"
-~~~
-{: .r}
 
-
-
-~~~
-Error in names(avg_NDVI_HARV) <- "meanNDVI": object 'avg_NDVI_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # view cleaned column names
 names(avg_NDVI_HARV)
 ~~~
@@ -227,9 +185,9 @@ names(avg_NDVI_HARV)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'avg_NDVI_HARV' not found
+[1] "meanNDVI"
 ~~~
-{: .error}
+{: .output}
 
 By renaming the column, we lose the "HARV" in the header that reminds us what
 site our data are from. While, we are only working with one site now, we
@@ -242,34 +200,10 @@ the year our data were collected.
 ~~~
 # add a site column to our data
 avg_NDVI_HARV$site <- "HARV"
-~~~
-{: .r}
 
-
-
-~~~
-Error in avg_NDVI_HARV$site <- "HARV": object 'avg_NDVI_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # add a "year" column to our data
 avg_NDVI_HARV$year <- "2011"
-~~~
-{: .r}
 
-
-
-~~~
-Error in avg_NDVI_HARV$year <- "2011": object 'avg_NDVI_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # view data
 head(avg_NDVI_HARV)
 ~~~
@@ -278,9 +212,15 @@ head(avg_NDVI_HARV)
 
 
 ~~~
-Error in head(avg_NDVI_HARV): object 'avg_NDVI_HARV' not found
+                    meanNDVI site year
+X005_HARV_ndvi_crop 0.365150 HARV 2011
+X037_HARV_ndvi_crop 0.242645 HARV 2011
+X085_HARV_ndvi_crop 0.251390 HARV 2011
+X133_HARV_ndvi_crop 0.599300 HARV 2011
+X181_HARV_ndvi_crop 0.878725 HARV 2011
+X197_HARV_ndvi_crop 0.893250 HARV 2011
 ~~~
-{: .error}
+{: .output}
 
 We now have data frame that contains a row for each raster file processed, and a
 column for `meanNDVI`,  `site` and `year`.  
@@ -303,19 +243,7 @@ Day value:
 julianDays <- gsub(pattern = "X|_HARV_ndvi_crop", #the pattern to find 
             x = row.names(avg_NDVI_HARV), #the object containing the strings
             replacement = "") #what to replace each instance of the pattern with
-~~~
-{: .r}
 
-
-
-~~~
-Error in row.names(avg_NDVI_HARV): object 'avg_NDVI_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # alternately you can include the above code on one single line
 # julianDays <- gsub("X|_HARV_NDVI_crop", "", row.names(avg_NDVI_HARV))
 
@@ -327,28 +255,16 @@ head(julianDays)
 
 
 ~~~
-Error in head(julianDays): object 'julianDays' not found
+[1] "005" "037" "085" "133" "181" "197"
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # add julianDay values as a column in the data frame
 avg_NDVI_HARV$julianDay <- julianDays
-~~~
-{: .r}
 
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'julianDays' not found
-~~~
-{: .error}
-
-
-
-~~~
 # what class is the new column
 class(avg_NDVI_HARV$julianDay)
 ~~~
@@ -357,9 +273,9 @@ class(avg_NDVI_HARV$julianDay)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'avg_NDVI_HARV' not found
+[1] "character"
 ~~~
-{: .error}
+{: .output}
 
 What class is our `julianDay` column?
 
@@ -394,35 +310,11 @@ origin <- as.Date("2011-01-01")
 
 # convert "julianDay" from class character to integer
 avg_NDVI_HARV$julianDay <- as.integer(avg_NDVI_HARV$julianDay)
-~~~
-{: .r}
 
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'avg_NDVI_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # create a date column; -1 added because origin is the 1st. 
 # If not -1, 01/01/2011 + 5 = 01/06/2011 which is Julian day 6, not 5.
 avg_NDVI_HARV$Date<- origin + (avg_NDVI_HARV$julianDay-1)
-~~~
-{: .r}
 
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'avg_NDVI_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # did it work? 
 head(avg_NDVI_HARV$Date)
 ~~~
@@ -431,9 +323,10 @@ head(avg_NDVI_HARV$Date)
 
 
 ~~~
-Error in head(avg_NDVI_HARV$Date): object 'avg_NDVI_HARV' not found
+[1] "2011-01-05" "2011-02-06" "2011-03-26" "2011-05-13" "2011-06-30"
+[6] "2011-07-16"
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -446,9 +339,9 @@ class(avg_NDVI_HARV$Date)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'avg_NDVI_HARV' not found
+[1] "Date"
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -460,9 +353,9 @@ class(avg_NDVI_HARV$julianDay)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'avg_NDVI_HARV' not found
+[1] "integer"
 ~~~
-{: .error}
+{: .output}
 
 Note that when we convert our integer class `julianDay` values to dates, we 
 subtracted 1 as follows: 
@@ -487,66 +380,6 @@ Joaquin Experimental Range field sites. NDVI data for SJER are located in the
 </div>
 
 
-~~~
-Error in x[[1]]: subscript out of bounds
-~~~
-{: .error}
-
-
-
-~~~
-Error in cellStats(NDVI_stack_SJER, mean): object 'NDVI_stack_SJER' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in names(avg_NDVI_SJER) <- "meanNDVI": object 'avg_NDVI_SJER' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in avg_NDVI_SJER$site <- "SJER": object 'avg_NDVI_SJER' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in avg_NDVI_SJER$year <- "2011": object 'avg_NDVI_SJER' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in row.names(avg_NDVI_SJER): object 'avg_NDVI_SJER' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'julianDays_SJER' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'avg_NDVI_SJER' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'avg_NDVI_SJER' not found
-~~~
-{: .error}
 
 ## Plot NDVI Using ggplot
 We now have a clean data.frame with properly scaled NDVI and Julian days. Let's
@@ -568,12 +401,7 @@ ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI), na.rm=TRUE) +
 ~~~
 {: .r}
 
-
-
-~~~
-Error in ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI), na.rm = TRUE): object 'avg_NDVI_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-ggplot-data-1.png" title="plot of chunk ggplot-data" alt="plot of chunk ggplot-data" style="display: block; margin: auto;" />
 
 <div id="challenge" markdown="1">
 
@@ -583,11 +411,7 @@ Create a complementary plot for the SJER data. Plot the data points in a
 different color. 
 </div>
 
-
-~~~
-Error in ggplot(avg_NDVI_SJER, aes(julianDay, meanNDVI)): object 'avg_NDVI_SJER' not found
-~~~
-{: .error}
+<img src="../fig/rmd-challenge-code-ggplot-data-1.png" title="plot of chunk challenge-code-ggplot-data" alt="plot of chunk challenge-code-ggplot-data" style="display: block; margin: auto;" />
 
 ## Compare NDVI from Two Different Sites in One Plot
 Comparison of plots is often easiest when both plots are side by side. Or, even 
@@ -599,19 +423,7 @@ of columns and exact same column names to be bound.
 ~~~
 # Merge Data Frames
 NDVI_HARV_SJER <- rbind(avg_NDVI_HARV,avg_NDVI_SJER)  
-~~~
-{: .r}
-
-
-
-~~~
-Error in rbind(avg_NDVI_HARV, avg_NDVI_SJER): object 'avg_NDVI_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
+  
 # plot NDVI values for both sites
 ggplot(NDVI_HARV_SJER, aes(julianDay, meanNDVI, colour=site)) +
   geom_point(size=4,aes(group=site)) + 
@@ -624,12 +436,7 @@ ggplot(NDVI_HARV_SJER, aes(julianDay, meanNDVI, colour=site)) +
 ~~~
 {: .r}
 
-
-
-~~~
-Error in ggplot(NDVI_HARV_SJER, aes(julianDay, meanNDVI, colour = site)): object 'NDVI_HARV_SJER' not found
-~~~
-{: .error}
+<img src="../fig/rmd-merge-df-single-plot-1.png" title="plot of chunk merge-df-single-plot" alt="plot of chunk merge-df-single-plot" style="display: block; margin: auto;" />
 
 <div id="challenge" markdown="1">
 ## Challenge: Plot NDVI with Date
@@ -638,11 +445,7 @@ on the x-axis.
 
 </div>
 
-
-~~~
-Error in ggplot(NDVI_HARV_SJER, aes(Date, meanNDVI, colour = site)): object 'NDVI_HARV_SJER' not found
-~~~
-{: .error}
+<img src="../fig/rmd-challenge-code-plot2-1.png" title="plot of chunk challenge-code-plot2" alt="plot of chunk challenge-code-plot2" style="display: block; margin: auto;" />
 
 ## Remove Outlier Data
 As we look at these plots we see variation in greenness across the year.
@@ -661,7 +464,7 @@ However the code demonstrates one way to plot multiple RGB rasters in a grid.
 ~~~
 # open up RGB imagery
 
-rgb.allCropped <-  list.files("NEON-DS-Landsat-NDVI/HARV/2011/RGB/", 
+rgb.allCropped <-  list.files("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/", 
                               full.names=TRUE, 
                               pattern = ".tif$")
 # create a layout
@@ -678,6 +481,8 @@ par(mfrow=c(1,1))
 ~~~
 {: .r}
 
+<img src="../fig/rmd-view-all-rgb-Harv-1.png" title="plot of chunk view-all-rgb-Harv" alt="plot of chunk view-all-rgb-Harv" style="display: block; margin: auto;" />
+
 Notice that the data points with very low NDVI values can be associated with
 images that are filled with clouds. Thus, we can attribute the low NDVI values
 to high levels of cloud cover. 
@@ -687,7 +492,7 @@ Is the same thing happening at SJER?
 
 ~~~
 # open up the cropped files
-rgb.allCropped.SJER <-  list.files("NEON-DS-Landsat-NDVI/SJER/2011/RGB/", 
+rgb.allCropped.SJER <-  list.files("data/NEON-DS-Landsat-NDVI/SJER/2011/RGB/", 
                               full.names=TRUE, 
                               pattern = ".tif$")
 # create a layout
@@ -701,7 +506,7 @@ par(mfrow=c(5,4))
 
 for (aFile in rgb.allCropped.SJER)
   {NDVI.rastStack <- stack(aFile)
-  if (aFile =="NEON-DS-Landsat-NDVI/SJER/2011/RGB//254_SJER_landRGB.tif")
+  if (aFile =="data/NEON-DS-Landsat-NDVI/SJER/2011/RGB//254_SJER_landRGB.tif")
     {plotRGB(NDVI.rastStack) }
   else { plotRGB(NDVI.rastStack, stretch="lin") }
 }
@@ -710,6 +515,8 @@ for (aFile in rgb.allCropped.SJER)
 par(mfrow=c(1,1))
 ~~~
 {: .r}
+
+<img src="../fig/rmd-view-all-rgb-SJER-1.png" title="plot of chunk view-all-rgb-SJER" alt="plot of chunk view-all-rgb-SJER" style="display: block; margin: auto;" />
 
 Without significant additional processing, we will not be able to retrieve a
 strong reflection from vegetation, from a remotely sensed image that is 
@@ -734,19 +541,7 @@ the data and the desired outcomes!
 ~~~
 # retain only rows with meanNDVI>0.1
 avg_NDVI_HARV_clean<-subset(avg_NDVI_HARV, meanNDVI>0.1)
-~~~
-{: .r}
 
-
-
-~~~
-Error in subset(avg_NDVI_HARV, meanNDVI > 0.1): object 'avg_NDVI_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # Did it work?
 avg_NDVI_HARV_clean$meanNDVI<0.1
 ~~~
@@ -755,9 +550,9 @@ avg_NDVI_HARV_clean$meanNDVI<0.1
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'avg_NDVI_HARV_clean' not found
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ~~~
-{: .error}
+{: .output}
 
 Now we can create another plot without the suspect data. 
 
@@ -773,12 +568,7 @@ ggplot(avg_NDVI_HARV_clean, aes(julianDay, meanNDVI)) +
 ~~~
 {: .r}
 
-
-
-~~~
-Error in ggplot(avg_NDVI_HARV_clean, aes(julianDay, meanNDVI)): object 'avg_NDVI_HARV_clean' not found
-~~~
-{: .error}
+<img src="../fig/rmd-plot-clean-HARV-1.png" title="plot of chunk plot-clean-HARV" alt="plot of chunk plot-clean-HARV" style="display: block; margin: auto;" />
   
 Now our outlier data points are removed and the pattern of "green-up" and
 "brown-down" makes a bit more sense.
@@ -807,9 +597,15 @@ head(avg_NDVI_HARV_clean)
 
 
 ~~~
-Error in head(avg_NDVI_HARV_clean): object 'avg_NDVI_HARV_clean' not found
+                    meanNDVI site year julianDay       Date
+X005_HARV_ndvi_crop 0.365150 HARV 2011         5 2011-01-05
+X037_HARV_ndvi_crop 0.242645 HARV 2011        37 2011-02-06
+X085_HARV_ndvi_crop 0.251390 HARV 2011        85 2011-03-26
+X133_HARV_ndvi_crop 0.599300 HARV 2011       133 2011-05-13
+X181_HARV_ndvi_crop 0.878725 HARV 2011       181 2011-06-30
+X197_HARV_ndvi_crop 0.893250 HARV 2011       197 2011-07-16
 ~~~
-{: .error}
+{: .output}
 
 It looks like we have a series of `row.names` that we do not need given we have 
 this information stored in individual columns in our data.frame. Let's remove 
@@ -819,34 +615,10 @@ the row names.
 ~~~
 # create new df to prevent changes to avg_NDVI_HARV
 NDVI_HARV_toWrite<-avg_NDVI_HARV_clean
-~~~
-{: .r}
 
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'avg_NDVI_HARV_clean' not found
-~~~
-{: .error}
-
-
-
-~~~
 # drop the row.names column 
 row.names(NDVI_HARV_toWrite)<-NULL
-~~~
-{: .r}
 
-
-
-~~~
-Error in row.names(NDVI_HARV_toWrite) <- NULL: object 'NDVI_HARV_toWrite' not found
-~~~
-{: .error}
-
-
-
-~~~
 # check data frame
 head(NDVI_HARV_toWrite)
 ~~~
@@ -855,9 +627,15 @@ head(NDVI_HARV_toWrite)
 
 
 ~~~
-Error in head(NDVI_HARV_toWrite): object 'NDVI_HARV_toWrite' not found
+  meanNDVI site year julianDay       Date
+1 0.365150 HARV 2011         5 2011-01-05
+2 0.242645 HARV 2011        37 2011-02-06
+3 0.251390 HARV 2011        85 2011-03-26
+4 0.599300 HARV 2011       133 2011-05-13
+5 0.878725 HARV 2011       181 2011-06-30
+6 0.893250 HARV 2011       197 2011-07-16
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -867,13 +645,6 @@ Error in head(NDVI_HARV_toWrite): object 'NDVI_HARV_toWrite' not found
 write.csv(NDVI_HARV_toWrite, file="meanNDVI_HARV_2011.csv")
 ~~~
 {: .r}
-
-
-
-~~~
-Error in is.data.frame(x): object 'NDVI_HARV_toWrite' not found
-~~~
-{: .error}
 
 <div id="challenge" markdown="1">
 ## Challenge: Write to .csv
@@ -885,35 +656,3 @@ questionable values before writing any data to a .csv file.
 </div>
 
 
-~~~
-Error in subset(avg_NDVI_SJER, meanNDVI > 0.1): object 'avg_NDVI_SJER' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'avg_NDVI_SJER_clean' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in row.names(NDVI_SJER_toWrite) <- NULL: object 'NDVI_SJER_toWrite' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in head(NDVI_SJER_toWrite): object 'NDVI_SJER_toWrite' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in is.data.frame(x): object 'NDVI_SJER_toWrite' not found
-~~~
-{: .error}

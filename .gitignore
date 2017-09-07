@@ -4,3 +4,5 @@ _config.yml
 .Rproj.user
 _episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing
 _episodes_rmd/data/NEON-DS-Site-Layout-Files
+_episodes_rmd/data/NEON-DS-Landsat-NDVI
+_episodes_rmd/data/NEON-DS-Met-Time-Series

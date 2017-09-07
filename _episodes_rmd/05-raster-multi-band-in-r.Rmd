@@ -112,7 +112,7 @@ palette to render individual bands.
 ```{r demonstrate-RGB-Image, echo=FALSE}
 # Use stack function to read in all bands
 RGB_stack_HARV <- 
-  stack("NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
+  stack("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
 names(RGB_stack_HARV) <- c("Red Band","Green Band","Blue Band")
 
@@ -196,7 +196,7 @@ in the first band. We can plot this band using the plot function.
 # Read in multi-band raster with raster function. 
 # Default is the first band only.
 RGB_band1_HARV <- 
-  raster("NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
+  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
 # create a grayscale color palette to use for the image.
 grayscale_colors <- gray.colors(100,            # number of different color levels 
@@ -257,7 +257,7 @@ want to work with). To import the green band, we would use `band=2`.
 ```{r read-specific-band }
 # Can specify which band we want to read in
 RGB_band2_HARV <- 
-  raster("NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif", 
+  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif", 
            band = 2)
 
 # plot band 2
@@ -298,7 +298,7 @@ To bring in all bands of a multi-band raster, we use the`stack()` function.
 
 # Use stack function to read in all bands
 RGB_stack_HARV <- 
-  stack("NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
+  stack("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
 # view attributes of stack object
 RGB_stack_HARV
@@ -436,7 +436,7 @@ GDALinfo("NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif")
 # 4
 # reading in file
 HARV_NA<- 
-  stack("NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif")
+  stack("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif")
 
 # 5
 plotRGB(HARV_NA, 

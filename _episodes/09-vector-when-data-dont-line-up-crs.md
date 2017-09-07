@@ -53,8 +53,7 @@ on your computer to complete this tutorial.
 ### Install R Packages
 
 * **raster:** `install.packages("raster")`
-* **rgdal:** `install.packages("rgdal")`
-* **sp:** `install.packages("sp")`
+* **sf:** `install.packages("sf")`
 
 * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 
@@ -109,7 +108,7 @@ We will use the `rgdal` and `raster` libraries in this tutorial.
 
 ~~~
 # load packages
-library(rgdal)  # for vector work; sp package should always load with rgdal. 
+library(sf)  # for vector work; sp package should always load with rgdal. 
 library (raster)   # for metadata/attributes- vectors or rasters
 
 # set working directory to data folder
@@ -130,7 +129,7 @@ attributes to them if need be - for project specific mapping.
 
 ## Read US Boundary File
 
-We will use the `readOGR()` function to import the
+We will use the `st_read()` function to import the
 `/US-Boundary-Layers/US-State-Boundaries-Census-2014` layer into `R`. This layer
 contains the boundaries of all continental states in the U.S. Please note that
 these data have been modified and reprojected from the original data downloaded
@@ -139,17 +138,22 @@ from the Census website to support the learning goals of this tutorial.
 
 ~~~
 # Read the .csv file
-State.Boundary.US <- readOGR("NEON-DS-Site-Layout-Files/US-Boundary-Layers",
-          "US-State-Boundaries-Census-2014")
+State.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp")
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
+Reading layer `US-State-Boundaries-Census-2014' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp' using driver `ESRI Shapefile'
+Simple feature collection with 58 features and 10 fields
+geometry type:  MULTIPOLYGON
+dimension:      XYZ
+bbox:           xmin: -124.7258 ymin: 24.49813 xmax: -66.9499 ymax: 49.38436
+epsg (SRID):    4326
+proj4string:    +proj=longlat +datum=WGS84 +no_defs
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -162,31 +166,26 @@ class(State.Boundary.US)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'State.Boundary.US' not found
+[1] "sf"         "data.frame"
 ~~~
-{: .error}
+{: .output}
 
-Note: the Z-dimension warning is normal. The `readOGR()` function doesn't import 
+Note: the Z-dimension warning is normal. The `st_read()` function doesn't import 
 z (vertical dimension or height) data by default. This is because not all
 shapefiles contain z dimension data. 
-<a href="http://www.inside-r.org/packages/cran/rgdal/docs/ogrInfo" target="_blank">More on readOGR</a>
+<a href="http://www.inside-r.org/packages/cran/rgdal/docs/ogrInfo" target="_blank">More on st_read</a>
 
 Next, let's plot the U.S. states data.
 
 
 ~~~
 # view column names
-plot(State.Boundary.US, 
+plot(State.Boundary.US$geometry, 
      main="Map of Continental US State Boundaries\n US Census Bureau Data")
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(State.Boundary.US, main = "Map of Continental US State Boundaries\n US Census Bureau Data"): object 'State.Boundary.US' not found
-~~~
-{: .error}
+<img src="../fig/rmd-find-coordinates-1.png" title="plot of chunk find-coordinates" alt="plot of chunk find-coordinates" style="display: block; margin: auto;" />
 
 ## U.S. Boundary Layer  
 
@@ -199,17 +198,22 @@ make our map pop!
 
 ~~~
 # Read the .csv file
-Country.Boundary.US <- readOGR("NEON-DS-Site-Layout-Files/US-Boundary-Layers",
-          "US-Boundary-Dissolved-States")
+Country.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp")
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
+Reading layer `US-Boundary-Dissolved-States' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp' using driver `ESRI Shapefile'
+Simple feature collection with 1 feature and 9 fields
+geometry type:  MULTIPOLYGON
+dimension:      XYZ
+bbox:           xmin: -124.7258 ymin: 24.49813 xmax: -66.9499 ymax: 49.38436
+epsg (SRID):    4326
+proj4string:    +proj=longlat +datum=WGS84 +no_defs
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -222,44 +226,27 @@ class(Country.Boundary.US)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'Country.Boundary.US' not found
+[1] "sf"         "data.frame"
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # view column names
-plot(State.Boundary.US, 
+plot(State.Boundary.US$geometry, 
      main="Map of Continental US State Boundaries\n US Census Bureau Data",
      border="gray40")
-~~~
-{: .r}
 
-
-
-~~~
-Error in plot(State.Boundary.US, main = "Map of Continental US State Boundaries\n US Census Bureau Data", : object 'State.Boundary.US' not found
-~~~
-{: .error}
-
-
-
-~~~
 # view column names
-plot(Country.Boundary.US, 
+plot(Country.Boundary.US$geometry, 
      lwd=4, 
      border="gray18",
      add=TRUE)
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(Country.Boundary.US, lwd = 4, border = "gray18", add = TRUE): object 'Country.Boundary.US' not found
-~~~
-{: .error}
+<img src="../fig/rmd-check-out-coordinates-1.png" title="plot of chunk check-out-coordinates" alt="plot of chunk check-out-coordinates" style="display: block; margin: auto;" />
 
 Next, let's add the location of a flux tower where our study area is.
 As we are adding these layers, take note of the class of each object. 
@@ -267,17 +254,22 @@ As we are adding these layers, take note of the class of each object.
 
 ~~~
 # Import a point shapefile 
-point_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV/",
-                      "HARVtower_UTM18N")
+point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
+Reading layer `HARVtower_UTM18N' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp' using driver `ESRI Shapefile'
+Simple feature collection with 1 feature and 14 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: 732183.2 ymin: 4713265 xmax: 732183.2 ymax: 4713265
+epsg (SRID):    32618
+proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -289,27 +281,22 @@ class(point_HARV)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'point_HARV' not found
+[1] "sf"         "data.frame"
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # plot point - looks ok? 
-plot(point_HARV, 
+plot(point_HARV$geometry, 
      pch = 19, 
      col = "purple",
      main="Harvard Fisher Tower Location")
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(point_HARV, pch = 19, col = "purple", main = "Harvard Fisher Tower Location"): object 'point_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-explore-units-1.png" title="plot of chunk explore-units" alt="plot of chunk explore-units" style="display: block; margin: auto;" />
 
 The plot above demonstrates that the tower point location data is readable and 
 will plot! Let's next add it as a layer on top of the U.S. states and boundary
@@ -318,54 +305,25 @@ layers in our basemap plot.
 
 ~~~
 # plot state boundaries  
-plot(State.Boundary.US, 
+plot(State.Boundary.US$geometry, 
      main="Map of Continental US State Boundaries \n with Tower Location",
      border="gray40")
-~~~
-{: .r}
 
-
-
-~~~
-Error in plot(State.Boundary.US, main = "Map of Continental US State Boundaries \n with Tower Location", : object 'State.Boundary.US' not found
-~~~
-{: .error}
-
-
-
-~~~
 # add US border outline 
-plot(Country.Boundary.US, 
+plot(Country.Boundary.US$geometry, 
      lwd=4, 
      border="gray18",
      add=TRUE)
-~~~
-{: .r}
 
-
-
-~~~
-Error in plot(Country.Boundary.US, lwd = 4, border = "gray18", add = TRUE): object 'Country.Boundary.US' not found
-~~~
-{: .error}
-
-
-
-~~~
 # add point tower location
-plot(point_HARV, 
+plot(point_HARV$geometry, 
      pch = 19, 
      col = "purple",
      add=TRUE)
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(point_HARV, pch = 19, col = "purple", add = TRUE): object 'point_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-layer-point-on-states-1.png" title="plot of chunk layer-point-on-states" alt="plot of chunk layer-point-on-states" style="display: block; margin: auto;" />
 
 What do you notice about the resultant plot? Do you see the tower location in 
 purple in the Massachusetts area? No! What went wrong?
@@ -377,45 +335,66 @@ U.S. boundary layers.
 
 ~~~
 # view CRS of our site data
-crs(point_HARV)
+st_crs(point_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in crs(point_HARV): object 'point_HARV' not found
+$epsg
+[1] 32618
+
+$proj4string
+[1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
+
+attr(,"class")
+[1] "crs"
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # view crs of census data
-crs(State.Boundary.US)
+st_crs(State.Boundary.US)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in crs(State.Boundary.US): object 'State.Boundary.US' not found
+$epsg
+[1] 4326
+
+$proj4string
+[1] "+proj=longlat +datum=WGS84 +no_defs"
+
+attr(,"class")
+[1] "crs"
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
-crs(Country.Boundary.US)
+st_crs(Country.Boundary.US)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in crs(Country.Boundary.US): object 'Country.Boundary.US' not found
+$epsg
+[1] 4326
+
+$proj4string
+[1] "+proj=longlat +datum=WGS84 +no_defs"
+
+attr(,"class")
+[1] "crs"
 ~~~
-{: .error}
+{: .output}
 
 It looks like our data are in different CRS. We can tell this by looking at
 the CRS strings in `proj4` format.
@@ -475,31 +454,33 @@ object compared to the `State.Boundary.US` object.
 
 ~~~
 # extent for HARV in UTM
-extent(point_HARV)
+st_bbox(point_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in extent(point_HARV): object 'point_HARV' not found
+     xmin      ymin      xmax      ymax 
+ 732183.2 4713265.0  732183.2 4713265.0 
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # extent for object in geographic
-extent(State.Boundary.US)
+st_bbox(State.Boundary.US)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in extent(State.Boundary.US): object 'State.Boundary.US' not found
+      xmin       ymin       xmax       ymax 
+-124.72584   24.49813  -66.94989   49.38436 
 ~~~
-{: .error}
+{: .output}
 
 Note the difference in the units for each object. The extent for
 `State.Boundary.US` is in latitude and longitude which yields smaller numbers
@@ -543,101 +524,68 @@ longitude `WGS84` coordinate reference system (CRS).
 
 ~~~
 # reproject data
-point_HARV_WGS84 <- spTransform(point_HARV,
-                                crs(State.Boundary.US))
-~~~
-{: .r}
+point_HARV_WGS84 <- st_transform(point_HARV,
+                                st_crs(State.Boundary.US))
 
-
-
-~~~
-Error in spTransform(point_HARV, crs(State.Boundary.US)): object 'point_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # what is the CRS of the new object
-crs(point_HARV_WGS84)
+st_crs(point_HARV_WGS84)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in crs(point_HARV_WGS84): object 'point_HARV_WGS84' not found
+$epsg
+[1] 4326
+
+$proj4string
+[1] "+proj=longlat +datum=WGS84 +no_defs"
+
+attr(,"class")
+[1] "crs"
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # does the extent look like decimal degrees?
-extent(point_HARV_WGS84)
+st_bbox(point_HARV_WGS84)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in extent(point_HARV_WGS84): object 'point_HARV_WGS84' not found
+     xmin      ymin      xmax      ymax 
+-72.17266  42.53690 -72.17266  42.53690 
 ~~~
-{: .error}
+{: .output}
 
 Once our data are reprojected, we can try to plot again.
 
 
 ~~~
 # plot state boundaries  
-plot(State.Boundary.US, 
+plot(State.Boundary.US$geometry, 
      main="Map of Continental US State Boundaries\n With Fisher Tower Location",
      border="gray40")
-~~~
-{: .r}
 
-
-
-~~~
-Error in plot(State.Boundary.US, main = "Map of Continental US State Boundaries\n With Fisher Tower Location", : object 'State.Boundary.US' not found
-~~~
-{: .error}
-
-
-
-~~~
 # add US border outline 
-plot(Country.Boundary.US, 
+plot(Country.Boundary.US$geometry, 
      lwd=4, 
      border="gray18",
      add=TRUE)
-~~~
-{: .r}
 
-
-
-~~~
-Error in plot(Country.Boundary.US, lwd = 4, border = "gray18", add = TRUE): object 'Country.Boundary.US' not found
-~~~
-{: .error}
-
-
-
-~~~
 # add point tower location
-plot(point_HARV_WGS84, 
+plot(point_HARV_WGS84$geometry, 
      pch = 19, 
      col = "purple",
      add=TRUE)
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(point_HARV_WGS84, pch = 19, col = "purple", add = TRUE): object 'point_HARV_WGS84' not found
-~~~
-{: .error}
+<img src="../fig/rmd-plot-again-1.png" title="plot of chunk plot-again" alt="plot of chunk plot-again" style="display: block; margin: auto;" />
 
 Reprojecting our data ensured that things line up on our map! It will also 
 allow us to perform any required geoprocessing (spatial calculations /
@@ -657,64 +605,4 @@ the Tower location point.
 
 </div>
 
-
-~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
-~~~
-{: .error}
-
-
-
-~~~
-Error in crs(NE.States.Boundary.US): object 'NE.States.Boundary.US' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in crs(point_HARV): object 'point_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'UTM_CRS' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in spTransform(NE.States.Boundary.US, UTM_CRS): object 'NE.States.Boundary.US' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'NE.States.Boundary.US.UTM' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(NE.States.Boundary.US.UTM, main = "Map of Northeastern US\n With Fisher Tower Location - UTM Zone 18N", : object 'NE.States.Boundary.US.UTM' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(point_HARV, pch = 19, col = "purple", add = TRUE): object 'point_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in strwidth(legend, units = "user", cex = cex, font = text.font): plot.new has not been called yet
-~~~
-{: .error}
+<img src="../fig/rmd-challenge-code-MASS-Map-1.png" title="plot of chunk challenge-code-MASS-Map" alt="plot of chunk challenge-code-MASS-Map" style="display: block; margin: auto;" />

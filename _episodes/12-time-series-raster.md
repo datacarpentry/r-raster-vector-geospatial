@@ -155,7 +155,7 @@ the list.
 ~~~
 # Create list of NDVI file paths
 # assign path to object = cleaner code
-NDVI_HARV_path <- "NEON-DS-Landsat-NDVI/HARV/2011/NDVI" 
+NDVI_HARV_path <- "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI" 
 all_NDVI_HARV <- list.files(NDVI_HARV_path,
                             full.names = TRUE,
                             pattern = ".tif$")
@@ -168,7 +168,19 @@ all_NDVI_HARV
 
 
 ~~~
-character(0)
+ [1] "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI/005_HARV_ndvi_crop.tif"
+ [2] "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI/037_HARV_ndvi_crop.tif"
+ [3] "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI/085_HARV_ndvi_crop.tif"
+ [4] "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI/133_HARV_ndvi_crop.tif"
+ [5] "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI/181_HARV_ndvi_crop.tif"
+ [6] "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI/197_HARV_ndvi_crop.tif"
+ [7] "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI/213_HARV_ndvi_crop.tif"
+ [8] "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI/229_HARV_ndvi_crop.tif"
+ [9] "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI/245_HARV_ndvi_crop.tif"
+[10] "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI/261_HARV_ndvi_crop.tif"
+[11] "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI/277_HARV_ndvi_crop.tif"
+[12] "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI/293_HARV_ndvi_crop.tif"
+[13] "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI/309_HARV_ndvi_crop.tif"
 ~~~
 {: .output}
 
@@ -182,13 +194,6 @@ function.
 NDVI_HARV_stack <- stack(all_NDVI_HARV)
 ~~~
 {: .r}
-
-
-
-~~~
-Error in x[[1]]: subscript out of bounds
-~~~
-{: .error}
 
 We can explore the GeoTIFF tags (the embedded metadata) in a `stack` using the
 same syntax that we used on single-band raster objects in `R` including: `crs()`
@@ -205,9 +210,10 @@ crs(NDVI_HARV_stack)
 
 
 ~~~
-Error in crs(NDVI_HARV_stack): object 'NDVI_HARV_stack' not found
+CRS arguments:
+ +proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs 
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -220,9 +226,13 @@ extent(NDVI_HARV_stack)
 
 
 ~~~
-Error in extent(NDVI_HARV_stack): object 'NDVI_HARV_stack' not found
+class       : Extent 
+xmin        : 239415 
+xmax        : 239535 
+ymin        : 4714215 
+ymax        : 4714365 
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -235,9 +245,9 @@ yres(NDVI_HARV_stack)
 
 
 ~~~
-Error in yres(NDVI_HARV_stack): object 'NDVI_HARV_stack' not found
+[1] 30
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -250,9 +260,9 @@ xres(NDVI_HARV_stack)
 
 
 ~~~
-Error in xres(NDVI_HARV_stack): object 'NDVI_HARV_stack' not found
+[1] 30
 ~~~
-{: .error}
+{: .output}
 
 Notice that the CRS is `+proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs`. The
 CRS is in UTM Zone 19.  If you have completed the previous tutorials in 
@@ -306,12 +316,7 @@ plot(NDVI_HARV_stack,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(NDVI_HARV_stack, zlim = c(1500, 10000), nc = 4): object 'NDVI_HARV_stack' not found
-~~~
-{: .error}
+<img src="../fig/rmd-plot-time-series-1.png" title="plot of chunk plot-time-series" alt="plot of chunk plot-time-series" style="display: block; margin: auto;" />
 
 Have a look at the range of NDVI values observed in the plot above. We know that
 the accepted values for NDVI range from 0-1. Why does our data range from
@@ -338,19 +343,6 @@ tutorial.
 ~~~
 # apply scale factor to data
 NDVI_HARV_stack <- NDVI_HARV_stack/10000
-~~~
-{: .r}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'NDVI_HARV_stack' not found
-~~~
-{: .error}
-
-
-
-~~~
 # plot stack with scale factor applied
 # apply scale factor to limits to ensure uniform plottin
 plot(NDVI_HARV_stack,
@@ -359,12 +351,7 @@ plot(NDVI_HARV_stack,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(NDVI_HARV_stack, zlim = c(0.15, 1), nc = 4): object 'NDVI_HARV_stack' not found
-~~~
-{: .error}
+<img src="../fig/rmd-apply-scale-factor-1.png" title="plot of chunk apply-scale-factor" alt="plot of chunk apply-scale-factor" style="display: block; margin: auto;" />
 
 ## Take a Closer Look at Our Data
 Let's take a closer look at the plots of our data. Note that Massachusettes, 
@@ -397,12 +384,7 @@ hist(NDVI_HARV_stack,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in hist(NDVI_HARV_stack, xlim = c(0, 1)): object 'NDVI_HARV_stack' not found
-~~~
-{: .error}
+<img src="../fig/rmd-view-stack-histogram-1.png" title="plot of chunk view-stack-histogram" alt="plot of chunk view-stack-histogram" style="display: block; margin: auto;" />
 
 It seems like things get green in the spring and summer like we expect, but the 
 data at Julian days 277 and 293 are unusual. It appears as if the vegetation got
@@ -419,39 +401,7 @@ Let's next view some temperature data for our field site to see whether there
 were some unusual fluctuations that may explain this pattern of greening and
 browning seen in the NDVI data.
 
-
-~~~
-Error in file(file, "rt"): cannot open the connection
-~~~
-{: .error}
-
-
-
-~~~
-Error in as.Date(harMetDaily$date, format = "%Y-%m-%d"): object 'harMetDaily' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in subset(harMetDaily, date >= as.Date("2011-01-01") & date <= as.Date("2011-12-31")): object 'harMetDaily' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in ggplot(yr.11_dailyAvg, aes(jd, airt)): object 'yr.11_dailyAvg' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'myPlot' not found
-~~~
-{: .error}
+<img src="../fig/rmd-view-temp-data-1.png" title="plot of chunk view-temp-data" alt="plot of chunk view-temp-data" style="display: block; margin: auto;" />
 
 There are no significant peaks or dips in the temperature during the late summer
 or early fall time period that might account for patterns seen in the NDVI data.
@@ -476,60 +426,7 @@ reset your layout using: `par(mfrow=c(1,1))`.
 
 </div>
 
-
-~~~
-Error in .rasterObjectFromFile(x, objecttype = "RasterBrick", ...): Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
-Error in plotRGB(RGB_277): object 'RGB_277' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in .rasterObjectFromFile(x, objecttype = "RasterBrick", ...): Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
-Error in plotRGB(RGB_293): object 'RGB_293' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in .rasterObjectFromFile(x, objecttype = "RasterBrick", ...): Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
-Error in plotRGB(RGB_133, stretch = "lin"): object 'RGB_133' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in .rasterObjectFromFile(x, objecttype = "RasterBrick", ...): Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
-Error in plotRGB(RGB_197, stretch = "lin"): object 'RGB_197' not found
-~~~
-{: .error}
+<img src="../fig/rmd-view-all-rgb-1.png" title="plot of chunk view-all-rgb" alt="plot of chunk view-all-rgb" style="display: block; margin: auto;" />
 
 ## Explore The Data's Source
 The third challenge question, "Does the RGB imagery from these two days explain 
