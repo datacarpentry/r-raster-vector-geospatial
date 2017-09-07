@@ -44,12 +44,7 @@ preferably RStudio, loaded on your computer.
 
 ### Download Data
 
-{% include/dataSubsets/_data_Site-Layout-Files.html %}
-{% include/dataSubsets/_data_Airborne-Remote-Sensing.html %}
-
 *****
-
-{% include/_greyBox-wd-rscript.html %}
 
 **Data Carpentry Lesson Series:** This workshop part of a larger 
 [spatio-temporal Data Carpentry Workshop ]({{ site.baseurl }}self-paced-tutorials/spatio-temporal-workshop)
