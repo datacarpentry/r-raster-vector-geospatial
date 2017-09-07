@@ -108,8 +108,8 @@ We will use the `rgdal` and `raster` libraries in this tutorial.
 
 ~~~
 # load packages
-library(sf)  # for vector work; sp package should always load with rgdal. 
-library (raster)   # for metadata/attributes- vectors or rasters
+library(sf)  # for vector work
+library (raster)   # for raster metadata/attributes 
 
 # set working directory to data folder
 # setwd("pathToDirHere")
