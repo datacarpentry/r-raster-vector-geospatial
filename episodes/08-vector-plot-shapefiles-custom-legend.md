@@ -72,9 +72,7 @@ location. These latter two we worked with in the
 
 ~~~
 # load packages
-# rgdal: for vector work; sp package should always load with rgdal. 
 library(sf)  
-# raster: for metadata/attributes- vectors or rasters
 library(raster)   
 
 # set working directory to data folder
