@@ -80,9 +80,9 @@ tutorial, you can skip this code.
 
 ```{r load-packages-data }
 # load packages
-# rgdal: for vector work; sp package should always load with rgdal. 
+# rgdal: for vector work
 library(sf)  
-# raster: for metadata/attributes- vectors or rasters
+# raster: for raster metadata/attributes 
 library (raster)   
 
 # set working directory to data folder
