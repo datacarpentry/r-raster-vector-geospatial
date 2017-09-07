@@ -48,13 +48,11 @@ on your computer to complete this tutorial.
 ### Install R Packages
 
 * **raster:** `install.packages("raster")`
-* **rgdal:** `install.packages("rgdal")`
-* **sp:** `install.packages("sp")`
+* **sf:** `install.packages("sp")`
 
 [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 
 ## Download Data
-
 
 ****
 
@@ -77,7 +75,7 @@ location. These latter two we worked with in the
 
 # load packages
 # rgdal: for vector work; sp package should always load with rgdal. 
-library(rgdal)  
+library(sf)  
 # raster: for metadata/attributes- vectors or rasters
 library(raster)   
 
@@ -85,15 +83,13 @@ library(raster)
 # setwd("pathToDirHere")
 
 # Import a polygon shapefile 
-aoiBoundary_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV/",
-                            "HarClip_UTMZ18")
+aoiBoundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 
 # Import a line shapefile
-lines_HARV <- readOGR( "NEON-DS-Site-Layout-Files/HARV/", "HARV_roads")
+lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 
 # Import a point shapefile 
-point_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV/",
-                      "HARVtower_UTM18N")
+point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 
 ```
 
@@ -129,7 +125,7 @@ lineWidth <- c(2,4,3,8)[lines_HARV$TYPE]
 lineWidth
 
 # in this case, boardwalk (the first level) is the widest.
-plot(lines_HARV, 
+plot(lines_HARV$geometry, 
      col=roadColors,
      main="NEON Harvard Forest Field Site\n Roads & Trails \nLine Width Varies by Type Attribute Value",
      lwd=lineWidth)
@@ -157,7 +153,7 @@ the default set of colors that `R` applies to all plots.
 Let's add a legend to our plot.
 
 ```{r add-legend-to-plot }
-plot(lines_HARV, 
+plot(lines_HARV$geometry, 
      col=roadColors,
      main="NEON Harvard Forest Field Site\n Roads & Trails\n Default Legend")
 
@@ -187,17 +183,17 @@ the tower location and road data on top using `add=TRUE`.
 ```{r plot-many-shapefiles }
 
 # Plot multiple shapefiles
-plot(aoiBoundary_HARV, 
+plot(aoiBoundary_HARV$geometry, 
      col = "grey93", 
      border="grey",
      main="NEON Harvard Forest Field Site")
 
-plot(lines_HARV, 
-     col=roadColors,
+plot(lines_HARV$geometry, 
+     col = roadColors,
      add = TRUE)
 
-plot(point_HARV, 
-     add  = TRUE, 
+plot(point_HARV$geometry, 
+     add = TRUE, 
      pch = 19, 
      col = "purple")
 
@@ -233,9 +229,9 @@ plot_HARV
 
 # add a legend to our map
 legend("bottomright", 
-       legend=labels, 
-       bty="n", # turn off the legend border
-       cex=.8) # decrease the font / legend size
+       legend = labels, 
+       bty = "n", # turn off the legend border
+       cex = .8) # decrease the font / legend size
 ```
 
 Now we have a legend with the labels identified. Let's add colors to each legend
@@ -255,10 +251,10 @@ plot_HARV
 
 # add a legend to our map
 legend("bottomright", 
-       legend=labels, 
-       fill=plotColors,
-       bty="n", # turn off the legend border
-       cex=.8) # decrease the font / legend size
+       legend = labels, 
+       fill = plotColors,
+       bty = "n", # turn off the legend border
+       cex = .8) # decrease the font / legend size
 
 ```
 
@@ -354,8 +350,7 @@ Create a custom legend.
 ``` {r challenge-code-plot-color, results="hide", warning= FALSE, echo=FALSE}
 ## 1
 # open plot locations
-plotLocations <- readOGR("NEON-DS-Site-Layout-Files/HARV",
-          "PlotLocations_HARV")
+plotLocations <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
 
 # how many unique soils?  Two
 unique(plotLocations$soilTypeOr)
@@ -365,12 +360,12 @@ blueGreen <- c("blue","darkgreen")
 blueGreen
 
 # plot roads
-plot(lines_HARV, 
+plot(lines_HARV$geometry, 
      col=roadColors,
      main="NEON Harvard Forest Field Site\n Study Plots by Soil Type\n One Symbol for All Types")
 
 # plot the locations 
-plot(plotLocations,
+plot(plotLocations$geometry,
      col=(blueGreen)[plotLocations$soilTypeOr], 
      pch=18,
      add=TRUE)
@@ -400,12 +395,12 @@ plSymbols <- c(15,17)[plotLocations$soilTypeOr]
 plSymbols
 
 # plot roads
-plot(lines_HARV, 
+plot(lines_HARV$geometry, 
      col=roadColors,
      main="NEON Harvard Forest Field Site\n Study Plots by Soil Type\n Different Symbols for Types")
 
 # plot the locations 
-plot(plotLocations,
+plot(plotLocations$geometry,
      col=(blueGreen)[plotLocations$soilTypeOr], 
      pch=plSymbols,
      add=TRUE)

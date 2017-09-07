@@ -48,14 +48,16 @@ on your computer to complete this tutorial.
 ### Install R Packages
 
 * **raster:** `install.packages("raster")`
-* **rgdal:** `install.packages("rgdal")`
-* **sp:** `install.packages("sp")`
+* **sf:** `install.packages("sf")`
 
 [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 
 
 ## Download Data
+
+
 ****
+
 
 </div>
 
@@ -110,14 +112,27 @@ information about each stream line object.
 ## Import Shapefiles
 
 We will use the `rgdal` package to work with vector data in `R`. Notice that the
-`sp` package automatically loads when `rgdal` is loaded. We will also load the
+`sf` package automatically loads when `rgdal` is loaded. We will also load the
 `raster` package so we can explore raster and vector spatial metadata using similar commands.
 
 
 ~~~
 # load required libraries
-# for vector work; sp package will load with rgdal.
-library(rgdal)  
+# for vector work
+library(sf)  
+~~~
+{: .r}
+
+
+
+~~~
+Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
+~~~
+{: .output}
+
+
+
+~~~
 # for metadata/attributes- vectors or rasters
 library(raster) 
 
@@ -149,19 +164,24 @@ Let's import our AOI.
 
 
 ~~~
-# Import a polygon shapefile: readOGR("path","fileName")
-# no extension needed as readOGR only imports shapefiles
-aoiBoundary_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV",
-                            "HarClip_UTMZ18")
+# Import a polygon shapefile
+aoiBoundary_HARV <- st_read(
+  "data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
+Reading layer `HarClip_UTMZ18' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp' using driver `ESRI Shapefile'
+Simple feature collection with 1 feature and 1 field
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: 732128 ymin: 4713209 xmax: 732251.1 ymax: 4713359
+epsg (SRID):    32618
+proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 ~~~
-{: .error}
+{: .output}
 
 <i class="fa fa-star"></i> **Data Tip:** The acronym, OGR, refers to the
 OpenGIS Simple Features Reference Implementation. 
@@ -205,39 +225,47 @@ class(aoiBoundary_HARV)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'aoiBoundary_HARV' not found
+[1] "sf"         "data.frame"
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # view just the crs for the shapefile
-crs(aoiBoundary_HARV)
+st_crs(aoiBoundary_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in crs(aoiBoundary_HARV): object 'aoiBoundary_HARV' not found
+$epsg
+[1] 32618
+
+$proj4string
+[1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
+
+attr(,"class")
+[1] "crs"
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # view just the extent for the shapefile
-extent(aoiBoundary_HARV)
+st_bbox(aoiBoundary_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in extent(aoiBoundary_HARV): object 'aoiBoundary_HARV' not found
+     xmin      ymin      xmax      ymax 
+ 732128.0 4713208.7  732251.1 4713359.2 
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -250,9 +278,16 @@ aoiBoundary_HARV
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'aoiBoundary_HARV' not found
+Simple feature collection with 1 feature and 1 field
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: 732128 ymin: 4713209 xmax: 732251.1 ymax: 4713359
+epsg (SRID):    32618
+proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
+  id                       geometry
+1  1 POLYGON ((732128.016925 471...
 ~~~
-{: .error}
+{: .output}
 
 Our `aoiBoundary_HARV` object is a polygon of class `SpatialPolygonsDataFrame`, 
 in the CRS **UTM zone 18N**. The CRS is critical to interpreting the object 
@@ -298,16 +333,17 @@ We view the attributes of a `SpatialPolygonsDataFrame` using `objectName@data`
 
 ~~~
 # alternate way to view attributes 
-aoiBoundary_HARV@data
+data.frame(aoiBoundary_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'aoiBoundary_HARV' not found
+  id                       geometry
+1  1 POLYGON ((732128.016925 471...
 ~~~
-{: .error}
+{: .output}
 
 In this case, our polygon object only has one attribute: `id`.
 
@@ -328,9 +364,15 @@ summary(aoiBoundary_HARV)
 
 
 ~~~
-Error in summary(aoiBoundary_HARV): object 'aoiBoundary_HARV' not found
+       id             geometry
+ Min.   :1   POLYGON      :1  
+ 1st Qu.:1   epsg:32618   :0  
+ Median :1   +proj=utm ...:0  
+ Mean   :1                    
+ 3rd Qu.:1                    
+ Max.   :1                    
 ~~~
-{: .error}
+{: .output}
 
 
 # Plot a Shapefile
@@ -348,12 +390,7 @@ plot(aoiBoundary_HARV, col="cyan1", border="black", lwd=3,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(aoiBoundary_HARV, col = "cyan1", border = "black", lwd = 3, : object 'aoiBoundary_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-plot-shapefile-1.png" title="plot of chunk plot-shapefile" alt="plot of chunk plot-shapefile" style="display: block; margin: auto;" />
 
 <div id="challenge" markdown="1">
 ## Challenge: Import Line and Point Shapefiles
@@ -370,94 +407,6 @@ Answer the following questions:
 </div>
 
 
-~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
-~~~
-{: .error}
-
-
-
-~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'point_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in crs(lines_HARV): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in extent(lines_HARV): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in crs(point_HARV): object 'point_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in extent(point_HARV): object 'point_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
-~~~
-{: .error}
 
 ## Plot Multiple Shapefiles
 The `plot()` function can be used for basic plotting of spatial objects. 
@@ -472,44 +421,14 @@ lines, we use `\n` where the line should break.
 # Plot multiple shapefiles
 plot(aoiBoundary_HARV, col = "lightgreen", 
      main="NEON Harvard Forest\nField Site")
-~~~
-{: .r}
-
-
-
-~~~
-Error in plot(aoiBoundary_HARV, col = "lightgreen", main = "NEON Harvard Forest\nField Site"): object 'aoiBoundary_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 plot(lines_HARV, add = TRUE)
-~~~
-{: .r}
 
-
-
-~~~
-Error in plot(lines_HARV, add = TRUE): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # use the pch element to adjust the symbology of the points
 plot(point_HARV, add  = TRUE, pch = 19, col = "purple")
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(point_HARV, add = TRUE, pch = 19, col = "purple"): object 'point_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-plot-multiple-shapefiles-1.png" title="plot of chunk plot-multiple-shapefiles" alt="plot of chunk plot-multiple-shapefiles" style="display: block; margin: auto;" />
 
 <i class="fa fa-star"></i> **Data Tip:** The pch argument specifies the point shape. A list of valid point shapes can be found by viewing  
 <a href="http://www.statmethods.net/advgraphs/images/points.png" target="_blank"> 
@@ -537,39 +456,7 @@ the [Plot Raster Data in R]({{site.baseurl}}/R/Plot-Rasters-In-R/ )
 tutorials. 
 </div>
 
-
-~~~
-Error in .rasterObjectFromFile(x, band = band, objecttype = "RasterLayer", : Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(chm_HARV, main = "Map of Study Area\n w/ Canopy Height Model\nNEON Harvard Forest Field Site"): object 'chm_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(lines_HARV, add = TRUE, col = "black"): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(aoiBoundary_HARV, border = "grey20", add = TRUE, lwd = 4): object 'aoiBoundary_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(point_HARV, pch = 8, add = TRUE): object 'point_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-challenge-vector-raster-overlay-1.png" title="plot of chunk challenge-vector-raster-overlay" alt="plot of chunk challenge-vector-raster-overlay" style="display: block; margin: auto;" />
 
 ***
 

@@ -83,7 +83,7 @@ library(raster)
 # setwd("working-dir-path-here")
 
 # import raster
-DSM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 ```
 
@@ -229,7 +229,7 @@ above when viewing terrain.
 ```{r hillshade }
 # import DSM hillshade
 DSM_hill_HARV <- 
-  raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
+  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 
 # plot hillshade using a grayscale color ramp that looks like shadows.
 plot(DSM_hill_HARV,
@@ -291,10 +291,10 @@ Make sure to:
 ```{r challenge-hillshade-layering, echo=FALSE}
 # CREATE DSM MAPS
 # import DSM 
-DSM_SJER <- raster("NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMcrop.tif")
+DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
 # import DSM hillshade
 DSM_hill_SJER <- 
-  raster("NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMhill.tif")
+  raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmHill.tif")
 
 # plot hillshade using a grayscale color ramp that looks like shadows.
 plot(DSM_hill_SJER,
@@ -312,10 +312,10 @@ plot(DSM_SJER,
 
 # CREATE SJER DTM MAP
 # import DTM 
-DTM_SJER <- raster("NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_DTMcrop.tif")
+DTM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
 # import DTM hillshade
 DTM_hill_SJER <- 
-  raster("NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_DTMhill.tif")
+  raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmHill.tif")
 
 # plot hillshade using a grayscale color ramp that looks like shadows.
 plot(DTM_hill_SJER,

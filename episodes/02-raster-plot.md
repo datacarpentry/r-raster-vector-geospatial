@@ -82,16 +82,9 @@ library(raster)
 # setwd("working-dir-path-here")
 
 # import raster
-DSM_HARV <- raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 ~~~
 {: .r}
-
-
-
-~~~
-Error in .rasterObjectFromFile(x, band = band, objecttype = "RasterLayer", : Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
 
 First, let's plot our Digital Surface Model object (`DSM_HARV`) using the
 `plot()` function. We add a title using the argument `main="title"`.
@@ -104,12 +97,7 @@ plot(DSM_HARV,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(DSM_HARV, main = "Digital Surface Model\nNEON Harvard Forest Field Site"): object 'DSM_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-hist-raster-1.png" title="plot of chunk hist-raster" alt="plot of chunk hist-raster" style="display: block; margin: auto;" />
 
 ## Plotting Data Using Breaks
 We can view our data "symbolized" or colored according to ranges of values
@@ -135,11 +123,12 @@ DSMhist<-hist(DSM_HARV,
 
 
 ~~~
-Error in hist(DSM_HARV, breaks = 3, main = "Histogram Digital Surface Model\n NEON Harvard Forest Field Site", : object 'DSM_HARV' not found
+Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...):
+4% of the raster cells were used. 100000 values used.
 ~~~
 {: .error}
 
-
+<img src="../fig/rmd-create-histogram-breaks-1.png" title="plot of chunk create-histogram-breaks" alt="plot of chunk create-histogram-breaks" style="display: block; margin: auto;" />
 
 ~~~
 # Where are breaks and how many pixels in each category?
@@ -150,9 +139,9 @@ DSMhist$breaks
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'DSMhist' not found
+[1] 300 350 400 450
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -164,9 +153,9 @@ DSMhist$counts
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'DSMhist' not found
+[1] 31967 67567   466
 ~~~
-{: .error}
+{: .output}
 
 Warning message!? Remember, the default for the histogram is to include only a
 subset of 100,000 values. We could force it to show all the pixel values or we
@@ -199,12 +188,7 @@ plot(DSM_HARV,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(DSM_HARV, breaks = c(300, 350, 400, 450), col = terrain.colors(3), : object 'DSM_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-plot-with-breaks-1.png" title="plot of chunk plot-with-breaks" alt="plot of chunk plot-with-breaks" style="display: block; margin: auto;" />
 
 <i class="fa fa-star"></i> **Data Tip:** Note that when we assign break values
 a set of 4 values will result in 3 bins of data.
@@ -233,12 +217,7 @@ plot(DSM_HARV,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(DSM_HARV, breaks = c(300, 350, 400, 450), col = myCol, main = "Digital Surface Model\nNEON Harvard Forest Field Site", : object 'DSM_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-add-plot-title-1.png" title="plot of chunk add-plot-title" alt="plot of chunk add-plot-title" style="display: block; margin: auto;" />
 
 Or we can also turn off the axes altogether. 
 
@@ -253,12 +232,7 @@ plot(DSM_HARV,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(DSM_HARV, breaks = c(300, 350, 400, 450), col = myCol, main = "Digital Surface Model\n NEON Harvard Forest Field Site", : object 'DSM_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-turn-off-axes-1.png" title="plot of chunk turn-off-axes" alt="plot of chunk turn-off-axes" style="display: block; margin: auto;" />
 
 <div id="challenge" markdown="1">
 ## Challenge: Plot Using Custom Breaks
@@ -272,18 +246,7 @@ the range of pixel values.
 
 </div>
 
-
-~~~
-Error in eval(expr, envir, enclos): object 'DSM_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(DSM_HARV, breaks = seq(305, 417, by = 18.5), col = terrain.colors(6), : object 'DSM_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-challenge-code-plotting-1.png" title="plot of chunk challenge-code-plotting" alt="plot of chunk challenge-code-plotting" style="display: block; margin: auto;" />
 
 ## Layering Rasters
 We can layer a raster on top of a hillshade raster for the same area, and use a 
@@ -295,20 +258,8 @@ above when viewing terrain.
 ~~~
 # import DSM hillshade
 DSM_hill_HARV <- 
-  raster("NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
-~~~
-{: .r}
+  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 
-
-
-~~~
-Error in .rasterObjectFromFile(x, band = band, objecttype = "RasterLayer", : Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
 # plot hillshade using a grayscale color ramp that looks like shadows.
 plot(DSM_hill_HARV,
     col=grey(1:100/100),  # create a color ramp of grey colors
@@ -318,12 +269,7 @@ plot(DSM_hill_HARV,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(DSM_hill_HARV, col = grey(1:100/100), legend = FALSE, main = "Hillshade - DSM\n NEON Harvard Forest Field Site", : object 'DSM_hill_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-hillshade-1.png" title="plot of chunk hillshade" alt="plot of chunk hillshade" style="display: block; margin: auto;" />
 
 <i class="fa fa-star"></i> **Data Tip:** Turn off, or hide, the legend on 
 a plot using `legend=FALSE`.
@@ -340,19 +286,7 @@ plot(DSM_hill_HARV,
     legend=F,
     main="DSM with Hillshade \n NEON Harvard Forest Field Site",
     axes=FALSE)
-~~~
-{: .r}
 
-
-
-~~~
-Error in plot(DSM_hill_HARV, col = grey(1:100/100), legend = F, main = "DSM with Hillshade \n NEON Harvard Forest Field Site", : object 'DSM_hill_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # add the DSM on top of the hillshade
 plot(DSM_HARV,
      col=rainbow(100),
@@ -362,12 +296,7 @@ plot(DSM_HARV,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(DSM_HARV, col = rainbow(100), alpha = 0.4, add = T, legend = F): object 'DSM_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-overlay-hillshade-1.png" title="plot of chunk overlay-hillshade" alt="plot of chunk overlay-hillshade" style="display: block; margin: auto;" />
 
 The alpha value determines how transparent the colors will be (0 being
 transparent, 1 being opaque). Note that here we used the color palette
@@ -393,58 +322,5 @@ Make sure to:
 </div>
 
 
-
-~~~
-Error in .rasterObjectFromFile(x, band = band, objecttype = "RasterLayer", : Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
-Error in .rasterObjectFromFile(x, band = band, objecttype = "RasterLayer", : Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(DSM_hill_SJER, col = grey(1:100/100), legend = F, main = "DSM with Hillshade\n NEON SJER Field Site", : object 'DSM_hill_SJER' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(DSM_SJER, col = terrain.colors(100), alpha = 0.7, add = T, : object 'DSM_SJER' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in .rasterObjectFromFile(x, band = band, objecttype = "RasterLayer", : Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
-Error in .rasterObjectFromFile(x, band = band, objecttype = "RasterLayer", : Cannot create a RasterLayer object from this file. (file does not exist)
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(DTM_hill_SJER, col = grey(1:100/100), legend = F, main = "DTM with Hillshade\n NEON SJER Field Site", : object 'DTM_hill_SJER' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(DTM_SJER, col = terrain.colors(100), alpha = 0.4, add = T, : object 'DTM_SJER' not found
-~~~
-{: .error}
+<img src="../fig/rmd-challenge-hillshade-layering-1.png" title="plot of chunk challenge-hillshade-layering" alt="plot of chunk challenge-hillshade-layering" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-hillshade-layering-2.png" title="plot of chunk challenge-hillshade-layering" alt="plot of chunk challenge-hillshade-layering" style="display: block; margin: auto;" />
 

@@ -156,7 +156,7 @@ the list.
 
 # Create list of NDVI file paths
 # assign path to object = cleaner code
-NDVI_HARV_path <- "NEON-DS-Landsat-NDVI/HARV/2011/NDVI" 
+NDVI_HARV_path <- "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI" 
 all_NDVI_HARV <- list.files(NDVI_HARV_path,
                             full.names = TRUE,
                             pattern = ".tif$")
@@ -338,7 +338,7 @@ browning seen in the NDVI data.
 library(ggplot2)
 library(scales)
 harMetDaily <- 
-  read.csv("NEON-DS-Met-Time-Series/HARV/FisherTower-Met/hf001-06-daily-m.csv",
+  read.csv("data/NEON-DS-Met-Time-Series/HARV/FisherTower-Met/hf001-06-daily-m.csv",
                  stringsAsFactors = FALSE)
 
 # set the field to be a date field
@@ -393,27 +393,27 @@ par(mfrow=c(2,2))
 
 # open up file for Jday 277 
 RGB_277 <- 
-  stack("NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif")
+  stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif")
 
 plotRGB(RGB_277)
 
 # open up file for jday 293
 RGB_293 <- 
-  stack("NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")
+  stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")
 
 plotRGB(RGB_293)
 
 # view a few other images
 # open up file for jday 133
 RGB_133 <- 
-  stack("NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
+  stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
 
 plotRGB(RGB_133, 
         stretch="lin")
 
 # open up file for jday 197
 RGB_197 <- 
-  stack("NEON-DS-Landsat-NDVI/HARV/2011/RGB/197_HARV_landRGB.tif")
+  stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/197_HARV_landRGB.tif")
 
 plotRGB(RGB_197, 
         stretch="lin")

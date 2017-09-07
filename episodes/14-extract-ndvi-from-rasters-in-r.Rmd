@@ -79,7 +79,7 @@ library(rgdal)
 library(ggplot2)
 
 # Create list of NDVI file paths
-all_HARV_NDVI <- list.files("NEON-DS-Landsat-NDVI/HARV/2011/NDVI",
+all_HARV_NDVI <- list.files("data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI",
                             full.names = TRUE,
                             pattern = ".tif$")
 
@@ -260,7 +260,7 @@ Joaquin Experimental Range field sites. NDVI data for SJER are located in the
 
 ```{r challenge-answers, include=TRUE, results="hide", echo=FALSE} 
 # Create list of NDVI file paths
-NDVI_path_SJER <- "NEON-DS-Landsat-NDVI/SJER/2011/NDVI"
+NDVI_path_SJER <- "data/NEON-DS-Landsat-NDVI/SJER/2011/NDVI"
 all_NDVI_SJER <- list.files(NDVI_path_SJER,
                             full.names = TRUE,
                             pattern = ".tif$")
@@ -397,7 +397,7 @@ However the code demonstrates one way to plot multiple RGB rasters in a grid.
 ```{r view-all-rgb-Harv }
 # open up RGB imagery
 
-rgb.allCropped <-  list.files("NEON-DS-Landsat-NDVI/HARV/2011/RGB/", 
+rgb.allCropped <-  list.files("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/", 
                               full.names=TRUE, 
                               pattern = ".tif$")
 # create a layout
@@ -422,7 +422,7 @@ Is the same thing happening at SJER?
 
 ```{r view-all-rgb-SJER }
 # open up the cropped files
-rgb.allCropped.SJER <-  list.files("NEON-DS-Landsat-NDVI/SJER/2011/RGB/", 
+rgb.allCropped.SJER <-  list.files("data/NEON-DS-Landsat-NDVI/SJER/2011/RGB/", 
                               full.names=TRUE, 
                               pattern = ".tif$")
 # create a layout
@@ -436,7 +436,7 @@ par(mfrow=c(5,4))
 
 for (aFile in rgb.allCropped.SJER)
   {NDVI.rastStack <- stack(aFile)
-  if (aFile =="NEON-DS-Landsat-NDVI/SJER/2011/RGB//254_SJER_landRGB.tif")
+  if (aFile =="data/NEON-DS-Landsat-NDVI/SJER/2011/RGB//254_SJER_landRGB.tif")
     {plotRGB(NDVI.rastStack) }
   else { plotRGB(NDVI.rastStack, stretch="lin") }
 }

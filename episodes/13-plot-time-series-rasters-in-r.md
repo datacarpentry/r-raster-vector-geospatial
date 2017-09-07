@@ -117,34 +117,15 @@ The following object is masked from 'package:ggplot2':
 
 ~~~
 # Create list of NDVI file paths
-all_NDVI_HARV <- list.files("NEON-DS-Landsat-NDVI/HARV/2011/NDVI", full.names = TRUE, pattern = ".tif$")
+all_NDVI_HARV <- list.files("data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI", full.names = TRUE, pattern = ".tif$")
 
 # Create a time series raster stack
 NDVI_HARV_stack <- stack(all_NDVI_HARV)
-~~~
-{: .r}
 
-
-
-~~~
-Error in x[[1]]: subscript out of bounds
-~~~
-{: .error}
-
-
-
-~~~
 # apply scale factor
 NDVI_HARV_stack <- NDVI_HARV_stack/10000
 ~~~
 {: .r}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'NDVI_HARV_stack' not found
-~~~
-{: .error}
 
 ## Plot Raster Time Series Data
 We can use the `plot` function to plot our raster time series data.
@@ -159,12 +140,7 @@ plot(NDVI_HARV_stack,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(NDVI_HARV_stack, zlim = c(0.15, 1), nc = 4): object 'NDVI_HARV_stack' not found
-~~~
-{: .error}
+<img src="../fig/rmd-plot-time-series-1.png" title="plot of chunk plot-time-series" alt="plot of chunk plot-time-series" style="display: block; margin: auto;" />
 
 <i class="fa fa-star"></i> **Data Tip:** The range of values for NDVI is 0-1. 
 However, the data stored in our raster ranges from 0 - 10,000. If we view the 
@@ -193,12 +169,7 @@ levelplot(NDVI_HARV_stack,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in levelplot(NDVI_HARV_stack, main = "Landsat NDVI\nNEON Harvard Forest"): object 'NDVI_HARV_stack' not found
-~~~
-{: .error}
+<img src="../fig/rmd-levelplot-time-series-1.png" title="plot of chunk levelplot-time-series" alt="plot of chunk levelplot-time-series" style="display: block; margin: auto;" />
 
 ## Adjust the Color Ramp
 Next, let's adjust the color ramp used to render the rasters. First, we
@@ -218,12 +189,7 @@ levelplot(NDVI_HARV_stack,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in levelplot(NDVI_HARV_stack, main = "Landsat NDVI -- Improved Colors \nNEON Harvard Forest Field Site", : object 'NDVI_HARV_stack' not found
-~~~
-{: .error}
+<img src="../fig/rmd-change-color-ramp-1.png" title="plot of chunk change-color-ramp" alt="plot of chunk change-color-ramp" style="display: block; margin: auto;" />
 
 The yellow to green color ramp visually represents NDVI well given it's a
 measure of greenness. Someone looking at the plot can quickly understand that
@@ -260,28 +226,20 @@ names(NDVI_HARV_stack)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'NDVI_HARV_stack' not found
+ [1] "X005_HARV_ndvi_crop" "X037_HARV_ndvi_crop" "X085_HARV_ndvi_crop"
+ [4] "X133_HARV_ndvi_crop" "X181_HARV_ndvi_crop" "X197_HARV_ndvi_crop"
+ [7] "X213_HARV_ndvi_crop" "X229_HARV_ndvi_crop" "X245_HARV_ndvi_crop"
+[10] "X261_HARV_ndvi_crop" "X277_HARV_ndvi_crop" "X293_HARV_ndvi_crop"
+[13] "X309_HARV_ndvi_crop"
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # use gsub to modify label names.that we'll use for the plot 
 rasterNames  <- gsub("X","Day ", names(NDVI_HARV_stack))
-~~~
-{: .r}
 
-
-
-~~~
-Error in gsub("X", "Day ", names(NDVI_HARV_stack)): object 'NDVI_HARV_stack' not found
-~~~
-{: .error}
-
-
-
-~~~
 # view Names
 rasterNames
 ~~~
@@ -290,28 +248,22 @@ rasterNames
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'rasterNames' not found
+ [1] "Day 005_HARV_ndvi_crop" "Day 037_HARV_ndvi_crop"
+ [3] "Day 085_HARV_ndvi_crop" "Day 133_HARV_ndvi_crop"
+ [5] "Day 181_HARV_ndvi_crop" "Day 197_HARV_ndvi_crop"
+ [7] "Day 213_HARV_ndvi_crop" "Day 229_HARV_ndvi_crop"
+ [9] "Day 245_HARV_ndvi_crop" "Day 261_HARV_ndvi_crop"
+[11] "Day 277_HARV_ndvi_crop" "Day 293_HARV_ndvi_crop"
+[13] "Day 309_HARV_ndvi_crop"
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # Remove HARV_NDVI_crop from the second part of the string 
 rasterNames  <- gsub("_HARV_ndvi_crop","",rasterNames)
-~~~
-{: .r}
 
-
-
-~~~
-Error in gsub("_HARV_ndvi_crop", "", rasterNames): object 'rasterNames' not found
-~~~
-{: .error}
-
-
-
-~~~
 # view names for each raster layer
 rasterNames
 ~~~
@@ -320,9 +272,10 @@ rasterNames
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'rasterNames' not found
+ [1] "Day 005" "Day 037" "Day 085" "Day 133" "Day 181" "Day 197" "Day 213"
+ [8] "Day 229" "Day 245" "Day 261" "Day 277" "Day 293" "Day 309"
 ~~~
-{: .error}
+{: .output}
 
 <i class="fa fa-star"></i> **Data Tip:** Instead of substituting "x" and
 "_HARV_NDVI_crop" separately, we could have used use the vertical bar character 
@@ -346,12 +299,7 @@ levelplot(NDVI_HARV_stack,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in levelplot(NDVI_HARV_stack, layout = c(4, 4), col.regions = cols, : object 'NDVI_HARV_stack' not found
-~~~
-{: .error}
+<img src="../fig/rmd-create-levelplot-1.png" title="plot of chunk create-levelplot" alt="plot of chunk create-levelplot" style="display: block; margin: auto;" />
 
 We can adjust the columns of our plot too using `layout=c(cols,rows)`. Below
 we adjust the layout to be a matrix of 5 columns and 3 rows.
@@ -367,12 +315,7 @@ levelplot(NDVI_HARV_stack,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in levelplot(NDVI_HARV_stack, layout = c(5, 3), col.regions = cols, : object 'NDVI_HARV_stack' not found
-~~~
-{: .error}
+<img src="../fig/rmd-adjust-layout-1.png" title="plot of chunk adjust-layout" alt="plot of chunk adjust-layout" style="display: block; margin: auto;" />
 
 Finally, `scales` allows us to modify the x and y-axis scale. Let's simply
 remove the axis ticks from the plot with `scales =list(draw=FALSE)`.
@@ -389,12 +332,7 @@ levelplot(NDVI_HARV_stack,
 ~~~
 {: .r}
 
-
-
-~~~
-Error in levelplot(NDVI_HARV_stack, layout = c(5, 3), col.regions = cols, : object 'NDVI_HARV_stack' not found
-~~~
-{: .error}
+<img src="../fig/rmd-remove-axis-ticks-1.png" title="plot of chunk remove-axis-ticks" alt="plot of chunk remove-axis-ticks" style="display: block; margin: auto;" />
 
 <div id="challenge" markdown="1">
 ## Challenge: Divergent Color Ramps 
@@ -414,15 +352,4 @@ better than a sequential color ramp (like "YlGn")? Can you think of other data
 sets where a divergent color ramp may be best? 
 </div>
 
-
-~~~
-Error in gsub("Day", "Julian Day ", rasterNames): object 'rasterNames' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in levelplot(NDVI_HARV_stack, layout = c(5, 3), col.regions = colorRampPalette(brewer.pal(9, : object 'NDVI_HARV_stack' not found
-~~~
-{: .error}
+<img src="../fig/rmd-challenge-code-levelplot-divergent-1.png" title="plot of chunk challenge-code-levelplot-divergent" alt="plot of chunk challenge-code-levelplot-divergent" style="display: block; margin: auto;" />

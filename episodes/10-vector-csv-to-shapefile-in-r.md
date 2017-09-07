@@ -54,8 +54,7 @@ on your computer to complete this tutorial.
 ### Install R Packages
 
 * **raster:** `install.packages("raster")`
-* **rgdal:** `install.packages("rgdal")`
-* **sp:** `install.packages("sp")`
+* **sf:** `install.packages("sf")`
 
 * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 
@@ -95,8 +94,8 @@ We will use the `rgdal` and `raster` libraries in this tutorial.
 
 ~~~
 # load packages
-library(rgdal)  # for vector work; sp package should always load with rgdal. 
-library (raster)   # for metadata/attributes- vectors or rasters
+library(sf)  # for vector work; sp package should always load with rgdal. 
+library(raster)   # for metadata/attributes- vectors or rasters
 
 # set working directory to data folder
 # setwd("pathToDirHere")
@@ -113,29 +112,9 @@ locations at the NEON Harvard Forest Field Site (`HARV_PlotLocations.csv`) in
 ~~~
 # Read the .csv file
 plot.locations_HARV <- 
-  read.csv("NEON-DS-Site-Layout-Files/HARV/HARV_PlotLocations.csv",
+  read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_PlotLocations.csv",
            stringsAsFactors = FALSE)
-~~~
-{: .r}
 
-
-
-~~~
-Warning in file(file, "rt"): cannot open file 'NEON-DS-Site-Layout-Files/
-HARV/HARV_PlotLocations.csv': No such file or directory
-~~~
-{: .error}
-
-
-
-~~~
-Error in file(file, "rt"): cannot open the connection
-~~~
-{: .error}
-
-
-
-~~~
 # look at the data structure
 str(plot.locations_HARV)
 ~~~
@@ -144,9 +123,25 @@ str(plot.locations_HARV)
 
 
 ~~~
-Error in str(plot.locations_HARV): object 'plot.locations_HARV' not found
+'data.frame':	21 obs. of  16 variables:
+ $ easting   : num  731405 731934 731754 731724 732125 ...
+ $ northing  : num  4713456 4713415 4713115 4713595 4713846 ...
+ $ geodeticDa: chr  "WGS84" "WGS84" "WGS84" "WGS84" ...
+ $ utmZone   : chr  "18N" "18N" "18N" "18N" ...
+ $ plotID    : chr  "HARV_015" "HARV_033" "HARV_034" "HARV_035" ...
+ $ stateProvi: chr  "MA" "MA" "MA" "MA" ...
+ $ county    : chr  "Worcester" "Worcester" "Worcester" "Worcester" ...
+ $ domainName: chr  "Northeast" "Northeast" "Northeast" "Northeast" ...
+ $ domainID  : chr  "D01" "D01" "D01" "D01" ...
+ $ siteID    : chr  "HARV" "HARV" "HARV" "HARV" ...
+ $ plotType  : chr  "distributed" "tower" "tower" "tower" ...
+ $ subtype   : chr  "basePlot" "basePlot" "basePlot" "basePlot" ...
+ $ plotSize  : int  1600 1600 1600 1600 1600 1600 1600 1600 1600 1600 ...
+ $ elevation : num  332 342 348 334 353 ...
+ $ soilTypeOr: chr  "Inceptisols" "Inceptisols" "Inceptisols" "Histosols" ...
+ $ plotdim_m : int  40 40 40 40 40 40 40 40 40 40 ...
 ~~~
-{: .error}
+{: .output}
 
 Also note that `plot.locations_HARV` is a `data.frame` that contains 21 
 locations (rows) and 15 variables (attributes). 
@@ -156,7 +151,7 @@ columns with coordinate values. If we are lucky, our `.csv` will contain columns
 labeled:
 
 * "X" and "Y" OR
-* Latitude and Longitude OR
+d* Latitude and Longitude OR
 * easting and northing (UTM coordinates)
 
 Let's check out the column `names` of our file.
@@ -171,9 +166,12 @@ names(plot.locations_HARV)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'plot.locations_HARV' not found
+ [1] "easting"    "northing"   "geodeticDa" "utmZone"    "plotID"    
+ [6] "stateProvi" "county"     "domainName" "domainID"   "siteID"    
+[11] "plotType"   "subtype"    "plotSize"   "elevation"  "soilTypeOr"
+[16] "plotdim_m" 
 ~~~
-{: .error}
+{: .output}
 
 ## Identify X,Y Location Columns
 
@@ -191,9 +189,9 @@ head(plot.locations_HARV$easting)
 
 
 ~~~
-Error in head(plot.locations_HARV$easting): object 'plot.locations_HARV' not found
+[1] 731405.3 731934.3 731754.3 731724.3 732125.3 731634.3
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -205,9 +203,9 @@ head(plot.locations_HARV$northing)
 
 
 ~~~
-Error in head(plot.locations_HARV$northing): object 'plot.locations_HARV' not found
+[1] 4713456 4713415 4713115 4713595 4713846 4713295
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -221,9 +219,9 @@ head(plot.locations_HARV[,1])
 
 
 ~~~
-Error in head(plot.locations_HARV[, 1]): object 'plot.locations_HARV' not found
+[1] 731405.3 731934.3 731754.3 731724.3 732125.3 731634.3
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -235,9 +233,9 @@ head(plot.locations_HARV[,2])
 
 
 ~~~
-Error in head(plot.locations_HARV[, 2]): object 'plot.locations_HARV' not found
+[1] 4713456 4713415 4713115 4713595 4713846 4713295
 ~~~
-{: .error}
+{: .output}
 
 So, we have coordinate values in our `data.frame` but in order to convert our
 `data.frame` to a `SpatialPointsDataFrame`, we also need to know the CRS
@@ -266,9 +264,9 @@ head(plot.locations_HARV$geodeticDa)
 
 
 ~~~
-Error in head(plot.locations_HARV$geodeticDa): object 'plot.locations_HARV' not found
+[1] "WGS84" "WGS84" "WGS84" "WGS84" "WGS84" "WGS84"
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -280,9 +278,9 @@ head(plot.locations_HARV$utmZone)
 
 
 ~~~
-Error in head(plot.locations_HARV$utmZone): object 'plot.locations_HARV' not found
+[1] "18N" "18N" "18N" "18N" "18N" "18N"
 ~~~
-{: .error}
+{: .output}
 
 It is not typical to store CRS information in a column. But this particular
 file contains CRS information this way. The `geodeticDa` and `utmZone` columns
@@ -312,46 +310,60 @@ out its CRS.
 
 ~~~
 # Import the line shapefile
-lines_HARV <- readOGR( "NEON-DS-Site-Layout-Files/HARV/", "HARV_roads")
+lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
+Reading layer `HARV_roads' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp' using driver `ESRI Shapefile'
+Simple feature collection with 13 features and 15 fields
+geometry type:  MULTILINESTRING
+dimension:      XY
+bbox:           xmin: 730741.2 ymin: 4711942 xmax: 733295.5 ymax: 4714260
+epsg (SRID):    32618
+proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # view CRS
-crs(lines_HARV)
+st_crs(lines_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in crs(lines_HARV): object 'lines_HARV' not found
+$epsg
+[1] 32618
+
+$proj4string
+[1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
+
+attr(,"class")
+[1] "crs"
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # view extent
-extent(lines_HARV)
+st_bbox(lines_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in extent(lines_HARV): object 'lines_HARV' not found
+     xmin      ymin      xmax      ymax 
+ 730741.2 4711942.0  733295.5 4714260.0 
 ~~~
-{: .error}
+{: .output}
 
 Exploring the data above, we can see that the lines shapefile is in
 `UTM zone 18N`. We can thus use the CRS from that spatial object to convert our
@@ -363,20 +375,7 @@ Next, let's create a `crs` object that we can use to define the CRS of our
 
 ~~~
 # create crs object
-utm18nCRS <- crs(lines_HARV)
-~~~
-{: .r}
-
-
-
-~~~
-Error in crs(lines_HARV): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
+utm18nCRS <- st_crs(lines_HARV)
 utm18nCRS
 ~~~
 {: .r}
@@ -384,9 +383,16 @@ utm18nCRS
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'utm18nCRS' not found
+$epsg
+[1] 32618
+
+$proj4string
+[1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
+
+attr(,"class")
+[1] "crs"
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -398,9 +404,9 @@ class(utm18nCRS)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'utm18nCRS' not found
+[1] "crs"
 ~~~
-{: .error}
+{: .output}
 
 ## .csv to R SpatialPointsDataFrame
 Next, let's convert our `data.frame` into a `SpatialPointsDataFrame`. To do
@@ -417,33 +423,26 @@ We will use the `SpatialPointsDataFrame()` function to perform the conversion.
 
 ~~~
 # note that the easting and northing columns are in columns 1 and 2
-plot.locationsSp_HARV <- SpatialPointsDataFrame(plot.locations_HARV[,1:2],
-                    plot.locations_HARV,    #the R object to convert
-                    proj4string = utm18nCRS)   # assign a CRS 
-~~~
-{: .r}
+plot.locationsSp_HARV <- st_as_sf(plot.locations_HARV, coords = c("easting", "northing"), crs = utm18nCRS)
 
-
-
-~~~
-Error in is(coords, "SpatialPoints"): object 'plot.locations_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # look at CRS
-crs(plot.locationsSp_HARV)
+st_crs(plot.locationsSp_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in crs(plot.locationsSp_HARV): object 'plot.locationsSp_HARV' not found
+$epsg
+[1] 32618
+
+$proj4string
+[1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
+
+attr(,"class")
+[1] "crs"
 ~~~
-{: .error}
+{: .output}
 
 ## Plot Spatial Object 
 We now have a spatial `R` object, we can plot our newly created spatial object.
@@ -451,17 +450,12 @@ We now have a spatial `R` object, we can plot our newly created spatial object.
 
 ~~~
 # plot spatial object
-plot(plot.locationsSp_HARV, 
+plot(plot.locationsSp_HARV$geometry, 
      main="Map of Plot Locations")
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(plot.locationsSp_HARV, main = "Map of Plot Locations"): object 'plot.locationsSp_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-plot-data-points-1.png" title="plot of chunk plot-data-points" alt="plot of chunk plot-data-points" style="display: block; margin: auto;" />
 
 ## Define Plot Extent
 
@@ -482,80 +476,80 @@ series, you can skip this code as you have already created this object.)
 
 ~~~
 # create boundary object 
-aoiBoundary_HARV <- readOGR("NEON-DS-Site-Layout-Files/HARV/",
-                            "HarClip_UTMZ18")
+aoiBoundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
+Reading layer `HarClip_UTMZ18' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp' using driver `ESRI Shapefile'
+Simple feature collection with 1 feature and 1 field
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: 732128 ymin: 4713209 xmax: 732251.1 ymax: 4713359
+epsg (SRID):    32618
+proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 ~~~
-{: .error}
+{: .output}
 
 To begin, let's plot our `aoiBoundary` object with our vegetation plots.
 
 
 ~~~
 # plot Boundary
-plot(aoiBoundary_HARV,
+plot(aoiBoundary_HARV$geometry,
      main="AOI Boundary\nNEON Harvard Forest Field Site")
-~~~
-{: .r}
 
-
-
-~~~
-Error in plot(aoiBoundary_HARV, main = "AOI Boundary\nNEON Harvard Forest Field Site"): object 'aoiBoundary_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # add plot locations
-plot(plot.locationsSp_HARV, 
+plot(plot.locationsSp_HARV$geometry, 
      pch=8, add=TRUE)
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(plot.locationsSp_HARV, pch = 8, add = TRUE): object 'plot.locationsSp_HARV' not found
-~~~
-{: .error}
-
-
+<img src="../fig/rmd-plot-data-1.png" title="plot of chunk plot-data" alt="plot of chunk plot-data" style="display: block; margin: auto;" />
 
 ~~~
 # no plots added, why? CRS?
 # view CRS of each
-crs(aoiBoundary_HARV)
+st_crs(aoiBoundary_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in crs(aoiBoundary_HARV): object 'aoiBoundary_HARV' not found
+$epsg
+[1] 32618
+
+$proj4string
+[1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
+
+attr(,"class")
+[1] "crs"
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
-crs(plot.locationsSp_HARV)
+st_crs(plot.locationsSp_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in crs(plot.locationsSp_HARV): object 'plot.locationsSp_HARV' not found
+$epsg
+[1] 32618
+
+$proj4string
+[1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
+
+attr(,"class")
+[1] "crs"
 ~~~
-{: .error}
+{: .output}
 
 When we attempt to plot the two layers together, we can see that the plot
 locations are not rendered. We can see that our data are in the same projection
@@ -564,30 +558,32 @@ locations are not rendered. We can see that our data are in the same projection
 
 ~~~
 # view extent of each
-extent(aoiBoundary_HARV)
+st_bbox(aoiBoundary_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in extent(aoiBoundary_HARV): object 'aoiBoundary_HARV' not found
+     xmin      ymin      xmax      ymax 
+ 732128.0 4713208.7  732251.1 4713359.2 
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
-extent(plot.locationsSp_HARV)
+st_bbox(plot.locationsSp_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in extent(plot.locationsSp_HARV): object 'plot.locationsSp_HARV' not found
+     xmin      ymin      xmax      ymax 
+ 731405.3 4712845.0  732275.3 4713846.3 
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -595,42 +591,18 @@ Error in extent(plot.locationsSp_HARV): object 'plot.locationsSp_HARV' not found
 # add extra space to right of plot area; 
 # par(mar=c(5.1, 4.1, 4.1, 8.1), xpd=TRUE)
 
-plot(extent(plot.locationsSp_HARV),
+plot(st_convex_hull(st_sfc(st_union(plot.locationsSp_HARV))),
      col="purple", 
      xlab="easting",
      ylab="northing", lwd=8,
      main="Extent Boundary of Plot Locations \nCompared to the AOI Spatial Object",
      ylim=c(4712400,4714000)) # extent the y axis to make room for the legend
-~~~
-{: .r}
 
-
-
-~~~
-Error in extent(plot.locationsSp_HARV): object 'plot.locationsSp_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-plot(extent(aoiBoundary_HARV), 
+plot(aoiBoundary_HARV$geometry, 
      add=TRUE,
      lwd=6,
      col="springgreen")
-~~~
-{: .r}
 
-
-
-~~~
-Error in extent(aoiBoundary_HARV): object 'aoiBoundary_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 legend("bottomright",
        #inset=c(-0.5,0),
        legend=c("Layer One Extent", "Layer Two Extent"),
@@ -642,12 +614,7 @@ legend("bottomright",
 ~~~
 {: .r}
 
-
-
-~~~
-Error in strwidth(legend, units = "user", cex = cex, font = text.font): plot.new has not been called yet
-~~~
-{: .error}
+<img src="../fig/rmd-compare-extents-1.png" title="plot of chunk compare-extents" alt="plot of chunk compare-extents" style="display: block; margin: auto;" />
 
 The **extents** of our two objects are **different**. `plot.locationsSp_HARV` is
 much larger than `aoiBoundary_HARV`. When we plot `aoiBoundary_HARV` first, `R`
@@ -669,20 +636,7 @@ values from the spatial object that has a larger extent. Let's try it.
 
 
 ~~~
-plotLoc.extent <- extent(plot.locationsSp_HARV)
-~~~
-{: .r}
-
-
-
-~~~
-Error in extent(plot.locationsSp_HARV): object 'plot.locationsSp_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
+plotLoc.extent <- st_bbox(plot.locationsSp_HARV)
 plotLoc.extent
 ~~~
 {: .r}
@@ -690,106 +644,32 @@ plotLoc.extent
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'plotLoc.extent' not found
+     xmin      ymin      xmax      ymax 
+ 731405.3 4712845.0  732275.3 4713846.3 
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 # grab the x and y min and max values from the spatial plot locations layer
-xmin <- plotLoc.extent@xmin
-~~~
-{: .r}
+xmin <- plotLoc.extent[1]
+xmax <- plotLoc.extent[3]
+ymin <- plotLoc.extent[2]
+ymax <- plotLoc.extent[4]
 
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'plotLoc.extent' not found
-~~~
-{: .error}
-
-
-
-~~~
-xmax <- plotLoc.extent@xmax
-~~~
-{: .r}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'plotLoc.extent' not found
-~~~
-{: .error}
-
-
-
-~~~
-ymin <- plotLoc.extent@ymin
-~~~
-{: .r}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'plotLoc.extent' not found
-~~~
-{: .error}
-
-
-
-~~~
-ymax <- plotLoc.extent@ymax
-~~~
-{: .r}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'plotLoc.extent' not found
-~~~
-{: .error}
-
-
-
-~~~
 # adjust the plot extent using x and ylim
-plot(aoiBoundary_HARV,
+plot(aoiBoundary_HARV$geometry,
      main="NEON Harvard Forest Field Site\nModified Extent",
      border="darkgreen",
      xlim=c(xmin,xmax),
      ylim=c(ymin,ymax))
-~~~
-{: .r}
 
-
-
-~~~
-Error in plot(aoiBoundary_HARV, main = "NEON Harvard Forest Field Site\nModified Extent", : object 'aoiBoundary_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-plot(plot.locationsSp_HARV, 
+plot(plot.locationsSp_HARV$geometry, 
      pch=8,
 		 col="purple",
 		 add=TRUE)
-~~~
-{: .r}
 
-
-
-~~~
-Error in plot(plot.locationsSp_HARV, pch = 8, col = "purple", add = TRUE): object 'plot.locationsSp_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # add a legend
 legend("bottomright", 
        legend=c("Plots", "AOI Boundary"),
@@ -801,12 +681,7 @@ legend("bottomright",
 ~~~
 {: .r}
 
-
-
-~~~
-Error in strwidth(legend, units = "user", cex = cex, font = text.font): plot.new has not been called yet
-~~~
-{: .error}
+<img src="../fig/rmd-set-plot-extent-1.png" title="plot of chunk set-plot-extent" alt="plot of chunk set-plot-extent" style="display: block; margin: auto;" />
 
 <div id="challenge" markdown="1">
 ## Challenge - Import & Plot Additional Points
@@ -817,7 +692,7 @@ Import the .csv: `HARV/HARV_2NewPhenPlots.csv` into `R` and do the following:
 
 1. Find the X and Y coordinate locations. Which value is X and which value is Y?
 2. These data were collected in a geographic coordinate system (WGS84). Convert
-the `data.frame` into an `R` `spatialPointsDataFrame`.
+the `data.frame` into an `sf` object.
 3. Plot the new points with the plot location points from above. Be sure to add
 a legend. Use a different symbol for the 2 new points!  You may need to adjust
 the X and Y limits of your plot to ensure that both points are rendered by `R`!
@@ -830,183 +705,11 @@ for more on working with geographic coordinate systems. You may want to "borrow"
 the projection from the objects used in that tutorial!
 </div>
 
-
-~~~
-Error in file(file, "rt"): cannot open the connection
-~~~
-{: .error}
-
-
-
-~~~
-Error in str(newPlot.locations_HARV): object 'newPlot.locations_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv, : Cannot open data source
-~~~
-{: .error}
-
-
-
-~~~
-Error in crs(Country.Boundary.US): object 'Country.Boundary.US' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'geogCRS' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in is(coords, "SpatialPoints"): object 'newPlot.locations_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in crs(newPlot.Sp.HARV): object 'newPlot.Sp.HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'utm18nCRS' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in spTransform(newPlot.Sp.HARV, utm18nCRS): object 'newPlot.Sp.HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in crs(newPlot.Sp.HARV.UTM): object 'newPlot.Sp.HARV.UTM' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(plot.locationsSp_HARV, main = "NEON Harvard Forest Field Site \nPlot Locations"): object 'plot.locationsSp_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(newPlot.Sp.HARV.UTM, add = TRUE, pch = 20, col = "darkgreen"): object 'newPlot.Sp.HARV.UTM' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in extent(plot.locationsSp_HARV): object 'plot.locationsSp_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in extent(newPlot.Sp.HARV.UTM): object 'newPlot.Sp.HARV.UTM' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in extent(plot.locationsSp_HARV): object 'plot.locationsSp_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in extent(newPlot.Sp.HARV.UTM): object 'newPlot.Sp.HARV.UTM' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in extent(plot.locationsSp_HARV): object 'plot.locationsSp_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in extent(newPlot.Sp.HARV.UTM): object 'newPlot.Sp.HARV.UTM' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'originalPlotExtent' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'originalPlotExtent' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'originalPlotExtent' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'newPlotExtent' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(plot.locationsSp_HARV, main = "NEON Harvard Forest Field Site\nVegetation & Phenology Plots", : object 'plot.locationsSp_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(newPlot.Sp.HARV.UTM, add = TRUE, pch = 20, col = "darkgreen"): object 'newPlot.Sp.HARV.UTM' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in strwidth(legend, units = "user", cex = cex, font = text.font): plot.new has not been called yet
-~~~
-{: .error}
+<img src="../fig/rmd-challenge-code-phen-plots-1.png" title="plot of chunk challenge-code-phen-plots" alt="plot of chunk challenge-code-phen-plots" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-code-phen-plots-2.png" title="plot of chunk challenge-code-phen-plots" alt="plot of chunk challenge-code-phen-plots" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-code-phen-plots-3.png" title="plot of chunk challenge-code-phen-plots" alt="plot of chunk challenge-code-phen-plots" style="display: block; margin: auto;" />
 
 ## Export a Shapefile
 
-We can write an `R` spatial object to a shapefile using the `writeOGR` function 
+We can write an `R` spatial object to a shapefile using the `st_write` function 
 in `rgdal`. To do this we need the following arguments:
 
 * the name of the spatial object (`plot.locationsSp_HARV`)
@@ -1020,8 +723,8 @@ We can now export the spatial object as a shapefile.
 
 ~~~
 # write a shapefile
-writeOGR(plot.locationsSp_HARV, getwd(),
-         "PlotLocations_HARV", driver="ESRI Shapefile")
+st_write(plot.locationsSp_HARV,
+         "data/PlotLocations_HARV.shp", driver = "ESRI Shapefile")
 ~~~
 {: .r}
 
