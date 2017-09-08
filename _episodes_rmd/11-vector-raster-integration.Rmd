@@ -5,9 +5,10 @@ exercises: 0
 questions:
 - ""
 objectives:
-- "First objective."
+- "Be able to crop a raster to the extent of a vector layer."
+- "Be able to extract values from raster that correspond to a vector file overlay."
 keypoints:
-- "First key point."
+- ""
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2015-10-23
@@ -35,13 +36,7 @@ points.
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
 <div id="objectives" markdown="1">
-# Goals / Objectives
-After completing this activity, you will:
 
- * Be able to crop a raster to the extent of a vector layer.
- * Be able to extract values from raster that correspond to a vector file
- overlay.
- 
 ## Things You’ll Need To Complete This Tutorial
 You will need the most current version of `R` and, preferably, `RStudio` loaded 
 on your computer to complete this tutorial.
