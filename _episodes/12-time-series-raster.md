@@ -1,10 +1,21 @@
 ---
 title: "Raster Time Series Data in R"
-authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul]
+teaching: 10
+exercises: 0
+questions:
+- ""
+objectives:
+- "Understand the format of a time series raster dataset."
+- "Know how to work with time series rasters."
+- "Be able to efficiently import a set of rasters stored in a single directory."
+- "Be able to plot and explore time series raster data using the `plot()` function in `R`."
+keypoints:
+- ""
+authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2014-11-26
-lastModified: 2017-09-07
+lastModified: 2017-09-08
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series, raster-time-series]
@@ -29,16 +40,6 @@ remote sensing derived imagery.
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
 <div id="objectives" markdown="1">
-
-# Goals / Objectives
-
-After completing this activity, you will:
-
-* Understand the format of a time series raster dataset.
-* Know how to work with time series rasters. 
-* Be able to efficiently import a set of rasters stored in a single directory.
-* Be able to plot and explore time series raster data using the `plot()`
-function in `R`.
 
 ## Things You’ll Need To Complete This Tutorial
 You will need the most current version of `R` and, preferably, `RStudio` loaded

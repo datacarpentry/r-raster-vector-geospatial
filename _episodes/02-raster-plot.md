@@ -1,10 +1,19 @@
 ---
 title: "Plot Raster Data in R"
-authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul]
+teaching: 10
+exercises: 0
+questions:
+- ""
+objectives:
+- "Know how to plot a single band raster in `R`."
+- "Know how to layer a raster dataset on top of a hillshade to create an elegant basemap."
+keypoints:
+- ""
+authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2017-09-07
+lastModified: 2017-09-08
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]
@@ -29,14 +38,6 @@ an eloquent map.
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
 <div id="objectives" markdown="1">
-
-# Goals / Objectives
-
-After completing this activity, you will:
-
-* Know how to plot a single band raster in `R`.
-* Know how to layer a raster dataset on top of a hillshade to create an elegant 
-basemap.
 
 ## Things You’ll Need To Complete This Tutorial
 
@@ -76,6 +77,32 @@ please create it now.
 ~~~
 # if they are not already loaded
 library(rgdal)
+~~~
+{: .r}
+
+
+
+~~~
+Loading required package: sp
+~~~
+{: .output}
+
+
+
+~~~
+rgdal: version: 1.2-8, (SVN revision 663)
+ Geospatial Data Abstraction Library extensions to R successfully loaded
+ Loaded GDAL runtime: GDAL 2.2.1, released 2017/06/23
+ Path to GDAL shared files: /usr/share/gdal/2.2
+ Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
+ Path to PROJ.4 shared files: (autodetected)
+ Linking to sp version: 1.2-5 
+~~~
+{: .output}
+
+
+
+~~~
 library(raster)
 
 # set working directory to ensure R can find the file we wish to import
@@ -153,7 +180,7 @@ DSMhist$counts
 
 
 ~~~
-[1] 32141 67395   464
+[1] 32134 67412   454
 ~~~
 {: .output}
 
@@ -234,17 +261,16 @@ plot(DSM_HARV,
 
 <img src="../fig/rmd-turn-off-axes-1.png" title="plot of chunk turn-off-axes" alt="plot of chunk turn-off-axes" style="display: block; margin: auto;" />
 
-<div id="challenge" markdown="1">
-## Challenge: Plot Using Custom Breaks
 
-Create a plot of the Harvard Forest Digital Surface Model (DSM) that has:
-
-* Six classified ranges of values (break points) that are evenly divided among 
-the range of pixel values. 
-* Axis labels
-* A plot title
-
-</div>
+> ## Challenge: Plot Using Custom Breaks
+> 
+> Create a plot of the Harvard Forest Digital Surface Model (DSM) that has:
+> 
+> * Six classified ranges of values (break points) that are evenly divided among 
+> the range of pixel values. 
+> * Axis labels
+> * A plot title
+{: .challenge}
 
 <img src="../fig/rmd-challenge-code-plotting-1.png" title="plot of chunk challenge-code-plotting" alt="plot of chunk challenge-code-plotting" style="display: block; margin: auto;" />
 
@@ -305,21 +331,19 @@ transparent, 1 being opaque). Note that here we used the color palette
 * More information in the 
 <a href="https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/palettes.html" target="_blank">`R` color palettes documentation</a>. 
 
-<div id="challenge" markdown="1">
-## Challenge: Create DTM & DSM for SJER
-Use the files in the `NEON_RemoteSensing/SJER/` directory to create a Digital
+> ## Challenge: Create DTM & DSM for SJER
+> Use the files in the `NEON_RemoteSensing/SJER/` directory to create a Digital
 Terrain Model map and Digital Surface Model map of the San Joaquin Experimental
 Range field site.
-
-Make sure to:
- 
+> 
+> Make sure to:
+> 
  * include hillshade in the maps,
  * label axes on the DSM map and exclude them from the DTM map, 
  * a title for the maps,
  * experiment with various alpha values and color palettes to represent the
  data.
- 
-</div>
+{: .challenge}
 
 
 <img src="../fig/rmd-challenge-hillshade-layering-1.png" title="plot of chunk challenge-hillshade-layering" alt="plot of chunk challenge-hillshade-layering" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-hillshade-layering-2.png" title="plot of chunk challenge-hillshade-layering" alt="plot of chunk challenge-hillshade-layering" style="display: block; margin: auto;" />

@@ -5,13 +5,15 @@ exercises: 0
 questions:
 - ""
 objectives:
-- "First objective."
+- "Know the difference between point, line, and polygon vector elements."
+- "Understand the differences between opening point, line and polygon shapefiles in `R`."
+- "Understand the components of a spatial object in `R`."
 keypoints:
-- "First key point."
+- ""
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2015-10-23
-lastModified: 2017-09-07
+lastModified: 2017-09-08
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -31,14 +33,6 @@ stored in shapefile format in `R`.
 in `R`, but have some of the other `R` basics down.
 
 <div id="objectives" markdown="1">
-
-# Goals / Objectives
-After completing this activity, you will:
-
- * Know the difference between point, line, and polygon vector elements.
- * Understand the differences between opening point, line and polygon shapefiles
-    in `R`.
- * Understand the components of a spatial object in `R`.
 
 ## Things You’ll Need To Complete This Tutorial
 

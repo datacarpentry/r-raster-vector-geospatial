@@ -1,10 +1,19 @@
 ---
 title: "Raster Calculations in R - Subtract One Raster from Another and Extract Pixel Values For Defined Locations "
-authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul]
+teaching: 10
+exercises: 0
+questions:
+- ""
+objectives:
+- "Be able to to perform a subtraction (difference) between two rasters using raster math."
+- "Know how to perform a more efficient subtraction (difference) between two rasters using the raster `overlay()` function in R."
+keypoints:
+- ""
+authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2017-09-07
+lastModified: 2017-09-08
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]
@@ -33,15 +42,6 @@ around plot locations at a field site.
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
 <div id="objectives" markdown="1">
-
-# Goals / Objectives
-
-After completing this activity, you will:
-
-* Be able to to perform a subtraction (difference) between two rasters using 
-raster math.
-* Know how to perform a more efficient subtraction (difference) between two 
-rasters using the raster `overlay()` function in R.
 
 ## Things You’ll Need To Complete This Tutorial
 
