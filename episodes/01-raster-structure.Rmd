@@ -11,7 +11,7 @@ objectives:
 - "Be able to quickly plot a raster file in `R`."
 - "Understand the difference between single- and multi-band rasters."
 keypoints:
-- "First key point."
+- ""
 authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
 contributors: [ ]
 dateCreated: 2015-10-23
@@ -44,16 +44,6 @@ elements. Finally, it introduces the GeoTiff file format.
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
 <div id="objectives" markdown="1">
-
-# Goals / Objectives
-
-After completing this activity, you will:
-
-* Understand what a raster dataset is and its fundamental attributes.
-* Know how to explore raster attributes in `R`.
-* Be able to import rasters into `R` using the `raster` package.
-* Be able to quickly plot a raster file in `R`.
-* Understand the difference between single- and multi-band rasters.
 
 ## Things You’ll Need To Complete This Tutorial
 You will need the most current version of `R` and, preferably, `RStudio` loaded

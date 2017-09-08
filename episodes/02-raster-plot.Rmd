@@ -1,5 +1,14 @@
 ---
 title: "Plot Raster Data in R"
+teaching: 10
+exercises: 0
+questions:
+- ""
+objectives:
+- "Know how to plot a single band raster in `R`."
+- "Know how to layer a raster dataset on top of a hillshade to create an elegant basemap."
+keypoints:
+- ""
 authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
@@ -31,14 +40,6 @@ an eloquent map.
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
 <div id="objectives" markdown="1">
-
-# Goals / Objectives
-
-After completing this activity, you will:
-
-* Know how to plot a single band raster in `R`.
-* Know how to layer a raster dataset on top of a hillshade to create an elegant 
-basemap.
 
 ## Things You’ll Need To Complete This Tutorial
 

@@ -1,5 +1,16 @@
 ---
 title: "Extract NDVI Summary Values from a Raster Time Series"
+teaching: 10
+exercises: 0
+questions:
+- ""
+objectives:
+- "Be able to extract summary pixel values from a raster."
+- "Know how to save summary values to a .csv file."
+- "Be able to plot summary pixel values using `ggplot()`."
+- "Have experience comparing NDVI values between two different sites."
+keypoints:
+- ""
 authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister, Mike Smorul, Joseph Stachelek]
 contributors: [ ]
 packagesLibraries: [raster, rgdal, ggplot2]
@@ -29,15 +40,6 @@ in `R` and plot them using `ggplot`.
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
 <div id="objectives" markdown="1">
-
-# Goals / Objectives
-
-After completing this activity, you will:
-
-* Be able to extract summary pixel values from a raster.
-* Know how to save summary values to a .csv file.
-* Be able to plot summary pixel values using `ggplot()`.
-* Have experience comparing NDVI values between two different sites. 
 
 ## Things You'll Need To Complete This Tutorial
 You will need the most current version of `R` and, preferably, `RStudio` loaded
