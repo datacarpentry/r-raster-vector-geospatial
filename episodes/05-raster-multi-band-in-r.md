@@ -5,14 +5,17 @@ exercises: 0
 questions:
 - ""
 objectives:
-- "First objective."
+- "Know how to identify a single vs. a multi-band raster file."
+- "Be able to import multi-band rasters into `R` using the `raster` package."
+- "Be able to plot multi-band color image rasters in `R` using `plotRGB()`."
+- "Understand what a `NoData` value is in a raster."
 keypoints:
-- "First key point."
-authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul]
+- ""
+authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2017-09-07
+lastModified: 2017-09-08
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series, raster-time-series]
@@ -32,14 +35,6 @@ function in `R`.
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
 <div id="objectives" markdown="1">
-
-# Goals / Objectives
-After completing this activity, you will:
-
-* Know how to identify a single vs. a multi-band raster file.
-* Be able to import multi-band rasters into `R` using the `raster` package.
-* Be able to plot multi-band color image rasters in `R` using `plotRGB()`.
-* Understand what a `NoData` value is in a raster.
 
 ## Things You’ll Need To Complete This Tutorial
 You will need the most current version of `R` and, preferably, `RStudio` loaded

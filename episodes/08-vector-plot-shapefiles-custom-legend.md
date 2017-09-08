@@ -1,9 +1,19 @@
 ---
 title: "Plot Multiple Shapefiles and Create Custom Legends in Base Plot in R"
+teaching: 10
+exercises: 0
+questions:
+- ""
+objectives:
+- "Be able to plot multiple shapefiles using base R graphics."
+- "Be able to apply custom symbology to spatial objects in a plot in R."
+- "Be able to customize a baseplot legend in R."
+keypoints:
+- ""
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2016-02-09
-lastModified: 2017-09-07
+lastModified: 2017-09-08
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -32,13 +42,6 @@ how to create a custom legend with colors and symbols that match your plot.
 
 <div id="objectives" markdown="1">
 
-# Goals / Objectives
-After completing this activity, you will:
-
- * Be able to plot multiple shapefiles using base R graphics.
- * Be able to apply custom symbology to spatial objects in a plot in R.
- * Be able to customize a baseplot legend in R.
- 
 ## Things You’ll Need To Complete This Tutorial
 You will need the most current version of `R` and, preferably, `RStudio` loaded
 on your computer to complete this tutorial.

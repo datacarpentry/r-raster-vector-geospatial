@@ -5,13 +5,15 @@ exercises: 0
 questions:
 - ""
 objectives:
-- "First objective."
+- "Know how to identify the `CRS` of a spatial dataset."
+- "Be familiar with geographic vs. projected coordinate reference systems."
+- "Be familiar with the `proj4` string format which is one format used used to store / reference the `CRS` of a spatial object."
 keypoints:
-- "First key point."
+- ""
 authors: [Joseph Stachelek, Leah Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2015-10-23
-lastModified: 2017-09-07
+lastModified: 2017-09-08
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -37,14 +39,6 @@ don't line up on a map.
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
 <div id="objectives" markdown="1">
-
-# Goals / Objectives
-After completing this activity, you will:
-
-* Know how to identify the `CRS` of a spatial dataset.
-* Be familiar with geographic vs. projected coordinate reference systems.
-* Be familiar with the `proj4` string format which is one format used used to 
-store / reference the `CRS` of a spatial object.
 
 ## Things You’ll Need To Complete This Tutorial
 You will need the most current version of `R` and, preferably, `RStudio` loaded 

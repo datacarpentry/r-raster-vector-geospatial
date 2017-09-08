@@ -1,9 +1,19 @@
 ---
 title: "Explore Shapefile Attributes & Plot Shapefile Objects by Attribute Value in R"
+teaching: 10
+exercises: 0
+questions:
+- ""
+objectives:
+- "Be able to query shapefile attributes."
+- "Be able to subset shapefiles using specific attribute values."
+- "Know how to plot a shapefile, colored by unique attribute values."
+keypoints:
+- ""
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2015-10-23
-lastModified: 2017-09-07
+lastModified: 2017-09-08
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -33,13 +43,6 @@ values.
 
 <div id="objectives" markdown="1">
 
-# Goals / Objectives
-After completing this activity, you will:
-
- * Be able to query shapefile attributes.
- * Be able to subset shapefiles using specific attribute values.
- * Know how to plot a shapefile, colored by unique attribute values.
- 
 ## Things You’ll Need To Complete This Tutorial
 You will need the most current version of `R` and, preferably, `RStudio` loaded 
 on your computer to complete this tutorial.

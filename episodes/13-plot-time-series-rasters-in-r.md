@@ -1,10 +1,19 @@
 ---
 title: "Plot Raster Time Series Data in R Using RasterVis and Levelplot"
-authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul]
+teaching: 10
+exercises: 0
+questions:
+- ""
+objectives:
+- "Be able to assign custom names to bands in a RasterStack for prettier plotting."
+- "Understand advanced plotting of rasters using the `rasterVis` package and `levelplot`."
+keypoints:
+- ""
+authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
 contributors: [ ]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2017-09-07
+lastModified: 2017-09-08
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 mainTag: raster-data-series
@@ -29,14 +38,6 @@ names to bands within a `RasterStack`.
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
 
 <div id="objectives" markdown="1">
-
-# Goals / Objectives
-After completing this activity, you will:
-
-* Be able to assign custom names to bands in a RasterStack for prettier
-plotting.
-* Understand advanced plotting of rasters using the `rasterVis` package and
-`levelplot`.
 
 ## Things You’ll Need To Complete This Tutorial
 You will need the most current version of `R` and, preferably, `RStudio` loaded
