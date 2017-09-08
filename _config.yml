@@ -6,7 +6,7 @@
 carpentry: "dc"
 
 # Overall title for pages.
-title: "Geospatial analysis with R"
+title: "Intro to Geospatial Data with R"
 
 # Contact.  This *must* include the protocol: if it's an email
 # address, it must look like "mailto:lessons@software-carpentry.org",
