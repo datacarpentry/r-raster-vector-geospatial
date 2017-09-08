@@ -5,10 +5,14 @@ exercises: 0
 questions:
 - ""
 objectives:
-- "First objective."
+- "Understand what a raster dataset is and its fundamental attributes."
+- "Know how to explore raster attributes in `R`."
+- "Be able to import rasters into `R` using the `raster` package."
+- "Be able to quickly plot a raster file in `R`."
+- "Understand the difference between single- and multi-band rasters."
 keypoints:
 - "First key point."
-authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul]
+authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
 contributors: [ ]
 dateCreated: 2015-10-23
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`

@@ -1,6 +1,6 @@
 ---
 title: "Extract NDVI Summary Values from a Raster Time Series"
-authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister, Mike Smorul]
+authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister, Mike Smorul, Joseph Stachelek]
 contributors: [ ]
 packagesLibraries: [raster, rgdal, ggplot2]
 dateCreated: 2014-11-26
