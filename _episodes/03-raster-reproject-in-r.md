@@ -9,7 +9,7 @@ objectives:
 keypoints:
 - ""
 authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
-contributors: [ ]
+contributors: [Michael Heeremans]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
 lastModified: 2017-09-08
@@ -41,8 +41,6 @@ will walk though reprojecting rasters in `R` using the `projectRaster()`
 function in the `raster` package.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
-
-<div id="objectives" markdown="1">
 
 ## Things You’ll Need To Complete This Tutorial
 You will need the most current version of `R` and, preferably, `RStudio` loaded
@@ -81,9 +79,35 @@ We will use the `raster` and `rgdal` packages in this tutorial.
 ~~~
 # load raster package
 library(raster)
+~~~
+{: .r}
+
+
+
+~~~
+Loading required package: sp
+~~~
+{: .output}
+
+
+
+~~~
 library(rgdal)
 ~~~
 {: .r}
+
+
+
+~~~
+rgdal: version: 1.2-8, (SVN revision 663)
+ Geospatial Data Abstraction Library extensions to R successfully loaded
+ Loaded GDAL runtime: GDAL 2.2.1, released 2017/06/23
+ Path to GDAL shared files: /usr/share/gdal/2.2
+ Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
+ Path to PROJ.4 shared files: (autodetected)
+ Linking to sp version: 1.2-5 
+~~~
+{: .output}
 
 Let's create a map of the Harvard Forest Digital Terrain Model 
 (`DTM_HARV`) draped or layered on top of the hillshade (`DTM_hill_HARV`).

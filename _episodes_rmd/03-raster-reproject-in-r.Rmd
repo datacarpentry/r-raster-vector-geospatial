@@ -9,7 +9,7 @@ objectives:
 keypoints:
 - ""
 authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
-contributors: [ ]
+contributors: [Michael Heeremans]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`
@@ -43,8 +43,6 @@ will walk though reprojecting rasters in `R` using the `projectRaster()`
 function in the `raster` package.
 
 **R Skill Level:** Intermediate - you've got the basics of `R` down.
-
-<div id="objectives" markdown="1">
 
 ## Things You’ll Need To Complete This Tutorial
 You will need the most current version of `R` and, preferably, `RStudio` loaded
