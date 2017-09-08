@@ -46,9 +46,7 @@ on your computer to complete this tutorial.
 > 
 > ### Download Data
 > 
-> ****
-> 
-> ****
+> * [airborne remote sensing data](https://ndownloader.figshare.com/files/3701578)
 >
 > ### Reference
 >
