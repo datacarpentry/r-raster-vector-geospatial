@@ -1,5 +1,5 @@
 ---
-title: "Extract NDVI Summary Values from a Raster Time Series"
+title: "Derive Values from Raster Time Series"
 teaching: 10
 exercises: 0
 questions:

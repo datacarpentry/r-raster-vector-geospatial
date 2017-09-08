@@ -1,9 +1,9 @@
 ---
-title: "When Vector Data Don't Line Up - Handling Spatial Projection & CRS in R"
+title: "Handling Spatial Projection & CRS in R"
 teaching: 10
 exercises: 0
 questions:
-- ""
+- "What to do when vector data don't line up."
 objectives:
 - "Know how to identify the `CRS` of a spatial dataset."
 - "Be familiar with geographic vs. projected coordinate reference systems."

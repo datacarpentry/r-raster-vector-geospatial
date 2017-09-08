@@ -1,9 +1,9 @@
 ---
-title: "Crop Raster Data and Extract Summary Pixels Values From Rasters in R"
+title: "Manipulate Raster Data in R"
 teaching: 10
 exercises: 0
 questions:
-- ""
+- "How to crop raster layers and extract summary pixels."
 objectives:
 - "Be able to crop a raster to the extent of a vector layer."
 - "Be able to extract values from raster that correspond to a vector file overlay."

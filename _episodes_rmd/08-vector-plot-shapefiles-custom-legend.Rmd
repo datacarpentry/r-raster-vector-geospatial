@@ -1,9 +1,9 @@
 ---
-title: "Plot Multiple Shapefiles and Create Custom Legends in Base Plot in R"
+title: "Plot Multiple Shapefiles in R"
 teaching: 10
 exercises: 0
 questions:
-- ""
+- "How to create map compositions with custom legends in base plot."
 objectives:
 - "Be able to plot multiple shapefiles using base R graphics."
 - "Be able to apply custom symbology to spatial objects in a plot in R."

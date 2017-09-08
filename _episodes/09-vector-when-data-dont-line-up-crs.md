@@ -1,9 +1,9 @@
 ---
-title: "When Vector Data Don't Line Up - Handling Spatial Projection & CRS in R"
+title: "Handling Spatial Projection & CRS in R"
 teaching: 10
 exercises: 0
 questions:
-- ""
+- "What to do when vector data don't line up."
 objectives:
 - "Know how to identify the `CRS` of a spatial dataset."
 - "Be familiar with geographic vs. projected coordinate reference systems."
@@ -103,8 +103,33 @@ We will use the `rgdal` and `raster` libraries in this tutorial.
 ~~~
 # load packages
 library(sf)  # for vector work
-library (raster)   # for raster metadata/attributes 
+~~~
+{: .r}
 
+
+
+~~~
+Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
+~~~
+{: .output}
+
+
+
+~~~
+library (raster)   # for raster metadata/attributes 
+~~~
+{: .r}
+
+
+
+~~~
+Loading required package: sp
+~~~
+{: .output}
+
+
+
+~~~
 # set working directory to data folder
 # setwd("pathToDirHere")
 ~~~

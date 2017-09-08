@@ -1,9 +1,9 @@
 ---
-title: "Raster Calculations in R - Subtract One Raster from Another and Extract Pixel Values For Defined Locations "
+title: "Raster Calculations in R"
 teaching: 10
 exercises: 0
 questions:
-- ""
+- "How to subtract one raster from another and extract pixel values for defined locations."
 objectives:
 - "Be able to to perform a subtraction (difference) between two rasters using raster math."
 - "Know how to perform a more efficient subtraction (difference) between two rasters using the raster `overlay()` function in R."

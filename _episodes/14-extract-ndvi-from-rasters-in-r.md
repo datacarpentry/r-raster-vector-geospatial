@@ -1,5 +1,5 @@
 ---
-title: "Extract NDVI Summary Values from a Raster Time Series"
+title: "Derive Values from Raster Time Series"
 teaching: 10
 exercises: 0
 questions:
@@ -75,7 +75,39 @@ tutorials so you may be able to skip this first step!).
 
 ~~~
 library(raster)
+~~~
+{: .r}
+
+
+
+~~~
+Loading required package: sp
+~~~
+{: .output}
+
+
+
+~~~
 library(rgdal)
+~~~
+{: .r}
+
+
+
+~~~
+rgdal: version: 1.2-8, (SVN revision 663)
+ Geospatial Data Abstraction Library extensions to R successfully loaded
+ Loaded GDAL runtime: GDAL 2.2.1, released 2017/06/23
+ Path to GDAL shared files: /usr/share/gdal/2.2
+ Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
+ Path to PROJ.4 shared files: (autodetected)
+ Linking to sp version: 1.2-5 
+~~~
+{: .output}
+
+
+
+~~~
 library(ggplot2)
 
 # Create list of NDVI file paths

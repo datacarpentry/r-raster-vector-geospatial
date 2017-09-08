@@ -1,9 +1,9 @@
 ---
-title: "Open and Plot Shapefiles in R - Getting Started with Point, Line and Polygon Vector Data"
+title: "Open and Plot Shapefiles in R"
 teaching: 10
 exercises: 0
 questions:
-- ""
+- "Getting started with point, line and polygon vector data."
 objectives:
 - "Know the difference between point, line, and polygon vector elements."
 - "Understand the differences between opening point, line and polygon shapefiles in `R`."
