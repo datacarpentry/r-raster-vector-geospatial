@@ -1,9 +1,9 @@
 ---
-title: "Crop Raster Data and Extract Summary Pixels Values From Rasters in R"
+title: "Manipulate Raster Data in R"
 teaching: 10
 exercises: 0
 questions:
-- ""
+- "How to crop raster layers and extract summary pixels."
 objectives:
 - "Be able to crop a raster to the extent of a vector layer."
 - "Be able to extract values from raster that correspond to a vector file overlay."
@@ -75,6 +75,20 @@ we have worked with in this vector data tutorial series:
 and a raster file, that we will introduce this tutorial: 
 
 * A canopy height model (CHM) in GeoTIFF format -- green
+
+
+~~~
+Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
+~~~
+{: .output}
+
+
+
+~~~
+Loading required package: sp
+~~~
+{: .output}
+
 
 
 ~~~

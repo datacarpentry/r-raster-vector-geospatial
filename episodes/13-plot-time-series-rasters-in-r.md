@@ -1,5 +1,5 @@
 ---
-title: "Plot Raster Time Series Data in R Using RasterVis and Levelplot"
+title: "Plot Raster Time Series Data in R"
 teaching: 10
 exercises: 0
 questions:
@@ -71,7 +71,39 @@ please create it now.
 
 ~~~
 library(raster)
+~~~
+{: .r}
+
+
+
+~~~
+Loading required package: sp
+~~~
+{: .output}
+
+
+
+~~~
 library(rgdal)
+~~~
+{: .r}
+
+
+
+~~~
+rgdal: version: 1.2-8, (SVN revision 663)
+ Geospatial Data Abstraction Library extensions to R successfully loaded
+ Loaded GDAL runtime: GDAL 2.2.1, released 2017/06/23
+ Path to GDAL shared files: /usr/share/gdal/2.2
+ Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
+ Path to PROJ.4 shared files: (autodetected)
+ Linking to sp version: 1.2-5 
+~~~
+{: .output}
+
+
+
+~~~
 library(rasterVis)
 ~~~
 {: .r}
@@ -94,23 +126,6 @@ Loading required package: latticeExtra
 
 ~~~
 Loading required package: RColorBrewer
-~~~
-{: .output}
-
-
-
-~~~
-
-Attaching package: 'latticeExtra'
-~~~
-{: .output}
-
-
-
-~~~
-The following object is masked from 'package:ggplot2':
-
-    layer
 ~~~
 {: .output}
 

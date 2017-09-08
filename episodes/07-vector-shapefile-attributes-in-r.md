@@ -1,5 +1,5 @@
 ---
-title: "Explore Shapefile Attributes & Plot Shapefile Objects by Attribute Value in R"
+title: "Explore and Plot by Shapefile Attributes"
 teaching: 10
 exercises: 0
 questions:
@@ -84,9 +84,34 @@ tutorial, you can skip this code.
 # load packages
 # rgdal: for vector work
 library(sf)  
+~~~
+{: .r}
+
+
+
+~~~
+Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
+~~~
+{: .output}
+
+
+
+~~~
 # raster: for raster metadata/attributes 
 library (raster)   
+~~~
+{: .r}
 
+
+
+~~~
+Loading required package: sp
+~~~
+{: .output}
+
+
+
+~~~
 # set working directory to data folder
 # setwd("pathToDirHere")
 

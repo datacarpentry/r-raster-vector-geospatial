@@ -1,5 +1,5 @@
 ---
-title: "Explore Shapefile Attributes & Plot Shapefile Objects by Attribute Value in R"
+title: "Explore and Plot by Shapefile Attributes"
 teaching: 10
 exercises: 0
 questions:

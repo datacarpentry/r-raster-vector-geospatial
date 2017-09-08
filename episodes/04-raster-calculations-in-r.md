@@ -1,9 +1,9 @@
 ---
-title: "Raster Calculations in R - Subtract One Raster from Another and Extract Pixel Values For Defined Locations "
+title: "Raster Calculations in R"
 teaching: 10
 exercises: 0
 questions:
-- ""
+- "How to subtract one raster from another and extract pixel values for defined locations."
 objectives:
 - "Be able to to perform a subtraction (difference) between two rasters using raster math."
 - "Know how to perform a more efficient subtraction (difference) between two rasters using the raster `overlay()` function in R."
@@ -98,7 +98,19 @@ NEON Harvard Forest Field site.
 ~~~
 # load raster package
 library(raster)
+~~~
+{: .r}
 
+
+
+~~~
+Loading required package: sp
+~~~
+{: .output}
+
+
+
+~~~
 # view info about the dtm & dsm raster data that we will work with.
 GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 ~~~
@@ -107,29 +119,9 @@ GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 
 
 ~~~
-rows        1367 
-columns     1697 
-bands       1 
-lower left origin.x        731453 
-lower left origin.y        4712471 
-res.x       1 
-res.y       1 
-ysign       -1 
-oblique.x   0 
-oblique.y   0 
-driver      GTiff 
-projection  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
-file        data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif 
-apparent band summary:
-   GDType hasNoDataValue NoDataValue blockSize1 blockSize2
-1 Float64           TRUE       -9999          1       1697
-apparent band statistics:
-    Bmin   Bmax    Bmean      Bsd
-1 304.56 389.82 344.8979 15.86147
-Metadata:
-AREA_OR_POINT=Area 
+Error in GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif"): could not find function "GDALinfo"
 ~~~
-{: .output}
+{: .error}
 
 
 
@@ -141,29 +133,9 @@ GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 
 ~~~
-rows        1367 
-columns     1697 
-bands       1 
-lower left origin.x        731453 
-lower left origin.y        4712471 
-res.x       1 
-res.y       1 
-ysign       -1 
-oblique.x   0 
-oblique.y   0 
-driver      GTiff 
-projection  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
-file        data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif 
-apparent band summary:
-   GDType hasNoDataValue NoDataValue blockSize1 blockSize2
-1 Float64           TRUE       -9999          1       1697
-apparent band statistics:
-    Bmin   Bmax    Bmean      Bsd
-1 305.07 416.07 359.8531 17.83169
-Metadata:
-AREA_OR_POINT=Area 
+Error in GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif"): could not find function "GDALinfo"
 ~~~
-{: .output}
+{: .error}
 
 As seen from the `geoTiff` tags, both rasters have:
 

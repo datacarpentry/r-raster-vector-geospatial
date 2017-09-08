@@ -1,9 +1,9 @@
 ---
-title: "Open and Plot Shapefiles in R - Getting Started with Point, Line and Polygon Vector Data"
+title: "Open and Plot Shapefiles in R"
 teaching: 10
 exercises: 0
 questions:
-- ""
+- "Getting started with point, line and polygon vector data."
 objectives:
 - "Know the difference between point, line, and polygon vector elements."
 - "Understand the differences between opening point, line and polygon shapefiles in `R`."
@@ -129,7 +129,19 @@ Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
 ~~~
 # for metadata/attributes- vectors or rasters
 library(raster) 
+~~~
+{: .r}
 
+
+
+~~~
+Loading required package: sp
+~~~
+{: .output}
+
+
+
+~~~
 # set working directory to the directory location on your computer where
 # you downloaded and unzipped the data files for the tutorial
 # setwd("pathToDirHere")

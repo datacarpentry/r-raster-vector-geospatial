@@ -1,5 +1,5 @@
 ---
-title: "Plot Raster Time Series Data in R Using RasterVis and Levelplot"
+title: "Plot Raster Time Series Data in R"
 teaching: 10
 exercises: 0
 questions:

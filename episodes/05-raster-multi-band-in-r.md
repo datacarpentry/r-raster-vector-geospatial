@@ -1,5 +1,5 @@
 ---
-title: "Work With Multi-Band Rasters - Image Data in R"
+title: "Work With Multi-Band Rasters in R"
 teaching: 10
 exercises: 0
 questions:
@@ -102,11 +102,40 @@ would render as a single image in grayscale. We will therefore use a grayscale
 palette to render individual bands. 
 {: .notice }
 
-<img src="../fig/rmd-demonstrate-RGB-Image-1.png" title="plot of chunk demonstrate-RGB-Image" alt="plot of chunk demonstrate-RGB-Image" style="display: block; margin: auto;" />
+
+~~~
+Error in data.frame(values = unlist(unname(x)), ind, stringsAsFactors = FALSE): arguments imply differing number of rows: 1, 0
+~~~
+{: .error}
+
+
+
+~~~
+Error in names(RGB_stack_HARV) <- c("Red Band", "Green Band", "Blue Band"): object 'RGB_stack_HARV' not found
+~~~
+{: .error}
+
+
+
+~~~
+Error in plot(RGB_stack_HARV, col = grayscale_colors, axes = F): object 'RGB_stack_HARV' not found
+~~~
+{: .error}
 
 Or we can composite all three bands together to make a color image.
 
-<img src="../fig/rmd-plot-RGB-now-1.png" title="plot of chunk plot-RGB-now" alt="plot of chunk plot-RGB-now" style="display: block; margin: auto;" />
+
+~~~
+Error in plotRGB(RGB_stack_HARV, r = 1, g = 2, b = 3, axes = TRUE, main = "3 Band Color Composite Image\n NEON Harvard Forest Field Site"): could not find function "plotRGB"
+~~~
+{: .error}
+
+
+
+~~~
+Error in box(col = "white"): plot.new has not been called yet
+~~~
+{: .error}
 
 In a multi-band dataset, the rasters will always have the same *extent*,
 *CRS* and *resolution*.  
@@ -135,10 +164,36 @@ packages.
 ~~~
 # work with raster data
 library(raster)
+~~~
+{: .r}
+
+
+
+~~~
+Loading required package: sp
+~~~
+{: .output}
+
+
+
+~~~
 # export GeoTIFFs and other core GIS functions
 library(rgdal)
 ~~~
 {: .r}
+
+
+
+~~~
+rgdal: version: 1.2-8, (SVN revision 663)
+ Geospatial Data Abstraction Library extensions to R successfully loaded
+ Loaded GDAL runtime: GDAL 2.2.1, released 2017/06/23
+ Path to GDAL shared files: /usr/share/gdal/2.2
+ Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
+ Path to PROJ.4 shared files: (autodetected)
+ Linking to sp version: 1.2-5 
+~~~
+{: .output}
 
 In this tutorial, the multi-band data that we are working with is imagery
 collected using the 
