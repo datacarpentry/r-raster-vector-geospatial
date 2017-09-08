@@ -11,7 +11,7 @@ objectives:
 - "Be able to quickly plot a raster file in `R`."
 - "Understand the difference between single- and multi-band rasters."
 keypoints:
-- ""
+- "The Coordinate Reference System or CRS tells R where the raster is located in geographic space and what method should be used to “flatten” or project the raster."
 authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
 contributors: [ ]
 dateCreated: 2015-10-23
@@ -33,43 +33,41 @@ introduces the GeoTiff file format."
 source("../bin/chunk-options.R")
 ```
 
-## About
+> ## Things You’ll Need To Complete This Tutorial
+> **R Skill Level:** Intermediate - you've got the basics of `R` down.
+> 
+> You will need the most current version of `R` and, preferably, `RStudio` loaded
+on your computer to complete this tutorial.
+> 
+> ### Install R Packages
+> 
+> * **raster:** `install.packages("raster")`
+> * **rgdal:** `install.packages("rgdal")`
+> 
+> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
+> 
+> ### Download Data
+> 
+> ****
+> 
+> ****
+>
+> ### Reference
+>
+> * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
+> Read more about the `raster` package in `R`.</a>
+> * <a href="http://neondataskills.org/R/Raster-Data-In-R/" target="_blank" >
+> NEON Data Skills: Raster Data in R - The Basics</a>
+> * <a href="http://neondataskills.org/R/Image-Raster-Data-In-R/" target="_blank" >
+> NEON Data Skills: Image Raster Data in R - An Intro</a>
+{: .prereq}
+
 In this tutorial, we will review the fundamental principles, packages and 
 metadata/raster attributes that are needed to work with raster data in `R`. 
 We discuss the three core metadata elements that we need to understand to work 
 with rasters in `R`: **CRS**, **extent** and **resolution**. It also explores
 missing and bad data values as stored in a raster and how `R` handles these
 elements. Finally, it introduces the GeoTiff file format.
-
-**R Skill Level:** Intermediate - you've got the basics of `R` down.
-
-<div id="objectives" markdown="1">
-
-## Things You’ll Need To Complete This Tutorial
-You will need the most current version of `R` and, preferably, `RStudio` loaded
-on your computer to complete this tutorial.
-
-### Install R Packages
-
-* **raster:** `install.packages("raster")`
-* **rgdal:** `install.packages("rgdal")`
-
-* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
-
-### Download Data
-
-****
-
-****
-
-* <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
-Read more about the `raster` package in `R`.</a>
-* <a href="http://neondataskills.org/R/Raster-Data-In-R/" target="_blank" >
-NEON Data Skills: Raster Data in R - The Basics</a>
-* <a href="http://neondataskills.org/R/Image-Raster-Data-In-R/" target="_blank" >
-NEON Data Skills: Image Raster Data in R - An Intro</a>
-
-</div>
 
 ## About Raster Data
 Raster or "gridded" data are stored as a grid of values which are rendered on a 
@@ -233,8 +231,8 @@ in geographic space. It also tells `R` what method should be used to "flatten"
 or project the raster in geographic space. 
 
 <figure>
-    <a href="https://source.opennews.org/media/cache/b9/4f/b94f663c79024f0048ae7b4f88060cb5.jpg">
-    <img src="https://source.opennews.org/media/cache/b9/4f/b94f663c79024f0048ae7b4f88060cb5.jpg">
+    <a href="https://media.opennews.org/cache/06/37/0637aa2541b31f526ad44f7cb2db7b6c.jpg">
+    <img src="https://media.opennews.org/cache/06/37/0637aa2541b31f526ad44f7cb2db7b6c.jpg">
     </a>
     
     <figcaption> Maps of the United States in different projections. Notice the 
@@ -573,18 +571,14 @@ following about the  `NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif`
 > 
 > Notice: this file is a `hillshade`. We will learn about hillshades in
 <a href="{{ site.baseurl }}/R/Multi-Band-Rasters-In-R/" target="_blank">  Work with Multi-band Rasters: Images in R</a>.
-{: .challenge}
-
-``` {r challenge-code-attributes, eval=FALSE, echo=FALSE}
+> > ## Answers
+> > ``` {r challenge-code-attributes, eval=TRUE, echo=FALSE}
 GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
-
-# ANSWERS ###
-# 1. If this file has the same CRS as DSM_HARV?  Yes: UTM Zone 18, WGS84, meters. 
-# 2. What format `NoDataValues` take?  -9999
-# 3. The resolution of the raster data? 1x1
-# 4. How large a 5x5 pixel area would be? 5mx5m How? We are given resolution of 
-# 1x1 and units in meters, therefore resolution of 5x5 means 5x5m. 
-# 5. Is the file a multi- or single-band raster?  Single 
-
-```
-
+> > ```
+> > 1. If this file has the same CRS as DSM_HARV?  Yes: UTM Zone 18, WGS84, meters. 
+> > 2. What format `NoDataValues` take?  -9999
+> > 3. The resolution of the raster data? 1x1
+> > 4. How large a 5x5 pixel area would be? 5mx5m How? We are given resolution of 1x1 and units in meters, therefore resolution of 5x5 means 5x5m. 
+> > 5. Is the file a multi- or single-band raster?  Single.
+> {: .solution}
+{: .challenge}
