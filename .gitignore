@@ -1,6 +1,5 @@
 _site
 .DS_Store
-_config.yml
 .Rproj.user
 _episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing
 _episodes_rmd/data/NEON-DS-Site-Layout-Files

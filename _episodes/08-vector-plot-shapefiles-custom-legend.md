@@ -76,8 +76,33 @@ location. These latter two we worked with in the
 ~~~
 # load packages
 library(sf)  
-library(raster)   
+~~~
+{: .r}
 
+
+
+~~~
+Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
+~~~
+{: .output}
+
+
+
+~~~
+library(raster)   
+~~~
+{: .r}
+
+
+
+~~~
+Loading required package: sp
+~~~
+{: .output}
+
+
+
+~~~
 # set working directory to data folder
 # setwd("pathToDirHere")
 
@@ -547,21 +572,20 @@ legend("bottomright",
 <img src="../fig/rmd-refine-legend-1.png" title="plot of chunk refine-legend" alt="plot of chunk refine-legend" style="display: block; margin: auto;" />
 
 
-<div id="challenge" markdown="1">
-## Challenge: Plot Polygon by Attribute
-
-1. Using the `NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp` shapefile, 
+> ## Challenge: Plot Polygon by Attribute
+> 
+> 1. Using the `NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp` shapefile, 
 create a map of study plot locations, with each point colored by the soil type
 (`soilTypeOr`). How many different soil types are there at this particular field 
 site? Overlay this layer on top of the `lines_HARV` layer (the roads). Create a 
 custom legend that applies line symbols to lines and point symbols to the points.
-
-2. Modify the plot above. Tell `R` to plot each point, using a different
+> 
+> 2. Modify the plot above. Tell `R` to plot each point, using a different
 symbol of `pch` value. HINT: to do this, create a vector object of symbols by 
 factor level using the syntax described above for line width: 
 `c(15,17)[lines_HARV$soilTypeOr]`. Overlay this on top of the AOI Boundary. 
 Create a custom legend.
-
-</div>
+> 
+{: .challenge}
 
 <img src="../fig/rmd-challenge-code-plot-color-1.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-code-plot-color-2.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />

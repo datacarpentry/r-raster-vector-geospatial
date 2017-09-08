@@ -330,22 +330,21 @@ legend("bottomright",
 ```
 
 
-<div id="challenge" markdown="1">
-## Challenge: Plot Polygon by Attribute
-
-1. Using the `NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp` shapefile, 
+> ## Challenge: Plot Polygon by Attribute
+> 
+> 1. Using the `NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp` shapefile, 
 create a map of study plot locations, with each point colored by the soil type
 (`soilTypeOr`). How many different soil types are there at this particular field 
 site? Overlay this layer on top of the `lines_HARV` layer (the roads). Create a 
 custom legend that applies line symbols to lines and point symbols to the points.
-
-2. Modify the plot above. Tell `R` to plot each point, using a different
+> 
+> 2. Modify the plot above. Tell `R` to plot each point, using a different
 symbol of `pch` value. HINT: to do this, create a vector object of symbols by 
 factor level using the syntax described above for line width: 
 `c(15,17)[lines_HARV$soilTypeOr]`. Overlay this on top of the AOI Boundary. 
 Create a custom legend.
-
-</div>
+> 
+{: .challenge}
 
 ``` {r challenge-code-plot-color, results="hide", warning= FALSE, echo=FALSE}
 ## 1
@@ -382,12 +381,12 @@ colorElements
 
 # create legend 
 legend("bottomright", 
-       legend=c("Intceptisols","Histosols",levels(lines_HARV$TYPE)),
-       pch=plotSymElements, 
-       lty=lineLegendElement,
-       col=colorElements,
-       bty="n", 
-       cex=1)
+       legend = c(levels(plotLocations$soilTypeOr), levels(lines_HARV$TYPE)),
+       pch = plotSymElements, 
+       lty = lineLegendElement,
+       col = colorElements,
+       bty = "n", 
+       cex = 1)
 
 ## 2
 # create vector of DIFFERENT plot symbols
@@ -416,10 +415,10 @@ colorElements <- c(blueGreen, roadPalette)
 colorElements
 # create legend 
 legend("bottomright", 
-       legend=c("Intceptisols","Histosols",levels(lines_HARV$TYPE)),
-       pch=plotSymElementsMod, 
-       lty=lineLegendElement,
-       col=colorElements,
-       bty="n", 
-       cex=1)
+       legend=c(levels(plotLocations$soilTypeOr), levels(lines_HARV$TYPE)),
+       pch = plotSymElementsMod, 
+       lty = lineLegendElement,
+       col = colorElements,
+       bty = "n", 
+       cex = 1)
 ```
