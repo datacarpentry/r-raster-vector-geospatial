@@ -99,6 +99,7 @@ NEON Harvard Forest Field site.
 ```{r load-libraries }
 # load raster package
 library(raster)
+library(rgdal)
 
 # view info about the dtm & dsm raster data that we will work with.
 GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
