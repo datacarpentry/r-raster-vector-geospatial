@@ -32,38 +32,31 @@ comments: true
 source("../bin/chunk-options.R")
 ```
 
-## About
+> ## Things You’ll Need To Complete This Tutorial 
+> **R Skill Level:** Intermediate - you've got the basics of `R` down.
+>
+> You will need the most current version of `R` and, preferably, `RStudio` loaded
+on your computer to complete this tutorial.
+> 
+> ### Install R Packages
+> 
+> * **raster:** `install.packages("raster")`
+> * **rgdal:** `install.packages("rgdal")`
+> 
+> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
+> 
+> #### Download Data
+> 
+> 
+> ### Reference
+> 
+> * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank"> Read more about the `raster` package in `R`.</a>
+{: .prereq} 
+
+
 This tutorial reviews how to plot a raster in `R` using the `plot()` 
 function. It also covers how to layer a raster on top of a hillshade to produce 
 an eloquent map.
-
-**R Skill Level:** Intermediate - you've got the basics of `R` down.
-
-<div id="objectives" markdown="1">
-
-## Things You’ll Need To Complete This Tutorial
-
-You will need the most current version of `R` and, preferably, `RStudio` loaded
-on your computer to complete this tutorial.
-
-### Install R Packages
-
-* **raster:** `install.packages("raster")`
-* **rgdal:** `install.packages("rgdal")`
-
-* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
-
-#### Download Data
-
-****
-
-****
-
-### Additional Resources
-
-* <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank"> Read more about the `raster` package in `R`.</a>
-
-</div>
 
 ## Plot Raster Data in R
 In this tutorial, we will plot the Digital Surface Model (DSM) raster 
@@ -152,9 +145,9 @@ plot(DSM_HARV,
 
 ```
 
-<i class="fa fa-star"></i> **Data Tip:** Note that when we assign break values
-a set of 4 values will result in 3 bins of data.
-{: .notice}
+> ## Data Tip
+> Note that when we assign break values a set of 4 values will result in 3 bins of data.
+{: .callout}
 
 ### Format Plot
 If we need to create multiple plots using the same color palette, we can create
@@ -194,31 +187,28 @@ plot(DSM_HARV,
 > 
 > Create a plot of the Harvard Forest Digital Surface Model (DSM) that has:
 > 
-> * Six classified ranges of values (break points) that are evenly divided among 
-> the range of pixel values. 
-> * Axis labels
-> * A plot title
+> 1. Six classified ranges of values (break points) that are evenly divided among the range of pixel values. 
+> 2. Axis labels
+> 3. A plot title
+>
+> > ## Answers
+> > ``` {r challenge-code-plotting, eval=TRUE, echo=FALSE}
+> > # Find min & max
+> > DSM_HARV@data
+> > # Pixel range & even category width
+> > (416.07-305.07)/6
+> > # Break every 18.5m starting at 305.07
+> > # Plot with 6 categories at even intervals across the pixel value range. 
+> > plot(DSM_HARV, 
+> >      #breaks = c(305, 323.5, 342, 360.5, 379, 397.5, 417),  #manual entry
+> >      breaks = seq(305, 417, by=18.5),  #define start & end, and interval
+> >      col = terrain.colors (6),
+> >       main="Digital Surface Model\nNEON Harvard Forest Field Site", 
+> >      xlab = "UTM Westing Coordinate", 
+> >      ylab = "UTM Northing Coordinate")
+> > ```
+> {: .solution}
 {: .challenge}
-
-``` {r challenge-code-plotting, include=TRUE, results="hide", echo=FALSE}
-# Find min & max
-DSM_HARV@data
-
-# Pixel range & even category width
-(416.07-305.07)/6
-
-# Break every 18.5m starting at 305.07
-
-# Plot with 6 categories at even intervals across the pixel value range. 
-plot(DSM_HARV, 
-     #breaks = c(305, 323.5, 342, 360.5, 379, 397.5, 417),  #manual entry
-     breaks = seq(305, 417, by=18.5),  #define start & end, and interval
-     col = terrain.colors (6),
-      main="Digital Surface Model\nNEON Harvard Forest Field Site", 
-     xlab = "UTM Westing Coordinate", 
-     ylab = "UTM Northing Coordinate")
-
-```
 
 ## Layering Rasters
 We can layer a raster on top of a hillshade raster for the same area, and use a 
@@ -240,9 +230,9 @@ plot(DSM_hill_HARV,
 
 ```
 
-<i class="fa fa-star"></i> **Data Tip:** Turn off, or hide, the legend on 
-a plot using `legend=FALSE`.
-{: .notice}
+> ## Data Tip
+> Turn off, or hide, the legend on a plot using `legend=FALSE`.
+{: .callout}
 
 We can layer another raster on top of our hillshade using by using `add=TRUE`.
 Let's overlay `DSM_HARV` on top of the `hill_HARV`.
@@ -328,6 +318,4 @@ plot(DTM_SJER,
      alpha=0.4,
      add=T,
      legend=F)
-
 ```
-

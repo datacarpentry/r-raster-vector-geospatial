@@ -10,12 +10,12 @@ objectives:
 - "Be able to plot multi-band color image rasters in `R` using `plotRGB()`."
 - "Understand what a `NoData` value is in a raster."
 keypoints:
-- ""
+- "A single raster file can contain multiple bands or layers."
 authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2017-09-08
+lastModified: 2017-09-11
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series, raster-time-series]
@@ -27,31 +27,26 @@ function in R."
 
 
 
-## About
+> ## Things You’ll Need To Complete This Tutorial
+> **R Skill Level:** Intermediate - you've got the basics of `R` down.
+>
+You will need the most current version of `R` and, preferably, `RStudio` loaded
+on your computer to complete this tutorial.
+> 
+> ### Install R Packages
+> 
+> * **raster:** `install.packages("raster")`
+> * **rgdal:** `install.packages("rgdal")`
+> 
+> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
+> 
+> #### Data to Download
+> 
+{: .prereq} 
+
 This tutorial explores how to import and plot a multi-band raster in
 R. It also covers how to plot a three-band color image using the `plotRGB()`
 function in `R`.
-
-**R Skill Level:** Intermediate - you've got the basics of `R` down.
-
-<div id="objectives" markdown="1">
-
-## Things You’ll Need To Complete This Tutorial
-You will need the most current version of `R` and, preferably, `RStudio` loaded
-on your computer to complete this tutorial.
-
-### Install R Packages
-
-* **raster:** `install.packages("raster")`
-* **rgdal:** `install.packages("rgdal")`
-
-* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
-
-#### Data to Download
-
-****
-
-</div>
 
 ## The Basics of Imagery - About Spectral Remote Sensing Data
 
@@ -97,45 +92,23 @@ creates the colors that we see in an image.
 
 We can plot each band of a multi-band image individually. 
 
-<i class="fa fa-star"></i> **Data Tip:** In many GIS applications, a single band 
-would render as a single image in grayscale. We will therefore use a grayscale 
-palette to render individual bands. 
-{: .notice }
+> ## Data Tip
+> In many GIS applications, a single band 
+> would render as a single image in grayscale. We will therefore use a grayscale 
+> palette to render individual bands. 
+{: .callout}
 
 
 ~~~
-Error in data.frame(values = unlist(unname(x)), ind, stringsAsFactors = FALSE): arguments imply differing number of rows: 1, 0
+Loading required package: sp
 ~~~
-{: .error}
+{: .output}
 
-
-
-~~~
-Error in names(RGB_stack_HARV) <- c("Red Band", "Green Band", "Blue Band"): object 'RGB_stack_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(RGB_stack_HARV, col = grayscale_colors, axes = F): object 'RGB_stack_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-demonstrate-RGB-Image-1.png" title="plot of chunk demonstrate-RGB-Image" alt="plot of chunk demonstrate-RGB-Image" style="display: block; margin: auto;" />
 
 Or we can composite all three bands together to make a color image.
 
-
-~~~
-Error in plotRGB(RGB_stack_HARV, r = 1, g = 2, b = 3, axes = TRUE, main = "3 Band Color Composite Image\n NEON Harvard Forest Field Site"): could not find function "plotRGB"
-~~~
-{: .error}
-
-
-
-~~~
-Error in box(col = "white"): plot.new has not been called yet
-~~~
-{: .error}
+<img src="../fig/rmd-plot-RGB-now-1.png" title="plot of chunk plot-RGB-now" alt="plot of chunk plot-RGB-now" style="display: block; margin: auto;" />
 
 In a multi-band dataset, the rasters will always have the same *extent*,
 *CRS* and *resolution*.  
@@ -164,19 +137,6 @@ packages.
 ~~~
 # work with raster data
 library(raster)
-~~~
-{: .r}
-
-
-
-~~~
-Loading required package: sp
-~~~
-{: .output}
-
-
-
-~~~
 # export GeoTIFFs and other core GIS functions
 library(rgdal)
 ~~~
@@ -574,45 +534,65 @@ In this case, the stretch doesn't enhance the contrast our image significantly
 given the distribution of reflectance (or brightness) values is distributed well
 between 0 and 255.
 
-<div id="challenge" markdown="1">
-## Challenge - NoData Values
-Let's explore what happens with NoData values when using `RasterStack` and
-`plotRGB`. We will use the `HARV_Ortho_wNA.tif` GeoTIFF in the
-`NEON-DS-Airborne-Remote-Sensing/HARVRGB_Imagery/` directory.
-
-1. View the files attributes. Are there `NoData` values assigned for this file? 
-2. If so, what is the `NoData` Value? 
-3. How many bands does it have?
-4. Open the multi-band raster file in `R`. 
-5. Plot the object as a true color image. 
-6. What happened to the black edges in the data?
-7. What does this tell us about the difference in the data structure between  
-`HARV_Ortho_wNA.tif` and `HARV_RGB_Ortho.tif` (`R` object `RGB_stack`). How can
-you check?
-
-Answer the questions above using the functions we have covered so far in this
+> ## Challenge - NoData Values
+> Let's explore what happens with NoData values when using `RasterStack` and
+> `plotRGB`. We will use the `HARV_Ortho_wNA.tif` GeoTIFF in the
+> `NEON-DS-Airborne-Remote-Sensing/HARVRGB_Imagery/` directory.
+> 
+> 1. View the files attributes. Are there `NoData` values assigned for this file? 
+> 2. If so, what is the `NoData` Value? 
+> 3. How many bands does it have?
+> 4. Open the multi-band raster file in `R`. 
+> 5. Plot the object as a true color image. 
+> 6. What happened to the black edges in the data?
+> 7. What does this tell us about the difference in the data structure between  
+> `HARV_Ortho_wNA.tif` and `HARV_RGB_Ortho.tif` (`R` object `RGB_stack`). How can
+> you check?
+> 
+> Answer the questions above using the functions we have covered so far in this
 tutorial.
+> 
+> > ## Answers
+> > 
+> > ~~~
+> > # 1.
+> > # view attributes
+> > GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif")
+> > 
+> > # 2 Yes it has NoData values as they are assigned as -9999 
+> > # 3 3 bands
+> > 
+> > # 4
+> > # reading in file
+> > HARV_NA <- 
+> >   stack("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif")
+> > 
+> > # 5
+> > plotRGB(HARV_NA, 
+> >         r = 1, g = 2, b = 3)
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-NoData-1.png" title="plot of chunk challenge-code-NoData" alt="plot of chunk challenge-code-NoData" style="display: block; margin: auto;" />
+> > 
+> > ~~~
+> > #6 The black edges are not plotted. 
+> > #7 Both have NoData values, however, in RGB_stack the NoData value is not
+> > # defined in the tiff tags, thus R renders them as black as the reflectance
+> > # values are 0. The black edges in the other file are defined as -9999 and R
+> > # renders them as NA.
+> > GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
+> > ~~~
+> > {: .r}
+> {: .solution}
+{: .challenge}
 
-</div>
-
-
-~~~
-Error in .local(.Object, ...): 
-~~~
-{: .error}
-
-<img src="../fig/rmd-challenge-code-NoData-1.png" title="plot of chunk challenge-code-NoData" alt="plot of chunk challenge-code-NoData" style="display: block; margin: auto;" />
-
-~~~
-Error in .local(.Object, ...): 
-~~~
-{: .error}
-
-<i class="fa fa-star"></i> **Data Tip:** We can create a RasterStack from 
-several, individual single-band GeoTIFFs too. Check out:
-[Raster Time Series Data in R]({{ site.baseurl }}/R/Raster-Times-Series-Data-In-R/)
-for a tutorial on how to do this.  
-{: .notice}
+> ## Data Tip
+> We can create a RasterStack from 
+> several, individual single-band GeoTIFFs too. Check out:
+> [Raster Time Series Data in R]({{ site.baseurl }}/R/Raster-Times-Series-Data-In-R/)
+> for a tutorial on how to do this.  
+{: .callout}
 
 ## RasterStack vs RasterBrick in R
 
@@ -678,17 +658,29 @@ plotRGB(RGB_brick_HARV)
 
 <img src="../fig/rmd-plot-brick-1.png" title="plot of chunk plot-brick" alt="plot of chunk plot-brick" style="display: block; margin: auto;" />
 
-
-<div id="challenge" markdown="1">
-## Challenge: What Methods Can Be Used on an R Object?
-We can view various methods available to call on an `R` object with 
-`methods(class=class(objectNameHere))`. Use this to figure out:
-
-1. What methods can be used to call on the `RGB_stack_HARV` object? 
-2. What methods are available for a single band within `RGB_stack_HARV`? 
-3. Why do you think there is a difference? 
-
-</div>
-
-
-
+> ## Challenge: What Methods Can Be Used on an R Object?
+> We can view various methods available to call on an `R` object with 
+> `methods(class=class(objectNameHere))`. Use this to figure out:
+> 
+> 1. What methods can be used to call on the `RGB_stack_HARV` object? 
+> 2. What methods are available for a single band within `RGB_stack_HARV`? 
+> 3. Why do you think there is a difference? 
+>
+> > ## Answers
+> > 
+> > ~~~
+> > # 1
+> > # methods for calling a stack
+> > methods(class=class(RGB_stack_HARV))
+> > # 143 methods!
+> > 
+> > # 2
+> > # methods for calling a band (1) with a stack
+> > methods(class=class(RGB_stack_HARV[1]))
+> > 
+> > #3 There are far more thing one could or wants to ask of a full stack than of 
+> > # a single band.  
+> > ~~~
+> > {: .r}
+> {: .solution}
+{: .challenge}
