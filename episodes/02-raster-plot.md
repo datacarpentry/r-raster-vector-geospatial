@@ -13,7 +13,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2017-09-08
+lastModified: 2017-09-11
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]
@@ -30,38 +30,31 @@ comments: true
 
 
 
-## About
+> ## Things You’ll Need To Complete This Tutorial 
+> **R Skill Level:** Intermediate - you've got the basics of `R` down.
+>
+> You will need the most current version of `R` and, preferably, `RStudio` loaded
+on your computer to complete this tutorial.
+> 
+> ### Install R Packages
+> 
+> * **raster:** `install.packages("raster")`
+> * **rgdal:** `install.packages("rgdal")`
+> 
+> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
+> 
+> #### Download Data
+> 
+> 
+> ### Reference
+> 
+> * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank"> Read more about the `raster` package in `R`.</a>
+{: .prereq} 
+
+
 This tutorial reviews how to plot a raster in `R` using the `plot()` 
 function. It also covers how to layer a raster on top of a hillshade to produce 
 an eloquent map.
-
-**R Skill Level:** Intermediate - you've got the basics of `R` down.
-
-<div id="objectives" markdown="1">
-
-## Things You’ll Need To Complete This Tutorial
-
-You will need the most current version of `R` and, preferably, `RStudio` loaded
-on your computer to complete this tutorial.
-
-### Install R Packages
-
-* **raster:** `install.packages("raster")`
-* **rgdal:** `install.packages("rgdal")`
-
-* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
-
-#### Download Data
-
-****
-
-****
-
-### Additional Resources
-
-* <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank"> Read more about the `raster` package in `R`.</a>
-
-</div>
 
 ## Plot Raster Data in R
 In this tutorial, we will plot the Digital Surface Model (DSM) raster 
@@ -180,7 +173,7 @@ DSMhist$counts
 
 
 ~~~
-[1] 32134 67412   454
+[1] 31858 67680   462
 ~~~
 {: .output}
 
@@ -217,9 +210,9 @@ plot(DSM_HARV,
 
 <img src="../fig/rmd-plot-with-breaks-1.png" title="plot of chunk plot-with-breaks" alt="plot of chunk plot-with-breaks" style="display: block; margin: auto;" />
 
-<i class="fa fa-star"></i> **Data Tip:** Note that when we assign break values
-a set of 4 values will result in 3 bins of data.
-{: .notice}
+> ## Data Tip
+> Note that when we assign break values a set of 4 values will result in 3 bins of data.
+{: .callout}
 
 ### Format Plot
 If we need to create multiple plots using the same color palette, we can create
@@ -266,13 +259,65 @@ plot(DSM_HARV,
 > 
 > Create a plot of the Harvard Forest Digital Surface Model (DSM) that has:
 > 
-> * Six classified ranges of values (break points) that are evenly divided among 
-> the range of pixel values. 
-> * Axis labels
-> * A plot title
+> 1. Six classified ranges of values (break points) that are evenly divided among the range of pixel values. 
+> 2. Axis labels
+> 3. A plot title
+>
+> > ## Answers
+> > 
+> > ~~~
+> > An object of class ".SingleLayerData"
+> > Slot "values":
+> > logical(0)
+> > 
+> > Slot "offset":
+> > [1] 0
+> > 
+> > Slot "gain":
+> > [1] 1
+> > 
+> > Slot "inmemory":
+> > [1] FALSE
+> > 
+> > Slot "fromdisk":
+> > [1] TRUE
+> > 
+> > Slot "isfactor":
+> > [1] FALSE
+> > 
+> > Slot "attributes":
+> > list()
+> > 
+> > Slot "haveminmax":
+> > [1] TRUE
+> > 
+> > Slot "min":
+> > [1] 305.07
+> > 
+> > Slot "max":
+> > [1] 416.07
+> > 
+> > Slot "band":
+> > [1] 1
+> > 
+> > Slot "unit":
+> > [1] ""
+> > 
+> > Slot "names":
+> > [1] "HARV_dsmCrop"
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 18.5
+> > ~~~
+> > {: .output}
+> > 
+> > <img src="../fig/rmd-challenge-code-plotting-1.png" title="plot of chunk challenge-code-plotting" alt="plot of chunk challenge-code-plotting" style="display: block; margin: auto;" />
+> {: .solution}
 {: .challenge}
-
-<img src="../fig/rmd-challenge-code-plotting-1.png" title="plot of chunk challenge-code-plotting" alt="plot of chunk challenge-code-plotting" style="display: block; margin: auto;" />
 
 ## Layering Rasters
 We can layer a raster on top of a hillshade raster for the same area, and use a 
@@ -297,9 +342,9 @@ plot(DSM_hill_HARV,
 
 <img src="../fig/rmd-hillshade-1.png" title="plot of chunk hillshade" alt="plot of chunk hillshade" style="display: block; margin: auto;" />
 
-<i class="fa fa-star"></i> **Data Tip:** Turn off, or hide, the legend on 
-a plot using `legend=FALSE`.
-{: .notice}
+> ## Data Tip
+> Turn off, or hide, the legend on a plot using `legend=FALSE`.
+{: .callout}
 
 We can layer another raster on top of our hillshade using by using `add=TRUE`.
 Let's overlay `DSM_HARV` on top of the `hill_HARV`.
@@ -347,4 +392,3 @@ Range field site.
 
 
 <img src="../fig/rmd-challenge-hillshade-layering-1.png" title="plot of chunk challenge-hillshade-layering" alt="plot of chunk challenge-hillshade-layering" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-hillshade-layering-2.png" title="plot of chunk challenge-hillshade-layering" alt="plot of chunk challenge-hillshade-layering" style="display: block; margin: auto;" />
-

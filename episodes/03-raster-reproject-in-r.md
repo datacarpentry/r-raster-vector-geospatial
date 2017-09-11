@@ -12,7 +12,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Will
 contributors: [Michael Heeremans]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2017-09-08
+lastModified: 2017-09-11
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]
@@ -31,7 +31,27 @@ comments: true
 
 
 
-## About
+> ## Things You’ll Need To Complete This Tutorial
+> **R Skill Level:** Intermediate - you've got the basics of `R` down.
+You will need the most current version of `R` and, preferably, `RStudio` loaded
+on your computer to complete this tutorial.
+>
+> ### Install R Packages
+> 
+> * **raster:** `install.packages("raster")`
+> * **rgdal:** `install.packages("rgdal")`
+> 
+> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
+> 
+> #### Data to Download
+> 
+> 
+> ### Additional Resources
+> 
+* <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
+> Read more about the `raster` package in `R`.</a>
+{: .prereq} 
+
 Sometimes we encounter raster datasets that do not "line up" when plotted or 
 analyzed. Rasters that don't line up are most often in different Coordinate
 Reference Systems (CRS).
@@ -39,32 +59,6 @@ Reference Systems (CRS).
 This tutorial explains how to deal with rasters in different, known CRSs. It
 will walk though reprojecting rasters in `R` using the `projectRaster()`
 function in the `raster` package.
-
-**R Skill Level:** Intermediate - you've got the basics of `R` down.
-
-## Things You’ll Need To Complete This Tutorial
-You will need the most current version of `R` and, preferably, `RStudio` loaded
-on your computer to complete this tutorial.
-
-### Install R Packages
-
-* **raster:** `install.packages("raster")`
-* **rgdal:** `install.packages("rgdal")`
-
-* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
-
-#### Data to Download
-
-****
-
-****
-
-### Additional Resources
-
-* <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
-Read more about the `raster` package in `R`.</a>
-
-</div>
 
 ## Raster Projection in R
 
@@ -297,13 +291,18 @@ Notice in the output above that the `crs()` of `DTM_hill_UTMZ18N_HARV` is now
 UTM. However, the extent values of `DTM_hillUTMZ18N_HARV` are different from
 `DTM_hill_HARV`.
 
-<div id="challenge" markdown="1">
-## Challenge: Extent Change with CRS Change
-Why do you think the two extents differ?  
-</div>
-
-
-
+> ## Challenge: Extent Change with CRS Change
+> Why do you think the two extents differ?  
+> > ## Answers
+> > 
+> > ~~~
+> > # The extent for DTM_hill_UTMZ18N_HARV is in UTMs so the extent is in meters. 
+> > # The extent for DTM_hill_HARV is still in lat/long so the extent is expressed
+> > # in decimal degrees.  
+> > ~~~
+> > {: .r}
+> {: .solution}
+{: .challenge}
 
 ## Deal with Raster Resolution
 
@@ -370,18 +369,44 @@ plot(DTM_HARV,
 We have now successfully draped the Digital Terrain Model on top of our
 hillshade to produce a nice looking, textured map! 
 
-<div id="challenge" markdown="1">
-## Challenge: Reproject, then Plot a Digital Terrain Model 
-Create a map of the 
-<a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
+> ## Challenge: Reproject, then Plot a Digital Terrain Model 
+> Create a map of the 
+> <a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
 field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files. 
+> 
+> Reproject the data as necessary to make things line up!
+> > ## Answers
+> > 
+> > ~~~
+> > # import DTM
+> > DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
+> > # import DTM hillshade
+> > DSM_hill_SJER_WGS <- 
+> > raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMhill_WGS84.tif")
+> > 
+> > # reproject raster 
+> > DTM_hill_UTMZ18N_SJER <- projectRaster(DSM_hill_SJER_WGS, 
+> >                                   crs=crs(DSM_SJER),
+> >                                   res=1)
+> > # plot hillshade using a grayscale color ramp 
+> > plot(DTM_hill_UTMZ18N_SJER,
+> >     col=grey(1:100/100),
+> >     legend=F,
+> >     main="DSM with Hillshade\n NEON SJER Field Site")
+> > 
+> > # overlay the DSM on top of the hillshade
+> > plot(DSM_SJER,
+> >      col=terrain.colors(10),
+> >      alpha=0.4,
+> >      add=T,
+> >      legend = F)
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-reprojection-1.png" title="plot of chunk challenge-code-reprojection" alt="plot of chunk challenge-code-reprojection" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge}
 
-Reproject the data as necessary to make things line up!
-</div>
-
-<img src="../fig/rmd-challenge-code-reprojection-1.png" title="plot of chunk challenge-code-reprojection" alt="plot of chunk challenge-code-reprojection" style="display: block; margin: auto;" />
-
-<div id="challenge" markdown="1">
 If you completed the San Joaquin plotting challenge in the
 [Plot Raster Data in R]({{ site.baseurl }}/R/Plot-Rasters-In-R#challenge-create-dtm--dsm-for-sjer) 
 tutorial, how does the map you just created compare to that map? 
