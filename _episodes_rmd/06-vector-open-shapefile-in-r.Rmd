@@ -27,35 +27,26 @@ shapefiles containing point, line and polygon vector data in R."
 source("../bin/chunk-options.R")
 ```
 
-## About
+> ## Things You’ll Need To Complete This Tutorial
+> **R Skill Level:** Introduction - you are just getting started with spatial data
+in `R`, but have some of the other `R` basics down.
+> 
+> You will need the most current version of `R` and, preferably, `RStudio` loaded 
+on your computer to complete this tutorial.
+> 
+> ### Install R Packages
+> 
+> * **raster:** `install.packages("raster")`
+> * **sf:** `install.packages("sf")`
+> 
+> [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
+> 
+> ## Download Data
+>
+{: .prereq} 
+
 In this tutorial, we will open and plot point, line and polygon vector data 
 stored in shapefile format in `R`.
-
-**R Skill Level:** Introduction - you are just getting started with spatial data
-in `R`, but have some of the other `R` basics down.
-
-<div id="objectives" markdown="1">
-
-## Things You’ll Need To Complete This Tutorial
-
-You will need the most current version of `R` and, preferably, `RStudio` loaded 
-on your computer to complete this tutorial.
-
-### Install R Packages
-
-* **raster:** `install.packages("raster")`
-* **sf:** `install.packages("sf")`
-
-[More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
-
-
-## Download Data
-
-
-****
-
-
-</div>
 
 ## About Vector Data
 Vector data are composed of discrete geometric locations (x,y values) known as
@@ -85,10 +76,11 @@ countries are often represented by polygons. Occasionally, a polygon can have a
 hole in the middle of it (like a doughnut), this is something to be aware of but
 not an issue we will deal with in this tutorial.
 
- <i class="fa fa-star"></i> **Data Tip:** Sometimes, boundary layers such as 
- states and countries, are stored as lines rather than polygons. However, these
- boundaries, when represented as a line, will not create a closed object with a defined "area" that can be "filled".
-{: .notice}
+> ## Data Tip
+> Sometimes, boundary layers such as 
+>  states and countries, are stored as lines rather than polygons. However, these
+> boundaries, when represented as a line, will not create a closed object with a defined "area" that can be "filled".
+{: .callout}
 
 ## Shapefiles: Points, Lines, and Polygons
 Geospatial data in vector format are often stored in a `shapefile` format. 
@@ -149,11 +141,12 @@ aoiBoundary_HARV <- st_read(
   "data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 ```
 
-<i class="fa fa-star"></i> **Data Tip:** The acronym, OGR, refers to the
-OpenGIS Simple Features Reference Implementation. 
-<a href="https://trac.osgeo.org/gdal/wiki/FAQGeneral" target="_blank"> 
-Learn more about OGR.</a> 
-{: .notice}  
+> ## Data Tip
+> The acronym, OGR, refers to the
+> OpenGIS Simple Features Reference Implementation. 
+> <a href="https://trac.osgeo.org/gdal/wiki/FAQGeneral" target="_blank"> 
+> Learn more about OGR.</a> 
+{: .callout}  
 
 ## Shapefile Metadata & Attributes
 
@@ -271,43 +264,51 @@ plot(aoiBoundary_HARV, col="cyan1", border="black", lwd=3,
 
 ```
 
-<div id="challenge" markdown="1">
-## Challenge: Import Line and Point Shapefiles
-Using the steps above, import the HARV_roads and HARVtower_UTM18N layers into
-`R`. Call the Harv_roads object `lines_HARV` and the HARVtower_UTM18N
-`point_HARV`.
+> ## Challenge: Import Line and Point Shapefiles
+> 
+> Using the steps above, import the HARV_roads and HARVtower_UTM18N layers into
+> `R`. Call the Harv_roads object `lines_HARV` and the HARVtower_UTM18N
+> `point_HARV`.
+> 
+> Answer the following questions:
+> 
+> 1. What type of `R` spatial object is created when you import each layer?
+> 
+> 2. What is the `CRS` and `extent`for each object?
+> 
+> 3. Do the files contain, points, lines or polygons?
+> 
+> 4. How many spatial objects are in each file?
+> 
+> > ## Answers
+> > 
+> > ```{r import-point-line, echo=TRUE}
+> > # import line shapefile
+> > lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
+> > # import point shapefile
+> > point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
+> > 
+> > # 1
+> > class(lines_HARV)
+> > class(point_HARV)
+> > 
+> > # 2
+> > st_crs(lines_HARV)
+> > st_bbox(lines_HARV)
+> > st_crs(point_HARV)
+> > st_bbox(point_HARV)
+> > 
+> > # 3 
+> > #lines_HARV contains only lines and point_HARV contains only 1 point
+> > 
+> > # 4 -> numerous ways to find this; lines_HARV=13,
+> > nrow(lines_HARV)  #easiest, but not previously taught
+> > lines_HARV  #look at 'features'
+> > 
+> > ```
+> {: .solution}
+{: .challenge}
 
-Answer the following questions:
-
-1. What type of `R` spatial object is created when you import each layer?
-2. What is the `CRS` and `extent`for each object?
-3. Do the files contain, points, lines or polygons?
-4. How many spatial objects are in each file?
-</div>
-
-```{r import-point-line, echo=FALSE, results="hide"}
-# import line shapefile
-lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
-# import point shapefile
-point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
-
-# 1
-class(lines_HARV)
-class(point_HARV)
-
-# 2
-st_crs(lines_HARV)
-st_bbox(lines_HARV)
-st_crs(point_HARV)
-st_bbox(point_HARV)
-
-# 3 
-#lines_HARV contains only lines and point_HARV contains only 1 point
-
-# 4 -> numerous ways to find this; lines_HARV=13,
-nrow(lines_HARV)  #easiest, but not previously taught
-lines_HARV  #look at 'features'
-```
 
 ## Plot Multiple Shapefiles
 The `plot()` function can be used for basic plotting of spatial objects. 
@@ -327,52 +328,52 @@ plot(lines_HARV, add = TRUE)
 plot(point_HARV, add  = TRUE, pch = 19, col = "purple")
 ```
 
-<i class="fa fa-star"></i> **Data Tip:** The pch argument specifies the point shape. A list of valid point shapes can be found by viewing  
-<a href="http://www.statmethods.net/advgraphs/images/points.png" target="_blank"> 
-this graphic</a> 
-{: .notice}
+> ## Data Tip
+> The pch argument specifies the point shape. A list of valid point shapes can be found by viewing  
+> <a href="http://www.statmethods.net/advgraphs/images/points.png" target="_blank"> 
+> this graphic</a> 
+{: .callout}
 
+> ## Challenge: Plot Raster & Vector Data Together
+> 
+> You can plot vector data layered on top of raster data using the `add=TRUE`
+> plot attribute. Create a plot that uses the NEON AOP Canopy Height Model `NEON_RemoteSensing/HARV/CHM/HARV_chmCrop.tif` as a base layer. On top of the
+> CHM, please add:
+> 
+> * The study site AOI.
+> * Roads.
+> * The tower location.
+> 
+> Be sure to give your plot a meaningful title. 
+> 
+> For assistance consider using the 
+> [Shapefile Metadata & Attributes in R]({{site.baseurl}}/R/shapefile-attributes-in-R/),
+> the [Plot Raster Data in R]({{site.baseurl}}/R/Plot-Rasters-In-R/ )
+> tutorials. 
+>
+> > ## Answers
+> > 
+> > ```{r challenge-vector-raster-overlay, echo=TRUE}
+> > 
+> > # import CHM
+> > chm_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
+> > 
+> > plot(chm_HARV,
+> >      main="Map of Study Area\n w/ Canopy Height Model\nNEON Harvard Forest Field Site")
+> > 
+> > plot(lines_HARV, 
+> >      add = TRUE,
+> >      col="black")
+> > plot(aoiBoundary_HARV, border="grey20", 
+> >      add = TRUE,
+> >      lwd=4)
+> > plot(point_HARV, pch=8, 
+> >      add=TRUE)
+> > 
+> > ```
+> {: .solution}
+{: .challenge}
 
-<div id="challenge" markdown="1">
-## Challenge: Plot Raster & Vector Data Together
-
-
-You can plot vector data layered on top of raster data using the `add=TRUE`
-plot attribute. Create a plot that uses the NEON AOP Canopy Height Model `NEON_RemoteSensing/HARV/CHM/HARV_chmCrop.tif` as a base layer. On top of the
-CHM, please add:
-
-* The study site AOI.
-* Roads.
-* The tower location.
-
-Be sure to give your plot a meaningful title. 
-
-For assistance consider using the 
-[Shapefile Metadata & Attributes in R]({{site.baseurl}}/R/shapefile-attributes-in-R/),
-the [Plot Raster Data in R]({{site.baseurl}}/R/Plot-Rasters-In-R/ )
-tutorials. 
-</div>
-
-```{r challenge-vector-raster-overlay, echo=FALSE }
-
-# import CHM
-chm_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
-
-plot(chm_HARV,
-     main="Map of Study Area\n w/ Canopy Height Model\nNEON Harvard Forest Field Site")
-
-plot(lines_HARV, 
-     add = TRUE,
-     col="black")
-plot(aoiBoundary_HARV, border="grey20", 
-     add = TRUE,
-     lwd=4)
-plot(point_HARV, pch=8, 
-     add=TRUE)
-
-```
-
-***
 
 ## Additional Resources: Plot Parameter Options
 For more on parameter options in the base `R` `plot()` function, check out these
