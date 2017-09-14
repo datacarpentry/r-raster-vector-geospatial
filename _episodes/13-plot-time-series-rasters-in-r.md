@@ -13,7 +13,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2017-09-08
+lastModified: 2017-09-14
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 mainTag: raster-data-series
@@ -30,32 +30,25 @@ comments: true
 
 
 
-## About
+> ## Things You’ll Need To Complete This Tutorial
+> **R Skill Level:** Intermediate - you've got the basics of `R` down.
+> You will need the most current version of `R` and, preferably, `RStudio` loaded
+> on your computer to complete this tutorial.
+> 
+> ### Install R Packages
+> 
+> * **raster:** `install.packages("raster")`
+> * **rgdal:** `install.packages("rgdal")`
+> * **rasterVis:** `install.packages("rasterVis")`
+> 
+> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
+> 
+> #### Data to Download
+{: .prereq}
+
 This tutorial covers how to improve plotting output using the `rasterVis` package
 in `R`. Specifically it covers using `levelplot()` and adding meaningful custom
 names to bands within a `RasterStack`. 
-
-**R Skill Level:** Intermediate - you've got the basics of `R` down.
-
-<div id="objectives" markdown="1">
-
-## Things You’ll Need To Complete This Tutorial
-You will need the most current version of `R` and, preferably, `RStudio` loaded
-on your computer to complete this tutorial.
-
-### Install R Packages
-
-* **raster:** `install.packages("raster")`
-* **rgdal:** `install.packages("rgdal")`
-* **rasterVis:** `install.packages("rasterVis")`
-
-* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
-
-#### Data to Download
-
-****
-
-</div>
 
 ## Get Started 
 In this tutorial, we are working with the same set of rasters used in the
@@ -350,22 +343,45 @@ levelplot(NDVI_HARV_stack,
 
 <img src="../fig/rmd-remove-axis-ticks-1.png" title="plot of chunk remove-axis-ticks" alt="plot of chunk remove-axis-ticks" style="display: block; margin: auto;" />
 
-<div id="challenge" markdown="1">
-## Challenge: Divergent Color Ramps 
-When we used `gsub` to modify the tile labels we replaced the beginning of each 
-tile title with "Day". A more descriptive name could be "Julian Day".
-
-1. Create a plot and label each tile "Julian Day" with the julian day value
-following.
-2. Change the colorramp to a divergent brown to green color ramp to
-represent the data. *Hint:* Use the 
-<a href="http://www.datavis.ca/sasmac/brewerpal.html" target="_blank"> brewerpal page</a>
-to help choose a color ramp. 
-
-**Questions:**
-Does having a divergent color ramp represent the data
-better than a sequential color ramp (like "YlGn")? Can you think of other data
-sets where a divergent color ramp may be best? 
-</div>
-
-<img src="../fig/rmd-challenge-code-levelplot-divergent-1.png" title="plot of chunk challenge-code-levelplot-divergent" alt="plot of chunk challenge-code-levelplot-divergent" style="display: block; margin: auto;" />
+> ## Challenge: Divergent Color Ramps
+>  
+> When we used `gsub` to modify the tile labels we replaced the beginning of each 
+> tile title with "Day". A more descriptive name could be "Julian Day".
+> 
+> 1. Create a plot and label each tile "Julian Day" with the julian day value
+> following.
+> 2. Change the colorramp to a divergent brown to green color ramp to
+> represent the data. *Hint:* Use the 
+> <a href="http://www.datavis.ca/sasmac/brewerpal.html" target="_blank"> brewerpal page</a>
+> to help choose a color ramp. 
+> 
+> **Questions:**
+> Does having a divergent color ramp represent the data
+> better than a sequential color ramp (like "YlGn")? Can you think of other data
+> sets where a divergent color ramp may be best? 
+> 
+> > ## Answers
+> > 
+> > 
+> > ~~~
+> > # change Day to Julian Day 
+> > rasterNames  <- gsub("Day","Julian Day ", rasterNames)
+> > 
+> > # use level plot to create a nice plot with one legend and a 5x3 layout.
+> > levelplot(NDVI_HARV_stack,
+> >       layout=c(5, 3), # create a 4x3 layout for the data
+> >       col.regions=colorRampPalette(brewer.pal(9,"BrBG")), # specify color 
+> >       main="Landsat NDVI - Julian Days - 2011 \nNEON Harvard Forest Field Site",
+> >       names.attr=rasterNames)
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-levelplot-divergent-1.png" title="plot of chunk challenge-code-levelplot-divergent" alt="plot of chunk challenge-code-levelplot-divergent" style="display: block; margin: auto;" />
+> > 
+> > ~~~
+> > # The sequential is better than the divergent as it is more akin to the process
+> > # of greening up, which starts off at one end and just keeps increasing. 
+> > ~~~
+> > {: .r}
+> {: .solution}
+{: .challenge}
