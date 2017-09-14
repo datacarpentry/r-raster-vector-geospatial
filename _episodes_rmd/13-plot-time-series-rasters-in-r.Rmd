@@ -92,14 +92,15 @@ plot(NDVI_HARV_stack,
 
 ``` 
 
-<i class="fa fa-star"></i> **Data Tip:** The range of values for NDVI is 0-1. 
-However, the data stored in our raster ranges from 0 - 10,000. If we view the 
-metadata for the original .tif files, we will see a scale factor of 10,000 is
-defined.
-Multiplying values with decimal places by a factor of 10, allows the data to be 
-stored in integer format (no decimals) rather than a floating point format 
-(containing decimals). This keeps the file size smaller. 
-{: .notice }
+> ## Data Tip
+> The range of values for NDVI is 0-1. 
+> However, the data stored in our raster ranges from 0 - 10,000. If we view the 
+> metadata for the original .tif files, we will see a scale factor of 10,000 is
+> defined.
+> Multiplying values with decimal places by a factor of 10, allows the data to be 
+> stored in integer format (no decimals) rather than a floating point format 
+> (containing decimals). This keeps the file size smaller. 
+{: .callout}
 
 Our plot is nice however, it's missing some key elements including, easily
 readable titles. It also contains a legend that is repeated for each image. We
@@ -143,11 +144,12 @@ pixels that are more green, have a higher NDVI value.
 <a href="http://www.datavis.ca/sasmac/brewerpal.html" target="_blank">
 brewerpal page</a>.
 
-<i class="fa fa-star"></i> **Data Tip:** Cynthia Brewer, the creater of 
-ColorBrewer, offers an online tool to help choose suitable color ramps, or to 
-create your own. <a href="http://colorbrewer2.org/" target="_blank">
-ColorBrewer 2.0; Color Advise for Cartography </a>  
-{: .notice }
+> ## Data Tip
+> Cynthia Brewer, the creater of 
+> ColorBrewer, offers an online tool to help choose suitable color ramps, or to 
+> create your own. <a href="http://colorbrewer2.org/" target="_blank">
+> ColorBrewer 2.0; Color Advise for Cartography </a>  
+{: .callout}
 
 ## Refine Plot & Tile Labels
 Next, let's label each raster in our plot with the Julian day that the raster
@@ -178,13 +180,14 @@ rasterNames  <- gsub("_HARV_ndvi_crop","",rasterNames)
 rasterNames
 ```
 
-<i class="fa fa-star"></i> **Data Tip:** Instead of substituting "x" and
-"_HARV_NDVI_crop" separately, we could have used use the vertical bar character 
-( | ) to replace more than one element.
-For example "X|_HARV" tells `R` to replace all instances of both "X" and "_HARV"
-in the string. Example code to remove "x" an "_HARV...":
-`gsub("X|_HARV_NDVI_crop"," |  ","rasterNames")` 
-{: .notice }
+> ## Data Tip
+> Instead of substituting "x" and
+> "_HARV_NDVI_crop" separately, we could have used use the vertical bar character 
+> ( | ) to replace more than one element.
+> For example "X|_HARV" tells `R` to replace all instances of both "X" and "_HARV"
+> in the string. Example code to remove "x" an "_HARV...":
+> `gsub("X|_HARV_NDVI_crop"," |  ","rasterNames")` 
+{: .callout}
 
 Once the names for each band have been reassigned, we can render our plot with
 the new labels using `names.attr=rasterNames`. 

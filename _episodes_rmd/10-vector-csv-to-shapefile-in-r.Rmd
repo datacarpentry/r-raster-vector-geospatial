@@ -73,10 +73,11 @@ allows us to store both the `x,y` values that represent the coordinate location
 of each point and the associated attribute data - or columns describing each
 feature in the spatial object.
 
-<i class="fa fa-star"></i> **Data Tip:** There is a `SpatialPoints` object (not
-`SpatialPointsDataFrame`) in `R` that does not allow you to store associated
-attributes. 
-{: .notice}
+> ## Data Tip
+> There is a `SpatialPoints` object (not
+> `SpatialPointsDataFrame`) in `R` that does not allow you to store associated
+> attributes. 
+{: .callout}
 
 We will use the `rgdal` and `raster` libraries in this tutorial. 
 

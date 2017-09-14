@@ -454,10 +454,11 @@ Note that there are no specified units above. This is because this geographic
 coordinate reference system is in latitude and longitude which is most 
 often recorded in *Decimal Degrees*.
 
-<i class="fa fa-star"></i> **Data Tip:** the last portion of each `proj4` string 
-is `+towgs84=0,0,0 `. This is a conversion factor that is used if a datum 
-conversion is required. We will not deal with datums in this tutorial series.
-{: .notice}
+> ## Data Tip
+> the last portion of each `proj4` string 
+> is `+towgs84=0,0,0 `. This is a conversion factor that is used if a datum 
+> conversion is required. We will not deal with datums in this tutorial series.
+{: .callout}
 
 ## CRS Units - View Object Extent
 
@@ -526,10 +527,11 @@ The `spTransform()` function requires two inputs:
 use the `crs()` of the `State.Boundary.US` object as follows:
 `crs(State.Boundary.US)`
 
-<i class="fa fa-star"></i> **Data Tip:** `spTransform()` will only work if your 
-original spatial object has a CRS assigned to it AND if that CRS is the 
-correct CRS!
-{: .notice}
+> ## Data Tip
+> `spTransform()` will only work if your 
+> original spatial object has a CRS assigned to it AND if that CRS is the 
+> correct CRS!
+{: .callout}
 
 Next, let's reproject our point layer into the geographic - latitude and
 longitude `WGS84` coordinate reference system (CRS).

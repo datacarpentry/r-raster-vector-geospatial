@@ -13,7 +13,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2017-09-13
+lastModified: 2017-09-14
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]
@@ -372,10 +372,11 @@ them using efficient processing methods. The syntax is
 
 `outputRaster <- overlay(raster1, raster2, fun=functionName)`
 
-<i class="fa fa-star"></i> **Data Tip:** If the rasters are stacked and stored 
-as `RasterStack` or `RasterBrick` objects in `R`, then we should use `calc()`. 
-`overlay()` will not work on stacked rasters. 
-{: .notice}
+> ## Data Tip
+> If the rasters are stacked and stored 
+> as `RasterStack` or `RasterBrick` objects in `R`, then we should use `calc()`. 
+> `overlay()` will not work on stacked rasters. 
+{: .callout}
 
 Let's perform the same subtraction calculation that we calculated above using 
 raster math, using the `overlay()` function.  
@@ -396,12 +397,13 @@ plot(CHM_ov_HARV,
 How do the plots of the CHM created with manual raster math and the `overlay()`
 function compare?  
 
-<i class="fa fa-star"></i> **Data Tip:** A custom function consists of a defined
-set of commands performed on a input object. Custom functions are particularly 
-useful for tasks that need to be repeated over and over in the code. A
-simplified syntax for writing a custom function in R is:
-`functionName <- function(variable1, variable2){WhatYouWantDone, WhatToReturn}`
-{: .notice }
+> ## Data Tip
+> A custom function consists of a defined
+> set of commands performed on a input object. Custom functions are particularly 
+> useful for tasks that need to be repeated over and over in the code. A
+> simplified syntax for writing a custom function in R is:
+> `functionName <- function(variable1, variable2){WhatYouWantDone, WhatToReturn}`
+{: .callout}
 
 ## Export a GeoTIFF
 Now that we've created a new raster, let's export the data as a `GeoTIFF` using

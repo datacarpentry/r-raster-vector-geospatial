@@ -13,7 +13,7 @@ keypoints:
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2015-10-23
-lastModified: 2017-09-13
+lastModified: 2017-09-14
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -197,11 +197,11 @@ information about the data. We are particularly interested in the geospatial
 the vector data, and the **attributes** which describe properties associated
 with each individual vector object. 
 
- <i class="fa fa-star"></i> **Data Tip:** The 
- [Shapefile Metadata & Attributes in R]({{site.baseurl}}/R/shapefile-attributes-in-R/) 
-tutorial provides more information on both metadata and attributes
-and using attributes to subset and plot data. 
-{: .notice}
+> ## Data Tip
+> The [Shapefile Metadata & Attributes in R]({{site.baseurl}}/R/shapefile-attributes-in-R/) 
+> tutorial provides more information on both metadata and attributes
+> and using attributes to subset and plot data. 
+{: .callout}
 
 ## Spatial Metadata
 Key metadata for all shapefiles include:
