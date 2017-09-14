@@ -12,7 +12,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Will
 contributors: [Michael Heeremans]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2017-09-11
+lastModified: 2017-09-14
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]
@@ -199,10 +199,11 @@ Keep in mind that reprojection only works when you first have a *defined* CRS
 for the raster object that you want to reproject. It cannot be used if *no*
 CRS is defined. Lucky for us, the `DTM_hill_HARV` has a defined CRS. 
 
-<i class="fa fa-star"></i> **Data Tip:** When we reproject a raster, we 
-move it from one "grid" to another. Thus, we are modifying the data! Keep this 
-in mind as we work with raster data. 
-{: .notice}
+> ## Data Tip
+> When we reproject a raster, we 
+> move it from one "grid" to another. Thus, we are modifying the data! Keep this 
+> in mind as we work with raster data. 
+{: .callout}
 
 To use the `projectRaster` function, we need to define two things:
 

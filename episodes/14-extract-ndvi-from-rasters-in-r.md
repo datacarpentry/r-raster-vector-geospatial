@@ -306,11 +306,12 @@ class(avg_NDVI_HARV$julianDay)
 
 What class is our `julianDay` column?
 
-<i class="fa fa-star"></i> **Data Tip:** To be efficient, we substituted two
-elements in one line of code using the "|". You can often combine commands in `R`
-to improve code efficiency. 
-`avg_NDVI_HARV$julianDay <- gsub("X|_HARV_NDVI_crop", "", row.names(avg_NDVI_HARV))`.
-{: .notice }
+> ## Data Tip
+> To be efficient, we substituted two
+> elements in one line of code using the "|". You can often combine commands in `R`
+> to improve code efficiency. 
+> `avg_NDVI_HARV$julianDay <- gsub("X|_HARV_NDVI_crop", "", row.names(avg_NDVI_HARV))`.
+{: .callout }
 
 ## Convert Julian Day to Date Class
 Currently, the values in the Julian day column are stored as a `character` class.
@@ -628,13 +629,14 @@ will be removed from our analysis. We will use 0.1 as an example for this
 tutorials. We can then use the subset function to remove outlier datapoints 
 (below our identified threshold).
 
-<i class="fa fa-star"></i> **Data Tip:** Thresholding, or removing outlier data,
-can be tricky business. In this case, we can be confident that some of our NDVI
-values are not valid due to cloud cover. However, a threshold value may not 
-always be sufficient given 0.1 could be a valid NDVI value in some areas. This
-is where decision making should be fueled by practical scientific knowledge of
-the data and the desired outcomes!
-{: .notice }
+> ## Data Tip
+> Thresholding, or removing outlier data,
+> can be tricky business. In this case, we can be confident that some of our NDVI
+> values are not valid due to cloud cover. However, a threshold value may not 
+> always be sufficient given 0.1 could be a valid NDVI value in some areas. This
+> is where decision making should be fueled by practical scientific knowledge of
+> the data and the desired outcomes!
+{: .callout}
 
 
 ~~~

@@ -263,12 +263,13 @@ quickly apply this factor using raster math on the entire stack as follows:
 
 `raster_stack_object_name / 10000`
 
-<i class="fa fa-star"></i> **Data Tip:** We can make this plot  
-even prettier by fixing the individual tile names, adding an plot title and by
-using the (`levelplot`) function. This is covered in the NEON Data Skills 
-[Plot Time Series Rasters in R ]({{ site.baseurl }}/R/Plot-Raster-Times-Series-Data-In-R/)
-tutorial. 
-{: .notice }
+> ## Data Tip
+> We can make this plot  
+> even prettier by fixing the individual tile names, adding an plot title and by
+> using the (`levelplot`) function. This is covered in the NEON Data Skills 
+> [Plot Time Series Rasters in R ]({{ site.baseurl }}/R/Plot-Raster-Times-Series-Data-In-R/)
+> tutorial. 
+{: .callout}
 
 ```{r apply-scale-factor }
 

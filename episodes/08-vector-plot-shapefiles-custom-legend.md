@@ -13,7 +13,7 @@ keypoints:
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2016-02-09
-lastModified: 2017-09-13
+lastModified: 2017-09-14
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -458,9 +458,10 @@ element in the plot. It might be better if the lines were symbolized as a line
 and the points, symbolized as a symbol. We can customize this using
 `pch=` in our legend: **16** is a point symbol, **15** is a box. 
 
-<i class="fa fa-star"></i> **Data Tip:** To view a short list of `pch` symbols, 
-type `?pch` into the `R` console. 
-{: .notice}
+> ## Data Tip
+> To view a short list of `pch` symbols, 
+> type `?pch` into the `R` console. 
+{: .callout}
 
 
 
