@@ -30,7 +30,20 @@ applications including QGIS and ArcGIS"
 source("../bin/chunk-options.R")
 ```
 
-## About
+> ## Things You’ll Need To Complete This Tutorial
+> **R Skill Level:** Intermediate - you've got the basics of `R` down.
+> You will need the most current version of `R` and, preferably, `RStudio` loaded 
+> on your computer to complete this tutorial.
+> 
+> ### Install R Packages
+> 
+> * **raster:** `install.packages("raster")`
+> * **sf:** `install.packages("sf")`
+> 
+> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
+> 
+> ## Data to Download
+{: .prereq}
 
 This tutorial will review how to import spatial points stored in `.csv` (Comma
 Separated Value) format into
@@ -39,26 +52,6 @@ reproject data imported in a shapefile format, and export a shapefile from an
 `R` spatial object and plot raster and vector data as
 layers in the same plot. 
 
-**R Skill Level:** Intermediate - you've got the basics of `R` down.
-
-<div id="objectives" markdown="1">
-
-## Things You’ll Need To Complete This Tutorial
-You will need the most current version of `R` and, preferably, `RStudio` loaded 
-on your computer to complete this tutorial.
-
-### Install R Packages
-
-* **raster:** `install.packages("raster")`
-* **sf:** `install.packages("sf")`
-
-* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
-
-## Data to Download
-
-****
-
-</div>
 
 ## Spatial Data in Text Format
 
@@ -387,128 +380,132 @@ legend("bottomright",
 
 ```
 
-<div id="challenge" markdown="1">
-## Challenge - Import & Plot Additional Points
-We want to add two phenology plots to our existing map of vegetation plot
-locations. 
-
-Import the .csv: `HARV/HARV_2NewPhenPlots.csv` into `R` and do the following:
-
-1. Find the X and Y coordinate locations. Which value is X and which value is Y?
-2. These data were collected in a geographic coordinate system (WGS84). Convert
-the `data.frame` into an `sf` object.
-3. Plot the new points with the plot location points from above. Be sure to add
-a legend. Use a different symbol for the 2 new points!  You may need to adjust
-the X and Y limits of your plot to ensure that both points are rendered by `R`!
-
-If you have extra time, feel free to add roads and other layers to your map!
-
-HINT: Refer to
-[When Vector Data Don't Line Up - Handling Spatial Projection & CRS in R]({{site.baseurl}}/R/vector-data-reproject-crs-R/)
-for more on working with geographic coordinate systems. You may want to "borrow"
-the projection from the objects used in that tutorial!
-</div>
-
-```{r challenge-code-phen-plots, echo=FALSE, results="hide", warning=FALSE }
-## 1
-# Read the .csv file
-newPlot.locations_HARV <- 
-  read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_2NewPhenPlots.csv",
-           stringsAsFactors = FALSE)
-
-# look at the data structure -> locations in lat/long
-str(newPlot.locations_HARV)
-
-## 2
-## Find/ establish a CRS for new points
-# Import the US boundary which is in a geographic WGS84 coordinate system
-Country.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp")
-
-# grab the geographic CRS
-geogCRS <- st_crs(Country.Boundary.US)
-geogCRS
-
-## Convert to spatial data frame
-# note that the easting and northing columns are in columns 1 and 2
-newPlot.Sp.HARV <- st_as_sf(newPlot.locations_HARV, coords = c("decimalLon", "decimalLat"), crs = geogCRS)
-
-# view CRS
-st_crs(newPlot.Sp.HARV)
-
-## We now have the data imported and in WGS84 Lat/Long. We want to map with plot
-# locations in UTM so we'll have to reproject. 
-
-# remember we have a UTM Zone 18N crs object from previous code
-utm18nCRS
-
-# reproject the new points into UTM using `utm18nCRS`
-newPlot.Sp.HARV.UTM <- st_transform(newPlot.Sp.HARV,
-                                  utm18nCRS)
-# check new plot CRS
-st_crs(newPlot.Sp.HARV.UTM)
-
-## 3
-# create plot
-plot(plot.locationsSp_HARV$geometry, 
-     main="NEON Harvard Forest Field Site \nPlot Locations" )
-
-plot(newPlot.Sp.HARV.UTM$geometry, 
-     add=TRUE, pch=20, col="darkgreen")
-
-# oops - looks like we are missing a point on our new plot. let's compare
-# the spatial extents of both objects!
-st_bbox(plot.locationsSp_HARV)
-st_bbox(newPlot.Sp.HARV.UTM)
-
-# when you plot in base plot, if the extent isn't specified, then the data that
-# is added FIRST will define the extent of the plot
-
-plot(st_convex_hull(st_sfc(st_union(plot.locationsSp_HARV))),
-     main="Comparison of Spatial Object Extents\nPlot Locations vs New Plot Locations")
-
-plot(st_convex_hull(st_sfc(st_union(newPlot.Sp.HARV.UTM))),
-     col="darkgreen",
-     add=TRUE)
-
-# looks like the green box showing the newPlot extent extends
-# beyond the plot.locations extent.
-
-# We need to grab the x min and max and y min from our original plots
-# but then the ymax from our new plots
-
-originalPlotExtent <- st_bbox(plot.locationsSp_HARV)
-newPlotExtent <- st_bbox(newPlot.Sp.HARV.UTM)
-
-# set xmin and max
-xmin <- originalPlotExtent[1]
-xmax <- originalPlotExtent[3]
-ymin <- originalPlotExtent[2]
-ymax <- newPlotExtent[4]
-
-# 3 again... re-plot
-# try again but this time specify the x and ylims
-# note: we could also write a function that would harvest the smallest and
-# largest
-# x and y values from an extent object. This is beyond the scope of this tutorial.
-plot(plot.locationsSp_HARV$geometry, 
-     main="NEON Harvard Forest Field Site\nVegetation & Phenology Plots",
-     pch=8,
-     col="purple",
-     xlim=c(xmin,xmax),
-     ylim=c(ymin,ymax))
-
-plot(newPlot.Sp.HARV.UTM$geometry, 
-     add=TRUE, pch=20, col="darkgreen")
-
-# when we create a legend in R, we need to specify the text for each item 
-# listed in the legend.
-legend("bottomright", 
-       legend=c("Vegetation Plots", "Phenology Plots"),
-       pch=c(8,20), 
-       bty="n", 
-       col=c("purple","darkgreen"),
-       cex=1.3)
-```
+> ## Challenge - Import & Plot Additional Points
+>
+> We want to add two phenology plots to our existing map of vegetation plot
+> locations. 
+> 
+> Import the .csv: `HARV/HARV_2NewPhenPlots.csv` into `R` and do the following:
+> 
+> 1. Find the X and Y coordinate locations. Which value is X and which value is Y?
+> 2. These data were collected in a geographic coordinate system (WGS84). Convert
+> the `data.frame` into an `sf` object.
+> 3. Plot the new points with the plot location points from above. Be sure to add
+> a legend. Use a different symbol for the 2 new points!  You may need to adjust
+> the X and Y limits of your plot to ensure that both points are rendered by `R`!
+> 
+> If you have extra time, feel free to add roads and other layers to your map!
+> 
+> HINT: Refer to
+> [When Vector Data Don't Line Up - Handling Spatial Projection & CRS in R]({{site.baseurl}}/R/vector-data-reproject-crs-R/)
+> for more on working with geographic coordinate systems. You may want to "borrow"
+> the projection from the objects used in that tutorial!
+> </div>
+> 
+> > ## Answers
+> > 
+> > ```{r challenge-code-phen-plots, echo=TRUE, results="hide", warning=FALSE }
+> > ## 1
+> > # Read the .csv file
+> > newPlot.locations_HARV <- 
+> >   read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_2NewPhenPlots.csv",
+> >            stringsAsFactors = FALSE)
+> > 
+> > # look at the data structure -> locations in lat/long
+> > str(newPlot.locations_HARV)
+> > 
+> > ## 2
+> > ## Find/ establish a CRS for new points
+> > # Import the US boundary which is in a geographic WGS84 coordinate system
+> > Country.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp")
+> > 
+> > # grab the geographic CRS
+> > geogCRS <- st_crs(Country.Boundary.US)
+> > geogCRS
+> > 
+> > ## Convert to spatial data frame
+> > # note that the easting and northing columns are in columns 1 and 2
+> > newPlot.Sp.HARV <- st_as_sf(newPlot.locations_HARV, coords = c("decimalLon", "decimalLat"), crs = geogCRS)
+> > 
+> > # view CRS
+> > st_crs(newPlot.Sp.HARV)
+> > 
+> > ## We now have the data imported and in WGS84 Lat/Long. We want to map with plot
+> > # locations in UTM so we'll have to reproject. 
+> > 
+> > # remember we have a UTM Zone 18N crs object from previous code
+> > utm18nCRS
+> > 
+> > # reproject the new points into UTM using `utm18nCRS`
+> > newPlot.Sp.HARV.UTM <- st_transform(newPlot.Sp.HARV,
+> >                                   utm18nCRS)
+> > # check new plot CRS
+> > st_crs(newPlot.Sp.HARV.UTM)
+> > 
+> > ## 3
+> > # create plot
+> > plot(plot.locationsSp_HARV$geometry, 
+> >      main="NEON Harvard Forest Field Site \nPlot Locations" )
+> > 
+> > plot(newPlot.Sp.HARV.UTM$geometry, 
+> >      add=TRUE, pch=20, col="darkgreen")
+> > 
+> > # oops - looks like we are missing a point on our new plot. let's compare
+> > # the spatial extents of both objects!
+> > st_bbox(plot.locationsSp_HARV)
+> > st_bbox(newPlot.Sp.HARV.UTM)
+> > 
+> > # when you plot in base plot, if the extent isn't specified, then the data that
+> > # is added FIRST will define the extent of the plot
+> > 
+> > plot(st_convex_hull(st_sfc(st_union(plot.locationsSp_HARV))),
+> >      main="Comparison of Spatial Object Extents\nPlot Locations vs New Plot Locations")
+> > 
+> > plot(st_convex_hull(st_sfc(st_union(newPlot.Sp.HARV.UTM))),
+> >      col="darkgreen",
+> >      add=TRUE)
+> > 
+> > # looks like the green box showing the newPlot extent extends
+> > # beyond the plot.locations extent.
+> > 
+> > # We need to grab the x min and max and y min from our original plots
+> > # but then the ymax from our new plots
+> > 
+> > originalPlotExtent <- st_bbox(plot.locationsSp_HARV)
+> > newPlotExtent <- st_bbox(newPlot.Sp.HARV.UTM)
+> > 
+> > # set xmin and max
+> > xmin <- originalPlotExtent[1]
+> > xmax <- originalPlotExtent[3]
+> > ymin <- originalPlotExtent[2]
+> > ymax <- newPlotExtent[4]
+> > 
+> > # 3 again... re-plot
+> > # try again but this time specify the x and ylims
+> > # note: we could also write a function that would harvest the smallest and
+> > # largest
+> > # x and y values from an extent object. This is beyond the scope of this tutorial.
+> > plot(plot.locationsSp_HARV$geometry, 
+> >      main="NEON Harvard Forest Field Site\nVegetation & Phenology Plots",
+> >      pch=8,
+> >      col="purple",
+> >      xlim=c(xmin,xmax),
+> >      ylim=c(ymin,ymax))
+> > 
+> > plot(newPlot.Sp.HARV.UTM$geometry, 
+> >      add=TRUE, pch=20, col="darkgreen")
+> > 
+> > # when we create a legend in R, we need to specify the text for each item 
+> > # listed in the legend.
+> > legend("bottomright", 
+> >        legend=c("Vegetation Plots", "Phenology Plots"),
+> >        pch=c(8,20), 
+> >        bty="n", 
+> >        col=c("purple","darkgreen"),
+> >        cex=1.3)
+> > ```
+> {: .solution}
+{: .challenge}
 
 ## Export a Shapefile
 

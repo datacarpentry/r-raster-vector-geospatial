@@ -12,7 +12,7 @@ keypoints:
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2015-10-23
-lastModified: 2017-09-08
+lastModified: 2017-09-14
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -25,32 +25,27 @@ defined locations stored in a spatial object."
 
 
 
-## About
+
+> ## Things You’ll Need To Complete This Tutorial
+> **R Skill Level:** Intermediate - you've got the basics of `R` down.
+> You will need the most current version of `R` and, preferably, `RStudio` loaded 
+> on your computer to complete this tutorial.
+> 
+> ### Install R Packages
+> 
+> * **raster:** `install.packages("raster")`
+> * **sf:** `install.packages("sf")`
+> 
+> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
+> 
+> ### Download Data
+{: .prereq}
+
+
 This tutorial explains how to crop a raster using the extent of a vector
 shapefile. We will also cover how to extract values from a raster that occur
 within a set of polygons, or in a buffer (surrounding) region around a set of
 points.
-
-**R Skill Level:** Intermediate - you've got the basics of `R` down.
-
-<div id="objectives" markdown="1">
-
-## Things You’ll Need To Complete This Tutorial
-You will need the most current version of `R` and, preferably, `RStudio` loaded 
-on your computer to complete this tutorial.
-
-### Install R Packages
-
-* **raster:** `install.packages("raster")`
-* **sf:** `install.packages("sf")`
-
-* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
-
-### Download Data
-
-****
-
-</div>
 
 ## Crop a Raster to Vector Extent
 We often work with spatial layers that have different spatial extents.
@@ -273,21 +268,40 @@ Which object has the largest extent?  Our plot location extent is not the
 largest but is larger than the AOI Boundary. It would be nice to see our
 vegetation plot locations with the Canopy Height Model information.
 
-<div id="challenge" markdown="1">
-## Challenge: Crop to Vector Points Extent
-
-1. Crop the Canopy Height Model to the extent of the study plot locations. 
-2. Plot the vegetation plot location points on top of the Canopy Height Model. 
-
-If you completed
-[.csv to Shapefile in R]({{site.baseurl}}/R/csv-to-shapefile-R/)
-you have these plot locations as the spatial `R` spatial object
-`plot.locationsSp_HARV`. Otherwise, import the locations from the
-`\HARV\PlotLocations_HARV.shp` shapefile in the downloaded data. 
-
-</div>
-
-<img src="../fig/rmd-challenge-code-crop-raster-points-1.png" title="plot of chunk challenge-code-crop-raster-points" alt="plot of chunk challenge-code-crop-raster-points" style="display: block; margin: auto;" />
+> ## Challenge: Crop to Vector Points Extent
+> 
+> 1. Crop the Canopy Height Model to the extent of the study plot locations. 
+> 2. Plot the vegetation plot location points on top of the Canopy Height Model. 
+> 
+> If you completed
+> [.csv to Shapefile in R]({{site.baseurl}}/R/csv-to-shapefile-R/)
+> you have these plot locations as the spatial `R` spatial object
+> `plot.locationsSp_HARV`. Otherwise, import the locations from the
+> `\HARV\PlotLocations_HARV.shp` shapefile in the downloaded data. 
+> 
+> > ## Answers
+> > 
+> > 
+> > ~~~
+> > # Created/imported in L02: .csv to Shapefile in R
+> > plot.locationSp_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
+> > 
+> > # crop the chm 
+> > CHM_plots_HARVcrop <- crop(x = chm_HARV, y = as(plot.locationsSp_HARV, "Spatial"))
+> > 
+> > plot(CHM_plots_HARVcrop,
+> >      main="Study Plot Locations\n NEON Harvard Forest")
+> > 
+> > plot(plot.locationSp_HARV$geometry, 
+> >      add=TRUE,
+> >      pch=19,
+> >      col="blue")
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-crop-raster-points-1.png" title="plot of chunk challenge-code-crop-raster-points" alt="plot of chunk challenge-code-crop-raster-points" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge}
 
 In the plot above, created in the challenge, all the vegetation plot locations
 (blue) appear on the Canopy Height Model raster layer except for one. One is
@@ -583,16 +597,40 @@ nrow(av_tree_height_tower)
 ~~~
 {: .output}
 
-<div id="challenge" markdown="1">
-## Challenge: Extract Raster Height Values For Plot Locations
-
-Use the plot location points shapefile `HARV/plot.locations_HARV.shp` or spatial
-object `plot.locationsSp_HARV` to extract an average tree height value for the
-area within 20m of each vegetation plot location in the study area.
-
-Create a simple plot showing the mean tree height of each plot using the `plot()`
-function in base-R.
-</div>
-
-
-<img src="../fig/rmd-challenge-code-extract-plot-tHeight-1.png" title="plot of chunk challenge-code-extract-plot-tHeight" alt="plot of chunk challenge-code-extract-plot-tHeight" style="display: block; margin: auto;" />
+> ## Challenge: Extract Raster Height Values For Plot Locations
+> 
+> Use the plot location points shapefile `HARV/plot.locations_HARV.shp` or spatial
+> object `plot.locationsSp_HARV` to extract an average tree height value for the
+> area within 20m of each vegetation plot location in the study area.
+> 
+> Create a simple plot showing the mean tree height of each plot using the `plot()`
+> function in base-R.
+> 
+> > ## Answers
+> > 
+> > 
+> > ~~~
+> > # first import the plot location file.
+> > plot.locationsSp_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
+> > 
+> > # extract data at each plot location
+> > meanTreeHt_plots_HARV <- extract(x = chm_HARV, 
+> >                                y = as(plot.locationsSp_HARV, "Spatial"), 
+> >                                buffer=20,
+> >                                fun=mean, 
+> >                                df=TRUE)
+> > 
+> > # view data
+> > meanTreeHt_plots_HARV
+> > 
+> > # plot data
+> > plot(meanTreeHt_plots_HARV,
+> >      main="MeanTree Height at each Plot\nNEON Harvard Forest Field Site",
+> >      xlab="Plot ID", ylab="Tree Height (m)",
+> >      pch=16)
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-extract-plot-tHeight-1.png" title="plot of chunk challenge-code-extract-plot-tHeight" alt="plot of chunk challenge-code-extract-plot-tHeight" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge}
