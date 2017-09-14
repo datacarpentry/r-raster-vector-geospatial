@@ -13,7 +13,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2017-09-11
+lastModified: 2017-09-13
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]
@@ -271,18 +271,17 @@ Notice that the range of values for the output CHM is between 0 and 30 meters.
 Does this make sense for trees in Harvard Forest?
 
 > ## Challenge: Explore CHM Raster Values
-> It's often a good idea to explore the range of values in a raster dataset just
-> like we might explore a dataset that we collected in the field.  
 > 
-> 1. What is the min and maximum value for the Harvard Forest Canopy 
-Height Model (`CHM_HARV`) that we just created?
+> It's often a good idea to explore the range of values in a raster dataset just like we might explore a dataset that we collected in the field.  
+> 
+> 1. What is the min and maximum value for the Harvard Forest Canopy Height Model (`CHM_HARV`) that we just created?
 > 2. What are two ways you can check this range of data in `CHM_HARV`? 
 > 3. What is the distribution of all the pixel values in the CHM? 
-> 4. Plot a histogram with 6 bins instead of the default and change the color of
-the histogram. 
-> 5. Plot the `CHM_HARV` raster using breaks that make sense for the data. Include
-> a appropriate color palette for the data, plot title and no axes ticks / labels. 
+> 4. Plot a histogram with 6 bins instead of the default and change the color of the histogram. 
+> 5. Plot the `CHM_HARV` raster using breaks that make sense for the data. Include an appropriate color palette for the data, plot title and no axes ticks / labels. 
+>
 > > ## Answers
+> > 
 > > 
 > > ~~~
 > > # 1) 

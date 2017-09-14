@@ -13,7 +13,7 @@ keypoints:
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2015-10-23
-lastModified: 2017-09-08
+lastModified: 2017-09-13
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -32,33 +32,27 @@ comments: true
 
 
 
-## About
+> ## Things You’ll Need To Complete This Tutorial
+> **R Skill Level:** Intermediate - you've got the basics of `R` down.
+> You will need the most current version of `R` and, preferably, `RStudio` loaded 
+> on your computer to complete this tutorial.
+> 
+> ### Install R Packages
+> 
+> * **raster:** `install.packages("raster")`
+> * **sp:** `install.packages("sf")`
+> 
+> [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
+> 
+> ## Download Data
+> 
+{: .prereq} 
+
 This tutorial explains what shapefile attributes are and how to work with 
 shapefile attributes in `R`. It also covers how to identify and query shapefile
 attributes, as well as subset shapefiles by specific attribute values. 
 Finally, we will review how to plot a shapefile according to a set of attribute 
 values.
-
-**R Skill Level:** Intermediate - you've got the basics of `R` down.
-
-<div id="objectives" markdown="1">
-
-## Things You’ll Need To Complete This Tutorial
-You will need the most current version of `R` and, preferably, `RStudio` loaded 
-on your computer to complete this tutorial.
-
-### Install R Packages
-
-* **raster:** `install.packages("raster")`
-* **sp:** `install.packages("sf")`
-
-[More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
-
-## Download Data
-
-****
-
-</div>
 
 ## Shapefile Metadata & Attributes
 When we import a shapefile into `R`, the `readOGR()` function automatically
@@ -396,19 +390,99 @@ names(lines_HARV)
 ~~~
 {: .output}
 
-<div id="challenge" markdown="1">
-## Challenge: Attributes for Different Spatial Classes
-Explore the attributes associated with the `point_HARV` and `aoiBoundary_HARV` 
-spatial objects. 
-
-1. How many attributes do each have?
-2. Who owns the site in the `point_HARV` data object?
-3. Which of the following is NOT an attribute of the `point` data object?
-
-    A) Latitude      B) County     C) Country
-</div>
-
-
+> ## Challenge: Attributes for Different Spatial Classes
+> 
+> Explore the attributes associated with the `point_HARV` and `aoiBoundary_HARV` spatial objects. 
+> 
+> 1. How many attributes do each have?
+> 2. Who owns the site in the `point_HARV` data object?
+> 3. Which of the following is NOT an attribute of the `point` data object?
+> 
+>     A) Latitude      B) County     C) Country
+>
+> > ## Answers
+> > 
+> > 
+> > ~~~
+> > # 1
+> > length(names(point_HARV))  #14 attributes
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 15
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > names(aoiBoundary_HARV)  #1 attribute
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] "id"       "geometry"
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > # 2
+> > head(point_HARV)  #Harvard University, LTER
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Simple feature collection with 1 feature and 14 fields
+> > geometry type:  POINT
+> > dimension:      XY
+> > bbox:           xmin: 732183.2 ymin: 4713265 xmax: 732183.2 ymax: 4713265
+> > epsg (SRID):    32618
+> > proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
+> >   Un_ID Domain DomainName       SiteName Type       Sub_Type     Lat
+> > 1     A      1  Northeast Harvard Forest Core Advanced Tower 42.5369
+> >        Long Zone  Easting Northing                Ownership    County
+> > 1 -72.17266   18 732183.2  4713265 Harvard University, LTER Worcester
+> >   annotation                       geometry
+> > 1         C1 POINT (732183.193775523 471...
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > # 3
+> > point_HARV  # C Country
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Simple feature collection with 1 feature and 14 fields
+> > geometry type:  POINT
+> > dimension:      XY
+> > bbox:           xmin: 732183.2 ymin: 4713265 xmax: 732183.2 ymax: 4713265
+> > epsg (SRID):    32618
+> > proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
+> >   Un_ID Domain DomainName       SiteName Type       Sub_Type     Lat
+> > 1     A      1  Northeast Harvard Forest Core Advanced Tower 42.5369
+> >        Long Zone  Easting Northing                Ownership    County
+> > 1 -72.17266   18 732183.2  4713265 Harvard University, LTER Worcester
+> >   annotation                       geometry
+> > 1         C1 POINT (732183.193775523 471...
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
 
 ## Explore Values within One Attribute
 We can explore individual values stored within a particular attribute.
@@ -580,17 +654,20 @@ plot(footpath_HARV$geometry,
 Now, we see that there are in fact two features in our plot! 
 
 
-<div id="challenge" markdown="1">
-## Challenge: Subset Spatial Line Objects
-Subset out all:
-
-1. `boardwalk` from the lines layer and plot it.
-2. `stone wall` features from the lines layer and plot it. 
-
-For each plot, color each feature using a unique color.
-</div>
-
-<img src="../fig/rmd-challenge-code-feature-subset-1.png" title="plot of chunk challenge-code-feature-subset" alt="plot of chunk challenge-code-feature-subset" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-code-feature-subset-2.png" title="plot of chunk challenge-code-feature-subset" alt="plot of chunk challenge-code-feature-subset" style="display: block; margin: auto;" />
+> ## Challenge: Subset Spatial Line Objects
+> 
+> Subset out all:
+> 
+> 1. `boardwalk` from the lines layer and plot it.
+> 2. `stone wall` features from the lines layer and plot it. 
+> 
+> For each plot, color each feature using a unique color.
+> 
+> > ## Answers
+> > 
+> > <img src="../fig/rmd-challenge-code-feature-subset-1.png" title="plot of chunk challenge-code-feature-subset" alt="plot of chunk challenge-code-feature-subset" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-code-feature-subset-2.png" title="plot of chunk challenge-code-feature-subset" alt="plot of chunk challenge-code-feature-subset" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge}
 
 ## Plot Lines by Attribute Value
 To plot vector data with the color determined by a set of attribute values, the 
@@ -601,10 +678,11 @@ a determined *order*.
 
 By default, `R` will import spatial object attributes as `factors`.
 
-<i class="fa fa-star"></i> **Data Tip:** If our data attribute values are not 
-read in as factors, we can convert the categorical 
-attribute values using `as.factor()`.
-{: .notice}
+> ## Data Tip
+> If our data attribute values are not 
+> read in as factors, we can convert the categorical 
+> attribute values using `as.factor()`.
+{: .callout}
 
 
 ~~~
@@ -836,28 +914,32 @@ plot(lines_HARV$geometry,
 
 <img src="../fig/rmd-line-width-unique-1.png" title="plot of chunk line-width-unique" alt="plot of chunk line-width-unique" style="display: block; margin: auto;" />
 
-<div id="challenge" markdown="1">
-## Challenge: Plot Line Width by Attribute 
-We can customize the width of each line, according to specific attribute value,
-too. To do this, we create a vector of line width values, and map that vector
-to the factor levels - using the same syntax that we used above for colors.
-HINT: `lwd=(vector of line width thicknesses)[spatialObject$factorAttribute]`
+> ## Challenge: Plot Line Width by Attribute 
+> 
+> We can customize the width of each line, according to specific attribute value,
+> too. To do this, we create a vector of line width values, and map that vector
+> to the factor levels - using the same syntax that we used above for colors.
+> HINT: `lwd=(vector of line width thicknesses)[spatialObject$factorAttribute]`
+> 
+> Create a plot of roads using the following line thicknesses:
+> 
+> 1. woods road lwd=8
+> 2. Boardwalks lwd = 2
+> 3. footpath lwd=4
+> 4. stone wall lwd=3
+> 
+> > ## Answers
+> > 
+> > <img src="../fig/rmd-bicycle-map-1.png" title="plot of chunk bicycle-map" alt="plot of chunk bicycle-map" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge} 
 
-Create a plot of roads using the following line thicknesses:
 
-1. woods road lwd=8
-2. Boardwalks lwd = 2
-3. footpath lwd=4
-4. stone wall lwd=3
- 
-</div>
-
-<img src="../fig/rmd-bicycle-map-1.png" title="plot of chunk bicycle-map" alt="plot of chunk bicycle-map" style="display: block; margin: auto;" />
-
-<i class="fa fa-star"></i> **Data Tip:** Given we have a factor with 4 levels, 
-we can create an vector of numbers, each of which specifies the thickness of each
-feature in our `SpatialLinesDataFrame` by factor level (category): `c(6,4,1,2)[lines_HARV$TYPE]`
-{: .notice}
+> ## Data Tip
+> Given we have a factor with 4 levels, 
+> we can create an vector of numbers, each of which specifies the thickness of each
+> feature in our `SpatialLinesDataFrame` by factor level (category): `c(6,4,1,2)[lines_HARV$TYPE]`
+{: .callout}
 
 ## Add Plot Legend
 We can add a legend to our plot too. When we add a legend, we use the following
@@ -967,46 +1049,172 @@ legend("bottomright",
 
 <img src="../fig/rmd-plot-different-colors-1.png" title="plot of chunk plot-different-colors" alt="plot of chunk plot-different-colors" style="display: block; margin: auto;" />
 
-<i class="fa fa-star"></i> **Data Tip:** You can modify the defaul R color palette 
-using the palette method. For example `palette(rainbow(6))` or
-`palette(terrain.colors(6))`. You can reset the palette colors using
-`palette("default")`!
-{: .notice} 
+> ## Data Tip
+> You can modify the defaul R color palette 
+> using the palette method. For example `palette(rainbow(6))` or
+> `palette(terrain.colors(6))`. You can reset the palette colors using
+> `palette("default")`!
+{: .callout} 
 
-<div id="challenge" markdown="1">
-## Challenge: Plot Lines by Attribute
-Create a plot that emphasizes only roads where bicycles and horses are allowed.
-To emphasize this, make the lines where bicycles are not allowed THINNER than
-the roads where bicycles are allowed.
-NOTE: this attribute information is located in the `lines_HARV$BicyclesHo` 
-attribute.
+> ## Challenge: Plot Lines by Attribute
+> 
+> Create a plot that emphasizes only roads where bicycles and horses are allowed.
+> To emphasize this, make the lines where bicycles are not allowed THINNER than
+> the roads where bicycles are allowed.
+> NOTE: this attribute information is located in the `lines_HARV$BicyclesHo` 
+> attribute.
+> 
+> Be sure to add a title and legend to your map! You might consider a color
+> palette that has all bike/horse-friendly roads displayed in a bright color. All
+> other lines can be grey.
+> 
+> > ## Answers
+> > 
+> > 
+> > ~~~
+> > # view levels 
+> > levels(lines_HARV$BicyclesHo)
+> > # make sure the attribute is of class "Factor"
+> > 
+> > class(lines_HARV$BicyclesHo)
+> > 
+> > # convert to factor if necessary
+> > lines_HARV$BicyclesHo <- as.factor(lines_HARV$BicyclesHo)
+> > levels(lines_HARV$BicyclesHo)
+> > 
+> > # remove NA values
+> > lines_removeNA <- lines_HARV[na.omit(lines_HARV$BicyclesHo),]
+> > # count factor levels
+> > length(levels(lines_HARV$BicyclesHo))
+> > # set colors so only the allowed roads are magenta
+> > # note there are 3 levels so we need 3 colors
+> > challengeColors <- c("magenta","grey","grey")
+> > challengeColors
+> > 
+> > # set line width so the first factor level is thicker than the others
+> > lines_HARV$BicyclesHo
+> > c(4,1,1)[lines_HARV$BicyclesHo]
+> > 
+> > # plot using new colors
+> > plot(lines_HARV$geometry,
+> >      col=(challengeColors)[lines_HARV$BicyclesHo],
+> >      lwd=c(4,1,1)[lines_HARV$BicyclesHo],
+> >      main="NEON Harvard Forest Field Site\n Roads Where Bikes and Horses Are Allowed")
+> > 
+> > # add a legend to our map
+> > legend("bottomright", 
+> >        levels(lines_HARV$BicyclesHo), 
+> >        fill=challengeColors, 
+> >        bty="n", # turn off border
+> >        cex=.8) # adjust font size
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-bicycle-map-2-1.png" title="plot of chunk bicycle-map-2" alt="plot of chunk bicycle-map-2" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge}
 
-Be sure to add a title and legend to your map! You might consider a color
-palette that has all bike/horse-friendly roads displayed in a bright color. All
-other lines can be grey.
-
-</div>
-
-<img src="../fig/rmd-bicycle-map-2-1.png" title="plot of chunk bicycle-map-2" alt="plot of chunk bicycle-map-2" style="display: block; margin: auto;" />
-
-<div id="challenge" markdown="1">
-## Challenge: Plot Polygon by Attribute
-
-1. Create a map of the State boundaries in the United States using the data
-located in your downloaded data folder: `NEON-DS-Site-Layout-Files/US-Boundary-Layers\US-State-Boundaries-Census-2014`. 
-Apply a fill color to each state using its `region` value. Add a legend.
-
-2. Using the `NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp` shapefile, 
-create a map of study plot locations, with each point colored by the soil type
-(`soilTypeOr`).  **Question:** How many different soil types are there at this particular field site? 
-
-3. BONUS -- modify the field site plot above. Plot each point,
-using a different symbol. HINT: you can assign the symbol using `pch=` value. 
-You can create a vector object of symbols by factor level using the syntax
-syntax that we used above to create a vector of lines widths and colors:
-`pch=c(15,17)[lines_HARV$soilTypeOr]`. Type `?pch` to learn more about pch or 
-use google to find a list of pch symbols that you can use in `R`.
-
-</div>
-
-<img src="../fig/rmd-challenge-code-plot-color-1.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-code-plot-color-2.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-code-plot-color-3.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />
+> ## Challenge: Plot Polygon by Attribute
+> 
+> 1. Create a map of the State boundaries in the United States using the data
+> located in your downloaded data folder: `NEON-DS-Site-Layout-Files/US-Boundary-Layers\US-State-Boundaries-Census-2014`. > 
+> Apply a fill color to each state using its `region` value. Add a legend.
+> 
+> 2. Using the `NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp` shapefile, 
+> create a map of study plot locations, with each point colored by the soil type
+> (`soilTypeOr`).  **Question:** How many different soil types are there at this particular field site? 
+> 
+> 3. BONUS -- modify the field site plot above. Plot each point,
+> using a different symbol. HINT: you can assign the symbol using `pch=` value. 
+> You can create a vector object of symbols by factor level using the syntax
+> syntax that we used above to create a vector of lines widths and colors:
+> `pch=c(15,17)[lines_HARV$soilTypeOr]`. Type `?pch` to learn more about pch or 
+> use google to find a list of pch symbols that you can use in `R`.
+> 
+> > ## Answers
+> > 
+> > 
+> > ~~~
+> > ## 1
+> > # Read the shapefile file
+> > State.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp")
+> > 
+> > # how many levels?
+> > levels(State.Boundary.US$region)
+> > colors <- c("purple","springgreen","yellow","brown","grey")
+> > colors
+> > 
+> > plot(State.Boundary.US$geometry,
+> >      col=(colors)[State.Boundary.US$region],
+> >      main="Contiguous U.S. State Boundaries \n 50 Colors")
+> > 
+> > # add a legend to our map
+> > legend("bottomright", 
+> >        levels(State.Boundary.US$region), 
+> >        fill=colors, 
+> >        bty="n", #turn off border
+> >        cex=.7) #adjust font size
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-plot-color-1.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />
+> > 
+> > ~~~
+> > ## 2
+> > # open plot locations
+> > plotLocations <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
+> > 
+> > # how many unique soils?  Two
+> > unique(plotLocations$soilTypeOr)
+> > 
+> > # create new color palette -- topo.colors palette
+> > blueGreen <- c("blue","springgreen")
+> > blueGreen
+> > 
+> > # plot the locations 
+> > plot(plotLocations$geometry,
+> >      col=(blueGreen)[plotLocations$soilTypeOr], 
+> >      pch=18,
+> >      main="NEON Harvard Forest Field Site\n Study Plots by Soil Type\n One Symbol for All Types")
+> > 
+> > # create legend 
+> > legend("bottomright", 
+> >        legend=c("Intceptisols","Histosols"),
+> >        pch=18, 
+> >        col=blueGreen,
+> >        bty="n", 
+> >        cex=1)
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-plot-color-2.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />
+> > 
+> > ~~~
+> > ## 3
+> > # create vector of plot symbols
+> > plSymbols <- c(15,17)[plotLocations$soilTypeOr]
+> > plSymbols
+> > 
+> > # plot the locations 
+> > plot(plotLocations$geometry,
+> >      col=plotLocations$soilTypeOr, 
+> >      pch=plSymbols,
+> >      main="NEON Harvard Forest Field Site\n Study Plots by Soil Type\n Unique Symbol for Each Type")
+> > 
+> > # create vector of plot symbols ONLY. Legend needs only the symbols
+> > plSymbolsL <- c(15,17)
+> > plSymbolsL
+> > 
+> > # create legend 
+> > legend("bottomright", 
+> >        legend=c("Intceptisols","Histosols"),
+> >        pch=plSymbolsL, 
+> >        col=palette(),
+> >        bty="n", 
+> >        cex=1)
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-plot-color-3.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge}
