@@ -70,8 +70,8 @@ location. These latter two we worked with in the
 
 ```{r load-packages-data }
 # load packages
-library(sf)  
-library(raster)   
+library(sf)
+library(raster)
 
 # set working directory to data folder
 # setwd("pathToDirHere")
@@ -101,35 +101,35 @@ by factor level or category.
 # view the factor levels
 levels(lines_HARV$TYPE)
 # create vector of line width values
-lineWidth <- c(2,4,3,8)[lines_HARV$TYPE]
+lineWidth <- c(2, 4, 3, 8)[lines_HARV$TYPE]
 # view vector
 lineWidth
 
 # create a color palette of 4 colors - one for each factor level
-roadPalette <- c("blue","green","grey","purple")
+roadPalette <- c("blue", "green", "grey", "purple")
 roadPalette
 # create a vector of colors - one for each feature in our vector object
 # according to its attribute value
-roadColors <- c("blue","green","grey","purple")[lines_HARV$TYPE]
+roadColors <- c("blue", "green", "grey", "purple")[lines_HARV$TYPE]
 roadColors
 
 # create vector of line width values
-lineWidth <- c(2,4,3,8)[lines_HARV$TYPE]
+lineWidth <- c(2, 4, 3, 8)[lines_HARV$TYPE]
 # view vector
 lineWidth
 
 # in this case, boardwalk (the first level) is the widest.
-plot(lines_HARV$geometry, 
-     col=roadColors,
-     main="NEON Harvard Forest Field Site\n Roads & Trails \nLine Width Varies by Type Attribute Value",
-     lwd=lineWidth)
+plot(lines_HARV$geometry,
+     col = roadColors,
+     main = "NEON Harvard Forest Field Site\n Roads & Trails \nLine Width Varies by Type Attribute Value",
+     lwd = lineWidth)
 
 ```
 
 > ## Data Tip
 > Given we have a factor with 4 levels, 
 > we can create a vector of numbers, each of which specifies the thickness of each
-> feature in our `SpatialLinesDataFrame` by factor level (category): `c(6,4,1,2)[lines_HARV$TYPE]`
+> feature in our `SpatialLinesDataFrame` by factor level (category): `c(6, 4, 1, 2)[lines_HARV$TYPE]`
 {: .callout}
 
 ## Add Plot Legend
@@ -148,19 +148,19 @@ the default set of colors that `R` applies to all plots.
 Let's add a legend to our plot.
 
 ```{r add-legend-to-plot }
-plot(lines_HARV$geometry, 
-     col=roadColors,
-     main="NEON Harvard Forest Field Site\n Roads & Trails\n Default Legend")
+plot(lines_HARV$geometry,
+     col = roadColors,
+     main = "NEON Harvard Forest Field Site\n Roads & Trails\n Default Legend")
 
 # we can use the color object that we created above to color the legend objects
 roadPalette
 
 # add a legend to our map
-legend("bottomright", 
-       legend=levels(lines_HARV$TYPE), 
-       fill=roadPalette, 
-       bty="n", # turn off the legend border
-       cex=.8) # decrease the font / legend size
+legend("bottomright",
+       legend = levels(lines_HARV$TYPE),
+       fill = roadPalette,
+       bty = "n", # turn off the legend border
+       cex = .8) # decrease the font / legend size
 
 ```
 
@@ -178,22 +178,22 @@ the tower location and road data on top using `add=TRUE`.
 ```{r plot-many-shapefiles }
 
 # Plot multiple shapefiles
-plot(aoiBoundary_HARV$geometry, 
-     col = "grey93", 
-     border="grey",
-     main="NEON Harvard Forest Field Site")
+plot(aoiBoundary_HARV$geometry,
+     col = "grey93",
+     border = "grey",
+     main = "NEON Harvard Forest Field Site")
 
-plot(lines_HARV$geometry, 
+plot(lines_HARV$geometry,
      col = roadColors,
      add = TRUE)
 
-plot(point_HARV$geometry, 
-     add = TRUE, 
-     pch = 19, 
+plot(point_HARV$geometry,
+     add = TRUE,
+     pch = 19,
      col = "purple")
 
 # assign plot to an object for easy modification!
-plot_HARV<- recordPlot()
+plot_HARV <- recordPlot()
 
 ```
 
@@ -223,8 +223,8 @@ labels
 plot_HARV
 
 # add a legend to our map
-legend("bottomright", 
-       legend = labels, 
+legend("bottomright",
+       legend = labels,
        bty = "n", # turn off the legend border
        cex = .8) # decrease the font / legend size
 ```
@@ -245,8 +245,8 @@ plotColors
 plot_HARV
 
 # add a legend to our map
-legend("bottomright", 
-       legend = labels, 
+legend("bottomright",
+       legend = labels,
        fill = plotColors,
        bty = "n", # turn off the legend border
        cex = .8) # decrease the font / legend size
@@ -269,19 +269,19 @@ and the points, symbolized as a symbol. We can customize this using
 # create a list of pch values
 # these are the symbols that will be used for each legend value
 # ?pch will provide more information on values
-plotSym <- c(16,15,15,15,15,15)
+plotSym <- c(16, 15, 15, 15, 15, 15)
 plotSym
 
 # Plot multiple shapefiles
 plot_HARV
 
 # to create a custom legend, we need to fake it
-legend("bottomright", 
-       legend=labels,
-       pch=plotSym, 
-       bty="n", 
-       col=plotColors,
-       cex=.8)
+legend("bottomright",
+       legend = labels,
+       pch = plotSym,
+       bty = "n",
+       col = plotColors,
+       cex = .8)
 
 ```
 
@@ -306,22 +306,22 @@ symbol, but to instead use a line.
 
 ```{r refine-legend}
 # create line object
-lineLegend = c(NA,NA,1,1,1,1)
+lineLegend <- c(NA, NA, 1, 1, 1, 1)
 lineLegend
-plotSym <- c(16,15,NA,NA,NA,NA)
+plotSym <- c(16, 15, NA, NA, NA, NA)
 plotSym
 
 # plot multiple shapefiles
 plot_HARV
 
 # build a custom legend
-legend("bottomright", 
-       legend=labels, 
+legend("bottomright",
+       legend = labels,
        lty = lineLegend,
-       pch=plotSym, 
-       bty="n", 
-       col=plotColors,
-       cex=.8)
+       pch = plotSym,
+       bty = "n",
+       col = plotColors,
+       cex = .8)
 
 ```
 
@@ -358,7 +358,7 @@ Create a custom legend.
 > > # plot roads
 > > plot(lines_HARV$geometry, 
 > >      col=roadColors,
-> >      main="NEON Harvard Forest Field Site\n Study Plots by Soil Type\n One Symbol for All Types")
+> >      main ="NEON Harvard Forest Field Site\n Study Plots by Soil Type\n One Symbol for All Types")
 > > 
 > > # plot the locations 
 > > plot(plotLocations$geometry,
@@ -393,7 +393,7 @@ Create a custom legend.
 > > # plot roads
 > > plot(lines_HARV$geometry, 
 > >      col=roadColors,
-> >      main="NEON Harvard Forest Field Site\n Study Plots by Soil Type\n Different Symbols for Types")
+> >      main ="NEON Harvard Forest Field Site\n Study Plots by Soil Type\n Different Symbols for Types")
 > > 
 > > # plot the locations 
 > > plot(plotLocations$geometry,

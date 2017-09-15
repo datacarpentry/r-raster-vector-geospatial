@@ -103,21 +103,20 @@ We can plot each band of a multi-band image individually.
 ```{r demonstrate-RGB-Image, echo=FALSE}
 library(raster)
 # Use stack function to read in all bands
-RGB_stack_HARV <- 
-  stack("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
+RGB_stack_HARV <- stack("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
-names(RGB_stack_HARV) <- c("Red Band","Green Band","Blue Band")
+names(RGB_stack_HARV) <- c("Red Band", "Green Band", "Blue Band")
 
-grayscale_colors <- gray.colors(100, 
-                                start = 0.0, 
-                                end = 1.0, 
-                                gamma = 2.2, 
+grayscale_colors <- gray.colors(100,
+                                start = 0.0,
+                                end = 1.0,
+                                gamma = 2.2,
                                 alpha = NULL)
 
 # Create an RGB image from the raster stack
-plot(RGB_stack_HARV, 
-     col=grayscale_colors,
-     axes=F)
+plot(RGB_stack_HARV,
+     col = grayscale_colors,
+     axes = FALSE)
 
 ```
 
@@ -126,12 +125,12 @@ Or we can composite all three bands together to make a color image.
 ```{r plot-RGB-now, echo=FALSE, message=FALSE }
 # Create an RGB image from the raster stack
 
-original_par <-par() # create original par for easy reversal at end
-par(col.axis="white",col.lab="white",tck=0)
+original_par <- par() # create original par for easy reversal at end
+par(col.axis = "white", col.lab = "white", tck = 0)
 plotRGB(RGB_stack_HARV, r = 1, g = 2, b = 3,
-        axes=TRUE, 
-        main="3 Band Color Composite Image\n NEON Harvard Forest Field Site")
-box(col="white")
+        axes = TRUE, 
+        main = "3 Band Color Composite Image\n NEON Harvard Forest Field Site")
+box(col = "white")
 
 ```
 
@@ -191,18 +190,18 @@ RGB_band1_HARV <-
   raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
 # create a grayscale color palette to use for the image.
-grayscale_colors <- gray.colors(100,            # number of different color levels 
+grayscale_colors <- gray.colors(100,            # number of different color levels
                                 start = 0.0,    # how black (0) to go
                                 end = 1.0,      # how white (1) to go
-                                gamma = 2.2,    # correction between how a digital 
+                                gamma = 2.2,    # correction between how a digital
                                 # camera sees the world and how human eyes see it
-                                alpha = NULL)   #Null=colors are not transparent
+                                alpha = NULL)   #Null = colors are not transparent
 
 # Plot band 1
 plot(RGB_band1_HARV, 
-     col=grayscale_colors, 
-     axes=FALSE,
-     main="RGB Imagery - Band 1-Red\nNEON Harvard Forest Field Site") 
+     col = grayscale_colors,
+     axes = FALSE,
+     main = "RGB Imagery - Band 1-Red\nNEON Harvard Forest Field Site")
 
 # view attributes: Check out dimension, CRS, resolution, values attributes, and 
 # band.
@@ -249,15 +248,15 @@ want to work with). To import the green band, we would use `band=2`.
 
 ```{r read-specific-band }
 # Can specify which band we want to read in
-RGB_band2_HARV <- 
-  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif", 
+RGB_band2_HARV <-
+  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif",
            band = 2)
 
 # plot band 2
 plot(RGB_band2_HARV,
-     col=grayscale_colors, # we already created this palette & can use it again
-     axes=FALSE,
-     main="RGB Imagery - Band 2- Green\nNEON Harvard Forest Field Site")
+     col = grayscale_colors, # we already created this palette & can use it again
+     axes = FALSE,
+     main = "RGB Imagery - Band 2- Green\nNEON Harvard Forest Field Site")
 
 # view attributes of band 2 
 RGB_band2_HARV
@@ -314,19 +313,19 @@ RGB_stack_HARV[[1]]
 
 # view histogram of all 3 bands
 hist(RGB_stack_HARV,
-     maxpixels=ncell(RGB_stack_HARV))
+     maxpixels = ncell(RGB_stack_HARV))
 
 # plot all three bands separately
 plot(RGB_stack_HARV, 
-     col=grayscale_colors)
+     col = grayscale_colors)
 
 # revert to a single plot layout 
-par(mfrow=c(1,1)) 
+par(mfrow = c(1,1)) 
 
 # plot band 2 
 plot(RGB_stack_HARV[[2]], 
-     main="Band 2\n NEON Harvard Forest Field Site",
-     col=grayscale_colors)
+     main = "Band 2\n NEON Harvard Forest Field Site",
+     col = grayscale_colors)
 
 ```
 
@@ -384,12 +383,12 @@ the image might improve clarity and contrast using  `stretch="lin"` or
 # what does stretch do?
 plotRGB(RGB_stack_HARV,
         r = 1, g = 2, b = 3, 
-        scale=800,
+        scale = 800,
         stretch = "lin")
 
 plotRGB(RGB_stack_HARV,
         r = 1, g = 2, b = 3, 
-        scale=800,
+        scale = 800,
         stretch = "hist")
 
 ```

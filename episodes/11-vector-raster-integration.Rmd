@@ -104,7 +104,7 @@ plot.locationsSp_HARV <- st_as_sf(plot.locations_HARV,
 plot(st_convex_hull(st_union(lines_HARV)),
      col="purple", lwd="3",
      xlab="Easting", ylab="Northing",
-    main="Extent Boundary of Several Spatial Files",
+    main ="Extent Boundary of Several Spatial Files",
     xlim=c(730741.2,735000),
     col.lab = 'grey', # set axis label color
     col.axis = 'grey') # set axis tick label color
@@ -189,7 +189,7 @@ spatial object as the cropping boundary.
 ```{r Crop-by-vector-extent}
 # plot full CHM
 plot(chm_HARV,
-     main="LiDAR CHM - Not Cropped\nNEON Harvard Forest Field Site")
+     main ="LiDAR CHM - Not Cropped\nNEON Harvard Forest Field Site")
 
 # crop the chm
 chm_HARV_Crop <- crop(x = chm_HARV, y = as(aoiBoundary_HARV, "Spatial"))
@@ -197,7 +197,7 @@ chm_HARV_Crop <- crop(x = chm_HARV, y = as(aoiBoundary_HARV, "Spatial"))
 # plot full CHM
 plot(extent(chm_HARV),
      lwd=4,col="springgreen",
-     main="LiDAR CHM - Cropped\nNEON Harvard Forest Field Site",
+     main ="LiDAR CHM - Cropped\nNEON Harvard Forest Field Site",
      xlab="easting", ylab="northing")
 
 plot(chm_HARV_Crop,
@@ -254,7 +254,7 @@ vegetation plot locations with the Canopy Height Model information.
 > > CHM_plots_HARVcrop <- crop(x = chm_HARV, y = as(plot.locationsSp_HARV, "Spatial"))
 > > 
 > > plot(CHM_plots_HARVcrop,
-> >      main="Study Plot Locations\n NEON Harvard Forest")
+> >      main ="Study Plot Locations\n NEON Harvard Forest")
 > > 
 > > plot(plot.locationSp_HARV$geometry, 
 > >      add=TRUE,
@@ -281,7 +281,7 @@ vegetation plot layer will still extend further west than the extent of our
 plot(st_convex_hull(st_union(lines_HARV)),
      col="purple", lwd="3",
      xlab="Easting", ylab="Northing",
-    main="Extent Boundary of Several Spatial Files")
+    main ="Extent Boundary of Several Spatial Files")
 
 plot(st_convex_hull(st_union(plot.locationsSp_HARV)),
      col="black",
@@ -408,7 +408,7 @@ site.
 ```{r view-extract-histogram}
 # view histogram of tree heights in study area
 hist(tree_height$HARV_chmCrop, 
-     main="Histogram of CHM Height Values (m) \nNEON Harvard Forest Field Site",
+     main ="Histogram of CHM Height Values (m) \nNEON Harvard Forest Field Site",
      col="springgreen",
      xlab="Tree Height", ylab="Frequency of Pixels")
 
@@ -512,7 +512,7 @@ nrow(av_tree_height_tower)
 > > 
 > > # plot data
 > > plot(meanTreeHt_plots_HARV,
-> >      main="MeanTree Height at each Plot\nNEON Harvard Forest Field Site",
+> >      main ="MeanTree Height at each Plot\nNEON Harvard Forest Field Site",
 > >      xlab="Plot ID", ylab="Tree Height (m)",
 > >      pch=16)
 > > ```
