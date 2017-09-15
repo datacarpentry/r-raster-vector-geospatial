@@ -252,7 +252,7 @@ We now have a spatial `R` object, we can plot our newly created spatial object.
 ```{r plot-data-points }
 # plot spatial object
 plot(plot.locationsSp_HARV$geometry, 
-     main ="Map of Plot Locations")
+     main = "Map of Plot Locations")
 
 ```
 
@@ -282,7 +282,7 @@ To begin, let's plot our `aoiBoundary` object with our vegetation plots.
 ```{r plot-data }
 # plot Boundary
 plot(aoiBoundary_HARV$geometry,
-     main ="AOI Boundary\nNEON Harvard Forest Field Site")
+     main = "AOI Boundary\nNEON Harvard Forest Field Site")
 
 # add plot locations
 plot(plot.locationsSp_HARV$geometry, 
@@ -311,7 +311,7 @@ plot(st_convex_hull(st_sfc(st_union(plot.locationsSp_HARV))),
      col="purple", 
      xlab="easting",
      ylab="northing", lwd=8,
-     main ="Extent Boundary of Plot Locations \nCompared to the AOI Spatial Object",
+     main = "Extent Boundary of Plot Locations \nCompared to the AOI Spatial Object",
      ylim=c(4712400,4714000)) # extent the y axis to make room for the legend
 
 plot(aoiBoundary_HARV$geometry, 
@@ -360,7 +360,7 @@ ymax <- plotLoc.extent[4]
 
 # adjust the plot extent using x and ylim
 plot(aoiBoundary_HARV$geometry,
-     main ="NEON Harvard Forest Field Site\nModified Extent",
+     main = "NEON Harvard Forest Field Site\nModified Extent",
      border="darkgreen",
      xlim=c(xmin,xmax),
      ylim=c(ymin,ymax))
@@ -446,7 +446,7 @@ legend("bottomright",
 > > ## 3
 > > # create plot
 > > plot(plot.locationsSp_HARV$geometry, 
-> >      main ="NEON Harvard Forest Field Site \nPlot Locations" )
+> >      main = "NEON Harvard Forest Field Site \nPlot Locations" )
 > > 
 > > plot(newPlot.Sp.HARV.UTM$geometry, 
 > >      add=TRUE, pch=20, col="darkgreen")
@@ -460,7 +460,7 @@ legend("bottomright",
 > > # is added FIRST will define the extent of the plot
 > > 
 > > plot(st_convex_hull(st_sfc(st_union(plot.locationsSp_HARV))),
-> >      main ="Comparison of Spatial Object Extents\nPlot Locations vs New Plot Locations")
+> >      main = "Comparison of Spatial Object Extents\nPlot Locations vs New Plot Locations")
 > > 
 > > plot(st_convex_hull(st_sfc(st_union(newPlot.Sp.HARV.UTM))),
 > >      col="darkgreen",
@@ -487,7 +487,7 @@ legend("bottomright",
 > > # largest
 > > # x and y values from an extent object. This is beyond the scope of this tutorial.
 > > plot(plot.locationsSp_HARV$geometry, 
-> >      main ="NEON Harvard Forest Field Site\nVegetation & Phenology Plots",
+> >      main = "NEON Harvard Forest Field Site\nVegetation & Phenology Plots",
 > >      pch=8,
 > >      col="purple",
 > >      xlim=c(xmin,xmax),

@@ -258,7 +258,7 @@ field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files.
 > > plot(DTM_hill_UTMZ18N_SJER,
 > >     col = grey(1:100/100),
 > >     legend = FALSE,
-> >     main ="DSM with Hillshade\n NEON SJER Field Site")
+> >     main = "DSM with Hillshade\n NEON SJER Field Site")
 > > 
 > > # overlay the DSM on top of the hillshade
 > > plot(DSM_SJER,

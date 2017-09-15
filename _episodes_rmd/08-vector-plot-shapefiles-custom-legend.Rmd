@@ -358,7 +358,7 @@ Create a custom legend.
 > > # plot roads
 > > plot(lines_HARV$geometry, 
 > >      col=roadColors,
-> >      main ="NEON Harvard Forest Field Site\n Study Plots by Soil Type\n One Symbol for All Types")
+> >      main = "NEON Harvard Forest Field Site\n Study Plots by Soil Type\n One Symbol for All Types")
 > > 
 > > # plot the locations 
 > > plot(plotLocations$geometry,
@@ -393,7 +393,7 @@ Create a custom legend.
 > > # plot roads
 > > plot(lines_HARV$geometry, 
 > >      col=roadColors,
-> >      main ="NEON Harvard Forest Field Site\n Study Plots by Soil Type\n Different Symbols for Types")
+> >      main = "NEON Harvard Forest Field Site\n Study Plots by Soil Type\n Different Symbols for Types")
 > > 
 > > # plot the locations 
 > > plot(plotLocations$geometry,
