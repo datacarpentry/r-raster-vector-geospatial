@@ -13,7 +13,7 @@ keypoints:
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2016-02-09
-lastModified: 2017-09-08
+lastModified: 2017-09-14
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -31,33 +31,27 @@ comments: true
 
 
 
-## About
+> ## Things You’ll Need To Complete This Tutorial
+> **R Skill Level:** Intermediate - you've got the basics of `R` down.
+> You will need the most current version of `R` and, preferably, `RStudio` loaded
+> on your computer to complete this tutorial.
+> 
+> ### Install R Packages
+> 
+> * **raster:** `install.packages("raster")`
+> * **sf:** `install.packages("sp")`
+> 
+> [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
+> 
+> ## Download Data
+> 
+{: .prereq} 
+
 This tutorial builds upon 
 [the previous tutorial]({{ site.baseurl }}/R/shapefile-attributes-in-R/) 
 to work with shapefile attributes in `R` and explores how to plot multiple 
 shapefiles using base R graphics. It then covers
 how to create a custom legend with colors and symbols that match your plot.
-
-**R Skill Level:** Intermediate - you've got the basics of `R` down.
-
-<div id="objectives" markdown="1">
-
-## Things You’ll Need To Complete This Tutorial
-You will need the most current version of `R` and, preferably, `RStudio` loaded
-on your computer to complete this tutorial.
-
-### Install R Packages
-
-* **raster:** `install.packages("raster")`
-* **sf:** `install.packages("sp")`
-
-[More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
-
-## Download Data
-
-****
-
-</div>
 
 ## Load the Data
 To work with vector data in `R`, we can use the `rgdal` library. The `raster` 
@@ -270,10 +264,11 @@ plot(lines_HARV$geometry,
 
 <img src="../fig/rmd-plot-unique-lines-1.png" title="plot of chunk plot-unique-lines" alt="plot of chunk plot-unique-lines" style="display: block; margin: auto;" />
 
-<i class="fa fa-star"></i> **Data Tip:** Given we have a factor with 4 levels, 
-we can create a vector of numbers, each of which specifies the thickness of each
-feature in our `SpatialLinesDataFrame` by factor level (category): `c(6,4,1,2)[lines_HARV$TYPE]`
-{: .notice}
+> ## Data Tip
+> Given we have a factor with 4 levels, 
+> we can create a vector of numbers, each of which specifies the thickness of each
+> feature in our `SpatialLinesDataFrame` by factor level (category): `c(6,4,1,2)[lines_HARV$TYPE]`
+{: .callout}
 
 ## Add Plot Legend
 In the 
@@ -463,9 +458,10 @@ element in the plot. It might be better if the lines were symbolized as a line
 and the points, symbolized as a symbol. We can customize this using
 `pch=` in our legend: **16** is a point symbol, **15** is a box. 
 
-<i class="fa fa-star"></i> **Data Tip:** To view a short list of `pch` symbols, 
-type `?pch` into the `R` console. 
-{: .notice}
+> ## Data Tip
+> To view a short list of `pch` symbols, 
+> type `?pch` into the `R` console. 
+{: .callout}
 
 
 
@@ -575,10 +571,10 @@ legend("bottomright",
 > ## Challenge: Plot Polygon by Attribute
 > 
 > 1. Using the `NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp` shapefile, 
-create a map of study plot locations, with each point colored by the soil type
-(`soilTypeOr`). How many different soil types are there at this particular field 
-site? Overlay this layer on top of the `lines_HARV` layer (the roads). Create a 
-custom legend that applies line symbols to lines and point symbols to the points.
+> create a map of study plot locations, with each point colored by the soil type
+> (`soilTypeOr`). How many different soil types are there at this particular field 
+> site? Overlay this layer on top of the `lines_HARV` layer (the roads). Create a 
+> custom legend that applies line symbols to lines and point symbols to the points.
 > 
 > 2. Modify the plot above. Tell `R` to plot each point, using a different
 symbol of `pch` value. HINT: to do this, create a vector object of symbols by 
@@ -586,6 +582,93 @@ factor level using the syntax described above for line width:
 `c(15,17)[lines_HARV$soilTypeOr]`. Overlay this on top of the AOI Boundary. 
 Create a custom legend.
 > 
+>
+> > ## Answers
+> > 
+> > 
+> > ~~~
+> > ## 1
+> > # open plot locations
+> > plotLocations <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
+> > 
+> > # how many unique soils?  Two
+> > unique(plotLocations$soilTypeOr)
+> > 
+> > # create new color palette -- topo.colors palette
+> > blueGreen <- c("blue","darkgreen")
+> > blueGreen
+> > 
+> > # plot roads
+> > plot(lines_HARV$geometry, 
+> >      col=roadColors,
+> >      main="NEON Harvard Forest Field Site\n Study Plots by Soil Type\n One Symbol for All Types")
+> > 
+> > # plot the locations 
+> > plot(plotLocations$geometry,
+> >      col=(blueGreen)[plotLocations$soilTypeOr], 
+> >      pch=18,
+> >      add=TRUE)
+> > 
+> > # create line object
+> > lineLegendElement = c(NA,NA,1,1,1,1)
+> > lineLegendElement
+> > plotSymElements <- c(18,18,NA,NA,NA,NA)
+> > plotSymElements
+> > 
+> > # create vector of colors
+> > colorElements <- c(blueGreen, roadPalette)
+> > colorElements
+> > 
+> > # create legend 
+> > legend("bottomright", 
+> >        legend = c(levels(plotLocations$soilTypeOr), levels(lines_HARV$TYPE)),
+> >        pch = plotSymElements, 
+> >        lty = lineLegendElement,
+> >        col = colorElements,
+> >        bty = "n", 
+> >        cex = 1)
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-plot-color-1.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />
+> > 
+> > ~~~
+> > ## 2
+> > # create vector of DIFFERENT plot symbols
+> > plSymbols <- c(15,17)[plotLocations$soilTypeOr]
+> > plSymbols
+> > 
+> > # plot roads
+> > plot(lines_HARV$geometry, 
+> >      col=roadColors,
+> >      main="NEON Harvard Forest Field Site\n Study Plots by Soil Type\n Different Symbols for Types")
+> > 
+> > # plot the locations 
+> > plot(plotLocations$geometry,
+> >      col=(blueGreen)[plotLocations$soilTypeOr], 
+> >      pch=plSymbols,
+> >      add=TRUE)
+> > 
+> > # create line object
+> > lineLegendElement  <- c(NA,NA,1,1,1,1)
+> > lineLegendElement
+> > plotSymElementsMod <- c(15,17,NA,NA,NA,NA)
+> > plotSymElementsMod
+> > 
+> > # create vector of colors
+> > colorElements <- c(blueGreen, roadPalette)
+> > colorElements
+> > # create legend 
+> > legend("bottomright", 
+> >        legend=c(levels(plotLocations$soilTypeOr), levels(lines_HARV$TYPE)),
+> >        pch = plotSymElementsMod, 
+> >        lty = lineLegendElement,
+> >        col = colorElements,
+> >        bty = "n", 
+> >        cex = 1)
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-plot-color-2.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />
+> {: .solution}
 {: .challenge}
-
-<img src="../fig/rmd-challenge-code-plot-color-1.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-code-plot-color-2.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />

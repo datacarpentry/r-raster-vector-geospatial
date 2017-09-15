@@ -15,7 +15,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2017-09-11
+lastModified: 2017-09-13
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series, raster-time-series]
@@ -222,10 +222,11 @@ Notice that when we look at the attributes of RGB_Band1, we see :
 This is `R` telling us that this particular raster object has more bands (3)
 associated with it.
 
-<i class="fa fa-star"></i> **Data Tip:** The number of bands associated with a 
-raster object can also be determined using the `nbands` slot. Syntax is 
-`ObjectName@file@nbands`, or specifically for our file: `RGB_band1@file@nbands`.
-{: .notice}
+> ## Data Tip
+> The number of bands associated with a 
+> raster object can also be determined using the `nbands` slot. Syntax is 
+> `ObjectName@file@nbands`, or specifically for our file: `RGB_band1@file@nbands`.
+{: .callout}
 
 ### Image Raster Data Values
 Let's next examine the raster's min and max values. What is the value range?
@@ -313,13 +314,20 @@ values      : 0, 255  (min, max)
 
 Notice that band 2 is the second of 3 bands `band: 2  (of  3  bands)`.  
 
-<div id="challenge" markdown="1">
-## Challenge: Making Sense of Single Band Images
-Compare the plots of band 1 (red) and band 2 (green). Is the forested area
-darker or lighter in band 2 (the green band) compared to band 1 (the red band)?  
-</div>
-
-
+> ## Challenge: Making Sense of Single Band Images
+>
+> Compare the plots of band 1 (red) and band 2 (green). Is the forested area darker or lighter in band 2 (the green band) compared to band 1 (the red band)? >
+> > ## Answers
+> > 
+> > 
+> > ~~~
+> > # We'd expect a *brighter* value for the forest in band 2 (green) than in 
+> > # band 1 (red) because the leaves on trees of most often appear "green" - 
+> > # healthy leaves reflect MORE green light compared to red light 
+> > ~~~
+> > {: .r}
+> {: .solution}
+{: .challenge}
 
 ## Raster Stacks in R
 Next, we will work with all three image bands (red, green and blue) as an `R`

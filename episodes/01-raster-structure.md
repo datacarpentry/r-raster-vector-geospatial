@@ -15,7 +15,7 @@ keypoints:
 authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
 contributors: [ ]
 dateCreated: 2015-10-23
-lastModified: 2017-09-08
+lastModified: 2017-09-14
 packagesLibraries: [raster, rgdal]
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
@@ -180,11 +180,12 @@ library(rgdal)
 ## Open a Raster in R
 We can use the `raster("path-to-raster-here")` function to open a raster in R. 
 
-<i class="fa fa-star"></i> **Data Tip:**  OBJECT NAMES! To improve code 
-readability, file and object names should be used that make it clear what is in 
-the file. The data for this tutorial were collected over from Harvard Forest so 
-we'll use a naming convention of `datatype_HARV`. 
-{: .notice }
+> ## Data Tip
+> OBJECT NAMES! To improve code 
+> readability, file and object names should be used that make it clear what is in 
+> the file. The data for this tutorial were collected over from Harvard Forest so 
+> we'll use a naming convention of `datatype_HARV`. 
+{: .callout}
 
 
 ~~~

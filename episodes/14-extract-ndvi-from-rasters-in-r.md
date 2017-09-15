@@ -15,7 +15,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal, ggplot2]
 dateCreated: 2014-11-26
-lastModified: 2017-09-08
+lastModified: 2017-09-14
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 mainTag: raster-data-series
@@ -31,31 +31,24 @@ comments: true
 
 
 
-## About
+> ## Things You'll Need To Complete This Tutorial
+> **R Skill Level:** Intermediate - you've got the basics of `R` down.
+> You will need the most current version of `R` and, preferably, `RStudio` loaded
+> on your computer to complete this tutorial.
+> 
+> ### Install R Packages
+> 
+> * **raster:** `install.packages("raster")`
+> * **rgdal:** `install.packages("rgdal")`
+> * **ggplot2:** `install.packages("ggplot2")`
+> 
+> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
+> 
+> #### Data to Download
+{: .prereq}
+
 In this tutorial, we will extract NDVI values from a raster time series dataset 
 in `R` and plot them using `ggplot`.
-
-**R Skill Level:** Intermediate - you've got the basics of `R` down.
-
-<div id="objectives" markdown="1">
-
-## Things You'll Need To Complete This Tutorial
-You will need the most current version of `R` and, preferably, `RStudio` loaded
-on your computer to complete this tutorial.
-
-### Install R Packages
-
-* **raster:** `install.packages("raster")`
-* **rgdal:** `install.packages("rgdal")`
-* **ggplot2:** `install.packages("ggplot2")`
-
-* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
-
-#### Data to Download
-
-****
-
-</div>
 
 ## Extract Summary Statistics From Raster Data
 In science, we often want to extract summary values from raster data. For
@@ -313,11 +306,12 @@ class(avg_NDVI_HARV$julianDay)
 
 What class is our `julianDay` column?
 
-<i class="fa fa-star"></i> **Data Tip:** To be efficient, we substituted two
-elements in one line of code using the "|". You can often combine commands in `R`
-to improve code efficiency. 
-`avg_NDVI_HARV$julianDay <- gsub("X|_HARV_NDVI_crop", "", row.names(avg_NDVI_HARV))`.
-{: .notice }
+> ## Data Tip
+> To be efficient, we substituted two
+> elements in one line of code using the "|". You can often combine commands in `R`
+> to improve code efficiency. 
+> `avg_NDVI_HARV$julianDay <- gsub("X|_HARV_NDVI_crop", "", row.names(avg_NDVI_HARV))`.
+{: .callout }
 
 ## Convert Julian Day to Date Class
 Currently, the values in the Julian day column are stored as a `character` class.
@@ -400,20 +394,64 @@ integer 05 `julianDay` value (indicating 5th of January), we cannot simply add
 `origin + julianDay` because `01 + 05 = 06` or 06 January 2011. To correct, this
 error we then subtract 1 to get the correct day, January 05 2011.
 
-<div id="challenge" markdown="1">
-## Challenge: NDVI for the San Joaquin Experimental Range
-We often want to compare two different sites. The National Ecological
-Observatory Network (NEON) also has a field site in Southern California
-at the
-<a href="http://www.neonscience.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range (SJER) </a>.  
-
-For this challenge, compare NDVI values for the NEON Harvard Forest and San
-Joaquin Experimental Range field sites. NDVI data for SJER are located in the
-`NEON-DS-Landsat-NDVI/SJER/2011/NDVI` directory.
-
-</div>
-
-
+> ## Challenge: NDVI for the San Joaquin Experimental Range
+> 
+> We often want to compare two different sites. The National Ecological
+> Observatory Network (NEON) also has a field site in Southern California
+> at the
+> <a href="http://www.neonscience.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range (SJER) </a>.  
+> 
+> For this challenge, compare NDVI values for the NEON Harvard Forest and San
+> Joaquin Experimental Range field sites. NDVI data for SJER are located in the
+> `NEON-DS-Landsat-NDVI/SJER/2011/NDVI` directory.
+> 
+> > ## Answers
+> > 
+> > 
+> > ~~~
+> > # Create list of NDVI file paths
+> > NDVI_path_SJER <- "data/NEON-DS-Landsat-NDVI/SJER/2011/NDVI"
+> > all_NDVI_SJER <- list.files(NDVI_path_SJER,
+> >                             full.names = TRUE,
+> >                             pattern = ".tif$")
+> > 
+> > # Create a time series raster stack
+> > NDVI_stack_SJER <- stack(all_NDVI_SJER)
+> > 
+> > # Calculate Mean, Scale Data, convert to data.frame all in 1 line!
+> > avg_NDVI_SJER <- as.data.frame(cellStats(NDVI_stack_SJER,mean)/10000)
+> > 
+> > # rename NDVI column
+> > names(avg_NDVI_SJER) <- "meanNDVI"
+> > 
+> > # add a site column to our data
+> > avg_NDVI_SJER$site <- "SJER"
+> > 
+> > # add a "year" column to our data
+> > avg_NDVI_SJER$year <- "2011"
+> > 
+> > # Create Julian Day Column 
+> > julianDays_SJER <- gsub(pattern = "X|_SJER_ndvi_crop", #the pattern to find 
+> >             x = row.names(avg_NDVI_SJER), #the object containing the strings
+> >             replacement = "") #what to replace each instance of the pattern with
+> > 
+> > ## Create Date column based on julian day & make julianDay an integer
+> > 
+> > # set the origin for the julian date (1 Jan 2011)
+> > origin<-as.Date ("2011-01-01")
+> > 
+> > #add julianDay values as a column in the data frame
+> > avg_NDVI_SJER$julianDay <- as.integer(julianDays_SJER)
+> > 
+> > # create a date column, 1 once since the origin IS day 1.  
+> > avg_NDVI_SJER$Date<- origin + (avg_NDVI_SJER$julianDay-1)
+> > 
+> > # did it work? 
+> > avg_NDVI_SJER
+> > ~~~
+> > {: .r}
+> {: .solution}
+{: .challenge}
 
 ## Plot NDVI Using ggplot
 We now have a clean data.frame with properly scaled NDVI and Julian days. Let's
@@ -437,15 +475,28 @@ ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI), na.rm=TRUE) +
 
 <img src="../fig/rmd-ggplot-data-1.png" title="plot of chunk ggplot-data" alt="plot of chunk ggplot-data" style="display: block; margin: auto;" />
 
-<div id="challenge" markdown="1">
 
-## Challenge: Plot San Joaquin Experimental Range Data
-
-Create a complementary plot for the SJER data. Plot the data points in a
+> ## Challenge: Plot San Joaquin Experimental Range Data
+> 
+> Create a complementary plot for the SJER data. Plot the data points in a
 different color. 
-</div>
-
-<img src="../fig/rmd-challenge-code-ggplot-data-1.png" title="plot of chunk challenge-code-ggplot-data" alt="plot of chunk challenge-code-ggplot-data" style="display: block; margin: auto;" />
+> 
+> > ## Answers
+> > 
+> > 
+> > ~~~
+> > # plot NDVI
+> > ggplot(avg_NDVI_SJER, aes(julianDay, meanNDVI)) +
+> >   geom_point(size=4,colour = "SpringGreen4") + 
+> >   ggtitle("Landsat Derived NDVI - 2011\n NEON SJER Field Site") +
+> >   xlab("Julian Day") + ylab("Mean NDVI") +
+> >   theme(text = element_text(size=20))
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-ggplot-data-1.png" title="plot of chunk challenge-code-ggplot-data" alt="plot of chunk challenge-code-ggplot-data" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge}
 
 ## Compare NDVI from Two Different Sites in One Plot
 Comparison of plots is often easiest when both plots are side by side. Or, even 
@@ -472,14 +523,29 @@ ggplot(NDVI_HARV_SJER, aes(julianDay, meanNDVI, colour=site)) +
 
 <img src="../fig/rmd-merge-df-single-plot-1.png" title="plot of chunk merge-df-single-plot" alt="plot of chunk merge-df-single-plot" style="display: block; margin: auto;" />
 
-<div id="challenge" markdown="1">
-## Challenge: Plot NDVI with Date
-Plot the SJER and HARV data in one plot but use date, rather than Julian day, 
-on the x-axis. 
-
-</div>
-
-<img src="../fig/rmd-challenge-code-plot2-1.png" title="plot of chunk challenge-code-plot2" alt="plot of chunk challenge-code-plot2" style="display: block; margin: auto;" />
+> ## Challenge: Plot NDVI with Date
+> 
+> Plot the SJER and HARV data in one plot but use date, rather than Julian day, 
+> on the x-axis. 
+> 
+> > ## Answers
+> > 
+> > 
+> > ~~~
+> > # plot NDVI values for both sites
+> > ggplot(NDVI_HARV_SJER, aes(Date, meanNDVI, colour=site)) +
+> >   geom_point(size=4,aes(group=site)) + 
+> >   geom_line(aes(group=site)) +
+> >   ggtitle("Landsat Derived NDVI - 2011\n Harvard Forest vs San Joaquin \n NEON Field Sites") +
+> >   xlab("Date") + ylab("Mean NDVI") +
+> >   scale_colour_manual(values=c("PeachPuff4", "SpringGreen4"))+  # match previous plots
+> >   theme(text = element_text(size=20))
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-plot2-1.png" title="plot of chunk challenge-code-plot2" alt="plot of chunk challenge-code-plot2" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge}
 
 ## Remove Outlier Data
 As we look at these plots we see variation in greenness across the year.
@@ -563,13 +629,14 @@ will be removed from our analysis. We will use 0.1 as an example for this
 tutorials. We can then use the subset function to remove outlier datapoints 
 (below our identified threshold).
 
-<i class="fa fa-star"></i> **Data Tip:** Thresholding, or removing outlier data,
-can be tricky business. In this case, we can be confident that some of our NDVI
-values are not valid due to cloud cover. However, a threshold value may not 
-always be sufficient given 0.1 could be a valid NDVI value in some areas. This
-is where decision making should be fueled by practical scientific knowledge of
-the data and the desired outcomes!
-{: .notice }
+> ## Data Tip
+> Thresholding, or removing outlier data,
+> can be tricky business. In this case, we can be confident that some of our NDVI
+> values are not valid due to cloud cover. However, a threshold value may not 
+> always be sufficient given 0.1 could be a valid NDVI value in some areas. This
+> is where decision making should be fueled by practical scientific knowledge of
+> the data and the desired outcomes!
+{: .callout}
 
 
 ~~~
@@ -680,13 +747,51 @@ write.csv(NDVI_HARV_toWrite, file="meanNDVI_HARV_2011.csv")
 ~~~
 {: .r}
 
-<div id="challenge" markdown="1">
-## Challenge: Write to .csv
-
-1. Create a NDVI .csv file for the NEON SJER field site that is comparable with
-the one we just created for the Harvard Forest. Be sure to inspect for
-questionable values before writing any data to a .csv file. 
-2. Create a NDVI .csv file that stacks data from both field sites.
-</div>
-
-
+> ## Challenge: Write to .csv
+> 
+> 1. Create a NDVI .csv file for the NEON SJER field site that is comparable with
+> the one we just created for the Harvard Forest. Be sure to inspect for
+> questionable values before writing any data to a .csv file. 
+> 2. Create a NDVI .csv file that stacks data from both field sites.
+> 
+> > ## Answers
+> > 
+> > 
+> > ~~~
+> > # retain only rows with meanNDVI>0.1
+> > avg_NDVI_SJER_clean<-subset(avg_NDVI_SJER, meanNDVI>0.1)
+> > 
+> > # create new df to prevent changes to avg_NDVI_HARV
+> > NDVI_SJER_toWrite<-avg_NDVI_SJER_clean
+> > 
+> > # drop the row.names column 
+> > row.names(NDVI_SJER_toWrite)<-NULL
+> > 
+> > # check data frame
+> > head(NDVI_SJER_toWrite)
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> >   meanNDVI site year julianDay       Date
+> > 1 0.529780 SJER 2011        46 2011-02-15
+> > 2 0.554368 SJER 2011        62 2011-03-03
+> > 3 0.601096 SJER 2011        94 2011-04-04
+> > 4 0.555836 SJER 2011       110 2011-04-20
+> > 5 0.538336 SJER 2011       126 2011-05-06
+> > 6 0.400868 SJER 2011       142 2011-05-22
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > # create a .csv of mean NDVI values being sure to give descriptive name
+> > # write.csv(DateFrameName, file="NewFileName")
+> > write.csv(NDVI_SJER_toWrite, file="meanNDVI_SJER_2011.csv")
+> > ~~~
+> > {: .r}
+> {: .solution}
+{: .challenge}
