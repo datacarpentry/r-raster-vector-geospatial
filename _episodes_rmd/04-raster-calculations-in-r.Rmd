@@ -166,19 +166,18 @@ Notice that the range of values for the output CHM is between 0 and 30 meters.
 Does this make sense for trees in Harvard Forest?
 
 > ## Challenge: Explore CHM Raster Values
-> It's often a good idea to explore the range of values in a raster dataset just
-> like we might explore a dataset that we collected in the field.  
 > 
-> 1. What is the min and maximum value for the Harvard Forest Canopy 
-Height Model (`CHM_HARV`) that we just created?
+> It's often a good idea to explore the range of values in a raster dataset just like we might explore a dataset that we collected in the field.  
+> 
+> 1. What is the min and maximum value for the Harvard Forest Canopy Height Model (`CHM_HARV`) that we just created?
 > 2. What are two ways you can check this range of data in `CHM_HARV`? 
 > 3. What is the distribution of all the pixel values in the CHM? 
-> 4. Plot a histogram with 6 bins instead of the default and change the color of
-the histogram. 
-> 5. Plot the `CHM_HARV` raster using breaks that make sense for the data. Include
-> a appropriate color palette for the data, plot title and no axes ticks / labels. 
+> 4. Plot a histogram with 6 bins instead of the default and change the color of the histogram. 
+> 5. Plot the `CHM_HARV` raster using breaks that make sense for the data. Include an appropriate color palette for the data, plot title and no axes ticks / labels. 
+>
 > > ## Answers
-> > ```{r challenge-code-CHM-HARV, include=TRUE, echo=TRUE} 
+> > 
+> > ```{r challenge-code-CHM-HARV, echo=TRUE} 
 > > # 1) 
 > > minValue(CHM_HARV)
 > > maxValue(CHM_HARV)
@@ -226,10 +225,11 @@ them using efficient processing methods. The syntax is
 
 `outputRaster <- overlay(raster1, raster2, fun=functionName)`
 
-<i class="fa fa-star"></i> **Data Tip:** If the rasters are stacked and stored 
-as `RasterStack` or `RasterBrick` objects in `R`, then we should use `calc()`. 
-`overlay()` will not work on stacked rasters. 
-{: .notice}
+> ## Data Tip
+> If the rasters are stacked and stored 
+> as `RasterStack` or `RasterBrick` objects in `R`, then we should use `calc()`. 
+> `overlay()` will not work on stacked rasters. 
+{: .callout}
 
 Let's perform the same subtraction calculation that we calculated above using 
 raster math, using the `overlay()` function.  
@@ -246,12 +246,13 @@ plot(CHM_ov_HARV,
 How do the plots of the CHM created with manual raster math and the `overlay()`
 function compare?  
 
-<i class="fa fa-star"></i> **Data Tip:** A custom function consists of a defined
-set of commands performed on a input object. Custom functions are particularly 
-useful for tasks that need to be repeated over and over in the code. A
-simplified syntax for writing a custom function in R is:
-`functionName <- function(variable1, variable2){WhatYouWantDone, WhatToReturn}`
-{: .notice }
+> ## Data Tip
+> A custom function consists of a defined
+> set of commands performed on a input object. Custom functions are particularly 
+> useful for tasks that need to be repeated over and over in the code. A
+> simplified syntax for writing a custom function in R is:
+> `functionName <- function(variable1, variable2){WhatYouWantDone, WhatToReturn}`
+{: .callout}
 
 ## Export a GeoTIFF
 Now that we've created a new raster, let's export the data as a `GeoTIFF` using

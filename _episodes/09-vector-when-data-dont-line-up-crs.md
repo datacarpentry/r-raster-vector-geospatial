@@ -13,7 +13,7 @@ keypoints:
 authors: [Joseph Stachelek, Leah Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2015-10-23
-lastModified: 2017-09-08
+lastModified: 2017-09-14
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -28,7 +28,21 @@ them in non-gui tools such as R."
 
 
 
-## About
+> ## Things You’ll Need To Complete This Tutorial
+> **R Skill Level:** Intermediate - you've got the basics of `R` down.
+> You will need the most current version of `R` and, preferably, `RStudio` loaded 
+> on your computer to complete this tutorial.
+> 
+> ### Install R Packages
+> 
+> * **raster:** `install.packages("raster")`
+> * **sf:** `install.packages("sf")`
+> 
+> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
+> 
+> ## Data to Download
+> 
+{: .prereq} 
 
 In this tutorial, we will create a base map of our study site using a United States 
 state and country boundary accessed from the 
@@ -36,26 +50,6 @@ state and country boundary accessed from the
 We will learn how to map vector data that are in different `CRS` and thus 
 don't line up on a map. 
 
-**R Skill Level:** Intermediate - you've got the basics of `R` down.
-
-<div id="objectives" markdown="1">
-
-## Things You’ll Need To Complete This Tutorial
-You will need the most current version of `R` and, preferably, `RStudio` loaded 
-on your computer to complete this tutorial.
-
-### Install R Packages
-
-* **raster:** `install.packages("raster")`
-* **sf:** `install.packages("sf")`
-
-* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
-
-## Data to Download
-
-****
-
-</div>
 
 ## Working With Spatial Data From Different Sources
 
@@ -460,10 +454,11 @@ Note that there are no specified units above. This is because this geographic
 coordinate reference system is in latitude and longitude which is most 
 often recorded in *Decimal Degrees*.
 
-<i class="fa fa-star"></i> **Data Tip:** the last portion of each `proj4` string 
-is `+towgs84=0,0,0 `. This is a conversion factor that is used if a datum 
-conversion is required. We will not deal with datums in this tutorial series.
-{: .notice}
+> ## Data Tip
+> the last portion of each `proj4` string 
+> is `+towgs84=0,0,0 `. This is a conversion factor that is used if a datum 
+> conversion is required. We will not deal with datums in this tutorial series.
+{: .callout}
 
 ## CRS Units - View Object Extent
 
@@ -532,10 +527,11 @@ The `spTransform()` function requires two inputs:
 use the `crs()` of the `State.Boundary.US` object as follows:
 `crs(State.Boundary.US)`
 
-<i class="fa fa-star"></i> **Data Tip:** `spTransform()` will only work if your 
-original spatial object has a CRS assigned to it AND if that CRS is the 
-correct CRS!
-{: .notice}
+> ## Data Tip
+> `spTransform()` will only work if your 
+> original spatial object has a CRS assigned to it AND if that CRS is the 
+> correct CRS!
+{: .callout}
 
 Next, let's reproject our point layer into the geographic - latitude and
 longitude `WGS84` coordinate reference system (CRS).
@@ -610,18 +606,59 @@ Reprojecting our data ensured that things line up on our map! It will also
 allow us to perform any required geoprocessing (spatial calculations /
 transformations) on our data.
 
-<div id="challenge" markdown="1">
-## Challenge - Reproject Spatial Data
-
-Create a map of the North Eastern United States as follows:
-
-1. Import and plot `Boundary-US-State-NEast.shp`. Adjust line width as necessary.
-2. **Reproject** the layer into UTM zone 18 north.
-3. Layer the Fisher Tower point location `point_HARV` on top of the above plot.
-4. Add a **title** to your plot.
-5. Add a **legend** to your plot that shows both the state boundary (line) and
-the Tower location point.
-
-</div>
-
-<img src="../fig/rmd-challenge-code-MASS-Map-1.png" title="plot of chunk challenge-code-MASS-Map" alt="plot of chunk challenge-code-MASS-Map" style="display: block; margin: auto;" />
+> ## Challenge - Reproject Spatial Data
+> 
+> Create a map of the North Eastern United States as follows:
+> 
+> 1. Import and plot `Boundary-US-State-NEast.shp`. Adjust line width as necessary.
+> 2. **Reproject** the layer into UTM zone 18 north.
+> 3. Layer the Fisher Tower point location `point_HARV` on top of the above plot.
+> 4. Add a **title** to your plot.
+> 5. Add a **legend** to your plot that shows both the state boundary (line) and
+> the Tower location point.
+> 
+> > ## Answers
+> >  
+> > 
+> > ~~~
+> > # import mass boundary layer
+> > # read the .csv file
+> > NE.States.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp")
+> > # view crs
+> > st_crs(NE.States.Boundary.US)
+> > 
+> > # create CRS object
+> > UTM_CRS <- st_crs(point_HARV)
+> > UTM_CRS
+> > 
+> > # reproject line and point data
+> > NE.States.Boundary.US.UTM  <- st_transform(NE.States.Boundary.US,
+> >                                 UTM_CRS)
+> > NE.States.Boundary.US.UTM
+> > 
+> > # plot state boundaries  
+> > plot(NE.States.Boundary.US.UTM$geometry, 
+> >      main="Map of Northeastern US\n With Fisher Tower Location - UTM Zone 18N",
+> >      border="gray18",
+> >      lwd=2)
+> > 
+> > # add point tower location
+> > plot(point_HARV$geometry, 
+> >      pch = 19, 
+> >      col = "purple",
+> >      add=TRUE)
+> > 
+> > # add legend
+> > # to create a custom legend, we need to fake it
+> > legend("bottomright", 
+> >        legend=c("State Boundary","Fisher Tower"),
+> >        lty=c(1,NA),
+> >        pch=c(NA,19),
+> >        col=c("gray18","purple"),
+> >        bty="n")
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-MASS-Map-1.png" title="plot of chunk challenge-code-MASS-Map" alt="plot of chunk challenge-code-MASS-Map" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge}

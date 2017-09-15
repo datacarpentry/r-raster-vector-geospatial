@@ -15,7 +15,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2014-11-26
-lastModified: 2017-09-08
+lastModified: 2017-09-14
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series, raster-time-series]
@@ -32,37 +32,29 @@ comments: true
 
 
 
-## About
+> ## Things You’ll Need To Complete This Tutorial
+> **R Skill Level:** Intermediate - you've got the basics of `R` down.
+> You will need the most current version of `R` and, preferably, `RStudio` loaded
+> on your computer to complete this tutorial.
+> 
+> ### Install R Packages
+> 
+> * **raster:** `install.packages("raster")`
+> * **rgdal:** `install.packages("rgdal")`
+> 
+> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
+> 
+> #### Data to Download
+> 
+> ### Additional Resources
+> * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
+> Read more about the `raster` package in `R`.</a>
+{: .prereq}
+
 This tutorial covers how to work with and plot a raster time series, using an 
 `R` `RasterStack` object. It also covers practical assessment of data quality in
 remote sensing derived imagery.
 
-**R Skill Level:** Intermediate - you've got the basics of `R` down.
-
-<div id="objectives" markdown="1">
-
-## Things You’ll Need To Complete This Tutorial
-You will need the most current version of `R` and, preferably, `RStudio` loaded
-on your computer to complete this tutorial.
-
-### Install R Packages
-
-* **raster:** `install.packages("raster")`
-* **rgdal:** `install.packages("rgdal")`
-
-* [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
-
-#### Data to Download
-
-****
-
-****
-
-### Additional Resources
-* <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
-Read more about the `raster` package in `R`.</a>
-
-</div>
 
 ## About Raster Time Series Data
 
@@ -140,9 +132,35 @@ In this tutorial, we will use the `raster` and `rgdal` libraries.
 ~~~
 # load packages
 library(raster)
+~~~
+{: .r}
+
+
+
+~~~
+Loading required package: sp
+~~~
+{: .output}
+
+
+
+~~~
 library(rgdal)
 ~~~
 {: .r}
+
+
+
+~~~
+rgdal: version: 1.2-8, (SVN revision 663)
+ Geospatial Data Abstraction Library extensions to R successfully loaded
+ Loaded GDAL runtime: GDAL 2.2.1, released 2017/06/23
+ Path to GDAL shared files: /usr/share/gdal/2.2
+ Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
+ Path to PROJ.4 shared files: (autodetected)
+ Linking to sp version: 1.2-5 
+~~~
+{: .output}
 
 To begin, we will create a list of raster files using the `list.files()` 
 function in `R`. This list will be used to generate a `RasterStack`. We will
@@ -291,17 +309,25 @@ data cover, is the zone which is used for the final CRS. Thus, our field site at
 Harvard Forest is located in UTM Zone 18, but the Landsat data is in a `CRS` of
 UTM Zone 19.
 
-<div id="challenge" markdown="1">
-## Challenge: Raster Metadata
-Answer the following questions about our `RasterStack`.
-
-1. What is the CRS?
-2. What is the x and y resolution of the data? 
-3. What units is the above resolution in?
-
-</div>
-
-
+> ## Challenge: Raster Metadata
+> 
+> Answer the following questions about our `RasterStack`.
+> 
+> 1. What is the CRS?
+> 2. What is the x and y resolution of the data? 
+> 3. What units is the above resolution in?
+> 
+> > ## Answers
+> > 
+> > 
+> > ~~~
+> > # 1. UTM zone 19 WGS 84
+> > # 2. 30x30 meters
+> > # 3. meters
+> > ~~~
+> > {: .r}
+> {: .solution}
+{: .challenge}
 
 ## Plotting Time Series Data
 Once we have created our `RasterStack`, we can visualize our data. We can use
@@ -333,12 +359,13 @@ quickly apply this factor using raster math on the entire stack as follows:
 
 `raster_stack_object_name / 10000`
 
-<i class="fa fa-star"></i> **Data Tip:** We can make this plot  
-even prettier by fixing the individual tile names, adding an plot title and by
-using the (`levelplot`) function. This is covered in the NEON Data Skills 
-[Plot Time Series Rasters in R ]({{ site.baseurl }}/R/Plot-Raster-Times-Series-Data-In-R/)
-tutorial. 
-{: .notice }
+> ## Data Tip
+> We can make this plot  
+> even prettier by fixing the individual tile names, adding an plot title and by
+> using the (`levelplot`) function. This is covered in the NEON Data Skills 
+> [Plot Time Series Rasters in R ]({{ site.baseurl }}/R/Plot-Raster-Times-Series-Data-In-R/)
+> tutorial. 
+{: .callout}
 
 
 ~~~
@@ -412,22 +439,78 @@ What is our next step?
 Let's have a look at the source Landsat imagery that was partially used used to 
 derive our NDVI rasters to try to understand what appears to be outlier NDVI values.
 
-<div id="challenge" markdown="1">
-## Challenge: Examine RGB Raster Files
-
-1. View the imagery located in the `/NEON-DS-Landsat-NDVI/HARV/2011` directory. 
-2. Plot the RGB images for the Julian days 277 and 293 then plot and compare
-those images to jdays 133 and 197.
-3. Does the RGB imagery from these two days explain the low NDVI values observed
-on these days?  
-
-HINT: if you want to plot 4 images in a tiled set, you can use 
-`par(mfrow=c(2,2))` to create a 2x2 tiled layout. When you are done, be sure to
-reset your layout using: `par(mfrow=c(1,1))`.
-
-</div>
-
-<img src="../fig/rmd-view-all-rgb-1.png" title="plot of chunk view-all-rgb" alt="plot of chunk view-all-rgb" style="display: block; margin: auto;" />
+> ## Challenge: Examine RGB Raster Files
+> 
+> 1. View the imagery located in the `/NEON-DS-Landsat-NDVI/HARV/2011` directory. 
+> 2. Plot the RGB images for the Julian days 277 and 293 then plot and compare
+> those images to jdays 133 and 197.
+> 3. Does the RGB imagery from these two days explain the low NDVI values observed
+> on these days?  
+> 
+> HINT: if you want to plot 4 images in a tiled set, you can use 
+> `par(mfrow=c(2,2))` to create a 2x2 tiled layout. When you are done, be sure to
+> reset your layout using: `par(mfrow=c(1,1))`.
+> 
+> > ## Answers
+> > 
+> > 
+> > ~~~
+> > # reset layout
+> > par(mfrow=c(2,2))
+> > 
+> > # open up file for Jday 277 
+> > RGB_277 <- 
+> >   stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif")
+> > 
+> > plotRGB(RGB_277)
+> > 
+> > # open up file for jday 293
+> > RGB_293 <- 
+> >   stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")
+> > 
+> > plotRGB(RGB_293)
+> > 
+> > # view a few other images
+> > # open up file for jday 133
+> > RGB_133 <- 
+> >   stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
+> > 
+> > plotRGB(RGB_133, 
+> >         stretch="lin")
+> > 
+> > # open up file for jday 197
+> > RGB_197 <- 
+> >   stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/197_HARV_landRGB.tif")
+> > 
+> > plotRGB(RGB_197, 
+> >         stretch="lin")
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-view-all-rgb-1.png" title="plot of chunk view-all-rgb" alt="plot of chunk view-all-rgb" style="display: block; margin: auto;" />
+> > 
+> > ~~~
+> > # create list of files to make raster stack
+> > # RGB_HARV_allCropped <-  list.files("NEON-DS-Landsat-NDVI/HARV/2011/RGB/", 
+> > #                              full.names=TRUE, 
+> > #                              pattern = ".tif$")
+> > 
+> > 
+> > # create a layout
+> > # par(mfrow=c(4,4))
+> > 
+> > # Super efficient code - plot using a loop
+> > # for (aFile in RGB_HARV_allCropped){
+> > #  NDVI.rastStack <- stack(aFile)
+> > #  plotRGB(NDVI.rastStack, stretch="lin")
+> > # }
+> > 
+> > # reset layout
+> > par(mfrow=c(1,1))
+> > ~~~
+> > {: .r}
+> {: .solution}
+{: .challenge}
 
 ## Explore The Data's Source
 The third challenge question, "Does the RGB imagery from these two days explain 
