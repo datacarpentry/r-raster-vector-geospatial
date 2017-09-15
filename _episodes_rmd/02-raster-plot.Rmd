@@ -234,7 +234,7 @@ plot(DSM_hill_HARV,
 > Turn off, or hide, the legend on a plot using `legend=FALSE`.
 {: .callout}
 
-We can layer another raster on top of our hillshade using by using `add=TRUE`.
+We can layer another raster on top of our hillshade using by using `add = TRUE`.
 Let's overlay `DSM_HARV` on top of the `hill_HARV`.
 
 ``` {r overlay-hillshade}
