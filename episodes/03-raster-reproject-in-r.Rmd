@@ -106,7 +106,7 @@ top of our hillshade. The hillshade plotted just fine on it's own. Let's try to
 plot the DTM on it's own to make sure there are data there.
 
 <i class="fa fa-star"></i> **Code Tip:** For boolean `R` elements, such as
- `add=TRUE`, you can use `T` and `F` in place of `TRUE` and `FALSE`.
+ `add = TRUE`, you can use `T` and `F` in place of `TRUE` and `FALSE`.
 {: .notice}
 
 ```{r plot-DTM }
