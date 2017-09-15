@@ -82,7 +82,7 @@ DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.t
 ```
 
 First, let's plot our Digital Surface Model object (`DSM_HARV`) using the
-`plot()` function. We add a title using the argument `main ="title"`.
+`plot()` function. We add a title using the argument `main = "title"`.
 
 ```{r hist-raster }
 # Plot raster object
@@ -203,7 +203,7 @@ plot(DSM_HARV,
 > >      #breaks = c(305, 323.5, 342, 360.5, 379, 397.5, 417),  #manual entry
 > >      breaks = seq(305, 417, by=18.5),  #define start & end, and interval
 > >      col = terrain.colors (6),
-> >       main ="Digital Surface Model\nNEON Harvard Forest Field Site", 
+> >       main = "Digital Surface Model\nNEON Harvard Forest Field Site", 
 > >      xlab = "UTM Westing Coordinate", 
 > >      ylab = "UTM Northing Coordinate")
 > > ```

@@ -315,13 +315,13 @@ The `plot()` function can be used for basic plotting of spatial objects.
 We use the `add = TRUE` argument to overlay shapefiles on top of each other, as
 we would when creating a map in a typical GIS application like QGIS.
 
-We can use `main =""` to give our plot a title. If we want the title to span two
+We can use `main = ""` to give our plot a title. If we want the title to span two
 lines, we use `\n` where the line should break.
 
 ```{r plot-multiple-shapefiles}
 # Plot multiple shapefiles
 plot(aoiBoundary_HARV, col = "lightgreen", 
-     main ="NEON Harvard Forest\nField Site")
+     main = "NEON Harvard Forest\nField Site")
 plot(lines_HARV, add = TRUE)
 
 # use the pch element to adjust the symbology of the points
@@ -359,7 +359,7 @@ plot(point_HARV, add  = TRUE, pch = 19, col = "purple")
 > > chm_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 > > 
 > > plot(chm_HARV,
-> >      main ="Map of Study Area\n w/ Canopy Height Model\nNEON Harvard Forest Field Site")
+> >      main = "Map of Study Area\n w/ Canopy Height Model\nNEON Harvard Forest Field Site")
 > > 
 > > plot(lines_HARV, 
 > >      add = TRUE,
