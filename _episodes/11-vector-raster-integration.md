@@ -12,7 +12,7 @@ keypoints:
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2015-10-23
-lastModified: 2017-09-14
+lastModified: 2017-09-18
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -158,7 +158,7 @@ library(raster)
 
 # Imported in Vector 00: Vector Data in R - Open & Plot Data
 # shapefile 
-aoiBoundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
+aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 # Import a line shapefile
 lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 # Import a point shapefile 
@@ -181,7 +181,7 @@ spatial object as the cropping boundary.
 ~~~
 # plot full CHM
 plot(chm_HARV,
-     main="LiDAR CHM - Not Cropped\nNEON Harvard Forest Field Site")
+     main = "LiDAR CHM - Not Cropped\nNEON Harvard Forest Field Site")
 ~~~
 {: .r}
 
@@ -189,16 +189,16 @@ plot(chm_HARV,
 
 ~~~
 # crop the chm
-chm_HARV_Crop <- crop(x = chm_HARV, y = as(aoiBoundary_HARV, "Spatial"))
+chm_HARV_Crop <- crop(x = chm_HARV, y = as(aoi_boundary_HARV, "Spatial"))
 
 # plot full CHM
 plot(extent(chm_HARV),
-     lwd=4,col="springgreen",
-     main="LiDAR CHM - Cropped\nNEON Harvard Forest Field Site",
-     xlab="easting", ylab="northing")
+     lwd = 4,col = "springgreen",
+     main = "LiDAR CHM - Cropped\nNEON Harvard Forest Field Site",
+     xlab = "easting", ylab = "northing")
 
 plot(chm_HARV_Crop,
-     add=TRUE)
+     add = TRUE)
 ~~~
 {: .r}
 
@@ -206,7 +206,7 @@ plot(chm_HARV_Crop,
 
 We can see from the plot above that the full CHM extent (plotted in green) is
 much larger than the resulting cropped raster. Our new cropped CHM now has the 
-same extent as the `aoiBoundary_HARV` object that was used as a crop extent 
+same extent as the `aoi_boundary_HARV` object that was used as a crop extent 
 (blue boarder below).
 
 <img src="../fig/rmd-view-crop-extent-1.png" title="plot of chunk view-crop-extent" alt="plot of chunk view-crop-extent" style="display: block; margin: auto;" />
@@ -252,7 +252,7 @@ ymax        : 4713359
 
 
 ~~~
-st_bbox(aoiBoundary_HARV)
+st_bbox(aoi_boundary_HARV)
 ~~~
 {: .r}
 
@@ -276,7 +276,7 @@ vegetation plot locations with the Canopy Height Model information.
 > If you completed
 > [.csv to Shapefile in R]({{site.baseurl}}/R/csv-to-shapefile-R/)
 > you have these plot locations as the spatial `R` spatial object
-> `plot.locationsSp_HARV`. Otherwise, import the locations from the
+> `plot_locations_sp_HARV`. Otherwise, import the locations from the
 > `\HARV\PlotLocations_HARV.shp` shapefile in the downloaded data. 
 > 
 > > ## Answers
@@ -287,15 +287,15 @@ vegetation plot locations with the Canopy Height Model information.
 > > plot.locationSp_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
 > > 
 > > # crop the chm 
-> > CHM_plots_HARVcrop <- crop(x = chm_HARV, y = as(plot.locationsSp_HARV, "Spatial"))
+> > CHM_plots_HARVcrop <- crop(x = chm_HARV, y = as(plot_locations_sp_HARV, "Spatial"))
 > > 
 > > plot(CHM_plots_HARVcrop,
-> >      main="Study Plot Locations\n NEON Harvard Forest")
+> >      main = "Study Plot Locations\n NEON Harvard Forest")
 > > 
 > > plot(plot.locationSp_HARV$geometry, 
-> >      add=TRUE,
+> >      add = TRUE, 
 > >      pch=19,
-> >      col="blue")
+> >      col = "blue")
 > > ~~~
 > > {: .r}
 > > 
@@ -347,11 +347,11 @@ raster.
 CHM_HARV_manualCrop <- crop(x = chm_HARV, y = new.extent)
 
 # plot extent boundary and newly cropped raster
-plot(aoiBoundary_HARV$geometry, 
+plot(aoi_boundary_HARV$geometry, 
      main = "Manually Cropped Raster\n NEON Harvard Forest Field Site")
 plot(new.extent, 
-     col="brown", 
-     lwd=4,
+     col = "brown", 
+     lwd = 4,
      add = TRUE)
 plot(CHM_HARV_manualCrop, 
      add = TRUE)
@@ -361,7 +361,7 @@ plot(CHM_HARV_manualCrop,
 <img src="../fig/rmd-crop-using-drawn-extent-1.png" title="plot of chunk crop-using-drawn-extent" alt="plot of chunk crop-using-drawn-extent" style="display: block; margin: auto;" />
 
 Notice that our manual `new.extent` (in red) is smaller than the
-`aoiBoundary_HARV` and that the raster is now the same as the `new.extent`
+`aoi_boundary_HARV` and that the raster is now the same as the `new.extent`
 object.
  
 See the documentation for the `extent()` function for more ways
@@ -405,8 +405,8 @@ Forest field site.
 # extract tree height for AOI
 # set df=TRUE to return a data.frame rather than a list of values
 tree_height <- extract(x = chm_HARV, 
-                       y = as(aoiBoundary_HARV, "Spatial"), 
-                       df=TRUE)
+                       y = as(aoi_boundary_HARV, "Spatial"), 
+                       df = TRUE)
 
 # view the object
 head(tree_height)
@@ -459,9 +459,9 @@ site.
 ~~~
 # view histogram of tree heights in study area
 hist(tree_height$HARV_chmCrop, 
-     main="Histogram of CHM Height Values (m) \nNEON Harvard Forest Field Site",
-     col="springgreen",
-     xlab="Tree Height", ylab="Frequency of Pixels")
+     main = "Histogram of CHM Height Values (m) \nNEON Harvard Forest Field Site",
+     col = "springgreen",
+     xlab = "Tree Height", ylab = "Frequency of Pixels")
 ~~~
 {: .r}
 
@@ -495,9 +495,9 @@ a mean height value for our AOI.
 # extract the average tree height (calculated using the raster pixels)
 # located within the AOI polygon
 av_tree_height_AOI <- extract(x = chm_HARV, 
-                              y = as(aoiBoundary_HARV, "Spatial"),
-                              fun=mean, 
-                              df=TRUE)
+                              y = as(aoi_boundary_HARV, "Spatial"),
+                              fun = mean, 
+                              df = TRUE)
 
 # view output
 av_tree_height_AOI
@@ -565,9 +565,9 @@ attr(,"class")
 # use a buffer of 20 meters and mean function (fun) 
 av_tree_height_tower <- extract(x = chm_HARV, 
                                 y = as(point_HARV, "Spatial"), 
-                                buffer=20,
-                                fun=mean, 
-                                df=TRUE)
+                                buffer = 20,
+                                fun = mean, 
+                                df = TRUE)
 
 # view data
 head(av_tree_height_tower)
@@ -599,8 +599,8 @@ nrow(av_tree_height_tower)
 
 > ## Challenge: Extract Raster Height Values For Plot Locations
 > 
-> Use the plot location points shapefile `HARV/plot.locations_HARV.shp` or spatial
-> object `plot.locationsSp_HARV` to extract an average tree height value for the
+> Use the plot location points shapefile `HARV/plot_locations_HARV.shp` or spatial
+> object `plot_locations_sp_HARV` to extract an average tree height value for the
 > area within 20m of each vegetation plot location in the study area.
 > 
 > Create a simple plot showing the mean tree height of each plot using the `plot()`
@@ -611,11 +611,11 @@ nrow(av_tree_height_tower)
 > > 
 > > ~~~
 > > # first import the plot location file.
-> > plot.locationsSp_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
+> > plot_locations_sp_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
 > > 
 > > # extract data at each plot location
 > > meanTreeHt_plots_HARV <- extract(x = chm_HARV, 
-> >                                y = as(plot.locationsSp_HARV, "Spatial"), 
+> >                                y = as(plot_locations_sp_HARV, "Spatial"), 
 > >                                buffer=20,
 > >                                fun=mean, 
 > >                                df=TRUE)
@@ -625,8 +625,8 @@ nrow(av_tree_height_tower)
 > > 
 > > # plot data
 > > plot(meanTreeHt_plots_HARV,
-> >      main="MeanTree Height at each Plot\nNEON Harvard Forest Field Site",
-> >      xlab="Plot ID", ylab="Tree Height (m)",
+> >      main = "MeanTree Height at each Plot\nNEON Harvard Forest Field Site",
+> >      xlab = "Plot ID", ylab = "Tree Height (m)",
 > >      pch=16)
 > > ~~~
 > > {: .r}

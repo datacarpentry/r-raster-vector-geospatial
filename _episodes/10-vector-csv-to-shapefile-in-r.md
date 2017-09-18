@@ -14,7 +14,7 @@ keypoints:
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2015-10-23
-lastModified: 2017-09-14
+lastModified: 2017-09-18
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -124,12 +124,12 @@ locations at the NEON Harvard Forest Field Site (`HARV_PlotLocations.csv`) in
 
 ~~~
 # Read the .csv file
-plot.locations_HARV <- 
+plot_locations_HARV <- 
   read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_PlotLocations.csv",
            stringsAsFactors = FALSE)
 
 # look at the data structure
-str(plot.locations_HARV)
+str(plot_locations_HARV)
 ~~~
 {: .r}
 
@@ -156,7 +156,7 @@ str(plot.locations_HARV)
 ~~~
 {: .output}
 
-Also note that `plot.locations_HARV` is a `data.frame` that contains 21 
+Also note that `plot_locations_HARV` is a `data.frame` that contains 21 
 locations (rows) and 15 variables (attributes). 
 
 Next, let's identify explore  `data.frame` to determine whether it contains
@@ -172,7 +172,7 @@ Let's check out the column `names` of our file.
 
 ~~~
 # view column names
-names(plot.locations_HARV)
+names(plot_locations_HARV)
 ~~~
 {: .r}
 
@@ -189,13 +189,13 @@ names(plot.locations_HARV)
 ## Identify X,Y Location Columns
 
 View the column names, we can see that our `data.frame`  that contains several 
-fields that might contain spatial information. The `plot.locations_HARV$easting`
-and `plot.locations_HARV$northing` columns contain coordinate values. 
+fields that might contain spatial information. The `plot_locations_HARV$easting`
+and `plot_locations_HARV$northing` columns contain coordinate values. 
 
 
 ~~~
 # view first 6 rows of the X and Y columns
-head(plot.locations_HARV$easting)
+head(plot_locations_HARV$easting)
 ~~~
 {: .r}
 
@@ -209,7 +209,7 @@ head(plot.locations_HARV$easting)
 
 
 ~~~
-head(plot.locations_HARV$northing)
+head(plot_locations_HARV$northing)
 ~~~
 {: .r}
 
@@ -225,7 +225,7 @@ head(plot.locations_HARV$northing)
 ~~~
 # note that  you can also call the same two columns using their COLUMN NUMBER
 # view first 6 rows of the X and Y columns
-head(plot.locations_HARV[,1])
+head(plot_locations_HARV[, 1])
 ~~~
 {: .r}
 
@@ -239,7 +239,7 @@ head(plot.locations_HARV[,1])
 
 
 ~~~
-head(plot.locations_HARV[,2])
+head(plot_locations_HARV[, 2])
 ~~~
 {: .r}
 
@@ -270,7 +270,7 @@ Following the `easting` and `northing` columns, there is a `geodeticDa` and a
 
 ~~~
 # view first 6 rows of the X and Y columns
-head(plot.locations_HARV$geodeticDa)
+head(plot_locations_HARV$geodeticDa)
 ~~~
 {: .r}
 
@@ -284,7 +284,7 @@ head(plot.locations_HARV$geodeticDa)
 
 
 ~~~
-head(plot.locations_HARV$utmZone)
+head(plot_locations_HARV$utmZone)
 ~~~
 {: .r}
 
@@ -436,10 +436,10 @@ We will use the `SpatialPointsDataFrame()` function to perform the conversion.
 
 ~~~
 # note that the easting and northing columns are in columns 1 and 2
-plot.locationsSp_HARV <- st_as_sf(plot.locations_HARV, coords = c("easting", "northing"), crs = utm18nCRS)
+plot_locations_sp_HARV <- st_as_sf(plot_locations_HARV, coords = c("easting", "northing"), crs = utm18nCRS)
 
 # look at CRS
-st_crs(plot.locationsSp_HARV)
+st_crs(plot_locations_sp_HARV)
 ~~~
 {: .r}
 
@@ -463,8 +463,8 @@ We now have a spatial `R` object, we can plot our newly created spatial object.
 
 ~~~
 # plot spatial object
-plot(plot.locationsSp_HARV$geometry, 
-     main="Map of Plot Locations")
+plot(plot_locations_sp_HARV$geometry, 
+     main = "Map of Plot Locations")
 ~~~
 {: .r}
 
@@ -489,7 +489,7 @@ series, you can skip this code as you have already created this object.)
 
 ~~~
 # create boundary object 
-aoiBoundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
+aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 ~~~
 {: .r}
 
@@ -511,12 +511,12 @@ To begin, let's plot our `aoiBoundary` object with our vegetation plots.
 
 ~~~
 # plot Boundary
-plot(aoiBoundary_HARV$geometry,
-     main="AOI Boundary\nNEON Harvard Forest Field Site")
+plot(aoi_boundary_HARV$geometry,
+     main = "AOI Boundary\nNEON Harvard Forest Field Site")
 
 # add plot locations
-plot(plot.locationsSp_HARV$geometry, 
-     pch=8, add=TRUE)
+plot(plot_locations_sp_HARV$geometry, 
+     pch = 8, add = TRUE)
 ~~~
 {: .r}
 
@@ -525,7 +525,7 @@ plot(plot.locationsSp_HARV$geometry,
 ~~~
 # no plots added, why? CRS?
 # view CRS of each
-st_crs(aoiBoundary_HARV)
+st_crs(aoi_boundary_HARV)
 ~~~
 {: .r}
 
@@ -546,7 +546,7 @@ attr(,"class")
 
 
 ~~~
-st_crs(plot.locationsSp_HARV)
+st_crs(plot_locations_sp_HARV)
 ~~~
 {: .r}
 
@@ -571,7 +571,7 @@ locations are not rendered. We can see that our data are in the same projection
 
 ~~~
 # view extent of each
-st_bbox(aoiBoundary_HARV)
+st_bbox(aoi_boundary_HARV)
 ~~~
 {: .r}
 
@@ -586,7 +586,7 @@ st_bbox(aoiBoundary_HARV)
 
 
 ~~~
-st_bbox(plot.locationsSp_HARV)
+st_bbox(plot_locations_sp_HARV)
 ~~~
 {: .r}
 
@@ -602,37 +602,37 @@ st_bbox(plot.locationsSp_HARV)
 
 ~~~
 # add extra space to right of plot area; 
-# par(mar=c(5.1, 4.1, 4.1, 8.1), xpd=TRUE)
+# par(mar = c(5.1, 4.1, 4.1, 8.1), xpd=TRUE)
 
-plot(st_convex_hull(st_sfc(st_union(plot.locationsSp_HARV))),
-     col="purple", 
-     xlab="easting",
-     ylab="northing", lwd=8,
-     main="Extent Boundary of Plot Locations \nCompared to the AOI Spatial Object",
-     ylim=c(4712400,4714000)) # extent the y axis to make room for the legend
+plot(st_convex_hull(st_sfc(st_union(plot_locations_sp_HARV))),
+     col = "purple", 
+     xlab = "easting",
+     ylab = "northing", lwd = 8,
+     main = "Extent Boundary of Plot Locations \nCompared to the AOI Spatial Object",
+     ylim = c(4712400,4714000)) # extent the y axis to make room for the legend
 
-plot(aoiBoundary_HARV$geometry, 
-     add=TRUE,
-     lwd=6,
-     col="springgreen")
+plot(aoi_boundary_HARV$geometry, 
+     add = TRUE, 
+     lwd = 6,
+     col = "springgreen")
 
 legend("bottomright",
-       #inset=c(-0.5,0),
-       legend=c("Layer One Extent", "Layer Two Extent"),
-       bty="n", 
-       col=c("purple","springgreen"),
-       cex=.8,
-       lty=c(1,1),
-       lwd=6)
+       #inset = c(-0.5,0),
+       legend = c("Layer One Extent", "Layer Two Extent"),
+       bty = "n", 
+       col = c("purple", "springgreen"),
+       cex = .8,
+       lty = c(1, 1),
+       lwd = 6)
 ~~~
 {: .r}
 
 <img src="../fig/rmd-compare-extents-1.png" title="plot of chunk compare-extents" alt="plot of chunk compare-extents" style="display: block; margin: auto;" />
 
-The **extents** of our two objects are **different**. `plot.locationsSp_HARV` is
-much larger than `aoiBoundary_HARV`. When we plot `aoiBoundary_HARV` first, `R`
+The **extents** of our two objects are **different**. `plot_locations_sp_HARV` is
+much larger than `aoi_boundary_HARV`. When we plot `aoi_boundary_HARV` first, `R`
 uses the extent of that object to as the plot extent. Thus the points in the 
-`plot.locationsSp_HARV` object are not rendered. To fix this, we can manually
+`plot_locations_sp_HARV` object are not rendered. To fix this, we can manually
 assign the plot extent using `xlims` and `ylims`. We can grab the extent
 values from the spatial object that has a larger extent. Let's try it.
 
@@ -649,7 +649,7 @@ values from the spatial object that has a larger extent. Let's try it.
 
 
 ~~~
-plotLoc.extent <- st_bbox(plot.locationsSp_HARV)
+plotLoc.extent <- st_bbox(plot_locations_sp_HARV)
 plotLoc.extent
 ~~~
 {: .r}
@@ -672,25 +672,24 @@ ymin <- plotLoc.extent[2]
 ymax <- plotLoc.extent[4]
 
 # adjust the plot extent using x and ylim
-plot(aoiBoundary_HARV$geometry,
-     main="NEON Harvard Forest Field Site\nModified Extent",
-     border="darkgreen",
-     xlim=c(xmin,xmax),
-     ylim=c(ymin,ymax))
+plot(aoi_boundary_HARV$geometry,
+     main = "NEON Harvard Forest Field Site\nModified Extent",
+     border = "darkgreen",
+     xlim = c(xmin, xmax),
+     ylim = c(ymin, ymax))
 
-plot(plot.locationsSp_HARV$geometry, 
-     pch=8,
-		 col="purple",
-		 add=TRUE)
+plot(plot_locations_sp_HARV$geometry, 
+		 col = "purple",
+		 add = TRUE)
 
 # add a legend
 legend("bottomright", 
-       legend=c("Plots", "AOI Boundary"),
-       pch=c(8,NA),
-       lty=c(NA,1),
-       bty="n", 
-       col=c("purple","darkgreen"),
-       cex=.8)
+       legend = c("Plots", "AOI Boundary"),
+       pch = c(8,NA),
+       lty = c(NA,1),
+       bty = "n", 
+       col = c("purple","darkgreen"),
+       cex = .8)
 ~~~
 {: .r}
 
@@ -724,25 +723,25 @@ legend("bottomright",
 > > ~~~
 > > ## 1
 > > # Read the .csv file
-> > newPlot.locations_HARV <- 
+> > newplot_locations_HARV <- 
 > >   read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_2NewPhenPlots.csv",
 > >            stringsAsFactors = FALSE)
 > > 
 > > # look at the data structure -> locations in lat/long
-> > str(newPlot.locations_HARV)
+> > str(newplot_locations_HARV)
 > > 
 > > ## 2
 > > ## Find/ establish a CRS for new points
 > > # Import the US boundary which is in a geographic WGS84 coordinate system
-> > Country.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp")
+> > country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp")
 > > 
 > > # grab the geographic CRS
-> > geogCRS <- st_crs(Country.Boundary.US)
+> > geogCRS <- st_crs(country_boundary_US)
 > > geogCRS
 > > 
 > > ## Convert to spatial data frame
 > > # note that the easting and northing columns are in columns 1 and 2
-> > newPlot.Sp.HARV <- st_as_sf(newPlot.locations_HARV, coords = c("decimalLon", "decimalLat"), crs = geogCRS)
+> > newPlot.Sp.HARV <- st_as_sf(newplot_locations_HARV, coords = c("decimalLon", "decimalLat"), crs = geogCRS)
 > > 
 > > # view CRS
 > > st_crs(newPlot.Sp.HARV)
@@ -761,11 +760,11 @@ legend("bottomright",
 > > 
 > > ## 3
 > > # create plot
-> > plot(plot.locationsSp_HARV$geometry, 
-> >      main="NEON Harvard Forest Field Site \nPlot Locations" )
+> > plot(plot_locations_sp_HARV$geometry, 
+> >      main = "NEON Harvard Forest Field Site \nPlot Locations" )
 > > 
 > > plot(newPlot.Sp.HARV.UTM$geometry, 
-> >      add=TRUE, pch=20, col="darkgreen")
+> >      add = TRUE,  pch=20, col = "darkgreen")
 > > ~~~
 > > {: .r}
 > > 
@@ -774,18 +773,18 @@ legend("bottomright",
 > > ~~~
 > > # oops - looks like we are missing a point on our new plot. let's compare
 > > # the spatial extents of both objects!
-> > st_bbox(plot.locationsSp_HARV)
+> > st_bbox(plot_locations_sp_HARV)
 > > st_bbox(newPlot.Sp.HARV.UTM)
 > > 
 > > # when you plot in base plot, if the extent isn't specified, then the data that
 > > # is added FIRST will define the extent of the plot
 > > 
-> > plot(st_convex_hull(st_sfc(st_union(plot.locationsSp_HARV))),
-> >      main="Comparison of Spatial Object Extents\nPlot Locations vs New Plot Locations")
+> > plot(st_convex_hull(st_sfc(st_union(plot_locations_sp_HARV))),
+> >      main = "Comparison of Spatial Object Extents\nPlot Locations vs New Plot Locations")
 > > 
 > > plot(st_convex_hull(st_sfc(st_union(newPlot.Sp.HARV.UTM))),
-> >      col="darkgreen",
-> >      add=TRUE)
+> >      col = "darkgreen",
+> >      add = TRUE)
 > > ~~~
 > > {: .r}
 > > 
@@ -798,7 +797,7 @@ legend("bottomright",
 > > # We need to grab the x min and max and y min from our original plots
 > > # but then the ymax from our new plots
 > > 
-> > originalPlotExtent <- st_bbox(plot.locationsSp_HARV)
+> > originalPlotExtent <- st_bbox(plot_locations_sp_HARV)
 > > newPlotExtent <- st_bbox(newPlot.Sp.HARV.UTM)
 > > 
 > > # set xmin and max
@@ -812,24 +811,24 @@ legend("bottomright",
 > > # note: we could also write a function that would harvest the smallest and
 > > # largest
 > > # x and y values from an extent object. This is beyond the scope of this tutorial.
-> > plot(plot.locationsSp_HARV$geometry, 
-> >      main="NEON Harvard Forest Field Site\nVegetation & Phenology Plots",
+> > plot(plot_locations_sp_HARV$geometry, 
+> >      main = "NEON Harvard Forest Field Site\nVegetation & Phenology Plots",
 > >      pch=8,
-> >      col="purple",
-> >      xlim=c(xmin,xmax),
-> >      ylim=c(ymin,ymax))
+> >      col = "purple",
+> >      xlim = c(xmin,xmax),
+> >      ylim = c(ymin,ymax))
 > > 
 > > plot(newPlot.Sp.HARV.UTM$geometry, 
-> >      add=TRUE, pch=20, col="darkgreen")
+> >      add = TRUE,  pch=20, col = "darkgreen")
 > > 
 > > # when we create a legend in R, we need to specify the text for each item 
 > > # listed in the legend.
 > > legend("bottomright", 
-> >        legend=c("Vegetation Plots", "Phenology Plots"),
-> >        pch=c(8,20), 
-> >        bty="n", 
-> >        col=c("purple","darkgreen"),
-> >        cex=1.3)
+> >        legend = c("Vegetation Plots", "Phenology Plots"),
+> >        pch = c(8,20), 
+> >        bty = "n", 
+> >        col = c("purple","darkgreen"),
+> >        cex = 1.3)
 > > ~~~
 > > {: .r}
 > > 
@@ -842,7 +841,7 @@ legend("bottomright",
 We can write an `R` spatial object to a shapefile using the `st_write` function 
 in `rgdal`. To do this we need the following arguments:
 
-* the name of the spatial object (`plot.locationsSp_HARV`)
+* the name of the spatial object (`plot_locations_sp_HARV`)
 * the directory where we want to save our shapefile
            (to use `current = getwd()` or you can specify a different path)
 * the name of the new shapefile  (`PlotLocations_HARV`)
@@ -853,7 +852,7 @@ We can now export the spatial object as a shapefile.
 
 ~~~
 # write a shapefile
-st_write(plot.locationsSp_HARV,
+st_write(plot_locations_sp_HARV,
          "data/PlotLocations_HARV.shp", driver = "ESRI Shapefile")
 ~~~
 {: .r}
