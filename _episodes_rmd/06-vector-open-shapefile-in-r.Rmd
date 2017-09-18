@@ -106,9 +106,9 @@ We will use the `rgdal` package to work with vector data in `R`. Notice that the
 ```{r load-libraries }
 # load required libraries
 # for vector work
-library(sf)  
+library(sf)
 # for metadata/attributes- vectors or rasters
-library(raster) 
+library(raster)
 
 # set working directory to the directory location on your computer where
 # you downloaded and unzipped the data files for the tutorial
@@ -137,7 +137,7 @@ Let's import our AOI.
 
 ```{r Import-Shapefile}
 # Import a polygon shapefile
-aoiBoundary_HARV <- st_read(
+aoi_boundary_HARV <- st_read(
   "data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 ```
 
@@ -151,7 +151,7 @@ aoiBoundary_HARV <- st_read(
 ## Shapefile Metadata & Attributes
 
 When we import the `HarClip_UTMZ18` shapefile layer into `R` (as our
-`aoiBoundary_HARV` object), the `readOGR()` function automatically stores
+`aoi_boundary_HARV` object), the `readOGR()` function automatically stores
 information about the data. We are particularly interested in the geospatial
 **metadata**, describing the format, `CRS`, `extent`, and other components of
 the vector data, and the **attributes** which describe properties associated
@@ -176,19 +176,19 @@ We can view shapefile metadata using the `class`, `crs` and `extent` methods:
 
 ```{r view-metadata}
 # view just the class for the shapefile
-class(aoiBoundary_HARV)
+class(aoi_boundary_HARV)
 
 # view just the crs for the shapefile
-st_crs(aoiBoundary_HARV)
+st_crs(aoi_boundary_HARV)
 
 # view just the extent for the shapefile
-st_bbox(aoiBoundary_HARV)
+st_bbox(aoi_boundary_HARV)
 
 # view all metadata at same time
-aoiBoundary_HARV
+aoi_boundary_HARV
 ```
 
-Our `aoiBoundary_HARV` object is a polygon of class `SpatialPolygonsDataFrame`, 
+Our `aoi_boundary_HARV` object is a polygon of class `SpatialPolygonsDataFrame`, 
 in the CRS **UTM zone 18N**. The CRS is critical to interpreting the object 
 `extent` values as it specifies units. 
 
@@ -227,11 +227,11 @@ attributes stored with it.
 
 
 We view the attributes of a `SpatialPolygonsDataFrame` using `objectName@data`
-(e.g., `aoiBoundary_HARV@data`). 
+(e.g., `aoi_boundary_HARV@data`). 
 
 ``` {r Shapefile-attributes-2}
 # alternate way to view attributes 
-data.frame(aoiBoundary_HARV)
+data.frame(aoi_boundary_HARV)
 ```
 
 In this case, our polygon object only has one attribute: `id`.
@@ -245,7 +245,7 @@ includes the **class**, the number of **features**, the **extent**, and the
 
 ```{r shapefile-summary}
 # view a summary of metadata & attributes associated with the spatial object
-summary(aoiBoundary_HARV)
+summary(aoi_boundary_HARV)
 
 ```
 
@@ -259,8 +259,8 @@ Next, let's visualize the data in our `R` `spatialpolygonsdataframe` object usin
 # 'lwd' sets the line width
 # 'col' sets internal color
 # 'border' sets line color
-plot(aoiBoundary_HARV, col="cyan1", border="black", lwd=3,
-     main="AOI Boundary Plot")
+plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
+     main = "AOI Boundary Plot")
 
 ```
 
@@ -315,13 +315,13 @@ The `plot()` function can be used for basic plotting of spatial objects.
 We use the `add = TRUE` argument to overlay shapefiles on top of each other, as
 we would when creating a map in a typical GIS application like QGIS.
 
-We can use `main=""` to give our plot a title. If we want the title to span two
+We can use `main = ""` to give our plot a title. If we want the title to span two
 lines, we use `\n` where the line should break.
 
 ```{r plot-multiple-shapefiles}
 # Plot multiple shapefiles
-plot(aoiBoundary_HARV, col = "lightgreen", 
-     main="NEON Harvard Forest\nField Site")
+plot(aoi_boundary_HARV, col = "lightgreen", 
+     main = "NEON Harvard Forest\nField Site")
 plot(lines_HARV, add = TRUE)
 
 # use the pch element to adjust the symbology of the points
@@ -336,7 +336,7 @@ plot(point_HARV, add  = TRUE, pch = 19, col = "purple")
 
 > ## Challenge: Plot Raster & Vector Data Together
 > 
-> You can plot vector data layered on top of raster data using the `add=TRUE`
+> You can plot vector data layered on top of raster data using the `add = TRUE`
 > plot attribute. Create a plot that uses the NEON AOP Canopy Height Model `NEON_RemoteSensing/HARV/CHM/HARV_chmCrop.tif` as a base layer. On top of the
 > CHM, please add:
 > 
@@ -359,16 +359,16 @@ plot(point_HARV, add  = TRUE, pch = 19, col = "purple")
 > > chm_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 > > 
 > > plot(chm_HARV,
-> >      main="Map of Study Area\n w/ Canopy Height Model\nNEON Harvard Forest Field Site")
+> >      main = "Map of Study Area\n w/ Canopy Height Model\nNEON Harvard Forest Field Site")
 > > 
 > > plot(lines_HARV, 
 > >      add = TRUE,
-> >      col="black")
-> > plot(aoiBoundary_HARV, border="grey20", 
+> >      col = "black")
+> > plot(aoi_boundary_HARV, border="grey20", 
 > >      add = TRUE,
-> >      lwd=4)
+> >      lwd = 4)
 > > plot(point_HARV, pch=8, 
-> >      add=TRUE)
+> >      add = TRUE)
 > > 
 > > ```
 > {: .solution}
