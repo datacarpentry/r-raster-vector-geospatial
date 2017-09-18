@@ -13,7 +13,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2017-09-14
+lastModified: 2017-09-18
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 mainTag: raster-data-series
@@ -169,13 +169,13 @@ can use `levelplot` from the `rasterVis` package to make our plot prettier!
 the `rasterVis` package</a>
 
 The syntax for the `levelplot()` function is similar to that for the `plot()`
-function. We use `main="TITLE"` to add a title to the entire plot series.
+function. We use `main = "TITLE"` to add a title to the entire plot series.
 
 
 ~~~
 # create a `levelplot` plot
 levelplot(NDVI_HARV_stack,
-          main="Landsat NDVI\nNEON Harvard Forest")
+          main = "Landsat NDVI\nNEON Harvard Forest")
 ~~~
 {: .r}
 
@@ -194,7 +194,7 @@ NDVI (greenness) data using the `colorRampPalette()` function in combination wit
 cols <- colorRampPalette(brewer.pal(9,"YlGn"))
 # create a level plot - plot
 levelplot(NDVI_HARV_stack,
-        main="Landsat NDVI -- Improved Colors \nNEON Harvard Forest Field Site",
+        main = "Landsat NDVI -- Improved Colors \nNEON Harvard Forest Field Site",
         col.regions=cols)
 ~~~
 {: .r}
@@ -306,7 +306,7 @@ the new labels using `names.attr=rasterNames`.
 levelplot(NDVI_HARV_stack,
           layout=c(4, 4), # create a 4x4 layout for the data
           col.regions=cols, # add a color ramp
-          main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
+          main = "Landsat NDVI - Julian Days \nHarvard Forest 2011",
           names.attr=rasterNames)
 ~~~
 {: .r}
@@ -322,7 +322,7 @@ we adjust the layout to be a matrix of 5 columns and 3 rows.
 levelplot(NDVI_HARV_stack,
           layout=c(5, 3), # create a 5x3 layout for the data
           col.regions=cols, # add a color ramp
-          main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
+          main = "Landsat NDVI - Julian Days \nHarvard Forest 2011",
           names.attr=rasterNames)
 ~~~
 {: .r}
@@ -338,7 +338,7 @@ remove the axis ticks from the plot with `scales =list(draw=FALSE)`.
 levelplot(NDVI_HARV_stack,
           layout=c(5, 3), # create a 5x3 layout for the data
           col.regions=cols, # add a color ramp
-          main="Landsat NDVI - Julian Days \nHarvard Forest 2011",
+          main = "Landsat NDVI - Julian Days \nHarvard Forest 2011",
           names.attr=rasterNames,
           scales=list(draw=FALSE )) # remove axes labels & ticks
 ~~~
@@ -374,7 +374,7 @@ levelplot(NDVI_HARV_stack,
 > > levelplot(NDVI_HARV_stack,
 > >       layout=c(5, 3), # create a 4x3 layout for the data
 > >       col.regions=colorRampPalette(brewer.pal(9,"BrBG")), # specify color 
-> >       main="Landsat NDVI - Julian Days - 2011 \nNEON Harvard Forest Field Site",
+> >       main = "Landsat NDVI - Julian Days - 2011 \nNEON Harvard Forest Field Site",
 > >       names.attr=rasterNames)
 > > ~~~
 > > {: .r}
