@@ -13,7 +13,7 @@ keypoints:
 authors: [Joseph Stachelek, Leah Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2015-10-23
-lastModified: 2017-09-14
+lastModified: 2017-09-18
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -110,7 +110,7 @@ Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
 
 
 ~~~
-library (raster)   # for raster metadata/attributes 
+library(raster)   # for raster metadata/attributes 
 ~~~
 {: .r}
 
@@ -151,7 +151,7 @@ from the Census website to support the learning goals of this tutorial.
 
 ~~~
 # Read the .csv file
-State.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp")
+state_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp")
 ~~~
 {: .r}
 
@@ -172,7 +172,7 @@ proj4string:    +proj=longlat +datum=WGS84 +no_defs
 
 ~~~
 # look at the data structure
-class(State.Boundary.US)
+class(state_boundary_US)
 ~~~
 {: .r}
 
@@ -193,8 +193,8 @@ Next, let's plot the U.S. states data.
 
 ~~~
 # view column names
-plot(State.Boundary.US$geometry, 
-     main="Map of Continental US State Boundaries\n US Census Bureau Data")
+plot(state_boundary_US$geometry, 
+     main = "Map of Continental US State Boundaries\n US Census Bureau Data")
 ~~~
 {: .r}
 
@@ -205,13 +205,13 @@ plot(State.Boundary.US$geometry,
 We can add a boundary layer of the United States to our map - to make it look
 nicer. We will import 
 `NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States`.
-If we specify a thicker line width using `lwd=4` for the border layer, it will 
+If we specify a thicker line width using `lwd = 4` for the border layer, it will 
 make our map pop!
 
 
 ~~~
 # Read the .csv file
-Country.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp")
+country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp")
 ~~~
 {: .r}
 
@@ -232,7 +232,7 @@ proj4string:    +proj=longlat +datum=WGS84 +no_defs
 
 ~~~
 # look at the data structure
-class(Country.Boundary.US)
+class(country_boundary_US)
 ~~~
 {: .r}
 
@@ -247,15 +247,15 @@ class(Country.Boundary.US)
 
 ~~~
 # view column names
-plot(State.Boundary.US$geometry, 
-     main="Map of Continental US State Boundaries\n US Census Bureau Data",
-     border="gray40")
+plot(state_boundary_US$geometry,
+     main = "Map of Continental US State Boundaries\n US Census Bureau Data",
+     border = "gray40")
 
 # view column names
-plot(Country.Boundary.US$geometry, 
-     lwd=4, 
-     border="gray18",
-     add=TRUE)
+plot(country_boundary_US$geometry,
+     lwd = 4,
+     border = "gray18",
+     add = TRUE)
 ~~~
 {: .r}
 
@@ -302,10 +302,10 @@ class(point_HARV)
 
 ~~~
 # plot point - looks ok? 
-plot(point_HARV$geometry, 
-     pch = 19, 
+plot(point_HARV$geometry,
+     pch = 19,
      col = "purple",
-     main="Harvard Fisher Tower Location")
+     main = "Harvard Fisher Tower Location")
 ~~~
 {: .r}
 
@@ -318,21 +318,21 @@ layers in our basemap plot.
 
 ~~~
 # plot state boundaries  
-plot(State.Boundary.US$geometry, 
-     main="Map of Continental US State Boundaries \n with Tower Location",
-     border="gray40")
+plot(state_boundary_US$geometry,
+     main = "Map of Continental US State Boundaries \n with Tower Location",
+     border = "gray40")
 
 # add US border outline 
-plot(Country.Boundary.US$geometry, 
-     lwd=4, 
-     border="gray18",
-     add=TRUE)
+plot(country_boundary_US$geometry, 
+     lwd = 4,
+     border = "gray18",
+     add = TRUE)
 
 # add point tower location
-plot(point_HARV$geometry, 
-     pch = 19, 
+plot(point_HARV$geometry,
+     pch = 19,
      col = "purple",
-     add=TRUE)
+     add = TRUE)
 ~~~
 {: .r}
 
@@ -370,7 +370,7 @@ attr(,"class")
 
 ~~~
 # view crs of census data
-st_crs(State.Boundary.US)
+st_crs(state_boundary_US)
 ~~~
 {: .r}
 
@@ -391,7 +391,7 @@ attr(,"class")
 
 
 ~~~
-st_crs(Country.Boundary.US)
+st_crs(country_boundary_US)
 ~~~
 {: .r}
 
@@ -438,7 +438,7 @@ zone.
 
 ### Geographic (lat / long) Proj4 String
 
-Our project string for `State.boundary.US` and `Country.boundary.US` specifies
+Our project string for `state_boundary_US` and `country_boundary_US` specifies
 the lat/long projection as follows: 
 
 `+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0` 
@@ -463,7 +463,7 @@ often recorded in *Decimal Degrees*.
 ## CRS Units - View Object Extent
 
 Next, let's view the extent or spatial coverage for the `point_HARV` spatial
-object compared to the `State.Boundary.US` object.
+object compared to the `state_boundary_US` object.
 
 
 ~~~
@@ -484,7 +484,7 @@ st_bbox(point_HARV)
 
 ~~~
 # extent for object in geographic
-st_bbox(State.Boundary.US)
+st_bbox(state_boundary_US)
 ~~~
 {: .r}
 
@@ -497,7 +497,7 @@ st_bbox(State.Boundary.US)
 {: .output}
 
 Note the difference in the units for each object. The extent for
-`State.Boundary.US` is in latitude and longitude which yields smaller numbers
+`state_boundary_US` is in latitude and longitude which yields smaller numbers
 representing decimal degree units. Our tower location point is in UTM, is 
 represented in meters.
 
@@ -524,8 +524,8 @@ The `spTransform()` function requires two inputs:
 
 1. the name of the object that you wish to transform
 2. the CRS that you wish to transform that object too. In this case we can 
-use the `crs()` of the `State.Boundary.US` object as follows:
-`crs(State.Boundary.US)`
+use the `crs()` of the `state_boundary_US` object as follows:
+`crs(state_boundary_US)`
 
 > ## Data Tip
 > `spTransform()` will only work if your 
@@ -540,7 +540,7 @@ longitude `WGS84` coordinate reference system (CRS).
 ~~~
 # reproject data
 point_HARV_WGS84 <- st_transform(point_HARV,
-                                st_crs(State.Boundary.US))
+                                st_crs(state_boundary_US))
 
 # what is the CRS of the new object
 st_crs(point_HARV_WGS84)
@@ -582,21 +582,21 @@ Once our data are reprojected, we can try to plot again.
 
 ~~~
 # plot state boundaries  
-plot(State.Boundary.US$geometry, 
-     main="Map of Continental US State Boundaries\n With Fisher Tower Location",
-     border="gray40")
+plot(state_boundary_US$geometry,
+     main = "Map of Continental US State Boundaries\n With Fisher Tower Location",
+     border = "gray40")
 
 # add US border outline 
-plot(Country.Boundary.US$geometry, 
-     lwd=4, 
-     border="gray18",
-     add=TRUE)
+plot(country_boundary_US$geometry,
+     lwd = 4,
+     border = "gray18",
+     add = TRUE)
 
 # add point tower location
-plot(point_HARV_WGS84$geometry, 
-     pch = 19, 
+plot(point_HARV_WGS84$geometry,
+     pch = 19,
      col = "purple",
-     add=TRUE)
+     add = TRUE)
 ~~~
 {: .r}
 
@@ -638,24 +638,24 @@ transformations) on our data.
 > > 
 > > # plot state boundaries  
 > > plot(NE.States.Boundary.US.UTM$geometry, 
-> >      main="Map of Northeastern US\n With Fisher Tower Location - UTM Zone 18N",
+> >      main = "Map of Northeastern US\n With Fisher Tower Location - UTM Zone 18N",
 > >      border="gray18",
-> >      lwd=2)
+> >      lwd = 2)
 > > 
 > > # add point tower location
 > > plot(point_HARV$geometry, 
 > >      pch = 19, 
 > >      col = "purple",
-> >      add=TRUE)
+> >      add = TRUE)
 > > 
 > > # add legend
 > > # to create a custom legend, we need to fake it
 > > legend("bottomright", 
-> >        legend=c("State Boundary","Fisher Tower"),
-> >        lty=c(1,NA),
-> >        pch=c(NA,19),
-> >        col=c("gray18","purple"),
-> >        bty="n")
+> >        legend = c("State Boundary","Fisher Tower"),
+> >        lty = c(1,NA),
+> >        pch = c(NA,19),
+> >        col = c("gray18","purple"),
+> >        bty = "n")
 > > ~~~
 > > {: .r}
 > > 

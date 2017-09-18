@@ -13,7 +13,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2017-09-11
+lastModified: 2017-09-18
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]
@@ -107,13 +107,13 @@ DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.t
 {: .r}
 
 First, let's plot our Digital Surface Model object (`DSM_HARV`) using the
-`plot()` function. We add a title using the argument `main="title"`.
+`plot()` function. We add a title using the argument `main = "title"`.
 
 
 ~~~
 # Plot raster object
 plot(DSM_HARV,
-     main="Digital Surface Model\nNEON Harvard Forest Field Site")
+     main = "Digital Surface Model\nNEON Harvard Forest Field Site")
 ~~~
 {: .r}
 
@@ -132,23 +132,22 @@ break values.
 
 ~~~
 # Plot distribution of raster values 
-DSMhist<-hist(DSM_HARV,
-     breaks=3,
-     main="Histogram Digital Surface Model\n NEON Harvard Forest Field Site",
-     col="wheat3",  # changes bin color
-     xlab= "Elevation (m)")  # label the x-axis
+DSMhist < -hist(DSM_HARV,
+     breaks = 3,
+     main = "Histogram Digital Surface Model\n NEON Harvard Forest Field Site",
+     col = "wheat3",  # changes bin color
+     xlab = "Elevation (m)")  # label the x-axis
 ~~~
 {: .r}
 
 
 
 ~~~
-Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...):
-4% of the raster cells were used. 100000 values used.
+Error in eval(expr, envir, enclos): object 'DSMhist' not found
 ~~~
 {: .error}
 
-<img src="../fig/rmd-create-histogram-breaks-1.png" title="plot of chunk create-histogram-breaks" alt="plot of chunk create-histogram-breaks" style="display: block; margin: auto;" />
+
 
 ~~~
 # Where are breaks and how many pixels in each category?
@@ -159,9 +158,9 @@ DSMhist$breaks
 
 
 ~~~
-[1] 300 350 400 450
+Error in eval(expr, envir, enclos): object 'DSMhist' not found
 ~~~
-{: .output}
+{: .error}
 
 
 
@@ -173,9 +172,9 @@ DSMhist$counts
 
 
 ~~~
-[1] 31858 67680   462
+Error in eval(expr, envir, enclos): object 'DSMhist' not found
 ~~~
-{: .output}
+{: .error}
 
 Warning message!? Remember, the default for the histogram is to include only a
 subset of 100,000 values. We could force it to show all the pixel values or we
@@ -201,10 +200,10 @@ We can include as few or many breaks as we'd like.
 
 ~~~
 # plot using breaks.
-plot(DSM_HARV, 
-     breaks = c(300, 350, 400, 450), 
+plot(DSM_HARV,
+     breaks = c(300, 350, 400, 450),
      col = terrain.colors(3),
-     main="Digital Surface Model (DSM)\n NEON Harvard Forest Field Site")
+     main = "Digital Surface Model (DSM)\n NEON Harvard Forest Field Site")
 ~~~
 {: .r}
 
@@ -225,30 +224,30 @@ We can label the x- and y-axes of our plot too using `xlab` and `ylab`.
 
 ~~~
 # Assign color to a object for repeat use/ ease of changing
-myCol = terrain.colors(3)
+myCol <- terrain.colors(3)
 
 # Add axis labels
-plot(DSM_HARV, 
-     breaks = c(300, 350, 400, 450), 
+plot(DSM_HARV,
+     breaks = c(300, 350, 400, 450),
      col = myCol,
-     main="Digital Surface Model\nNEON Harvard Forest Field Site", 
-     xlab = "UTM Westing Coordinate (m)", 
+     main = "Digital Surface Model\nNEON Harvard Forest Field Site",
+     xlab = "UTM Westing Coordinate (m)",
      ylab = "UTM Northing Coordinate (m)")
 ~~~
 {: .r}
 
 <img src="../fig/rmd-add-plot-title-1.png" title="plot of chunk add-plot-title" alt="plot of chunk add-plot-title" style="display: block; margin: auto;" />
 
-Or we can also turn off the axes altogether. 
+Or we can also turn off the axes altogether.
 
 
 ~~~
 # or we can turn off the axis altogether
-plot(DSM_HARV, 
-     breaks = c(300, 350, 400, 450), 
+plot(DSM_HARV,
+     breaks = c(300, 350, 400, 450),
      col = myCol,
-     main="Digital Surface Model\n NEON Harvard Forest Field Site", 
-     axes=FALSE)
+     main = "Digital Surface Model\n NEON Harvard Forest Field Site",
+     axes = FALSE)
 ~~~
 {: .r}
 
@@ -333,10 +332,10 @@ DSM_hill_HARV <-
 
 # plot hillshade using a grayscale color ramp that looks like shadows.
 plot(DSM_hill_HARV,
-    col=grey(1:100/100),  # create a color ramp of grey colors
-    legend=FALSE,
-    main="Hillshade - DSM\n NEON Harvard Forest Field Site",
-    axes=FALSE)
+    col = grey(1:100/100),  # create a color ramp of grey colors
+    legend = FALSE,
+    main = "Hillshade - DSM\n NEON Harvard Forest Field Site",
+    axes = FALSE)
 ~~~
 {: .r}
 
@@ -346,24 +345,24 @@ plot(DSM_hill_HARV,
 > Turn off, or hide, the legend on a plot using `legend=FALSE`.
 {: .callout}
 
-We can layer another raster on top of our hillshade using by using `add=TRUE`.
+We can layer another raster on top of our hillshade using by using `add = TRUE`.
 Let's overlay `DSM_HARV` on top of the `hill_HARV`.
 
 
 ~~~
 # plot hillshade using a grayscale color ramp that looks like shadows.
 plot(DSM_hill_HARV,
-    col=grey(1:100/100),  #create a color ramp of grey colors
-    legend=F,
-    main="DSM with Hillshade \n NEON Harvard Forest Field Site",
-    axes=FALSE)
+    col = grey(1:100/100),  #create a color ramp of grey colors
+    legend = FALSE,
+    main = "DSM with Hillshade \n NEON Harvard Forest Field Site",
+    axes = FALSE)
 
 # add the DSM on top of the hillshade
 plot(DSM_HARV,
-     col=rainbow(100),
-     alpha=0.4,
-     add=T,
-     legend=F)
+     col = rainbow(100),
+     alpha = 0.4,
+     add = T,
+     legend = F)
 ~~~
 {: .r}
 
