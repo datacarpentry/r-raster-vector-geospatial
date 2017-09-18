@@ -12,7 +12,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Will
 contributors: [Michael Heeremans]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2017-09-14
+lastModified: 2017-09-18
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]
@@ -111,21 +111,20 @@ Let's create a map of the Harvard Forest Digital Terrain Model
 # import DTM
 DTM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 # import DTM hillshade
-DTM_hill_HARV <- 
-  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
+DTM_hill_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
 
 # plot hillshade using a grayscale color ramp 
 plot(DTM_hill_HARV,
-    col=grey(1:100/100),
-    legend=FALSE,
-    main="DTM Hillshade\n NEON Harvard Forest Field Site")
+    col = grey(1:100 / 100),
+    legend = FALSE,
+    main = "DTM Hillshade\n NEON Harvard Forest Field Site")
 
 # overlay the DTM on top of the hillshade
 plot(DTM_HARV,
-     col=terrain.colors(10),
-     alpha=0.4,
-     add=TRUE,
-     legend=FALSE)
+     col = terrain.colors(10),
+     alpha = 0.4,
+     add = TRUE,
+     legend = FALSE)
 ~~~
 {: .r}
 
@@ -136,17 +135,17 @@ top of our hillshade. The hillshade plotted just fine on it's own. Let's try to
 plot the DTM on it's own to make sure there are data there.
 
 <i class="fa fa-star"></i> **Code Tip:** For boolean `R` elements, such as
- `add=TRUE`, you can use `T` and `F` in place of `TRUE` and `FALSE`.
+ `add = TRUE`, you can use `T` and `F` in place of `TRUE` and `FALSE`.
 {: .notice}
 
 
 ~~~
 # Plot DTM 
 plot(DTM_HARV,
-     col=terrain.colors(10),
-     alpha=1,
-     legend=F,
-     main="Digital Terrain Model\n NEON Harvard Forest Field Site")
+     col = terrain.colors(10),
+     alpha = 1,
+     legend = FALSE,
+     main = "Digital Terrain Model\n NEON Harvard Forest Field Site")
 ~~~
 {: .r}
 
@@ -219,8 +218,8 @@ function as follows: `crs=crs(DTM_HARV)`.
 
 ~~~
 # reproject to UTM
-DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV, 
-                                       crs=crs(DTM_HARV))
+DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV,
+                                       crs = crs(DTM_HARV))
 
 # compare attributes of DTM_hill_UTMZ18N to DTM_hill
 crs(DTM_hill_UTMZ18N_HARV)
@@ -332,8 +331,8 @@ newly reprojected raster to be 1m x 1m resolution by adding a line of code
 ~~~
 # adjust the resolution 
 DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV, 
-                                  crs=crs(DTM_HARV),
-                                  res=1)
+                                  crs = crs(DTM_HARV),
+                                  res = 1)
 # view resolution
 res(DTM_hill_UTMZ18N_HARV)
 ~~~
@@ -352,16 +351,16 @@ Let's plot our newly reprojected raster.
 ~~~
 # plot newly reprojected hillshade
 plot(DTM_hill_UTMZ18N_HARV,
-    col=grey(1:100/100),
-    legend=F,
-    main="DTM with Hillshade\n NEON Harvard Forest Field Site")
+    col = grey(1:100/100),
+    legend = FALSE,
+    main = "DTM with Hillshade\n NEON Harvard Forest Field Site")
 
 # overlay the DTM on top of the hillshade
 plot(DTM_HARV,
-     col=rainbow(100),
-     alpha=0.4,
-     add=T,
-     legend=F)
+     col = rainbow(100),
+     alpha = 0.4,
+     add = TRUE,
+     legend = FALSE)
 ~~~
 {: .r}
 
@@ -387,20 +386,20 @@ field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files.
 > > 
 > > # reproject raster 
 > > DTM_hill_UTMZ18N_SJER <- projectRaster(DSM_hill_SJER_WGS, 
-> >                                   crs=crs(DSM_SJER),
-> >                                   res=1)
+> >                                   crs = crs(DSM_SJER),
+> >                                   res = 1)
 > > # plot hillshade using a grayscale color ramp 
 > > plot(DTM_hill_UTMZ18N_SJER,
-> >     col=grey(1:100/100),
-> >     legend=F,
-> >     main="DSM with Hillshade\n NEON SJER Field Site")
+> >     col = grey(1:100/100),
+> >     legend = FALSE,
+> >     main = "DSM with Hillshade\n NEON SJER Field Site")
 > > 
 > > # overlay the DSM on top of the hillshade
 > > plot(DSM_SJER,
-> >      col=terrain.colors(10),
-> >      alpha=0.4,
-> >      add=T,
-> >      legend = F)
+> >      col = terrain.colors(10),
+> >      alpha = 0.4,
+> >      add = TRUE,
+> >      legend = FALSE)
 > > ~~~
 > > {: .r}
 > > 

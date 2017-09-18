@@ -13,7 +13,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2017-09-14
+lastModified: 2017-09-18
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]
@@ -205,7 +205,7 @@ DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.t
 
 # create a quick plot of each to see what we're dealing with
 plot(DTM_HARV,
-     main="Digital Terrain Model \n NEON Harvard Forest Field Site")
+     main = "Digital Terrain Model \n NEON Harvard Forest Field Site")
 ~~~
 {: .r}
 
@@ -213,7 +213,7 @@ plot(DTM_HARV,
 
 ~~~
 plot(DSM_HARV,
-     main="Digital Surface Model \n NEON Harvard Forest Field Site")
+     main = "Digital Surface Model \n NEON Harvard Forest Field Site")
 ~~~
 {: .r}
 
@@ -240,12 +240,12 @@ Let's subtract the DTM from the DSM to create a Canopy Height Model.
 
 ~~~
 # Raster math example
-CHM_HARV <- DSM_HARV - DTM_HARV 
+CHM_HARV <- DSM_HARV - DTM_HARV
 
 # plot the output CHM
 plot(CHM_HARV,
-     main="Canopy Height Model - Raster Math Subtract\n NEON Harvard Forest Field Site",
-     axes=FALSE) 
+     main = "Canopy Height Model - Raster Math Subtract\n NEON Harvard Forest Field Site",
+     axes = FALSE)
 ~~~
 {: .r}
 
@@ -258,10 +258,10 @@ Canopy Height Model (CHM).
 ~~~
 # histogram of CHM_HARV
 hist(CHM_HARV,
-  col="springgreen4",
-  main="Histogram of Canopy Height Model\nNEON Harvard Forest Field Site",
-  ylab="Number of Pixels",
-  xlab="Tree Height (m) ")
+  col = "springgreen4",
+  main = "Histogram of Canopy Height Model\nNEON Harvard Forest Field Site",
+  ylab = "Number of Pixels",
+  xlab = "Tree Height (m) ")
 ~~~
 {: .r}
 
@@ -317,7 +317,7 @@ Does this make sense for trees in Harvard Forest?
 > > # slot. 
 > > # 3
 > > hist(CHM_HARV, 
-> >      col="springgreen4",
+> >      col = "springgreen4",
 > >      main = "Histogram of Canopy Height Model\nNEON Harvard Forest Field Site",
 > >      maxpixels=ncell(CHM_HARV))
 > > ~~~
@@ -328,7 +328,7 @@ Does this make sense for trees in Harvard Forest?
 > > ~~~
 > > # 4 
 > > hist(CHM_HARV, 
-> >      col="lightgreen",
+> >      col = "lightgreen",
 > >      main = "Histogram of Canopy Height Model\nNEON Harvard Forest Field Site",
 > >      maxpixels=ncell(CHM_HARV),
 > >      breaks=6)
@@ -344,7 +344,7 @@ Does this make sense for trees in Harvard Forest?
 > >      breaks=c(0,10,20,30),
 > >      col=myCol,
 > >      axes=F,
-> >      main="Canopy Height Model \nNEON Harvard Forest Field Site")
+> >      main = "Canopy Height Model \nNEON Harvard Forest Field Site")
 > > ~~~
 > > {: .r}
 > > 
@@ -388,7 +388,7 @@ CHM_ov_HARV<- overlay(DSM_HARV,
                       fun=function(r1, r2){return(r1-r2)})
 
 plot(CHM_ov_HARV,
-  main="Canopy Height Model - Overlay Subtract\n NEON Harvard Forest Field Site")
+  main = "Canopy Height Model - Overlay Subtract\n NEON Harvard Forest Field Site")
 ~~~
 {: .r}
 
@@ -481,10 +481,10 @@ both datasets!
 > > # check values
 > > hist(DTM_SJER, 
 > >      maxpixels=ncell(DTM_SJER),
-> >      main="Digital Terrain Model - Histogram\n NEON SJER Field Site",
-> >      col="slategrey",
-> >      ylab="Number of Pixels",
-> >      xlab="Elevation (m)")
+> >      main = "Digital Terrain Model - Histogram\n NEON SJER Field Site",
+> >      col = "slategrey",
+> >      ylab = "Number of Pixels",
+> >      xlab = "Elevation (m)")
 > > ~~~
 > > {: .r}
 > > 
@@ -493,10 +493,10 @@ both datasets!
 > > ~~~
 > > hist(DSM_SJER, 
 > >      maxpixels=ncell(DSM_SJER),
-> >      main="Digital Surface Model - Histogram\n NEON SJER Field Site",
-> >      col="slategray2",
-> >      ylab="Number of Pixels",
-> >      xlab="Elevation (m)")
+> >      main = "Digital Surface Model - Histogram\n NEON SJER Field Site",
+> >      col = "slategray2",
+> >      ylab = "Number of Pixels",
+> >      xlab = "Elevation (m)")
 > > ~~~
 > > {: .r}
 > > 
@@ -509,10 +509,10 @@ both datasets!
 > >                     fun=function(r1, r2){return(r1-r2)})
 > > 
 > > hist(CHM_SJER, 
-> >      main="Canopy Height Model - Histogram\n NEON SJER Field Site",
-> >      col="springgreen4",
-> >      ylab="Number of Pixels",
-> >      xlab="Elevation (m)")
+> >      main = "Canopy Height Model - Histogram\n NEON SJER Field Site",
+> >      col = "springgreen4",
+> >      ylab = "Number of Pixels",
+> >      xlab = "Elevation (m)")
 > > ~~~
 > > {: .r}
 > > 
@@ -522,7 +522,7 @@ both datasets!
 > > # 3
 > > # plot the output
 > > plot(CHM_SJER,
-> >      main="Canopy Height Model - Overlay Subtract\n NEON SJER Field Site",
+> >      main = "Canopy Height Model - Overlay Subtract\n NEON SJER Field Site",
 > >      axes=F)
 > > ~~~
 > > {: .r}
@@ -539,18 +539,18 @@ both datasets!
 > > 
 > > # 4.Tree heights are much shorter in SJER. 
 > > # view histogram of HARV again. 
-> > par(mfcol=c(2,1))
+> > par(mfcol = c(2,1))
 > > hist(CHM_HARV, 
-> >      main="Canopy Height Model - Histogram\nNEON Harvard Forest Field Site",
-> >      col="springgreen4",
-> >       ylab="Number of Pixels",
-> >      xlab="Elevation (m)")
+> >      main = "Canopy Height Model - Histogram\nNEON Harvard Forest Field Site",
+> >      col = "springgreen4",
+> >       ylab = "Number of Pixels",
+> >      xlab = "Elevation (m)")
 > > 
 > > hist(CHM_SJER, 
-> >   main="Canopy Height Model - Histogram\nNEON SJER Field Site",
-> >   col="slategrey", 
-> >   ylab="Number of Pixels",
-> >   xlab="Elevation (m)")
+> >   main = "Canopy Height Model - Histogram\nNEON SJER Field Site",
+> >   col = "slategrey", 
+> >   ylab = "Number of Pixels",
+> >   xlab = "Elevation (m)")
 > > ~~~
 > > {: .r}
 > > 

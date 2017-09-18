@@ -13,7 +13,7 @@ keypoints:
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2015-10-23
-lastModified: 2017-09-14
+lastModified: 2017-09-18
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -77,7 +77,7 @@ tutorial, you can skip this code.
 ~~~
 # load packages
 # rgdal: for vector work
-library(sf)  
+library(sf)
 ~~~
 {: .r}
 
@@ -92,7 +92,7 @@ Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
 
 ~~~
 # raster: for raster metadata/attributes 
-library (raster)   
+library(raster)
 ~~~
 {: .r}
 
@@ -110,7 +110,7 @@ Loading required package: sp
 # setwd("pathToDirHere")
 
 # Import a polygon shapefile 
-aoiBoundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
+aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 ~~~
 {: .r}
 
@@ -392,7 +392,7 @@ names(lines_HARV)
 
 > ## Challenge: Attributes for Different Spatial Classes
 > 
-> Explore the attributes associated with the `point_HARV` and `aoiBoundary_HARV` spatial objects. 
+> Explore the attributes associated with the `point_HARV` and `aoi_boundary_HARV` spatial objects. 
 > 
 > 1. How many attributes do each have?
 > 2. Who owns the site in the `point_HARV` data object?
@@ -419,7 +419,7 @@ names(lines_HARV)
 > > 
 > > 
 > > ~~~
-> > names(aoiBoundary_HARV)  #1 attribute
+> > names(aoi_boundary_HARV)  #1 attribute
 > > ~~~
 > > {: .r}
 > > 
@@ -621,8 +621,8 @@ We can plot our subsetted shapefiles.
 ~~~
 # plot just footpaths
 plot(footpath_HARV$geometry,
-     lwd=6,
-     main="NEON Harvard Forest Field Site\n Footpaths")
+     lwd = 6,
+     main = "NEON Harvard Forest Field Site\n Footpaths")
 ~~~
 {: .r}
 
@@ -635,7 +635,7 @@ Let's adjust the colors used in our plot. If we have 2 features in our vector
 object, we can plot each using a unique color by assigning unique colors (`col=`)
 to our features. We use the syntax
 
-`col="c("colorOne","colorTwo")`
+`col = "c("colorOne","colorTwo")`
 
 to do this.
 
@@ -643,9 +643,9 @@ to do this.
 ~~~
 # plot just footpaths
 plot(footpath_HARV$geometry,
-     col=c("green","blue"), # set color for each feature 
-     lwd=6,
-     main="NEON Harvard Forest Field Site\n Footpaths \n Feature one = blue, Feature two= green")
+     col = c("green","blue"), # set color for each feature 
+     lwd = 6,
+     main = "NEON Harvard Forest Field Site\n Footpaths \n Feature one = blue, Feature two= green")
 ~~~
 {: .r}
 
@@ -838,8 +838,8 @@ roadColors
 # plot the lines data, apply a diff color to each factor level)
 plot(lines_HARV$geometry, 
      col=roadColors,
-     lwd=3,
-     main="NEON Harvard Forest Field Site\n Roads & Trails")
+     lwd = 3,
+     main = "NEON Harvard Forest Field Site\n Roads & Trails")
 ~~~
 {: .r}
 
@@ -847,15 +847,15 @@ plot(lines_HARV$geometry,
 
 ### Adjust Line Width
 We can also adjust the width of our plot lines using `lwd`. We can set all lines
-to be thicker or thinner using `lwd=`. 
+to be thicker or thinner using `lwd = `. 
 
 
 ~~~
 # make all lines thicker
 plot(lines_HARV$geometry, 
      col=roadColors,
-     main="NEON Harvard Forest Field Site\n Roads & Trails\n All Lines Thickness=6",
-     lwd=6)
+     main = "NEON Harvard Forest Field Site\n Roads & Trails\n All Lines Thickness=6",
+     lwd = 6)
 ~~~
 {: .r}
 
@@ -866,7 +866,7 @@ plot(lines_HARV$geometry,
 If we want a unique line width for each factor level or attribute category
 in our spatial object, we can use the same syntax that we used for colors, above.
 
-`lwd=c("widthOne", "widthTwo","widthThree")[object$factor]`
+`lwd = c("widthOne", "widthTwo","widthThree")[object$factor]`
 
 Note that this requires the attribute to be of class `factor`. Let's give it a 
 try.
@@ -907,8 +907,8 @@ lineWidths <- (c(1,2,3,4))[lines_HARV$TYPE]
 # in this case, boardwalk (the first level) is the narrowest.
 plot(lines_HARV$geometry, 
      col=roadColors,
-     main="NEON Harvard Forest Field Site\n Roads & Trails \n Line width varies by TYPE Attribute Value",
-     lwd=lineWidths)
+     main = "NEON Harvard Forest Field Site\n Roads & Trails \n Line width varies by TYPE Attribute Value",
+     lwd = lineWidths)
 ~~~
 {: .r}
 
@@ -919,14 +919,14 @@ plot(lines_HARV$geometry,
 > We can customize the width of each line, according to specific attribute value,
 > too. To do this, we create a vector of line width values, and map that vector
 > to the factor levels - using the same syntax that we used above for colors.
-> HINT: `lwd=(vector of line width thicknesses)[spatialObject$factorAttribute]`
+> HINT: `lwd = (vector of line width thicknesses)[spatialObject$factorAttribute]`
 > 
 > Create a plot of roads using the following line thicknesses:
 > 
-> 1. woods road lwd=8
+> 1. woods road lwd = 8
 > 2. Boardwalks lwd = 2
-> 3. footpath lwd=4
-> 4. stone wall lwd=3
+> 3. footpath lwd = 4
+> 4. stone wall lwd = 3
 > 
 > > ## Answers
 > > 
@@ -959,7 +959,7 @@ Let's add a legend to our plot.
 ~~~
 plot(lines_HARV$geometry, 
      col=roadColors,
-     main="NEON Harvard Forest Field Site\n Roads & Trails\n Default Legend")
+     main = "NEON Harvard Forest Field Site\n Roads & Trails\n Default Legend")
 
 # we can use the color object that we created above to color the legend objects
 roadPalette
@@ -997,13 +997,13 @@ Let's try it out.
 ~~~
 plot(lines_HARV$geometry, 
      col=roadColors,
-     main="NEON Harvard Forest Field Site\n Roads & Trails \n Modified Legend")
+     main = "NEON Harvard Forest Field Site\n Roads & Trails \n Modified Legend")
 # add a legend to our map
 legend("bottomright", 
        legend=levels(lines_HARV$TYPE), 
        fill=roadPalette, 
-       bty="n", # turn off the legend border
-       cex=.8) # decrease the font / legend size
+       bty = "n", # turn off the legend border
+       cex = .8) # decrease the font / legend size
 ~~~
 {: .r}
 
@@ -1037,13 +1037,13 @@ newColors
 # plot using new colors
 plot(lines_HARV$geometry, 
      col=(newColors)[lines_HARV$TYPE],
-     main="NEON Harvard Forest Field Site\n Roads & Trails \n Pretty Colors")
+     main = "NEON Harvard Forest Field Site\n Roads & Trails \n Pretty Colors")
 
 # add a legend to our map
 legend("bottomright", 
        levels(lines_HARV$TYPE), 
        fill=newColors, 
-       bty="n", cex=.8)
+       bty = "n", cex = .8)
 ~~~
 {: .r}
 
@@ -1098,15 +1098,15 @@ legend("bottomright",
 > > # plot using new colors
 > > plot(lines_HARV$geometry,
 > >      col=(challengeColors)[lines_HARV$BicyclesHo],
-> >      lwd=c(4,1,1)[lines_HARV$BicyclesHo],
-> >      main="NEON Harvard Forest Field Site\n Roads Where Bikes and Horses Are Allowed")
+> >      lwd = c(4,1,1)[lines_HARV$BicyclesHo],
+> >      main = "NEON Harvard Forest Field Site\n Roads Where Bikes and Horses Are Allowed")
 > > 
 > > # add a legend to our map
 > > legend("bottomright", 
 > >        levels(lines_HARV$BicyclesHo), 
 > >        fill=challengeColors, 
-> >        bty="n", # turn off border
-> >        cex=.8) # adjust font size
+> >        bty = "n", # turn off border
+> >        cex = .8) # adjust font size
 > > ~~~
 > > {: .r}
 > > 
@@ -1128,7 +1128,7 @@ legend("bottomright",
 > using a different symbol. HINT: you can assign the symbol using `pch=` value. 
 > You can create a vector object of symbols by factor level using the syntax
 > syntax that we used above to create a vector of lines widths and colors:
-> `pch=c(15,17)[lines_HARV$soilTypeOr]`. Type `?pch` to learn more about pch or 
+> `pch = c(15,17)[lines_HARV$soilTypeOr]`. Type `?pch` to learn more about pch or 
 > use google to find a list of pch symbols that you can use in `R`.
 > 
 > > ## Answers
@@ -1137,23 +1137,23 @@ legend("bottomright",
 > > ~~~
 > > ## 1
 > > # Read the shapefile file
-> > State.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp")
+> > state_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp")
 > > 
 > > # how many levels?
-> > levels(State.Boundary.US$region)
+> > levels(state_boundary_US$region)
 > > colors <- c("purple","springgreen","yellow","brown","grey")
 > > colors
 > > 
-> > plot(State.Boundary.US$geometry,
-> >      col=(colors)[State.Boundary.US$region],
-> >      main="Contiguous U.S. State Boundaries \n 50 Colors")
+> > plot(state_boundary_US$geometry,
+> >      col=(colors)[state_boundary_US$region],
+> >      main = "Contiguous U.S. State Boundaries \n 50 Colors")
 > > 
 > > # add a legend to our map
 > > legend("bottomright", 
-> >        levels(State.Boundary.US$region), 
+> >        levels(state_boundary_US$region), 
 > >        fill=colors, 
-> >        bty="n", #turn off border
-> >        cex=.7) #adjust font size
+> >        bty = "n", #turn off border
+> >        cex = .7) #adjust font size
 > > ~~~
 > > {: .r}
 > > 
@@ -1175,15 +1175,15 @@ legend("bottomright",
 > > plot(plotLocations$geometry,
 > >      col=(blueGreen)[plotLocations$soilTypeOr], 
 > >      pch=18,
-> >      main="NEON Harvard Forest Field Site\n Study Plots by Soil Type\n One Symbol for All Types")
+> >      main = "NEON Harvard Forest Field Site\n Study Plots by Soil Type\n One Symbol for All Types")
 > > 
 > > # create legend 
 > > legend("bottomright", 
-> >        legend=c("Intceptisols","Histosols"),
+> >        legend = c("Intceptisols","Histosols"),
 > >        pch=18, 
 > >        col=blueGreen,
-> >        bty="n", 
-> >        cex=1)
+> >        bty = "n", 
+> >        cex = 1)
 > > ~~~
 > > {: .r}
 > > 
@@ -1199,7 +1199,7 @@ legend("bottomright",
 > > plot(plotLocations$geometry,
 > >      col=plotLocations$soilTypeOr, 
 > >      pch=plSymbols,
-> >      main="NEON Harvard Forest Field Site\n Study Plots by Soil Type\n Unique Symbol for Each Type")
+> >      main = "NEON Harvard Forest Field Site\n Study Plots by Soil Type\n Unique Symbol for Each Type")
 > > 
 > > # create vector of plot symbols ONLY. Legend needs only the symbols
 > > plSymbolsL <- c(15,17)
@@ -1207,11 +1207,11 @@ legend("bottomright",
 > > 
 > > # create legend 
 > > legend("bottomright", 
-> >        legend=c("Intceptisols","Histosols"),
+> >        legend = c("Intceptisols","Histosols"),
 > >        pch=plSymbolsL, 
 > >        col=palette(),
-> >        bty="n", 
-> >        cex=1)
+> >        bty = "n", 
+> >        cex = 1)
 > > ~~~
 > > {: .r}
 > > 
