@@ -13,7 +13,7 @@ keypoints:
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2016-02-09
-lastModified: 2017-09-18
+lastModified: 2017-09-19
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -39,12 +39,12 @@ comments: true
 > ### Install R Packages
 >
 > * **raster:** `install.packages("raster")`
-> * **sf:** `install.packages("sp")`
+> * **sf:** `install.packages("sf")`
 >
 > [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 >
 > ## Download Data
->
+> * [Site layout shapefiles](https://ndownloader.figshare.com/files/3708751)
 {: .prereq}
 
 This tutorial builds upon
@@ -54,7 +54,7 @@ shapefiles using base R graphics. It then covers
 how to create a custom legend with colors and symbols that match your plot.
 
 ## Load the Data
-To work with vector data in `R`, we can use the `rgdal` library. The `raster`
+To work with vector data in `R`, we can use the `sf` library. The `raster`
 package also allows us to explore metadata using similar commands for both
 raster and vector files.
 
@@ -267,7 +267,7 @@ plot(lines_HARV$geometry,
 > ## Data Tip
 > Given we have a factor with 4 levels,
 > we can create a vector of numbers, each of which specifies the thickness of each
-> feature in our `SpatialLinesDataFrame` by factor level (category): `c(6, 4, 1, 2)[lines_HARV$TYPE]`
+> feature in our `sf` object by factor level (category): `c(6, 4, 1, 2)[lines_HARV$TYPE]`
 {: .callout}
 
 ## Add Plot Legend
@@ -510,7 +510,7 @@ using `lty = ()`. We have a total of 6 elements in our legend:
 
 The `lty` list designates, in order, which of those elements should be
 designated as a line (`1`) and which should be designated as a symbol (`NA`).
-Our object will thus look like `lty = c(NA,NA,1,1,1,1)`. This tells `R` to use a
+Our object will thus look like `lty = c(NA, NA, 1, 1, 1, 1)`. This tells `R` to use a
 line element for`the 3-6 elements in our legend only.
 
 Once we do this, we need to **modify** our `pch` element. Each **line** element
@@ -569,56 +569,56 @@ legend("bottomright",
 
 
 > ## Challenge: Plot Polygon by Attribute
->
+> 
 > 1. Using the `NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp` shapefile,
 > create a map of study plot locations, with each point colored by the soil type
 > (`soilTypeOr`). How many different soil types are there at this particular field
 > site? Overlay this layer on top of the `lines_HARV` layer (the roads). Create a
 > custom legend that applies line symbols to lines and point symbols to the points.
->
+> 
 > 2. Modify the plot above. Tell `R` to plot each point, using a different
 symbol of `pch` value. HINT: to do this, create a vector object of symbols by
 factor level using the syntax described above for line width:
-`c(15,17)[lines_HARV$soilTypeOr]`. Overlay this on top of the AOI Boundary.
+`c(15, 17)[lines_HARV$soilTypeOr]`. Overlay this on top of the AOI Boundary.
 Create a custom legend.
->
->
+> 
+> 
 > > ## Answers
-> >
+> > 
 > > 
 > > ~~~
 > > ## 1
 > > # open plot locations
 > > plotLocations <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
-> > > >
+> > 
 > > # how many unique soils?  Two
 > > unique(plotLocations$soilTypeOr)
-> > > >
+> > 
 > > # create new color palette -- topo.colors palette
-> > blueGreen <- c("blue","darkgreen")
+> > blueGreen <- c("blue", "darkgreen")
 > > blueGreen
-> > > >
+> > 
 > > # plot roads
 > > plot(lines_HARV$geometry,
 > >      col=road_colors,
 > >      main = "NEON Harvard Forest Field Site\n Study Plots by Soil Type\n One Symbol for All Types")
-> > > >
+> > 
 > > # plot the locations
 > > plot(plotLocations$geometry,
 > >      col=(blueGreen)[plotLocations$soilTypeOr],
 > >      pch=18,
 > >      add = TRUE)
-> > > >
+> > 
 > > # create line object
-> > line_legendElement = c(NA,NA,1,1,1,1)
+> > line_legendElement = c(NA, NA, 1, 1, 1, 1)
 > > line_legendElement
-> > plotSymElements <- c(18,18,NA,NA,NA,NA)
+> > plotSymElements <- c(18, 18, NA, NA, NA, NA)
 > > plotSymElements
-> > > >
+> > 
 > > # create vector of colors
 > > colorElements <- c(blueGreen, road_palette)
 > > colorElements
-> > > >
+> > 
 > > # create legend
 > > legend("bottomright",
 > >        legend = c(levels(plotLocations$soilTypeOr), levels(lines_HARV$TYPE)),
@@ -627,29 +627,34 @@ Create a custom legend.
 > >        col = colorElements,
 > >        bty = "n",
 > >        cex = 1)
-> > > >
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-plot-color-1.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />
+> > 
+> > ~~~
 > > ## 2
 > > # create vector of DIFFERENT plot symbols
-> > plSymbols <- c(15,17)[plotLocations$soilTypeOr]
+> > plSymbols <- c(15, 17)[plotLocations$soilTypeOr]
 > > plSymbols
-> > > >
+> > 
 > > # plot roads
 > > plot(lines_HARV$geometry,
 > >      col=road_colors,
 > >      main = "NEON Harvard Forest Field Site\n Study Plots by Soil Type\n Different Symbols for Types")
-> > > >
+> > 
 > > # plot the locations
 > > plot(plotLocations$geometry,
 > >      col=(blueGreen)[plotLocations$soilTypeOr],
 > >      pch=plSymbols,
 > >      add = TRUE)
-> > > >
+> > 
 > > # create line object
-> > line_legendElement  <- c(NA,NA,1,1,1,1)
+> > line_legendElement  <- c(NA, NA, 1, 1, 1, 1)
 > > line_legendElement
-> > plotSymElementsMod <- c(15,17,NA,NA,NA,NA)
+> > plotSymElementsMod <- c(15, 17, NA, NA, NA, NA)
 > > plotSymElementsMod
-> > > >
+> > 
 > > # create vector of colors
 > > colorElements <- c(blueGreen, road_palette)
 > > colorElements
@@ -664,14 +669,6 @@ Create a custom legend.
 > > ~~~
 > > {: .r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error: <text>:4:1: unexpected '>'
-> > 3: plotLocations <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
-> > 4: >
-> >    ^
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-challenge-code-plot-color-2.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}

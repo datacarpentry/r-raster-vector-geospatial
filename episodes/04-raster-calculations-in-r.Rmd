@@ -166,17 +166,17 @@ Notice that the range of values for the output CHM is between 0 and 30 meters.
 Does this make sense for trees in Harvard Forest?
 
 > ## Challenge: Explore CHM Raster Values
->
+> 
 > It's often a good idea to explore the range of values in a raster dataset just like we might explore a dataset that we collected in the field.
->
+> 
 > 1. What is the min and maximum value for the Harvard Forest Canopy Height Model (`CHM_HARV`) that we just created?
 > 2. What are two ways you can check this range of data in `CHM_HARV`?
 > 3. What is the distribution of all the pixel values in the CHM?
 > 4. Plot a histogram with 6 bins instead of the default and change the color of the histogram.
 > 5. Plot the `CHM_HARV` raster using breaks that make sense for the data. Include an appropriate color palette for the data, plot title and no axes ticks / labels.
->
+> 
 > > ## Answers
-> >
+> > 
 > > ```{r challenge-code-CHM-HARV, echo=TRUE}
 > > # 1)
 > > minValue(CHM_HARV)
@@ -264,7 +264,7 @@ contains (CHM data) and for where (HARVard Forest). The `writeRaster()` function
 by default writes the output file to your working directory unless you specify a
 full file path.
 
-```{r write-raster }
+```{r write-raster, eval=FALSE}
 # export CHM object to new GeotIFF
 writeRaster(CHM_ov_HARV, "chm_HARV.tiff",
             format="GTiff",  # specify output format - GeoTIFF
@@ -285,7 +285,7 @@ Ecological Observatory Network's (NEON) standard `NoDataValue`.
 
 
 > ## Challenge: Explore the NEON San Joaquin Experimental Range Field Site
->
+> 
 > Data are often more interesting and powerful when we compare them across various
 > locations. Let's compare some data collected over Harvard Forest to data
 > collected in Southern California. The
@@ -294,12 +294,12 @@ Ecological Observatory Network's (NEON) standard `NoDataValue`.
 > the
 > <a href="http://www.neonscience.org/science-design/field-sites/harvard-forest" target="_blank" >NEON Harvard Forest Field Site</a>
 in Massachusetts.
->
+> 
 > Import the SJER DSM and DTM raster files and create a Canopy Height Model.
 > Then compare the two sites. Be sure to name your `R` objects and outputs
 > carefully, as follows: objectType_SJER (e.g. `DSM_SJER`). This will help you
 > keep track of data from different sites!
->
+> 
 > 1. Import the DSM and DTM from the SJER directory (if not aready imported
 in the
 > [Plot Raster Data in R]({{ site.baseurl }}/R/Plot-Rasters-In-R/)
@@ -310,7 +310,7 @@ are what you expect.
 > 4. Export the SJER CHM as a `GeoTIFF`.
 > 5. Compare the vegetation structure of the Harvard Forest and San Joaquin
 > Experimental Range.
->
+> 
 > Hint: plotting SJER and HARV data side-by-side is an effective way to compare
 both datasets!
 > > ## Answers
@@ -320,11 +320,11 @@ both datasets!
 > > DTM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
 > > # load the DSM
 > > DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
-> >
+> > 
 > > # check CRS, units, etc
 > > DTM_SJER
 > > DSM_SJER
-> >
+> > 
 > > # check values
 > > hist(DTM_SJER,
 > >      maxpixels=ncell(DTM_SJER),
@@ -338,31 +338,31 @@ both datasets!
 > >      col = "slategray2",
 > >      ylab = "Number of Pixels",
 > >      xlab = "Elevation (m)")
-> >
+> > 
 > > # 2.
 > > # use overlay to subtract the two rasters & create CHM
 > > CHM_SJER <- overlay(DSM_SJER, DTM_SJER,
 > >                     fun=function(r1, r2){return(r1-r2)})
-> >
+> > 
 > > hist(CHM_SJER,
 > >      main = "Canopy Height Model - Histogram\n NEON SJER Field Site",
 > >      col = "springgreen4",
 > >      ylab = "Number of Pixels",
 > >      xlab = "Elevation (m)")
-> >
+> > 
 > > # 3
 > > # plot the output
 > > plot(CHM_SJER,
 > >      main = "Canopy Height Model - Overlay Subtract\n NEON SJER Field Site",
 > >      axes = FALSE)
-> >
+> > 
 > > # 4
 > > # Write to object to file
 > > writeRaster(CHM_SJER, "chm_ov_SJER.tiff",
 > >             format = "GTiff",
 > >             overwrite = TRUE,
 > >             NAflag = -9999)
-> >
+> > 
 > > # 4.Tree heights are much shorter in SJER.
 > > # view histogram of HARV again.
 > > par(mfcol = c(2, 1))
@@ -371,13 +371,13 @@ both datasets!
 > >      col = "springgreen4",
 > >       ylab = "Number of Pixels",
 > >      xlab = "Elevation (m)")
-> >
+> > 
 > > hist(CHM_SJER,
 > >   main = "Canopy Height Model - Histogram\nNEON SJER Field Site",
 > >   col = "slategrey",
 > >   ylab = "Number of Pixels",
 > >   xlab = "Elevation (m)")
-> >
+> > 
 > > ```
 > {: .solution}
 {: .challenge}

@@ -15,7 +15,7 @@ keypoints:
 authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
 contributors: [ ]
 dateCreated: 2015-10-23
-lastModified: 2017-09-18
+lastModified: 2017-09-19
 packagesLibraries: [raster, rgdal]
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
@@ -647,18 +647,20 @@ It is ideal to use `GDALinfo` to explore your file **before** reading it into
 `R`.
 
 > ## Challenge: Explore Raster Metadata
->
+> 
 > Without using the `raster` function to read the file into `R`, determine the following about the  `NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif` file:
->
+> 
 > 1. Does this file has the same `CRS` as `DSM_HARV`?
 > 2. What is the `NoDataValue`?
 > 3. What is resolution of the raster data?
 > 4. How large would a 5x5 pixel area would be on the Earth's surface?
 > 5. Is the file a multi- or single-band raster?
->
+> 
 > Notice: this file is a `hillshade`. We will learn about hillshades in
 <a href="{{ site.baseurl }}/R/Multi-Band-Rasters-In-R/" target="_blank">  Work with Multi-band Rasters: Images in R</a>.
+> > 
 > > ## Answers
+> > 
 > > 
 > > ~~~
 > > rows        1367 
