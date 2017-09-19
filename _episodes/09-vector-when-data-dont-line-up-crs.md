@@ -13,7 +13,7 @@ keypoints:
 authors: [Joseph Stachelek, Leah Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2015-10-23
-lastModified: 2017-09-18
+lastModified: 2017-09-19
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -30,33 +30,33 @@ them in non-gui tools such as R."
 
 > ## Things You’ll Need To Complete This Tutorial
 > **R Skill Level:** Intermediate - you've got the basics of `R` down.
-> You will need the most current version of `R` and, preferably, `RStudio` loaded 
+> You will need the most current version of `R` and, preferably, `RStudio` loaded
 > on your computer to complete this tutorial.
-> 
+>
 > ### Install R Packages
-> 
+>
 > * **raster:** `install.packages("raster")`
 > * **sf:** `install.packages("sf")`
-> 
+>
 > * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
-> 
+>
 > ## Data to Download
-> 
-{: .prereq} 
+>
+{: .prereq}
 
-In this tutorial, we will create a base map of our study site using a United States 
-state and country boundary accessed from the 
-<a href="https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html" target="_blank"> United States Census Bureau</a>. 
-We will learn how to map vector data that are in different `CRS` and thus 
-don't line up on a map. 
+In this tutorial, we will create a base map of our study site using a United States
+state and country boundary accessed from the
+<a href="https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html" target="_blank"> United States Census Bureau</a>.
+We will learn how to map vector data that are in different `CRS` and thus
+don't line up on a map.
 
 
 ## Working With Spatial Data From Different Sources
 
-To support a project, we often need to gather spatial datasets for from 
+To support a project, we often need to gather spatial datasets for from
 different sources and/or data that cover different spatial `extents`. Spatial
 data from different sources and that cover different extents are often in
-different Coordinate Reference Systems (CRS). 
+different Coordinate Reference Systems (CRS).
 
 Some reasons for data being in different CRS include:
 
@@ -70,28 +70,28 @@ for that state.
     <a href="https://source.opennews.org/media/cache/b9/4f/b94f663c79024f0048ae7b4f88060cb5.jpg">
     <img src="https://source.opennews.org/media/cache/b9/4f/b94f663c79024f0048ae7b4f88060cb5.jpg">
     </a>
-    
-    <figcaption>Maps of the United States using data in different projections. 
+
+    <figcaption>Maps of the United States using data in different projections.
     Notice the differences in shape associated with each different projection.
-    These differences are a direct result of the calculations used to "flatten" 
+    These differences are a direct result of the calculations used to "flatten"
     the data onto a 2-dimensional map. Often data are stored purposefully in a
     particular projection that optimizes the relative shape and size of
-    surrounding geographic boundaries (states, counties, countries, etc). 
+    surrounding geographic boundaries (states, counties, countries, etc).
     Source: opennews.org</figcaption>
 </figure>
 
-Check out this short video highlighting how map projections can make continents 
+Check out this short video highlighting how map projections can make continents
 seems proportionally larger or smaller than they actually are!
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/KUF_Ckv8HbE" frameborder="0" allowfullscreen></iframe>
 
-In this tutorial we will learn how to identify and manage spatial data 
+In this tutorial we will learn how to identify and manage spatial data
 in different projections. We will learn how to `reproject` the data so that they
 are in the same projection to support plotting / mapping. Note that these skills
 are also required for any geoprocessing / spatial analysis. Data need to be in
 the same CRS to ensure accurate results.
 
-We will use the `rgdal` and `raster` libraries in this tutorial. 
+We will use the `rgdal` and `raster` libraries in this tutorial.
 
 
 ~~~
@@ -110,7 +110,7 @@ Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
 
 
 ~~~
-library(raster)   # for raster metadata/attributes 
+library(raster)   # for raster metadata/attributes
 ~~~
 {: .r}
 
@@ -131,9 +131,9 @@ Loading required package: sp
 
 ## Import US Boundaries - Census Data
 
-There are many good sources of boundary base layers that we can use to create a 
+There are many good sources of boundary base layers that we can use to create a
 basemap. Some `R` packages even have these base layers built in to support quick
-and efficient mapping. In this tutorial, we will use boundary layers for the 
+and efficient mapping. In this tutorial, we will use boundary layers for the
 United States, provided by the
 <a href="https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html" target="_blank"> United States Census Bureau.</a>
 
@@ -183,9 +183,9 @@ class(state_boundary_US)
 ~~~
 {: .output}
 
-Note: the Z-dimension warning is normal. The `st_read()` function doesn't import 
+Note: the Z-dimension warning is normal. The `st_read()` function doesn't import
 z (vertical dimension or height) data by default. This is because not all
-shapefiles contain z dimension data. 
+shapefiles contain z dimension data.
 <a href="http://www.inside-r.org/packages/cran/rgdal/docs/ogrInfo" target="_blank">More on st_read</a>
 
 Next, let's plot the U.S. states data.
@@ -193,19 +193,19 @@ Next, let's plot the U.S. states data.
 
 ~~~
 # view column names
-plot(state_boundary_US$geometry, 
+plot(state_boundary_US$geometry,
      main = "Map of Continental US State Boundaries\n US Census Bureau Data")
 ~~~
 {: .r}
 
 <img src="../fig/rmd-find-coordinates-1.png" title="plot of chunk find-coordinates" alt="plot of chunk find-coordinates" style="display: block; margin: auto;" />
 
-## U.S. Boundary Layer  
+## U.S. Boundary Layer
 
 We can add a boundary layer of the United States to our map - to make it look
-nicer. We will import 
+nicer. We will import
 `NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States`.
-If we specify a thicker line width using `lwd = 4` for the border layer, it will 
+If we specify a thicker line width using `lwd = 4` for the border layer, it will
 make our map pop!
 
 
@@ -262,11 +262,11 @@ plot(country_boundary_US$geometry,
 <img src="../fig/rmd-check-out-coordinates-1.png" title="plot of chunk check-out-coordinates" alt="plot of chunk check-out-coordinates" style="display: block; margin: auto;" />
 
 Next, let's add the location of a flux tower where our study area is.
-As we are adding these layers, take note of the class of each object. 
+As we are adding these layers, take note of the class of each object.
 
 
 ~~~
-# Import a point shapefile 
+# Import a point shapefile
 point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 ~~~
 {: .r}
@@ -301,7 +301,7 @@ class(point_HARV)
 
 
 ~~~
-# plot point - looks ok? 
+# plot point - looks ok?
 plot(point_HARV$geometry,
      pch = 19,
      col = "purple",
@@ -311,19 +311,19 @@ plot(point_HARV$geometry,
 
 <img src="../fig/rmd-explore-units-1.png" title="plot of chunk explore-units" alt="plot of chunk explore-units" style="display: block; margin: auto;" />
 
-The plot above demonstrates that the tower point location data is readable and 
+The plot above demonstrates that the tower point location data is readable and
 will plot! Let's next add it as a layer on top of the U.S. states and boundary
 layers in our basemap plot.
 
 
 ~~~
-# plot state boundaries  
+# plot state boundaries
 plot(state_boundary_US$geometry,
      main = "Map of Continental US State Boundaries \n with Tower Location",
      border = "gray40")
 
-# add US border outline 
-plot(country_boundary_US$geometry, 
+# add US border outline
+plot(country_boundary_US$geometry,
      lwd = 4,
      border = "gray18",
      add = TRUE)
@@ -338,7 +338,7 @@ plot(point_HARV$geometry,
 
 <img src="../fig/rmd-layer-point-on-states-1.png" title="plot of chunk layer-point-on-states" alt="plot of chunk layer-point-on-states" style="display: block; margin: auto;" />
 
-What do you notice about the resultant plot? Do you see the tower location in 
+What do you notice about the resultant plot? Do you see the tower location in
 purple in the Massachusetts area? No! What went wrong?
 
 Let's check out the CRS (`crs()`) of both datasets to see if we can identify any
@@ -416,47 +416,47 @@ the CRS strings in `proj4` format.
 The CRS for our data are given to us by `R` in `proj4` format. Let's break
 down the pieces of `proj4` string. The string contains all of the individual
 CRS elements that `R` or another GIS might need. Each element is specified
-with a `+` sign, similar to how a `.csv` file is delimited or broken up by 
+with a `+` sign, similar to how a `.csv` file is delimited or broken up by
 a `,`. After each `+` we see the CRS element being defined. For example
 projection (`proj=`) and datum (`datum=`).
 
 ### UTM Proj4 String
-Our project string for `point_HARV` specifies the UTM projection as follows: 
+Our project string for `point_HARV` specifies the UTM projection as follows:
 
-`+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0` 
+`+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0`
 
 * **proj=utm:** the projection is UTM, UTM has several zones.
 * **zone=18:** the zone is 18
 * **datum=WGS84:** the datum WGS84 (the datum refers to the  0,0 reference for
 the coordinate system used in the projection)
 * **units=m:** the units for the coordinates are in METERS.
-* **ellps=WGS84:** the ellipsoid (how the earth's  roundness is calculated) for 
+* **ellps=WGS84:** the ellipsoid (how the earth's  roundness is calculated) for
 the data is WGS84
 
-Note that the `zone` is unique to the UTM projection. Not all CRS will have a 
+Note that the `zone` is unique to the UTM projection. Not all CRS will have a
 zone.
 
 ### Geographic (lat / long) Proj4 String
 
 Our project string for `state_boundary_US` and `country_boundary_US` specifies
-the lat/long projection as follows: 
+the lat/long projection as follows:
 
-`+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0` 
+`+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0`
 
 * **proj=longlat:** the data are in a geographic (latitude and longitude)
 coordinate system
 * **datum=WGS84:** the datum WGS84 (the datum refers to the  0,0 reference for
-the coordinate system used in the projection) 
+the coordinate system used in the projection)
 * **ellps=WGS84:** the ellipsoid (how the earth's roundness is calculated)
 is WGS84
 
-Note that there are no specified units above. This is because this geographic 
-coordinate reference system is in latitude and longitude which is most 
+Note that there are no specified units above. This is because this geographic
+coordinate reference system is in latitude and longitude which is most
 often recorded in *Decimal Degrees*.
 
 > ## Data Tip
-> the last portion of each `proj4` string 
-> is `+towgs84=0,0,0 `. This is a conversion factor that is used if a datum 
+> the last portion of each `proj4` string
+> is `+towgs84=0,0,0 `. This is a conversion factor that is used if a datum
 > conversion is required. We will not deal with datums in this tutorial series.
 {: .callout}
 
@@ -498,7 +498,7 @@ st_bbox(state_boundary_US)
 
 Note the difference in the units for each object. The extent for
 `state_boundary_US` is in latitude and longitude which yields smaller numbers
-representing decimal degree units. Our tower location point is in UTM, is 
+representing decimal degree units. Our tower location point is in UTM, is
 represented in meters.
 
 ***
@@ -507,8 +507,8 @@ represented in meters.
 
 * <a href="http://proj.maptools.org/faq.html" target="_blank">More information on the proj4 format.</a>
 * <a href="http://spatialreference.org" target="_blank">A fairly comprehensive list of CRS by format.</a>
-* To view a list of datum conversion factors type: `projInfo(type = "datum")` 
-into the `R` console. 
+* To view a list of datum conversion factors type: `projInfo(type = "datum")`
+into the `R` console.
 
 ***
 
@@ -523,13 +523,13 @@ the datum, units and other information that `R` needs to **reproject** our data.
 The `spTransform()` function requires two inputs:
 
 1. the name of the object that you wish to transform
-2. the CRS that you wish to transform that object too. In this case we can 
+2. the CRS that you wish to transform that object too. In this case we can
 use the `crs()` of the `state_boundary_US` object as follows:
 `crs(state_boundary_US)`
 
 > ## Data Tip
-> `spTransform()` will only work if your 
-> original spatial object has a CRS assigned to it AND if that CRS is the 
+> `spTransform()` will only work if your
+> original spatial object has a CRS assigned to it AND if that CRS is the
 > correct CRS!
 {: .callout}
 
@@ -581,12 +581,12 @@ Once our data are reprojected, we can try to plot again.
 
 
 ~~~
-# plot state boundaries  
+# plot state boundaries
 plot(state_boundary_US$geometry,
      main = "Map of Continental US State Boundaries\n With Fisher Tower Location",
      border = "gray40")
 
-# add US border outline 
+# add US border outline
 plot(country_boundary_US$geometry,
      lwd = 4,
      border = "gray18",
@@ -602,23 +602,23 @@ plot(point_HARV_WGS84$geometry,
 
 <img src="../fig/rmd-plot-again-1.png" title="plot of chunk plot-again" alt="plot of chunk plot-again" style="display: block; margin: auto;" />
 
-Reprojecting our data ensured that things line up on our map! It will also 
+Reprojecting our data ensured that things line up on our map! It will also
 allow us to perform any required geoprocessing (spatial calculations /
 transformations) on our data.
 
 > ## Challenge - Reproject Spatial Data
-> 
+>
 > Create a map of the North Eastern United States as follows:
-> 
+>
 > 1. Import and plot `Boundary-US-State-NEast.shp`. Adjust line width as necessary.
 > 2. **Reproject** the layer into UTM zone 18 north.
 > 3. Layer the Fisher Tower point location `point_HARV` on top of the above plot.
 > 4. Add a **title** to your plot.
 > 5. Add a **legend** to your plot that shows both the state boundary (line) and
 > the Tower location point.
-> 
+>
 > > ## Answers
-> >  
+> >
 > > 
 > > ~~~
 > > # import mass boundary layer
@@ -626,39 +626,48 @@ transformations) on our data.
 > > NE.States.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp")
 > > # view crs
 > > st_crs(NE.States.Boundary.US)
-> > 
+> > > >
 > > # create CRS object
 > > UTM_CRS <- st_crs(point_HARV)
 > > UTM_CRS
-> > 
+> > > >
 > > # reproject line and point data
 > > NE.States.Boundary.US.UTM  <- st_transform(NE.States.Boundary.US,
 > >                                 UTM_CRS)
 > > NE.States.Boundary.US.UTM
-> > 
-> > # plot state boundaries  
-> > plot(NE.States.Boundary.US.UTM$geometry, 
+> > > >
+> > # plot state boundaries
+> > plot(NE.States.Boundary.US.UTM$geometry,
 > >      main = "Map of Northeastern US\n With Fisher Tower Location - UTM Zone 18N",
 > >      border="gray18",
 > >      lwd = 2)
-> > 
+> > > >
 > > # add point tower location
-> > plot(point_HARV$geometry, 
-> >      pch = 19, 
+> > plot(point_HARV$geometry,
+> >      pch = 19,
 > >      col = "purple",
 > >      add = TRUE)
-> > 
+> > > >
 > > # add legend
 > > # to create a custom legend, we need to fake it
-> > legend("bottomright", 
-> >        legend = c("State Boundary","Fisher Tower"),
-> >        lty = c(1,NA),
-> >        pch = c(NA,19),
-> >        col = c("gray18","purple"),
+> > legend("bottomright",
+> >        legend = c("State Boundary", "Fisher Tower"),
+> >        lty = c(1, NA),
+> >        pch = c(NA, 19),
+> >        col = c("gray18", "purple"),
 > >        bty = "n")
+> > > >
 > > ~~~
 > > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-code-MASS-Map-1.png" title="plot of chunk challenge-code-MASS-Map" alt="plot of chunk challenge-code-MASS-Map" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error: <text>:6:1: unexpected '>'
+> > 5: st_crs(NE.States.Boundary.US)
+> > 6: >
+> >    ^
+> > ~~~
+> > {: .error}
 > {: .solution}
 {: .challenge}

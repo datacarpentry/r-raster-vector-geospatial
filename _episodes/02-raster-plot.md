@@ -13,13 +13,13 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2017-09-18
+lastModified: 2017-09-19
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]
 mainTag: raster-data-series
 description: "This tutorial explains how to plot a raster in R using R's base plot
-function. It also covers how to layer a raster on top of a hillshade to produce 
+function. It also covers how to layer a raster on top of a hillshade to produce
 an eloquent map."
 image:
   feature: NEONCarpentryHeader_2.png
@@ -30,41 +30,41 @@ comments: true
 
 
 
-> ## Things You’ll Need To Complete This Tutorial 
+> ## Things You’ll Need To Complete This Tutorial
 > **R Skill Level:** Intermediate - you've got the basics of `R` down.
 >
 > You will need the most current version of `R` and, preferably, `RStudio` loaded
 on your computer to complete this tutorial.
-> 
+>
 > ### Install R Packages
-> 
+>
 > * **raster:** `install.packages("raster")`
 > * **rgdal:** `install.packages("rgdal")`
-> 
+>
 > * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
-> 
+>
 > #### Download Data
-> 
-> 
+>
+>
 > ### Reference
-> 
+>
 > * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank"> Read more about the `raster` package in `R`.</a>
-{: .prereq} 
+{: .prereq}
 
 
-This tutorial reviews how to plot a raster in `R` using the `plot()` 
-function. It also covers how to layer a raster on top of a hillshade to produce 
+This tutorial reviews how to plot a raster in `R` using the `plot()`
+function. It also covers how to layer a raster on top of a hillshade to produce
 an eloquent map.
 
 ## Plot Raster Data in R
-In this tutorial, we will plot the Digital Surface Model (DSM) raster 
-for the NEON Harvard Forest Field Site. We will use the `hist()` function as a 
-tool to explore raster values. And render categorical plots, using the `breaks` argument to get bins that are meaningful representations of our data. 
+In this tutorial, we will plot the Digital Surface Model (DSM) raster
+for the NEON Harvard Forest Field Site. We will use the `hist()` function as a
+tool to explore raster values. And render categorical plots, using the `breaks` argument to get bins that are meaningful representations of our data.
 
 We will use the `raster` and `rgdal` packages in this tutorial. If you do not
-have the `DSM_HARV` object from the 
-[Intro To Raster In R tutorial]({{ site.baseurl }}/R/Introduction-to-Raster-Data-In-R/), 
-please create it now.  
+have the `DSM_HARV` object from the
+[Intro To Raster In R tutorial]({{ site.baseurl }}/R/Introduction-to-Raster-Data-In-R/),
+please create it now.
 
 
 ~~~
@@ -124,14 +124,14 @@ We can view our data "symbolized" or colored according to ranges of values
 rather than using a continuous color ramp. This is comparable to a "classified"
 map. However, to assign breaks, it is useful to first explore the distribution
 of the data using a histogram. The `breaks` argument in the `hist()` function
-tells `R` to use fewer or more breaks or bins. 
+tells `R` to use fewer or more breaks or bins.
 
 If we name the histogram, we can also view counts for each bin and assigned
-break values.  
+break values.
 
 
 ~~~
-# Plot distribution of raster values 
+# Plot distribution of raster values
 DSMhist < -hist(DSM_HARV,
      breaks = 3,
      main = "Histogram Digital Surface Model\n NEON Harvard Forest Field Site",
@@ -179,7 +179,7 @@ Error in eval(expr, envir, enclos): object 'DSMhist' not found
 Warning message!? Remember, the default for the histogram is to include only a
 subset of 100,000 values. We could force it to show all the pixel values or we
 can use the histogram as is and figure that the sample of 100,000 values
-represents our data well. 
+represents our data well.
 
 Looking at our histogram, `R` has binned out the data as follows:
 
@@ -189,11 +189,11 @@ We can determine that most of the pixel values fall in the 350-400m range with a
 few pixels falling in the lower and higher range. We could specify different
 breaks, if we wished to have a different distribution of pixels in each bin.
 
-We can use those bins to plot our raster data. We will use the 
+We can use those bins to plot our raster data. We will use the
 `terrain.colors()` function to create a palette of 3 colors to use in our plot.
 
 The `breaks` argument allows us to add breaks. To specify where the breaks
-occur, we use the following syntax: `breaks=c(value1,value2,value3)`.
+occur, we use the following syntax: `breaks=c(value1, value2, value3)`.
 We can include as few or many breaks as we'd like.
 
 
@@ -217,9 +217,9 @@ plot(DSM_HARV,
 If we need to create multiple plots using the same color palette, we can create
 an `R` object (`myCol`) for the set of colors that we want to use. We can then
 quickly change the palette across all plots by simply modifying the `myCol`
-object. 
+object.
 
-We can label the x- and y-axes of our plot too using `xlab` and `ylab`. 
+We can label the x- and y-axes of our plot too using `xlab` and `ylab`.
 
 
 ~~~
@@ -255,10 +255,10 @@ plot(DSM_HARV,
 
 
 > ## Challenge: Plot Using Custom Breaks
-> 
+>
 > Create a plot of the Harvard Forest Digital Surface Model (DSM) that has:
-> 
-> 1. Six classified ranges of values (break points) that are evenly divided among the range of pixel values. 
+>
+> 1. Six classified ranges of values (break points) that are evenly divided among the range of pixel values.
 > 2. Axis labels
 > 3. A plot title
 >
@@ -319,7 +319,7 @@ plot(DSM_HARV,
 {: .challenge}
 
 ## Layering Rasters
-We can layer a raster on top of a hillshade raster for the same area, and use a 
+We can layer a raster on top of a hillshade raster for the same area, and use a
 transparency factor to created a 3-dimensional shaded effect. A
 hillshade is a raster that maps the shadows and texture that you would see from
 above when viewing terrain.
@@ -327,7 +327,7 @@ above when viewing terrain.
 
 ~~~
 # import DSM hillshade
-DSM_hill_HARV <- 
+DSM_hill_HARV <-
   raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 
 # plot hillshade using a grayscale color ramp that looks like shadows.
@@ -372,18 +372,18 @@ The alpha value determines how transparent the colors will be (0 being
 transparent, 1 being opaque). Note that here we used the color palette
 `rainbow()` instead of `terrain.color()`.
 
-* More information in the 
-<a href="https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/palettes.html" target="_blank">`R` color palettes documentation</a>. 
+* More information in the
+<a href="https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/palettes.html" target="_blank">`R` color palettes documentation</a>.
 
 > ## Challenge: Create DTM & DSM for SJER
 > Use the files in the `NEON_RemoteSensing/SJER/` directory to create a Digital
 Terrain Model map and Digital Surface Model map of the San Joaquin Experimental
 Range field site.
-> 
+>
 > Make sure to:
-> 
+>
  * include hillshade in the maps,
- * label axes on the DSM map and exclude them from the DTM map, 
+ * label axes on the DSM map and exclude them from the DTM map,
  * a title for the maps,
  * experiment with various alpha values and color palettes to represent the
  data.
