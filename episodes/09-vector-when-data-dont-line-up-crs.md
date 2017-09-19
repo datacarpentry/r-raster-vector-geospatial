@@ -41,7 +41,7 @@ them in non-gui tools such as R."
 > * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 >
 > ## Data to Download
->
+> * [Site layout shapefiles](https://ndownloader.figshare.com/files/3708751)
 {: .prereq}
 
 In this tutorial, we will create a base map of our study site using a United States
@@ -67,8 +67,8 @@ For instance, many states prefer to use a **State Plane** projection customized
 for that state.
 
 <figure>
-    <a href="https://source.opennews.org/media/cache/b9/4f/b94f663c79024f0048ae7b4f88060cb5.jpg">
-    <img src="https://source.opennews.org/media/cache/b9/4f/b94f663c79024f0048ae7b4f88060cb5.jpg">
+    <a href="https://media.opennews.org/cache/06/37/0637aa2541b31f526ad44f7cb2db7b6c.jpg">
+    <img src="https://media.opennews.org/cache/06/37/0637aa2541b31f526ad44f7cb2db7b6c.jpg">
     </a>
 
     <figcaption>Maps of the United States using data in different projections.
@@ -79,6 +79,7 @@ for that state.
     surrounding geographic boundaries (states, counties, countries, etc).
     Source: opennews.org</figcaption>
 </figure>
+
 
 Check out this short video highlighting how map projections can make continents
 seems proportionally larger or smaller than they actually are!
@@ -91,7 +92,7 @@ are in the same projection to support plotting / mapping. Note that these skills
 are also required for any geoprocessing / spatial analysis. Data need to be in
 the same CRS to ensure accurate results.
 
-We will use the `rgdal` and `raster` libraries in this tutorial.
+We will use the `sf` and `raster` packages in this tutorial.
 
 
 ~~~
@@ -168,26 +169,6 @@ proj4string:    +proj=longlat +datum=WGS84 +no_defs
 ~~~
 {: .output}
 
-
-
-~~~
-# look at the data structure
-class(state_boundary_US)
-~~~
-{: .r}
-
-
-
-~~~
-[1] "sf"         "data.frame"
-~~~
-{: .output}
-
-Note: the Z-dimension warning is normal. The `st_read()` function doesn't import
-z (vertical dimension or height) data by default. This is because not all
-shapefiles contain z dimension data.
-<a href="http://www.inside-r.org/packages/cran/rgdal/docs/ogrInfo" target="_blank">More on st_read</a>
-
 Next, let's plot the U.S. states data.
 
 
@@ -231,27 +212,10 @@ proj4string:    +proj=longlat +datum=WGS84 +no_defs
 
 
 ~~~
-# look at the data structure
-class(country_boundary_US)
-~~~
-{: .r}
-
-
-
-~~~
-[1] "sf"         "data.frame"
-~~~
-{: .output}
-
-
-
-~~~
-# view column names
 plot(state_boundary_US$geometry,
      main = "Map of Continental US State Boundaries\n US Census Bureau Data",
      border = "gray40")
 
-# view column names
 plot(country_boundary_US$geometry,
      lwd = 4,
      border = "gray18",
@@ -281,20 +245,6 @@ dimension:      XY
 bbox:           xmin: 732183.2 ymin: 4713265 xmax: 732183.2 ymax: 4713265
 epsg (SRID):    32618
 proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
-~~~
-{: .output}
-
-
-
-~~~
-class(point_HARV)
-~~~
-{: .r}
-
-
-
-~~~
-[1] "sf"         "data.frame"
 ~~~
 {: .output}
 
@@ -341,7 +291,7 @@ plot(point_HARV$geometry,
 What do you notice about the resultant plot? Do you see the tower location in
 purple in the Massachusetts area? No! What went wrong?
 
-Let's check out the CRS (`crs()`) of both datasets to see if we can identify any
+Let's check out the CRS (`st_crs()`) of both datasets to see if we can identify any
 issues that might cause the point location to not plot properly on top of our
 U.S. boundary layers.
 
@@ -516,19 +466,19 @@ into the `R` console.
 
 Now we know our data are in different CRS. To address this, we have to modify
 or **reproject** the data so they are all in the **same** CRS. We can use
-`spTransform()` function to reproject our data. When we reproject the data, we
+`st_transform()` function to reproject our data. When we reproject the data, we
 specify the CRS that we wish to transform our data to. This CRS contains
 the datum, units and other information that `R` needs to **reproject** our data.
 
-The `spTransform()` function requires two inputs:
+The `st_transform()` function requires two inputs:
 
 1. the name of the object that you wish to transform
 2. the CRS that you wish to transform that object too. In this case we can
-use the `crs()` of the `state_boundary_US` object as follows:
-`crs(state_boundary_US)`
+use the `st_crs()` of the `state_boundary_US` object as follows:
+`st_crs(state_boundary_US)`
 
 > ## Data Tip
-> `spTransform()` will only work if your
+> `st_transform()` will only work if your
 > original spatial object has a CRS assigned to it AND if that CRS is the
 > correct CRS!
 {: .callout}
@@ -607,18 +557,18 @@ allow us to perform any required geoprocessing (spatial calculations /
 transformations) on our data.
 
 > ## Challenge - Reproject Spatial Data
->
+> 
 > Create a map of the North Eastern United States as follows:
->
+> 
 > 1. Import and plot `Boundary-US-State-NEast.shp`. Adjust line width as necessary.
 > 2. **Reproject** the layer into UTM zone 18 north.
 > 3. Layer the Fisher Tower point location `point_HARV` on top of the above plot.
 > 4. Add a **title** to your plot.
 > 5. Add a **legend** to your plot that shows both the state boundary (line) and
 > the Tower location point.
->
+> 
 > > ## Answers
-> >
+> > 
 > > 
 > > ~~~
 > > # import mass boundary layer
@@ -626,28 +576,28 @@ transformations) on our data.
 > > NE.States.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp")
 > > # view crs
 > > st_crs(NE.States.Boundary.US)
-> > > >
+> > 
 > > # create CRS object
 > > UTM_CRS <- st_crs(point_HARV)
 > > UTM_CRS
-> > > >
+> > 
 > > # reproject line and point data
 > > NE.States.Boundary.US.UTM  <- st_transform(NE.States.Boundary.US,
 > >                                 UTM_CRS)
 > > NE.States.Boundary.US.UTM
-> > > >
+> > 
 > > # plot state boundaries
 > > plot(NE.States.Boundary.US.UTM$geometry,
 > >      main = "Map of Northeastern US\n With Fisher Tower Location - UTM Zone 18N",
 > >      border="gray18",
 > >      lwd = 2)
-> > > >
+> > 
 > > # add point tower location
 > > plot(point_HARV$geometry,
 > >      pch = 19,
 > >      col = "purple",
 > >      add = TRUE)
-> > > >
+> > 
 > > # add legend
 > > # to create a custom legend, we need to fake it
 > > legend("bottomright",
@@ -656,18 +606,9 @@ transformations) on our data.
 > >        pch = c(NA, 19),
 > >        col = c("gray18", "purple"),
 > >        bty = "n")
-> > > >
 > > ~~~
 > > {: .r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error: <text>:6:1: unexpected '>'
-> > 5: st_crs(NE.States.Boundary.US)
-> > 6: >
-> >    ^
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-challenge-code-MASS-Map-1.png" title="plot of chunk challenge-code-MASS-Map" alt="plot of chunk challenge-code-MASS-Map" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}

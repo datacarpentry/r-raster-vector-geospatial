@@ -473,11 +473,11 @@ both datasets!
 > > DTM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
 > > # load the DSM
 > > DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
-> > > >
+> > 
 > > # check CRS, units, etc
 > > DTM_SJER
 > > DSM_SJER
-> > > >
+> > 
 > > # check values
 > > hist(DTM_SJER,
 > >      maxpixels=ncell(DTM_SJER),
@@ -485,37 +485,58 @@ both datasets!
 > >      col = "slategrey",
 > >      ylab = "Number of Pixels",
 > >      xlab = "Elevation (m)")
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-SJER-CHM-1.png" title="plot of chunk challenge-code-SJER-CHM" alt="plot of chunk challenge-code-SJER-CHM" style="display: block; margin: auto;" />
+> > 
+> > ~~~
 > > hist(DSM_SJER,
 > >      maxpixels=ncell(DSM_SJER),
 > >      main = "Digital Surface Model - Histogram\n NEON SJER Field Site",
 > >      col = "slategray2",
 > >      ylab = "Number of Pixels",
 > >      xlab = "Elevation (m)")
-> > > >
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-SJER-CHM-2.png" title="plot of chunk challenge-code-SJER-CHM" alt="plot of chunk challenge-code-SJER-CHM" style="display: block; margin: auto;" />
+> > 
+> > ~~~
 > > # 2.
 > > # use overlay to subtract the two rasters & create CHM
 > > CHM_SJER <- overlay(DSM_SJER, DTM_SJER,
 > >                     fun=function(r1, r2){return(r1-r2)})
-> > > >
+> > 
 > > hist(CHM_SJER,
 > >      main = "Canopy Height Model - Histogram\n NEON SJER Field Site",
 > >      col = "springgreen4",
 > >      ylab = "Number of Pixels",
 > >      xlab = "Elevation (m)")
-> > > >
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-SJER-CHM-3.png" title="plot of chunk challenge-code-SJER-CHM" alt="plot of chunk challenge-code-SJER-CHM" style="display: block; margin: auto;" />
+> > 
+> > ~~~
 > > # 3
 > > # plot the output
 > > plot(CHM_SJER,
 > >      main = "Canopy Height Model - Overlay Subtract\n NEON SJER Field Site",
 > >      axes = FALSE)
-> > > >
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-SJER-CHM-4.png" title="plot of chunk challenge-code-SJER-CHM" alt="plot of chunk challenge-code-SJER-CHM" style="display: block; margin: auto;" />
+> > 
+> > ~~~
 > > # 4
 > > # Write to object to file
 > > writeRaster(CHM_SJER, "chm_ov_SJER.tiff",
 > >             format = "GTiff",
 > >             overwrite = TRUE,
 > >             NAflag = -9999)
-> > > >
+> > 
 > > # 4.Tree heights are much shorter in SJER.
 > > # view histogram of HARV again.
 > > par(mfcol = c(2, 1))
@@ -524,25 +545,16 @@ both datasets!
 > >      col = "springgreen4",
 > >       ylab = "Number of Pixels",
 > >      xlab = "Elevation (m)")
-> > > >
+> > 
 > > hist(CHM_SJER,
 > >   main = "Canopy Height Model - Histogram\nNEON SJER Field Site",
 > >   col = "slategrey",
 > >   ylab = "Number of Pixels",
 > >   xlab = "Elevation (m)")
-> > > >
 > > ~~~
 > > {: .r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error: <text>:6:1: unexpected '>'
-> > 5: DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
-> > 6: >
-> >    ^
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-challenge-code-SJER-CHM-5.png" title="plot of chunk challenge-code-SJER-CHM" alt="plot of chunk challenge-code-SJER-CHM" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 

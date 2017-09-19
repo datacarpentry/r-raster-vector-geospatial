@@ -530,11 +530,12 @@ row.names(NDVI_HARV_toWrite)<-NULL
 
 # check data frame
 head(NDVI_HARV_toWrite)
+```
 
+```{r eval=FALSE}
 # create a .csv of mean NDVI values being sure to give descriptive name
 # write.csv(DateFrameName, file="NewFileName")
 write.csv(NDVI_HARV_toWrite, file="meanNDVI_HARV_2011.csv")
-
 ```
 
 > ## Challenge: Write to .csv

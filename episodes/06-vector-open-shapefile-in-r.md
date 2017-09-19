@@ -40,7 +40,7 @@ on your computer to complete this tutorial.
 > [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 >
 > ## Download Data
->
+> * [Site layout shapefiles](https://ndownloader.figshare.com/files/3708751)
 {: .prereq}
 
 In this tutorial, we will open and plot point, line and polygon vector data
@@ -97,8 +97,8 @@ information about each stream line object.
 
 ## Import Shapefiles
 
-We will use the `rgdal` package to work with vector data in `R`. Notice that the
-`sf` package automatically loads when `rgdal` is loaded. We will also load the
+We will use the `sf` package to work with vector data in `R`. Notice that the
+`rgdal` package automatically loads when `sf` is loaded. We will also load the
 `raster` package so we can explore raster and vector spatial metadata using similar commands.
 
 
@@ -151,12 +151,9 @@ located at the
 
 The first shapefile that we will open contains the boundary of our study area
 (or our Area Of Interest or AOI, hence the name `aoiBoundary`). To import
-shapefiles we use the `R` function `readOGR()`.
+shapefiles we use the `sf` function `st_read`.
 
-`readOGR()` requires two components:
-
-1. The directory where our shapefile lives: `NEON-DS-Site-Layout-Files/HARV`
-2. The name of the shapefile (without the extension): `HarClip_UTMZ18`
+`st_read()` requires the file path to the shapefile.
 
 Let's import our AOI.
 
@@ -181,17 +178,10 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 ~~~
 {: .output}
 
-> ## Data Tip
-> The acronym, OGR, refers to the
-> OpenGIS Simple Features Reference Implementation.
-> <a href="https://trac.osgeo.org/gdal/wiki/FAQGeneral" target="_blank">
-> Learn more about OGR.</a>
-{: .callout}
-
 ## Shapefile Metadata & Attributes
 
 When we import the `HarClip_UTMZ18` shapefile layer into `R` (as our
-`aoi_boundary_HARV` object), the `readOGR()` function automatically stores
+`aoi_boundary_HARV` object), the `st_read()` function automatically stores
 information about the data. We are particularly interested in the geospatial
 **metadata**, describing the format, `CRS`, `extent`, and other components of
 the vector data, and the **attributes** which describe properties associated
@@ -212,19 +202,20 @@ Key metadata for all shapefiles include:
 the shapefile. Note that the spatial extent for a shapefile represents the
 extent for ALL spatial objects in the shapefile.
 
-We can view shapefile metadata using the `class`, `crs` and `extent` methods:
+We can view shapefile metadata using the `st_geometry_type`, `st_crs` and `st_bbox` methods:
 
 
 ~~~
-# view just the class for the shapefile
-class(aoi_boundary_HARV)
+# view just the geometry type for the shapefile
+st_geometry_type(aoi_boundary_HARV)
 ~~~
 {: .r}
 
 
 
 ~~~
-[1] "sf"         "data.frame"
+[1] POLYGON
+18 Levels: GEOMETRY POINT LINESTRING POLYGON ... TRIANGLE
 ~~~
 {: .output}
 
@@ -288,7 +279,7 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 ~~~
 {: .output}
 
-Our `aoi_boundary_HARV` object is a polygon of class `SpatialPolygonsDataFrame`,
+Our `aoi_boundary_HARV` is an `sf` polygon object,
 in the CRS **UTM zone 18N**. The CRS is critical to interpreting the object
 `extent` values as it specifies units.
 
@@ -326,8 +317,28 @@ attributes stored with it.
 </figure>
 
 
-We view the attributes of a `SpatialPolygonsDataFrame` using `objectName@data`
-(e.g., `aoi_boundary_HARV@data`).
+We can view the attributes of an `sf` object by printing it to the screen. The geometry of the object can be dropped by turning the object into a `data.frame`.
+
+
+~~~
+aoi_boundary_HARV
+~~~
+{: .r}
+
+
+
+~~~
+Simple feature collection with 1 feature and 1 field
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: 732128 ymin: 4713209 xmax: 732251.1 ymax: 4713359
+epsg (SRID):    32618
+proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
+  id                       geometry
+1  1 POLYGON ((732128.016925 471...
+~~~
+{: .output}
+
 
 
 ~~~
@@ -349,9 +360,8 @@ In this case, our polygon object only has one attribute: `id`.
 ## Metadata & Attribute Summary
 We can view a metadata & attribute summary of each shapefile by entering
 the name of the `R` object in the console. Note that the metadata output
-includes the **class**, the number of **features**, the **extent**, and the
-**coordinate reference system** (`crs`) of the `R` object. The last two lines of
-`summary` show a preview of the `R` object **attributes**.
+includes the **geometry type**, the number of **features**, the **extent**, and the
+**coordinate reference system** (`crs`) of the `R` object. The output of `summary()` shows a preview of the `R` object **attributes**.
 
 
 ~~~
@@ -375,7 +385,7 @@ summary(aoi_boundary_HARV)
 
 
 # Plot a Shapefile
-Next, let's visualize the data in our `R` `spatialpolygonsdataframe` object using
+Next, let's visualize the data in our `sf` object using
 `plot()`.
 
 
@@ -392,59 +402,258 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 <img src="../fig/rmd-plot-shapefile-1.png" title="plot of chunk plot-shapefile" alt="plot of chunk plot-shapefile" style="display: block; margin: auto;" />
 
 > ## Challenge: Import Line and Point Shapefiles
->
+> 
 > Using the steps above, import the HARV_roads and HARVtower_UTM18N layers into
 > `R`. Call the Harv_roads object `lines_HARV` and the HARVtower_UTM18N
 > `point_HARV`.
->
+> 
 > Answer the following questions:
->
+> 
 > 1. What type of `R` spatial object is created when you import each layer?
->
+> 
 > 2. What is the `CRS` and `extent`for each object?
->
+> 
 > 3. Do the files contain, points, lines or polygons?
->
+> 
 > 4. How many spatial objects are in each file?
->
+> 
 > > ## Answers
-> >
+> > 
 > > 
 > > ~~~
 > > # import line shapefile
 > > lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
-> > # import point shapefile
-> > point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
-> > > >
-> > # 1
-> > class(lines_HARV)
-> > class(point_HARV)
-> > > >
-> > # 2
-> > st_crs(lines_HARV)
-> > st_bbox(lines_HARV)
-> > st_crs(point_HARV)
-> > st_bbox(point_HARV)
-> > > >
-> > # 3
-> > #lines_HARV contains only lines and point_HARV contains only 1 point
-> > > >
-> > # 4 -> numerous ways to find this; lines_HARV=13,
-> > nrow(lines_HARV)  #easiest, but not previously taught
-> > lines_HARV  #look at 'features'
-> > > >
 > > ~~~
 > > {: .r}
 > > 
 > > 
 > > 
 > > ~~~
-> > Error: <text>:5:1: unexpected '>'
-> > 4: point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
-> > 5: >
-> >    ^
+> > Reading layer `HARV_roads' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp' using driver `ESRI Shapefile'
+> > Simple feature collection with 13 features and 15 fields
+> > geometry type:  MULTILINESTRING
+> > dimension:      XY
+> > bbox:           xmin: 730741.2 ymin: 4711942 xmax: 733295.5 ymax: 4714260
+> > epsg (SRID):    32618
+> > proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 > > ~~~
-> > {: .error}
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > # import point shapefile
+> > point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Reading layer `HARVtower_UTM18N' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp' using driver `ESRI Shapefile'
+> > Simple feature collection with 1 feature and 14 fields
+> > geometry type:  POINT
+> > dimension:      XY
+> > bbox:           xmin: 732183.2 ymin: 4713265 xmax: 732183.2 ymax: 4713265
+> > epsg (SRID):    32618
+> > proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > # 1
+> > class(lines_HARV)
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] "sf"         "data.frame"
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > class(point_HARV)
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] "sf"         "data.frame"
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > # 2
+> > st_crs(lines_HARV)
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > $epsg
+> > [1] 32618
+> > 
+> > $proj4string
+> > [1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
+> > 
+> > attr(,"class")
+> > [1] "crs"
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > st_bbox(lines_HARV)
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> >      xmin      ymin      xmax      ymax 
+> >  730741.2 4711942.0  733295.5 4714260.0 
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > st_crs(point_HARV)
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > $epsg
+> > [1] 32618
+> > 
+> > $proj4string
+> > [1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
+> > 
+> > attr(,"class")
+> > [1] "crs"
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > st_bbox(point_HARV)
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> >      xmin      ymin      xmax      ymax 
+> >  732183.2 4713265.0  732183.2 4713265.0 
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > # 3
+> > #lines_HARV contains only lines and point_HARV contains only 1 point
+> > 
+> > # 4 -> numerous ways to find this; lines_HARV=13,
+> > nrow(lines_HARV)  #easiest, but not previously taught
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 13
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > lines_HARV  #look at 'features'
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Simple feature collection with 13 features and 15 fields
+> > geometry type:  MULTILINESTRING
+> > dimension:      XY
+> > bbox:           xmin: 730741.2 ymin: 4711942 xmax: 733295.5 ymax: 4714260
+> > epsg (SRID):    32618
+> > proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
+> >    OBJECTID_1 OBJECTID       TYPE             NOTES MISCNOTES RULEID
+> > 1          14       48 woods road Locust Opening Rd      <NA>      5
+> > 2          40       91   footpath              <NA>      <NA>      6
+> > 3          41      106   footpath              <NA>      <NA>      6
+> > 4         211      279 stone wall              <NA>      <NA>      1
+> > 5         212      280 stone wall              <NA>      <NA>      1
+> > 6         213      281 stone wall              <NA>      <NA>      1
+> > 7         214      282 stone wall              <NA>      <NA>      1
+> > 8         215      283 stone wall              <NA>      <NA>      1
+> > 9         216      284 stone wall              <NA>      <NA>      1
+> > 10        553      674  boardwalk              <NA>      <NA>      2
+> > 11        752       71 woods road    Pierce Farm Rd      <NA>      5
+> > 12        753       71 woods road    Pierce Farm Rd      <NA>      5
+> > 13        754       71 woods road    Pierce Farm Rd      <NA>      5
+> >             MAPLABEL SHAPE_LENG             LABEL BIKEHORSE RESVEHICLE
+> > 1  Locust Opening Rd 1297.35706 Locust Opening Rd         Y         R1
+> > 2               <NA>  146.29984              <NA>         Y         R1
+> > 3               <NA>  676.71804              <NA>         Y         R2
+> > 4               <NA>  231.78957              <NA>      <NA>       <NA>
+> > 5               <NA>   45.50864              <NA>      <NA>       <NA>
+> > 6               <NA>  198.39043              <NA>      <NA>       <NA>
+> > 7               <NA>  143.19240              <NA>      <NA>       <NA>
+> > 8               <NA>   90.33118              <NA>      <NA>       <NA>
+> > 9               <NA>   35.88146              <NA>      <NA>       <NA>
+> > 10              <NA>   67.43464              <NA>         N         R3
+> > 11    Pierce Farm Rd 3808.43252    Pierce Farm Rd         Y         R2
+> > 12    Pierce Farm Rd 3808.43252    Pierce Farm Rd         N         R3
+> > 13    Pierce Farm Rd 3808.43252    Pierce Farm Rd         Y         R2
+> >    RECMAP Shape_Le_1                            ResVehic_1
+> > 1       Y 1297.10617    R1 - All Research Vehicles Allowed
+> > 2       Y  146.29983    R1 - All Research Vehicles Allowed
+> > 3       Y  676.71807 R2 - 4WD/High Clearance Vehicles Only
+> > 4    <NA>  231.78962                                  <NA>
+> > 5    <NA>   45.50859                                  <NA>
+> > 6    <NA>  198.39041                                  <NA>
+> > 7    <NA>  143.19241                                  <NA>
+> > 8    <NA>   90.33114                                  <NA>
+> > 9    <NA>   35.88152                                  <NA>
+> > 10      N   67.43466              R3 - No Vehicles Allowed
+> > 11      Y 1771.63108 R2 - 4WD/High Clearance Vehicles Only
+> > 12      Y  144.56559              R3 - No Vehicles Allowed
+> > 13      Y 1885.82912 R2 - 4WD/High Clearance Vehicles Only
+> >                         BicyclesHo                       geometry
+> > 1      Bicycles and Horses Allowed MULTILINESTRING ((730819.18...
+> > 2      Bicycles and Horses Allowed MULTILINESTRING ((732040.22...
+> > 3      Bicycles and Horses Allowed MULTILINESTRING ((732056.98...
+> > 4                             <NA> MULTILINESTRING ((731903.61...
+> > 5                             <NA> MULTILINESTRING ((732039.10...
+> > 6                             <NA> MULTILINESTRING ((732056.22...
+> > 7                             <NA> MULTILINESTRING ((731963.99...
+> > 8                             <NA> MULTILINESTRING ((732105.20...
+> > 9                             <NA> MULTILINESTRING ((732222.89...
+> > 10          DO NOT SHOW ON REC MAP MULTILINESTRING ((732153.83...
+> > 11     Bicycles and Horses Allowed MULTILINESTRING ((731164.80...
+> > 12 Bicycles and Horses NOT ALLOWED MULTILINESTRING ((732341.70...
+> > 13     Bicycles and Horses Allowed MULTILINESTRING ((732479.64...
+> > ~~~
+> > {: .output}
 > {: .solution}
 {: .challenge}
 
@@ -462,37 +671,14 @@ lines, we use `\n` where the line should break.
 # Plot multiple shapefiles
 plot(aoi_boundary_HARV, col = "lightgreen",
      main = "NEON Harvard Forest\nField Site")
-~~~
-{: .r}
-
-<img src="../fig/rmd-plot-multiple-shapefiles-1.png" title="plot of chunk plot-multiple-shapefiles" alt="plot of chunk plot-multiple-shapefiles" style="display: block; margin: auto;" />
-
-~~~
 plot(lines_HARV, add = TRUE)
-~~~
-{: .r}
 
-
-
-~~~
-Error in plot(lines_HARV, add = TRUE): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 # use the pch element to adjust the symbology of the points
 plot(point_HARV, add  = TRUE, pch = 19, col = "purple")
 ~~~
 {: .r}
 
-
-
-~~~
-Error in plot(point_HARV, add = TRUE, pch = 19, col = "purple"): object 'point_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-plot-multiple-shapefiles-1.png" title="plot of chunk plot-multiple-shapefiles" alt="plot of chunk plot-multiple-shapefiles" style="display: block; margin: auto;" />
 
 > ## Data Tip
 > The pch argument specifies the point shape. A list of valid point shapes can be found by viewing
@@ -501,33 +687,32 @@ Error in plot(point_HARV, add = TRUE, pch = 19, col = "purple"): object 'point_H
 {: .callout}
 
 > ## Challenge: Plot Raster & Vector Data Together
->
+> 
 > You can plot vector data layered on top of raster data using the `add = TRUE`
 > plot attribute. Create a plot that uses the NEON AOP Canopy Height Model `NEON_RemoteSensing/HARV/CHM/HARV_chmCrop.tif` as a base layer. On top of the
 > CHM, please add:
->
+> 
 > * The study site AOI.
 > * Roads.
 > * The tower location.
->
+> 
 > Be sure to give your plot a meaningful title.
->
+> 
 > For assistance consider using the
 > [Shapefile Metadata & Attributes in R]({{site.baseurl}}/R/shapefile-attributes-in-R/),
 > the [Plot Raster Data in R]({{site.baseurl}}/R/Plot-Rasters-In-R/ )
 > tutorials.
->
+> 
 > > ## Answers
-> >
+> > 
 > > 
 > > ~~~
-> > > >
 > > # import CHM
 > > chm_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
-> > > >
+> > 
 > > plot(chm_HARV,
 > >      main = "Map of Study Area\n w/ Canopy Height Model\nNEON Harvard Forest Field Site")
-> > > >
+> > 
 > > plot(lines_HARV,
 > >      add = TRUE,
 > >      col = "black")
@@ -536,21 +721,12 @@ Error in plot(point_HARV, add = TRUE, pch = 19, col = "purple"): object 'point_H
 > >      lwd = 4)
 > > plot(point_HARV, pch=8,
 > >      add = TRUE)
-> > > >
 > > ~~~
 > > {: .r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error: <text>:1:1: unexpected '>'
-> > 1: >
-> >     ^
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-challenge-vector-raster-overlay-1.png" title="plot of chunk challenge-vector-raster-overlay" alt="plot of chunk challenge-vector-raster-overlay" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
-
 
 ## Additional Resources: Plot Parameter Options
 For more on parameter options in the base `R` `plot()` function, check out these
