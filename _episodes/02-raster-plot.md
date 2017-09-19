@@ -132,7 +132,7 @@ break values.
 
 ~~~
 # Plot distribution of raster values
-DSMhist < -hist(DSM_HARV,
+DSMhist <- hist(DSM_HARV,
      breaks = 3,
      main = "Histogram Digital Surface Model\n NEON Harvard Forest Field Site",
      col = "wheat3",  # changes bin color
@@ -143,11 +143,12 @@ DSMhist < -hist(DSM_HARV,
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'DSMhist' not found
+Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...):
+4% of the raster cells were used. 100000 values used.
 ~~~
 {: .error}
 
-
+<img src="../fig/rmd-create-histogram-breaks-1.png" title="plot of chunk create-histogram-breaks" alt="plot of chunk create-histogram-breaks" style="display: block; margin: auto;" />
 
 ~~~
 # Where are breaks and how many pixels in each category?
@@ -158,9 +159,9 @@ DSMhist$breaks
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'DSMhist' not found
+[1] 300 350 400 450
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -172,9 +173,9 @@ DSMhist$counts
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'DSMhist' not found
+[1] 32041 67502   457
 ~~~
-{: .error}
+{: .output}
 
 Warning message!? Remember, the default for the histogram is to include only a
 subset of 100,000 values. We could force it to show all the pixel values or we
@@ -376,18 +377,70 @@ transparent, 1 being opaque). Note that here we used the color palette
 <a href="https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/palettes.html" target="_blank">`R` color palettes documentation</a>.
 
 > ## Challenge: Create DTM & DSM for SJER
+> 
 > Use the files in the `NEON_RemoteSensing/SJER/` directory to create a Digital
 Terrain Model map and Digital Surface Model map of the San Joaquin Experimental
 Range field site.
->
+> 
 > Make sure to:
->
- * include hillshade in the maps,
- * label axes on the DSM map and exclude them from the DTM map,
- * a title for the maps,
- * experiment with various alpha values and color palettes to represent the
+> 
+> * include hillshade in the maps,
+> * label axes on the DSM map and exclude them from the DTM map,
+> * a title for the maps,
+> * experiment with various alpha values and color palettes to represent the
  data.
+>
+> > ## Answers
+> > 
+> > 
+> > ~~~
+> > # CREATE DSM MAPS
+> > # import DSM
+> > DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
+> > # import DSM hillshade
+> > DSM_hill_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmHill.tif")
+> > 
+> > # plot hillshade using a grayscale color ramp that looks like shadows.
+> > plot(DSM_hill_SJER,
+> >     col = grey(1:100/100),  #create a color ramp of grey colors
+> >     legend = FALSE,
+> >     main = "DSM with Hillshade\n NEON SJER Field Site",
+> >     axes = FALSE)
+> > 
+> > # add the DSM on top of the hillshade
+> > plot(DSM_SJER,
+> >      col = terrain.colors(100),
+> >      alpha = 0.7,
+> >      add = TRUE,
+> >      legend = FALSE)
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-hillshade-layering-1.png" title="plot of chunk challenge-hillshade-layering" alt="plot of chunk challenge-hillshade-layering" style="display: block; margin: auto;" />
+> > 
+> > ~~~
+> > # CREATE SJER DTM MAP
+> > # import DTM
+> > DTM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
+> > # import DTM hillshade
+> > DTM_hill_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmHill.tif")
+> > 
+> > # plot hillshade using a grayscale color ramp that looks like shadows.
+> > plot(DTM_hill_SJER,
+> >     col = grey(1:100/100),  #create a color ramp of grey colors
+> >     legend = FALSE,
+> >     main = "DTM with Hillshade\n NEON SJER Field Site",
+> >     axes = FALSE)
+> > 
+> > # add the DSM on top of the hillshade
+> > plot(DTM_SJER,
+> >      col = terrain.colors(100),
+> >      alpha = 0.4,
+> >      add = TRUE,
+> >      legend = FALSE)
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-hillshade-layering-2.png" title="plot of chunk challenge-hillshade-layering" alt="plot of chunk challenge-hillshade-layering" style="display: block; margin: auto;" />
+> {: .solution}
 {: .challenge}
-
-
-<img src="../fig/rmd-challenge-hillshade-layering-1.png" title="plot of chunk challenge-hillshade-layering" alt="plot of chunk challenge-hillshade-layering" style="display: block; margin: auto;" /><img src="../fig/rmd-challenge-hillshade-layering-2.png" title="plot of chunk challenge-hillshade-layering" alt="plot of chunk challenge-hillshade-layering" style="display: block; margin: auto;" />
