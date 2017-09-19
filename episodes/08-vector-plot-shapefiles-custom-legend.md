@@ -13,7 +13,7 @@ keypoints:
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2016-02-09
-lastModified: 2017-09-18
+lastModified: 2017-09-19
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -510,7 +510,7 @@ using `lty = ()`. We have a total of 6 elements in our legend:
 
 The `lty` list designates, in order, which of those elements should be
 designated as a line (`1`) and which should be designated as a symbol (`NA`).
-Our object will thus look like `lty = c(NA,NA,1,1,1,1)`. This tells `R` to use a
+Our object will thus look like `lty = c(NA, NA, 1, 1, 1, 1)`. This tells `R` to use a
 line element for`the 3-6 elements in our legend only.
 
 Once we do this, we need to **modify** our `pch` element. Each **line** element
@@ -579,7 +579,7 @@ legend("bottomright",
 > 2. Modify the plot above. Tell `R` to plot each point, using a different
 symbol of `pch` value. HINT: to do this, create a vector object of symbols by
 factor level using the syntax described above for line width:
-`c(15,17)[lines_HARV$soilTypeOr]`. Overlay this on top of the AOI Boundary.
+`c(15, 17)[lines_HARV$soilTypeOr]`. Overlay this on top of the AOI Boundary.
 Create a custom legend.
 >
 >
@@ -595,7 +595,7 @@ Create a custom legend.
 > > unique(plotLocations$soilTypeOr)
 > > > >
 > > # create new color palette -- topo.colors palette
-> > blueGreen <- c("blue","darkgreen")
+> > blueGreen <- c("blue", "darkgreen")
 > > blueGreen
 > > > >
 > > # plot roads
@@ -610,9 +610,9 @@ Create a custom legend.
 > >      add = TRUE)
 > > > >
 > > # create line object
-> > line_legendElement = c(NA,NA,1,1,1,1)
+> > line_legendElement = c(NA, NA, 1, 1, 1, 1)
 > > line_legendElement
-> > plotSymElements <- c(18,18,NA,NA,NA,NA)
+> > plotSymElements <- c(18, 18, NA, NA, NA, NA)
 > > plotSymElements
 > > > >
 > > # create vector of colors
@@ -630,7 +630,7 @@ Create a custom legend.
 > > > >
 > > ## 2
 > > # create vector of DIFFERENT plot symbols
-> > plSymbols <- c(15,17)[plotLocations$soilTypeOr]
+> > plSymbols <- c(15, 17)[plotLocations$soilTypeOr]
 > > plSymbols
 > > > >
 > > # plot roads
@@ -645,9 +645,9 @@ Create a custom legend.
 > >      add = TRUE)
 > > > >
 > > # create line object
-> > line_legendElement  <- c(NA,NA,1,1,1,1)
+> > line_legendElement  <- c(NA, NA, 1, 1, 1, 1)
 > > line_legendElement
-> > plotSymElementsMod <- c(15,17,NA,NA,NA,NA)
+> > plotSymElementsMod <- c(15, 17, NA, NA, NA, NA)
 > > plotSymElementsMod
 > > > >
 > > # create vector of colors

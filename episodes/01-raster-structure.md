@@ -15,7 +15,7 @@ keypoints:
 authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
 contributors: [ ]
 dateCreated: 2015-10-23
-lastModified: 2017-09-18
+lastModified: 2017-09-19
 packagesLibraries: [raster, rgdal]
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
