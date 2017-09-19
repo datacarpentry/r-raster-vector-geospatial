@@ -785,7 +785,6 @@ head(NDVI_HARV_toWrite)
 {: .output}
 
 
-
 ~~~
 # create a .csv of mean NDVI values being sure to give descriptive name
 # write.csv(DateFrameName, file="NewFileName")

@@ -10,7 +10,7 @@ objectives:
 - "Understand how to project coordinate locations provided in a Geographic Coordinate System (Latitude, Longitude) to a projected coordinate system (UTM)."
 - "Be able to plot raster and vector data in the same plot to create a map."
 keypoints:
-- ""
+- "It is important to know the projection (if any) of your point data prior to converting to a spatial object."
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2015-10-23
@@ -41,15 +41,10 @@ applications including QGIS and ArcGIS"
 > * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
 >
 > ## Data to Download
+> * [Site layout shapefiles](https://ndownloader.figshare.com/files/3708751)
 {: .prereq}
 
-This tutorial will review how to import spatial points stored in `.csv` (Comma
-Separated Value) format into
-`R` as a spatial object - a `SpatialPointsDataFrame`. We will also
-reproject data imported in a shapefile format, and export a shapefile from an
-`R` spatial object and plot raster and vector data as
-layers in the same plot.
-
+This tutorial will review how to import spatial points stored in `.csv` (Comma Separated Value) format into `R` as an `sf` spatial object. We will also reproject data imported from a shapefile format, export this data as a shapefile as well as plot raster and vector data as layers in the same plot.
 
 ## Spatial Data in Text Format
 
@@ -65,19 +60,11 @@ shapefile can be imported into any GIS software.
 
 Spatial data are sometimes stored in a text file format (`.txt` or `.csv`). If
 the text file has an associated `x` and `y` location column, then we can
-convert it into an `R` spatial object which in the case of point data,
-will be a `SpatialPointsDataFrame`. The `SpatialPointsDataFrame`
-allows us to store both the `x,y` values that represent the coordinate location
+convert it into an `sf` spatial object. The `sf` object allows us to store both the `x,y` values that represent the coordinate location
 of each point and the associated attribute data - or columns describing each
 feature in the spatial object.
 
-> ## Data Tip
-> There is a `SpatialPoints` object (not
-> `SpatialPointsDataFrame`) in `R` that does not allow you to store associated
-> attributes.
-{: .callout}
-
-We will use the `rgdal` and `raster` libraries in this tutorial.
+We will use the `sf` and `raster` libraries in this tutorial.
 
 
 ~~~
@@ -156,18 +143,15 @@ str(plot_locations_HARV)
 ~~~
 {: .output}
 
-Also note that `plot_locations_HARV` is a `data.frame` that contains 21
-locations (rows) and 15 variables (attributes).
+Also note that `plot_locations_HARV` is a `data.frame` that contains 21 locations (rows) and 15 variables (attributes).
 
-Next, let's identify explore  `data.frame` to determine whether it contains
-columns with coordinate values. If we are lucky, our `.csv` will contain columns
-labeled:
+Next, let's explore the `data.frame` to determine whether it contains columns with coordinate values. If we are lucky, our `.csv` will contain columns labeled:
 
-* "X" and "Y" OR
-d* Latitude and Longitude OR
-* easting and northing (UTM coordinates)
+ * "X" and "Y" OR
+ * Latitude and Longitude OR
+ * easting and northing (UTM coordinates)
 
-Let's check out the column `names` of our file.
+Let's check out the column `names` of our `data.frame`.
 
 
 ~~~
@@ -251,7 +235,7 @@ head(plot_locations_HARV[, 2])
 {: .output}
 
 So, we have coordinate values in our `data.frame` but in order to convert our
-`data.frame` to a `SpatialPointsDataFrame`, we also need to know the CRS
+`data.frame` to an `sf` object, we also need to know the CRS (projection)
 associated with those coordinate values.
 
 There are several ways to figure out the CRS of spatial data in text format.
@@ -303,11 +287,11 @@ contain the information that helps us determine the CRS:
 * `utmZone`: 18
 
 In
-[When Vector Data Don't Line Up - Handling Spatial Projection & CRS in R]({{site.baseurl}}/R/vector-data-reproject-crs-R/)
+[When Vector Data Don't Line Up - Handling Spatial Projection & CRS in R]({{site.baseurl}}/03-raster-reproject-in-r/)
 we learned about the components of a `proj4` string. We have everything we need
 to now assign a CRS to our data.frame.
 
-To create the `proj4` associated with `UTM Zone 18 WGS84` we could look up the
+To create the `proj4` associated with `UTM Zone 18 WGS84` we can look up the
 projection on the
 <a href="http://www.spatialreference.org/ref/epsg/wgs-84-utm-zone-18n/" target="_blank"> spatial reference website</a>
 which contains a list of CRS formats for each projection:
@@ -316,7 +300,7 @@ which contains a list of CRS formats for each projection:
 <a href="http://www.spatialreference.org/ref/epsg/wgs-84-utm-zone-18n/proj4/" target="_blank">the proj4 string for UTM Zone 18N WGS84</a>.
 
 However, if we have other data in the `UTM Zone 18N` projection, it's much
-easier to simply assign the `crs()` in `proj4` format from that object to our
+easier to simply assign the `st_crs()` in `proj4` format from that object to our
 new spatial object. Let's import the roads layer from Harvard forest and check
 out its CRS.
 
@@ -380,10 +364,10 @@ st_bbox(lines_HARV)
 
 Exploring the data above, we can see that the lines shapefile is in
 `UTM zone 18N`. We can thus use the CRS from that spatial object to convert our
-non-spatial `data.frame` into a `spatialPointsDataFrame`.
+non-spatial `data.frame` into an `sf` object.
 
 Next, let's create a `crs` object that we can use to define the CRS of our
-`SpatialPointsDataFrame` when we create it
+`sf` object when we create it
 
 
 ~~~
@@ -421,24 +405,21 @@ class(utm18nCRS)
 ~~~
 {: .output}
 
-## .csv to R SpatialPointsDataFrame
-Next, let's convert our `data.frame` into a `SpatialPointsDataFrame`. To do
+## .csv to sf object
+Next, let's convert our `data.frame` into an `sf` object. To do
 this, we need to specify:
 
 1. The columns containing X (`easting`) and Y (`northing`) coordinate values
-2. The CRS that the column coordinate represent (units are included in the CRS) -
-stored in our `utmCRS` object.
-3. optional: the other columns stored in the data frame that you wish to append
-as attributes to your spatial object
+2. The CRS that the column coordinate represent (units are included in the CRS) - stored in our `utmCRS` object.
 
-We will use the `SpatialPointsDataFrame()` function to perform the conversion.
+We will use the `st_as_sf()` function to perform the conversion.
 
 
 ~~~
 # note that the easting and northing columns are in columns 1 and 2
 plot_locations_sp_HARV <- st_as_sf(plot_locations_HARV, coords = c("easting", "northing"), crs = utm18nCRS)
 
-# look at CRS
+# look at the CRS
 st_crs(plot_locations_sp_HARV)
 ~~~
 {: .r}
@@ -480,7 +461,7 @@ additional layers that are outside of that extent, then the data will not be
 visible in our plot. It is thus useful to know how to set the spatial extent of
 a plot using `xlim` and `ylim`.
 
-Let's first create a SpatialPolygon object from the
+Let's first create an `sf` object from the
 `NEON-DS-Site-Layout-Files/HarClip_UTMZ18` shapefile. (If you have completed
 Vector 00-02 tutorials in this
 [Introduction to Working with Vector Data in R]({{site.baseurl}}/tutorial-series/vector-data-series/)
@@ -603,7 +584,6 @@ st_bbox(plot_locations_sp_HARV)
 ~~~
 # add extra space to right of plot area;
 # par(mar = c(5.1, 4.1, 4.1, 8.1), xpd=TRUE)
-
 plot(st_convex_hull(st_sfc(st_union(plot_locations_sp_HARV))),
      col = "purple",
      xlab = "easting",
@@ -696,29 +676,28 @@ legend("bottomright",
 <img src="../fig/rmd-set-plot-extent-1.png" title="plot of chunk set-plot-extent" alt="plot of chunk set-plot-extent" style="display: block; margin: auto;" />
 
 > ## Challenge - Import & Plot Additional Points
->
+> 
 > We want to add two phenology plots to our existing map of vegetation plot
 > locations.
->
+> 
 > Import the .csv: `HARV/HARV_2NewPhenPlots.csv` into `R` and do the following:
->
+> 
 > 1. Find the X and Y coordinate locations. Which value is X and which value is Y?
 > 2. These data were collected in a geographic coordinate system (WGS84). Convert
 > the `data.frame` into an `sf` object.
 > 3. Plot the new points with the plot location points from above. Be sure to add
 > a legend. Use a different symbol for the 2 new points!  You may need to adjust
 > the X and Y limits of your plot to ensure that both points are rendered by `R`!
->
+> 
 > If you have extra time, feel free to add roads and other layers to your map!
->
+> 
 > HINT: Refer to
 > [When Vector Data Don't Line Up - Handling Spatial Projection & CRS in R]({{site.baseurl}}/R/vector-data-reproject-crs-R/)
 > for more on working with geographic coordinate systems. You may want to "borrow"
 > the projection from the objects used in that tutorial!
-> </div>
->
+> 
 > > ## Answers
-> >
+> > 
 > > 
 > > ~~~
 > > ## 1
@@ -726,76 +705,86 @@ legend("bottomright",
 > > newplot_locations_HARV <-
 > >   read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_2NewPhenPlots.csv",
 > >            stringsAsFactors = FALSE)
-> > > >
+> > 
 > > # look at the data structure -> locations in lat/long
 > > str(newplot_locations_HARV)
-> > > >
+> > 
 > > ## 2
 > > ## Find/ establish a CRS for new points
 > > # Import the US boundary which is in a geographic WGS84 coordinate system
 > > country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp")
-> > > >
+> > 
 > > # grab the geographic CRS
 > > geogCRS <- st_crs(country_boundary_US)
 > > geogCRS
-> > > >
+> > 
 > > ## Convert to spatial data frame
 > > # note that the easting and northing columns are in columns 1 and 2
 > > newPlot.Sp.HARV <- st_as_sf(newplot_locations_HARV, coords = c("decimalLon", "decimalLat"), crs = geogCRS)
-> > > >
+> > 
 > > # view CRS
 > > st_crs(newPlot.Sp.HARV)
-> > > >
+> > 
 > > ## We now have the data imported and in WGS84 Lat/Long. We want to map with plot
 > > # locations in UTM so we'll have to reproject.
-> > > >
+> > 
 > > # remember we have a UTM Zone 18N crs object from previous code
 > > utm18nCRS
-> > > >
+> > 
 > > # reproject the new points into UTM using `utm18nCRS`
 > > newPlot.Sp.HARV.UTM <- st_transform(newPlot.Sp.HARV,
 > >                                   utm18nCRS)
 > > # check new plot CRS
 > > st_crs(newPlot.Sp.HARV.UTM)
-> > > >
+> > 
 > > ## 3
 > > # create plot
 > > plot(plot_locations_sp_HARV$geometry,
 > >      main = "NEON Harvard Forest Field Site \nPlot Locations" )
-> > > >
+> > 
 > > plot(newPlot.Sp.HARV.UTM$geometry,
 > >      add = TRUE,  pch=20, col = "darkgreen")
-> > > >
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-phen-plots-1.png" title="plot of chunk challenge-code-phen-plots" alt="plot of chunk challenge-code-phen-plots" style="display: block; margin: auto;" />
+> > 
+> > ~~~
 > > # oops - looks like we are missing a point on our new plot. let's compare
 > > # the spatial extents of both objects!
 > > st_bbox(plot_locations_sp_HARV)
 > > st_bbox(newPlot.Sp.HARV.UTM)
-> > > >
+> > 
 > > # when you plot in base plot, if the extent isn't specified, then the data that
 > > # is added FIRST will define the extent of the plot
-> > > >
+> > 
 > > plot(st_convex_hull(st_sfc(st_union(plot_locations_sp_HARV))),
 > >      main = "Comparison of Spatial Object Extents\nPlot Locations vs New Plot Locations")
-> > > >
+> > 
 > > plot(st_convex_hull(st_sfc(st_union(newPlot.Sp.HARV.UTM))),
 > >      col = "darkgreen",
 > >      add = TRUE)
-> > > >
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-phen-plots-2.png" title="plot of chunk challenge-code-phen-plots" alt="plot of chunk challenge-code-phen-plots" style="display: block; margin: auto;" />
+> > 
+> > ~~~
 > > # looks like the green box showing the newPlot extent extends
 > > # beyond the plot.locations extent.
-> > > >
+> > 
 > > # We need to grab the x min and max and y min from our original plots
 > > # but then the ymax from our new plots
-> > > >
+> > 
 > > originalPlotExtent <- st_bbox(plot_locations_sp_HARV)
 > > newPlotExtent <- st_bbox(newPlot.Sp.HARV.UTM)
-> > > >
+> > 
 > > # set xmin and max
 > > xmin <- originalPlotExtent[1]
 > > xmax <- originalPlotExtent[3]
 > > ymin <- originalPlotExtent[2]
 > > ymax <- newPlotExtent[4]
-> > > >
+> > 
 > > # 3 again... re-plot
 > > # try again but this time specify the x and ylims
 > > # note: we could also write a function that would harvest the smallest and
@@ -807,10 +796,10 @@ legend("bottomright",
 > >      col = "purple",
 > >      xlim = c(xmin, xmax),
 > >      ylim = c(ymin, ymax))
-> > > >
+> > 
 > > plot(newPlot.Sp.HARV.UTM$geometry,
 > >      add = TRUE,  pch=20, col = "darkgreen")
-> > > >
+> > 
 > > # when we create a legend in R, we need to specify the text for each item
 > > # listed in the legend.
 > > legend("bottomright",
@@ -822,22 +811,14 @@ legend("bottomright",
 > > ~~~
 > > {: .r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error: <text>:6:1: unexpected '>'
-> > 5:            stringsAsFactors = FALSE)
-> > 6: >
-> >    ^
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-challenge-code-phen-plots-3.png" title="plot of chunk challenge-code-phen-plots" alt="plot of chunk challenge-code-phen-plots" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
 ## Export a Shapefile
 
 We can write an `R` spatial object to a shapefile using the `st_write` function
-in `rgdal`. To do this we need the following arguments:
+in `sf`. To do this we need the following arguments:
 
 * the name of the spatial object (`plot_locations_sp_HARV`)
 * the directory where we want to save our shapefile
