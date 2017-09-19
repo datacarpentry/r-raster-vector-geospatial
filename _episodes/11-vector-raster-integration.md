@@ -12,14 +12,14 @@ keypoints:
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2015-10-23
-lastModified: 2017-09-18
+lastModified: 2017-09-19
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
 tags: [vector-data, R, spatial-data-gis]
 tutorialSeries: [vector-data-series]
 description: "This tutorial covers how to modify (crop) a raster extent using
-the extent of a vector shapefile. It also covers extracting pixel values from 
+the extent of a vector shapefile. It also covers extracting pixel values from
 defined locations stored in a spatial object."
 ---
 
@@ -28,19 +28,20 @@ defined locations stored in a spatial object."
 
 > ## Things You’ll Need To Complete This Tutorial
 > **R Skill Level:** Intermediate - you've got the basics of `R` down.
-> You will need the most current version of `R` and, preferably, `RStudio` loaded 
+> You will need the most current version of `R` and, preferably, `RStudio` loaded
 > on your computer to complete this tutorial.
-> 
+>
 > ### Install R Packages
-> 
+>
 > * **raster:** `install.packages("raster")`
 > * **sf:** `install.packages("sf")`
-> 
+>
 > * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
-> 
+>
 > ### Download Data
+> * [Site layout shapefiles](https://ndownloader.figshare.com/files/3708751)
+> * [Airborne remote sensing data](https://ndownloader.figshare.com/files/3701578)
 {: .prereq}
-
 
 This tutorial explains how to crop a raster using the extent of a vector
 shapefile. We will also cover how to extract values from a raster that occur
@@ -54,20 +55,20 @@ We often work with spatial layers that have different spatial extents.
     <a href="{{ site.baseurl }}/images/dc-spatial-vector/spatial_extent.png">
     <img src="{{ site.baseurl }}/images/dc-spatial-vector/spatial_extent.png"></a>
     <figcaption>The spatial extent of a shapefile or R spatial object represents
-    the geographic "edge" or location that is the furthest north, south east and 
-    west. Thus is represents the overall geographic coverage of the spatial 
-    object. Image Source: National Ecological Observatory Network (NEON) 
+    the geographic "edge" or location that is the furthest north, south east and
+    west. Thus is represents the overall geographic coverage of the spatial
+    object. Image Source: National Ecological Observatory Network (NEON)
     </figcaption>
 </figure>
 
-The graphic below illustrates the extent of several of the spatial layers that 
+The graphic below illustrates the extent of several of the spatial layers that
 we have worked with in this vector data tutorial series:
 
 * Area of interest (AOI) -- blue
 * Roads and trails -- purple
 * Vegetation plot locations -- black
 
-and a raster file, that we will introduce this tutorial: 
+and a raster file, that we will introduce this tutorial:
 
 * A canopy height model (CHM) in GeoTIFF format -- green
 
@@ -143,7 +144,7 @@ roads/trails, tower location, and veg study plot locations) and one raster
 GeoTIFF file, a Canopy Height Model for the Harvard Forest, Massachusetts.
 These data can be used to create maps that characterize our study location.
 
-If you have completed the Vector 00-04 tutorials in this 
+If you have completed the Vector 00-04 tutorials in this
 [Introduction to Working with Vector Data in R]({{site.baseurl}}/tutorial-series/vector-data-series/)
 series, you can skip this code as you have already created these object.)
 
@@ -157,22 +158,22 @@ library(raster)
 # setwd("pathToDirHere")
 
 # Imported in Vector 00: Vector Data in R - Open & Plot Data
-# shapefile 
+# shapefile
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 # Import a line shapefile
 lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
-# Import a point shapefile 
+# Import a point shapefile
 point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 
 # Imported in  Vector 02: .csv to Shapefile in R
 # import raster Canopy Height Model (CHM)
-chm_HARV <- 
+chm_HARV <-
   raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 ~~~
 {: .r}
 
 ## Crop a Raster Using Vector Extent
-We can use the `crop` function to crop a raster to the extent of another spatial 
+We can use the `crop` function to crop a raster to the extent of another spatial
 object. To do this, we need to specify the raster to be cropped and the spatial
 object that will be used to crop the raster. `R` will use the `extent` of the
 spatial object as the cropping boundary.
@@ -205,13 +206,13 @@ plot(chm_HARV_Crop,
 <img src="../fig/rmd-Crop-by-vector-extent-2.png" title="plot of chunk Crop-by-vector-extent" alt="plot of chunk Crop-by-vector-extent" style="display: block; margin: auto;" />
 
 We can see from the plot above that the full CHM extent (plotted in green) is
-much larger than the resulting cropped raster. Our new cropped CHM now has the 
-same extent as the `aoi_boundary_HARV` object that was used as a crop extent 
-(blue boarder below).
+much larger than the resulting cropped raster. Our new cropped CHM now has the
+same extent as the `aoi_boundary_HARV` object that was used as a crop extent
+(blue border below).
 
 <img src="../fig/rmd-view-crop-extent-1.png" title="plot of chunk view-crop-extent" alt="plot of chunk view-crop-extent" style="display: block; margin: auto;" />
 
-We can look at the extent of all the other objects. 
+We can look at the extent of all the other objects.
 
 
 ~~~
@@ -264,20 +265,20 @@ st_bbox(aoi_boundary_HARV)
 ~~~
 {: .output}
 
-Which object has the largest extent?  Our plot location extent is not the 
+Which object has the largest extent?  Our plot location extent is not the
 largest but is larger than the AOI Boundary. It would be nice to see our
 vegetation plot locations with the Canopy Height Model information.
 
 > ## Challenge: Crop to Vector Points Extent
 > 
-> 1. Crop the Canopy Height Model to the extent of the study plot locations. 
-> 2. Plot the vegetation plot location points on top of the Canopy Height Model. 
+> 1. Crop the Canopy Height Model to the extent of the study plot locations.
+> 2. Plot the vegetation plot location points on top of the Canopy Height Model.
 > 
 > If you completed
 > [.csv to Shapefile in R]({{site.baseurl}}/R/csv-to-shapefile-R/)
-> you have these plot locations as the spatial `R` spatial object
+> you have these plot locations as a spatial `R` object
 > `plot_locations_sp_HARV`. Otherwise, import the locations from the
-> `\HARV\PlotLocations_HARV.shp` shapefile in the downloaded data. 
+> `\HARV\PlotLocations_HARV.shp` shapefile in the downloaded data.
 > 
 > > ## Answers
 > > 
@@ -286,14 +287,14 @@ vegetation plot locations with the Canopy Height Model information.
 > > # Created/imported in L02: .csv to Shapefile in R
 > > plot.locationSp_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
 > > 
-> > # crop the chm 
+> > # crop the chm
 > > CHM_plots_HARVcrop <- crop(x = chm_HARV, y = as(plot_locations_sp_HARV, "Spatial"))
 > > 
 > > plot(CHM_plots_HARVcrop,
 > >      main = "Study Plot Locations\n NEON Harvard Forest")
 > > 
-> > plot(plot.locationSp_HARV$geometry, 
-> >      add = TRUE, 
+> > plot(plot.locationSp_HARV$geometry,
+> >      add = TRUE,
 > >      pch=19,
 > >      col = "blue")
 > > ~~~
@@ -305,14 +306,14 @@ vegetation plot locations with the Canopy Height Model information.
 
 In the plot above, created in the challenge, all the vegetation plot locations
 (blue) appear on the Canopy Height Model raster layer except for one. One is
-situated on the white space. Why? 
+situated on the white space. Why?
 
-A modification of the first figure in this tutorial is below, showing the 
-relative extents of all the spatial objects. Notice that the extent for our 
-vegetation plot layer (black) extends further west than the extent of our CHM 
-raster (bright green). The crop function will make a raster extent smaller, it 
+A modification of the first figure in this tutorial is below, showing the
+relative extents of all the spatial objects. Notice that the extent for our
+vegetation plot layer (black) extends further west than the extent of our CHM
+raster (bright green). The crop function will make a raster extent smaller, it
 will not expand the extent in areas where there are no data. Thus, extent of our
-vegetation plot layer will still extend further west than the extent of our 
+vegetation plot layer will still extend further west than the extent of our
 (cropped) raster data (dark green).
 
 <img src="../fig/rmd-raster-extents-cropped-1.png" title="plot of chunk raster-extents-cropped" alt="plot of chunk raster-extents-cropped" style="display: block; margin: auto;" />
@@ -323,7 +324,7 @@ boundary. This creates an object of class `extent`.
 
 
 ~~~
-# extent format (xmin,xmax,ymin,ymax)
+# extent format (xmin, xmax, ymin, ymax)
 new.extent <- extent(732161.2, 732238.7, 4713249, 4713333)
 class(new.extent)
 ~~~
@@ -339,7 +340,7 @@ attr(,"package")
 {: .output}
 
 Once we have defined the extent, we can use the `crop` function to crop our
-raster. 
+raster.
 
 
 ~~~
@@ -347,13 +348,13 @@ raster.
 CHM_HARV_manualCrop <- crop(x = chm_HARV, y = new.extent)
 
 # plot extent boundary and newly cropped raster
-plot(aoi_boundary_HARV$geometry, 
+plot(aoi_boundary_HARV$geometry,
      main = "Manually Cropped Raster\n NEON Harvard Forest Field Site")
-plot(new.extent, 
-     col = "brown", 
+plot(new.extent,
+     col = "brown",
      lwd = 4,
      add = TRUE)
-plot(CHM_HARV_manualCrop, 
+plot(CHM_HARV_manualCrop,
      add = TRUE)
 ~~~
 {: .r}
@@ -363,25 +364,25 @@ plot(CHM_HARV_manualCrop,
 Notice that our manual `new.extent` (in red) is smaller than the
 `aoi_boundary_HARV` and that the raster is now the same as the `new.extent`
 object.
- 
+
 See the documentation for the `extent()` function for more ways
-to create an `extent` object. 
+to create an `extent` object.
 
 * `??raster::extent`
-* More on the 
+* More on the
 <a href="http://www.inside-r.org/packages/cran/raster/docs/extent" target="_blank">
 extent class in `R`</a>.
 
 ## Extract Raster Pixels Values Using Vector Polygons
 
-Often we want to extract values from a raster layer for particular locations - 
-for example, plot locations that we are sampling on the ground. 
+Often we want to extract values from a raster layer for particular locations -
+for example, plot locations that we are sampling on the ground.
 
 <figure>
     <a href="http://neondataskills.org/images/spatialData/BufferSquare.png">
     <img src="http://neondataskills.org/images/spatialData/BufferSquare.png"></a>
     <figcaption> Extract raster information using a polygon boundary. We can
-    extract all pixel values within 20m of our x,y point of interest. These can 
+    extract all pixel values within 20m of our x,y point of interest. These can
     then be summarized into some value of interest (e.g. mean, maximum, total).
     Source: National Ecological Observatory Network (NEON).
     </figcaption>
@@ -391,21 +392,21 @@ To do this in `R`, we use the `extract()` function. The `extract()` function
 requires:
 
 * The raster that we wish to extract values from,
-* The vector layer containing the polygons that we wish to use as a boundary or 
+* The vector layer containing the polygons that we wish to use as a boundary or
 boundaries,
 * we can tell it to store the output values in a `data.frame` using
 `df=TRUE` (optional, default is to NOT return a `data.frame`) .
 
 We will begin by extracting all canopy height pixel values located within our
 `aoiBoundary` polygon which surrounds the tower located at the NEON Harvard
-Forest field site. 
+Forest field site.
 
 
 ~~~
 # extract tree height for AOI
 # set df=TRUE to return a data.frame rather than a list of values
-tree_height <- extract(x = chm_HARV, 
-                       y = as(aoi_boundary_HARV, "Spatial"), 
+tree_height <- extract(x = chm_HARV,
+                       y = as(aoi_boundary_HARV, "Spatial"),
                        df = TRUE)
 
 # view the object
@@ -440,17 +441,17 @@ nrow(tree_height)
 ~~~
 {: .output}
 
-When we use the extract command, `R` extracts the value for each pixel located 
+When we use the extract command, `R` extracts the value for each pixel located
 within the boundary of the polygon being used to perform the extraction - in
 this case the `aoiBoundary` object (1 single polygon). In this case, the
 function extracted values from 18,450 pixels.
 
-The `extract` function returns a `list` of values as default. You can tell `R` 
+The `extract` function returns a `list` of values as default. You can tell `R`
 to summarize the data in some way or to return the data as a `data.frame`
 (`df=TRUE`).
 
 We can create a histogram of tree height values within the boundary to better
-understand the structure or height distribution of trees. We can also use the 
+understand the structure or height distribution of trees. We can also use the
 `summary()` function to view descriptive statistics including min, max and mean
 height values. These values help us better understand vegetation at our field
 site.
@@ -458,7 +459,7 @@ site.
 
 ~~~
 # view histogram of tree heights in study area
-hist(tree_height$HARV_chmCrop, 
+hist(tree_height$HARV_chmCrop,
      main = "Histogram of CHM Height Values (m) \nNEON Harvard Forest Field Site",
      col = "springgreen",
      xlab = "Tree Height", ylab = "Frequency of Pixels")
@@ -481,22 +482,22 @@ summary(tree_height$HARV_chmCrop)
 ~~~
 {: .output}
 
-* Check out the documentation for the `extract()` function for more details 
+* Check out the documentation for the `extract()` function for more details
 (`??raster::extract`).
 
-## Summarize Extracted Raster Values 
+## Summarize Extracted Raster Values
 
 We often want to extract summary values from a raster. We can tell `R` the type
 of summary statistic we are interested in using the `fun=` method. Let's extract
-a mean height value for our AOI. 
+a mean height value for our AOI.
 
 
 ~~~
 # extract the average tree height (calculated using the raster pixels)
 # located within the AOI polygon
-av_tree_height_AOI <- extract(x = chm_HARV, 
+av_tree_height_AOI <- extract(x = chm_HARV,
                               y = as(aoi_boundary_HARV, "Spatial"),
-                              fun = mean, 
+                              fun = mean,
                               df = TRUE)
 
 # view output
@@ -517,7 +518,7 @@ canopy height model is 22.43 meters.
 
 ##Extract Data using x,y Locations
 
-We can also extract pixel values from a raster by defining a buffer or area 
+We can also extract pixel values from a raster by defining a buffer or area
 surrounding individual point locations using the `extract()` function. To do this
 we define the summary method (`fun=mean`) and the buffer distance (`buffer=20`)
 which represents the radius of a circular region around each point.
@@ -528,13 +529,13 @@ The units of the buffer are the same units of the data `CRS`.
     <a href="http://neondataskills.org/images/spatialData/BufferCircular.png">
     <img src="http://neondataskills.org/images/spatialData/BufferCircular.png"></a>
     <figcaption> Extract raster information using a buffer region. All pixels
-    that are touched by the buffer region are included in the extract. 
+    that are touched by the buffer region are included in the extract.
     Source: National Ecological Observatory Network (NEON).
     </figcaption>
 </figure>
 
-Let's put this into practice by figuring out the average tree height in the 
-20m around the tower location. 
+Let's put this into practice by figuring out the average tree height in the
+20m around the tower location.
 
 
 ~~~
@@ -562,11 +563,11 @@ attr(,"class")
 ~~~
 # extract the average tree height (height is given by the raster pixel value)
 # at the tower location
-# use a buffer of 20 meters and mean function (fun) 
-av_tree_height_tower <- extract(x = chm_HARV, 
-                                y = as(point_HARV, "Spatial"), 
+# use a buffer of 20 meters and mean function (fun)
+av_tree_height_tower <- extract(x = chm_HARV,
+                                y = as(point_HARV, "Spatial"),
                                 buffer = 20,
-                                fun = mean, 
+                                fun = mean,
                                 df = TRUE)
 
 # view data
@@ -614,10 +615,10 @@ nrow(av_tree_height_tower)
 > > plot_locations_sp_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
 > > 
 > > # extract data at each plot location
-> > meanTreeHt_plots_HARV <- extract(x = chm_HARV, 
-> >                                y = as(plot_locations_sp_HARV, "Spatial"), 
+> > meanTreeHt_plots_HARV <- extract(x = chm_HARV,
+> >                                y = as(plot_locations_sp_HARV, "Spatial"),
 > >                                buffer=20,
-> >                                fun=mean, 
+> >                                fun=mean,
 > >                                df=TRUE)
 > > 
 > > # view data
