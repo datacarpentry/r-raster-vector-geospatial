@@ -310,33 +310,22 @@ Harvard Forest is located in UTM Zone 18, but the Landsat data is in a `CRS` of
 UTM Zone 19.
 
 > ## Challenge: Raster Metadata
->
+> 
 > Answer the following questions about our `RasterStack`.
->
+> 
 > 1. What is the CRS?
 > 2. What is the x and y resolution of the data?
 > 3. What units is the above resolution in?
->
+> 
 > > ## Answers
-> >
+> > 
 > > 
 > > ~~~
 > > # 1. UTM zone 19 WGS 84
 > > # 2. 30x30 meters
 > > # 3. meters
-> > > >
 > > ~~~
 > > {: .r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error: <text>:4:1: unexpected '>'
-> > 3: # 3. meters
-> > 4: >
-> >    ^
-> > ~~~
-> > {: .error}
 > {: .solution}
 {: .challenge}
 
@@ -451,49 +440,49 @@ Let's have a look at the source Landsat imagery that was partially used used to
 derive our NDVI rasters to try to understand what appears to be outlier NDVI values.
 
 > ## Challenge: Examine RGB Raster Files
->
+> 
 > 1. View the imagery located in the `/NEON-DS-Landsat-NDVI/HARV/2011` directory.
 > 2. Plot the RGB images for the Julian days 277 and 293 then plot and compare
 > those images to jdays 133 and 197.
 > 3. Does the RGB imagery from these two days explain the low NDVI values observed
 > on these days?
->
+> 
 > HINT: if you want to plot 4 images in a tiled set, you can use
 > `par(mfrow=c(2, 2))` to create a 2x2 tiled layout. When you are done, be sure to
 > reset your layout using: `par(mfrow=c(1, 1))`.
->
+> 
 > > ## Answers
-> >
+> > 
 > > 
 > > ~~~
-> > > >
+> > 
 > > # reset layout
 > > par(mfrow=c(2,2))
-> > > >
+> > 
 > > # open up file for Jday 277
 > > RGB_277 <-
 > >   stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif")
-> > > >
+> > 
 > > plotRGB(RGB_277)
-> > > >
+> > 
 > > # open up file for jday 293
 > > RGB_293 <-
 > >   stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")
-> > > >
+> > 
 > > plotRGB(RGB_293)
-> > > >
+> > 
 > > # view a few other images
 > > # open up file for jday 133
 > > RGB_133 <-
 > >   stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
-> > > >
+> > 
 > > plotRGB(RGB_133,
 > >         stretch="lin")
-> > > >
+> > 
 > > # open up file for jday 197
 > > RGB_197 <-
 > >   stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/197_HARV_landRGB.tif")
-> > > >
+> > 
 > > plotRGB(RGB_197,
 > >         stretch="lin")
 > > > >
@@ -501,28 +490,28 @@ derive our NDVI rasters to try to understand what appears to be outlier NDVI val
 > > # RGB_HARV_allCropped <-  list.files("NEON-DS-Landsat-NDVI/HARV/2011/RGB/",
 > > #                              full.names=TRUE,
 > > #                              pattern = ".tif$")
-> > > >
-> > > >
+> > 
+> > 
 > > # create a layout
 > > # par(mfrow=c(4, 4))
-> > > >
+> > 
 > > # Super efficient code - plot using a loop
 > > # for (aFile in RGB_HARV_allCropped){
 > > #  NDVI.rastStack <- stack(aFile)
 > > #  plotRGB(NDVI.rastStack, stretch="lin")
 > > # }
-> > > >
+> > 
 > > # reset layout
 > > par(mfrow=c(1, 1))
-> > > >
 > > ~~~
 > > {: .r}
 > > 
 > > 
 > > 
 > > ~~~
-> > Error: <text>:1:1: unexpected '>'
-> > 1: >
+> > Error: <text>:31:1: unexpected '>'
+> > 30:         stretch="lin")
+> > 31: >
 > >     ^
 > > ~~~
 > > {: .error}

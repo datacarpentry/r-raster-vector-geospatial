@@ -292,6 +292,7 @@ UTM. However, the extent values of `DTM_hillUTMZ18N_HARV` are different from
 `DTM_hill_HARV`.
 
 > ## Challenge: Extent Change with CRS Change
+> 
 > Why do you think the two extents differ?
 > > ## Answers
 > > 
@@ -373,7 +374,7 @@ hillshade to produce a nice looking, textured map!
 > Create a map of the
 > <a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
 field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files.
->
+> 
 > Reproject the data as necessary to make things line up!
 > > ## Answers
 > > 
@@ -383,7 +384,7 @@ field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files.
 > > # import DTM hillshade
 > > DSM_hill_SJER_WGS <-
 > > raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMhill_WGS84.tif")
-> > > >
+> > 
 > > # reproject raster
 > > DTM_hill_UTMZ18N_SJER <- projectRaster(DSM_hill_SJER_WGS,
 > >                                   crs = crs(DSM_SJER),
@@ -393,7 +394,7 @@ field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files.
 > >     col = grey(1:100/100),
 > >     legend = FALSE,
 > >     main = "DSM with Hillshade\n NEON SJER Field Site")
-> > > >
+> > 
 > > # overlay the DSM on top of the hillshade
 > > plot(DSM_SJER,
 > >      col = terrain.colors(10),
@@ -403,15 +404,7 @@ field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files.
 > > ~~~
 > > {: .r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error: <text>:6:1: unexpected '>'
-> > 5: raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMhill_WGS84.tif")
-> > 6: >
-> >    ^
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-challenge-code-reprojection-1.png" title="plot of chunk challenge-code-reprojection" alt="plot of chunk challenge-code-reprojection" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 

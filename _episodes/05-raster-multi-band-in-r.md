@@ -315,28 +315,17 @@ values      : 0, 255  (min, max)
 Notice that band 2 is the second of 3 bands `band: 2  (of  3  bands)`.
 
 > ## Challenge: Making Sense of Single Band Images
->
+> 
 > Compare the plots of band 1 (red) and band 2 (green). Is the forested area darker or lighter in band 2 (the green band) compared to band 1 (the red band)? >
 > > ## Answers
-> >
+> > 
 > > 
 > > ~~~
-> > > >
 > > # We'd expect a *brighter* value for the forest in band 2 (green) than in
 > > # band 1 (red) because the leaves on trees of most often appear "green" -
 > > # healthy leaves reflect MORE green light compared to red light
-> > > >
 > > ~~~
 > > {: .r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error: <text>:1:1: unexpected '>'
-> > 1: >
-> >     ^
-> > ~~~
-> > {: .error}
 > {: .solution}
 {: .challenge}
 
@@ -554,10 +543,11 @@ given the distribution of reflectance (or brightness) values is distributed well
 between 0 and 255.
 
 > ## Challenge - NoData Values
+> 
 > Let's explore what happens with NoData values when using `RasterStack` and
 > `plotRGB`. We will use the `HARV_Ortho_wNA.tif` GeoTIFF in the
 > `NEON-DS-Airborne-Remote-Sensing/HARVRGB_Imagery/` directory.
->
+> 
 > 1. View the files attributes. Are there `NoData` values assigned for this file?
 > 2. If so, what is the `NoData` Value?
 > 3. How many bands does it have?
@@ -567,48 +557,42 @@ between 0 and 255.
 > 7. What does this tell us about the difference in the data structure between
 > `HARV_Ortho_wNA.tif` and `HARV_RGB_Ortho.tif` (`R` object `RGB_stack`). How can
 > you check?
->
+> 
 > Answer the questions above using the functions we have covered so far in this
 tutorial.
->
+> 
 > > ## Answers
 > > 
 > > ~~~
 > > # 1.
 > > # view attributes
 > > GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif")
-> > > >
+> > 
 > > # 2 Yes it has NoData values as they are assigned as -9999
 > > # 3 3 bands
-> > > >
+> > 
 > > # 4
 > > # reading in file
 > > HARV_NA <-
 > >   stack("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif")
-> > > >
+> > 
 > > # 5
 > > plotRGB(HARV_NA,
 > >         r = 1, g = 2, b = 3)
-> > > >
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-challenge-code-NoData-1.png" title="plot of chunk challenge-code-NoData" alt="plot of chunk challenge-code-NoData" style="display: block; margin: auto;" />
+> > 
+> > ~~~
 > > #6 The black edges are not plotted.
 > > #7 Both have NoData values, however, in RGB_stack the NoData value is not
 > > # defined in the tiff tags, thus R renders them as black as the reflectance
 > > # values are 0. The black edges in the other file are defined as -9999 and R
 > > # renders them as NA.
 > > GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
-> > > >
 > > ~~~
 > > {: .r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error: <text>:4:1: unexpected '>'
-> > 3: GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif")
-> > 4: >
-> >    ^
-> > ~~~
-> > {: .error}
 > {: .solution}
 {: .challenge}
 
@@ -684,13 +668,14 @@ plotRGB(RGB_brick_HARV)
 <img src="../fig/rmd-plot-brick-1.png" title="plot of chunk plot-brick" alt="plot of chunk plot-brick" style="display: block; margin: auto;" />
 
 > ## Challenge: What Methods Can Be Used on an R Object?
+> 
 > We can view various methods available to call on an `R` object with
 > `methods(class=class(objectNameHere))`. Use this to figure out:
->
+> 
 > 1. What methods can be used to call on the `RGB_stack_HARV` object?
 > 2. What methods are available for a single band within `RGB_stack_HARV`?
 > 3. Why do you think there is a difference?
->
+> 
 > > ## Answers
 > > 
 > > ~~~
@@ -698,24 +683,14 @@ plotRGB(RGB_brick_HARV)
 > > # methods for calling a stack
 > > methods(class=class(RGB_stack_HARV))
 > > # 143 methods!
-> > > >
+> > 
 > > # 2
 > > # methods for calling a band (1) with a stack
 > > methods(class=class(RGB_stack_HARV[1]))
-> > > >
+> > 
 > > #3 There are far more thing one could or wants to ask of a full stack than of
 > > # a single band.
 > > ~~~
 > > {: .r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error: <text>:5:1: unexpected '>'
-> > 4: # 143 methods!
-> > 5: >
-> >    ^
-> > ~~~
-> > {: .error}
 > {: .solution}
 {: .challenge}

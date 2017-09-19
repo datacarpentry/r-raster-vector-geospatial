@@ -347,50 +347,44 @@ levelplot(NDVI_HARV_stack,
 <img src="../fig/rmd-remove-axis-ticks-1.png" title="plot of chunk remove-axis-ticks" alt="plot of chunk remove-axis-ticks" style="display: block; margin: auto;" />
 
 > ## Challenge: Divergent Color Ramps
->
+> 
 > When we used `gsub` to modify the tile labels we replaced the beginning of each
 > tile title with "Day". A more descriptive name could be "Julian Day".
->
+> 
 > 1. Create a plot and label each tile "Julian Day" with the julian day value
 > following.
 > 2. Change the colorramp to a divergent brown to green color ramp to
 > represent the data. *Hint:* Use the
 > <a href="http://www.datavis.ca/sasmac/brewerpal.html" target="_blank"> brewerpal page</a>
 > to help choose a color ramp.
->
+> 
 > **Questions:**
 > Does having a divergent color ramp represent the data
 > better than a sequential color ramp (like "YlGn")? Can you think of other data
 > sets where a divergent color ramp may be best?
->
+> 
 > > ## Answers
-> >
+> > 
 > > 
 > > ~~~
 > > # change Day to Julian Day
 > > rasterNames  <- gsub("Day","Julian Day ", rasterNames)
-> > > >
+> > 
 > > # use level plot to create a nice plot with one legend and a 5x3 layout.
 > > levelplot(NDVI_HARV_stack,
 > >       layout=c(5, 3), # create a 4x3 layout for the data
 > >       col.regions=colorRampPalette(brewer.pal(9, "BrBG")), # specify color
 > >       main = "Landsat NDVI - Julian Days - 2011 \nNEON Harvard Forest Field Site",
 > >       names.attr=rasterNames)
-> > > >
-> > # The sequential is better than the divergent as it is more akin to the process
-> > # of greening up, which starts off at one end and just keeps increasing.
-> > > >
 > > ~~~
 > > {: .r}
 > > 
-> > 
+> > <img src="../fig/rmd-challenge-code-levelplot-divergent-1.png" title="plot of chunk challenge-code-levelplot-divergent" alt="plot of chunk challenge-code-levelplot-divergent" style="display: block; margin: auto;" />
 > > 
 > > ~~~
-> > Error: <text>:3:1: unexpected '>'
-> > 2: rasterNames  <- gsub("Day","Julian Day ", rasterNames)
-> > 3: >
-> >    ^
+> > # The sequential is better than the divergent as it is more akin to the process
+> > # of greening up, which starts off at one end and just keeps increasing.
 > > ~~~
-> > {: .error}
+> > {: .r}
 > {: .solution}
 {: .challenge}
