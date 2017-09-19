@@ -155,7 +155,7 @@ plot(DSM_HARV,
 par(xpd = TRUE)
 # add a legend - but make it appear outside of the plot
 legend(par()$usr[2], 4713700,
-        legend = c("High Elevation", "Middle","Low Elevation"),
+        legend = c("High Elevation", "Middle", "Low Elevation"),
         fill = rev(col))
 ```
 
@@ -386,7 +386,7 @@ RGB_stack <-
   stack("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
 # Create an RGB image from the raster stack
-par(col.axis = "white",col.lab = "white",tck = 0)
+par(col.axis = "white", col.lab = "white", tck = 0)
 plotRGB(RGB_stack, r = 1, g = 2, b = 3,
         axes = TRUE, main = "Raster With NoData Values\nRendered in Black")
 
