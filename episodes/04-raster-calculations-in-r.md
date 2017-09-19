@@ -271,17 +271,17 @@ Notice that the range of values for the output CHM is between 0 and 30 meters.
 Does this make sense for trees in Harvard Forest?
 
 > ## Challenge: Explore CHM Raster Values
->
+> 
 > It's often a good idea to explore the range of values in a raster dataset just like we might explore a dataset that we collected in the field.
->
+> 
 > 1. What is the min and maximum value for the Harvard Forest Canopy Height Model (`CHM_HARV`) that we just created?
 > 2. What are two ways you can check this range of data in `CHM_HARV`?
 > 3. What is the distribution of all the pixel values in the CHM?
 > 4. Plot a histogram with 6 bins instead of the default and change the color of the histogram.
 > 5. Plot the `CHM_HARV` raster using breaks that make sense for the data. Include an appropriate color palette for the data, plot title and no axes ticks / labels.
->
+> 
 > > ## Answers
-> >
+> > 
 > > 
 > > ~~~
 > > # 1)
@@ -437,7 +437,7 @@ Ecological Observatory Network's (NEON) standard `NoDataValue`.
 
 
 > ## Challenge: Explore the NEON San Joaquin Experimental Range Field Site
->
+> 
 > Data are often more interesting and powerful when we compare them across various
 > locations. Let's compare some data collected over Harvard Forest to data
 > collected in Southern California. The
@@ -446,12 +446,12 @@ Ecological Observatory Network's (NEON) standard `NoDataValue`.
 > the
 > <a href="http://www.neonscience.org/science-design/field-sites/harvard-forest" target="_blank" >NEON Harvard Forest Field Site</a>
 in Massachusetts.
->
+> 
 > Import the SJER DSM and DTM raster files and create a Canopy Height Model.
 > Then compare the two sites. Be sure to name your `R` objects and outputs
 > carefully, as follows: objectType_SJER (e.g. `DSM_SJER`). This will help you
 > keep track of data from different sites!
->
+> 
 > 1. Import the DSM and DTM from the SJER directory (if not aready imported
 in the
 > [Plot Raster Data in R]({{ site.baseurl }}/R/Plot-Rasters-In-R/)
@@ -462,7 +462,7 @@ are what you expect.
 > 4. Export the SJER CHM as a `GeoTIFF`.
 > 5. Compare the vegetation structure of the Harvard Forest and San Joaquin
 > Experimental Range.
->
+> 
 > Hint: plotting SJER and HARV data side-by-side is an effective way to compare
 both datasets!
 > > ## Answers
