@@ -1,6 +1,5 @@
 ---
-layout: page
-title: Reference
+layout: reference
 permalink: /reference/
 ---
 
