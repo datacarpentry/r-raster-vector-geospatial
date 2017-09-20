@@ -1,3 +1,8 @@
+---
+layout: page
+title: Reference
+permalink: /reference/
+---
 
 * [CRAN Spatial Task View](https://cran.r-project.org/web/views/Spatial.html)
 
