@@ -1,9 +1,15 @@
 ---
 layout: lesson
 root: .
+
+maintainers:
+ - Joseph Stachelek
+ - Leah Wasser
 ---
 
-The tutorials in this series cover how to open, work with and plot vector and raster-format spatial data in R. Additional topics include working with spatial metadata (extent and coordinate reference system), reprojecting spatial data and working with raster time series data.
+**Lesson Maintainers:** {{ page.maintainers | join: ', ' }}
+
+The tutorials in this series cover how to open, work with and plot vector and raster-format spatial data in R. Additional topics include working with spatial metadata (extent and coordinate reference systems), reprojecting spatial data, and working with raster time series data.
 
 > ## Prerequisites
 >
