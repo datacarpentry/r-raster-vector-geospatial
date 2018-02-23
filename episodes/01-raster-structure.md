@@ -175,7 +175,7 @@ library(rgdal)
 # set working directory to ensure R can find the file we wish to import
 # setwd("working-dir-path-here")
 ~~~
-{: .r}
+{: .language-r}
 
 ## Open a Raster in R
 We can use the `raster("path-to-raster-here")` function to open a raster in R.
@@ -195,7 +195,7 @@ DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.t
 # View raster structure
 DSM_HARV
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -219,7 +219,7 @@ values      : 305.07, 416.07  (min, max)
 plot(DSM_HARV,
      main = "NEON Digital Surface Model\nHarvard Forest")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-open-raster-1.png" title="plot of chunk open-raster" alt="plot of chunk open-raster" style="display: block; margin: auto;" />
 
@@ -275,7 +275,7 @@ method. We can assign this string to an `R` object, too.
 # view resolution units
 crs(DSM_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -293,7 +293,7 @@ CRS arguments:
 myCRS <- crs(DSM_HARV)
 myCRS
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -368,7 +368,7 @@ coordinate reference system string `crs()`. Notice our data contains: `+units=m`
 ~~~
 crs(DSM_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -397,7 +397,7 @@ However if they weren't already calculated, we can calculate them using the
 # view the calculated min value
 minValue(DSM_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -492,7 +492,7 @@ hist(DSM_HARV,
      ylab = "Frequency",
      col = "wheat")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -526,7 +526,7 @@ in a histogram can be problematic when dealing with very large datasets.
 # View the total number of pixels (cells) in is our raster
 ncell(DSM_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -546,7 +546,7 @@ hist(DSM_HARV,
      ylab = "Frequency",
      col = "wheat4")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-view-raster-histogram2-1.png" title="plot of chunk view-raster-histogram2" alt="plot of chunk view-raster-histogram2" style="display: block; margin: auto;" />
 
@@ -576,7 +576,7 @@ of bands in a raster using the `nlayers()` function.
 # view number of bands
 nlayers(DSM_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -605,7 +605,7 @@ function to view raster metadata before we open a file in `R`.
 # view attributes before opening file
 GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
