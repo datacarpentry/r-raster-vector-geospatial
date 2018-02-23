@@ -71,7 +71,7 @@ We will use the `sf` and `raster` libraries in this tutorial.
 # load packages
 library(sf)  # for vector work;
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -85,7 +85,7 @@ Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
 ~~~
 library(raster)   # for  raster metadata/attributes
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -100,7 +100,7 @@ Loading required package: sp
 # set working directory to data folder
 # setwd("pathToDirHere")
 ~~~
-{: .r}
+{: .language-r}
 
 ## Import .csv
 To begin let's import `.csv` file that contains plot coordinate `x, y`
@@ -118,7 +118,7 @@ plot_locations_HARV <-
 # look at the data structure
 str(plot_locations_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -158,7 +158,7 @@ Let's check out the column `names` of our `data.frame`.
 # view column names
 names(plot_locations_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -181,7 +181,7 @@ and `plot_locations_HARV$northing` columns contain coordinate values.
 # view first 6 rows of the X and Y columns
 head(plot_locations_HARV$easting)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -195,7 +195,7 @@ head(plot_locations_HARV$easting)
 ~~~
 head(plot_locations_HARV$northing)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -211,7 +211,7 @@ head(plot_locations_HARV$northing)
 # view first 6 rows of the X and Y columns
 head(plot_locations_HARV[, 1])
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -225,7 +225,7 @@ head(plot_locations_HARV[, 1])
 ~~~
 head(plot_locations_HARV[, 2])
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -256,7 +256,7 @@ Following the `easting` and `northing` columns, there is a `geodeticDa` and a
 # view first 6 rows of the X and Y columns
 head(plot_locations_HARV$geodeticDa)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -270,7 +270,7 @@ head(plot_locations_HARV$geodeticDa)
 ~~~
 head(plot_locations_HARV$utmZone)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -309,7 +309,7 @@ out its CRS.
 # Import the line shapefile
 lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -330,7 +330,7 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 # view CRS
 st_crs(lines_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -352,7 +352,7 @@ attr(,"class")
 # view extent
 st_bbox(lines_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -375,7 +375,7 @@ Next, let's create a `crs` object that we can use to define the CRS of our
 utm18nCRS <- st_crs(lines_HARV)
 utm18nCRS
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -396,7 +396,7 @@ attr(,"class")
 ~~~
 class(utm18nCRS)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -422,7 +422,7 @@ plot_locations_sp_HARV <- st_as_sf(plot_locations_HARV, coords = c("easting", "n
 # look at the CRS
 st_crs(plot_locations_sp_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -447,7 +447,7 @@ We now have a spatial `R` object, we can plot our newly created spatial object.
 plot(plot_locations_sp_HARV$geometry,
      main = "Map of Plot Locations")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-plot-data-points-1.png" title="plot of chunk plot-data-points" alt="plot of chunk plot-data-points" style="display: block; margin: auto;" />
 
@@ -472,7 +472,7 @@ series, you can skip this code as you have already created this object.)
 # create boundary object
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -499,7 +499,7 @@ plot(aoi_boundary_HARV$geometry,
 plot(plot_locations_sp_HARV$geometry,
      pch = 8, add = TRUE)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-plot-data-1.png" title="plot of chunk plot-data" alt="plot of chunk plot-data" style="display: block; margin: auto;" />
 
@@ -508,7 +508,7 @@ plot(plot_locations_sp_HARV$geometry,
 # view CRS of each
 st_crs(aoi_boundary_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -529,7 +529,7 @@ attr(,"class")
 ~~~
 st_crs(plot_locations_sp_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -554,7 +554,7 @@ locations are not rendered. We can see that our data are in the same projection
 # view extent of each
 st_bbox(aoi_boundary_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -569,7 +569,7 @@ st_bbox(aoi_boundary_HARV)
 ~~~
 st_bbox(plot_locations_sp_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -605,7 +605,7 @@ legend("bottomright",
        lty = c(1, 1),
        lwd = 6)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-compare-extents-1.png" title="plot of chunk compare-extents" alt="plot of chunk compare-extents" style="display: block; margin: auto;" />
 
@@ -632,7 +632,7 @@ values from the spatial object that has a larger extent. Let's try it.
 plotLoc.extent <- st_bbox(plot_locations_sp_HARV)
 plotLoc.extent
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -671,7 +671,7 @@ legend("bottomright",
        col = c("purple", "darkgreen"),
        cex = .8)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-set-plot-extent-1.png" title="plot of chunk set-plot-extent" alt="plot of chunk set-plot-extent" style="display: block; margin: auto;" />
 
@@ -745,7 +745,7 @@ legend("bottomright",
 > > plot(newPlot.Sp.HARV.UTM$geometry,
 > >      add = TRUE,  pch=20, col = "darkgreen")
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-code-phen-plots-1.png" title="plot of chunk challenge-code-phen-plots" alt="plot of chunk challenge-code-phen-plots" style="display: block; margin: auto;" />
 > > 
@@ -765,7 +765,7 @@ legend("bottomright",
 > >      col = "darkgreen",
 > >      add = TRUE)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-code-phen-plots-2.png" title="plot of chunk challenge-code-phen-plots" alt="plot of chunk challenge-code-phen-plots" style="display: block; margin: auto;" />
 > > 
@@ -809,7 +809,7 @@ legend("bottomright",
 > >        col = c("purple", "darkgreen"),
 > >        cex = 1.3)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-code-phen-plots-3.png" title="plot of chunk challenge-code-phen-plots" alt="plot of chunk challenge-code-phen-plots" style="display: block; margin: auto;" />
 > {: .solution}
@@ -834,4 +834,4 @@ We can now export the spatial object as a shapefile.
 st_write(plot_locations_sp_HARV,
          "data/PlotLocations_HARV.shp", driver = "ESRI Shapefile")
 ~~~
-{: .r}
+{: .language-r}
