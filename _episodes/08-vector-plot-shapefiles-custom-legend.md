@@ -71,7 +71,7 @@ location. These latter two we worked with in the
 # load packages
 library(sf)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -85,7 +85,7 @@ Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
 ~~~
 library(raster)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -103,7 +103,7 @@ Loading required package: sp
 # Import a polygon shapefile
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -124,7 +124,7 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 # Import a line shapefile
 lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -145,7 +145,7 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 # Import a point shapefile
 point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -174,7 +174,7 @@ by factor level or category.
 # view the factor levels
 levels(lines_HARV$TYPE)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -191,7 +191,7 @@ lineWidth <- c(2, 4, 3, 8)[lines_HARV$TYPE]
 # view vector
 lineWidth
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -207,7 +207,7 @@ lineWidth
 road_palette <- c("blue", "green", "grey", "purple")
 road_palette
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -224,7 +224,7 @@ road_palette
 road_colors <- c("blue", "green", "grey", "purple")[lines_HARV$TYPE]
 road_colors
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -242,7 +242,7 @@ lineWidth <- c(2, 4, 3, 8)[lines_HARV$TYPE]
 # view vector
 lineWidth
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -260,7 +260,7 @@ plot(lines_HARV$geometry,
      main = "NEON Harvard Forest Field Site\n Roads & Trails \nLine Width Varies by Type Attribute Value",
      lwd = lineWidth)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-plot-unique-lines-1.png" title="plot of chunk plot-unique-lines" alt="plot of chunk plot-unique-lines" style="display: block; margin: auto;" />
 
@@ -294,7 +294,7 @@ plot(lines_HARV$geometry,
 # we can use the color object that we created above to color the legend objects
 road_palette
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -313,7 +313,7 @@ legend("bottomright",
        bty = "n", # turn off the legend border
        cex = .8) # decrease the font / legend size
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-add-legend-to-plot-1.png" title="plot of chunk add-legend-to-plot" alt="plot of chunk add-legend-to-plot" style="display: block; margin: auto;" />
 
@@ -345,7 +345,7 @@ plot(point_HARV$geometry,
      pch = 19,
      col = "purple")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-plot-many-shapefiles-1.png" title="plot of chunk plot-many-shapefiles" alt="plot of chunk plot-many-shapefiles" style="display: block; margin: auto;" />
 
@@ -353,7 +353,7 @@ plot(point_HARV$geometry,
 # assign plot to an object for easy modification!
 plot_HARV <- recordPlot()
 ~~~
-{: .r}
+{: .language-r}
 
 
 ## Customize Your Legend
@@ -377,7 +377,7 @@ them. We will start with the labels.
 labels <- c("Tower", "AOI", levels(lines_HARV$TYPE))
 labels
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -399,7 +399,7 @@ legend("bottomright",
        bty = "n", # turn off the legend border
        cex = .8) # decrease the font / legend size
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-create-custom-labels-1.png" title="plot of chunk create-custom-labels" alt="plot of chunk create-custom-labels" style="display: block; margin: auto;" />
 
@@ -411,7 +411,7 @@ element next. We can use the vectors of colors that we created earlier to do thi
 # we have a list of colors that we used above - we can use it in the legend
 road_palette
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -427,7 +427,7 @@ road_palette
 plot_colors <- c("purple", "grey", road_palette)
 plot_colors
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -449,7 +449,7 @@ legend("bottomright",
        bty = "n", # turn off the legend border
        cex = .8) # decrease the font / legend size
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-add-colors-1.png" title="plot of chunk add-colors" alt="plot of chunk add-colors" style="display: block; margin: auto;" />
 
@@ -472,7 +472,7 @@ and the points, symbolized as a symbol. We can customize this using
 plotSym <- c(16, 15, 15, 15, 15, 15)
 plotSym
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -495,7 +495,7 @@ legend("bottomright",
        col = plot_colors,
        cex = .8)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-custom-symbols-1.png" title="plot of chunk custom-symbols" alt="plot of chunk custom-symbols" style="display: block; margin: auto;" />
 
@@ -524,7 +524,7 @@ symbol, but to instead use a line.
 line_legend <- c(NA, NA, 1, 1, 1, 1)
 line_legend
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -539,7 +539,7 @@ line_legend
 plotSym <- c(16, 15, NA, NA, NA, NA)
 plotSym
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -563,7 +563,7 @@ legend("bottomright",
        col = plot_colors,
        cex = .8)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-refine-legend-1.png" title="plot of chunk refine-legend" alt="plot of chunk refine-legend" style="display: block; margin: auto;" />
 
@@ -628,7 +628,7 @@ Create a custom legend.
 > >        bty = "n",
 > >        cex = 1)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-code-plot-color-1.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />
 > > 
@@ -667,7 +667,7 @@ Create a custom legend.
 > >        bty = "n",
 > >        cex = 1)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-code-plot-color-2.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />
 > {: .solution}

@@ -99,7 +99,7 @@ We will use the `sf` and `raster` packages in this tutorial.
 # load packages
 library(sf)  # for vector work
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -113,7 +113,7 @@ Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
 ~~~
 library(raster)   # for raster metadata/attributes
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -128,7 +128,7 @@ Loading required package: sp
 # set working directory to data folder
 # setwd("pathToDirHere")
 ~~~
-{: .r}
+{: .language-r}
 
 ## Import US Boundaries - Census Data
 
@@ -154,7 +154,7 @@ from the Census website to support the learning goals of this tutorial.
 # Read the .csv file
 state_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -177,7 +177,7 @@ Next, let's plot the U.S. states data.
 plot(state_boundary_US$geometry,
      main = "Map of Continental US State Boundaries\n US Census Bureau Data")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-find-coordinates-1.png" title="plot of chunk find-coordinates" alt="plot of chunk find-coordinates" style="display: block; margin: auto;" />
 
@@ -194,7 +194,7 @@ make our map pop!
 # Read the .csv file
 country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -221,7 +221,7 @@ plot(country_boundary_US$geometry,
      border = "gray18",
      add = TRUE)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-check-out-coordinates-1.png" title="plot of chunk check-out-coordinates" alt="plot of chunk check-out-coordinates" style="display: block; margin: auto;" />
 
@@ -233,7 +233,7 @@ As we are adding these layers, take note of the class of each object.
 # Import a point shapefile
 point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -257,7 +257,7 @@ plot(point_HARV$geometry,
      col = "purple",
      main = "Harvard Fisher Tower Location")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-explore-units-1.png" title="plot of chunk explore-units" alt="plot of chunk explore-units" style="display: block; margin: auto;" />
 
@@ -284,7 +284,7 @@ plot(point_HARV$geometry,
      col = "purple",
      add = TRUE)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-layer-point-on-states-1.png" title="plot of chunk layer-point-on-states" alt="plot of chunk layer-point-on-states" style="display: block; margin: auto;" />
 
@@ -300,7 +300,7 @@ U.S. boundary layers.
 # view CRS of our site data
 st_crs(point_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -322,7 +322,7 @@ attr(,"class")
 # view crs of census data
 st_crs(state_boundary_US)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -343,7 +343,7 @@ attr(,"class")
 ~~~
 st_crs(country_boundary_US)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -420,7 +420,7 @@ object compared to the `state_boundary_US` object.
 # extent for HARV in UTM
 st_bbox(point_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -436,7 +436,7 @@ st_bbox(point_HARV)
 # extent for object in geographic
 st_bbox(state_boundary_US)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -495,7 +495,7 @@ point_HARV_WGS84 <- st_transform(point_HARV,
 # what is the CRS of the new object
 st_crs(point_HARV_WGS84)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -517,7 +517,7 @@ attr(,"class")
 # does the extent look like decimal degrees?
 st_bbox(point_HARV_WGS84)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -548,7 +548,7 @@ plot(point_HARV_WGS84$geometry,
      col = "purple",
      add = TRUE)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-plot-again-1.png" title="plot of chunk plot-again" alt="plot of chunk plot-again" style="display: block; margin: auto;" />
 
@@ -607,7 +607,7 @@ transformations) on our data.
 > >        col = c("gray18", "purple"),
 > >        bty = "n")
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-code-MASS-Map-1.png" title="plot of chunk challenge-code-MASS-Map" alt="plot of chunk challenge-code-MASS-Map" style="display: block; margin: auto;" />
 > {: .solution}
