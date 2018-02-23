@@ -79,7 +79,7 @@ tutorial, you can skip this code.
 # sf: for vector work
 library(sf)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -94,7 +94,7 @@ Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
 # raster: for raster metadata/attributes
 library(raster)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -112,7 +112,7 @@ Loading required package: sp
 # Import a polygon shapefile
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -133,7 +133,7 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 # Import a line shapefile
 lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -154,7 +154,7 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 # Import a point shapefile
 point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -188,7 +188,7 @@ Let's explore the metadata for our `point_HARV` object.
 # view geometry type
 st_geometry_type(point_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -205,7 +205,7 @@ st_geometry_type(point_HARV)
 # view features count
 nrow(point_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -220,7 +220,7 @@ nrow(point_HARV)
 # view crs - note - this only works with the raster package loaded
 st_crs(point_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -242,7 +242,7 @@ attr(,"class")
 # view extent- note - this only works with the raster package loaded
 st_bbox(point_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -258,7 +258,7 @@ st_bbox(point_HARV)
 # view metadata summary
 point_HARV
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -310,7 +310,7 @@ We can look at all of the associated data attributes by printing the contents of
 # how many attributes are in our vector data object?
 ncol(lines_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -330,7 +330,7 @@ Let's give it a try.
 # view just the attribute names for the lines_HARV spatial object
 names(lines_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -348,7 +348,7 @@ names(lines_HARV)
 # just view the attributes & first 6 attribute values of the data
 head(lines_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -407,7 +407,7 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 > > # 1
 > > ncol(point_HARV)  #14 attributes
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -421,7 +421,7 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 > > ~~~
 > > ncol(aoi_boundary_HARV)  #1 attribute
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -436,7 +436,7 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 > > # 2
 > > head(point_HARV)  #Harvard University, LTER
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -462,7 +462,7 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 > > # 3
 > > names(point_HARV)  # C Country
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -486,7 +486,7 @@ the attribute: `objectName$attributeName`.
 # view all attributes in the lines shapefile within the TYPE field
 lines_HARV$TYPE
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -504,7 +504,7 @@ Levels: boardwalk footpath stone wall woods road
 # view unique values within the "TYPE" attributes
 levels(lines_HARV$TYPE)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -528,7 +528,7 @@ from a spatial object in `R`.
 # "footpath" lines
 lines_HARV[lines_HARV$TYPE == "footpath",]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -561,7 +561,7 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 footpath_HARV <- lines_HARV[lines_HARV$TYPE == "footpath",]
 footpath_HARV
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -593,7 +593,7 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 # how many features are in our new object
 nrow(footpath_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -615,7 +615,7 @@ plot(footpath_HARV$geometry,
      lwd = 6,
      main = "NEON Harvard Forest Field Site\n Footpaths")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-plot-subset-shapefile-1.png" title="plot of chunk plot-subset-shapefile" alt="plot of chunk plot-subset-shapefile" style="display: block; margin: auto;" />
 
@@ -638,7 +638,7 @@ plot(footpath_HARV$geometry,
      lwd = 6,
      main = "NEON Harvard Forest Field Site\n Footpaths \n Feature one = blue, Feature two= green")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-plot-subset-shapefile-unique-colors-1.png" title="plot of chunk plot-subset-shapefile-unique-colors" alt="plot of chunk plot-subset-shapefile-unique-colors" style="display: block; margin: auto;" />
 
@@ -661,7 +661,7 @@ Now, we see that there are in fact two features in our plot!
 > > boardwalk_HARV<-lines_HARV[lines_HARV$TYPE == "boardwalk",]
 > > boardwalk_HARV
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -689,7 +689,7 @@ Now, we see that there are in fact two features in our plot!
 > > # how many features are in our new object
 > > nrow(boardwalk_HARV)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -707,7 +707,7 @@ Now, we see that there are in fact two features in our plot!
 > >      lwd = 6,
 > >      main = "NEON Harvard Forest Field Site\n Boardwalks\n Feature one = blue, Feature two= green")
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-code-feature-subset-1.png" title="plot of chunk challenge-code-feature-subset" alt="plot of chunk challenge-code-feature-subset" style="display: block; margin: auto;" />
 > > 
@@ -716,7 +716,7 @@ Now, we see that there are in fact two features in our plot!
 > > stoneWall_HARV <- lines_HARV[lines_HARV$TYPE == "stone wall",]
 > > stoneWall_HARV
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -757,7 +757,7 @@ Now, we see that there are in fact two features in our plot!
 > > # how many features are in our new object?
 > > nrow(stoneWall_HARV)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -776,7 +776,7 @@ Now, we see that there are in fact two features in our plot!
 > >      lwd = 6,
 > >      main = "NEON Harvard Forest Field Site\n Stonewalls\n Each Feature in Different Color")
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-code-feature-subset-2.png" title="plot of chunk challenge-code-feature-subset" alt="plot of chunk challenge-code-feature-subset" style="display: block; margin: auto;" />
 > {: .solution}
@@ -798,7 +798,7 @@ By default, `R` will import spatial object attributes as `factors`.
 # view the original class of the TYPE column
 class(lines_HARV$TYPE)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -814,7 +814,7 @@ class(lines_HARV$TYPE)
 # the attributes are just read as a list of character elements.
 levels(lines_HARV$TYPE)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -835,7 +835,7 @@ levels(lines_HARV$TYPE)
 # how many features are in each category or level?
 summary(lines_HARV$TYPE)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -867,7 +867,7 @@ Let's give this a try.
 # Check the class of the attribute - is it a factor?
 class(lines_HARV$TYPE)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -883,7 +883,7 @@ class(lines_HARV$TYPE)
 # view factor values
 levels(lines_HARV$TYPE)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -898,7 +898,7 @@ levels(lines_HARV$TYPE)
 # count the number of unique values or levels
 length(levels(lines_HARV$TYPE))
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -914,7 +914,7 @@ length(levels(lines_HARV$TYPE))
 roadPalette <- c("blue", "green", "grey", "purple")
 roadPalette
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -931,7 +931,7 @@ roadPalette
 roadColors <- c("blue", "green", "grey", "purple")[lines_HARV$TYPE]
 roadColors
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -950,7 +950,7 @@ plot(lines_HARV$geometry,
      lwd = 3,
      main = "NEON Harvard Forest Field Site\n Roads & Trails")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-palette-and-plot-1.png" title="plot of chunk palette-and-plot" alt="plot of chunk palette-and-plot" style="display: block; margin: auto;" />
 
@@ -966,7 +966,7 @@ plot(lines_HARV$geometry,
      main = "NEON Harvard Forest Field Site\n Roads & Trails\n All Lines Thickness=6",
      lwd = 6)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-adjust-line-width-1.png" title="plot of chunk adjust-line-width" alt="plot of chunk adjust-line-width" style="display: block; margin: auto;" />
 
@@ -984,7 +984,7 @@ try.
 ~~~
 class(lines_HARV$TYPE)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -998,7 +998,7 @@ class(lines_HARV$TYPE)
 ~~~
 levels(lines_HARV$TYPE)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -1019,7 +1019,7 @@ plot(lines_HARV$geometry,
      main = "NEON Harvard Forest Field Site\n Roads & Trails \n Line width varies by TYPE Attribute Value",
      lwd = lineWidths)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-line-width-unique-1.png" title="plot of chunk line-width-unique" alt="plot of chunk line-width-unique" style="display: block; margin: auto;" />
 
@@ -1073,7 +1073,7 @@ plot(lines_HARV$geometry,
 # we can use the color object that we created above to color the legend objects
 roadPalette
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -1091,7 +1091,7 @@ legend("bottomright",   # location of legend
 			 # the legend
       fill=roadPalette) # color palette to use to fill objects in legend.
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-add-legend-to-plot-1.png" title="plot of chunk add-legend-to-plot" alt="plot of chunk add-legend-to-plot" style="display: block; margin: auto;" />
 
@@ -1114,7 +1114,7 @@ legend("bottomright",
        bty = "n", # turn off the legend border
        cex = .8) # decrease the font / legend size
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-modify-legend-plot-1.png" title="plot of chunk modify-legend-plot" alt="plot of chunk modify-legend-plot" style="display: block; margin: auto;" />
 
@@ -1131,7 +1131,7 @@ Let's try it!
 newColors <- c("springgreen", "blue", "magenta", "orange")
 newColors
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -1154,7 +1154,7 @@ legend("bottomright",
        fill=newColors,
        bty = "n", cex = .8)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-plot-different-colors-1.png" title="plot of chunk plot-different-colors" alt="plot of chunk plot-different-colors" style="display: block; margin: auto;" />
 
@@ -1217,7 +1217,7 @@ legend("bottomright",
 > >        bty = "n", # turn off border
 > >        cex = .8) # adjust font size
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-bicycle-map-2-1.png" title="plot of chunk bicycle-map-2" alt="plot of chunk bicycle-map-2" style="display: block; margin: auto;" />
 > {: .solution}
@@ -1248,7 +1248,7 @@ legend("bottomright",
 > > # Read the shapefile file
 > > state_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp")
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -1269,7 +1269,7 @@ legend("bottomright",
 > > # how many levels?
 > > levels(state_boundary_US$region)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -1284,7 +1284,7 @@ legend("bottomright",
 > > colors <- c("purple", "springgreen", "yellow", "brown", "grey")
 > > colors
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -1307,7 +1307,7 @@ legend("bottomright",
 > >        bty = "n", #turn off border
 > >        cex = .7) #adjust font size
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-code-plot-color-1.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />
 > > 
@@ -1316,7 +1316,7 @@ legend("bottomright",
 > > # open plot locations
 > > plotLocations <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -1337,7 +1337,7 @@ legend("bottomright",
 > > # how many unique soils?  Two
 > > unique(plotLocations$soilTypeOr)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -1354,7 +1354,7 @@ legend("bottomright",
 > > blueGreen <- c("blue","springgreen")
 > > blueGreen
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -1380,7 +1380,7 @@ legend("bottomright",
 > >        bty = "n",
 > >        cex = 1)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-code-plot-color-2.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />
 > > 
@@ -1390,7 +1390,7 @@ legend("bottomright",
 > > plSymbols <- c(15, 17)[plotLocations$soilTypeOr]
 > > plSymbols
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -1412,7 +1412,7 @@ legend("bottomright",
 > > plSymbolsL <- c(15, 17)
 > > plSymbolsL
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -1432,7 +1432,7 @@ legend("bottomright",
 > >        bty = "n",
 > >        cex = 1)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-code-plot-color-3.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />
 > {: .solution}

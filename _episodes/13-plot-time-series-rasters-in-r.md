@@ -65,7 +65,7 @@ please create it now.
 ~~~
 library(raster)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -79,7 +79,7 @@ Loading required package: sp
 ~~~
 library(rgdal)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -99,7 +99,7 @@ rgdal: version: 1.2-8, (SVN revision 663)
 ~~~
 library(rasterVis)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -134,7 +134,7 @@ NDVI_HARV_stack <- stack(all_NDVI_HARV)
 # apply scale factor
 NDVI_HARV_stack <- NDVI_HARV_stack/10000
 ~~~
-{: .r}
+{: .language-r}
 
 ## Plot Raster Time Series Data
 We can use the `plot` function to plot our raster time series data.
@@ -147,7 +147,7 @@ plot(NDVI_HARV_stack,
      zlim = c(.15, 1),
      nc = 4)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-plot-time-series-1.png" title="plot of chunk plot-time-series" alt="plot of chunk plot-time-series" style="display: block; margin: auto;" />
 
@@ -177,7 +177,7 @@ function. We use `main = "TITLE"` to add a title to the entire plot series.
 levelplot(NDVI_HARV_stack,
           main = "Landsat NDVI\nNEON Harvard Forest")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-levelplot-time-series-1.png" title="plot of chunk levelplot-time-series" alt="plot of chunk levelplot-time-series" style="display: block; margin: auto;" />
 
@@ -197,7 +197,7 @@ levelplot(NDVI_HARV_stack,
         main = "Landsat NDVI -- Improved Colors \nNEON Harvard Forest Field Site",
         col.regions=cols)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-change-color-ramp-1.png" title="plot of chunk change-color-ramp" alt="plot of chunk change-color-ramp" style="display: block; margin: auto;" />
 
@@ -232,7 +232,7 @@ First let's remove "_HARV_NDVI_crop" from each label.
 # view names for each raster layer
 names(NDVI_HARV_stack)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -254,7 +254,7 @@ rasterNames  <- gsub("X", "Day ", names(NDVI_HARV_stack))
 # view Names
 rasterNames
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -278,7 +278,7 @@ rasterNames  <- gsub("_HARV_ndvi_crop", "", rasterNames)
 # view names for each raster layer
 rasterNames
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -309,7 +309,7 @@ levelplot(NDVI_HARV_stack,
           main = "Landsat NDVI - Julian Days \nHarvard Forest 2011",
           names.attr=rasterNames)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-create-levelplot-1.png" title="plot of chunk create-levelplot" alt="plot of chunk create-levelplot" style="display: block; margin: auto;" />
 
@@ -325,7 +325,7 @@ levelplot(NDVI_HARV_stack,
           main = "Landsat NDVI - Julian Days \nHarvard Forest 2011",
           names.attr=rasterNames)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-adjust-layout-1.png" title="plot of chunk adjust-layout" alt="plot of chunk adjust-layout" style="display: block; margin: auto;" />
 
@@ -342,7 +342,7 @@ levelplot(NDVI_HARV_stack,
           names.attr=rasterNames,
           scales=list(draw=FALSE )) # remove axes labels & ticks
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-remove-axis-ticks-1.png" title="plot of chunk remove-axis-ticks" alt="plot of chunk remove-axis-ticks" style="display: block; margin: auto;" />
 
@@ -377,7 +377,7 @@ levelplot(NDVI_HARV_stack,
 > >       main = "Landsat NDVI - Julian Days - 2011 \nNEON Harvard Forest Field Site",
 > >       names.attr=rasterNames)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-code-levelplot-divergent-1.png" title="plot of chunk challenge-code-levelplot-divergent" alt="plot of chunk challenge-code-levelplot-divergent" style="display: block; margin: auto;" />
 > > 
@@ -385,6 +385,6 @@ levelplot(NDVI_HARV_stack,
 > > # The sequential is better than the divergent as it is more akin to the process
 > > # of greening up, which starts off at one end and just keeps increasing.
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > {: .solution}
 {: .challenge}
