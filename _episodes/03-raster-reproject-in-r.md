@@ -74,7 +74,7 @@ We will use the `raster` and `rgdal` packages in this tutorial.
 # load raster package
 library(raster)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -88,7 +88,7 @@ Loading required package: sp
 ~~~
 library(rgdal)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -126,7 +126,7 @@ plot(DTM_HARV,
      add = TRUE,
      legend = FALSE)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-import-DTM-hillshade-1.png" title="plot of chunk import-DTM-hillshade" alt="plot of chunk import-DTM-hillshade" style="display: block; margin: auto;" />
 
@@ -147,7 +147,7 @@ plot(DTM_HARV,
      legend = FALSE,
      main = "Digital Terrain Model\n NEON Harvard Forest Field Site")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-plot-DTM-1.png" title="plot of chunk plot-DTM" alt="plot of chunk plot-DTM" style="display: block; margin: auto;" />
 
@@ -159,7 +159,7 @@ Our DTM seems to contain data and plots just fine. Let's next check the
 # view crs for DTM
 crs(DTM_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -176,7 +176,7 @@ CRS arguments:
 # view crs for hillshade
 crs(DTM_hill_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -224,7 +224,7 @@ DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV,
 # compare attributes of DTM_hill_UTMZ18N to DTM_hill
 crs(DTM_hill_UTMZ18N_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -240,7 +240,7 @@ CRS arguments:
 ~~~
 crs(DTM_hill_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -256,7 +256,7 @@ CRS arguments:
 # compare attributes of DTM_hill_UTMZ18N to DTM_hill
 extent(DTM_hill_UTMZ18N_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -274,7 +274,7 @@ ymax        : 4713907
 ~~~
 extent(DTM_hill_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -301,7 +301,7 @@ UTM. However, the extent values of `DTM_hillUTMZ18N_HARV` are different from
 > > # The extent for DTM_hill_HARV is still in lat/long so the extent is expressed
 > > # in decimal degrees.
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > {: .solution}
 {: .challenge}
 
@@ -314,7 +314,7 @@ Let's next have a look at the resolution of our reprojected hillshade.
 # compare resolution
 res(DTM_hill_UTMZ18N_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -337,7 +337,7 @@ DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV,
 # view resolution
 res(DTM_hill_UTMZ18N_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -363,7 +363,7 @@ plot(DTM_HARV,
      add = TRUE,
      legend = FALSE)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-plot-projected-raster-1.png" title="plot of chunk plot-projected-raster" alt="plot of chunk plot-projected-raster" style="display: block; margin: auto;" />
 
@@ -402,7 +402,7 @@ field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files.
 > >      add = TRUE,
 > >      legend = FALSE)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-code-reprojection-1.png" title="plot of chunk challenge-code-reprojection" alt="plot of chunk challenge-code-reprojection" style="display: block; margin: auto;" />
 > {: .solution}
