@@ -15,7 +15,7 @@ keypoints:
 authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
 contributors: [ ]
 dateCreated: 2015-10-23
-lastModified: 2017-09-19
+lastModified: 2018-02-13
 packagesLibraries: [raster, rgdal]
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
@@ -100,10 +100,11 @@ Loading required package: sp
 
 
 ~~~
-rgdal: version: 1.2-8, (SVN revision 663)
+rgdal: version: 1.2-16, (SVN revision 701)
  Geospatial Data Abstraction Library extensions to R successfully loaded
- Loaded GDAL runtime: GDAL 2.2.1, released 2017/06/23
+ Loaded GDAL runtime: GDAL 2.2.2, released 2017/09/15
  Path to GDAL shared files: /usr/share/gdal/2.2
+ GDAL binary built with GEOS: TRUE 
  Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
  Path to PROJ.4 shared files: (autodetected)
  Linking to sp version: 1.2-5 
@@ -255,7 +256,7 @@ it throughout data processing and analysis.
 Read More:
 
 * <a href="http://spatialreference.org/ref/epsg/" target="_blank"> A comprehensive online library of CRS information.</a>
-* <a href="http://docs.qgis.org/2.0/en/docs/gentle_gis_introduction/coordinate_reference_systems.html" target="_blank">QGIS Documentation - CRS Overview.</a>
+* <a href="https://docs.qgis.org/2.18/en/docs/gentle_gis_introduction/coordinate_reference_systems.html" target="_blank">QGIS Documentation - CRS Overview.</a>
 * <a href="https://source.opennews.org/en-US/learning/choosing-right-map-projection/" target="_blank">Choosing the Right Map Projection.</a>
 * <a href="https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf" target="_blank"> NCEAS Overview of CRS in R.</a>
 
@@ -304,8 +305,7 @@ CRS arguments:
 ~~~
 {: .output}
 
-The `CRS` of our `DSM_HARV` object tells us that our data are in the UTM
-projection.
+The `CRS` of our `DSM_HARV` object tells us that our data are in the universal transverse mercator (UTM) projection.
 
 <figure>
     <a href="https://en.wikipedia.org/wiki/File:Utm-zones-USA.svg">
@@ -653,7 +653,7 @@ It is ideal to use `GDALinfo` to explore your file **before** reading it into
 > 1. Does this file has the same `CRS` as `DSM_HARV`?
 > 2. What is the `NoDataValue`?
 > 3. What is resolution of the raster data?
-> 4. How large would a 5x5 pixel area would be on the Earth's surface?
+> 4. How large would a 5x5 pixel area be on the Earth's surface?
 > 5. Is the file a multi- or single-band raster?
 > 
 > Notice: this file is a `hillshade`. We will learn about hillshades in
