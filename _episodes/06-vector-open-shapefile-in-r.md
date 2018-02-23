@@ -107,7 +107,7 @@ We will use the `sf` package to work with vector data in `R`. Notice that the
 # for vector work
 library(sf)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -122,7 +122,7 @@ Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
 # for metadata/attributes- vectors or rasters
 library(raster)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -138,7 +138,7 @@ Loading required package: sp
 # you downloaded and unzipped the data files for the tutorial
 # setwd("pathToDirHere")
 ~~~
-{: .r}
+{: .language-r}
 
 The shapefiles that we will import are:
 
@@ -163,7 +163,7 @@ Let's import our AOI.
 aoi_boundary_HARV <- st_read(
   "data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -209,7 +209,7 @@ We can view shapefile metadata using the `st_geometry_type`, `st_crs` and `st_bb
 # view just the geometry type for the shapefile
 st_geometry_type(aoi_boundary_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -225,7 +225,7 @@ st_geometry_type(aoi_boundary_HARV)
 # view just the crs for the shapefile
 st_crs(aoi_boundary_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -247,7 +247,7 @@ attr(,"class")
 # view just the extent for the shapefile
 st_bbox(aoi_boundary_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -263,7 +263,7 @@ st_bbox(aoi_boundary_HARV)
 # view all metadata at same time
 aoi_boundary_HARV
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -323,7 +323,7 @@ We can view the attributes of an `sf` object by printing it to the screen. The g
 ~~~
 aoi_boundary_HARV
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -345,7 +345,7 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 # alternate way to view attributes
 data.frame(aoi_boundary_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -368,7 +368,7 @@ includes the **geometry type**, the number of **features**, the **extent**, and 
 # view a summary of metadata & attributes associated with the spatial object
 summary(aoi_boundary_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -397,7 +397,7 @@ Next, let's visualize the data in our `sf` object using
 plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
      main = "AOI Boundary Plot")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-plot-shapefile-1.png" title="plot of chunk plot-shapefile" alt="plot of chunk plot-shapefile" style="display: block; margin: auto;" />
 
@@ -424,7 +424,7 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > # import line shapefile
 > > lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -445,7 +445,7 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > # import point shapefile
 > > point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -466,7 +466,7 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > # 1
 > > class(lines_HARV)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -480,7 +480,7 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > ~~~
 > > class(point_HARV)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -495,7 +495,7 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > # 2
 > > st_crs(lines_HARV)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -516,7 +516,7 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > ~~~
 > > st_bbox(lines_HARV)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -531,7 +531,7 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > ~~~
 > > st_crs(point_HARV)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -552,7 +552,7 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > ~~~
 > > st_bbox(point_HARV)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -571,7 +571,7 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > # 4 -> numerous ways to find this; lines_HARV=13,
 > > nrow(lines_HARV)  #easiest, but not previously taught
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -585,7 +585,7 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > ~~~
 > > lines_HARV  #look at 'features'
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -676,7 +676,7 @@ plot(lines_HARV, add = TRUE)
 # use the pch element to adjust the symbology of the points
 plot(point_HARV, add  = TRUE, pch = 19, col = "purple")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-plot-multiple-shapefiles-1.png" title="plot of chunk plot-multiple-shapefiles" alt="plot of chunk plot-multiple-shapefiles" style="display: block; margin: auto;" />
 
@@ -722,7 +722,7 @@ plot(point_HARV, add  = TRUE, pch = 19, col = "purple")
 > > plot(point_HARV, pch=8,
 > >      add = TRUE)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-vector-raster-overlay-1.png" title="plot of chunk challenge-vector-raster-overlay" alt="plot of chunk challenge-vector-raster-overlay" style="display: block; margin: auto;" />
 > {: .solution}
