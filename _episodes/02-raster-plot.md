@@ -71,7 +71,7 @@ please create it now.
 # if they are not already loaded
 library(rgdal)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -104,7 +104,7 @@ library(raster)
 # import raster
 DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 ~~~
-{: .r}
+{: .language-r}
 
 First, let's plot our Digital Surface Model object (`DSM_HARV`) using the
 `plot()` function. We add a title using the argument `main = "title"`.
@@ -115,7 +115,7 @@ First, let's plot our Digital Surface Model object (`DSM_HARV`) using the
 plot(DSM_HARV,
      main = "Digital Surface Model\nNEON Harvard Forest Field Site")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-hist-raster-1.png" title="plot of chunk hist-raster" alt="plot of chunk hist-raster" style="display: block; margin: auto;" />
 
@@ -138,7 +138,7 @@ DSMhist <- hist(DSM_HARV,
      col = "wheat3",  # changes bin color
      xlab = "Elevation (m)")  # label the x-axis
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -154,7 +154,7 @@ Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...):
 # Where are breaks and how many pixels in each category?
 DSMhist$breaks
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -168,7 +168,7 @@ DSMhist$breaks
 ~~~
 DSMhist$counts
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -206,7 +206,7 @@ plot(DSM_HARV,
      col = terrain.colors(3),
      main = "Digital Surface Model (DSM)\n NEON Harvard Forest Field Site")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-plot-with-breaks-1.png" title="plot of chunk plot-with-breaks" alt="plot of chunk plot-with-breaks" style="display: block; margin: auto;" />
 
@@ -235,7 +235,7 @@ plot(DSM_HARV,
      xlab = "UTM Westing Coordinate (m)",
      ylab = "UTM Northing Coordinate (m)")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-add-plot-title-1.png" title="plot of chunk add-plot-title" alt="plot of chunk add-plot-title" style="display: block; margin: auto;" />
 
@@ -250,7 +250,7 @@ plot(DSM_HARV,
      main = "Digital Surface Model\n NEON Harvard Forest Field Site",
      axes = FALSE)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-turn-off-axes-1.png" title="plot of chunk turn-off-axes" alt="plot of chunk turn-off-axes" style="display: block; margin: auto;" />
 
@@ -338,7 +338,7 @@ plot(DSM_hill_HARV,
     main = "Hillshade - DSM\n NEON Harvard Forest Field Site",
     axes = FALSE)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-hillshade-1.png" title="plot of chunk hillshade" alt="plot of chunk hillshade" style="display: block; margin: auto;" />
 
@@ -365,7 +365,7 @@ plot(DSM_HARV,
      add = T,
      legend = F)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-overlay-hillshade-1.png" title="plot of chunk overlay-hillshade" alt="plot of chunk overlay-hillshade" style="display: block; margin: auto;" />
 
@@ -414,7 +414,7 @@ Range field site.
 > >      add = TRUE,
 > >      legend = FALSE)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-hillshade-layering-1.png" title="plot of chunk challenge-hillshade-layering" alt="plot of chunk challenge-hillshade-layering" style="display: block; margin: auto;" />
 > > 
@@ -439,7 +439,7 @@ Range field site.
 > >      add = TRUE,
 > >      legend = FALSE)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-hillshade-layering-2.png" title="plot of chunk challenge-hillshade-layering" alt="plot of chunk challenge-hillshade-layering" style="display: block; margin: auto;" />
 > {: .solution}
