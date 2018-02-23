@@ -140,7 +140,7 @@ library(raster)
 # export GeoTIFFs and other core GIS functions
 library(rgdal)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -189,7 +189,7 @@ plot(RGB_band1_HARV,
      axes = FALSE,
      main = "RGB Imagery - Band 1-Red\nNEON Harvard Forest Field Site")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-read-single-band-1.png" title="plot of chunk read-single-band" alt="plot of chunk read-single-band" style="display: block; margin: auto;" />
 
@@ -198,7 +198,7 @@ plot(RGB_band1_HARV,
 # band.
 RGB_band1_HARV
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -236,7 +236,7 @@ Let's next examine the raster's min and max values. What is the value range?
 # view min value
 minValue(RGB_band1_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -251,7 +251,7 @@ minValue(RGB_band1_HARV)
 # view max value
 maxValue(RGB_band1_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -287,7 +287,7 @@ plot(RGB_band2_HARV,
      axes = FALSE,
      main = "RGB Imagery - Band 2- Green\nNEON Harvard Forest Field Site")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-read-specific-band-1.png" title="plot of chunk read-specific-band" alt="plot of chunk read-specific-band" style="display: block; margin: auto;" />
 
@@ -295,7 +295,7 @@ plot(RGB_band2_HARV,
 # view attributes of band 2
 RGB_band2_HARV
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -325,7 +325,7 @@ Notice that band 2 is the second of 3 bands `band: 2  (of  3  bands)`.
 > > # band 1 (red) because the leaves on trees of most often appear "green" -
 > > # healthy leaves reflect MORE green light compared to red light
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > {: .solution}
 {: .challenge}
 
@@ -345,7 +345,7 @@ RGB_stack_HARV <-
 # view attributes of stack object
 RGB_stack_HARV
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -372,7 +372,7 @@ attributes for using an index value: `RGB_stack_HARV[[1]]`. We can also use the
 # view raster attributes
 RGB_stack_HARV@layers
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -420,7 +420,7 @@ values      : 0, 255  (min, max)
 # view attributes for one band
 RGB_stack_HARV[[1]]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -448,7 +448,7 @@ hist(RGB_stack_HARV,
 plot(RGB_stack_HARV,
      col = grayscale_colors)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-plot-raster-layers-1.png" title="plot of chunk plot-raster-layers" alt="plot of chunk plot-raster-layers" style="display: block; margin: auto;" /><img src="../fig/rmd-plot-raster-layers-2.png" title="plot of chunk plot-raster-layers" alt="plot of chunk plot-raster-layers" style="display: block; margin: auto;" />
 
@@ -461,7 +461,7 @@ plot(RGB_stack_HARV[[2]],
      main = "Band 2\n NEON Harvard Forest Field Site",
      col = grayscale_colors)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-plot-raster-layers-3.png" title="plot of chunk plot-raster-layers" alt="plot of chunk plot-raster-layers" style="display: block; margin: auto;" />
 
@@ -486,7 +486,7 @@ Let's plot our 3-band image.
 plotRGB(RGB_stack_HARV,
         r = 1, g = 2, b = 3)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-plot-rgb-image-1.png" title="plot of chunk plot-rgb-image" alt="plot of chunk plot-rgb-image" style="display: block; margin: auto;" />
 
@@ -524,7 +524,7 @@ plotRGB(RGB_stack_HARV,
         scale = 800,
         stretch = "lin")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-image-stretch-1.png" title="plot of chunk image-stretch" alt="plot of chunk image-stretch" style="display: block; margin: auto;" />
 
@@ -534,7 +534,7 @@ plotRGB(RGB_stack_HARV,
         scale = 800,
         stretch = "hist")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-image-stretch-2.png" title="plot of chunk image-stretch" alt="plot of chunk image-stretch" style="display: block; margin: auto;" />
 
@@ -580,7 +580,7 @@ tutorial.
 > > plotRGB(HARV_NA,
 > >         r = 1, g = 2, b = 3)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-code-NoData-1.png" title="plot of chunk challenge-code-NoData" alt="plot of chunk challenge-code-NoData" style="display: block; margin: auto;" />
 > > 
@@ -592,7 +592,7 @@ tutorial.
 > > # renders them as NA.
 > > GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > {: .solution}
 {: .challenge}
 
@@ -625,7 +625,7 @@ and `brick` `R` objects.
 # view size of the RGB_stack object that contains our 3 band image
 object.size(RGB_stack_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -643,7 +643,7 @@ RGB_brick_HARV <- brick(RGB_stack_HARV)
 # view size of the brick
 object.size(RGB_brick_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -663,7 +663,7 @@ You use `plotRGB` to block a `RasterBrick` too.
 # plot brick
 plotRGB(RGB_brick_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-plot-brick-1.png" title="plot of chunk plot-brick" alt="plot of chunk plot-brick" style="display: block; margin: auto;" />
 
@@ -691,6 +691,6 @@ plotRGB(RGB_brick_HARV)
 > > #3 There are far more thing one could or wants to ask of a full stack than of
 > > # a single band.
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > {: .solution}
 {: .challenge}
