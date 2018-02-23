@@ -133,7 +133,7 @@ In this tutorial, we will use the `raster` and `rgdal` libraries.
 # load packages
 library(raster)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -147,7 +147,7 @@ Loading required package: sp
 ~~~
 library(rgdal)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -182,7 +182,7 @@ all_NDVI_HARV <- list.files(NDVI_HARV_path,
 # view list - note the full path, relative to our working directory, is included
 all_NDVI_HARV
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -212,7 +212,7 @@ function.
 # Create a raster stack of the NDVI time series
 NDVI_HARV_stack <- stack(all_NDVI_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 We can explore the GeoTIFF tags (the embedded metadata) in a `stack` using the
 same syntax that we used on single-band raster objects in `R` including: `crs()`
@@ -224,7 +224,7 @@ same syntax that we used on single-band raster objects in `R` including: `crs()`
 # view crs of rasters
 crs(NDVI_HARV_stack)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -240,7 +240,7 @@ CRS arguments:
 # view extent of rasters in stack
 extent(NDVI_HARV_stack)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -259,7 +259,7 @@ ymax        : 4714365
 # view the y resolution of our rasters
 yres(NDVI_HARV_stack)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -274,7 +274,7 @@ yres(NDVI_HARV_stack)
 # view the x resolution of our rasters
 xres(NDVI_HARV_stack)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -325,7 +325,7 @@ UTM Zone 19.
 > > # 2. 30x30 meters
 > > # 3. meters
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > {: .solution}
 {: .challenge}
 
@@ -341,7 +341,7 @@ plot(NDVI_HARV_stack,
      zlim = c(1500, 10000),
      nc = 4)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-plot-time-series-1.png" title="plot of chunk plot-time-series" alt="plot of chunk plot-time-series" style="display: block; margin: auto;" />
 
@@ -377,7 +377,7 @@ plot(NDVI_HARV_stack,
      zlim = c(.15, 1),
      nc = 4)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-apply-scale-factor-1.png" title="plot of chunk apply-scale-factor" alt="plot of chunk apply-scale-factor" style="display: block; margin: auto;" />
 
@@ -410,7 +410,7 @@ each raster.
 hist(NDVI_HARV_stack,
      xlim = c(0, 1))
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-view-stack-histogram-1.png" title="plot of chunk view-stack-histogram" alt="plot of chunk view-stack-histogram" style="display: block; margin: auto;" />
 
@@ -504,7 +504,7 @@ derive our NDVI rasters to try to understand what appears to be outlier NDVI val
 > > # reset layout
 > > par(mfrow=c(1, 1))
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 

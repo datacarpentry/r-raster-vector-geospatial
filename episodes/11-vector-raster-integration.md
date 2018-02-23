@@ -170,7 +170,7 @@ point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp"
 chm_HARV <-
   raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 ~~~
-{: .r}
+{: .language-r}
 
 ## Crop a Raster Using Vector Extent
 We can use the `crop` function to crop a raster to the extent of another spatial
@@ -184,7 +184,7 @@ spatial object as the cropping boundary.
 plot(chm_HARV,
      main = "LiDAR CHM - Not Cropped\nNEON Harvard Forest Field Site")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-Crop-by-vector-extent-1.png" title="plot of chunk Crop-by-vector-extent" alt="plot of chunk Crop-by-vector-extent" style="display: block; margin: auto;" />
 
@@ -201,7 +201,7 @@ plot(extent(chm_HARV),
 plot(chm_HARV_Crop,
      add = TRUE)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-Crop-by-vector-extent-2.png" title="plot of chunk Crop-by-vector-extent" alt="plot of chunk Crop-by-vector-extent" style="display: block; margin: auto;" />
 
@@ -219,7 +219,7 @@ We can look at the extent of all the other objects.
 # lets look at the extent of all of our objects
 extent(chm_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -237,7 +237,7 @@ ymax        : 4713838
 ~~~
 extent(chm_HARV_Crop)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -255,7 +255,7 @@ ymax        : 4713359
 ~~~
 st_bbox(aoi_boundary_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -298,7 +298,7 @@ vegetation plot locations with the Canopy Height Model information.
 > >      pch=19,
 > >      col = "blue")
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-code-crop-raster-points-1.png" title="plot of chunk challenge-code-crop-raster-points" alt="plot of chunk challenge-code-crop-raster-points" style="display: block; margin: auto;" />
 > {: .solution}
@@ -328,7 +328,7 @@ boundary. This creates an object of class `extent`.
 new.extent <- extent(732161.2, 732238.7, 4713249, 4713333)
 class(new.extent)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -357,7 +357,7 @@ plot(new.extent,
 plot(CHM_HARV_manualCrop,
      add = TRUE)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-crop-using-drawn-extent-1.png" title="plot of chunk crop-using-drawn-extent" alt="plot of chunk crop-using-drawn-extent" style="display: block; margin: auto;" />
 
@@ -412,7 +412,7 @@ tree_height <- extract(x = chm_HARV,
 # view the object
 head(tree_height)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -432,7 +432,7 @@ head(tree_height)
 ~~~
 nrow(tree_height)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -464,7 +464,7 @@ hist(tree_height$HARV_chmCrop,
      col = "springgreen",
      xlab = "Tree Height", ylab = "Frequency of Pixels")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-view-extract-histogram-1.png" title="plot of chunk view-extract-histogram" alt="plot of chunk view-extract-histogram" style="display: block; margin: auto;" />
 
@@ -472,7 +472,7 @@ hist(tree_height$HARV_chmCrop,
 # view summary of values
 summary(tree_height$HARV_chmCrop)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -503,7 +503,7 @@ av_tree_height_AOI <- extract(x = chm_HARV,
 # view output
 av_tree_height_AOI
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -542,7 +542,7 @@ Let's put this into practice by figuring out the average tree height in the
 # what are the units of our buffer
 st_crs(point_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -573,7 +573,7 @@ av_tree_height_tower <- extract(x = chm_HARV,
 # view data
 head(av_tree_height_tower)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -589,7 +589,7 @@ head(av_tree_height_tower)
 # how many pixels were extracted
 nrow(av_tree_height_tower)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -630,7 +630,7 @@ nrow(av_tree_height_tower)
 > >      xlab = "Plot ID", ylab = "Tree Height (m)",
 > >      pch=16)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-code-extract-plot-tHeight-1.png" title="plot of chunk challenge-code-extract-plot-tHeight" alt="plot of chunk challenge-code-extract-plot-tHeight" style="display: block; margin: auto;" />
 > {: .solution}
