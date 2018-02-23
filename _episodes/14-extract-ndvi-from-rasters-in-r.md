@@ -69,7 +69,7 @@ tutorials so you may be able to skip this first step!).
 ~~~
 library(raster)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -83,7 +83,7 @@ Loading required package: sp
 ~~~
 library(rgdal)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -114,7 +114,7 @@ NDVI_HARV_stack <- stack(all_HARV_NDVI)
 # apply scale factor
 NDVI_HARV_stack <- NDVI_HARV_stack/10000
 ~~~
-{: .r}
+{: .language-r}
 
 ## Calculate Average NDVI
 Our goal in this tutorial, is to create a `data.frame` that contains a single,
@@ -139,7 +139,7 @@ avg_NDVI_HARV <- as.data.frame(avg_NDVI_HARV)
 # view data
 avg_NDVI_HARV
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -167,7 +167,7 @@ X309_HARV_ndvi_crop      0.541130
 # view only the value in row 1, column 1 of the data frame
 avg_NDVI_HARV[1,1]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -189,7 +189,7 @@ particular column is. Let's change the NDVI column name to `MeanNDVI`.
 # view column name slot
 names(avg_NDVI_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -207,7 +207,7 @@ names(avg_NDVI_HARV) <- "meanNDVI"
 # view cleaned column names
 names(avg_NDVI_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -234,7 +234,7 @@ avg_NDVI_HARV$year <- "2011"
 # view data
 head(avg_NDVI_HARV)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -277,7 +277,7 @@ julianDays <- gsub(pattern = "X|_HARV_ndvi_crop", #the pattern to find
 # make sure output looks ok
 head(julianDays)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -295,7 +295,7 @@ avg_NDVI_HARV$julianDay <- julianDays
 # what class is the new column
 class(avg_NDVI_HARV$julianDay)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -346,7 +346,7 @@ avg_NDVI_HARV$Date<- origin + (avg_NDVI_HARV$julianDay-1)
 # did it work?
 head(avg_NDVI_HARV$Date)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -362,7 +362,7 @@ head(avg_NDVI_HARV$Date)
 # What are the classes of the two columns now?
 class(avg_NDVI_HARV$Date)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -376,7 +376,7 @@ class(avg_NDVI_HARV$Date)
 ~~~
 class(avg_NDVI_HARV$julianDay)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -449,7 +449,7 @@ error we then subtract 1 to get the correct day, January 05 2011.
 > > # did it work?
 > > avg_NDVI_SJER
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > {: .solution}
 {: .challenge}
 
@@ -471,7 +471,7 @@ ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI), na.rm=TRUE) +
   xlab("Julian Days") + ylab("Mean NDVI") +
   theme(text = element_text(size=20))
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-ggplot-data-1.png" title="plot of chunk ggplot-data" alt="plot of chunk ggplot-data" style="display: block; margin: auto;" />
 
@@ -492,7 +492,7 @@ different color.
 > >   xlab("Julian Day") + ylab("Mean NDVI") +
 > >   theme(text = element_text(size=20))
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-code-ggplot-data-1.png" title="plot of chunk challenge-code-ggplot-data" alt="plot of chunk challenge-code-ggplot-data" style="display: block; margin: auto;" />
 > {: .solution}
@@ -519,7 +519,7 @@ ggplot(NDVI_HARV_SJER, aes(julianDay, meanNDVI, colour = site)) +
 	# scale_colour : match previous plots
   theme(text = element_text(size=20))
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-merge-df-single-plot-1.png" title="plot of chunk merge-df-single-plot" alt="plot of chunk merge-df-single-plot" style="display: block; margin: auto;" />
 
@@ -541,7 +541,7 @@ ggplot(NDVI_HARV_SJER, aes(julianDay, meanNDVI, colour = site)) +
 > >   scale_colour_manual(values = c("PeachPuff4", "SpringGreen4"))+  # match previous plots
 > >   theme(text = element_text(size = 20))
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-challenge-code-plot2-1.png" title="plot of chunk challenge-code-plot2" alt="plot of chunk challenge-code-plot2" style="display: block; margin: auto;" />
 > {: .solution}
@@ -579,7 +579,7 @@ for (aFile in rgb.allCropped){
 # reset layout
 par(mfrow=c(1, 1))
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-view-all-rgb-Harv-1.png" title="plot of chunk view-all-rgb-Harv" alt="plot of chunk view-all-rgb-Harv" style="display: block; margin: auto;" />
 
@@ -614,7 +614,7 @@ for (aFile in rgb.allCropped.SJER)
 # reset layout
 par(mfrow=c(1, 1))
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-view-all-rgb-SJER-1.png" title="plot of chunk view-all-rgb-SJER" alt="plot of chunk view-all-rgb-SJER" style="display: block; margin: auto;" />
 
@@ -646,7 +646,7 @@ avg_NDVI_HARV_clean<-subset(avg_NDVI_HARV, meanNDVI>0.1)
 # Did it work?
 avg_NDVI_HARV_clean$meanNDVI<0.1
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -667,7 +667,7 @@ ggplot(avg_NDVI_HARV_clean, aes(julianDay, meanNDVI)) +
   xlab("Julian Days") + ylab("Mean NDVI") +
   theme(text = element_text(size=20))
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-plot-clean-HARV-1.png" title="plot of chunk plot-clean-HARV" alt="plot of chunk plot-clean-HARV" style="display: block; margin: auto;" />
 
@@ -693,7 +693,7 @@ want as an output format.
 
 head(avg_NDVI_HARV_clean)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -723,7 +723,7 @@ row.names(NDVI_HARV_toWrite)<-NULL
 # check data frame
 head(NDVI_HARV_toWrite)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -744,7 +744,7 @@ head(NDVI_HARV_toWrite)
 # write.csv(DateFrameName, file="NewFileName")
 write.csv(NDVI_HARV_toWrite, file="meanNDVI_HARV_2011.csv")
 ~~~
-{: .r}
+{: .language-r}
 
 > ## Challenge: Write to .csv
 > 
@@ -769,7 +769,7 @@ write.csv(NDVI_HARV_toWrite, file="meanNDVI_HARV_2011.csv")
 > > # check data frame
 > > head(NDVI_SJER_toWrite)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -791,6 +791,6 @@ write.csv(NDVI_HARV_toWrite, file="meanNDVI_HARV_2011.csv")
 > > # write.csv(DateFrameName, file="NewFileName")
 > > write.csv(NDVI_SJER_toWrite, file="meanNDVI_SJER_2011.csv")
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > {: .solution}
 {: .challenge}
