@@ -28,6 +28,8 @@ them in non-gui tools such as R."
 
 ```{r echo=FALSE}
 source("../bin/chunk-options.R")
+source("../setup.R")
+knitr_fig_path("09-")
 ```
 
 > ## Things You’ll Need To Complete This Tutorial

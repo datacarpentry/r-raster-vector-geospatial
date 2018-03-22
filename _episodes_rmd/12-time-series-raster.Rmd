@@ -32,6 +32,8 @@ comments: true
 
 ```{r echo=FALSE}
 source("../bin/chunk-options.R")
+source("../setup.R")
+knitr_fig_path("12-")
 ```
 
 > ## Things You’ll Need To Complete This Tutorial
