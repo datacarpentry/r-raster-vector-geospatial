@@ -28,6 +28,8 @@ applications including QGIS and ArcGIS"
 
 ```{r echo=FALSE}
 source("../bin/chunk-options.R")
+source("../setup.R")
+knitr_fig_path("10-")
 ```
 
 > ## Things You’ll Need To Complete This Tutorial

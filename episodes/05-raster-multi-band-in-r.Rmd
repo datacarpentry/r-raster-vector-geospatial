@@ -27,6 +27,8 @@ function in R."
 
 ```{r echo=FALSE}
 source("../bin/chunk-options.R")
+source("../setup.R")
+knitr_fig_path("05-")
 ```
 
 > ## Things You’ll Need To Complete This Tutorial

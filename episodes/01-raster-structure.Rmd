@@ -31,6 +31,8 @@ introduces the GeoTiff file format."
 
 ```{r echo=FALSE}
 source("../bin/chunk-options.R")
+source("../setup.R")
+knitr_fig_path("01-")
 ```
 
 > ## Things You’ll Need To Complete This Tutorial
