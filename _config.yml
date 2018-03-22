@@ -68,6 +68,7 @@ defaults:
 exclude:
   - Makefile
   - bin
+  - DESCRIPTION
 
 # Turn off built-in syntax highlighting.
 highlighter: false

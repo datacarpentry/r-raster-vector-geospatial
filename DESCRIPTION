@@ -1,4 +1,4 @@
-Package: rspatialintro
+Package: rspatialvector
 Imports:
  checkpoint,
  ggplot2,
