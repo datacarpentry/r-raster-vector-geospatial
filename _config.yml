@@ -1,84 +1,74 @@
-title: 	NEON Raster Data in R 
-description: 	A set of lessons .
-#Comment out url when working locally to resolve base urls correctly ok
-#use this when pushing to git for live version
+#------------------------------------------------------------
+# Values for this lesson.
+#------------------------------------------------------------
 
-url:      http://data-lessons.github.io/NEON-R-Spatial-Raster/
-baseurl:   http://data-lessons.github.io/NEON-R-Spatial-Raster/
+# Which carpentry is this ("swc", "dc", or "lc")?
+carpentry: "dc"
 
-#use this when working locally
-#just uncomment the first localhost.
-#url: http://localhost:4000
-#baseurl: http://localhost:4000
+# Overall title for pages.
+title: "Intro to Geospatial Data with R"
 
-#we might not need comments here???
-disqus_shortname: 
+# Contact.  This *must* include the protocol: if it's an email
+# address, it must look like "mailto:lessons@software-carpentry.org",
+# or if it's a URL, "https://gitter.im/username/ProjectName".
+contact: "mailto:lessons@software-carpentry.org"
 
-# Social networking links are used in author-bio sidebar. Update and remove as you like.
+#------------------------------------------------------------
+# Generic settings (should not need to change).
+#------------------------------------------------------------
 
-# Owner/author information
-owner: 		
-  name: NEON / Data Carpentry Hackathon
-  avatar: profilePic.png
-  bio: "Devoted to open data and open source in science and education."
-  email: "neondataskills@neoninc.org"
-#  twitter: "leahawasser"
-  github: "data-lessons"
-#  youtube: " "
-# instagram:      " "
-# For Google Authorship https://plus.google.com/authorship
-# google_plus:    
+# What kind of thing is this ("workshop" or "lesson")?
+kind: "lesson"
 
-# Analytics and webmaster tools stuff goes here
-google_analytics:   
-#google_verify:      UQj93ERU9zgECodaaXgVpkjrFn9UrDMEzVamacSoQ8Y
-# https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
-#bing_verify:        D81F4C18A6CB3018F64D7C827D953DFD
+# Magic to make URLs resolve both locally and on GitHub.
+# See https://help.github.com/articles/repository-metadata-on-github-pages/.
+repository: datacarpentry/R-spatial-raster-vector-lesson
 
-# category: [using lidar data, working with field data, zcarbon links]
-# categories: [using lidar data, working with field data, zcarbon links]
-# Links to include in top navigation
-# For external links add external: true
-links:  
-  - title: About
-    url: /about/
-    
-  - title: NEON Website
-    url: http://www.neoninc.org
-    external: true
-    
-  - title: Data Carpentry Website
-    url: http://www.datacarpentry.org
-    external: true  
+# Sites.
+amy_site: "https://amy.software-carpentry.org/workshops"
+dc_site: "http://datacarpentry.org"
+swc_github: "https://github.com/swcarpentry"
+swc_site: "https://software-carpentry.org"
+swc_pages: "https://swcarpentry.github.io"
+lc_site: "http://librarycarpentry.github.io/"
+template_repo: "https://github.com/swcarpentry/styles"
+example_repo: "https://github.com/swcarpentry/lesson-example"
+example_site: "https://swcarpentry.github.com/lesson-example"
+workshop_repo: "https://github.com/swcarpentry/workshop-template"
+workshop_site: "https://swcarpentry.github.io/workshop-template"
+training_site: "https://swcarpentry.github.io/instructor-training"
 
-# http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-timezone:    America/Denver
-future:      true
-# turning off pygments for the time being
-#pygments:    true
-#highlighter: pygments
-markdown:    kramdown
-#markdown: redcarpet
-redcarpet:
-  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
+# Surveys.
+pre_survey: "https://www.surveymonkey.com/r/swc_pre_workshop_v1?workshop_id="
+post_survey: "https://www.surveymonkey.com/r/swc_post_workshop_v1?workshop_id="
+training_post_survey: "https://www.surveymonkey.com/r/post-instructor-training"
 
+# Start time in minutes (0 to be clock-independent, 540 to show a start at 09:00 am).
+start_time: 0
 
-# https://github.com/mojombo/jekyll/wiki/Permalinks
-permalink:   /:categories/:title/
+# Specify that things in the episodes collection should be output.
+collections:
+  episodes:
+    output: true
+    permalink: /:path/
+  extras:
+    output: true
 
-kramdown:
-  auto_ids: true
-  footnote_nr: 1
-  entity_output: as_char
-  toc_levels: 1..1
-  use_coderay: false
+# Set the default layout for things in the episodes collection.
+defaults:
+  - values:
+      root: ..
+  - scope:
+      path: ""
+      type: episodes
+    values:
+      layout: episode
 
-  coderay:
-    coderay_line_numbers: 
-    coderay_line_numbers_start: 1
-    coderay_tab_width: 4
-    coderay_bold_every: 10
-    coderay_css: class
+# Files and directories that are not to be copied.
+exclude:
+  - Makefile
+  - bin
+  - DESCRIPTION
 
-include: [".htaccess"]
-exclude: ["*.Rmd", "lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules", "Gemfile", "Gemfile.lock", "LICENSE", "README.md"]
+# Turn off built-in syntax highlighting.
+highlighter: false

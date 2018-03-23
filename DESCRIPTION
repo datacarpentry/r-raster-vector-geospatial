@@ -1,0 +1,16 @@
+Package: rspatialvector
+Imports:
+ checkpoint,
+ ggplot2,
+ hunspell,
+ knitr,
+ methods,
+ purrr,
+ R6,
+ raster,
+ rasterVis,
+ readr,
+ rgdal,
+ scales,
+ sf,
+ stringr

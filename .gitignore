@@ -1,3 +1,10 @@
 _site
 .DS_Store
-_config.yml
+.Rproj.user
+_episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing
+_episodes_rmd/data/NEON-DS-Site-Layout-Files
+_episodes_rmd/data/NEON-DS-Landsat-NDVI
+_episodes_rmd/data/NEON-DS-Met-Time-Series
+.Rhistory
+_episodes_rmd/chm_ov_SJER.tif
+_episodes_rmd/meanNDVI_SJER_2011.csv

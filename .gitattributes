@@ -1,0 +1,5 @@
+*.py linguist-vendored
+*.html linguist-vendored
+bin/* linguist-vendored
+assets/* linguist-vendored
+*.R linguist-vendored=false
