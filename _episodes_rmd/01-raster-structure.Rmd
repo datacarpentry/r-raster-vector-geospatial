@@ -309,8 +309,8 @@ are meters.
 The spatial extent is the geographic area that the raster data covers.
 
 <figure>
-    <a href="/R-spatial-raster-vector-lesson/images/dc-spatial-raster/spatial_extent.png">. 
-    <img src="/R-spatial-raster-vector-lesson/images/dc-spatial-raster/spatial_extent.png">
+    <a href="http://www.datacarpentry.org/R-spatial-raster-vector-lesson/images/dc-spatial-raster/spatial_extent.png">. 
+    <img src="http://www.datacarpentry.org/R-spatial-raster-vector-lesson/images/dc-spatial-raster/spatial_extent.png">
     </a>
     <figcaption> Image Source: National Ecological Observatory Network (NEON)
     </figcaption>
@@ -327,8 +327,8 @@ Given our data resolution is 1 x 1, this means that each pixel represents a
 1 x 1 meter area on the ground.
 
 <figure>
-    <a href="/R-spatial-raster-vector-lesson/images/dc-spatial-raster/raster_resolution.png">
-    <img src="/R-spatial-raster-vector-lesson/images/dc-spatial-raster/raster_resolution.png">
+    <a href="http://www.datacarpentry.org/R-spatial-raster-vector-lesson/images/dc-spatial-raster/raster_resolution.png">
+    <img src="http://www.datacarpentry.org/R-spatial-raster-vector-lesson/images/dc-spatial-raster/raster_resolution.png">
     </a>
     <figcaption> Source: National Ecological Observatory Network (NEON)
     </figcaption>
