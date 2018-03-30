@@ -74,8 +74,8 @@ Raster or "gridded" data are stored as a grid of values which are rendered on a
 map as pixels. Each pixel value represents an area on the Earth's surface.
 
 <figure>
-    <a href="R-spatial-raster-vector-lesson/images/dc-spatial-raster/raster_concept.png">
-    <img src="R-spatial-raster-vector-lesson/images/dc-spatial-raster/raster_concept.png">
+    <a href="http://www.datacarpentry.org/R-spatial-raster-vector-lesson/images/dc-spatial-raster/raster_concept.png">
+    <img src="http://www.datacarpentry.org/R-spatial-raster-vector-lesson/images/dc-spatial-raster/raster_concept.png">
     </a>
     <figcaption> Source: National Ecological Observatory Network (NEON)
     </figcaption>
