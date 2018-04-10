@@ -34,7 +34,7 @@ Remember to download and install `R` first.
 From the `R` prompt, type:
 
 ```r
-install.packages(c("sf", "raster"))
+install.packages(c("sf", "raster", "rgdal", "rasterVis"))
 ```
 
 ### Help and more information
