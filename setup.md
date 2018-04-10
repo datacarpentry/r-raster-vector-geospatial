@@ -41,7 +41,7 @@ Use the **Help** menu and its options when needed.
 
 ## Setup a New Project
 
-We are going to follow the instructions provided [here][http://www.datacarpentry.org/r-intro-geospatial/02-project-intro/]
+We are going to follow the instructions provided [here](http://www.datacarpentry.org/r-intro-geospatial/02-project-intro/)
  to set up a new RStudio Project for the remainder of this lesson.
 Let's proceed as follows:
 
@@ -61,3 +61,27 @@ getwd()
 ```
 
 R should return `your/path/r-geospatial` as the working directory.
+
+### Moving Downloaded Data
+
+Now we want to move the data that we downloaded above into a subdirectory
+ inside `r-geospatial`.
+
+1. Create a new directory called `data` inside our working directory.
+2. Copy across the downloaded .zip files to the `data` directory.
+3. Once the data have been moved, unzip all files.
+
+Once you have completed moving the data across to the new folder,
+ your data directory should look as follows:
+
+ ```
+ data/
+    NEON-DS-Airborne-Remote-Sensing/
+    NEON-DS-Landsat-NDVI/
+    NEON-DS-Met-Time-Series/
+    NEON-DS-Site-Layout-Files/
+    NEON-DS-Airborne-Remote-Sensing.zip
+    NEON-DS-Landsat-NDVI.zip
+    NEON-DS-Met-Time-Series.zip
+    NEON-DS-Site-Layout-Files.zip
+ ```
