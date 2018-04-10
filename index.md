@@ -3,8 +3,14 @@ layout: lesson
 root: .
 
 maintainers:
- - Joseph Stachelek
- - Leah Wasser
+    - Leah Wasser
+    - Joseph Stachelek
+    - Tyson Swetnam
+    - Lauren O'Brien
+    - Janani Selvaraj
+    - Lachlan Deer
+    - Chris Prener
+    - Juan Fung
 ---
 
 **Lesson Maintainers:** {{ page.maintainers | join: ', ' }}
