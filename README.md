@@ -21,7 +21,7 @@ or
 #### Lesson Maintainers:
 
 * [Leah Wasser][wasser_leah]
-* [Joseph Stachelek][stachelek_joesph]
+* [Joseph Stachelek][stachelek_joseph]
 * Tyson Swetnam
 * Lauren O'Brien
 * Janani Selvaraj
@@ -30,7 +30,7 @@ or
 * Juan Fung
 
 [wasser_leah]: https://software-carpentry.org/team/#wasser_leah
-[stachelek_joesph]: https://software-carpentry.org/team/#stachelek_joesph
+[stachelek_joseph]: https://software-carpentry.org/team/#stachelek_joseph
 <!-- [swetnam_tyson]: https://software-carpentry.org/team/#swetnam_tyson -->
 <!-- [obrien_laura]: https://software-carpentry.org/team/#obrien_laura -->
 <!-- [selvaraj_janini]: https://software-carpentry.org/team/#selvaraj_janini -->
