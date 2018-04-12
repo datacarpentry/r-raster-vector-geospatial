@@ -7,9 +7,10 @@
 
 ## Contributing to lesson development
 
-* The lesson files to be edited are in the `_epiodes_rmd` folder.
+* The lesson files to be edited are in the `_epiodes_rmd` folder. This repository uses the `master` branch for development.
 * You can visualize the changes locally by typing `make serve` at your terminal. The site will be rendered at <http://localhost:4000>
 * Each time you push a change to GitHub, Travis-CI rebuilds the lesson, and when it's successful (look for the green badge at the top of the README file), it publishes the result at <http://www.datacarpentry.org/r-raster-vector-geospatial/>
+* Note: any manual commit to `gh-pages` will be erased and lost during the automated build and deploy cycle operated by Travis-CI.
 
 
 
