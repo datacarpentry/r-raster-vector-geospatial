@@ -1,22 +1,17 @@
-[![Build Status](https://travis-ci.org/datacarpentry/R-spatial-raster-vector-lesson.svg?branch=master)](https://travis-ci.org/datacarpentry/R-spatial-raster-vector-lesson) [![Create a Slack Account with us](https://img.shields.io/badge/Create_Slack_Account-The_Carpentries-071159.svg)](https://swc-slack-invite.herokuapp.com/)
- [![Slack Status](https://img.shields.io/badge/Slack_Channel-dc--geospatial-E01563.svg)](https://swcarpentry.slack.com/messages/C9ME7G5RD)
+[![Build Status](https://travis-ci.org/datacarpentry/r-raster-vector-geospatial.svg?branch=master)](https://travis-ci.org/datacarpentry/r-raster-vector-geospatial)
+[![Create a Slack Account with us](https://img.shields.io/badge/Create_Slack_Account-The_Carpentries-071159.svg)](https://swc-slack-invite.herokuapp.com/)
+[![Slack Status](https://img.shields.io/badge/Slack_Channel-dc--geospatial-E01563.svg)](https://swcarpentry.slack.com/messages/C9ME7G5RD)
 
 
-# NEON-R-spatial-raster
-Lessons on using raster data in R, created through a collaboration between
-Data Carpentry and NEON.
+# R for Raster and Vector Data
 
-# Build lessons from Rmd
+## Contributing to lesson development
 
-`make lesson-md`
+* The lesson files to be edited are in the `_epiodes_rmd` folder.
+* You can visualize the changes locally by typing `make serve` at your terminal. The site will be rendered at <http://localhost:4000>
+* Each time you push a change to GitHub, Travis-CI rebuilds the lesson, and when it's successful (look for the green badge at the top of the README file), it publishes the result at <http://www.datacarpentry.org/r-raster-vector-geospatial/>
 
-# Serve jekyll locally
 
-`make serve`
-
-or
-
-`bundle exec jekyll serve`
 
 #### Lesson Maintainers:
 
