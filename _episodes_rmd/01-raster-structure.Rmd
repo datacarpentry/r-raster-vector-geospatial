@@ -74,8 +74,8 @@ Raster or "gridded" data are stored as a grid of values which are rendered on a
 map as pixels. Each pixel value represents an area on the Earth's surface.
 
 <figure>
-    <a href="{{site.baseurl}}/images/dc-spatial-raster/raster_concept.png">
-    <img src="{{site.baseurl}}/images/dc-spatial-raster/raster_concept.png">
+    <a href="/images/dc-spatial-raster/raster_concept.png">
+    <img src="/images/dc-spatial-raster/raster_concept.png">
     </a>
     <figcaption> Source: National Ecological Observatory Network (NEON)
     </figcaption>
@@ -309,8 +309,8 @@ are meters.
 The spatial extent is the geographic area that the raster data covers.
 
 <figure>
-    <a href="{{ site.baseurl}}/images/dc-spatial-raster/spatial_extent.png">
-    <img src="{{ site.baseurl}}/images/dc-spatial-raster/spatial_extent.png">
+    <a href="/images/dc-spatial-raster/spatial_extent.png">
+    <img src="/images/dc-spatial-raster/spatial_extent.png">
     </a>
     <figcaption> Image Source: National Ecological Observatory Network (NEON)
     </figcaption>
@@ -327,8 +327,8 @@ Given our data resolution is 1 x 1, this means that each pixel represents a
 1 x 1 meter area on the ground.
 
 <figure>
-    <a href="{{ site.baseurl}}/images/dc-spatial-raster/raster_resolution.png">
-    <img src="{{ site.baseurl}}/images/dc-spatial-raster/raster_resolution.png">
+    <a href="/images/dc-spatial-raster/raster_resolution.png">
+    <img src="/images/dc-spatial-raster/raster_resolution.png">
     </a>
     <figcaption> Source: National Ecological Observatory Network (NEON)
     </figcaption>
@@ -507,8 +507,8 @@ is a single band raster. This means that there is only one dataset stored in
 the raster: surface elevation in meters for one time period.
 
 <figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-raster/single_multi_raster.png">
-    <img src="{{ site.baseurl }}/images/dc-spatial-raster/single_multi_raster.png"></a>
+    <a href="/images/dc-spatial-raster/single_multi_raster.png">
+    <img src="/images/dc-spatial-raster/single_multi_raster.png"></a>
     <figcaption>Source: National Ecological Observatory Network (NEON).
     </figcaption>
 </figure>
