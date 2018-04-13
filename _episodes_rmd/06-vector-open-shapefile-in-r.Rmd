@@ -36,6 +36,12 @@ in `R`, but have some of the other `R` basics down.
 > You will need the most current version of `R` and, preferably, `RStudio` loaded
 on your computer to complete this tutorial.
 >
+> ### Setup RStudio Project
+>
+> Make sure you have setup a RStudio project for this lesson, as described in the <a href="{{site.baseurl}}/setup/" target="_blank">setup instructions</a>. 
+>
+> If you don't have a RStudio project, you will need to manually set the working directory with `setwd([your-directory-name])` so R can find the data files to load. 
+>
 > ### Install R Packages
 >
 > * **raster:** `install.packages("raster")`
@@ -112,9 +118,6 @@ library(sf)
 # for metadata/attributes- vectors or rasters
 library(raster)
 
-# set working directory to the directory location on your computer where
-# you downloaded and unzipped the data files for the tutorial
-# setwd("pathToDirHere")
 ```
 
 The shapefiles that we will import are:
