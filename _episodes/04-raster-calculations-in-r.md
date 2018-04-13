@@ -13,7 +13,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2017-09-19
+lastModified: 2018-04-13
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]
@@ -91,7 +91,7 @@ NEON Harvard Forest Field site.
 # load raster package
 library(raster)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -105,18 +105,19 @@ Loading required package: sp
 ~~~
 library(rgdal)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-rgdal: version: 1.2-8, (SVN revision 663)
+rgdal: version: 1.2-18, (SVN revision 718)
  Geospatial Data Abstraction Library extensions to R successfully loaded
- Loaded GDAL runtime: GDAL 2.2.1, released 2017/06/23
+ Loaded GDAL runtime: GDAL 2.2.2, released 2017/09/15
  Path to GDAL shared files: /usr/share/gdal/2.2
+ GDAL binary built with GEOS: TRUE 
  Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
  Path to PROJ.4 shared files: (autodetected)
- Linking to sp version: 1.2-5 
+ Linking to sp version: 1.2-7 
 ~~~
 {: .output}
 
@@ -126,7 +127,7 @@ rgdal: version: 1.2-8, (SVN revision 663)
 # view info about the dtm & dsm raster data that we will work with.
 GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -160,7 +161,7 @@ AREA_OR_POINT=Area
 ~~~
 GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -203,21 +204,36 @@ Let's load the data.
 DTM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
-# create a quick plot of each to see what we're dealing with
-plot(DTM_HARV,
-     main = "Digital Terrain Model \n NEON Harvard Forest Field Site")
-~~~
-{: .language-r}
+# Convert into a data.frame - two steps
+DTM_HARV_pts <- rasterToPoints(DTM_HARV, spatial = TRUE)
+DTM_HARV_df <- data.frame(DTM_HARV_pts)
+rm(DTM_HARV_pts) # remove intermediate file
 
-<img src="../fig/rmd-load-plot-data-1.png" title="plot of chunk load-plot-data" alt="plot of chunk load-plot-data" style="display: block; margin: auto;" />
+# Convert to data.frame - one step with pipes
+
+DSM_HARV_df <- DSM_HARV %>% 
+  rasterToPoints(., spatial = TRUE) %>% 
+  data.frame()
+
+# create quick plot with ggplot of each to see what we're dealing with
+library(ggplot2)
+
+ggplot() +
+  geom_raster(data = DTM_HARV_df, aes(x = x, y = y, fill = HARV_dtmCrop)) +
+  scale_fill_gradientn(colors = terrain.colors(10)) # Creates a nicer color palette
+~~~
+{: .r}
+
+<img src="../fig/rmd-04-load-plot-data-1.png" title="plot of chunk load-plot-data" alt="plot of chunk load-plot-data" style="display: block; margin: auto;" />
 
 ~~~
-plot(DSM_HARV,
-     main = "Digital Surface Model \n NEON Harvard Forest Field Site")
+ggplot() +
+  geom_raster(data = DSM_HARV_df, aes(x = x, y = y, fill = HARV_dsmCrop)) +
+  scale_fill_gradientn(colors = terrain.colors(10)) 
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-load-plot-data-2.png" title="plot of chunk load-plot-data" alt="plot of chunk load-plot-data" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-load-plot-data-2.png" title="plot of chunk load-plot-data" alt="plot of chunk load-plot-data" style="display: block; margin: auto;" />
 
 ## Two Ways to Perform Raster Calculations
 
@@ -242,14 +258,35 @@ Let's subtract the DTM from the DSM to create a Canopy Height Model.
 # Raster math example
 CHM_HARV <- DSM_HARV - DTM_HARV
 
-# plot the output CHM
-plot(CHM_HARV,
-     main = "Canopy Height Model - Raster Math Subtract\n NEON Harvard Forest Field Site",
-     axes = FALSE)
+CHM_HARV_df <- CHM_HARV %>% 
+  rasterToPoints(., spatial = TRUE) %>% 
+  data.frame()
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-raster-math-1.png" title="plot of chunk raster-math" alt="plot of chunk raster-math" style="display: block; margin: auto;" />
+Before plotting, let's take a quick look at what just happen:
+
+
+~~~
+# Inspect df
+head(CHM_HARV_df)
+~~~
+{: .r}
+
+Notice that the raster math has been calcuated in the `layer` column of our dataframe. Now we can plot the our Canopy Height Model:
+
+
+~~~
+# plot the output CHM
+ggplot() +
+  geom_raster(data = CHM_HARV_df, aes(x = x, y = y, fill = layer)) +
+  scale_fill_gradientn(colors = terrain.colors(10)) +
+  ggtitle("Canopy Height Model - Raster Math Subtract", "NEON Harvard Forest Field Site") +
+  xlab("") + ylab("") # Removes axes labels
+~~~
+{: .r}
+
+<img src="../fig/rmd-04-raster-math-ggplot-1.png" title="plot of chunk raster-math-ggplot" alt="plot of chunk raster-math-ggplot" style="display: block; margin: auto;" />
 
 Let's have a look at the distribution of values in our newly created
 Canopy Height Model (CHM).
@@ -263,9 +300,9 @@ hist(CHM_HARV,
   ylab = "Number of Pixels",
   xlab = "Tree Height (m) ")
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-create-hist-1.png" title="plot of chunk create-hist" alt="plot of chunk create-hist" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-create-hist-1.png" title="plot of chunk create-hist" alt="plot of chunk create-hist" style="display: block; margin: auto;" />
 
 Notice that the range of values for the output CHM is between 0 and 30 meters.
 Does this make sense for trees in Harvard Forest?
@@ -287,7 +324,7 @@ Does this make sense for trees in Harvard Forest?
 > > # 1)
 > > minValue(CHM_HARV)
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
 > > 
 > > 
@@ -301,7 +338,7 @@ Does this make sense for trees in Harvard Forest?
 > > ~~~
 > > maxValue(CHM_HARV)
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
 > > 
 > > 
@@ -321,9 +358,9 @@ Does this make sense for trees in Harvard Forest?
 > >      main = "Histogram of Canopy Height Model\nNEON Harvard Forest Field Site",
 > >      maxpixels=ncell(CHM_HARV))
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-code-CHM-HARV-1.png" title="plot of chunk challenge-code-CHM-HARV" alt="plot of chunk challenge-code-CHM-HARV" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-04-challenge-code-CHM-HARV-1.png" title="plot of chunk challenge-code-CHM-HARV" alt="plot of chunk challenge-code-CHM-HARV" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > # 4
@@ -333,24 +370,26 @@ Does this make sense for trees in Harvard Forest?
 > >      maxpixels=ncell(CHM_HARV),
 > >      breaks=6)
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-code-CHM-HARV-2.png" title="plot of chunk challenge-code-CHM-HARV" alt="plot of chunk challenge-code-CHM-HARV" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-04-challenge-code-CHM-HARV-2.png" title="plot of chunk challenge-code-CHM-HARV" alt="plot of chunk challenge-code-CHM-HARV" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > # 5
-> > myCol=terrain.colors(4)
-> > plot(CHM_HARV,
-> >      breaks=c(0, 10, 20, 30),
-> >      col=myCol,
-> >      axes=F,
-> >      main = "Canopy Height Model \nNEON Harvard Forest Field Site")
+> > ggplot() +
+> >   geom_raster(data = CHM_HARV_df, aes(x = x, y = y, fill = layer)) +
+> >   scale_fill_gradientn(colors = terrain.colors(4), 
+> >                        breaks = c(0, 10, 20, 30), guide = "legend") +
+> >   ggtitle("Canopy Height Model - Raster Math Subtract", 
+> >           "NEON Harvard Forest Field Site") +
+> >   theme_void() 
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-code-CHM-HARV-3.png" title="plot of chunk challenge-code-CHM-HARV" alt="plot of chunk challenge-code-CHM-HARV" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-04-challenge-code-CHM-HARV-3.png" title="plot of chunk challenge-code-CHM-HARV" alt="plot of chunk challenge-code-CHM-HARV" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
+
 
 ## Efficient Raster Calculations: Overlay Function
 Raster math, like we just did, is an appropriate approach to raster calculations
@@ -386,13 +425,21 @@ raster math, using the `overlay()` function.
 CHM_ov_HARV<- overlay(DSM_HARV,
                       DTM_HARV,
                       fun=function(r1, r2){return(r1-r2)})
+# Create df
+CHM_ov_HARV_df <- CHM_ov_HARV %>% 
+  rasterToPoints(., spatial = TRUE) %>% 
+  data.frame()
 
-plot(CHM_ov_HARV,
-  main = "Canopy Height Model - Overlay Subtract\n NEON Harvard Forest Field Site")
+# plot with ggplot 
+ggplot() +
+  geom_raster(data = CHM_ov_HARV_df, aes(x = x, y = y, fill = layer)) +
+  scale_fill_gradientn(colors = terrain.colors(10)) +
+  ggtitle("Canopy Height Model - Raster Math Subtract", "NEON Harvard Forest Field Site") +
+  xlab("") + ylab("") 
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-raster-overlay-1.png" title="plot of chunk raster-overlay" alt="plot of chunk raster-overlay" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-raster-overlay-1.png" title="plot of chunk raster-overlay" alt="plot of chunk raster-overlay" style="display: block; margin: auto;" />
 
 How do the plots of the CHM created with manual raster math and the `overlay()`
 function compare?
@@ -424,7 +471,7 @@ writeRaster(CHM_ov_HARV, "chm_HARV.tiff",
                             # existing file
             NAflag=-9999) # set no data value to -9999
 ~~~
-{: .language-r}
+{: .r}
 
 ### writeRaster Options
 The function arguments that we used above include:
@@ -473,70 +520,77 @@ both datasets!
 > > DTM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
 > > # load the DSM
 > > DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
-> > 
+> >  
 > > # check CRS, units, etc
 > > DTM_SJER
 > > DSM_SJER
 > > 
 > > # check values
 > > hist(DTM_SJER,
-> >      maxpixels=ncell(DTM_SJER),
-> >      main = "Digital Terrain Model - Histogram\n NEON SJER Field Site",
-> >      col = "slategrey",
-> >      ylab = "Number of Pixels",
-> >      xlab = "Elevation (m)")
+> >     maxpixels=ncell(DTM_SJER),
+> >     main = "Digital Terrain Model - Histogram\n NEON SJER Field Site",
+> >     col = "slategrey",
+> >     ylab = "Number of Pixels",
+> >     xlab = "Elevation (m)")
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-code-SJER-CHM-1.png" title="plot of chunk challenge-code-SJER-CHM" alt="plot of chunk challenge-code-SJER-CHM" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-04-challenge-code-SJER-CHM-1.png" title="plot of chunk challenge-code-SJER-CHM" alt="plot of chunk challenge-code-SJER-CHM" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > hist(DSM_SJER,
-> >      maxpixels=ncell(DSM_SJER),
-> >      main = "Digital Surface Model - Histogram\n NEON SJER Field Site",
-> >      col = "slategray2",
-> >      ylab = "Number of Pixels",
-> >      xlab = "Elevation (m)")
+> >     maxpixels=ncell(DSM_SJER),
+> >     main = "Digital Surface Model - Histogram\n NEON SJER Field Site",
+> >     col = "slategray2",
+> >     ylab = "Number of Pixels",
+> >     xlab = "Elevation (m)")
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-code-SJER-CHM-2.png" title="plot of chunk challenge-code-SJER-CHM" alt="plot of chunk challenge-code-SJER-CHM" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-04-challenge-code-SJER-CHM-2.png" title="plot of chunk challenge-code-SJER-CHM" alt="plot of chunk challenge-code-SJER-CHM" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > # 2.
 > > # use overlay to subtract the two rasters & create CHM
 > > CHM_SJER <- overlay(DSM_SJER, DTM_SJER,
-> >                     fun=function(r1, r2){return(r1-r2)})
+> >                    fun=function(r1, r2){return(r1-r2)})
 > > 
 > > hist(CHM_SJER,
-> >      main = "Canopy Height Model - Histogram\n NEON SJER Field Site",
-> >      col = "springgreen4",
-> >      ylab = "Number of Pixels",
-> >      xlab = "Elevation (m)")
+> >     main = "Canopy Height Model - Histogram\n NEON SJER Field Site",
+> >     col = "springgreen4",
+> >     ylab = "Number of Pixels",
+> >     xlab = "Elevation (m)")
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-code-SJER-CHM-3.png" title="plot of chunk challenge-code-SJER-CHM" alt="plot of chunk challenge-code-SJER-CHM" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-04-challenge-code-SJER-CHM-3.png" title="plot of chunk challenge-code-SJER-CHM" alt="plot of chunk challenge-code-SJER-CHM" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > # 3
 > > # plot the output
-> > plot(CHM_SJER,
-> >      main = "Canopy Height Model - Overlay Subtract\n NEON SJER Field Site",
-> >      axes = FALSE)
-> > ~~~
-> > {: .language-r}
+> > CHM_SJER_df <- CHM_SJER %>% 
+> >   rasterToPoints(.,spatial = TRUE) %>% 
+> >   data.frame()
 > > 
-> > <img src="../fig/rmd-challenge-code-SJER-CHM-4.png" title="plot of chunk challenge-code-SJER-CHM" alt="plot of chunk challenge-code-SJER-CHM" style="display: block; margin: auto;" />
+> > ggplot() +
+> >   geom_raster(data = CHM_SJER_df, aes(x = x, y = y, fill = layer)) +
+> >   scale_fill_gradientn(colors = rev(terrain.colors(10))) +
+> >   ggtitle("Canopy Height Model - Overlay Subtract", 
+> >           "NEON SJER Field Site") +
+> >   theme_void()
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-04-challenge-code-SJER-CHM-4.png" title="plot of chunk challenge-code-SJER-CHM" alt="plot of chunk challenge-code-SJER-CHM" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > # 4
 > > # Write to object to file
 > > writeRaster(CHM_SJER, "chm_ov_SJER.tiff",
-> >             format = "GTiff",
-> >             overwrite = TRUE,
-> >             NAflag = -9999)
-> > 
+> >            format = "GTiff",
+> >            overwrite = TRUE,
+> >            NAflag = -9999)
+> >  
 > > # 4.Tree heights are much shorter in SJER.
 > > # view histogram of HARV again.
 > > par(mfcol = c(2, 1))
@@ -544,7 +598,7 @@ both datasets!
 > >      main = "Canopy Height Model - Histogram\nNEON Harvard Forest Field Site",
 > >      col = "springgreen4",
 > >       ylab = "Number of Pixels",
-> >      xlab = "Elevation (m)")
+> >       xlab = "Elevation (m)")
 > > 
 > > hist(CHM_SJER,
 > >   main = "Canopy Height Model - Histogram\nNEON SJER Field Site",
@@ -552,9 +606,9 @@ both datasets!
 > >   ylab = "Number of Pixels",
 > >   xlab = "Elevation (m)")
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-code-SJER-CHM-5.png" title="plot of chunk challenge-code-SJER-CHM" alt="plot of chunk challenge-code-SJER-CHM" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-04-challenge-code-SJER-CHM-5.png" title="plot of chunk challenge-code-SJER-CHM" alt="plot of chunk challenge-code-SJER-CHM" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
