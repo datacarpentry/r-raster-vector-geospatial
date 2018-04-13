@@ -199,8 +199,6 @@ Since we have three bins, we want to use the first three terrain colors:
 
 ```{r terrain-colors}
 terrain.colors(3)
-
-my_cols <- terrain.colors(3)
 ```
 
 We can see the `terrain.colors()` function returns *hex colors* - 
@@ -290,6 +288,7 @@ We can layer a raster on top of a hillshade raster for the same area, and use a
 transparency factor to created a 3-dimensional shaded effect. A
 hillshade is a raster that maps the shadows and texture that you would see from
 above when viewing terrain.
+We will add a custom color, making the plot grey. 
 
 ```{r hillshade }
 # import DSM hillshade
@@ -303,41 +302,39 @@ DSM_hill_HARV_pts <- rasterToPoints(DSM_hill_HARV, spatial = TRUE)
 DSM_hill_HARV_df  <- data.frame(DSM_hill_HARV_pts)
 rm(DSM_hill_HARV_pts, DSM_hill_HARV)
 
-DSM_hill_df <- DSM_hill_HARV  %>%
-                mutate(fct_elevation = cut(HARV_DSMhill, breaks = 3))
+grey_palette <- grey.colors(100, start = 0.1, end = 0.9, 
+                            gamma = 2.2, alpha = 0.4)
 
 
-# plot hillshade using a grayscale color ramp that looks like shadows.
-plot(DSM_hill_HARV,
-    col = grey(1:100/100),  # create a color ramp of grey colors
-    legend = FALSE,
-    main = "Hillshade - DSM\n NEON Harvard Forest Field Site",
-    axes = FALSE)
+ggplot() +
+ geom_raster(data = DSM_hill_HARV_df , aes(x = x, y = y, fill = HARV_DSMhill)) + 
+    scale_fill_gradientn(colors = grey_palette, name = "Elevation") +
+    ggtitle("Hillshade - DSM - NEON Harvard Forest Field Site")
 
 ```
 
 > ## Data Tip
-> Turn off, or hide, the legend on a plot using `legend=FALSE`.
+> Turn off, or hide, the legend on a plot using by adding `theme(legend.position="none")`.
 {: .callout}
 
 We can layer another raster on top of our hillshade using by using `add = TRUE`.
 Let's overlay `DSM_HARV` on top of the `hill_HARV`.
 
 ``` {r overlay-hillshade}
+hill_shade <- ggplot() +
+                 geom_raster(data = DSM_hill_HARV_df , 
+                             aes(x = x, y = y, fill = HARV_DSMhill)
+                             ) + 
+                scale_fill_gradientn(colors = grey_palette, 
+                                     name = "Elevation") +
+                ggtitle("Hillshade - DSM - NEON Harvard Forest Field Site")
 
-# plot hillshade using a grayscale color ramp that looks like shadows.
-plot(DSM_hill_HARV,
-    col = grey(1:100/100),  #create a color ramp of grey colors
-    legend = FALSE,
-    main = "DSM with Hillshade \n NEON Harvard Forest Field Site",
-    axes = FALSE)
-
-# add the DSM on top of the hillshade
-plot(DSM_HARV,
-     col = rainbow(100),
-     alpha = 0.4,
-     add = T,
-     legend = F)
+# can't use multiple scales, # this doesnt work right now
+hill_shade +
+    geom_raster(data = DSM_HARV_df ,
+                         aes(x = x, y = y, fill = HARV_dsmCrop)
+                         ) +
+    scale_color_gradientn(colors = rainbow(100))
 ```
 
 The alpha value determines how transparent the colors will be (0 being
