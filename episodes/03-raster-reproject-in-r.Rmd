@@ -40,12 +40,6 @@ knitr_fig_path("03-")
 You will need the most current version of `R` and, preferably, `RStudio` loaded
 on your computer to complete this tutorial.
 >
-> ### Setup RStudio Project
->
-> Make sure you have setup a RStudio project for this lesson, as described in the <a href="{{site.baseurl}}/setup/" target="_blank">setup instructions</a>. 
->
-> If you don't have a RStudio project, you will need to manually set the working directory with `setwd(path-to-your-working-directory)` so R can find the data files to load. 
->
 > ### Install R Packages
 >
 > * **raster:** `install.packages("raster")`
