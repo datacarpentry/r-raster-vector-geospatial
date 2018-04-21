@@ -307,35 +307,46 @@ grey_palette <- grey.colors(100, start = 0.1, end = 0.9,
 
 
 ggplot() +
- geom_raster(data = DSM_hill_HARV_df , aes(x = x, y = y, fill = HARV_DSMhill)) + 
-    scale_fill_gradientn(colors = grey_palette, name = "Elevation") +
-    ggtitle("Hillshade - DSM - NEON Harvard Forest Field Site")
+ geom_raster(data = DSM_hill_HARV_df , aes(x = x, y = y, alpha = HARV_DSMhill)) + 
+    scale_alpha(range = c(0, 0.5), guide = "none") +
+    #scale_fill_gradientn(colors = grey_palette, name = "Elevation") +
+    ggtitle("Hillshade - DSM - NEON Harvard Forest Field Site") +
+    theme(axis.title.x = element_blank(),
+          axis.title.y = element_blank())
 
 ```
 
+
 > ## Data Tip
-> Turn off, or hide, the legend on a plot using by adding `theme(legend.position="none")`.
+> Turn off, or hide, the legend on a plot using by adding `guide = "none"` 
+to a `scale_something()` function or by setting
+`theme(legend.position="none")`.
 {: .callout}
 
 We can layer another raster on top of our hillshade using by using `add = TRUE`.
 Let's overlay `DSM_HARV` on top of the `hill_HARV`.
 
 ``` {r overlay-hillshade}
-hill_shade <- ggplot() +
-                 geom_raster(data = DSM_hill_HARV_df , 
-                             aes(x = x, y = y, fill = HARV_DSMhill)
-                             ) + 
-                scale_fill_gradientn(colors = grey_palette, 
-                                     name = "Elevation") +
-                ggtitle("Hillshade - DSM - NEON Harvard Forest Field Site")
+ggplot() +
+    geom_raster(data = DSM_HARV_df , 
+                aes(x = x, y = y, 
+                     fill = HARV_dsmCrop,
+                     alpha=0.8)
+                ) + 
+    geom_raster(data = DSM_hill_HARV_df, 
+                aes(x = x, y = y, 
+                  alpha = HARV_DSMhill)
+                ) +
+    scale_fill_gradientn(name = "Elevation", colors = rainbow(100)) +
+    guides(fill = guide_colorbar()) +
+    scale_alpha(range = c(0, 0.5), guide = "none") +
+    theme(axis.title.x = element_blank(),
+          axis.title.y = element_blank()) +
+    ggtitle("DSM with Hillshade - NEON Harvard Forest Field Site") +
+    coord_equal()
 
-# can't use multiple scales, # this doesnt work right now
-hill_shade +
-    geom_raster(data = DSM_HARV_df ,
-                         aes(x = x, y = y, fill = HARV_dsmCrop)
-                         ) +
-    scale_color_gradientn(colors = rainbow(100))
 ```
+
 
 The alpha value determines how transparent the colors will be (0 being
 transparent, 1 being opaque). Note that here we used the color palette
