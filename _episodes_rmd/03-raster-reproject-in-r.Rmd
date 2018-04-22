@@ -113,13 +113,13 @@ ggplot() +
              ) + 
      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
      guides(fill = guide_colorbar()) +
-     scale_alpha(range = c(0.15, 0.65), guide = "none") +
+     scale_alpha(range = c(0.25, 0.65), guide = "none") +
     theme_bw() +
     theme(panel.grid.major = element_blank(), 
           panel.grid.minor = element_blank()) +
      theme(axis.title.x = element_blank(),
            axis.title.y = element_blank()) +
-     ggtitle("Digital Terrain Model - NEON Harvard Forest Field Site") 
+     ggtitle("Digital Terrain Model - NEON Harvard Forest Field Site") +
      coord_equal()
 ```
 
@@ -143,7 +143,7 @@ ggplot() +
           panel.grid.minor = element_blank()) +
      theme(axis.title.x = element_blank(),
            axis.title.y = element_blank()) +
-     ggtitle("Digital Terrain Model - NEON Harvard Forest Field Site") 
+     ggtitle("Digital Terrain Model - NEON Harvard Forest Field Site") +
      coord_equal()
 
 ```
@@ -166,7 +166,7 @@ ggplot() +
           panel.grid.minor = element_blank()) +
      theme(axis.title.x = element_blank(),
            axis.title.y = element_blank()) +
-     ggtitle("Digital Terrain Model Hillshade - NEON Harvard Forest Field Site") 
+     ggtitle("Digital Terrain Model Hillshade - NEON Harvard Forest Field Site") +
      coord_equal()
 ```
 
@@ -301,7 +301,7 @@ ggplot() +
           panel.grid.minor = element_blank()) +
      theme(axis.title.x = element_blank(),
            axis.title.y = element_blank()) +
-     ggtitle("Digital Terrain Model - NEON Harvard Forest Field Site") 
+     ggtitle("Digital Terrain Model - NEON Harvard Forest Field Site") +
      coord_equal()
 
 ```
@@ -327,18 +327,36 @@ field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files.
 > > DTM_hill_UTMZ18N_SJER <- projectRaster(DSM_hill_SJER_WGS,
 > >                                   crs = crs(DSM_SJER),
 > >                                   res = 1)
-> > # plot hillshade using a grayscale color ramp
-> > plot(DTM_hill_UTMZ18N_SJER,
-> >     col = grey(1:100/100),
-> >     legend = FALSE,
-> >     main = "DSM with Hillshade\n NEON SJER Field Site")
 > > 
-> > # overlay the DSM on top of the hillshade
-> > plot(DSM_SJER,
-> >      col = terrain.colors(10),
-> >      alpha = 0.4,
-> >      add = TRUE,
-> >      legend = FALSE)
+> > # convert to data.frames
+> > DSM_SJER_df <- DSM_SJER %>% 
+> >   rasterToPoints(., spatial = TRUE) %>% 
+> >   data.frame()
+> > 
+> > DSM_hill_SJER_df <- DTM_hill_UTMZ18N_SJER  %>% 
+> >   rasterToPoints(., spatial = TRUE) %>% 
+> >   data.frame()
+> > 
+> > ggplot() +
+> >      geom_raster(data = DSM_hill_SJER_df, 
+> >                  aes(x = x, y = y, 
+> >                    alpha = SJER_DSMhill_WGS84)
+> >                  ) +
+> >      geom_raster(data = DSM_SJER_df, 
+> >              aes(x = x, y = y, 
+> >                   fill = SJER_dsmCrop,
+> >                   alpha=0.8)
+> >              ) + 
+> >      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
+> >      guides(fill = guide_colorbar()) +
+> >      scale_alpha(range = c(0.25, 0.65), guide = "none") +
+> >     theme_bw() +
+> >     theme(panel.grid.major = element_blank(), 
+> >           panel.grid.minor = element_blank()) +
+> >      theme(axis.title.x = element_blank(),
+> >            axis.title.y = element_blank()) +
+> >      ggtitle("DSM with Hillshade - NEON SJER Field Site") +
+> >      coord_equal()
 > > ```
 > {: .solution}
 {: .challenge}
