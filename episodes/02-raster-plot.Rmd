@@ -302,14 +302,9 @@ DSM_hill_HARV_pts <- rasterToPoints(DSM_hill_HARV, spatial = TRUE)
 DSM_hill_HARV_df  <- data.frame(DSM_hill_HARV_pts)
 rm(DSM_hill_HARV_pts, DSM_hill_HARV)
 
-grey_palette <- grey.colors(100, start = 0.1, end = 0.9, 
-                            gamma = 2.2, alpha = 0.4)
-
-
 ggplot() +
  geom_raster(data = DSM_hill_HARV_df , aes(x = x, y = y, alpha = HARV_DSMhill)) + 
-    scale_alpha(range = c(0, 0.5), guide = "none") +
-    #scale_fill_gradientn(colors = grey_palette, name = "Elevation") +
+    scale_alpha(range =  c(0.15, 0.65), guide = "none") +
     ggtitle("Hillshade - DSM - NEON Harvard Forest Field Site") +
     theme(axis.title.x = element_blank(),
           axis.title.y = element_blank())
@@ -339,7 +334,7 @@ ggplot() +
                 ) +
     scale_fill_gradientn(name = "Elevation", colors = rainbow(100)) +
     guides(fill = guide_colorbar()) +
-    scale_alpha(range = c(0, 0.5), guide = "none") +
+    scale_alpha(range = c(0.15, 0.65), guide = "none") +
     theme(axis.title.x = element_blank(),
           axis.title.y = element_blank()) +
     ggtitle("DSM with Hillshade - NEON Harvard Forest Field Site") +
