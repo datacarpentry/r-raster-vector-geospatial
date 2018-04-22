@@ -364,7 +364,6 @@ field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files.
 If you completed the San Joaquin plotting challenge in the
 [Plot Raster Data in R]({{ site.baseurl }}/R/Plot-Rasters-In-R#challenge-create-dtm--dsm-for-sjer)
 tutorial, how does the map you just created compare to that map?
-</div>
 
 ```{r challenge-code-reprojection2, echo=FALSE}
 # The maps look identical. Which is what they should be as the only difference
