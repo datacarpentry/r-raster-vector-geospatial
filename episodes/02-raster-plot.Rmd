@@ -88,7 +88,7 @@ DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.t
 First, let's plot our Digital Surface Model object (`DSM_HARV`) using the
 `plot()` function. We add a title using the argument `main = "title"`.
 
-```{r ggplot-raster }
+```{r ggplot-raster, fig.width= 7, fig.height=7 }
 library(ggplot2)
 
 # convert to a df for plotting in two steps,
@@ -112,7 +112,7 @@ of the data using a bar plot.
 We use `dplyr`'s mutate to combined with `cut()` to split the data into 3 bins.
 
 
-```{r histogram-breaks-ggplot}
+```{r histogram-breaks-ggplot, fig.width= 7, fig.height=7}
 library(dplyr)
 
 DSM_HARV_df <- DSM_HARV_df %>%
@@ -163,7 +163,7 @@ unique(DSM_HARV_df$fct_elevation_2)
 
 And now we can plot our bar plot again, using the new bins:
 
-```{r }
+```{r, fig.width= 7, fig.height=7 }
 ggplot() +
     geom_bar(data = DSM_HARV_df, aes(fct_elevation_2)) +
     xlab("Elevation (m)") +
@@ -183,7 +183,7 @@ DSM_HARV_df %>%
 
 We can use those bins to plot our raster data:
 
-```{r ggplot-with-breaks}
+```{r ggplot-with-breaks, fig.width= 7, fig.height=7}
 
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = fct_elevation_2)) + 
@@ -206,7 +206,7 @@ We can see the `terrain.colors()` function returns *hex colors* -
 To use these in our map, we pass them across using the 
  `scale_fill_manual()` function.
 
-```{r ggplot-breaks-customcolor}
+```{r ggplot-breaks-customcolors, fig.width= 7, fig.height=7}
 
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
@@ -227,7 +227,7 @@ We can label the x- and y-axes of our plot too using `xlab` and `ylab`.
 We can also give the legend a more meaningful title by passing a value 
 to the `name` option of `scale_fill_manual.`
 
-```{r add-ggplot-labels }
+```{r add-ggplot-labels, fig.width= 7, fig.height=7 }
 # Assign color to a object for repeat use/ ease of changing
 my_col <- terrain.colors(3)
 
@@ -243,7 +243,7 @@ ggplot() +
 Or we can also turn off the axes altogether via passing `element_blank()` to
 the relevant parts of the `theme()` function.
 
-```{r turn-off-axes }
+```{r turn-off-axes, fig.width= 7, fig.height=7 }
 # or we can turn off the axis altogether
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
@@ -264,7 +264,7 @@ ggplot() +
 > 3. A plot title
 >
 > > ## Answers
-> > ``` {r challenge-code-plotting, eval=TRUE, echo=FALSE}
+> > ``` {r challenge-code-plotting, eval=TRUE, echo=FALSE, fig.width= 7, fig.height=7}
 > > # Find min & max
 > > 
 > > DSM_HARV_df <- DSM_HARV_df  %>%
@@ -290,7 +290,7 @@ hillshade is a raster that maps the shadows and texture that you would see from
 above when viewing terrain.
 We will add a custom color, making the plot grey. 
 
-```{r hillshade}
+```{r hillshade, fig.width= 7, fig.height=7}
 # import DSM hillshade
 DSM_hill_HARV <-
   raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
@@ -321,7 +321,7 @@ to a `scale_something()` function or by setting
 We can layer another raster on top of our hillshade using by using `add = TRUE`.
 Let's overlay `DSM_HARV` on top of the `hill_HARV`.
 
-``` {r overlay-hillshade}
+``` {r overlay-hillshade, fig.width= 7, fig.height=7}
 ggplot() +
     geom_raster(data = DSM_HARV_df , 
                 aes(x = x, y = y, 
@@ -366,7 +366,7 @@ Range field site.
 >
 > > ## Answers
 > > 
-> > ```{r challenge-hillshade-layering, echo=TRUE}
+> > ```{r challenge-hillshade-layering, echo=TRUE, fig.width= 7, fig.height=7}
 > > # CREATE DSM MAPS
 > > 
 > > # import DSM data
