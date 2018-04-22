@@ -290,7 +290,7 @@ hillshade is a raster that maps the shadows and texture that you would see from
 above when viewing terrain.
 We will add a custom color, making the plot grey. 
 
-```{r hillshade }
+```{r hillshade}
 # import DSM hillshade
 DSM_hill_HARV <-
   raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
@@ -368,44 +368,85 @@ Range field site.
 > > 
 > > ```{r challenge-hillshade-layering, echo=TRUE}
 > > # CREATE DSM MAPS
-> > # import DSM
+> > 
+> > # import DSM data
 > > DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
+> > # convert to a df for plotting in two steps,
+> > # First, to a SpatialPointsDataFrame
+> > DSM_SJER_pts <- rasterToPoints(DSM_SJER, spatial = TRUE)
+> > # Then to a 'conventional' dataframe
+> > DSM_SJER_df  <- data.frame(DSM_SJER_pts)
+> > rm(DSM_SJER_pts, DSM_SJER)
+> > 
 > > # import DSM hillshade
 > > DSM_hill_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmHill.tif")
+> > # convert to a df for plotting in two steps,
+> > # First, to a SpatialPointsDataFrame
+> > DSM_hill_SJER_pts <- rasterToPoints(DSM_hill_SJER, spatial = TRUE)
+> > # Then to a 'conventional' dataframe
+> > DSM_hill_SJER_df  <- data.frame(DSM_hill_SJER_pts)
+> > rm(DSM_hill_SJER_pts, DSM_hill_SJER)
 > > 
-> > # plot hillshade using a grayscale color ramp that looks like shadows.
-> > plot(DSM_hill_SJER,
-> >     col = grey(1:100/100),  #create a color ramp of grey colors
-> >     legend = FALSE,
-> >     main = "DSM with Hillshade\n NEON SJER Field Site",
-> >     axes = FALSE)
-> > 
-> > # add the DSM on top of the hillshade
-> > plot(DSM_SJER,
-> >      col = terrain.colors(100),
-> >      alpha = 0.7,
-> >      add = TRUE,
-> >      legend = FALSE)
+> > # Build Plot
+> > ggplot() +
+> >     geom_raster(data = DSM_SJER_df , 
+> >                 aes(x = x, y = y, 
+> >                      fill = SJER_dsmCrop,
+> >                      alpha=0.8)
+> >                 ) + 
+> >     geom_raster(data = DSM_hill_SJER_df, 
+> >                 aes(x = x, y = y, 
+> >                   alpha = SJER_dsmHill)
+> >                 ) +
+> >     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(100)) +
+> >     guides(fill = guide_colorbar()) +
+> >     scale_alpha(range = c(0.4, 0.7), guide = "none") +
+> >     # remove grey background and grid lines
+> >     theme_bw() + 
+> >     theme(panel.grid.major = element_blank(), 
+> >           panel.grid.minor = element_blank()) +
+> >     xlab("UTM Westing Coordinate (m)") +
+> >     ylab("UTM Northing Coordinate (m)") +
+> >     ggtitle("DSM with Hillshade - NEON SJER Field Site") +
+> >     coord_equal()
 > > 
 > > # CREATE SJER DTM MAP
 > > # import DTM
 > > DTM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
-> > # import DTM hillshade
+> > DTM_SJER_pts <- rasterToPoints(DTM_SJER, spatial = TRUE)
+> > DTM_SJER_df  <- data.frame(DTM_SJER_pts)
+> > rm(DTM_SJER_pts, DTM_SJER)
+> >
+> > # DTM Hillshade
 > > DTM_hill_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmHill.tif")
+> > DTM_hill_SJER_pts <- rasterToPoints(DTM_hill_SJER, spatial = TRUE)
+> > DTM_hill_SJER_df  <- data.frame(DTM_hill_SJER_pts)
+> > rm(DTM_hill_SJER_pts, DTM_hill_SJER)
 > > 
-> > # plot hillshade using a grayscale color ramp that looks like shadows.
-> > plot(DTM_hill_SJER,
-> >     col = grey(1:100/100),  #create a color ramp of grey colors
-> >     legend = FALSE,
-> >     main = "DTM with Hillshade\n NEON SJER Field Site",
-> >     axes = FALSE)
-> > 
-> > # add the DSM on top of the hillshade
-> > plot(DTM_SJER,
-> >      col = terrain.colors(100),
-> >      alpha = 0.4,
-> >      add = TRUE,
-> >      legend = FALSE)
+> > ggplot() +
+> >     geom_raster(data = DTM_SJER_df ,
+> >                 aes(x = x, y = y,
+> >                      fill = SJER_dtmCrop,
+> >                      alpha = 2.0)
+> >                 ) +
+> >     geom_raster(data = DTM_hill_SJER_df,
+> >                 aes(x = x, y = y,
+> >                   alpha = SJER_dtmHill)
+> >                 ) +
+> >     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(100)) +
+> >     guides(fill = guide_colorbar()) +
+> >     scale_alpha(range = c(0.4, 0.7), guide = "none") +
+> >     theme_bw() +
+> >     theme(panel.grid.major = element_blank(), 
+> >           panel.grid.minor = element_blank()) +
+> >     theme(axis.title.x = element_blank(),
+> >           axis.title.y = element_blank()) +
+> >     ggtitle("DTM with Hillshade - NEON SJER Field Site") +
+> >     coord_equal()
 > > ```
 > {: .solution}
 {: .challenge}
+
+
+
+
