@@ -75,9 +75,6 @@ please create it now.
 library(rgdal)
 library(raster)
 
-# set working directory to ensure R can find the file we wish to import
-# setwd("working-dir-path-here")
-
 # import raster
 DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
