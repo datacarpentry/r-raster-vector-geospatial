@@ -84,9 +84,6 @@ library(sf)
 # raster: for raster metadata/attributes
 library(raster)
 
-# set working directory to data folder
-# setwd("pathToDirHere")
-
 # Import a polygon shapefile
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 

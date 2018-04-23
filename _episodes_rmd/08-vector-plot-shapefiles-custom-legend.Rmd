@@ -75,9 +75,6 @@ location. These latter two we worked with in the
 library(sf)
 library(raster)
 
-# set working directory to data folder
-# setwd("pathToDirHere")
-
 # Import a polygon shapefile
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 

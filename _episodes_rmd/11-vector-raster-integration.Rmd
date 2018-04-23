@@ -165,9 +165,6 @@ series, you can skip this code as you have already created these object.)
 library(sf)
 library(raster)
 
-# set working directory to data folder
-# setwd("pathToDirHere")
-
 # Imported in Vector 00: Vector Data in R - Open & Plot Data
 # shapefile
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")

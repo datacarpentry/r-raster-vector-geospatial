@@ -76,9 +76,6 @@ We will use the `sf` and `raster` libraries in this tutorial.
 library(sf)  # for vector work;
 library(raster)   # for  raster metadata/attributes
 
-# set working directory to data folder
-# setwd("pathToDirHere")
-
 ```
 
 ## Import .csv

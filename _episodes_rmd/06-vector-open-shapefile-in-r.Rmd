@@ -112,9 +112,6 @@ library(sf)
 # for metadata/attributes- vectors or rasters
 library(raster)
 
-# set working directory to the directory location on your computer where
-# you downloaded and unzipped the data files for the tutorial
-# setwd("pathToDirHere")
 ```
 
 The shapefiles that we will import are:
