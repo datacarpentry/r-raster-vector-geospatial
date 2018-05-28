@@ -33,6 +33,7 @@ introduces the GeoTiff file format."
 source("../bin/chunk-options.R")
 source("../setup.R")
 knitr_fig_path("01-")
+knitr::opts_chunk$set(fig.height = 6)
 ```
 
 > ## Things You’ll Need To Complete This Tutorial
@@ -128,7 +129,8 @@ rm(DSM_HARV_pts)
 
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = HARV_dsmCrop)) + 
-    ggtitle("Continuous Elevation Map - NEON Harvard Forest Field Site")
+    ggtitle("Continuous Elevation Map - NEON Harvard Forest Field Site") + 
+    coord_equal()
 
 ```
 
@@ -156,7 +158,6 @@ maps include:
 #### Categorical Elevation Map of the NEON Harvard Forest Site
 The legend of this map shows the colors representing each discrete class.
 
-
 ```{r classified-elevation-map, echo=FALSE, warning=FALSE, message=FALSE}
 
 # Load raster into R
@@ -179,7 +180,9 @@ DSM_HARV_df <- DSM_HARV_df %>%
 
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = fct_elevation)) + 
-    ggtitle("Classified Elevation Map - NEON Harvard Forest Field Site")
+    ggtitle("Classified Elevation Map - NEON Harvard Forest Field Site") + 
+    coord_equal()
+ 
 ```
 
 
@@ -245,7 +248,8 @@ rm(DSM_HARV_pts)
 
 ggplot() +
     geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = HARV_dsmCrop)) + 
-    ggtitle("Continuous Elevation Map - NEON Harvard Forest Field Site")
+    ggtitle("Continuous Elevation Map - NEON Harvard Forest Field Site") + 
+    coord_equal()
 
 ```
 
