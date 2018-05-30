@@ -217,6 +217,7 @@ To open rasters in `R`, we will use the `raster` and `rgdal` packages.
 # load libraries
 library(raster)
 library(rgdal)
+library(ggplot2)
 ```
 
 ## Open a Raster in R
@@ -236,8 +237,6 @@ DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.t
 
 # View raster structure
 DSM_HARV
-
-library(ggplot2)
 
 # convert to a df for plotting in two steps,
 # First, to a SpatialPointsDataFrame
