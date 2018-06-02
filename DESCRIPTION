@@ -13,4 +13,5 @@ Imports:
  rgdal,
  scales,
  sf,
- stringr
+ stringr,
+ dplyr
