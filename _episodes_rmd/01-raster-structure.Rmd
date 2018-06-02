@@ -1,7 +1,8 @@
 ---
+source: Rmd
 title: "Intro to Raster Data in R"
 teaching: 10
-exercises: 0
+exercises: 2
 questions:
 -  "What is a raster dataset?"
 objectives:
@@ -13,20 +14,6 @@ objectives:
 keypoints:
 -  "The Coordinate Reference System or CRS tells R where the raster is located in geographic space and what method should be used to “flatten” or project the raster."
 authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
-contributors: [ ]
-dateCreated: 2015-10-23
-lastModified: `r format(Sys.time(), "%Y-%m-%d")`
-packagesLibraries: [raster, rgdal]
-categories:  [self-paced-tutorial]
-tags: [R, raster, spatial-data-gis]
-tutorialSeries: [raster-data-series]
-mainTag: raster-data-series
-description: "This tutorial reviews the fundamental principles, packages and
-metadata/raster attributes that are needed to work with raster data in R. It
-covers the three core metadata elements that we need to understand to work with
-rasters in R: CRS, Extent and Resolution. It also explores missing and bad data
-values as stored in a raster and how R handles these elements. Finally, it
-introduces the GeoTiff file format."
 ---
 
 ```{r echo=FALSE}
