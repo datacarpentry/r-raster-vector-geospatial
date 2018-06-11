@@ -1,7 +1,8 @@
 ---
+source: Rmd
 title: "Intro to Raster Data in R"
 teaching: 10
-exercises: 0
+exercises: 2
 questions:
 -  "What is a raster dataset?"
 objectives:
@@ -13,26 +14,13 @@ objectives:
 keypoints:
 -  "The Coordinate Reference System or CRS tells R where the raster is located in geographic space and what method should be used to “flatten” or project the raster."
 authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
-contributors: [ ]
-dateCreated: 2015-10-23
-lastModified: `r format(Sys.time(), "%Y-%m-%d")`
-packagesLibraries: [raster, rgdal]
-categories:  [self-paced-tutorial]
-tags: [R, raster, spatial-data-gis]
-tutorialSeries: [raster-data-series]
-mainTag: raster-data-series
-description: "This tutorial reviews the fundamental principles, packages and
-metadata/raster attributes that are needed to work with raster data in R. It
-covers the three core metadata elements that we need to understand to work with
-rasters in R: CRS, Extent and Resolution. It also explores missing and bad data
-values as stored in a raster and how R handles these elements. Finally, it
-introduces the GeoTiff file format."
 ---
 
 ```{r echo=FALSE}
 source("../bin/chunk-options.R")
 source("../setup.R")
 knitr_fig_path("01-")
+knitr::opts_chunk$set(fig.height = 6)
 ```
 
 > ## Things You’ll Need To Complete This Tutorial
@@ -68,6 +56,10 @@ on your computer to complete this tutorial.
 > NEON Data Skills: Image Raster Data in R - An Intro</a>
 {: .prereq}
 
+> ## Check Your Working Directory
+
+{: .prereq}
+
 In this tutorial, we will review the fundamental principles, packages and
 metadata/raster attributes that are needed to work with raster data in `R`.
 We discuss the three core metadata elements that we need to understand to work
@@ -101,7 +93,7 @@ NEON AOP LiDAR sensor</a>
 is below. Elevation is represented as continuous numeric variable in this map. The legend
 shows the continuous range of values in the data from around 300 to 420 meters.
 
-```{r load-libraries-1, results='hide', echo=FALSE}
+```{r load-libraries-1, results='hide', echo=FALSE, message=FALSE}
 
 library(raster)
 library(rgdal)
@@ -113,8 +105,19 @@ library(rgdal)
 # render DSM for tutorial content background
 DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
-# code output here - DEM rendered on the screen
-plot(DSM_HARV, main = "Continuous Elevation Map\n NEON Harvard Forest Field Site")
+library(ggplot2)
+
+# convert to a df for plotting in two steps,
+# First, to a SpatialPointsDataFrame
+DSM_HARV_pts <- rasterToPoints(DSM_HARV, spatial = TRUE)
+# Then to a 'conventional' dataframe
+DSM_HARV_df  <- data.frame(DSM_HARV_pts)
+rm(DSM_HARV_pts)
+
+ggplot() +
+ geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = HARV_dsmCrop)) + 
+    ggtitle("Continuous Elevation Map - NEON Harvard Forest Field Site") + 
+    coord_equal()
 
 ```
 
@@ -142,30 +145,33 @@ maps include:
 #### Categorical Elevation Map of the NEON Harvard Forest Site
 The legend of this map shows the colors representing each discrete class.
 
-```{r classified-elevation-map, echo=FALSE}
-# Demonstration image for the tutorial
+```{r classified-elevation-map, echo=FALSE, warning=FALSE, message=FALSE}
 
-# add a color map with 5 colors
-col <- terrain.colors(3)
-# add breaks to the colormap (4 breaks = 3 segments)
-brk <- c(250, 350, 380, 500)
+# Load raster into R
+DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
-# Expand right side of clipping rect to make room for the legend
-par(xpd = FALSE, mar = c(5.1, 4.1, 4.1, 4.5))
-# DEM with a custom legend
-plot(DSM_HARV,
-	col = col,
-	breaks = brk,
-	main = "Classified Elevation Map\nNEON Harvard Forest Field Site",
-	legend = FALSE)
+# convert to a df for plotting in two steps,
+# First, to a SpatialPointsDataFrame
+DSM_HARV_pts <- rasterToPoints(DSM_HARV, spatial = TRUE)
+# Then to a 'conventional' dataframe
+DSM_HARV_df  <- data.frame(DSM_HARV_pts)
 
-# turn xpd back on to force the legend to fit next to the plot.
-par(xpd = TRUE)
-# add a legend - but make it appear outside of the plot
-legend(par()$usr[2], 4713700,
-        legend = c("High Elevation", "Middle", "Low Elevation"),
-        fill = rev(col))
+library(ggplot2)
+library(dplyr)
+
+DSM_HARV_df <- DSM_HARV_df %>%
+                mutate(fct_elevation = cut(HARV_dsmCrop, 3, 
+                                           labels = c("Low Elevation","Middle Elevation","High Elevation")
+                                           )
+                       )
+
+ggplot() +
+ geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = fct_elevation)) + 
+    ggtitle("Classified Elevation Map - NEON Harvard Forest Field Site") + 
+    coord_equal()
+ 
 ```
+
 
 ## What is a GeoTIFF??
 Raster data can come in many different formats. In this tutorial, we will use the
@@ -198,6 +204,7 @@ To open rasters in `R`, we will use the `raster` and `rgdal` packages.
 # load libraries
 library(raster)
 library(rgdal)
+library(ggplot2)
 ```
 
 ## Open a Raster in R
@@ -210,17 +217,25 @@ We can use the `raster("path-to-raster-here")` function to open a raster in R.
 > we'll use a naming convention of `datatype_HARV`.
 {: .callout}
 
-```{r open-raster }
+
+```{r open-raster-ggplot, fig.width= 7, fig.height=7}
 # Load raster into R
 DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 # View raster structure
 DSM_HARV
 
-# plot raster
-# note \n in the title forces a line break in the title
-plot(DSM_HARV,
-     main = "NEON Digital Surface Model\nHarvard Forest")
+# convert to a df for plotting in two steps,
+# First, to a SpatialPointsDataFrame
+DSM_HARV_pts <- rasterToPoints(DSM_HARV, spatial = TRUE)
+# Then to a 'conventional' dataframe
+DSM_HARV_df  <- data.frame(DSM_HARV_pts)
+rm(DSM_HARV_pts)
+
+ggplot() +
+    geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = HARV_dsmCrop)) + 
+    ggtitle("Continuous Elevation Map - NEON Harvard Forest Field Site") + 
+    coord_equal()
 
 ```
 
@@ -383,22 +398,33 @@ region.
 In the image below, the pixels that are black have `NoDataValue`s.
 The camera did not collect data in these areas.
 
-```{r demonstrate-no-data-black, echo=FALSE }
+
+```{r demonstrate-no-data-black-ggplot, echo=FALSE }
 # no data demonstration code - not being taught
 # Use stack function to read in all bands
 RGB_stack <-
   stack("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
-# Create an RGB image from the raster stack
-par(col.axis = "white", col.lab = "white", tck = 0)
-plotRGB(RGB_stack, r = 1, g = 2, b = 3,
-        axes = TRUE, main = "Raster With NoData Values\nRendered in Black")
+# convert to a df for plotting in two steps,
+# First, to a SpatialPointsDataFrame
+RGB_pts <- rasterToPoints(RGB_stack, spatial = TRUE)
+# Then to a 'conventional' dataframe
+RGB_df  <- data.frame(RGB_pts)
+# save some memory and remove the pts object
+rm(RGB_pts)
 
+ggplot() +
+ geom_raster(data = RGB_df , aes(x = x, y = y, fill = HARV_RGB_Ortho.1),
+             show.legend = FALSE) + 
+    ggtitle("Raster with NoData Values Rendered in Black")
+
+# more memory saving
+rm(RGB_df)
 ```
 
 In the next image, the black edges have been assigned `NoDataValue`. `R` doesn't render pixels that contain a specified `NoDataValue`. `R` assigns missing data with the `NoDataValue` as `NA`.
 
-```{r demonstrate-no-data, echo=FALSE}
+```{r demonstrate-no-data-ggplot, echo=FALSE}
 # reassign cells with 0,0,0 to NA
 # this is simply demonstration code - we will not teach this.
 f <- function(x) {
@@ -407,13 +433,18 @@ f <- function(x) {
   }
 
 newRGBImage <- calc(RGB_stack, f)
+newRGB_pts <- rasterToPoints(newRGBImage, spatial = TRUE)
+# Then to a 'conventional' dataframe
+newRGB_df  <- data.frame(newRGB_pts)
+# memory save
+rm(newRGB_pts)
 
-
-par(col.axis = "white", col.lab = "white", tck = 0)
-# Create an RGB image from the raster stack
-plotRGB(newRGBImage, r = 1, g = 2, b = 3,
-        axes = TRUE, main = "Raster With No Data Values\nNoDataValue= NA")
-
+ggplot() +
+    geom_raster(data = newRGB_df , aes(x = x, y = y, fill = HARV_RGB_Ortho.1), 
+             show.legend = FALSE) + 
+    ggtitle("Raster with NoData Values labelled as NA")
+#memory saving
+rm(newRGB_df)
 ```
 
 ### NoData Value Standard
@@ -453,54 +484,38 @@ identify questionable values.
 ## Create A Histogram of Raster Values
 
 We can explore the distribution of values contained within our raster using the
-`hist()` function which produces a histogram. Histograms are often useful in
+`geom_histogram()` function which produces a histogram. Histograms are often useful in
 identifying outliers and bad data values in our raster data.
 
 ```{r view-raster-histogram }
 
-# view histogram of data
-hist(DSM_HARV,
-     main = "Distribution of Digital Surface Model Values\n Histogram Default: 100,000 pixels\n NEON Harvard Forest",
-     xlab = "DSM Elevation Value (m)",
-     ylab = "Frequency",
-     col = "wheat")
+ggplot() +
+    geom_histogram(data = DSM_HARV_df, aes(HARV_dsmCrop)) +
+    xlab("DSM Elevation Value (m)") +
+    ggtitle("Distribution of DSM Values in NEON Harvard Forest Field Site")
 
 ```
 
 Notice that an warning message is thrown when `R` creates the histogram.
 
-`Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...): 4%
-of the raster cells were used. 100000 values used.`
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-This warning is caused by the default maximum pixels value of 100,000 associated
-with the `hist` function. This maximum value is to ensure processing efficiency
-as our data become larger!
-
-* More on
-<a href="http://www.r-bloggers.com/basics-of-histograms/" target="_blank">histograms in R from R-bloggers</a>
-
-We can define the max pixels to ensure that all pixel values are included in the
-histogram. **USE THIS WITH CAUTION** as forcing `R` to plot all pixel values
-in a histogram can be problematic when dealing with very large datasets.
+This warning is caused by `ggplot`'s default settings enforcing that there are 30 bins for the data.
+We can define the number of bins we want in the histogram by using the `bins` value in the 
+`geom_histogram()` function.
 
 
 ``` {r view-raster-histogram2}
 
-# View the total number of pixels (cells) in is our raster
-ncell(DSM_HARV)
-
-# create histogram that includes with all pixel values in the raster
-hist(DSM_HARV,
-     maxpixels = ncell(DSM_HARV),
-     main = "Distribution of DSM Values\n All Pixel Values Included\n NEON Harvard Forest Field Site",
-     xlab = "DSM Elevation Value (m)",
-     ylab = "Frequency",
-     col = "wheat4")
+ggplot() +
+    geom_histogram(data = DSM_HARV_df, aes(HARV_dsmCrop), bins = 40) +
+    xlab("DSM Elevation Value (m)") +
+    ggtitle("Distribution of DSM Values in NEON Harvard Forest Field Site")
 
 ```
 
 Note that the shape of both histograms looks similar to the previous one that
- was created using a representative 10,000 pixel subset of our raster data. The
+ was created using the default of 30 bins. The
 distribution of elevation values for our `Digital Surface Model (DSM)` looks
 reasonable. It is likely there are no bad data values in this particular raster.
 
@@ -562,20 +577,20 @@ It is ideal to use `GDALinfo` to explore your file **before** reading it into
 `R`.
 
 > ## Challenge: Explore Raster Metadata
-> 
+>
 > Without using the `raster` function to read the file into `R`, determine the following about the  `NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif` file:
-> 
+>
 > 1. Does this file has the same `CRS` as `DSM_HARV`?
 > 2. What is the `NoDataValue`?
 > 3. What is resolution of the raster data?
 > 4. How large would a 5x5 pixel area be on the Earth's surface?
 > 5. Is the file a multi- or single-band raster?
-> 
+>
 > Notice: this file is a `hillshade`. We will learn about hillshades in
 <a href="{{ site.baseurl }}/R/Multi-Band-Rasters-In-R/" target="_blank">  Work with Multi-band Rasters: Images in R</a>.
-> > 
+> >
 > > ## Answers
-> > 
+> >
 > > ``` {r challenge-code-attributes, eval=TRUE, echo=FALSE}
 GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 > > ```
