@@ -29,24 +29,6 @@ source("../setup.R")
 knitr_fig_path("06-")
 ```
 
-> ## Things You’ll Need To Complete This Tutorial
-> **R Skill Level:** Introduction - you are just getting started with spatial data
-in `R`, but have some of the other `R` basics down.
->
-> You will need the most current version of `R` and, preferably, `RStudio` loaded
-on your computer to complete this tutorial.
->
-> ### Install R Packages
->
-> * **raster:** `install.packages("raster")`
-> * **sf:** `install.packages("sf")`
->
-> [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
->
-> ## Download Data
-> * [Site layout shapefiles](https://ndownloader.figshare.com/files/3708751)
-{: .prereq}
-
 In this tutorial, we will open and plot point, line and polygon vector data
 stored in shapefile format in `R`.
 
