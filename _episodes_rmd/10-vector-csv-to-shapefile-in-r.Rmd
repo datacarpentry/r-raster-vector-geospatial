@@ -32,22 +32,6 @@ source("../setup.R")
 knitr_fig_path("10-")
 ```
 
-> ## Things You’ll Need To Complete This Tutorial
-> **R Skill Level:** Intermediate - you've got the basics of `R` down.
-> You will need the most current version of `R` and, preferably, `RStudio` loaded
-> on your computer to complete this tutorial.
->
-> ### Install R Packages
->
-> * **raster:** `install.packages("raster")`
-> * **sf:** `install.packages("sf")`
->
-> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
->
-> ## Data to Download
-> * [Site layout shapefiles](https://ndownloader.figshare.com/files/3708751)
-{: .prereq}
-
 This tutorial will review how to import spatial points stored in `.csv` (Comma Separated Value) format into `R` as an `sf` spatial object. We will also reproject data imported from a shapefile format, export this data as a shapefile as well as plot raster and vector data as layers in the same plot.
 
 ## Spatial Data in Text Format
