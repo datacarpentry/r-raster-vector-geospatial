@@ -32,22 +32,6 @@ source("../setup.R")
 knitr_fig_path("09-")
 ```
 
-> ## Things You’ll Need To Complete This Tutorial
-> **R Skill Level:** Intermediate - you've got the basics of `R` down.
-> You will need the most current version of `R` and, preferably, `RStudio` loaded
-> on your computer to complete this tutorial.
->
-> ### Install R Packages
->
-> * **raster:** `install.packages("raster")`
-> * **sf:** `install.packages("sf")`
->
-> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
->
-> ## Data to Download
-> * [Site layout shapefiles](https://ndownloader.figshare.com/files/3708751)
-{: .prereq}
-
 In this tutorial, we will create a base map of our study site using a United States
 state and country boundary accessed from the
 <a href="https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html" target="_blank"> United States Census Bureau</a>.
