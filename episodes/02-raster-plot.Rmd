@@ -34,30 +34,6 @@ source("../setup.R")
 knitr_fig_path("02-")
 ```
 
-> ## Things You’ll Need To Complete This Tutorial
-> **R Skill Level:** Intermediate - you've got the basics of `R` down.
->
-> You will need the most current version of `R` and, preferably, `RStudio` loaded
-on your computer to complete this tutorial.
->
-> ### Install R Packages
->
-> * **raster:** `install.packages("raster")`
-> * **rgdal:** `install.packages("rgdal")`
-> * **ggplot2:** `install.packages("ggplot2")` 
-> * **dplyr:** `install.packages("dplyr")`
->
-> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
->
-> #### Download Data
->
->
-> ### Reference
->
-> * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank"> Read more about the `raster` package in `R`.</a>
-{: .prereq}
-
-
 This tutorial reviews how to plot a raster in `R` using the `plot()`
 function. It also covers how to layer a raster on top of a hillshade to produce
 an eloquent map.
