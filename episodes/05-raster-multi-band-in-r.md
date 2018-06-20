@@ -15,7 +15,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2015-10-23
-lastModified: 2017-09-19
+lastModified: 2018-06-19
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series, raster-time-series]
@@ -26,23 +26,6 @@ function in R."
 ---
 
 
-
-> ## Things You’ll Need To Complete This Tutorial
-> **R Skill Level:** Intermediate - you've got the basics of `R` down.
->
-You will need the most current version of `R` and, preferably, `RStudio` loaded
-on your computer to complete this tutorial.
->
-> ### Install R Packages
->
-> * **raster:** `install.packages("raster")`
-> * **rgdal:** `install.packages("rgdal")`
->
-> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
->
-> #### Data to Download
->
-{: .prereq}
 
 This tutorial explores how to import and plot a multi-band raster in
 R. It also covers how to plot a three-band color image using the `plotRGB()`
@@ -104,11 +87,11 @@ Loading required package: sp
 ~~~
 {: .output}
 
-<img src="../fig/rmd-demonstrate-RGB-Image-1.png" title="plot of chunk demonstrate-RGB-Image" alt="plot of chunk demonstrate-RGB-Image" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-demonstrate-RGB-Image-1.png" title="plot of chunk demonstrate-RGB-Image" alt="plot of chunk demonstrate-RGB-Image" style="display: block; margin: auto;" />
 
 Or we can composite all three bands together to make a color image.
 
-<img src="../fig/rmd-plot-RGB-now-1.png" title="plot of chunk plot-RGB-now" alt="plot of chunk plot-RGB-now" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-plot-RGB-now-1.png" title="plot of chunk plot-RGB-now" alt="plot of chunk plot-RGB-now" style="display: block; margin: auto;" />
 
 In a multi-band dataset, the rasters will always have the same *extent*,
 *CRS* and *resolution*.
@@ -140,18 +123,19 @@ library(raster)
 # export GeoTIFFs and other core GIS functions
 library(rgdal)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-rgdal: version: 1.2-8, (SVN revision 663)
+rgdal: version: 1.3-2, (SVN revision 755)
  Geospatial Data Abstraction Library extensions to R successfully loaded
- Loaded GDAL runtime: GDAL 2.2.1, released 2017/06/23
- Path to GDAL shared files: /usr/share/gdal/2.2
- Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
- Path to PROJ.4 shared files: (autodetected)
- Linking to sp version: 1.2-5 
+ Loaded GDAL runtime: GDAL 2.1.3, released 2017/20/01
+ Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.5/Resources/library/rgdal/gdal
+ GDAL binary built with GEOS: FALSE 
+ Loaded PROJ.4 runtime: Rel. 4.9.3, 15 August 2016, [PJ_VERSION: 493]
+ Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.5/Resources/library/rgdal/proj
+ Linking to sp version: 1.3-1 
 ~~~
 {: .output}
 
@@ -189,16 +173,16 @@ plot(RGB_band1_HARV,
      axes = FALSE,
      main = "RGB Imagery - Band 1-Red\nNEON Harvard Forest Field Site")
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-read-single-band-1.png" title="plot of chunk read-single-band" alt="plot of chunk read-single-band" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-read-single-band-1.png" title="plot of chunk read-single-band" alt="plot of chunk read-single-band" style="display: block; margin: auto;" />
 
 ~~~
 # view attributes: Check out dimension, CRS, resolution, values attributes, and
 # band.
 RGB_band1_HARV
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -209,7 +193,7 @@ dimensions  : 2317, 3073, 7120141  (nrow, ncol, ncell)
 resolution  : 0.25, 0.25  (x, y)
 extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
 coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-data source : /home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+data source : /Users/ebecker/Box Sync/Carpentry_repos/datacarpentry-lessons/geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
 names       : HARV_RGB_Ortho 
 values      : 0, 255  (min, max)
 ~~~
@@ -236,7 +220,7 @@ Let's next examine the raster's min and max values. What is the value range?
 # view min value
 minValue(RGB_band1_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -251,7 +235,7 @@ minValue(RGB_band1_HARV)
 # view max value
 maxValue(RGB_band1_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -287,15 +271,15 @@ plot(RGB_band2_HARV,
      axes = FALSE,
      main = "RGB Imagery - Band 2- Green\nNEON Harvard Forest Field Site")
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-read-specific-band-1.png" title="plot of chunk read-specific-band" alt="plot of chunk read-specific-band" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-read-specific-band-1.png" title="plot of chunk read-specific-band" alt="plot of chunk read-specific-band" style="display: block; margin: auto;" />
 
 ~~~
 # view attributes of band 2
 RGB_band2_HARV
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -306,7 +290,7 @@ dimensions  : 2317, 3073, 7120141  (nrow, ncol, ncell)
 resolution  : 0.25, 0.25  (x, y)
 extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
 coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-data source : /home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+data source : /Users/ebecker/Box Sync/Carpentry_repos/datacarpentry-lessons/geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
 names       : HARV_RGB_Ortho 
 values      : 0, 255  (min, max)
 ~~~
@@ -325,7 +309,7 @@ Notice that band 2 is the second of 3 bands `band: 2  (of  3  bands)`.
 > > # band 1 (red) because the leaves on trees of most often appear "green" -
 > > # healthy leaves reflect MORE green light compared to red light
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > {: .solution}
 {: .challenge}
 
@@ -345,7 +329,7 @@ RGB_stack_HARV <-
 # view attributes of stack object
 RGB_stack_HARV
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -372,7 +356,7 @@ attributes for using an index value: `RGB_stack_HARV[[1]]`. We can also use the
 # view raster attributes
 RGB_stack_HARV@layers
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -384,7 +368,7 @@ dimensions  : 2317, 3073, 7120141  (nrow, ncol, ncell)
 resolution  : 0.25, 0.25  (x, y)
 extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
 coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-data source : /home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+data source : /Users/ebecker/Box Sync/Carpentry_repos/datacarpentry-lessons/geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
 names       : HARV_RGB_Ortho.1 
 values      : 0, 255  (min, max)
 
@@ -396,7 +380,7 @@ dimensions  : 2317, 3073, 7120141  (nrow, ncol, ncell)
 resolution  : 0.25, 0.25  (x, y)
 extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
 coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-data source : /home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+data source : /Users/ebecker/Box Sync/Carpentry_repos/datacarpentry-lessons/geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
 names       : HARV_RGB_Ortho.2 
 values      : 0, 255  (min, max)
 
@@ -408,7 +392,7 @@ dimensions  : 2317, 3073, 7120141  (nrow, ncol, ncell)
 resolution  : 0.25, 0.25  (x, y)
 extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
 coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-data source : /home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+data source : /Users/ebecker/Box Sync/Carpentry_repos/datacarpentry-lessons/geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
 names       : HARV_RGB_Ortho.3 
 values      : 0, 255  (min, max)
 ~~~
@@ -420,7 +404,7 @@ values      : 0, 255  (min, max)
 # view attributes for one band
 RGB_stack_HARV[[1]]
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -431,7 +415,7 @@ dimensions  : 2317, 3073, 7120141  (nrow, ncol, ncell)
 resolution  : 0.25, 0.25  (x, y)
 extent      : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
 coord. ref. : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-data source : /home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
+data source : /Users/ebecker/Box Sync/Carpentry_repos/datacarpentry-lessons/geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif 
 names       : HARV_RGB_Ortho.1 
 values      : 0, 255  (min, max)
 ~~~
@@ -448,9 +432,9 @@ hist(RGB_stack_HARV,
 plot(RGB_stack_HARV,
      col = grayscale_colors)
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-plot-raster-layers-1.png" title="plot of chunk plot-raster-layers" alt="plot of chunk plot-raster-layers" style="display: block; margin: auto;" /><img src="../fig/rmd-plot-raster-layers-2.png" title="plot of chunk plot-raster-layers" alt="plot of chunk plot-raster-layers" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-plot-raster-layers-1.png" title="plot of chunk plot-raster-layers" alt="plot of chunk plot-raster-layers" style="display: block; margin: auto;" /><img src="../fig/rmd-05-plot-raster-layers-2.png" title="plot of chunk plot-raster-layers" alt="plot of chunk plot-raster-layers" style="display: block; margin: auto;" />
 
 ~~~
 # revert to a single plot layout
@@ -461,9 +445,9 @@ plot(RGB_stack_HARV[[2]],
      main = "Band 2\n NEON Harvard Forest Field Site",
      col = grayscale_colors)
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-plot-raster-layers-3.png" title="plot of chunk plot-raster-layers" alt="plot of chunk plot-raster-layers" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-plot-raster-layers-3.png" title="plot of chunk plot-raster-layers" alt="plot of chunk plot-raster-layers" style="display: block; margin: auto;" />
 
 
 ### Create A Three Band Image
@@ -486,9 +470,9 @@ Let's plot our 3-band image.
 plotRGB(RGB_stack_HARV,
         r = 1, g = 2, b = 3)
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-plot-rgb-image-1.png" title="plot of chunk plot-rgb-image" alt="plot of chunk plot-rgb-image" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-plot-rgb-image-1.png" title="plot of chunk plot-rgb-image" alt="plot of chunk plot-rgb-image" style="display: block; margin: auto;" />
 
 The image above looks pretty good. We can explore whether applying a stretch to
 the image might improve clarity and contrast using  `stretch="lin"` or
@@ -524,9 +508,9 @@ plotRGB(RGB_stack_HARV,
         scale = 800,
         stretch = "lin")
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-image-stretch-1.png" title="plot of chunk image-stretch" alt="plot of chunk image-stretch" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-image-stretch-1.png" title="plot of chunk image-stretch" alt="plot of chunk image-stretch" style="display: block; margin: auto;" />
 
 ~~~
 plotRGB(RGB_stack_HARV,
@@ -534,9 +518,9 @@ plotRGB(RGB_stack_HARV,
         scale = 800,
         stretch = "hist")
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-image-stretch-2.png" title="plot of chunk image-stretch" alt="plot of chunk image-stretch" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-image-stretch-2.png" title="plot of chunk image-stretch" alt="plot of chunk image-stretch" style="display: block; margin: auto;" />
 
 In this case, the stretch doesn't enhance the contrast our image significantly
 given the distribution of reflectance (or brightness) values is distributed well
@@ -580,9 +564,9 @@ tutorial.
 > > plotRGB(HARV_NA,
 > >         r = 1, g = 2, b = 3)
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-code-NoData-1.png" title="plot of chunk challenge-code-NoData" alt="plot of chunk challenge-code-NoData" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-05-challenge-code-NoData-1.png" title="plot of chunk challenge-code-NoData" alt="plot of chunk challenge-code-NoData" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > #6 The black edges are not plotted.
@@ -592,7 +576,7 @@ tutorial.
 > > # renders them as NA.
 > > GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > {: .solution}
 {: .challenge}
 
@@ -625,12 +609,12 @@ and `brick` `R` objects.
 # view size of the RGB_stack object that contains our 3 band image
 object.size(RGB_stack_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-41928 bytes
+44216 bytes
 ~~~
 {: .output}
 
@@ -643,12 +627,12 @@ RGB_brick_HARV <- brick(RGB_stack_HARV)
 # view size of the brick
 object.size(RGB_brick_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-170896376 bytes
+170897112 bytes
 ~~~
 {: .output}
 
@@ -663,9 +647,9 @@ You use `plotRGB` to block a `RasterBrick` too.
 # plot brick
 plotRGB(RGB_brick_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-plot-brick-1.png" title="plot of chunk plot-brick" alt="plot of chunk plot-brick" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-plot-brick-1.png" title="plot of chunk plot-brick" alt="plot of chunk plot-brick" style="display: block; margin: auto;" />
 
 > ## Challenge: What Methods Can Be Used on an R Object?
 > 
@@ -691,6 +675,6 @@ plotRGB(RGB_brick_HARV)
 > > #3 There are far more thing one could or wants to ask of a full stack than of
 > > # a single band.
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > {: .solution}
 {: .challenge}

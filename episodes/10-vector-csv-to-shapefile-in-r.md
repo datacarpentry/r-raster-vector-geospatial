@@ -14,7 +14,7 @@ keypoints:
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2015-10-23
-lastModified: 2017-09-19
+lastModified: 2018-06-19
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -27,22 +27,6 @@ applications including QGIS and ArcGIS"
 ---
 
 
-
-> ## Things You’ll Need To Complete This Tutorial
-> **R Skill Level:** Intermediate - you've got the basics of `R` down.
-> You will need the most current version of `R` and, preferably, `RStudio` loaded
-> on your computer to complete this tutorial.
->
-> ### Install R Packages
->
-> * **raster:** `install.packages("raster")`
-> * **sf:** `install.packages("sf")`
->
-> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
->
-> ## Data to Download
-> * [Site layout shapefiles](https://ndownloader.figshare.com/files/3708751)
-{: .prereq}
 
 This tutorial will review how to import spatial points stored in `.csv` (Comma Separated Value) format into `R` as an `sf` spatial object. We will also reproject data imported from a shapefile format, export this data as a shapefile as well as plot raster and vector data as layers in the same plot.
 
@@ -71,12 +55,12 @@ We will use the `sf` and `raster` libraries in this tutorial.
 # load packages
 library(sf)  # for vector work;
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
+Linking to GEOS 3.6.1, GDAL 2.1.3, proj.4 4.9.3
 ~~~
 {: .output}
 
@@ -85,7 +69,7 @@ Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
 ~~~
 library(raster)   # for  raster metadata/attributes
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -93,14 +77,6 @@ library(raster)   # for  raster metadata/attributes
 Loading required package: sp
 ~~~
 {: .output}
-
-
-
-~~~
-# set working directory to data folder
-# setwd("pathToDirHere")
-~~~
-{: .language-r}
 
 ## Import .csv
 To begin let's import `.csv` file that contains plot coordinate `x, y`
@@ -118,7 +94,7 @@ plot_locations_HARV <-
 # look at the data structure
 str(plot_locations_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -158,7 +134,7 @@ Let's check out the column `names` of our `data.frame`.
 # view column names
 names(plot_locations_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -181,7 +157,7 @@ and `plot_locations_HARV$northing` columns contain coordinate values.
 # view first 6 rows of the X and Y columns
 head(plot_locations_HARV$easting)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -195,7 +171,7 @@ head(plot_locations_HARV$easting)
 ~~~
 head(plot_locations_HARV$northing)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -211,7 +187,7 @@ head(plot_locations_HARV$northing)
 # view first 6 rows of the X and Y columns
 head(plot_locations_HARV[, 1])
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -225,7 +201,7 @@ head(plot_locations_HARV[, 1])
 ~~~
 head(plot_locations_HARV[, 2])
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -256,7 +232,7 @@ Following the `easting` and `northing` columns, there is a `geodeticDa` and a
 # view first 6 rows of the X and Y columns
 head(plot_locations_HARV$geodeticDa)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -270,7 +246,7 @@ head(plot_locations_HARV$geodeticDa)
 ~~~
 head(plot_locations_HARV$utmZone)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -309,12 +285,12 @@ out its CRS.
 # Import the line shapefile
 lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-Reading layer `HARV_roads' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp' using driver `ESRI Shapefile'
+Reading layer `HARV_roads' from data source `/Users/ebecker/Box Sync/Carpentry_repos/datacarpentry-lessons/geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp' using driver `ESRI Shapefile'
 Simple feature collection with 13 features and 15 fields
 geometry type:  MULTILINESTRING
 dimension:      XY
@@ -330,19 +306,14 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 # view CRS
 st_crs(lines_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-$epsg
-[1] 32618
-
-$proj4string
-[1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
-
-attr(,"class")
-[1] "crs"
+Coordinate Reference System:
+  EPSG: 32618 
+  proj4string: "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
 ~~~
 {: .output}
 
@@ -352,7 +323,7 @@ attr(,"class")
 # view extent
 st_bbox(lines_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -375,19 +346,14 @@ Next, let's create a `crs` object that we can use to define the CRS of our
 utm18nCRS <- st_crs(lines_HARV)
 utm18nCRS
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-$epsg
-[1] 32618
-
-$proj4string
-[1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
-
-attr(,"class")
-[1] "crs"
+Coordinate Reference System:
+  EPSG: 32618 
+  proj4string: "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
 ~~~
 {: .output}
 
@@ -396,7 +362,7 @@ attr(,"class")
 ~~~
 class(utm18nCRS)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -422,19 +388,14 @@ plot_locations_sp_HARV <- st_as_sf(plot_locations_HARV, coords = c("easting", "n
 # look at the CRS
 st_crs(plot_locations_sp_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-$epsg
-[1] 32618
-
-$proj4string
-[1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
-
-attr(,"class")
-[1] "crs"
+Coordinate Reference System:
+  EPSG: 32618 
+  proj4string: "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
 ~~~
 {: .output}
 
@@ -447,9 +408,9 @@ We now have a spatial `R` object, we can plot our newly created spatial object.
 plot(plot_locations_sp_HARV$geometry,
      main = "Map of Plot Locations")
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-plot-data-points-1.png" title="plot of chunk plot-data-points" alt="plot of chunk plot-data-points" style="display: block; margin: auto;" />
+<img src="../fig/rmd-10-plot-data-points-1.png" title="plot of chunk plot-data-points" alt="plot of chunk plot-data-points" style="display: block; margin: auto;" />
 
 ## Define Plot Extent
 
@@ -472,12 +433,12 @@ series, you can skip this code as you have already created this object.)
 # create boundary object
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-Reading layer `HarClip_UTMZ18' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp' using driver `ESRI Shapefile'
+Reading layer `HarClip_UTMZ18' from data source `/Users/ebecker/Box Sync/Carpentry_repos/datacarpentry-lessons/geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp' using driver `ESRI Shapefile'
 Simple feature collection with 1 feature and 1 field
 geometry type:  POLYGON
 dimension:      XY
@@ -499,28 +460,23 @@ plot(aoi_boundary_HARV$geometry,
 plot(plot_locations_sp_HARV$geometry,
      pch = 8, add = TRUE)
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-plot-data-1.png" title="plot of chunk plot-data" alt="plot of chunk plot-data" style="display: block; margin: auto;" />
+<img src="../fig/rmd-10-plot-data-1.png" title="plot of chunk plot-data" alt="plot of chunk plot-data" style="display: block; margin: auto;" />
 
 ~~~
 # no plots added, why? CRS?
 # view CRS of each
 st_crs(aoi_boundary_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-$epsg
-[1] 32618
-
-$proj4string
-[1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
-
-attr(,"class")
-[1] "crs"
+Coordinate Reference System:
+  EPSG: 32618 
+  proj4string: "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
 ~~~
 {: .output}
 
@@ -529,19 +485,14 @@ attr(,"class")
 ~~~
 st_crs(plot_locations_sp_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-$epsg
-[1] 32618
-
-$proj4string
-[1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
-
-attr(,"class")
-[1] "crs"
+Coordinate Reference System:
+  EPSG: 32618 
+  proj4string: "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
 ~~~
 {: .output}
 
@@ -554,7 +505,7 @@ locations are not rendered. We can see that our data are in the same projection
 # view extent of each
 st_bbox(aoi_boundary_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -569,7 +520,7 @@ st_bbox(aoi_boundary_HARV)
 ~~~
 st_bbox(plot_locations_sp_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -605,9 +556,9 @@ legend("bottomright",
        lty = c(1, 1),
        lwd = 6)
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-compare-extents-1.png" title="plot of chunk compare-extents" alt="plot of chunk compare-extents" style="display: block; margin: auto;" />
+<img src="../fig/rmd-10-compare-extents-1.png" title="plot of chunk compare-extents" alt="plot of chunk compare-extents" style="display: block; margin: auto;" />
 
 The **extents** of our two objects are **different**. `plot_locations_sp_HARV` is
 much larger than `aoi_boundary_HARV`. When we plot `aoi_boundary_HARV` first, `R`
@@ -632,7 +583,7 @@ values from the spatial object that has a larger extent. Let's try it.
 plotLoc.extent <- st_bbox(plot_locations_sp_HARV)
 plotLoc.extent
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -671,9 +622,9 @@ legend("bottomright",
        col = c("purple", "darkgreen"),
        cex = .8)
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-set-plot-extent-1.png" title="plot of chunk set-plot-extent" alt="plot of chunk set-plot-extent" style="display: block; margin: auto;" />
+<img src="../fig/rmd-10-set-plot-extent-1.png" title="plot of chunk set-plot-extent" alt="plot of chunk set-plot-extent" style="display: block; margin: auto;" />
 
 > ## Challenge - Import & Plot Additional Points
 > 
@@ -745,9 +696,9 @@ legend("bottomright",
 > > plot(newPlot.Sp.HARV.UTM$geometry,
 > >      add = TRUE,  pch=20, col = "darkgreen")
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-code-phen-plots-1.png" title="plot of chunk challenge-code-phen-plots" alt="plot of chunk challenge-code-phen-plots" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-10-challenge-code-phen-plots-1.png" title="plot of chunk challenge-code-phen-plots" alt="plot of chunk challenge-code-phen-plots" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > # oops - looks like we are missing a point on our new plot. let's compare
@@ -765,9 +716,9 @@ legend("bottomright",
 > >      col = "darkgreen",
 > >      add = TRUE)
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-code-phen-plots-2.png" title="plot of chunk challenge-code-phen-plots" alt="plot of chunk challenge-code-phen-plots" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-10-challenge-code-phen-plots-2.png" title="plot of chunk challenge-code-phen-plots" alt="plot of chunk challenge-code-phen-plots" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > # looks like the green box showing the newPlot extent extends
@@ -809,9 +760,9 @@ legend("bottomright",
 > >        col = c("purple", "darkgreen"),
 > >        cex = 1.3)
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-code-phen-plots-3.png" title="plot of chunk challenge-code-phen-plots" alt="plot of chunk challenge-code-phen-plots" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-10-challenge-code-phen-plots-3.png" title="plot of chunk challenge-code-phen-plots" alt="plot of chunk challenge-code-phen-plots" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -834,4 +785,4 @@ We can now export the spatial object as a shapefile.
 st_write(plot_locations_sp_HARV,
          "data/PlotLocations_HARV.shp", driver = "ESRI Shapefile")
 ~~~
-{: .language-r}
+{: .r}

@@ -35,22 +35,6 @@ source("../setup.R")
 knitr_fig_path("08-")
 ```
 
-> ## Things You’ll Need To Complete This Tutorial
-> **R Skill Level:** Intermediate - you've got the basics of `R` down.
-> You will need the most current version of `R` and, preferably, `RStudio` loaded
-> on your computer to complete this tutorial.
->
-> ### Install R Packages
->
-> * **raster:** `install.packages("raster")`
-> * **sf:** `install.packages("sf")`
->
-> [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
->
-> ## Download Data
-> * [Site layout shapefiles](https://ndownloader.figshare.com/files/3708751)
-{: .prereq}
-
 This tutorial builds upon
 [the previous tutorial]({{ site.baseurl }}/R/shapefile-attributes-in-R/)
 to work with shapefile attributes in `R` and explores how to plot multiple

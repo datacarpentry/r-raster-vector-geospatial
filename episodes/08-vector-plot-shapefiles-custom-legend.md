@@ -13,7 +13,7 @@ keypoints:
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2016-02-09
-lastModified: 2017-09-19
+lastModified: 2018-06-19
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -30,22 +30,6 @@ comments: true
 ---
 
 
-
-> ## Things You’ll Need To Complete This Tutorial
-> **R Skill Level:** Intermediate - you've got the basics of `R` down.
-> You will need the most current version of `R` and, preferably, `RStudio` loaded
-> on your computer to complete this tutorial.
->
-> ### Install R Packages
->
-> * **raster:** `install.packages("raster")`
-> * **sf:** `install.packages("sf")`
->
-> [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
->
-> ## Download Data
-> * [Site layout shapefiles](https://ndownloader.figshare.com/files/3708751)
-{: .prereq}
 
 This tutorial builds upon
 [the previous tutorial]({{ site.baseurl }}/R/shapefile-attributes-in-R/)
@@ -71,12 +55,12 @@ location. These latter two we worked with in the
 # load packages
 library(sf)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
+Linking to GEOS 3.6.1, GDAL 2.1.3, proj.4 4.9.3
 ~~~
 {: .output}
 
@@ -85,7 +69,7 @@ Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
 ~~~
 library(raster)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -97,18 +81,15 @@ Loading required package: sp
 
 
 ~~~
-# set working directory to data folder
-# setwd("pathToDirHere")
-
 # Import a polygon shapefile
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-Reading layer `HarClip_UTMZ18' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp' using driver `ESRI Shapefile'
+Reading layer `HarClip_UTMZ18' from data source `/Users/ebecker/Box Sync/Carpentry_repos/datacarpentry-lessons/geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp' using driver `ESRI Shapefile'
 Simple feature collection with 1 feature and 1 field
 geometry type:  POLYGON
 dimension:      XY
@@ -124,12 +105,12 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 # Import a line shapefile
 lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-Reading layer `HARV_roads' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp' using driver `ESRI Shapefile'
+Reading layer `HARV_roads' from data source `/Users/ebecker/Box Sync/Carpentry_repos/datacarpentry-lessons/geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp' using driver `ESRI Shapefile'
 Simple feature collection with 13 features and 15 fields
 geometry type:  MULTILINESTRING
 dimension:      XY
@@ -145,12 +126,12 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 # Import a point shapefile
 point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-Reading layer `HARVtower_UTM18N' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp' using driver `ESRI Shapefile'
+Reading layer `HARVtower_UTM18N' from data source `/Users/ebecker/Box Sync/Carpentry_repos/datacarpentry-lessons/geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp' using driver `ESRI Shapefile'
 Simple feature collection with 1 feature and 14 fields
 geometry type:  POINT
 dimension:      XY
@@ -174,7 +155,7 @@ by factor level or category.
 # view the factor levels
 levels(lines_HARV$TYPE)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -191,7 +172,7 @@ lineWidth <- c(2, 4, 3, 8)[lines_HARV$TYPE]
 # view vector
 lineWidth
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -207,7 +188,7 @@ lineWidth
 road_palette <- c("blue", "green", "grey", "purple")
 road_palette
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -224,7 +205,7 @@ road_palette
 road_colors <- c("blue", "green", "grey", "purple")[lines_HARV$TYPE]
 road_colors
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -242,7 +223,7 @@ lineWidth <- c(2, 4, 3, 8)[lines_HARV$TYPE]
 # view vector
 lineWidth
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -260,9 +241,9 @@ plot(lines_HARV$geometry,
      main = "NEON Harvard Forest Field Site\n Roads & Trails \nLine Width Varies by Type Attribute Value",
      lwd = lineWidth)
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-plot-unique-lines-1.png" title="plot of chunk plot-unique-lines" alt="plot of chunk plot-unique-lines" style="display: block; margin: auto;" />
+<img src="../fig/rmd-08-plot-unique-lines-1.png" title="plot of chunk plot-unique-lines" alt="plot of chunk plot-unique-lines" style="display: block; margin: auto;" />
 
 > ## Data Tip
 > Given we have a factor with 4 levels,
@@ -294,7 +275,7 @@ plot(lines_HARV$geometry,
 # we can use the color object that we created above to color the legend objects
 road_palette
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -313,9 +294,9 @@ legend("bottomright",
        bty = "n", # turn off the legend border
        cex = .8) # decrease the font / legend size
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-add-legend-to-plot-1.png" title="plot of chunk add-legend-to-plot" alt="plot of chunk add-legend-to-plot" style="display: block; margin: auto;" />
+<img src="../fig/rmd-08-add-legend-to-plot-1.png" title="plot of chunk add-legend-to-plot" alt="plot of chunk add-legend-to-plot" style="display: block; margin: auto;" />
 
 However, what if we want to create a more complex plot with many shapefiles
 and unique symbols that need to be represented clearly in a legend?
@@ -345,15 +326,15 @@ plot(point_HARV$geometry,
      pch = 19,
      col = "purple")
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-plot-many-shapefiles-1.png" title="plot of chunk plot-many-shapefiles" alt="plot of chunk plot-many-shapefiles" style="display: block; margin: auto;" />
+<img src="../fig/rmd-08-plot-many-shapefiles-1.png" title="plot of chunk plot-many-shapefiles" alt="plot of chunk plot-many-shapefiles" style="display: block; margin: auto;" />
 
 ~~~
 # assign plot to an object for easy modification!
 plot_HARV <- recordPlot()
 ~~~
-{: .language-r}
+{: .r}
 
 
 ## Customize Your Legend
@@ -377,7 +358,7 @@ them. We will start with the labels.
 labels <- c("Tower", "AOI", levels(lines_HARV$TYPE))
 labels
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -399,9 +380,9 @@ legend("bottomright",
        bty = "n", # turn off the legend border
        cex = .8) # decrease the font / legend size
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-create-custom-labels-1.png" title="plot of chunk create-custom-labels" alt="plot of chunk create-custom-labels" style="display: block; margin: auto;" />
+<img src="../fig/rmd-08-create-custom-labels-1.png" title="plot of chunk create-custom-labels" alt="plot of chunk create-custom-labels" style="display: block; margin: auto;" />
 
 Now we have a legend with the labels identified. Let's add colors to each legend
 element next. We can use the vectors of colors that we created earlier to do this.
@@ -411,7 +392,7 @@ element next. We can use the vectors of colors that we created earlier to do thi
 # we have a list of colors that we used above - we can use it in the legend
 road_palette
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -427,7 +408,7 @@ road_palette
 plot_colors <- c("purple", "grey", road_palette)
 plot_colors
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -449,9 +430,9 @@ legend("bottomright",
        bty = "n", # turn off the legend border
        cex = .8) # decrease the font / legend size
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-add-colors-1.png" title="plot of chunk add-colors" alt="plot of chunk add-colors" style="display: block; margin: auto;" />
+<img src="../fig/rmd-08-add-colors-1.png" title="plot of chunk add-colors" alt="plot of chunk add-colors" style="display: block; margin: auto;" />
 
 Great - now we have a legend however this legend uses boxes to symbolize each
 element in the plot. It might be better if the lines were symbolized as a line
@@ -472,7 +453,7 @@ and the points, symbolized as a symbol. We can customize this using
 plotSym <- c(16, 15, 15, 15, 15, 15)
 plotSym
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -495,9 +476,9 @@ legend("bottomright",
        col = plot_colors,
        cex = .8)
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-custom-symbols-1.png" title="plot of chunk custom-symbols" alt="plot of chunk custom-symbols" style="display: block; margin: auto;" />
+<img src="../fig/rmd-08-custom-symbols-1.png" title="plot of chunk custom-symbols" alt="plot of chunk custom-symbols" style="display: block; margin: auto;" />
 
 Now we've added a point symbol to represent our point element in the plot. However
 it might be more useful to use line symbols in our legend
@@ -524,7 +505,7 @@ symbol, but to instead use a line.
 line_legend <- c(NA, NA, 1, 1, 1, 1)
 line_legend
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -539,7 +520,7 @@ line_legend
 plotSym <- c(16, 15, NA, NA, NA, NA)
 plotSym
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -563,9 +544,9 @@ legend("bottomright",
        col = plot_colors,
        cex = .8)
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-refine-legend-1.png" title="plot of chunk refine-legend" alt="plot of chunk refine-legend" style="display: block; margin: auto;" />
+<img src="../fig/rmd-08-refine-legend-1.png" title="plot of chunk refine-legend" alt="plot of chunk refine-legend" style="display: block; margin: auto;" />
 
 
 > ## Challenge: Plot Polygon by Attribute
@@ -628,9 +609,9 @@ Create a custom legend.
 > >        bty = "n",
 > >        cex = 1)
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-code-plot-color-1.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-08-challenge-code-plot-color-1.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > ## 2
@@ -667,8 +648,8 @@ Create a custom legend.
 > >        bty = "n",
 > >        cex = 1)
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-code-plot-color-2.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-08-challenge-code-plot-color-2.png" title="plot of chunk challenge-code-plot-color" alt="plot of chunk challenge-code-plot-color" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
