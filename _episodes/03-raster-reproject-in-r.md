@@ -10,9 +10,9 @@ keypoints:
 - ""
 authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
 contributors: [Michael Heeremans]
-packagesLibraries: [raster, rgdal]
+packagesLibraries: [raster, rgdal, ggplot2]
 dateCreated:  2015-10-23
-lastModified: 2017-09-19
+lastModified: 2018-06-19
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series]
@@ -30,27 +30,6 @@ comments: true
 ---
 
 
-
-> ## Things You’ll Need To Complete This Tutorial
-> **R Skill Level:** Intermediate - you've got the basics of `R` down.
-You will need the most current version of `R` and, preferably, `RStudio` loaded
-on your computer to complete this tutorial.
->
-> ### Install R Packages
->
-> * **raster:** `install.packages("raster")`
-> * **rgdal:** `install.packages("rgdal")`
->
-> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
->
-> #### Data to Download
->
->
-> ### Additional Resources
->
-* <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
-> Read more about the `raster` package in `R`.</a>
-{: .prereq}
 
 Sometimes we encounter raster datasets that do not "line up" when plotted or
 analyzed. Rasters that don't line up are most often in different Coordinate
@@ -74,7 +53,7 @@ We will use the `raster` and `rgdal` packages in this tutorial.
 # load raster package
 library(raster)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -88,18 +67,62 @@ Loading required package: sp
 ~~~
 library(rgdal)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-rgdal: version: 1.2-8, (SVN revision 663)
+rgdal: version: 1.3-2, (SVN revision 755)
  Geospatial Data Abstraction Library extensions to R successfully loaded
- Loaded GDAL runtime: GDAL 2.2.1, released 2017/06/23
- Path to GDAL shared files: /usr/share/gdal/2.2
- Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
- Path to PROJ.4 shared files: (autodetected)
- Linking to sp version: 1.2-5 
+ Loaded GDAL runtime: GDAL 2.1.3, released 2017/20/01
+ Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.5/Resources/library/rgdal/gdal
+ GDAL binary built with GEOS: FALSE 
+ Loaded PROJ.4 runtime: Rel. 4.9.3, 15 August 2016, [PJ_VERSION: 493]
+ Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.5/Resources/library/rgdal/proj
+ Linking to sp version: 1.3-1 
+~~~
+{: .output}
+
+
+
+~~~
+library(ggplot2)
+library(dplyr)
+~~~
+{: .r}
+
+
+
+~~~
+
+Attaching package: 'dplyr'
+~~~
+{: .output}
+
+
+
+~~~
+The following objects are masked from 'package:raster':
+
+    intersect, select, union
+~~~
+{: .output}
+
+
+
+~~~
+The following objects are masked from 'package:stats':
+
+    filter, lag
+~~~
+{: .output}
+
+
+
+~~~
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
 ~~~
 {: .output}
 
@@ -113,53 +136,106 @@ DTM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.t
 # import DTM hillshade
 DTM_hill_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
 
-# plot hillshade using a grayscale color ramp
-plot(DTM_hill_HARV,
-    col = grey(1:100 / 100),
-    legend = FALSE,
-    main = "DTM Hillshade\n NEON Harvard Forest Field Site")
+# convert to data.frames
+DTM_HARV_df <- DTM_HARV  %>% 
+  rasterToPoints(., spatial = TRUE) %>% 
+  data.frame()
 
-# overlay the DTM on top of the hillshade
-plot(DTM_HARV,
-     col = terrain.colors(10),
-     alpha = 0.4,
-     add = TRUE,
-     legend = FALSE)
+DTM_hill_HARV_df <- DTM_hill_HARV  %>% 
+  rasterToPoints(., spatial = TRUE) %>% 
+  data.frame()
+
+ggplot() +
+     geom_raster(data = DTM_hill_HARV_df, 
+                 aes(x = x, y = y, 
+                   alpha = HARV_DTMhill_WGS84)
+                 ) +
+     geom_raster(data = DTM_HARV_df , 
+             aes(x = x, y = y, 
+                  fill = HARV_dtmCrop,
+                  alpha=0.8)
+             ) + 
+     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
+     guides(fill = guide_colorbar()) +
+     scale_alpha(range = c(0.25, 0.65), guide = "none") +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(), 
+          panel.grid.minor = element_blank()) +
+     theme(axis.title.x = element_blank(),
+           axis.title.y = element_blank()) +
+     ggtitle("Digital Terrain Model - NEON Harvard Forest Field Site") +
+     coord_equal()
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-import-DTM-hillshade-1.png" title="plot of chunk import-DTM-hillshade" alt="plot of chunk import-DTM-hillshade" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-import-DTM-hillshade-1.png" title="plot of chunk import-DTM-hillshade" alt="plot of chunk import-DTM-hillshade" style="display: block; margin: auto;" />
 
-Our results are curious - the Digital Terrain Model (`DTM_HARV`) did not plot on
-top of our hillshade. The hillshade plotted just fine on it's own. Let's try to
+Our results are curious - neither the Digital Terrain Model (`DTM_HARV_df`) 
+or the DTM Hillshade (`DTM_hill_HARV_df`)did not plot on
+Let's try to
 plot the DTM on it's own to make sure there are data there.
 
-<i class="fa fa-star"></i> **Code Tip:** For boolean `R` elements, such as
- `add = TRUE`, you can use `T` and `F` in place of `TRUE` and `FALSE`.
-{: .notice}
+
+~~~
+ggplot() +
+     geom_raster(data = DTM_HARV_df , 
+             aes(x = x, y = y, 
+                  fill = HARV_dtmCrop,
+                  alpha=0.8)
+             ) + 
+     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
+     guides(fill = guide_colorbar()) +
+     scale_alpha(range = c(0.25, 0.65), guide = "none") +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(), 
+          panel.grid.minor = element_blank()) +
+     theme(axis.title.x = element_blank(),
+           axis.title.y = element_blank()) +
+     ggtitle("Digital Terrain Model - NEON Harvard Forest Field Site") +
+     coord_equal()
+~~~
+{: .r}
+
+<img src="../fig/rmd-03-plot-DTM-1.png" title="plot of chunk plot-DTM" alt="plot of chunk plot-DTM" style="display: block; margin: auto;" />
+
+Our DTM seems to contain data and plots just fine. 
+
+Next we plot the DTM Hillshade on it's own to see whether everything is OK.
 
 
 ~~~
-# Plot DTM
-plot(DTM_HARV,
-     col = terrain.colors(10),
-     alpha = 1,
-     legend = FALSE,
-     main = "Digital Terrain Model\n NEON Harvard Forest Field Site")
+ggplot() +
+     geom_raster(data = DTM_hill_HARV_df, 
+                 aes(x = x, y = y, 
+                   alpha = HARV_DTMhill_WGS84)
+                 ) +
+     guides(fill = guide_colorbar()) +
+     scale_alpha(range = c(0.25, 0.65), guide = "none") +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(), 
+          panel.grid.minor = element_blank()) +
+     theme(axis.title.x = element_blank(),
+           axis.title.y = element_blank()) +
+     ggtitle("Digital Terrain Model Hillshade - NEON Harvard Forest Field Site") +
+     coord_equal()
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-plot-DTM-1.png" title="plot of chunk plot-DTM" alt="plot of chunk plot-DTM" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-plot-DTM-hill-1.png" title="plot of chunk plot-DTM-hill" alt="plot of chunk plot-DTM-hill" style="display: block; margin: auto;" />
 
-Our DTM seems to contain data and plots just fine. Let's next check the
- Coordinate Reference System (CRS) and compare it to our hillshade.
+Now we see the problem, the projections of the two rasters are different.
+When this is the case, `ggplot` won't render the image, or unforunately,
+throw an error message.
+
+Let's next check the
+ Coordinate Reference System (CRS) of the DTM and compare it to our hillshade.
 
 
 ~~~
 # view crs for DTM
 crs(DTM_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -176,7 +252,7 @@ CRS arguments:
 # view crs for hillshade
 crs(DTM_hill_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -213,7 +289,9 @@ The syntax is `projectRaster(RasterObject, crs = CRSToReprojectTo)`
 
 We want the CRS of our hillshade to match the `DTM_HARV` raster. We can thus
 assign the CRS of our `DTM_HARV` to our hillshade within the `projectRaster()`
-function as follows: `crs = crs(DTM_HARV)`.
+function as follows: `crs = crs(DTM_HARV)`. 
+Note that we are using the `projectRaster()` function on the *raster* object,
+not the `data.frame()` we pass to `ggplot`.
 
 
 ~~~
@@ -224,7 +302,7 @@ DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV,
 # compare attributes of DTM_hill_UTMZ18N to DTM_hill
 crs(DTM_hill_UTMZ18N_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -240,7 +318,7 @@ CRS arguments:
 ~~~
 crs(DTM_hill_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -256,7 +334,7 @@ CRS arguments:
 # compare attributes of DTM_hill_UTMZ18N to DTM_hill
 extent(DTM_hill_UTMZ18N_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -274,7 +352,7 @@ ymax        : 4713907
 ~~~
 extent(DTM_hill_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -301,7 +379,7 @@ UTM. However, the extent values of `DTM_hillUTMZ18N_HARV` are different from
 > > # The extent for DTM_hill_HARV is still in lat/long so the extent is expressed
 > > # in decimal degrees.
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > {: .solution}
 {: .challenge}
 
@@ -314,7 +392,7 @@ Let's next have a look at the resolution of our reprojected hillshade.
 # compare resolution
 res(DTM_hill_UTMZ18N_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -337,7 +415,7 @@ DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV,
 # view resolution
 res(DTM_hill_UTMZ18N_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -350,22 +428,36 @@ Let's plot our newly reprojected raster.
 
 
 ~~~
-# plot newly reprojected hillshade
-plot(DTM_hill_UTMZ18N_HARV,
-    col = grey(1:100/100),
-    legend = FALSE,
-    main = "DTM with Hillshade\n NEON Harvard Forest Field Site")
+# convert the reprojected raster to a data.frame()
 
-# overlay the DTM on top of the hillshade
-plot(DTM_HARV,
-     col = rainbow(100),
-     alpha = 0.4,
-     add = TRUE,
-     legend = FALSE)
+DTM_hill_HARV_2_df <- DTM_hill_UTMZ18N_HARV  %>% 
+                          rasterToPoints(., spatial = TRUE) %>% 
+                          data.frame()
+
+ggplot() +
+     geom_raster(data = DTM_hill_HARV_2_df, 
+                 aes(x = x, y = y, 
+                   alpha = HARV_DTMhill_WGS84)
+                 ) +
+     geom_raster(data = DTM_HARV_df , 
+             aes(x = x, y = y, 
+                  fill = HARV_dtmCrop,
+                  alpha=0.8)
+             ) + 
+     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
+     guides(fill = guide_colorbar()) +
+     scale_alpha(range = c(0.25, 0.65), guide = "none") +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(), 
+          panel.grid.minor = element_blank()) +
+     theme(axis.title.x = element_blank(),
+           axis.title.y = element_blank()) +
+     ggtitle("Digital Terrain Model - NEON Harvard Forest Field Site") +
+     coord_equal()
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-plot-projected-raster-1.png" title="plot of chunk plot-projected-raster" alt="plot of chunk plot-projected-raster" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-plot-projected-raster-1.png" title="plot of chunk plot-projected-raster" alt="plot of chunk plot-projected-raster" style="display: block; margin: auto;" />
 
 We have now successfully draped the Digital Terrain Model on top of our
 hillshade to produce a nice looking, textured map!
@@ -389,28 +481,45 @@ field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files.
 > > DTM_hill_UTMZ18N_SJER <- projectRaster(DSM_hill_SJER_WGS,
 > >                                   crs = crs(DSM_SJER),
 > >                                   res = 1)
-> > # plot hillshade using a grayscale color ramp
-> > plot(DTM_hill_UTMZ18N_SJER,
-> >     col = grey(1:100/100),
-> >     legend = FALSE,
-> >     main = "DSM with Hillshade\n NEON SJER Field Site")
 > > 
-> > # overlay the DSM on top of the hillshade
-> > plot(DSM_SJER,
-> >      col = terrain.colors(10),
-> >      alpha = 0.4,
-> >      add = TRUE,
-> >      legend = FALSE)
+> > # convert to data.frames
+> > DSM_SJER_df <- DSM_SJER %>% 
+> >   rasterToPoints(., spatial = TRUE) %>% 
+> >   data.frame()
+> > 
+> > DSM_hill_SJER_df <- DTM_hill_UTMZ18N_SJER  %>% 
+> >   rasterToPoints(., spatial = TRUE) %>% 
+> >   data.frame()
+> > 
+> > ggplot() +
+> >      geom_raster(data = DSM_hill_SJER_df, 
+> >                  aes(x = x, y = y, 
+> >                    alpha = SJER_DSMhill_WGS84)
+> >                  ) +
+> >      geom_raster(data = DSM_SJER_df, 
+> >              aes(x = x, y = y, 
+> >                   fill = SJER_dsmCrop,
+> >                   alpha=0.8)
+> >              ) + 
+> >      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
+> >      guides(fill = guide_colorbar()) +
+> >      scale_alpha(range = c(0.25, 0.65), guide = "none") +
+> >     theme_bw() +
+> >     theme(panel.grid.major = element_blank(), 
+> >           panel.grid.minor = element_blank()) +
+> >      theme(axis.title.x = element_blank(),
+> >            axis.title.y = element_blank()) +
+> >      ggtitle("DSM with Hillshade - NEON SJER Field Site") +
+> >      coord_equal()
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-code-reprojection-1.png" title="plot of chunk challenge-code-reprojection" alt="plot of chunk challenge-code-reprojection" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-03-challenge-code-reprojection-1.png" title="plot of chunk challenge-code-reprojection" alt="plot of chunk challenge-code-reprojection" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
 If you completed the San Joaquin plotting challenge in the
 [Plot Raster Data in R]({{ site.baseurl }}/R/Plot-Rasters-In-R#challenge-create-dtm--dsm-for-sjer)
 tutorial, how does the map you just created compare to that map?
-</div>
 
 

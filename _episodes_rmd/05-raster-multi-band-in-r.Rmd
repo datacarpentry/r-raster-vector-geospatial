@@ -31,23 +31,6 @@ source("../setup.R")
 knitr_fig_path("05-")
 ```
 
-> ## Things You’ll Need To Complete This Tutorial
-> **R Skill Level:** Intermediate - you've got the basics of `R` down.
->
-You will need the most current version of `R` and, preferably, `RStudio` loaded
-on your computer to complete this tutorial.
->
-> ### Install R Packages
->
-> * **raster:** `install.packages("raster")`
-> * **rgdal:** `install.packages("rgdal")`
->
-> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
->
-> #### Data to Download
->
-{: .prereq}
-
 This tutorial explores how to import and plot a multi-band raster in
 R. It also covers how to plot a three-band color image using the `plotRGB()`
 function in `R`.

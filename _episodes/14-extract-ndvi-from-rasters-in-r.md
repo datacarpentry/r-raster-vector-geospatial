@@ -15,7 +15,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal, ggplot2]
 dateCreated: 2014-11-26
-lastModified: 2017-09-19
+lastModified: 2018-06-19
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 mainTag: raster-data-series
@@ -30,22 +30,6 @@ comments: true
 ---
 
 
-
-> ## Things You'll Need To Complete This Tutorial
-> **R Skill Level:** Intermediate - you've got the basics of `R` down.
-> You will need the most current version of `R` and, preferably, `RStudio` loaded
-> on your computer to complete this tutorial.
->
-> ### Install R Packages
->
-> * **raster:** `install.packages("raster")`
-> * **rgdal:** `install.packages("rgdal")`
-> * **ggplot2:** `install.packages("ggplot2")`
->
-> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
->
-> #### Data to Download
-{: .prereq}
 
 In this tutorial, we will extract NDVI values from a raster time series dataset
 in `R` and plot them using `ggplot`.
@@ -69,7 +53,7 @@ tutorials so you may be able to skip this first step!).
 ~~~
 library(raster)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -83,18 +67,19 @@ Loading required package: sp
 ~~~
 library(rgdal)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-rgdal: version: 1.2-8, (SVN revision 663)
+rgdal: version: 1.3-2, (SVN revision 755)
  Geospatial Data Abstraction Library extensions to R successfully loaded
- Loaded GDAL runtime: GDAL 2.2.1, released 2017/06/23
- Path to GDAL shared files: /usr/share/gdal/2.2
- Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
- Path to PROJ.4 shared files: (autodetected)
- Linking to sp version: 1.2-5 
+ Loaded GDAL runtime: GDAL 2.1.3, released 2017/20/01
+ Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.5/Resources/library/rgdal/gdal
+ GDAL binary built with GEOS: FALSE 
+ Loaded PROJ.4 runtime: Rel. 4.9.3, 15 August 2016, [PJ_VERSION: 493]
+ Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.5/Resources/library/rgdal/proj
+ Linking to sp version: 1.3-1 
 ~~~
 {: .output}
 
@@ -114,7 +99,7 @@ NDVI_HARV_stack <- stack(all_HARV_NDVI)
 # apply scale factor
 NDVI_HARV_stack <- NDVI_HARV_stack/10000
 ~~~
-{: .language-r}
+{: .r}
 
 ## Calculate Average NDVI
 Our goal in this tutorial, is to create a `data.frame` that contains a single,
@@ -139,7 +124,7 @@ avg_NDVI_HARV <- as.data.frame(avg_NDVI_HARV)
 # view data
 avg_NDVI_HARV
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -167,7 +152,7 @@ X309_HARV_ndvi_crop      0.541130
 # view only the value in row 1, column 1 of the data frame
 avg_NDVI_HARV[1,1]
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -189,7 +174,7 @@ particular column is. Let's change the NDVI column name to `MeanNDVI`.
 # view column name slot
 names(avg_NDVI_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -207,7 +192,7 @@ names(avg_NDVI_HARV) <- "meanNDVI"
 # view cleaned column names
 names(avg_NDVI_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -234,7 +219,7 @@ avg_NDVI_HARV$year <- "2011"
 # view data
 head(avg_NDVI_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -277,7 +262,7 @@ julianDays <- gsub(pattern = "X|_HARV_ndvi_crop", #the pattern to find
 # make sure output looks ok
 head(julianDays)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -295,7 +280,7 @@ avg_NDVI_HARV$julianDay <- julianDays
 # what class is the new column
 class(avg_NDVI_HARV$julianDay)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -346,7 +331,7 @@ avg_NDVI_HARV$Date<- origin + (avg_NDVI_HARV$julianDay-1)
 # did it work?
 head(avg_NDVI_HARV$Date)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -362,7 +347,7 @@ head(avg_NDVI_HARV$Date)
 # What are the classes of the two columns now?
 class(avg_NDVI_HARV$Date)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -376,7 +361,7 @@ class(avg_NDVI_HARV$Date)
 ~~~
 class(avg_NDVI_HARV$julianDay)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -449,7 +434,7 @@ error we then subtract 1 to get the correct day, January 05 2011.
 > > # did it work?
 > > avg_NDVI_SJER
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > {: .solution}
 {: .challenge}
 
@@ -471,9 +456,9 @@ ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI), na.rm=TRUE) +
   xlab("Julian Days") + ylab("Mean NDVI") +
   theme(text = element_text(size=20))
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-ggplot-data-1.png" title="plot of chunk ggplot-data" alt="plot of chunk ggplot-data" style="display: block; margin: auto;" />
+<img src="../fig/rmd-14-ggplot-data-1.png" title="plot of chunk ggplot-data" alt="plot of chunk ggplot-data" style="display: block; margin: auto;" />
 
 
 > ## Challenge: Plot San Joaquin Experimental Range Data
@@ -492,9 +477,9 @@ different color.
 > >   xlab("Julian Day") + ylab("Mean NDVI") +
 > >   theme(text = element_text(size=20))
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-code-ggplot-data-1.png" title="plot of chunk challenge-code-ggplot-data" alt="plot of chunk challenge-code-ggplot-data" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-14-challenge-code-ggplot-data-1.png" title="plot of chunk challenge-code-ggplot-data" alt="plot of chunk challenge-code-ggplot-data" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -519,9 +504,9 @@ ggplot(NDVI_HARV_SJER, aes(julianDay, meanNDVI, colour = site)) +
 	# scale_colour : match previous plots
   theme(text = element_text(size=20))
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-merge-df-single-plot-1.png" title="plot of chunk merge-df-single-plot" alt="plot of chunk merge-df-single-plot" style="display: block; margin: auto;" />
+<img src="../fig/rmd-14-merge-df-single-plot-1.png" title="plot of chunk merge-df-single-plot" alt="plot of chunk merge-df-single-plot" style="display: block; margin: auto;" />
 
 > ## Challenge: Plot NDVI with Date
 > 
@@ -541,9 +526,9 @@ ggplot(NDVI_HARV_SJER, aes(julianDay, meanNDVI, colour = site)) +
 > >   scale_colour_manual(values = c("PeachPuff4", "SpringGreen4"))+  # match previous plots
 > >   theme(text = element_text(size = 20))
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-code-plot2-1.png" title="plot of chunk challenge-code-plot2" alt="plot of chunk challenge-code-plot2" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-14-challenge-code-plot2-1.png" title="plot of chunk challenge-code-plot2" alt="plot of chunk challenge-code-plot2" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -579,9 +564,9 @@ for (aFile in rgb.allCropped){
 # reset layout
 par(mfrow=c(1, 1))
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-view-all-rgb-Harv-1.png" title="plot of chunk view-all-rgb-Harv" alt="plot of chunk view-all-rgb-Harv" style="display: block; margin: auto;" />
+<img src="../fig/rmd-14-view-all-rgb-Harv-1.png" title="plot of chunk view-all-rgb-Harv" alt="plot of chunk view-all-rgb-Harv" style="display: block; margin: auto;" />
 
 Notice that the data points with very low NDVI values can be associated with
 images that are filled with clouds. Thus, we can attribute the low NDVI values
@@ -614,9 +599,9 @@ for (aFile in rgb.allCropped.SJER)
 # reset layout
 par(mfrow=c(1, 1))
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-view-all-rgb-SJER-1.png" title="plot of chunk view-all-rgb-SJER" alt="plot of chunk view-all-rgb-SJER" style="display: block; margin: auto;" />
+<img src="../fig/rmd-14-view-all-rgb-SJER-1.png" title="plot of chunk view-all-rgb-SJER" alt="plot of chunk view-all-rgb-SJER" style="display: block; margin: auto;" />
 
 Without significant additional processing, we will not be able to retrieve a
 strong reflection from vegetation, from a remotely sensed image that is
@@ -646,7 +631,7 @@ avg_NDVI_HARV_clean<-subset(avg_NDVI_HARV, meanNDVI>0.1)
 # Did it work?
 avg_NDVI_HARV_clean$meanNDVI<0.1
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -667,9 +652,9 @@ ggplot(avg_NDVI_HARV_clean, aes(julianDay, meanNDVI)) +
   xlab("Julian Days") + ylab("Mean NDVI") +
   theme(text = element_text(size=20))
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-plot-clean-HARV-1.png" title="plot of chunk plot-clean-HARV" alt="plot of chunk plot-clean-HARV" style="display: block; margin: auto;" />
+<img src="../fig/rmd-14-plot-clean-HARV-1.png" title="plot of chunk plot-clean-HARV" alt="plot of chunk plot-clean-HARV" style="display: block; margin: auto;" />
 
 Now our outlier data points are removed and the pattern of "green-up" and
 "brown-down" makes a bit more sense.
@@ -693,7 +678,7 @@ want as an output format.
 
 head(avg_NDVI_HARV_clean)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -723,7 +708,7 @@ row.names(NDVI_HARV_toWrite)<-NULL
 # check data frame
 head(NDVI_HARV_toWrite)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -744,7 +729,7 @@ head(NDVI_HARV_toWrite)
 # write.csv(DateFrameName, file="NewFileName")
 write.csv(NDVI_HARV_toWrite, file="meanNDVI_HARV_2011.csv")
 ~~~
-{: .language-r}
+{: .r}
 
 > ## Challenge: Write to .csv
 > 
@@ -769,7 +754,7 @@ write.csv(NDVI_HARV_toWrite, file="meanNDVI_HARV_2011.csv")
 > > # check data frame
 > > head(NDVI_SJER_toWrite)
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
 > > 
 > > 
@@ -791,6 +776,6 @@ write.csv(NDVI_HARV_toWrite, file="meanNDVI_HARV_2011.csv")
 > > # write.csv(DateFrameName, file="NewFileName")
 > > write.csv(NDVI_SJER_toWrite, file="meanNDVI_SJER_2011.csv")
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > {: .solution}
 {: .challenge}

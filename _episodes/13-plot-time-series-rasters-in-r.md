@@ -13,7 +13,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal, rasterVis]
 dateCreated:  2014-11-26
-lastModified: 2017-09-19
+lastModified: 2018-06-19
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 mainTag: raster-data-series
@@ -29,22 +29,6 @@ comments: true
 ---
 
 
-
-> ## Things You’ll Need To Complete This Tutorial
-> **R Skill Level:** Intermediate - you've got the basics of `R` down.
-> You will need the most current version of `R` and, preferably, `RStudio` loaded
-> on your computer to complete this tutorial.
->
-> ### Install R Packages
->
-> * **raster:** `install.packages("raster")`
-> * **rgdal:** `install.packages("rgdal")`
-> * **rasterVis:** `install.packages("rasterVis")`
->
-> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
->
-> #### Data to Download
-{: .prereq}
 
 This tutorial covers how to improve plotting output using the `rasterVis` package
 in `R`. Specifically it covers using `levelplot()` and adding meaningful custom
@@ -65,7 +49,7 @@ please create it now.
 ~~~
 library(raster)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -79,18 +63,19 @@ Loading required package: sp
 ~~~
 library(rgdal)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-rgdal: version: 1.2-8, (SVN revision 663)
+rgdal: version: 1.3-2, (SVN revision 755)
  Geospatial Data Abstraction Library extensions to R successfully loaded
- Loaded GDAL runtime: GDAL 2.2.1, released 2017/06/23
- Path to GDAL shared files: /usr/share/gdal/2.2
- Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
- Path to PROJ.4 shared files: (autodetected)
- Linking to sp version: 1.2-5 
+ Loaded GDAL runtime: GDAL 2.1.3, released 2017/20/01
+ Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.5/Resources/library/rgdal/gdal
+ GDAL binary built with GEOS: FALSE 
+ Loaded PROJ.4 runtime: Rel. 4.9.3, 15 August 2016, [PJ_VERSION: 493]
+ Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.5/Resources/library/rgdal/proj
+ Linking to sp version: 1.3-1 
 ~~~
 {: .output}
 
@@ -99,7 +84,7 @@ rgdal: version: 1.2-8, (SVN revision 663)
 ~~~
 library(rasterVis)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -134,7 +119,7 @@ NDVI_HARV_stack <- stack(all_NDVI_HARV)
 # apply scale factor
 NDVI_HARV_stack <- NDVI_HARV_stack/10000
 ~~~
-{: .language-r}
+{: .r}
 
 ## Plot Raster Time Series Data
 We can use the `plot` function to plot our raster time series data.
@@ -147,9 +132,9 @@ plot(NDVI_HARV_stack,
      zlim = c(.15, 1),
      nc = 4)
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-plot-time-series-1.png" title="plot of chunk plot-time-series" alt="plot of chunk plot-time-series" style="display: block; margin: auto;" />
+<img src="../fig/rmd-13-plot-time-series-1.png" title="plot of chunk plot-time-series" alt="plot of chunk plot-time-series" style="display: block; margin: auto;" />
 
 > ## Data Tip
 > The range of values for NDVI is 0-1.
@@ -177,9 +162,9 @@ function. We use `main = "TITLE"` to add a title to the entire plot series.
 levelplot(NDVI_HARV_stack,
           main = "Landsat NDVI\nNEON Harvard Forest")
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-levelplot-time-series-1.png" title="plot of chunk levelplot-time-series" alt="plot of chunk levelplot-time-series" style="display: block; margin: auto;" />
+<img src="../fig/rmd-13-levelplot-time-series-1.png" title="plot of chunk levelplot-time-series" alt="plot of chunk levelplot-time-series" style="display: block; margin: auto;" />
 
 ## Adjust the Color Ramp
 Next, let's adjust the color ramp used to render the rasters. First, we
@@ -197,9 +182,9 @@ levelplot(NDVI_HARV_stack,
         main = "Landsat NDVI -- Improved Colors \nNEON Harvard Forest Field Site",
         col.regions=cols)
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-change-color-ramp-1.png" title="plot of chunk change-color-ramp" alt="plot of chunk change-color-ramp" style="display: block; margin: auto;" />
+<img src="../fig/rmd-13-change-color-ramp-1.png" title="plot of chunk change-color-ramp" alt="plot of chunk change-color-ramp" style="display: block; margin: auto;" />
 
 The yellow to green color ramp visually represents NDVI well given it's a
 measure of greenness. Someone looking at the plot can quickly understand that
@@ -232,7 +217,7 @@ First let's remove "_HARV_NDVI_crop" from each label.
 # view names for each raster layer
 names(NDVI_HARV_stack)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -254,7 +239,7 @@ rasterNames  <- gsub("X", "Day ", names(NDVI_HARV_stack))
 # view Names
 rasterNames
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -278,7 +263,7 @@ rasterNames  <- gsub("_HARV_ndvi_crop", "", rasterNames)
 # view names for each raster layer
 rasterNames
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -309,9 +294,9 @@ levelplot(NDVI_HARV_stack,
           main = "Landsat NDVI - Julian Days \nHarvard Forest 2011",
           names.attr=rasterNames)
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-create-levelplot-1.png" title="plot of chunk create-levelplot" alt="plot of chunk create-levelplot" style="display: block; margin: auto;" />
+<img src="../fig/rmd-13-create-levelplot-1.png" title="plot of chunk create-levelplot" alt="plot of chunk create-levelplot" style="display: block; margin: auto;" />
 
 We can adjust the columns of our plot too using `layout=c(cols, rows)`. Below
 we adjust the layout to be a matrix of 5 columns and 3 rows.
@@ -325,9 +310,9 @@ levelplot(NDVI_HARV_stack,
           main = "Landsat NDVI - Julian Days \nHarvard Forest 2011",
           names.attr=rasterNames)
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-adjust-layout-1.png" title="plot of chunk adjust-layout" alt="plot of chunk adjust-layout" style="display: block; margin: auto;" />
+<img src="../fig/rmd-13-adjust-layout-1.png" title="plot of chunk adjust-layout" alt="plot of chunk adjust-layout" style="display: block; margin: auto;" />
 
 Finally, `scales` allows us to modify the x and y-axis scale. Let's simply
 remove the axis ticks from the plot with `scales =list(draw=FALSE)`.
@@ -342,9 +327,9 @@ levelplot(NDVI_HARV_stack,
           names.attr=rasterNames,
           scales=list(draw=FALSE )) # remove axes labels & ticks
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-remove-axis-ticks-1.png" title="plot of chunk remove-axis-ticks" alt="plot of chunk remove-axis-ticks" style="display: block; margin: auto;" />
+<img src="../fig/rmd-13-remove-axis-ticks-1.png" title="plot of chunk remove-axis-ticks" alt="plot of chunk remove-axis-ticks" style="display: block; margin: auto;" />
 
 > ## Challenge: Divergent Color Ramps
 > 
@@ -377,14 +362,14 @@ levelplot(NDVI_HARV_stack,
 > >       main = "Landsat NDVI - Julian Days - 2011 \nNEON Harvard Forest Field Site",
 > >       names.attr=rasterNames)
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-code-levelplot-divergent-1.png" title="plot of chunk challenge-code-levelplot-divergent" alt="plot of chunk challenge-code-levelplot-divergent" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-13-challenge-code-levelplot-divergent-1.png" title="plot of chunk challenge-code-levelplot-divergent" alt="plot of chunk challenge-code-levelplot-divergent" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > # The sequential is better than the divergent as it is more akin to the process
 > > # of greening up, which starts off at one end and just keeps increasing.
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > {: .solution}
 {: .challenge}

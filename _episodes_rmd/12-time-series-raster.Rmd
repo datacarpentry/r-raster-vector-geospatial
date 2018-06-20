@@ -36,25 +36,6 @@ source("../setup.R")
 knitr_fig_path("12-")
 ```
 
-> ## Things You’ll Need To Complete This Tutorial
-> **R Skill Level:** Intermediate - you've got the basics of `R` down.
-> You will need the most current version of `R` and, preferably, `RStudio` loaded
-> on your computer to complete this tutorial.
->
-> ### Install R Packages
->
-> * **raster:** `install.packages("raster")`
-> * **rgdal:** `install.packages("rgdal")`
->
-> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
->
-> #### Data to Download
->
-> ### Additional Resources
-> * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
-> Read more about the `raster` package in `R`.</a>
-{: .prereq}
-
 This tutorial covers how to work with and plot a raster time series, using an
 `R` `RasterStack` object. It also covers practical assessment of data quality in
 remote sensing derived imagery.

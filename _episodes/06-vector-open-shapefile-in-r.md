@@ -13,7 +13,7 @@ keypoints:
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2015-10-23
-lastModified: 2017-09-19
+lastModified: 2018-06-19
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -24,24 +24,6 @@ shapefiles containing point, line and polygon vector data in R."
 ---
 
 
-
-> ## Things You’ll Need To Complete This Tutorial
-> **R Skill Level:** Introduction - you are just getting started with spatial data
-in `R`, but have some of the other `R` basics down.
->
-> You will need the most current version of `R` and, preferably, `RStudio` loaded
-on your computer to complete this tutorial.
->
-> ### Install R Packages
->
-> * **raster:** `install.packages("raster")`
-> * **sf:** `install.packages("sf")`
->
-> [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
->
-> ## Download Data
-> * [Site layout shapefiles](https://ndownloader.figshare.com/files/3708751)
-{: .prereq}
 
 In this tutorial, we will open and plot point, line and polygon vector data
 stored in shapefile format in `R`.
@@ -107,12 +89,12 @@ We will use the `sf` package to work with vector data in `R`. Notice that the
 # for vector work
 library(sf)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
+Linking to GEOS 3.6.1, GDAL 2.1.3, proj.4 4.9.3
 ~~~
 {: .output}
 
@@ -122,7 +104,7 @@ Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
 # for metadata/attributes- vectors or rasters
 library(raster)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -130,15 +112,6 @@ library(raster)
 Loading required package: sp
 ~~~
 {: .output}
-
-
-
-~~~
-# set working directory to the directory location on your computer where
-# you downloaded and unzipped the data files for the tutorial
-# setwd("pathToDirHere")
-~~~
-{: .language-r}
 
 The shapefiles that we will import are:
 
@@ -163,12 +136,12 @@ Let's import our AOI.
 aoi_boundary_HARV <- st_read(
   "data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-Reading layer `HarClip_UTMZ18' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp' using driver `ESRI Shapefile'
+Reading layer `HarClip_UTMZ18' from data source `/Users/ebecker/Box Sync/Carpentry_repos/datacarpentry-lessons/geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp' using driver `ESRI Shapefile'
 Simple feature collection with 1 feature and 1 field
 geometry type:  POLYGON
 dimension:      XY
@@ -209,7 +182,7 @@ We can view shapefile metadata using the `st_geometry_type`, `st_crs` and `st_bb
 # view just the geometry type for the shapefile
 st_geometry_type(aoi_boundary_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -225,19 +198,14 @@ st_geometry_type(aoi_boundary_HARV)
 # view just the crs for the shapefile
 st_crs(aoi_boundary_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-$epsg
-[1] 32618
-
-$proj4string
-[1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
-
-attr(,"class")
-[1] "crs"
+Coordinate Reference System:
+  EPSG: 32618 
+  proj4string: "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
 ~~~
 {: .output}
 
@@ -247,7 +215,7 @@ attr(,"class")
 # view just the extent for the shapefile
 st_bbox(aoi_boundary_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -263,7 +231,7 @@ st_bbox(aoi_boundary_HARV)
 # view all metadata at same time
 aoi_boundary_HARV
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -275,7 +243,7 @@ bbox:           xmin: 732128 ymin: 4713209 xmax: 732251.1 ymax: 4713359
 epsg (SRID):    32618
 proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
   id                       geometry
-1  1 POLYGON ((732128.016925 471...
+1  1 POLYGON ((732128 4713359, 7...
 ~~~
 {: .output}
 
@@ -323,7 +291,7 @@ We can view the attributes of an `sf` object by printing it to the screen. The g
 ~~~
 aoi_boundary_HARV
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -335,7 +303,7 @@ bbox:           xmin: 732128 ymin: 4713209 xmax: 732251.1 ymax: 4713359
 epsg (SRID):    32618
 proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
   id                       geometry
-1  1 POLYGON ((732128.016925 471...
+1  1 POLYGON ((732128 4713359, 7...
 ~~~
 {: .output}
 
@@ -345,13 +313,13 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 # alternate way to view attributes
 data.frame(aoi_boundary_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
   id                       geometry
-1  1 POLYGON ((732128.016925 471...
+1  1 POLYGON ((732128 4713359, 7...
 ~~~
 {: .output}
 
@@ -368,7 +336,7 @@ includes the **geometry type**, the number of **features**, the **extent**, and 
 # view a summary of metadata & attributes associated with the spatial object
 summary(aoi_boundary_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -397,9 +365,9 @@ Next, let's visualize the data in our `sf` object using
 plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
      main = "AOI Boundary Plot")
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-plot-shapefile-1.png" title="plot of chunk plot-shapefile" alt="plot of chunk plot-shapefile" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-plot-shapefile-1.png" title="plot of chunk plot-shapefile" alt="plot of chunk plot-shapefile" style="display: block; margin: auto;" />
 
 > ## Challenge: Import Line and Point Shapefiles
 > 
@@ -424,12 +392,12 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > # import line shapefile
 > > lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
 > > 
 > > 
 > > ~~~
-> > Reading layer `HARV_roads' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp' using driver `ESRI Shapefile'
+> > Reading layer `HARV_roads' from data source `/Users/ebecker/Box Sync/Carpentry_repos/datacarpentry-lessons/geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp' using driver `ESRI Shapefile'
 > > Simple feature collection with 13 features and 15 fields
 > > geometry type:  MULTILINESTRING
 > > dimension:      XY
@@ -445,12 +413,12 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > # import point shapefile
 > > point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
 > > 
 > > 
 > > ~~~
-> > Reading layer `HARVtower_UTM18N' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp' using driver `ESRI Shapefile'
+> > Reading layer `HARVtower_UTM18N' from data source `/Users/ebecker/Box Sync/Carpentry_repos/datacarpentry-lessons/geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp' using driver `ESRI Shapefile'
 > > Simple feature collection with 1 feature and 14 fields
 > > geometry type:  POINT
 > > dimension:      XY
@@ -466,7 +434,7 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > # 1
 > > class(lines_HARV)
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
 > > 
 > > 
@@ -480,7 +448,7 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > ~~~
 > > class(point_HARV)
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
 > > 
 > > 
@@ -495,19 +463,14 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > # 2
 > > st_crs(lines_HARV)
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
 > > 
 > > 
 > > ~~~
-> > $epsg
-> > [1] 32618
-> > 
-> > $proj4string
-> > [1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
-> > 
-> > attr(,"class")
-> > [1] "crs"
+> > Coordinate Reference System:
+> >   EPSG: 32618 
+> >   proj4string: "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
 > > ~~~
 > > {: .output}
 > > 
@@ -516,7 +479,7 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > ~~~
 > > st_bbox(lines_HARV)
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
 > > 
 > > 
@@ -531,19 +494,14 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > ~~~
 > > st_crs(point_HARV)
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
 > > 
 > > 
 > > ~~~
-> > $epsg
-> > [1] 32618
-> > 
-> > $proj4string
-> > [1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
-> > 
-> > attr(,"class")
-> > [1] "crs"
+> > Coordinate Reference System:
+> >   EPSG: 32618 
+> >   proj4string: "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
 > > ~~~
 > > {: .output}
 > > 
@@ -552,7 +510,7 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > ~~~
 > > st_bbox(point_HARV)
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
 > > 
 > > 
@@ -571,7 +529,7 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > # 4 -> numerous ways to find this; lines_HARV=13,
 > > nrow(lines_HARV)  #easiest, but not previously taught
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
 > > 
 > > 
@@ -585,7 +543,7 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > ~~~
 > > lines_HARV  #look at 'features'
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
 > > 
 > > 
@@ -596,6 +554,7 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > bbox:           xmin: 730741.2 ymin: 4711942 xmax: 733295.5 ymax: 4714260
 > > epsg (SRID):    32618
 > > proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
+> > First 10 features:
 > >    OBJECTID_1 OBJECTID       TYPE             NOTES MISCNOTES RULEID
 > > 1          14       48 woods road Locust Opening Rd      <NA>      5
 > > 2          40       91   footpath              <NA>      <NA>      6
@@ -607,9 +566,6 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > 8         215      283 stone wall              <NA>      <NA>      1
 > > 9         216      284 stone wall              <NA>      <NA>      1
 > > 10        553      674  boardwalk              <NA>      <NA>      2
-> > 11        752       71 woods road    Pierce Farm Rd      <NA>      5
-> > 12        753       71 woods road    Pierce Farm Rd      <NA>      5
-> > 13        754       71 woods road    Pierce Farm Rd      <NA>      5
 > >             MAPLABEL SHAPE_LENG             LABEL BIKEHORSE RESVEHICLE
 > > 1  Locust Opening Rd 1297.35706 Locust Opening Rd         Y         R1
 > > 2               <NA>  146.29984              <NA>         Y         R1
@@ -621,9 +577,6 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > 8               <NA>   90.33118              <NA>      <NA>       <NA>
 > > 9               <NA>   35.88146              <NA>      <NA>       <NA>
 > > 10              <NA>   67.43464              <NA>         N         R3
-> > 11    Pierce Farm Rd 3808.43252    Pierce Farm Rd         Y         R2
-> > 12    Pierce Farm Rd 3808.43252    Pierce Farm Rd         N         R3
-> > 13    Pierce Farm Rd 3808.43252    Pierce Farm Rd         Y         R2
 > >    RECMAP Shape_Le_1                            ResVehic_1
 > > 1       Y 1297.10617    R1 - All Research Vehicles Allowed
 > > 2       Y  146.29983    R1 - All Research Vehicles Allowed
@@ -635,23 +588,17 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > > 8    <NA>   90.33114                                  <NA>
 > > 9    <NA>   35.88152                                  <NA>
 > > 10      N   67.43466              R3 - No Vehicles Allowed
-> > 11      Y 1771.63108 R2 - 4WD/High Clearance Vehicles Only
-> > 12      Y  144.56559              R3 - No Vehicles Allowed
-> > 13      Y 1885.82912 R2 - 4WD/High Clearance Vehicles Only
-> >                         BicyclesHo                       geometry
-> > 1      Bicycles and Horses Allowed MULTILINESTRING ((730819.18...
-> > 2      Bicycles and Horses Allowed MULTILINESTRING ((732040.22...
-> > 3      Bicycles and Horses Allowed MULTILINESTRING ((732056.98...
-> > 4                             <NA> MULTILINESTRING ((731903.61...
-> > 5                             <NA> MULTILINESTRING ((732039.10...
-> > 6                             <NA> MULTILINESTRING ((732056.22...
-> > 7                             <NA> MULTILINESTRING ((731963.99...
-> > 8                             <NA> MULTILINESTRING ((732105.20...
-> > 9                             <NA> MULTILINESTRING ((732222.89...
-> > 10          DO NOT SHOW ON REC MAP MULTILINESTRING ((732153.83...
-> > 11     Bicycles and Horses Allowed MULTILINESTRING ((731164.80...
-> > 12 Bicycles and Horses NOT ALLOWED MULTILINESTRING ((732341.70...
-> > 13     Bicycles and Horses Allowed MULTILINESTRING ((732479.64...
+> >                     BicyclesHo                       geometry
+> > 1  Bicycles and Horses Allowed MULTILINESTRING ((730819.2 ...
+> > 2  Bicycles and Horses Allowed MULTILINESTRING ((732040.2 ...
+> > 3  Bicycles and Horses Allowed MULTILINESTRING ((732057 47...
+> > 4                         <NA> MULTILINESTRING ((731903.6 ...
+> > 5                         <NA> MULTILINESTRING ((732039.1 ...
+> > 6                         <NA> MULTILINESTRING ((732056.2 ...
+> > 7                         <NA> MULTILINESTRING ((731964 47...
+> > 8                         <NA> MULTILINESTRING ((732105.2 ...
+> > 9                         <NA> MULTILINESTRING ((732222.9 ...
+> > 10      DO NOT SHOW ON REC MAP MULTILINESTRING ((732153.8 ...
 > > ~~~
 > > {: .output}
 > {: .solution}
@@ -672,13 +619,34 @@ lines, we use `\n` where the line should break.
 plot(aoi_boundary_HARV, col = "lightgreen",
      main = "NEON Harvard Forest\nField Site")
 plot(lines_HARV, add = TRUE)
+~~~
+{: .r}
 
+
+
+~~~
+Warning in plot.sf(lines_HARV, add = TRUE): ignoring all but the first
+attribute
+~~~
+{: .error}
+
+
+
+~~~
 # use the pch element to adjust the symbology of the points
 plot(point_HARV, add  = TRUE, pch = 19, col = "purple")
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-plot-multiple-shapefiles-1.png" title="plot of chunk plot-multiple-shapefiles" alt="plot of chunk plot-multiple-shapefiles" style="display: block; margin: auto;" />
+
+
+~~~
+Warning in plot.sf(point_HARV, add = TRUE, pch = 19, col = "purple"):
+ignoring all but the first attribute
+~~~
+{: .error}
+
+<img src="../fig/rmd-06-plot-multiple-shapefiles-1.png" title="plot of chunk plot-multiple-shapefiles" alt="plot of chunk plot-multiple-shapefiles" style="display: block; margin: auto;" />
 
 > ## Data Tip
 > The pch argument specifies the point shape. A list of valid point shapes can be found by viewing
@@ -716,15 +684,37 @@ plot(point_HARV, add  = TRUE, pch = 19, col = "purple")
 > > plot(lines_HARV,
 > >      add = TRUE,
 > >      col = "black")
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning in plot.sf(lines_HARV, add = TRUE, col = "black"): ignoring all but
+> > the first attribute
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
 > > plot(aoi_boundary_HARV, border="grey20",
 > >      add = TRUE,
 > >      lwd = 4)
 > > plot(point_HARV, pch=8,
 > >      add = TRUE)
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-vector-raster-overlay-1.png" title="plot of chunk challenge-vector-raster-overlay" alt="plot of chunk challenge-vector-raster-overlay" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Warning in plot.sf(point_HARV, pch = 8, add = TRUE): ignoring all but the
+> > first attribute
+> > ~~~
+> > {: .error}
+> > 
+> > <img src="../fig/rmd-06-challenge-vector-raster-overlay-1.png" title="plot of chunk challenge-vector-raster-overlay" alt="plot of chunk challenge-vector-raster-overlay" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 

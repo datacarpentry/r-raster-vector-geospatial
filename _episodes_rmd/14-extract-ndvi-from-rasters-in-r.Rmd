@@ -35,22 +35,6 @@ source("../setup.R")
 knitr_fig_path("14-")
 ```
 
-> ## Things You'll Need To Complete This Tutorial
-> **R Skill Level:** Intermediate - you've got the basics of `R` down.
-> You will need the most current version of `R` and, preferably, `RStudio` loaded
-> on your computer to complete this tutorial.
->
-> ### Install R Packages
->
-> * **raster:** `install.packages("raster")`
-> * **rgdal:** `install.packages("rgdal")`
-> * **ggplot2:** `install.packages("ggplot2")`
->
-> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
->
-> #### Data to Download
-{: .prereq}
-
 In this tutorial, we will extract NDVI values from a raster time series dataset
 in `R` and plot them using `ggplot`.
 

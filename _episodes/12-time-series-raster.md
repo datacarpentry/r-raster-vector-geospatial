@@ -15,7 +15,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Will
 contributors: [ ]
 packagesLibraries: [raster, rgdal]
 dateCreated:  2014-11-26
-lastModified: 2017-09-19
+lastModified: 2018-06-19
 categories:  [self-paced-tutorial]
 tags: [R, raster, spatial-data-gis]
 tutorialSeries: [raster-data-series, raster-time-series]
@@ -31,25 +31,6 @@ comments: true
 ---
 
 
-
-> ## Things You’ll Need To Complete This Tutorial
-> **R Skill Level:** Intermediate - you've got the basics of `R` down.
-> You will need the most current version of `R` and, preferably, `RStudio` loaded
-> on your computer to complete this tutorial.
->
-> ### Install R Packages
->
-> * **raster:** `install.packages("raster")`
-> * **rgdal:** `install.packages("rgdal")`
->
-> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
->
-> #### Data to Download
->
-> ### Additional Resources
-> * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
-> Read more about the `raster` package in `R`.</a>
-{: .prereq}
 
 This tutorial covers how to work with and plot a raster time series, using an
 `R` `RasterStack` object. It also covers practical assessment of data quality in
@@ -133,7 +114,7 @@ In this tutorial, we will use the `raster` and `rgdal` libraries.
 # load packages
 library(raster)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -147,18 +128,19 @@ Loading required package: sp
 ~~~
 library(rgdal)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-rgdal: version: 1.2-8, (SVN revision 663)
+rgdal: version: 1.3-2, (SVN revision 755)
  Geospatial Data Abstraction Library extensions to R successfully loaded
- Loaded GDAL runtime: GDAL 2.2.1, released 2017/06/23
- Path to GDAL shared files: /usr/share/gdal/2.2
- Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
- Path to PROJ.4 shared files: (autodetected)
- Linking to sp version: 1.2-5 
+ Loaded GDAL runtime: GDAL 2.1.3, released 2017/20/01
+ Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.5/Resources/library/rgdal/gdal
+ GDAL binary built with GEOS: FALSE 
+ Loaded PROJ.4 runtime: Rel. 4.9.3, 15 August 2016, [PJ_VERSION: 493]
+ Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.5/Resources/library/rgdal/proj
+ Linking to sp version: 1.3-1 
 ~~~
 {: .output}
 
@@ -182,7 +164,7 @@ all_NDVI_HARV <- list.files(NDVI_HARV_path,
 # view list - note the full path, relative to our working directory, is included
 all_NDVI_HARV
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -212,7 +194,7 @@ function.
 # Create a raster stack of the NDVI time series
 NDVI_HARV_stack <- stack(all_NDVI_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 We can explore the GeoTIFF tags (the embedded metadata) in a `stack` using the
 same syntax that we used on single-band raster objects in `R` including: `crs()`
@@ -224,7 +206,7 @@ same syntax that we used on single-band raster objects in `R` including: `crs()`
 # view crs of rasters
 crs(NDVI_HARV_stack)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -240,7 +222,7 @@ CRS arguments:
 # view extent of rasters in stack
 extent(NDVI_HARV_stack)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -259,7 +241,7 @@ ymax        : 4714365
 # view the y resolution of our rasters
 yres(NDVI_HARV_stack)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -274,7 +256,7 @@ yres(NDVI_HARV_stack)
 # view the x resolution of our rasters
 xres(NDVI_HARV_stack)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -325,7 +307,7 @@ UTM Zone 19.
 > > # 2. 30x30 meters
 > > # 3. meters
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > {: .solution}
 {: .challenge}
 
@@ -341,9 +323,9 @@ plot(NDVI_HARV_stack,
      zlim = c(1500, 10000),
      nc = 4)
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-plot-time-series-1.png" title="plot of chunk plot-time-series" alt="plot of chunk plot-time-series" style="display: block; margin: auto;" />
+<img src="../fig/rmd-12-plot-time-series-1.png" title="plot of chunk plot-time-series" alt="plot of chunk plot-time-series" style="display: block; margin: auto;" />
 
 Have a look at the range of NDVI values observed in the plot above. We know that
 the accepted values for NDVI range from 0-1. Why does our data range from
@@ -377,9 +359,9 @@ plot(NDVI_HARV_stack,
      zlim = c(.15, 1),
      nc = 4)
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-apply-scale-factor-1.png" title="plot of chunk apply-scale-factor" alt="plot of chunk apply-scale-factor" style="display: block; margin: auto;" />
+<img src="../fig/rmd-12-apply-scale-factor-1.png" title="plot of chunk apply-scale-factor" alt="plot of chunk apply-scale-factor" style="display: block; margin: auto;" />
 
 ## Take a Closer Look at Our Data
 Let's take a closer look at the plots of our data. Note that Massachusettes,
@@ -410,9 +392,9 @@ each raster.
 hist(NDVI_HARV_stack,
      xlim = c(0, 1))
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-view-stack-histogram-1.png" title="plot of chunk view-stack-histogram" alt="plot of chunk view-stack-histogram" style="display: block; margin: auto;" />
+<img src="../fig/rmd-12-view-stack-histogram-1.png" title="plot of chunk view-stack-histogram" alt="plot of chunk view-stack-histogram" style="display: block; margin: auto;" />
 
 It seems like things get green in the spring and summer like we expect, but the
 data at Julian days 277 and 293 are unusual. It appears as if the vegetation got
@@ -429,7 +411,7 @@ Let's next view some temperature data for our field site to see whether there
 were some unusual fluctuations that may explain this pattern of greening and
 browning seen in the NDVI data.
 
-<img src="../fig/rmd-view-temp-data-1.png" title="plot of chunk view-temp-data" alt="plot of chunk view-temp-data" style="display: block; margin: auto;" />
+<img src="../fig/rmd-12-view-temp-data-1.png" title="plot of chunk view-temp-data" alt="plot of chunk view-temp-data" style="display: block; margin: auto;" />
 
 There are no significant peaks or dips in the temperature during the late summer
 or early fall time period that might account for patterns seen in the NDVI data.
@@ -455,7 +437,6 @@ derive our NDVI rasters to try to understand what appears to be outlier NDVI val
 > > 
 > > 
 > > ~~~
-> > 
 > > # reset layout
 > > par(mfrow=c(2,2))
 > > 
@@ -485,7 +466,12 @@ derive our NDVI rasters to try to understand what appears to be outlier NDVI val
 > > 
 > > plotRGB(RGB_197,
 > >         stretch="lin")
-> > > >
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-12-view-all-rgb-1.png" title="plot of chunk view-all-rgb" alt="plot of chunk view-all-rgb" style="display: block; margin: auto;" />
+> > 
+> > ~~~
 > > # create list of files to make raster stack
 > > # RGB_HARV_allCropped <-  list.files("NEON-DS-Landsat-NDVI/HARV/2011/RGB/",
 > > #                              full.names=TRUE,
@@ -504,17 +490,7 @@ derive our NDVI rasters to try to understand what appears to be outlier NDVI val
 > > # reset layout
 > > par(mfrow=c(1, 1))
 > > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error: <text>:31:1: unexpected '>'
-> > 30:         stretch="lin")
-> > 31: >
-> >     ^
-> > ~~~
-> > {: .error}
+> > {: .r}
 > {: .solution}
 {: .challenge}
 

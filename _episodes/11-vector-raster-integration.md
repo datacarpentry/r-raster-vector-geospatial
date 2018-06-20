@@ -12,7 +12,7 @@ keypoints:
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
 contributors: [Sarah Newman]
 dateCreated:  2015-10-23
-lastModified: 2017-09-19
+lastModified: 2018-06-19
 packagesLibraries: [rgdal, raster]
 categories: [self-paced-tutorial]
 mainTag: vector-data-series
@@ -24,24 +24,6 @@ defined locations stored in a spatial object."
 ---
 
 
-
-
-> ## Things You’ll Need To Complete This Tutorial
-> **R Skill Level:** Intermediate - you've got the basics of `R` down.
-> You will need the most current version of `R` and, preferably, `RStudio` loaded
-> on your computer to complete this tutorial.
->
-> ### Install R Packages
->
-> * **raster:** `install.packages("raster")`
-> * **sf:** `install.packages("sf")`
->
-> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
->
-> ### Download Data
-> * [Site layout shapefiles](https://ndownloader.figshare.com/files/3708751)
-> * [Airborne remote sensing data](https://ndownloader.figshare.com/files/3701578)
-{: .prereq}
 
 This tutorial explains how to crop a raster using the extent of a vector
 shapefile. We will also cover how to extract values from a raster that occur
@@ -74,7 +56,7 @@ and a raster file, that we will introduce this tutorial:
 
 
 ~~~
-Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473
+Linking to GEOS 3.6.1, GDAL 2.1.3, proj.4 4.9.3
 ~~~
 {: .output}
 
@@ -88,7 +70,7 @@ Loading required package: sp
 
 
 ~~~
-Reading layer `HarClip_UTMZ18' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp' using driver `ESRI Shapefile'
+Reading layer `HarClip_UTMZ18' from data source `/Users/ebecker/Box Sync/Carpentry_repos/datacarpentry-lessons/geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp' using driver `ESRI Shapefile'
 Simple feature collection with 1 feature and 1 field
 geometry type:  POLYGON
 dimension:      XY
@@ -101,7 +83,7 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 
 
 ~~~
-Reading layer `HARV_roads' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp' using driver `ESRI Shapefile'
+Reading layer `HARV_roads' from data source `/Users/ebecker/Box Sync/Carpentry_repos/datacarpentry-lessons/geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp' using driver `ESRI Shapefile'
 Simple feature collection with 13 features and 15 fields
 geometry type:  MULTILINESTRING
 dimension:      XY
@@ -114,7 +96,7 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 
 
 ~~~
-Reading layer `HARVtower_UTM18N' from data source `/home/jose/Documents/Science/Projects/software-carpentry/data-carpentry_lessons/R-spatial-raster-vector-lesson/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp' using driver `ESRI Shapefile'
+Reading layer `HARVtower_UTM18N' from data source `/Users/ebecker/Box Sync/Carpentry_repos/datacarpentry-lessons/geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp' using driver `ESRI Shapefile'
 Simple feature collection with 1 feature and 14 fields
 geometry type:  POINT
 dimension:      XY
@@ -124,7 +106,7 @@ proj4string:    +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 ~~~
 {: .output}
 
-<img src="../fig/rmd-view-extents-1.png" title="plot of chunk view-extents" alt="plot of chunk view-extents" style="display: block; margin: auto;" />
+<img src="../fig/rmd-11-view-extents-1.png" title="plot of chunk view-extents" alt="plot of chunk view-extents" style="display: block; margin: auto;" />
 
 
 
@@ -154,9 +136,6 @@ series, you can skip this code as you have already created these object.)
 library(sf)
 library(raster)
 
-# set working directory to data folder
-# setwd("pathToDirHere")
-
 # Imported in Vector 00: Vector Data in R - Open & Plot Data
 # shapefile
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
@@ -170,7 +149,7 @@ point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp"
 chm_HARV <-
   raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 ~~~
-{: .language-r}
+{: .r}
 
 ## Crop a Raster Using Vector Extent
 We can use the `crop` function to crop a raster to the extent of another spatial
@@ -184,9 +163,9 @@ spatial object as the cropping boundary.
 plot(chm_HARV,
      main = "LiDAR CHM - Not Cropped\nNEON Harvard Forest Field Site")
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-Crop-by-vector-extent-1.png" title="plot of chunk Crop-by-vector-extent" alt="plot of chunk Crop-by-vector-extent" style="display: block; margin: auto;" />
+<img src="../fig/rmd-11-Crop-by-vector-extent-1.png" title="plot of chunk Crop-by-vector-extent" alt="plot of chunk Crop-by-vector-extent" style="display: block; margin: auto;" />
 
 ~~~
 # crop the chm
@@ -201,16 +180,16 @@ plot(extent(chm_HARV),
 plot(chm_HARV_Crop,
      add = TRUE)
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-Crop-by-vector-extent-2.png" title="plot of chunk Crop-by-vector-extent" alt="plot of chunk Crop-by-vector-extent" style="display: block; margin: auto;" />
+<img src="../fig/rmd-11-Crop-by-vector-extent-2.png" title="plot of chunk Crop-by-vector-extent" alt="plot of chunk Crop-by-vector-extent" style="display: block; margin: auto;" />
 
 We can see from the plot above that the full CHM extent (plotted in green) is
 much larger than the resulting cropped raster. Our new cropped CHM now has the
 same extent as the `aoi_boundary_HARV` object that was used as a crop extent
 (blue border below).
 
-<img src="../fig/rmd-view-crop-extent-1.png" title="plot of chunk view-crop-extent" alt="plot of chunk view-crop-extent" style="display: block; margin: auto;" />
+<img src="../fig/rmd-11-view-crop-extent-1.png" title="plot of chunk view-crop-extent" alt="plot of chunk view-crop-extent" style="display: block; margin: auto;" />
 
 We can look at the extent of all the other objects.
 
@@ -219,7 +198,7 @@ We can look at the extent of all the other objects.
 # lets look at the extent of all of our objects
 extent(chm_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -237,7 +216,7 @@ ymax        : 4713838
 ~~~
 extent(chm_HARV_Crop)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -255,7 +234,7 @@ ymax        : 4713359
 ~~~
 st_bbox(aoi_boundary_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -298,9 +277,9 @@ vegetation plot locations with the Canopy Height Model information.
 > >      pch=19,
 > >      col = "blue")
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-code-crop-raster-points-1.png" title="plot of chunk challenge-code-crop-raster-points" alt="plot of chunk challenge-code-crop-raster-points" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-11-challenge-code-crop-raster-points-1.png" title="plot of chunk challenge-code-crop-raster-points" alt="plot of chunk challenge-code-crop-raster-points" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -316,7 +295,7 @@ will not expand the extent in areas where there are no data. Thus, extent of our
 vegetation plot layer will still extend further west than the extent of our
 (cropped) raster data (dark green).
 
-<img src="../fig/rmd-raster-extents-cropped-1.png" title="plot of chunk raster-extents-cropped" alt="plot of chunk raster-extents-cropped" style="display: block; margin: auto;" />
+<img src="../fig/rmd-11-raster-extents-cropped-1.png" title="plot of chunk raster-extents-cropped" alt="plot of chunk raster-extents-cropped" style="display: block; margin: auto;" />
 
 ## Define an Extent
 We can also use an `extent()` method to define an extent to be used as a cropping
@@ -328,7 +307,7 @@ boundary. This creates an object of class `extent`.
 new.extent <- extent(732161.2, 732238.7, 4713249, 4713333)
 class(new.extent)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -357,9 +336,9 @@ plot(new.extent,
 plot(CHM_HARV_manualCrop,
      add = TRUE)
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-crop-using-drawn-extent-1.png" title="plot of chunk crop-using-drawn-extent" alt="plot of chunk crop-using-drawn-extent" style="display: block; margin: auto;" />
+<img src="../fig/rmd-11-crop-using-drawn-extent-1.png" title="plot of chunk crop-using-drawn-extent" alt="plot of chunk crop-using-drawn-extent" style="display: block; margin: auto;" />
 
 Notice that our manual `new.extent` (in red) is smaller than the
 `aoi_boundary_HARV` and that the raster is now the same as the `new.extent`
@@ -412,7 +391,7 @@ tree_height <- extract(x = chm_HARV,
 # view the object
 head(tree_height)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -432,7 +411,7 @@ head(tree_height)
 ~~~
 nrow(tree_height)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -464,15 +443,15 @@ hist(tree_height$HARV_chmCrop,
      col = "springgreen",
      xlab = "Tree Height", ylab = "Frequency of Pixels")
 ~~~
-{: .language-r}
+{: .r}
 
-<img src="../fig/rmd-view-extract-histogram-1.png" title="plot of chunk view-extract-histogram" alt="plot of chunk view-extract-histogram" style="display: block; margin: auto;" />
+<img src="../fig/rmd-11-view-extract-histogram-1.png" title="plot of chunk view-extract-histogram" alt="plot of chunk view-extract-histogram" style="display: block; margin: auto;" />
 
 ~~~
 # view summary of values
 summary(tree_height$HARV_chmCrop)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -503,7 +482,7 @@ av_tree_height_AOI <- extract(x = chm_HARV,
 # view output
 av_tree_height_AOI
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -542,19 +521,14 @@ Let's put this into practice by figuring out the average tree height in the
 # what are the units of our buffer
 st_crs(point_HARV)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
 ~~~
-$epsg
-[1] 32618
-
-$proj4string
-[1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
-
-attr(,"class")
-[1] "crs"
+Coordinate Reference System:
+  EPSG: 32618 
+  proj4string: "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
 ~~~
 {: .output}
 
@@ -573,7 +547,7 @@ av_tree_height_tower <- extract(x = chm_HARV,
 # view data
 head(av_tree_height_tower)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -589,7 +563,7 @@ head(av_tree_height_tower)
 # how many pixels were extracted
 nrow(av_tree_height_tower)
 ~~~
-{: .language-r}
+{: .r}
 
 
 
@@ -630,8 +604,8 @@ nrow(av_tree_height_tower)
 > >      xlab = "Plot ID", ylab = "Tree Height (m)",
 > >      pch=16)
 > > ~~~
-> > {: .language-r}
+> > {: .r}
 > > 
-> > <img src="../fig/rmd-challenge-code-extract-plot-tHeight-1.png" title="plot of chunk challenge-code-extract-plot-tHeight" alt="plot of chunk challenge-code-extract-plot-tHeight" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-11-challenge-code-extract-plot-tHeight-1.png" title="plot of chunk challenge-code-extract-plot-tHeight" alt="plot of chunk challenge-code-extract-plot-tHeight" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}

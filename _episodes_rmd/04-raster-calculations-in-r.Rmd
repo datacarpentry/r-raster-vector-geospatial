@@ -36,29 +36,6 @@ source("../setup.R")
 knitr_fig_path("04-")
 ```
 
-> ## Things You’ll Need To Complete This Tutorial
->
-> **R Skill Level:** Intermediate - you've got the basics of `R` down.
->
-> You will need the most current version of `R` and, preferably, `RStudio` loaded
-on your computer to complete this tutorial.
->
-> ### Install R Packages
->
-> * **raster:** `install.packages("raster")`
-> * **rgdal:** `install.packages("rgdal")`
-> * **ggplot:** `install.packages("ggplot2")`
-> * **dplyr:** `install.packages("dplyr")`
->
-> * [More on Packages in R - Adapted from Software Carpentry.]({{site.baseurl}}/R/Packages-In-R/)
->
-> #### Data to Download
->
-> ### Additional Resources
-> * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf"
-> target="_blank">Read more about the `raster` package in `R`.</a>
-{: .prereq}
-
 We often want to combine values of and perform calculations on rasters to create
 a new output raster. This tutorial covers how to subtract one raster from
 another using basic raster math and the `overlay()` function. It also covers how
