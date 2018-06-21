@@ -46,11 +46,11 @@ function in the `raster` package.
 ## Raster Projection in R
 
 In the [Plot Raster Data in R]({{ site.baseurl }}/R/Plot-Rasters-In-R/)
-tutorial, we learned how to layer a raster file on top of a hillshade for a nice
-looking basemap. In this tutorial, all of our data were in the same CRS. What
+episode, we learned how to layer a raster file on top of a hillshade for a nice
+looking basemap. In this episode, all of our data were in the same CRS. What
 happens when things don't line up?
 
-We will use the `raster` and `rgdal` packages in this tutorial.
+We will use the `raster` and `rgdal` packages in this episode.
 
 ```{r load-libraries }
 # load raster package
@@ -340,7 +340,7 @@ field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files.
 
 If you completed the San Joaquin plotting challenge in the
 [Plot Raster Data in R]({{ site.baseurl }}/R/Plot-Rasters-In-R#challenge-create-dtm--dsm-for-sjer)
-tutorial, how does the map you just created compare to that map?
+episode, how does the map you just created compare to that map?
 
 ```{r challenge-code-reprojection2, echo=FALSE}
 # The maps look identical. Which is what they should be as the only difference
