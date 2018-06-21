@@ -60,15 +60,45 @@ library(ggplot2)
 library(dplyr)
 ```
 
-Let's create a map of the Harvard Forest Digital Terrain Model
+For this episode, we will be working with the Harvard Forest Digital
+Terrain Model data. This differes from the surface model data we've
+we've been working with so far in that the digital terrain model
+(DTM) includes the tops of trees, while the digital surface model
+(DSM) shows the ground level.
+
+<figure>
+<a href="{{ site.baseurl }}/images/dc-spatial-raster/lidarTree-height.png">
+<img src="{{ site.baseurl }}/images/dc-spatial-raster/lidarTree-height.png">
+</a>
+<figcaption> Source: National Ecological Observatory Network (NEON)
+</figcaption>
+</figure>
+
+We'll be looking at another model (the canopy height model) in
+[a later episode]({{ site.baseurl }}/04-raster-calculations-in-r/index.html) and will see how to calculate the CHM from the
+DSM and DTM. Here, we will create a map of the Harvard Forest Digital
+Terrain Model
 (`DTM_HARV`) draped or layered on top of the hillshade (`DTM_hill_HARV`).
+
+First, we need to import the DTM and DTM hillshade data.
 
 ```{r import-DTM-hillshade }
 # import DTM
 DTM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
+
+# view data structure
+DTM_HARV
+
 # import DTM hillshade
 DTM_hill_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
 
+# view data structure
+DTM_hill_HARV
+```
+
+Next, we will convert each of these datasets to a dataframe.
+
+```{r}
 # convert to data.frames
 DTM_HARV_df <- DTM_HARV  %>% 
   rasterToPoints(., spatial = TRUE) %>% 
@@ -77,7 +107,11 @@ DTM_HARV_df <- DTM_HARV  %>%
 DTM_hill_HARV_df <- DTM_hill_HARV  %>% 
   rasterToPoints(., spatial = TRUE) %>% 
   data.frame()
+```
 
+Now we can create a map of the DTM layered over the hillshade.
+
+```{r}
 ggplot() +
      geom_raster(data = DTM_hill_HARV_df, 
                  aes(x = x, y = y, 
@@ -91,60 +125,31 @@ ggplot() +
      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
      guides(fill = guide_colorbar()) +
      scale_alpha(range = c(0.25, 0.65), guide = "none") +
-    theme_bw() +
-    theme(panel.grid.major = element_blank(), 
-          panel.grid.minor = element_blank()) +
-     theme(axis.title.x = element_blank(),
-           axis.title.y = element_blank()) +
-     ggtitle("Digital Terrain Model - NEON Harvard Forest Field Site") +
      coord_equal()
 ```
 
 Our results are curious - neither the Digital Terrain Model (`DTM_HARV_df`) 
-or the DTM Hillshade (`DTM_hill_HARV_df`)did not plot on
+or the DTM Hillshade (`DTM_hill_HARV_df`) plotted.
 Let's try to
 plot the DTM on it's own to make sure there are data there.
 
 ```{r plot-DTM }
 ggplot() +
-     geom_raster(data = DTM_HARV_df , 
-             aes(x = x, y = y, 
-                  fill = HARV_dtmCrop,
-                  alpha=0.8)
-             ) + 
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
-     guides(fill = guide_colorbar()) +
-     scale_alpha(range = c(0.25, 0.65), guide = "none") +
-    theme_bw() +
-    theme(panel.grid.major = element_blank(), 
-          panel.grid.minor = element_blank()) +
-     theme(axis.title.x = element_blank(),
-           axis.title.y = element_blank()) +
-     ggtitle("Digital Terrain Model - NEON Harvard Forest Field Site") +
-     coord_equal()
-
+geom_raster(data = DTM_HARV_df,
+    aes(x = x, y = y,
+    fill = HARV_dtmCrop)) +
+scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10))
 ```
 
-Our DTM seems to contain data and plots just fine. 
+Our DTM seems to contain data and plots just fine.
 
 Next we plot the DTM Hillshade on it's own to see whether everything is OK.
 
 ```{r plot-DTM-hill}
-
 ggplot() +
-     geom_raster(data = DTM_hill_HARV_df, 
-                 aes(x = x, y = y, 
-                   alpha = HARV_DTMhill_WGS84)
-                 ) +
-     guides(fill = guide_colorbar()) +
-     scale_alpha(range = c(0.25, 0.65), guide = "none") +
-    theme_bw() +
-    theme(panel.grid.major = element_blank(), 
-          panel.grid.minor = element_blank()) +
-     theme(axis.title.x = element_blank(),
-           axis.title.y = element_blank()) +
-     ggtitle("Digital Terrain Model Hillshade - NEON Harvard Forest Field Site") +
-     coord_equal()
+geom_raster(data = DTM_hill_HARV_df,
+    aes(x = x, y = y,
+    alpha = HARV_DTMhill_WGS84))
 ```
 
 Now we see the problem, the projections of the two rasters are different.
@@ -154,16 +159,25 @@ throw an error message.
 Let's next check the
  Coordinate Reference System (CRS) of the DTM and compare it to our hillshade.
 
-```{r explore-crs }
-# view crs for DTM
-crs(DTM_HARV)
+> ## Exercise
+> View the CRS for each of these two datasets. What projection
+> does each use?
+>
+> > ## Solution
+> >
+> > ```{r explore-crs }
+> > # view crs for DTM
+> > crs(DTM_HARV)
+> >
+> > # view crs for hillshade
+> > crs(DTM_hill_HARV)
+> > ```
+> >
+> > `DTM_HARV` is in the UTM projection. `DTM_hill_HARV` is in
+> > `Geographic WGS84` - which is represented by latitude and longitude values.
+> {: .solution}
+{: .challenge}
 
-# view crs for hillshade
-crs(DTM_hill_HARV)
-```
-
-Aha! `DTM_HARV` is in the UTM projection. `DTM_hill_HARV` is in
-`Geographic WGS84` - which is represented by latitude and longitude values.
 Because the two rasters are in different CRSs, they don't line up when plotted
 in `R`. We need to *reproject* `DTM_hill_HARV` into the UTM CRS. Alternatively,
 we could project `DTM_HARV` into WGS84.
@@ -270,17 +284,7 @@ ggplot() +
                   fill = HARV_dtmCrop,
                   alpha=0.8)
              ) + 
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
-     guides(fill = guide_colorbar()) +
-     scale_alpha(range = c(0.25, 0.65), guide = "none") +
-    theme_bw() +
-    theme(panel.grid.major = element_blank(), 
-          panel.grid.minor = element_blank()) +
-     theme(axis.title.x = element_blank(),
-           axis.title.y = element_blank()) +
-     ggtitle("Digital Terrain Model - NEON Harvard Forest Field Site") +
-     coord_equal()
-
+     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10))
 ```
 
 We have now successfully draped the Digital Terrain Model on top of our
@@ -324,16 +328,7 @@ field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files.
 > >                   fill = SJER_dsmCrop,
 > >                   alpha=0.8)
 > >              ) + 
-> >      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
-> >      guides(fill = guide_colorbar()) +
-> >      scale_alpha(range = c(0.25, 0.65), guide = "none") +
-> >     theme_bw() +
-> >     theme(panel.grid.major = element_blank(), 
-> >           panel.grid.minor = element_blank()) +
-> >      theme(axis.title.x = element_blank(),
-> >            axis.title.y = element_blank()) +
-> >      ggtitle("DSM with Hillshade - NEON SJER Field Site") +
-> >      coord_equal()
+> >      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10))
 > > ```
 > {: .solution}
 {: .challenge}
