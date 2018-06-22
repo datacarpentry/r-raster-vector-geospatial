@@ -34,48 +34,14 @@ source("../setup.R")
 knitr_fig_path("02-")
 ```
 
-This tutorial reviews how to plot a raster in `R` using the `plot()`
-function. It also covers how to layer a raster on top of a hillshade to produce
+This episode covers how to plot a raster in `R` using the `ggplot2`
+package. It also covers how to layer a raster on top of a hillshade to produce
 an eloquent map.
 
 ## Plot Raster Data in R
-In this tutorial, we will plot the Digital Surface Model (DSM) raster
+In this episode, we will plot the Digital Surface Model (DSM) raster
 for the NEON Harvard Forest Field Site. We will use the `hist()` function as a
-tool to explore raster values. And render categorical plots, using the `breaks` argument to get bins that are meaningful representations of our data.
-
-We will use the `raster` and `rgdal` packages in this tutorial. If you do not
-have the `DSM_HARV` object from the
-[Intro To Raster In R tutorial]({{ site.baseurl }}/R/Introduction-to-Raster-Data-In-R/),
-please create it now.
-
-```{r load-libraries }
-# if they are not already loaded
-library(rgdal)
-library(raster)
-
-# import raster
-DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
-
-```
-
-First, let's plot our Digital Surface Model object (`DSM_HARV`) using the
-`plot()` function. We add a title using the argument `main = "title"`.
-
-```{r ggplot-raster, fig.width= 7, fig.height=7 }
-library(ggplot2)
-
-# convert to a df for plotting in two steps,
-# First, to a SpatialPointsDataFrame
-DSM_HARV_pts <- rasterToPoints(DSM_HARV, spatial = TRUE)
-# Then to a 'conventional' dataframe
-DSM_HARV_df  <- data.frame(DSM_HARV_pts)
-rm(DSM_HARV_pts, DSM_HARV)
-
-ggplot() +
- geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = HARV_dsmCrop)) + 
-    ggtitle("Continuous Elevation Map - NEON Harvard Forest Field Site")
-
-```
+tool to explore raster values and render categorical plots, using the `breaks` argument to get bins that are meaningful representations of our data.
 
 ## Plotting Data Using Breaks
 We can view our data "symbolized" or colored according to ranges of values
@@ -84,7 +50,6 @@ map. However, to assign breaks, it is useful to first explore the distribution
 of the data using a bar plot. 
 We use `dplyr`'s mutate to combined with `cut()` to split the data into 3 bins.
 
-
 ```{r histogram-breaks-ggplot, fig.width= 7, fig.height=7}
 library(dplyr)
 
@@ -92,9 +57,7 @@ DSM_HARV_df <- DSM_HARV_df %>%
                 mutate(fct_elevation = cut(HARV_dsmCrop, breaks = 3))
 
 ggplot() +
-    geom_bar(data = DSM_HARV_df, aes(fct_elevation)) +
-    xlab("Elevation (m)") +
-    ggtitle("Histogram Digital Surface Model - NEON Harvard Forest Field Site")
+    geom_bar(data = DSM_HARV_df, aes(fct_elevation))
 
 ```
 
@@ -130,17 +93,17 @@ unique(DSM_HARV_df$fct_elevation_2)
 
 ```
 
-> ## Data Tip
+> ## Data Tips
 > Note that when we assign break values a set of 4 values will result in 3 bins of data.
+>
+> The bin intervals are shown using `(` to mean inclusive and `]` to mean exclusive. For example: `(305, 342]` means "from 305 through 341".
 {: .callout}
 
 And now we can plot our bar plot again, using the new bins:
 
 ```{r, fig.width= 7, fig.height=7 }
 ggplot() +
-    geom_bar(data = DSM_HARV_df, aes(fct_elevation_2)) +
-    xlab("Elevation (m)") +
-    ggtitle("Histogram Digital Surface Model - NEON Harvard Forest Field Site \nCustom Bin Ranges")
+    geom_bar(data = DSM_HARV_df, aes(fct_elevation_2))
 ```
 
 We can also look at the how frequent each occurence of our bins is:
@@ -159,8 +122,7 @@ We can use those bins to plot our raster data:
 ```{r ggplot-with-breaks, fig.width= 7, fig.height=7}
 
 ggplot() +
- geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = fct_elevation_2)) + 
-    ggtitle("Classified Elevation Map - NEON Harvard Forest Field Site")
+ geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = fct_elevation_2))
 ```
 
 
@@ -184,8 +146,7 @@ To use these in our map, we pass them across using the
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
                                       fill = fct_elevation_2)) + 
-    scale_fill_manual(values = terrain.colors(3)) + 
-    ggtitle("Classified Elevation Map - NEON Harvard Forest Field Site")
+    scale_fill_manual(values = terrain.colors(3))
 ```
 
 
@@ -207,10 +168,7 @@ my_col <- terrain.colors(3)
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
                                       fill = fct_elevation_2)) + 
-    scale_fill_manual(values = my_col, name = "Elevation") + 
-    ggtitle("Classified Elevation Map - NEON Harvard Forest Field Site") +
-    xlab("UTM Westing Coordinate (m)") +
-    ylab("UTM Northing Coordinate (m)")
+    scale_fill_manual(values = my_col, name = "Elevation")
 ```
 
 Or we can also turn off the axes altogether via passing `element_blank()` to
@@ -221,8 +179,7 @@ the relevant parts of the `theme()` function.
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
                                       fill = fct_elevation_2)) + 
-    scale_fill_manual(values = my_col, name = "Elevation") + 
-    ggtitle("Classified Elevation Map - NEON Harvard Forest Field Site") +
+    scale_fill_manual(values = my_col, name = "Elevation") +
     theme(axis.title.x = element_blank(),
           axis.title.y = element_blank())
 ```
@@ -263,25 +220,30 @@ hillshade is a raster that maps the shadows and texture that you would see from
 above when viewing terrain.
 We will add a custom color, making the plot grey. 
 
-```{r hillshade, fig.width= 7, fig.height=7}
+```{r}
 # import DSM hillshade
 DSM_hill_HARV <-
   raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 
+# View data structure
+DSM_hill_HARV
+```
+
+```{r}
 # convert to a df for plotting in two steps,
 # First, to a SpatialPointsDataFrame
-DSM_hill_HARV_pts <- rasterToPoints(DSM_hill_HARV, spatial = TRUE)
+DSM_hill_HARV_df <- rasterToPoints(DSM_hill_HARV, spatial = TRUE) %>%
 # Then to a 'conventional' dataframe
-DSM_hill_HARV_df  <- data.frame(DSM_hill_HARV_pts)
-rm(DSM_hill_HARV_pts, DSM_hill_HARV)
+    data.frame()
 
+# View data structure
+str(DSM_hill_HARV_df)
+```
+
+```{r, fig.width= 7, fig.height=7}
 ggplot() +
  geom_raster(data = DSM_hill_HARV_df , aes(x = x, y = y, alpha = HARV_DSMhill)) + 
-    scale_alpha(range =  c(0.15, 0.65), guide = "none") +
-    ggtitle("Hillshade - DSM - NEON Harvard Forest Field Site") +
-    theme(axis.title.x = element_blank(),
-          axis.title.y = element_blank())
-
+    scale_alpha(range =  c(0.15, 0.65), guide = "none")
 ```
 
 
@@ -308,9 +270,6 @@ ggplot() +
     scale_fill_gradientn(name = "Elevation", colors = rainbow(100)) +
     guides(fill = guide_colorbar()) +
     scale_alpha(range = c(0.15, 0.65), guide = "none") +
-    theme(axis.title.x = element_blank(),
-          axis.title.y = element_blank()) +
-    ggtitle("DSM with Hillshade - NEON Harvard Forest Field Site") +
     coord_equal()
 
 ```
