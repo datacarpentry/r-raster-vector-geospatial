@@ -52,7 +52,7 @@ library(raster)
 library(rgdal)
 ```
 
-```{r load-more-libraries echo=FALSE}
+```{r load-more-libraries, echo=FALSE}
 library(ggplot2)
 library(tidyr)
 ```
