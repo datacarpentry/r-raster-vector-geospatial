@@ -35,7 +35,7 @@ source("../setup.R")
 knitr_fig_path("03-")
 ```
 
-```{r load libraries, echo = FALSE}
+```{r load-libraries, echo = FALSE}
 library(raster)
 library(rgdal)
 library(ggplot2)
