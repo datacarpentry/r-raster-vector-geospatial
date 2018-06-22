@@ -23,7 +23,7 @@ knitr_fig_path("01-")
 knitr::opts_chunk$set(fig.height = 6)
 ```
 
-```{r load libraries, echo = FALSE}
+```{r load-libraries, echo = FALSE}
 library(raster)
 library(rgdal)
 library(ggplot2)
@@ -54,7 +54,7 @@ elements. Finally, it introduces the GeoTiff file format.
 Let's first import a raster dataset into `R` and explore its metadata.
 To open rasters in `R`, we will use the `raster` and `rgdal` packages. Make sure that you have these libraries loaded.
 
-```{r load-libraries}
+```{r load-libraries-2, eval=FALSE}
 library(raster)
 library(rgdal)
 ```
