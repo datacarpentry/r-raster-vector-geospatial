@@ -25,7 +25,7 @@ R. It also covers how to plot a three-band color image using the plotRGB
 function in R."
 ---
 
-```{r echo=FALSE}
+```{r setup, echo=FALSE}
 source("../bin/chunk-options.R")
 source("../setup.R")
 knitr_fig_path("05-")
