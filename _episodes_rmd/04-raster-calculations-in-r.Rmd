@@ -14,11 +14,11 @@ contributors: [ ]
 packagesLibraries: [raster, rgdal. ggplot, dplyr]
 dateCreated:  2015-10-23
 lastModified: `r format(Sys.time(), "%Y-%m-%d")`
-categories:  [self-paced-tutorial]
+categories:  [self-paced-episode]
 tags: [R, raster, spatial-data-gis]
-tutorialSeries: [raster-data-series]
+episodeSeries: [raster-data-series]
 mainTag: raster-data-series
-description: "This tutorial covers how to subtract one raster from another using
+description: "This episode covers how to subtract one raster from another using
 efficient methods - the overlay function compared to basic subtraction. We also
 cover how to extract pixel values from a set of locations - for example a buffer
 region around plot locations at a field site. Finally, it explains the basic
@@ -37,7 +37,7 @@ knitr_fig_path("04-")
 ```
 
 We often want to combine values of and perform calculations on rasters to create
-a new output raster. This tutorial covers how to subtract one raster from
+a new output raster. This episode covers how to subtract one raster from
 another using basic raster math and the `overlay()` function. It also covers how
 to extract pixel values from a set of locations - for example a buffer region
 around plot locations at a field site.
@@ -59,80 +59,57 @@ buildings, etc. with the influence of ground elevation removed.
     </figcaption>
 </figure>
 
-* Check out more on LiDAR CHM, DTM and DSM in this NEON Data Skills overview tutorial:
-<a href="http://neondataskills.org/self-paced-tutorial/2_LiDAR-Data-Concepts_Activity2/" target="_blank">
-What is a CHM, DSM and DTM? About Gridded, Raster LiDAR Data</a>.
+> ## More Resources
+> * Check out more on LiDAR CHM, DTM and DSM in this NEON Data Skills overview episode:
+> <a href="http://neondataskills.org/self-paced-episode/2_LiDAR-Data-Concepts_Activity2/" target="_blank">
+> What is a CHM, DSM and DTM? About Gridded, Raster LiDAR Data</a>.
+{: .callout}
 
 ### Load the Data
-We will need the `raster` package to import and perform raster calculations. We
-will use the DTM (`NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif`)
-and DSM (`NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif`) from the
-NEON Harvard Forest Field site.
+For this episode, we will use the DTM and DSM from the
+NEON Harvard Forest Field site,
+which we already have loaded in previous episodes.
 
-```{r load-libraries }
-# load raster package
+```{r load-libraries, echo = FALSE}
+# load libraries
 library(raster)
 library(rgdal)
 library(ggplot2)
 library(dplyr)
-
-# view info about the dtm & dsm raster data that we will work with.
-GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
-GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
-
 ```
 
-As seen from the `geoTiff` tags, both rasters have:
+> ## Exercise
+> Use the `GDALinfo()` function to view information about the DTM and
+> DSM data files. Do the two rasters have the same of different CRSs
+> and resolutions? Do they both have defined minimum and maximum values?
+>
+> > ## Solution
+> > ```{r}
+> > # view info about the dtm & dsm raster data that we will work with.
+> > GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
+> > GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+> > ```
+> {: .solution}
+{: .challenge}
 
-* the same CRS,
-* the same resolution
-* defined minimum and maximum values.
+We've already loaded in and worked with these two data files in
+earlier episodes. Let's plot them each once more to remind ourselves
+what this data looks like.
 
-Let's load the data.
-
-``` {r load-plot-data}
-# load the DTM & DSM rasters
-DTM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
-DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
-
-# the data.frame conversions
-DTM_HARV_df <- DTM_HARV  %>% 
-   rasterToPoints(., spatial = TRUE) %>% 
-   data.frame()
- 
-DSM_HARV_df <- DSM_HARV  %>% 
-   rasterToPoints(., spatial = TRUE) %>% 
-   data.frame()
- 
+```{r}
 # plot DTM
  ggplot() +
       geom_raster(data = DTM_HARV_df , 
-              aes(x = x, y = y, 
-                   fill = HARV_dtmCrop)
-              ) + 
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
-     theme_bw() +
-     theme(panel.grid.major = element_blank(), 
-           panel.grid.minor = element_blank()) +
-     theme(axis.title.x = element_blank(),
-            axis.title.y = element_blank()) +
-     ggtitle("Digital Terrain Model - NEON Harvard Forest Field Site") +
-     coord_equal()
+              aes(x = x, y = y, fill = HARV_dtmCrop)) +
+     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10))
+```
 
+``` {r}
 # plot DSM
  ggplot() +
       geom_raster(data = DSM_HARV_df , 
-              aes(x = x, y = y, 
-                   fill = HARV_dsmCrop)
-              ) + 
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
-     theme_bw() +
-     theme(panel.grid.major = element_blank(), 
-           panel.grid.minor = element_blank()) +
-     theme(axis.title.x = element_blank(),
-            axis.title.y = element_blank()) +
-     ggtitle("Digital Surface Model - NEON Harvard Forest Field Site") +
-     coord_equal()
+              aes(x = x, y = y, fill = HARV_dsmCrop)) +
+     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10))
 ```
 
 ## Two Ways to Perform Raster Calculations
@@ -154,28 +131,22 @@ multiplying, etc) two rasters. In the geospatial world, we call this
 Let's subtract the DTM from the DSM to create a Canopy Height Model.
 
 ```{r raster-math }
-# Raster math example
 CHM_HARV <- DSM_HARV - DTM_HARV
 
 CHM_HARV_df <- CHM_HARV  %>% 
    rasterToPoints(., spatial = TRUE) %>% 
    data.frame()
+```
 
-# plot the output CHM
+We can now plot the output CHM.
+
+```{r}
  ggplot() +
       geom_raster(data = CHM_HARV_df , 
               aes(x = x, y = y, 
                    fill = layer)
               ) + 
-     scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) +
-     theme_bw() +
-     theme(panel.grid.major = element_blank(), 
-           panel.grid.minor = element_blank()) +
-     theme(axis.title.x = element_blank(),
-            axis.title.y = element_blank()) +
-     ggtitle("Canopy Height Model with Raster Math Subtract \n NEON Harvard Forest Field Site") +
-     coord_equal()
-
+     scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10))
 ```
 
 Let's have a look at the distribution of values in our newly created
@@ -184,13 +155,7 @@ Canopy Height Model (CHM).
 ```{r create-hist }
 
 ggplot(CHM_HARV_df) +
-    geom_histogram(aes(layer), colour="black", fill="darkgreen") +
-    theme_bw() +
-    theme(legend.position = "none") +
-    ggtitle("Histogram of Canopy Height Model - NEON Harvard Forest Field Site") +
-    xlab("Tree Height (m) ") +
-    ylab("Number of Pixels")
-
+    geom_histogram(aes(layer))
 ```
 
 Notice that the range of values for the output CHM is between 0 and 30 meters.
@@ -216,21 +181,10 @@ Does this make sense for trees in Harvard Forest?
 > > # slot.
 > > # 3
 > > ggplot(CHM_HARV_df) +
-> >     geom_histogram(aes(layer), colour="black", fill="darkgreen") +
-> >     theme_bw() +
-> >     theme(legend.position = "none") +
-> >     ggtitle("Histogram of Canopy Height Model - NEON Harvard Forest Field Site") +
-> >     xlab("Tree Height (m) ") +
-> >     ylab("Number of Pixels")
+> >     geom_histogram(aes(layer))
 > > # 4
 > > ggplot(CHM_HARV_df) +
-> >     geom_histogram(aes(layer), colour="black", fill="springgreen4", 
-> >                    bins = 6) +
-> >     theme_bw() +
-> >     theme(legend.position = "none") +
-> >     ggtitle("Histogram of Canopy Height Model - NEON Harvard Forest Field Site") +
-> >     xlab("Tree Height (m) ") +
-> >     ylab("Number of Pixels")
+> >     geom_histogram(aes(layer), colour="black", fill="darkgreen", bins = 6)
 > > # 5
 > > custom_bins <- c(0, 10, 20, 30, 40)
 > > CHM_HARV_df <- CHM_HARV_df %>%
@@ -239,14 +193,7 @@ Does this make sense for trees in Harvard Forest?
 > > ggplot() +
 > >   geom_raster(data = CHM_HARV_df , aes(x = x, y = y,
 > >                                        fill = canopy_discrete)) + 
-> >      scale_fill_manual(values = terrain.colors(4)) + 
-> >      ggtitle("Discrete Canopy Heights - NEON Harvard Forest Field Site") +
-> >      theme_bw() +
-> >      theme(panel.grid.major = element_blank(), 
-> >            panel.grid.minor = element_blank()) +
-> >      theme(axis.title.x = element_blank(),
-> >             axis.title.y = element_blank()) +
-> >     coord_equal()
+> >      scale_fill_manual(values = terrain.colors(4))
 > > ```
 > {: .solution}
 {: .challenge}
@@ -281,6 +228,14 @@ them using efficient processing methods. The syntax is
 Let's perform the same subtraction calculation that we calculated above using
 raster math, using the `overlay()` function.
 
+> ## Data Tip
+> A custom function consists of a defined
+> set of commands performed on a input object. Custom functions are particularly
+> useful for tasks that need to be repeated over and over in the code. A
+> simplified syntax for writing a custom function in R is:
+> `functionName <- function(variable1, variable2){WhatYouWantDone, WhatToReturn}`
+{: .callout}
+
 ```{r raster-overlay }
 CHM_ov_HARV <- overlay(DSM_HARV,
                        DTM_HARV,
@@ -296,26 +251,11 @@ CHM_ov_HARV_df <- CHM_ov_HARV %>%
               aes(x = x, y = y, 
                    fill = layer)
               ) + 
-     scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) +
-     theme_bw() +
-     theme(panel.grid.major = element_blank(), 
-           panel.grid.minor = element_blank()) +
-     theme(axis.title.x = element_blank(),
-            axis.title.y = element_blank()) +
-     ggtitle("Canopy Height Model with Overlay Subtract \n NEON Harvard Forest Field Site") +
-     coord_equal()
+     scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10))
 ```
 
 How do the plots of the CHM created with manual raster math and the `overlay()`
 function compare?
-
-> ## Data Tip
-> A custom function consists of a defined
-> set of commands performed on a input object. Custom functions are particularly
-> useful for tasks that need to be repeated over and over in the code. A
-> simplified syntax for writing a custom function in R is:
-> `functionName <- function(variable1, variable2){WhatYouWantDone, WhatToReturn}`
-{: .callout}
 
 ## Export a GeoTIFF
 Now that we've created a new raster, let's export the data as a `GeoTIFF` using
@@ -366,7 +306,7 @@ in Massachusetts.
 > 1. Import the DSM and DTM from the SJER directory (if not aready imported
 in the
 > [Plot Raster Data in R]({{ site.baseurl }}/R/Plot-Rasters-In-R/)
-tutorial.) Don't forget to examine the data for `CRS`, bad values, etc.
+episode.) Don't forget to examine the data for `CRS`, bad values, etc.
 > 2. Create a `CHM` from the two raster layers and check to make sure the data
 are what you expect.
 > 3. Plot the `CHM` from SJER.
@@ -399,21 +339,11 @@ both datasets!
 > > 
 > > # check values
 > > ggplot(DTM_SJER_df) +
-> >     geom_histogram(aes(SJER_dtmCrop), colour="black", fill="blue") +
-> >     theme_bw() +
-> >     theme(legend.position = "none") +
-> >     ggtitle("Digital Terrain Model Histogram - NEON SJER Field Site") +
-> >     xlab("Elevation (m)") +
-> >     ylab("Number of Pixels")
-> > 
+> >     geom_histogram(aes(SJER_dtmCrop))
+> >
 > > ggplot(DSM_SJER_df) +
-> >     geom_histogram(aes(SJER_dsmCrop), colour="black", fill="red") +
-> >     theme_bw() +
-> >     theme(legend.position = "none") +
-> >     ggtitle("Digital Surface Model Histogram - NEON SJER Field Site") +
-> >     xlab("Elevation (m)") +
-> >     ylab("Number of Pixels")
-> > 
+> >     geom_histogram(aes(SJER_dsmCrop))
+> >
 > > # 2.
 > > # use overlay to subtract the two rasters & create CHM
 > > CHM_ov_SJER <- overlay(DSM_SJER,
@@ -425,12 +355,7 @@ both datasets!
 > >    data.frame()
 > > 
 > > ggplot(CHM_ov_SJER_df) +
-> >     geom_histogram(aes(layer), colour="black", fill="dodgerblue") +
-> >     theme_bw() +
-> >     theme(legend.position = "none") +
-> >     ggtitle("Histogram of Canopy Height Model - NEON SJER Site") +
-> >     xlab("Canopy Height (m) ") +
-> >     ylab("Number of Pixels")
+> >     geom_histogram(aes(layer))
 > > 
 > > # 3
 > > # plot the output
@@ -439,15 +364,8 @@ both datasets!
 > >               aes(x = x, y = y, 
 > >                    fill = layer)
 > >               ) + 
-> >      scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) +
-> >      theme_bw() +
-> >      theme(panel.grid.major = element_blank(), 
-> >            panel.grid.minor = element_blank()) +
-> >      theme(axis.title.x = element_blank(),
-> >             axis.title.y = element_blank()) +
-> >      ggtitle("Canopy Height Model - NEON SJER Site") +
-> >      coord_equal()
-> > 
+> >      scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10))
+> >
 > > # 4
 > > # Write to object to file
 > > writeRaster(CHM_ov_SJER, "chm_ov_SJER.tiff",
@@ -459,21 +377,11 @@ both datasets!
 > > # view histogram of HARV again.
 > > par(mfcol = c(2, 1))
 > > ggplot(CHM_HARV_df) +
-> >     geom_histogram(aes(layer), colour="black", fill="darkgreen") +
-> >     theme_bw() +
-> >     theme(legend.position = "none") +
-> >     ggtitle("Histogram of Canopy Height Model - NEON Harvard Forest Field Site") +
-> >     xlab("Tree Height (m) ") +
-> >     ylab("Number of Pixels")
-> > 
+> >     geom_histogram(aes(layer))
+> >
 > > ggplot(CHM_ov_SJER_df) +
-> >     geom_histogram(aes(layer), colour="black", fill="dodgerblue") +
-> >     theme_bw() +
-> >     theme(legend.position = "none") +
-> >     ggtitle("Histogram of Canopy Height Model - NEON SJER Site") +
-> >     xlab("Canopy Height (m) ") +
-> >     ylab("Number of Pixels")
-> > 
+> >     geom_histogram(aes(layer))
+> >
 > > ```
 > {: .solution}
 {: .challenge}
