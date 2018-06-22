@@ -35,6 +35,13 @@ source("../setup.R")
 knitr_fig_path("03-")
 ```
 
+```{r load libraries, echo = FALSE}
+library(raster)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+```
+
 Sometimes we encounter raster datasets that do not "line up" when plotted or
 analyzed. Rasters that don't line up are most often in different Coordinate
 Reference Systems (CRS).

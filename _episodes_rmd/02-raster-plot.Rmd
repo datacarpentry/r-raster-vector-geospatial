@@ -34,6 +34,13 @@ source("../setup.R")
 knitr_fig_path("02-")
 ```
 
+```{r load libraries, echo = FALSE}
+library(raster)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+```
+
 ```{r load-data, echo = FALSE}
 # Learners will have this data loaded from earlier episode
 # DSM data for Harvard Forest
