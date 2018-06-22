@@ -26,7 +26,7 @@ data need to be in the same projection in order to successfully map and process
 them in non-gui tools such as R."
 ---
 
-```{r echo=FALSE}
+```{r setup, echo=FALSE}
 source("../bin/chunk-options.R")
 source("../setup.R")
 knitr_fig_path("09-")
