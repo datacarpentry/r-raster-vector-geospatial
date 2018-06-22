@@ -28,7 +28,7 @@ image:
 comments: true
 ---
 
-```{r echo=FALSE}
+```{r setup, echo=FALSE}
 source("../bin/chunk-options.R")
 source("../setup.R")
 knitr_fig_path("02-")
