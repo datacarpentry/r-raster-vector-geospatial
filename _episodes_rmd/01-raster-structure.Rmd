@@ -72,10 +72,12 @@ elements. Finally, it introduces the GeoTiff file format.
 Let's first import a raster dataset into `R` and explore its metadata.
 To open rasters in `R`, we will use the `raster` and `rgdal` packages.
 
-```{r load-libraries }
-# load libraries
+```{r load-libraries}
 library(raster)
 library(rgdal)
+```
+
+```{r load-more-libraries echo=FALSE}
 library(ggplot2)
 library(tidyr)
 ```
