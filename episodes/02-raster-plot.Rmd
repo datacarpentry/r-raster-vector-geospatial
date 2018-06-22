@@ -34,6 +34,15 @@ source("../setup.R")
 knitr_fig_path("02-")
 ```
 
+```{r load-data, echo = FALSE}
+# Learners will have this data loaded from earlier episode
+# DSM data for Harvard Forest
+DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+
+DSM_HARV_df <- rasterToPoints(DSM_HARV, spatial = TRUE) %>%
+data.frame()
+```
+
 This episode covers how to plot a raster in `R` using the `ggplot2`
 package. It also covers how to layer a raster on top of a hillshade to produce
 an eloquent map.
@@ -51,7 +60,6 @@ of the data using a bar plot.
 We use `dplyr`'s mutate to combined with `cut()` to split the data into 3 bins.
 
 ```{r histogram-breaks-ggplot, fig.width= 7, fig.height=7}
-library(dplyr)
 
 DSM_HARV_df <- DSM_HARV_df %>%
                 mutate(fct_elevation = cut(HARV_dsmCrop, breaks = 3))

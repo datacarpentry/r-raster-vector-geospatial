@@ -50,16 +50,6 @@ episode, we learned how to layer a raster file on top of a hillshade for a nice
 looking basemap. In this episode, all of our data were in the same CRS. What
 happens when things don't line up?
 
-We will use the `raster` and `rgdal` packages in this episode.
-
-```{r load-libraries }
-# load raster package
-library(raster)
-library(rgdal)
-library(ggplot2)
-library(dplyr)
-```
-
 For this episode, we will be working with the Harvard Forest Digital
 Terrain Model data. This differes from the surface model data we've
 we've been working with so far in that the digital terrain model
