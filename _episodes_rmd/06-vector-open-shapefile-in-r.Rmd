@@ -23,7 +23,7 @@ description: "This spatial data tutorial explains the how to open and plot
 shapefiles containing point, line and polygon vector data in R."
 ---
 
-```{r echo=FALSE}
+```{r setup, echo=FALSE}
 source("../bin/chunk-options.R")
 source("../setup.R")
 knitr_fig_path("06-")

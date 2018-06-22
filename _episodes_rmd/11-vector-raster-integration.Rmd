@@ -23,7 +23,7 @@ the extent of a vector shapefile. It also covers extracting pixel values from
 defined locations stored in a spatial object."
 ---
 
-```{r echo=FALSE}
+```{r setup, echo=FALSE}
 source("../bin/chunk-options.R")
 source("../setup.R")
 knitr_fig_path("11-")
