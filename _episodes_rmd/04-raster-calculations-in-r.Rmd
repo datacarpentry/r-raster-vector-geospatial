@@ -36,6 +36,28 @@ source("../setup.R")
 knitr_fig_path("04-")
 ```
 
+```{r load-libraries, echo = FALSE}
+library(raster)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+```
+
+```{r load-data, echo = FALSE}
+# Learners will have these data loaded from earlier episode
+# DSM data for Harvard Forest
+DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+
+DSM_HARV_df <- rasterToPoints(DSM_HARV, spatial = TRUE) %>%
+data.frame()
+
+# DTM data for Harvard Forest
+DTM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
+
+DTM_HARV_df <- rasterToPoints(DTM_HARV, spatial = TRUE) %>%
+data.frame()
+```
+
 We often want to combine values of and perform calculations on rasters to create
 a new output raster. This episode covers how to subtract one raster from
 another using basic raster math and the `overlay()` function. It also covers how
@@ -69,14 +91,6 @@ buildings, etc. with the influence of ground elevation removed.
 For this episode, we will use the DTM and DSM from the
 NEON Harvard Forest Field site,
 which we already have loaded in previous episodes.
-
-```{r load-libraries, echo = FALSE}
-# load libraries
-library(raster)
-library(rgdal)
-library(ggplot2)
-library(dplyr)
-```
 
 > ## Exercise
 > Use the `GDALinfo()` function to view information about the DTM and
