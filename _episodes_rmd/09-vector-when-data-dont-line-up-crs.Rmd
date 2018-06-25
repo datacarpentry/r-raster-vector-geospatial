@@ -93,7 +93,7 @@ are in the same projection to support plotting / mapping. Note that these skills
 are also required for any geoprocessing / spatial analysis. Data need to be in
 the same CRS to ensure accurate results.
 
-We will use the `sf` and `raster` packages in this episode.
+We will use the `sf` and `raster` packages in this Episode.
 
 ## Import US Boundaries - Census Data
 
