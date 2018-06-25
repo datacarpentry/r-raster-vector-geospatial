@@ -45,33 +45,19 @@ stores metadata and attributes associated with the file.
 ## Load the Data
 To work with vector data in `R`, we can use the `sf` package. The `raster`
 package also allows us to explore metadata using similar commands for both
-raster and vector files.
+raster and vector files. Make sure that you have these libraries loaded.
 
-We will import three shapefiles. The first is our `AOI` or area of
-interest boundary polygon that we worked with in
-[Open and Plot Shapefiles in R]({{site.baseurl}}/R/open-shapefiles-in-R/).
-The second is a shapefile containing the location of roads and trails within the
-field site. The third is a file containing the Fisher tower location.
-
-If you completed the
-[Open and Plot Shapefiles in R]({{site.baseurl}}/R/open-shapefiles-in-R/)
-episode, you can skip this code.
-
+```{r load-libraries-2, eval=FALSE}
+library(sf)
+library(raster)
 ```
-# Import a polygon shapefile
-aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 
-# Import a line shapefile
-lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
-
-# Import a point shapefile
-point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
-
-```
+We will continue to work with the three shapefiles that we loaded in the
+[Open and Plot Shapefiles in R]({{site.baseurl}}/06-vector-open-shapefile-in-r/) episode.
 
 ## Query Shapefile Metadata
 Remember, as covered in
-[Open and Plot Shapefiles in R]({{site.baseurl}}/R/open-shapefiles-in-R/),
+[Open and Plot Shapefiles in R]({{site.baseurl}}/06-vector-open-shapefile-in-r/),
 we can view metadata associated with an `R` object using:
 
 * `st_geometry_type()` - Describes the type of vector data stored in the object.

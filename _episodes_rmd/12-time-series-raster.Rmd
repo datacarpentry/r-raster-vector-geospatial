@@ -107,7 +107,7 @@ period that NDVI is available.
 </figure>
 
 ### Getting Started
-In this episode, we will use the `raster` and `rgdal` libraries.
+In this episode, we will use the `raster` and `rgdal` libraries. Make sure you have
 
 To begin, we will create a list of raster files using the `list.files()`
 function in `R`. This list will be used to generate a `RasterStack`. We will
@@ -239,7 +239,7 @@ quickly apply this factor using raster math on the entire stack as follows:
 > We can make this plot
 > even prettier by fixing the individual tile names, adding an plot title and by
 > using the (`levelplot`) function. This is covered in the NEON Data Skills
-> [Plot Time Series Rasters in R ]({{ site.baseurl }}/R/Plot-Raster-Times-Series-Data-In-R/)
+> [Plot Time Series Rasters in R ]({{ site.baseurl }}/13-plot-time-series-rasters-in-r/)
 > episode.
 {: .callout}
 
