@@ -34,6 +34,25 @@ source("../setup.R")
 knitr_fig_path("13-")
 ```
 
+> ## Things You’ll Need To Complete This episode
+> **R Skill Level:** Intermediate - you've got the basics of `R` down.
+>
+> ### Install software
+> For installation instructions, see the [workshop homepage](http://www.datacarpentry.org/geospatial-workshop/setup/).
+>
+> ### Download Data
+>
+> * [airborne remote sensing data](https://ndownloader.figshare.com/files/3701578)
+> * [site layout shapefiles](https://ndownloader.figshare.com/files/3708751)
+>
+> ### Setup RStudio Project
+>
+> Make sure you have setup a RStudio project for this lesson, as described in the <a href="{{ site.baseurl }}/setup/" target="_blank">setup instructions</a>.
+>
+> If you don't have a RStudio project, you will need to manually set the working directory with `setwd([your-directory-name])` so R can find the data files to load.
+>
+{: .prereq}
+
 This tutorial covers how to improve plotting output using the `rasterVis` package
 in `R`. Specifically it covers using `levelplot()` and adding meaningful custom
 names to bands within a `RasterStack`.
