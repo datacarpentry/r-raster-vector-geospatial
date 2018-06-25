@@ -286,10 +286,3 @@ plot(point_HARV, add  = TRUE, pch = 19, col = "purple")
 > > ```
 > {: .solution}
 {: .challenge}
-
-## Additional Resources: Plot Parameter Options
-For more on parameter options in the base `R` `plot()` function, check out these
-resources:
-
-* <a href="http://www.statmethods.net/advgraphs/parameters.html" target="_blank">Parameter methods in `R`.</a>
-* <a href="https://codeyarns.files.wordpress.com/2011/07/20110729-vim-named-colors.png?w=700" target="_blank">Color names in `R`</a>

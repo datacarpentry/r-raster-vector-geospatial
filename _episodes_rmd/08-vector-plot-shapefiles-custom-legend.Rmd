@@ -31,25 +31,29 @@ library(dplyr)
 {: .prereq}
 
 This episode builds upon
-[the previous episode]({{ site.baseurl }}/R/shapefile-attributes-in-R/)
+[the previous episode]({{ site.baseurl }}/07-vector-shapefile-attributes-in-r/)
 to work with shapefile attributes in `R` and explores how to plot multiple
-shapefiles using base R graphics. It then covers
-how to create a custom legend with colors and symbols that match your plot.
+shapefiles using base R graphics.
 
 ## Load the Data
 To work with vector data in `R`, we can use the `sf` library. The `raster`
 package also allows us to explore metadata using similar commands for both
-raster and vector files.
+raster and vector files. Make sure that you have these libraries loaded.
 
-We will import three shapefiles. The first is our `AOI` or *area of
-interest* boundary polygon that we worked with in
-[Open and Plot Shapefiles in R]({{site.baseurl}}/R/open-shapefiles-in-R/).
+```{r load-libraries-2, eval=FALSE}
+library(sf)
+library(raster)
+```
+
+We will use three shapefiles in this lesson. The first is our `AOI` or *area of
+interest* boundary polygon that we worked with in the
+[Open and Plot Shapefiles in R]({{site.baseurl}}/06-vector-open-shapefile-in-r/) episode.
 The second is a shapefile containing the location of roads and trails within the
 field site. The third is a file containing the Harvard Forest Fisher tower
 location. These latter two we worked with in the
-[Explore Shapefile Attributes & Plot Shapefile Objects by Attribute Value in R]({{site.baseurl}}/R/shapefile-attributes-in-R/) episode.
+[Explore Shapefile Attributes & Plot Shapefile Objects by Attribute Value in R]({{site.baseurl}}/07-vector-shapefile-attributes-in-r/) episode.
 
-```{r load-data }
+```{r load-data, echo = FALSE}
 # Import a polygon shapefile
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 
@@ -63,7 +67,7 @@ point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp"
 ## Plot Data
 
 In the
-[*Explore Shapefile Attributes & Plot Shapefile Objects by Attribute Value in R* episode]({{ site.baseurl }}/R/shapefile-attributes-in-R/)
+[Explore Shapefile Attributes & Plot Shapefile Objects by Attribute Value in R]({{ site.baseurl }}/07-vector-shapefile-attributes-in-r/) episode,
 we created a plot where we customized the width of each line in a spatial object
 according to a factor level or category. To do this, we create a vector of
 colors containing a color value for EACH feature in our spatial object grouped
