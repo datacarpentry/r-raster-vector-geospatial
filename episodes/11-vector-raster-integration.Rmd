@@ -48,7 +48,7 @@ We often work with spatial layers that have different spatial extents.
 </figure>
 
 The graphic below illustrates the extent of several of the spatial layers that
-we have worked with in this vector data episode series:
+we have worked with in this vector data series:
 
 * Area of interest (AOI) -- blue
 * Roads and trails -- purple
@@ -59,15 +59,6 @@ and a raster file, that we will introduce this episode:
 * A canopy height model (CHM) in GeoTIFF format -- green
 
 ```{r view-extents, echo=FALSE}
-# Import a polygon shapefile
-aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
-
-# Import a line shapefile
-lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
-
-# Import a point shapefile
-point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
-
 chm_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 
 utm18nCRS <- st_crs(point_HARV)
@@ -128,34 +119,15 @@ study area to keep reduce file sizes as we process our data.
 Cropping a raster can also be useful when creating pretty maps so that the
 raster layer matches the extent of the desired vector layers.
 
-### Import Data
-We will begin by importing four vector shapefiles (field site boundary,
-roads/trails, tower location, and veg study plot locations) and one raster
-GeoTIFF file, a Canopy Height Model for the Harvard Forest, Massachusetts.
-These data can be used to create maps that characterize our study location.
-
-If you have completed the Vector 00-04 episodes in this
-[Introduction to Working with Vector Data in R]({{site.baseurl}}/episode-series/vector-data-series/)
-series, you can skip this code as you have already created these object.)
-
-```{r load-libraries-data, results="hide", warning=FALSE }
-# load necessary packages
-library(sf)
-library(raster)
-
-# Imported in Vector 00: Vector Data in R - Open & Plot Data
-# shapefile
+```{r load-data, echo = FALSE, results='hide', warning=FALSE}
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
-# Import a line shapefile
+
 lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
-# Import a point shapefile
+
 point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 
-# Imported in  Vector 02: .csv to Shapefile in R
-# import raster Canopy Height Model (CHM)
 chm_HARV <-
   raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
-
 ```
 
 ## Crop a Raster Using Vector Extent

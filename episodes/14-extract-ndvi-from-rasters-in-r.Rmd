@@ -41,15 +41,7 @@ each plot within a field site. These values can then be compared betweeen
 different field sites and combined with other
 related metrics to support modeling and further analysis.
 
-## Get Started
-In this episode, we will work with the same set of rasters used in the
-[Raster Time Series Data in R ]({{ site.baseurl }}/R/Raster-Times-Series-Data-In-R/)
-and
-[Plot Raster Time Series Data in R Using RasterVis and Levelplot ]({{ site.baseurl }}/R/Plot-Raster-Times-Series-Data-In-R/)
-episodes. To begin, we will create a raster stack (also created in the previous
-episodes so you may be able to skip this first step!).
-
-```{r load-data }
+```{r load-data, echo = FALSE, results = 'hide'}
 
 # Create list of NDVI file paths
 all_HARV_NDVI <- list.files("data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI",

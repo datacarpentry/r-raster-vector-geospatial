@@ -25,7 +25,6 @@ library(ggplot2)
 library(dplyr)
 ```
 
-
 > ## Things You’ll Need To Complete This Episode
 > See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
 > data, and other prerequisites you will need to work through the examples in this episode.
@@ -67,19 +66,13 @@ for that state.
     Source: opennews.org</figcaption>
 </figure>
 
-
-Check out this short video highlighting how map projections can make continents
-seems proportionally larger or smaller than they actually are!
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/KUF_Ckv8HbE" frameborder="0" allowfullscreen></iframe>
-
 In this episode we will learn how to identify and manage spatial data
 in different projections. We will learn how to `reproject` the data so that they
 are in the same projection to support plotting / mapping. Note that these skills
 are also required for any geoprocessing / spatial analysis. Data need to be in
 the same CRS to ensure accurate results.
 
-We will use the `sf` and `raster` packages in this Episode.
+We will use the `sf` and `raster` packages in this episode.
 
 ## Import US Boundaries - Census Data
 

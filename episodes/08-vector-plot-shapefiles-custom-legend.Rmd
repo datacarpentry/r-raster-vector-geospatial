@@ -45,23 +45,18 @@ library(sf)
 library(raster)
 ```
 
-We will use three shapefiles in this lesson. The first is our `AOI` or *area of
-interest* boundary polygon that we worked with in the
+We will continue to work with the three shapefiles that we loaded in the
 [Open and Plot Shapefiles in R]({{site.baseurl}}/06-vector-open-shapefile-in-r/) episode.
-The second is a shapefile containing the location of roads and trails within the
-field site. The third is a file containing the Harvard Forest Fisher tower
-location. These latter two we worked with in the
-[Explore Shapefile Attributes & Plot Shapefile Objects by Attribute Value in R]({{site.baseurl}}/07-vector-shapefile-attributes-in-r/) episode.
 
-```{r load-data, echo = FALSE}
-# Import a polygon shapefile
+```{r load-data, echo = FALSE, results='hide', warning=FALSE}
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 
-# Import a line shapefile
 lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 
-# Import a point shapefile
 point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
+
+chm_HARV <-
+raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 ```
 
 ## Plot Data
