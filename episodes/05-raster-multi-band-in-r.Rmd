@@ -11,18 +11,6 @@ objectives:
 - "Understand what a `NoData` value is in a raster."
 keypoints:
 - "A single raster file can contain multiple bands or layers."
-authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
-contributors: [ ]
-packagesLibraries: [raster, rgdal]
-dateCreated:  2015-10-23
-lastModified: `r format(Sys.time(), "%Y-%m-%d")`
-categories:  [self-paced-tutorial]
-tags: [R, raster, spatial-data-gis]
-tutorialSeries: [raster-data-series, raster-time-series]
-mainTag: raster-data-series
-description: "This tutorial explores how to import and plot a multi-band raster in
-R. It also covers how to plot a three-band color image using the plotRGB
-function in R."
 ---
 
 ```{r setup, echo=FALSE}
@@ -50,7 +38,7 @@ knitr_fig_path("05-")
 >
 {: .prereq}
 
-This tutorial explores how to import and plot a multi-band raster in
+This episode explores how to import and plot a multi-band raster in
 R. It also covers how to plot a three-band color image using the `plotRGB()`
 function in `R`.
 
@@ -60,7 +48,7 @@ function in `R`.
 
 ## About Raster Bands in R
 As discussed in the
-[Intro to Raster Data tutorial]({{ base.url }}/R/Introduction-to-Raster-Data-In-R),
+[Intro to Raster Data episode]({{ base.url }}/R/Introduction-to-Raster-Data-In-R),
 a raster can contain 1 or more bands.
 
 <figure>
@@ -158,7 +146,7 @@ to learn more about time series stacks.
 (multi-spectral) or more than 10-15 (hyperspectral) bands. Check out the NEON
 Data Skills
 [Imaging Spectroscopy HDF5 in R ]({{site.baseurl}}/HDF5/Imaging-Spectroscopy-HDF5-In-R/)
-tutorial for more about working with hyperspectral data cubes.
+episode for more about working with hyperspectral data cubes.
 
 ## Getting Started with Multi-Band Data in R
 To work with multi-band raster data we will use the `raster` and `rgdal`
@@ -173,7 +161,7 @@ library(rgdal)
 
 ```
 
-In this tutorial, the multi-band data that we are working with is imagery
+In this episode, the multi-band data that we are working with is imagery
 collected using the
 <a href="http://www.neonscience.org/science-design/collection-methods/airborne-remote-sensing"
 target="_blank">NEON Airborne Observation Platform</a>
@@ -418,7 +406,7 @@ between 0 and 255.
 > you check?
 > 
 > Answer the questions above using the functions we have covered so far in this
-tutorial.
+episode.
 > 
 > > ## Answers
 > > ``` {r challenge-code-NoData, echo=TRUE, results="hide"}
@@ -453,7 +441,7 @@ tutorial.
 > We can create a RasterStack from
 > several, individual single-band GeoTIFFs too. Check out:
 > [Raster Time Series Data in R]({{ site.baseurl }}/R/Raster-Times-Series-Data-In-R/)
-> for a tutorial on how to do this.
+> for a episode on how to do this.
 {: .callout}
 
 ## RasterStack vs RasterBrick in R

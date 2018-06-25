@@ -10,23 +10,6 @@ objectives:
 - "Be able to customize a baseplot legend in R."
 keypoints:
 - ""
-authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
-contributors: [Sarah Newman]
-dateCreated:  2016-02-09
-lastModified: `r format(Sys.time(), "%Y-%m-%d")`
-packagesLibraries: [rgdal, raster]
-categories: [self-paced-tutorial]
-mainTag: vector-data-series
-tags: [vector-data, R, spatial-data-gis]
-tutorialSeries: [vector-data-series]
-description: "This tutorial provides an overview of how to create a a plot of
-multiple shapefiles using base R plot. It also explores adding a legend with
-custom symbols that match your plot colors and symbols."
-image:
-  feature: NEONCarpentryHeader_2.png
-  credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
-  creditlink:
-comments: true
 ---
 
 ```{r setup, echo=FALSE}
@@ -54,8 +37,8 @@ knitr_fig_path("08-")
 >
 {: .prereq}
 
-This tutorial builds upon
-[the previous tutorial]({{ site.baseurl }}/R/shapefile-attributes-in-R/)
+This episode builds upon
+[the previous episode]({{ site.baseurl }}/R/shapefile-attributes-in-R/)
 to work with shapefile attributes in `R` and explores how to plot multiple
 shapefiles using base R graphics. It then covers
 how to create a custom legend with colors and symbols that match your plot.
@@ -71,7 +54,7 @@ interest* boundary polygon that we worked with in
 The second is a shapefile containing the location of roads and trails within the
 field site. The third is a file containing the Harvard Forest Fisher tower
 location. These latter two we worked with in the
-[Explore Shapefile Attributes & Plot Shapefile Objects by Attribute Value in R]({{site.baseurl}}/R/shapefile-attributes-in-R/) tutorial.
+[Explore Shapefile Attributes & Plot Shapefile Objects by Attribute Value in R]({{site.baseurl}}/R/shapefile-attributes-in-R/) episode.
 
 ```{r load-packages-data }
 # load packages
@@ -91,7 +74,7 @@ point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp"
 ## Plot Data
 
 In the
-[*Explore Shapefile Attributes & Plot Shapefile Objects by Attribute Value in R* tutorial]({{ site.baseurl }}/R/shapefile-attributes-in-R/)
+[*Explore Shapefile Attributes & Plot Shapefile Objects by Attribute Value in R* episode]({{ site.baseurl }}/R/shapefile-attributes-in-R/)
 we created a plot where we customized the width of each line in a spatial object
 according to a factor level or category. To do this, we create a vector of
 colors containing a color value for EACH feature in our spatial object grouped
@@ -135,7 +118,7 @@ plot(lines_HARV$geometry,
 
 ## Add Plot Legend
 In the
-[previous tutorial]({{ site.baseurl }}/R/shapefile-attributes-in-R/),
+[previous episode]({{ site.baseurl }}/R/shapefile-attributes-in-R/),
 we also learned how to add a basic legend to our plot.
 
 * `bottomright`: We specify the **location** of our legend by using a default

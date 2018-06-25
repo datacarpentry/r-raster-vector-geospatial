@@ -10,20 +10,6 @@ objectives:
 - "Be familiar with the `proj4` string format which is one format used used to store / reference the `CRS` of a spatial object."
 keypoints:
 - ""
-authors: [Joseph Stachelek, Leah Wasser, Megan A. Jones]
-contributors: [Sarah Newman]
-dateCreated:  2015-10-23
-lastModified: `r format(Sys.time(), "%Y-%m-%d")`
-packagesLibraries: [rgdal, raster]
-categories: [self-paced-tutorial]
-mainTag: vector-data-series
-tags: [vector-data, R, spatial-data-gis]
-tutorialSeries: [vector-data-series]
-description: "This tutorial will cover how to identify the CRS of a spatial
-vector object in R. It will also explore differences in units associated with
-different projections and how to reproject data using spTransform in R. Spatial
-data need to be in the same projection in order to successfully map and process
-them in non-gui tools such as R."
 ---
 
 ```{r setup, echo=FALSE}
@@ -51,7 +37,7 @@ knitr_fig_path("09-")
 >
 {: .prereq}
 
-In this tutorial, we will create a base map of our study site using a United States
+In this episode, we will create a base map of our study site using a United States
 state and country boundary accessed from the
 <a href="https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html" target="_blank"> United States Census Bureau</a>.
 We will learn how to map vector data that are in different `CRS` and thus
@@ -93,13 +79,13 @@ seems proportionally larger or smaller than they actually are!
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/KUF_Ckv8HbE" frameborder="0" allowfullscreen></iframe>
 
-In this tutorial we will learn how to identify and manage spatial data
+In this episode we will learn how to identify and manage spatial data
 in different projections. We will learn how to `reproject` the data so that they
 are in the same projection to support plotting / mapping. Note that these skills
 are also required for any geoprocessing / spatial analysis. Data need to be in
 the same CRS to ensure accurate results.
 
-We will use the `sf` and `raster` packages in this tutorial.
+We will use the `sf` and `raster` packages in this episode.
 
 ```{r load-libraries}
 
@@ -113,7 +99,7 @@ library(raster)   # for raster metadata/attributes
 
 There are many good sources of boundary base layers that we can use to create a
 basemap. Some `R` packages even have these base layers built in to support quick
-and efficient mapping. In this tutorial, we will use boundary layers for the
+and efficient mapping. In this episode, we will use boundary layers for the
 United States, provided by the
 <a href="https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html" target="_blank"> United States Census Bureau.</a>
 
@@ -126,7 +112,7 @@ We will use the `st_read()` function to import the
 `/US-Boundary-Layers/US-State-Boundaries-Census-2014` layer into `R`. This layer
 contains the boundaries of all continental states in the U.S. Please note that
 these data have been modified and reprojected from the original data downloaded
-from the Census website to support the learning goals of this tutorial.
+from the Census website to support the learning goals of this episode.
 
 ```{r read-csv }
 
@@ -270,7 +256,7 @@ often recorded in *Decimal Degrees*.
 > ## Data Tip
 > the last portion of each `proj4` string
 > is `+towgs84=0,0,0 `. This is a conversion factor that is used if a datum
-> conversion is required. We will not deal with datums in this tutorial series.
+> conversion is required. We will not deal with datums in this episode series.
 {: .callout}
 
 ## CRS Units - View Object Extent
