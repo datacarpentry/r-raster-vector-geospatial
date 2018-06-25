@@ -18,6 +18,14 @@ source("../setup.R")
 knitr_fig_path("09-")
 ```
 
+```{r load-libraries, echo = FALSE}
+library(raster)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+```
+
+
 > ## Things You’ll Need To Complete This episode
 > **R Skill Level:** Intermediate - you've got the basics of `R` down.
 >
@@ -86,14 +94,6 @@ are also required for any geoprocessing / spatial analysis. Data need to be in
 the same CRS to ensure accurate results.
 
 We will use the `sf` and `raster` packages in this episode.
-
-```{r load-libraries}
-
-# load packages
-library(sf)  # for vector work
-library(raster)   # for raster metadata/attributes
-
-```
 
 ## Import US Boundaries - Census Data
 

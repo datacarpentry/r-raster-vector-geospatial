@@ -17,6 +17,13 @@ source("../setup.R")
 knitr_fig_path("11-")
 ```
 
+```{r load-libraries, echo = FALSE}
+library(raster)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+```
+
 > ## Things You’ll Need To Complete This episode
 > **R Skill Level:** Intermediate - you've got the basics of `R` down.
 >
@@ -66,10 +73,6 @@ and a raster file, that we will introduce this episode:
 * A canopy height model (CHM) in GeoTIFF format -- green
 
 ```{r view-extents, echo=FALSE}
-## Load Packages
-library(sf)
-library(raster)
-
 # Import a polygon shapefile
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 

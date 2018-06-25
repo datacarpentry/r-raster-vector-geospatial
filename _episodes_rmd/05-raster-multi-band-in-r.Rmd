@@ -19,6 +19,13 @@ source("../setup.R")
 knitr_fig_path("05-")
 ```
 
+```{r load-libraries, echo = FALSE}
+library(raster)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+```
+
 > ## Things You’ll Need To Complete This episode
 > **R Skill Level:** Intermediate - you've got the basics of `R` down.
 >
@@ -38,128 +45,11 @@ knitr_fig_path("05-")
 >
 {: .prereq}
 
-This episode explores how to import and plot a multi-band raster in
+We introduced multi-band raster data in
+[an earlier lesson](http://www.datacarpentry.org/organization-geospatial/01-spatial-data-structures-formats/index.html). This episode explores how to import and plot
+a multi-band raster in
 R. It also covers how to plot a three-band color image using the `plotRGB()`
 function in `R`.
-
-## The Basics of Imagery - About Spectral Remote Sensing Data
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/3iaFzafWJQE" frameborder="0" allowfullscreen></iframe>
-
-## About Raster Bands in R
-As discussed in the
-[Intro to Raster Data episode]({{ base.url }}/R/Introduction-to-Raster-Data-In-R),
-a raster can contain 1 or more bands.
-
-<figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-raster/single_multi_raster.png">
-    <img src="{{ site.baseurl }}/images/dc-spatial-raster/single_multi_raster.png">
-    </a>
-    <figcaption>A raster can contain one or more bands. We can use the
-    raster function to import one single band from a single OR multi-band
-    raster.  Source: National Ecological Observatory Network (NEON).</figcaption>
-</figure>
-
-To work with multi-band rasters in `R`, we need to change how we import and plot
-our data in several ways.
-
-* To import multi band raster data we will use the `stack()` function.
-* If our multi-band data are imagery that we wish to composite, we can use
-`plotRGB()` (instead of `plot()`) to plot a 3 band raster image.
-
-## About Multi-Band Imagery
-One type of multi-band raster dataset that is familiar to many of us is a color
-image. A basic color image consists of three bands: red, green, and blue. Each
-band represents light reflected from the red, green or blue portions of the
-electromagnetic spectrum. The pixel brightness for each band, when composited
-creates the colors that we see in an image.
-
-<figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.jpg">
-    <img src="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.jpg"></a>
-    <figcaption>A color image consists of 3 bands - red, green and blue. When
-    rendered together in a GIS, or even a tool like Photoshop or any other
-    image software, they create a color image.
-	Source: National Ecological Observatory Network (NEON).
-    </figcaption>
-</figure>
-
-We can plot each band of a multi-band image individually.
-
-> ## Data Tip
-> In many GIS applications, a single band
-> would render as a single image in grayscale. We will therefore use a grayscale
-> palette to render individual bands.
-{: .callout}
-
-```{r demonstrate-RGB-Image, echo=FALSE}
-library(raster)
-# Use stack function to read in all bands
-RGB_stack_HARV <- stack("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
-
-names(RGB_stack_HARV) <- c("Red Band", "Green Band", "Blue Band")
-
-grayscale_colors <- gray.colors(100,
-                                start = 0.0,
-                                end = 1.0,
-                                gamma = 2.2,
-                                alpha = NULL)
-
-# Create an RGB image from the raster stack
-plot(RGB_stack_HARV,
-     col = grayscale_colors,
-     axes = FALSE)
-
-```
-
-Or we can composite all three bands together to make a color image.
-
-```{r plot-RGB-now, echo=FALSE, message=FALSE }
-# Create an RGB image from the raster stack
-
-original_par <- par() # create original par for easy reversal at end
-par(col.axis = "white", col.lab = "white", tck = 0)
-plotRGB(RGB_stack_HARV, r = 1, g = 2, b = 3,
-        axes = TRUE,
-        main = "3 Band Color Composite Image\n NEON Harvard Forest Field Site")
-box(col = "white")
-
-```
-
-In a multi-band dataset, the rasters will always have the same *extent*,
-*CRS* and *resolution*.
-
-```{r reset-par, echo=FALSE, results="hide", warning=FALSE}
-par(original_par) # go back to original par
-
-```
-
-
-## Other Types of Multi-band Raster Data
-
-Multi-band raster data might also contain:
-
-1. **Time series:** the same variable, over the same area, over time. Check out
-[Raster Time Series Data in R ]({{site.baseurl}}/R/Raster-Times-Series-Data-In-R/)
-to learn more about time series stacks.
-2. **Multi or hyperspectral imagery:** image rasters that have 4 or more
-(multi-spectral) or more than 10-15 (hyperspectral) bands. Check out the NEON
-Data Skills
-[Imaging Spectroscopy HDF5 in R ]({{site.baseurl}}/HDF5/Imaging-Spectroscopy-HDF5-In-R/)
-episode for more about working with hyperspectral data cubes.
-
-## Getting Started with Multi-Band Data in R
-To work with multi-band raster data we will use the `raster` and `rgdal`
-packages.
-
-```{r load-libraries }
-
-# work with raster data
-library(raster)
-# export GeoTIFFs and other core GIS functions
-library(rgdal)
-
-```
 
 In this episode, the multi-band data that we are working with is imagery
 collected using the
