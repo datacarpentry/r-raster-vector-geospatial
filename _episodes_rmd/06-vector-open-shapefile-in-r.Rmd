@@ -40,55 +40,6 @@ knitr_fig_path("06-")
 In this episode, we will open and plot point, line and polygon vector data
 stored in shapefile format in `R`.
 
-## About Vector Data
-Vector data are composed of discrete geometric locations (x, y values) known as
-**vertices** that define the "shape" of the spatial object. The organization
-of the vertices, determines the type of vector that we are working
-with: point, line or polygon.
-
-<figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-vector/pnt_line_poly.png">
-    <img src="{{ site.baseurl }}/images/dc-spatial-vector/pnt_line_poly.png"></a>
-    <figcaption> There are 3 types of vector objects: points, lines or
-    polygons. Each object type has a different structure.
-    Image Source: National Ecological Observatory Network (NEON)
-    </figcaption>
-</figure>
-
-* **Points:** Each individual point is defined by a single x, y coordinate.
-There can be many points in a vector point file. Examples of point data include:
-sampling locations, the location of individual trees or the location of plots.
-* **Lines:** Lines are composed of many (at least 2) vertices, or points, that
-are connected. For instance, a road or a stream may be represented by a line. This
-line is composed of a series of segments, each "bend" in the road or stream
-represents a vertex that has defined `x, y` location.
-* **Polygons:** A polygon consists of 3 or more vertices that are connected and
-"closed". Thus the outlines of plot boundaries, lakes, oceans, and states or
-countries are often represented by polygons. Occasionally, a polygon can have a
-hole in the middle of it (like a doughnut), this is something to be aware of but
-not an issue we will deal with in this episode.
-
-> ## Data Tip
-> Sometimes, boundary layers such as
->  states and countries, are stored as lines rather than polygons. However, these
-> boundaries, when represented as a line, will not create a closed object with a defined "area" that can be "filled".
-{: .callout}
-
-## Shapefiles: Points, Lines, and Polygons
-Geospatial data in vector format are often stored in a `shapefile` format.
-Because the structure of points, lines, and polygons are different, each
-individual shapefile can only contain one vector type (all points, all lines
-or all polygons). You will not find a mixture of point, line and polygon
-objects in a single shapefile.
-
-Objects stored in a shapefile often have a set of associated `attributes` that
-describe the data. For example, a line shapefile that contains the locations of
-streams, might contain the associated stream name, stream "order" and other
-information about each stream line object.
-
-* More about shapefiles can found on
-<a href="https://en.wikipedia.org/wiki/Shapefile" target="_blank">Wikipedia</a>.
-
 ## Import Shapefiles
 
 We will use the `sf` package to work with vector data in `R`. Notice that the
