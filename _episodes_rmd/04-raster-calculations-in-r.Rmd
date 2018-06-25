@@ -1,7 +1,7 @@
 ---
 title: "Raster Calculations in R"
-teaching: 10
-exercises: 0
+teaching: 20
+exercises: 10
 questions:
 - "How to subtract one raster from another and extract pixel values for defined locations."
 objectives:
@@ -17,7 +17,7 @@ source("../setup.R")
 knitr_fig_path("04-")
 ```
 
-```{r load-libraries, echo = FALSE}
+```{r load-libraries, echo = FALSE, results='hide'}
 library(raster)
 library(rgdal)
 library(ggplot2)
@@ -40,22 +40,8 @@ data.frame()
 ```
 
 > ## Things You’ll Need To Complete This Episode
-> **R Skill Level:** Intermediate - you've got the basics of `R` down.
->
-> ### Install software
-> For installation instructions, see the [workshop homepage](http://www.datacarpentry.org/geospatial-workshop/setup/).
->
-> ### Download Data
->
-> * [airborne remote sensing data](https://ndownloader.figshare.com/files/3701578)
-> * [site layout shapefiles](https://ndownloader.figshare.com/files/3708751)
->
-> ### Setup RStudio Project
->
-> Make sure you have setup a RStudio project for this lesson, as described in the <a href="{{ site.baseurl }}/setup/" target="_blank">setup instructions</a>.
->
-> If you don't have a RStudio project, you will need to manually set the working directory with `setwd([your-directory-name])` so R can find the data files to load.
->
+> See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
+> data, and other prerequisites you will need to work through the examples in this episode.
 {: .prereq}
 
 
