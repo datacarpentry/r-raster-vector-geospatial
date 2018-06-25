@@ -9,23 +9,6 @@ objectives:
 - "Know how to layer a raster dataset on top of a hillshade to create an elegant basemap."
 keypoints:
 - ""
-authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
-contributors: [ ]
-packagesLibraries: [raster, rgdal, dplyr, ggplot2]
-dateCreated:  2015-10-23
-lastModified: `r format(Sys.time(), "%Y-%m-%d")`
-categories:  [self-paced-tutorial]
-tags: [R, raster, spatial-data-gis]
-tutorialSeries: [raster-data-series]
-mainTag: raster-data-series
-description: "This tutorial explains how to plot a raster in R using R's base plot
-function. It also covers how to layer a raster on top of a hillshade to produce
-an eloquent map."
-image:
-  feature: NEONCarpentryHeader_2.png
-  credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
-  creditlink:
-comments: true
 ---
 
 ```{r setup, echo=FALSE}

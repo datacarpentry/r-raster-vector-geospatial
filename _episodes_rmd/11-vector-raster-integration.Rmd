@@ -9,18 +9,6 @@ objectives:
 - "Be able to extract values from raster that correspond to a vector file overlay."
 keypoints:
 - ""
-authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
-contributors: [Sarah Newman]
-dateCreated:  2015-10-23
-lastModified: `r format(Sys.time(), "%Y-%m-%d")`
-packagesLibraries: [rgdal, raster]
-categories: [self-paced-tutorial]
-mainTag: vector-data-series
-tags: [vector-data, R, spatial-data-gis]
-tutorialSeries: [vector-data-series]
-description: "This tutorial covers how to modify (crop) a raster extent using
-the extent of a vector shapefile. It also covers extracting pixel values from
-defined locations stored in a spatial object."
 ---
 
 ```{r setup, echo=FALSE}
@@ -48,7 +36,7 @@ knitr_fig_path("11-")
 >
 {: .prereq}
 
-This tutorial explains how to crop a raster using the extent of a vector
+This episode explains how to crop a raster using the extent of a vector
 shapefile. We will also cover how to extract values from a raster that occur
 within a set of polygons, or in a buffer (surrounding) region around a set of
 points.
@@ -67,13 +55,13 @@ We often work with spatial layers that have different spatial extents.
 </figure>
 
 The graphic below illustrates the extent of several of the spatial layers that
-we have worked with in this vector data tutorial series:
+we have worked with in this vector data episode series:
 
 * Area of interest (AOI) -- blue
 * Roads and trails -- purple
 * Vegetation plot locations -- black
 
-and a raster file, that we will introduce this tutorial:
+and a raster file, that we will introduce this episode:
 
 * A canopy height model (CHM) in GeoTIFF format -- green
 
@@ -157,8 +145,8 @@ roads/trails, tower location, and veg study plot locations) and one raster
 GeoTIFF file, a Canopy Height Model for the Harvard Forest, Massachusetts.
 These data can be used to create maps that characterize our study location.
 
-If you have completed the Vector 00-04 tutorials in this
-[Introduction to Working with Vector Data in R]({{site.baseurl}}/tutorial-series/vector-data-series/)
+If you have completed the Vector 00-04 episodes in this
+[Introduction to Working with Vector Data in R]({{site.baseurl}}/episode-series/vector-data-series/)
 series, you can skip this code as you have already created these object.)
 
 ```{r load-libraries-data, results="hide", warning=FALSE }
@@ -270,7 +258,7 @@ In the plot above, created in the challenge, all the vegetation plot locations
 (blue) appear on the Canopy Height Model raster layer except for one. One is
 situated on the white space. Why?
 
-A modification of the first figure in this tutorial is below, showing the
+A modification of the first figure in this episode is below, showing the
 relative extents of all the spatial objects. Notice that the extent for our
 vegetation plot layer (black) extends further west than the extent of our CHM
 raster (bright green). The crop function will make a raster extent smaller, it

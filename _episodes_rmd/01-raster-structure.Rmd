@@ -13,7 +13,6 @@ objectives:
 -  "Understand the difference between single- and multi-band rasters."
 keypoints:
 -  "The Coordinate Reference System or CRS tells R where the raster is located in geographic space and what method should be used to “flatten” or project the raster."
-authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
 ---
 
 ```{r setup, echo=FALSE}
