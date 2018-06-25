@@ -35,6 +35,13 @@ source("../setup.R")
 knitr_fig_path("03-")
 ```
 
+```{r load-libraries, echo = FALSE}
+library(raster)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+```
+
 Sometimes we encounter raster datasets that do not "line up" when plotted or
 analyzed. Rasters that don't line up are most often in different Coordinate
 Reference Systems (CRS).
@@ -49,16 +56,6 @@ In the [Plot Raster Data in R]({{ site.baseurl }}/R/Plot-Rasters-In-R/)
 episode, we learned how to layer a raster file on top of a hillshade for a nice
 looking basemap. In this episode, all of our data were in the same CRS. What
 happens when things don't line up?
-
-We will use the `raster` and `rgdal` packages in this episode.
-
-```{r load-libraries }
-# load raster package
-library(raster)
-library(rgdal)
-library(ggplot2)
-library(dplyr)
-```
 
 For this episode, we will be working with the Harvard Forest Digital
 Terrain Model data. This differes from the surface model data we've

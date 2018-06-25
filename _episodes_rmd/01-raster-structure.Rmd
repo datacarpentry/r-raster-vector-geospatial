@@ -23,7 +23,14 @@ knitr_fig_path("01-")
 knitr::opts_chunk$set(fig.height = 6)
 ```
 
-> ## Things You’ll Need To Complete This Tutorial
+```{r load-libraries, echo = FALSE}
+library(raster)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+```
+
+> ## Things You’ll Need To Complete This episode
 > **R Skill Level:** Intermediate - you've got the basics of `R` down.
 >
 > ### Install software
@@ -35,7 +42,7 @@ knitr::opts_chunk$set(fig.height = 6)
 > * [site layout shapefiles](https://ndownloader.figshare.com/files/3708751)
 {: .prereq}
 
-In this tutorial, we will review the fundamental principles, packages and
+In this episode, we will review the fundamental principles, packages and
 metadata/raster attributes that are needed to work with raster data in `R`.
 We discuss the three core metadata elements that we need to understand to work
 with rasters in `R`: **CRS**, **extent** and **resolution**. It also explores
@@ -45,16 +52,11 @@ elements. Finally, it introduces the GeoTiff file format.
 ## Raster Data in R
 
 Let's first import a raster dataset into `R` and explore its metadata.
-To open rasters in `R`, we will use the `raster` and `rgdal` packages.
+To open rasters in `R`, we will use the `raster` and `rgdal` packages. Make sure that you have these libraries loaded.
 
-```{r load-libraries}
+```{r load-libraries-2, eval=FALSE}
 library(raster)
 library(rgdal)
-```
-
-```{r load-more-libraries, echo=FALSE}
-library(ggplot2)
-library(tidyr)
 ```
 
 ## Open a Raster in R
@@ -63,7 +65,7 @@ We can use the `raster("path-to-raster-here")` function to open a raster in R.
 > ## Data Tip
 > OBJECT NAMES! To improve code
 > readability, file and object names should be used that make it clear what is in
-> the file. The data for this tutorial were collected over from Harvard Forest so
+> the file. The data for this episode were collected over from Harvard Forest so
 > we'll use a naming convention of `datatype_HARV`.
 {: .callout}
 
@@ -133,7 +135,7 @@ begins with a `+` sign.
 
  `+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0`
 
-We'll focus on the first few components of the CRS in this tutorial.
+We'll focus on the first few components of the CRS in this episode.
 
 * `+proj=utm` The projection of the dataset. Our data are in Universal
 Transverse Mercator (UTM).
@@ -324,8 +326,8 @@ nlayers(DSM_HARV)
 However, raster data can also be multi-band meaning that one raster file
 contains data for more than one variable or time period for each cell. By
 default the `raster()` function only imports the first band in a raster
-regardless of whether it has one or more bands. Jump to the fourth tutorial in
-this series for a tutorial on multi-band rasters:
+regardless of whether it has one or more bands. Jump to the fourth episode in
+this series for a episode on multi-band rasters:
 <a href="{{ site.baseurl }}/R/Multi-Band-Rasters-In-R/" target="_blank">
 Work with Multi-band Rasters: Images in R</a>.
 
