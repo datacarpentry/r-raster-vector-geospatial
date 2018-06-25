@@ -33,7 +33,7 @@ DSM_HARV_df <- rasterToPoints(DSM_HARV, spatial = TRUE) %>%
 data.frame()
 ```
 
-> ## Things You’ll Need To Complete This episode
+> ## Things You’ll Need To Complete This Episode
 > **R Skill Level:** Intermediate - you've got the basics of `R` down.
 >
 > ### Install software
