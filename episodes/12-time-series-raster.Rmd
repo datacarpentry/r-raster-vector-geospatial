@@ -19,6 +19,14 @@ source("../setup.R")
 knitr_fig_path("12-")
 ```
 
+```{r load-libraries, echo = FALSE}
+library(raster)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+```
+
+
 > ## Things You’ll Need To Complete This episode
 > **R Skill Level:** Intermediate - you've got the basics of `R` down.
 >
@@ -114,13 +122,6 @@ period that NDVI is available.
 
 ### Getting Started
 In this episode, we will use the `raster` and `rgdal` libraries.
-
-```{r load-libraries }
-# load packages
-library(raster)
-library(rgdal)
-
-```
 
 To begin, we will create a list of raster files using the `list.files()`
 function in `R`. This list will be used to generate a `RasterStack`. We will

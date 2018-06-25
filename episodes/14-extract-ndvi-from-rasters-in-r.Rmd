@@ -19,6 +19,13 @@ source("../setup.R")
 knitr_fig_path("14-")
 ```
 
+```{r load-libraries, echo = FALSE}
+library(raster)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+```
+
 > ## Things You’ll Need To Complete This episode
 > **R Skill Level:** Intermediate - you've got the basics of `R` down.
 >
@@ -56,11 +63,7 @@ and
 episodes. To begin, we will create a raster stack (also created in the previous
 episodes so you may be able to skip this first step!).
 
-```{r load-libraries-data }
-
-library(raster)
-library(rgdal)
-library(ggplot2)
+```{r load-data }
 
 # Create list of NDVI file paths
 all_HARV_NDVI <- list.files("data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI",

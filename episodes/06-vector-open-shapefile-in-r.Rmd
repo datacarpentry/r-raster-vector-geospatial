@@ -18,6 +18,13 @@ source("../setup.R")
 knitr_fig_path("06-")
 ```
 
+```{r load-libraries, echo = FALSE}
+library(raster)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+```
+
 > ## Things You’ll Need To Complete This episode
 > **R Skill Level:** Intermediate - you've got the basics of `R` down.
 >
@@ -45,15 +52,6 @@ stored in shapefile format in `R`.
 We will use the `sf` package to work with vector data in `R`. Notice that the
 `rgdal` package automatically loads when `sf` is loaded. We will also load the
 `raster` package so we can explore raster and vector spatial metadata using similar commands.
-
-```{r load-libraries }
-# load required libraries
-# for vector work
-library(sf)
-# for metadata/attributes- vectors or rasters
-library(raster)
-
-```
 
 The shapefiles that we will import are:
 

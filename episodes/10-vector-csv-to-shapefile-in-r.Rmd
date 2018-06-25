@@ -19,6 +19,14 @@ source("../setup.R")
 knitr_fig_path("10-")
 ```
 
+```{r load-libraries, echo = FALSE}
+library(raster)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+```
+
+
 > ## Things You’ll Need To Complete This episode
 > **R Skill Level:** Intermediate - you've got the basics of `R` down.
 >
@@ -59,14 +67,6 @@ of each point and the associated attribute data - or columns describing each
 feature in the spatial object.
 
 We will use the `sf` and `raster` libraries in this episode.
-
-```{r load-libraries}
-
-# load packages
-library(sf)  # for vector work;
-library(raster)   # for  raster metadata/attributes
-
-```
 
 ## Import .csv
 To begin let's import `.csv` file that contains plot coordinate `x, y`

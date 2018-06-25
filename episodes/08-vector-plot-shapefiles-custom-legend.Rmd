@@ -18,6 +18,13 @@ source("../setup.R")
 knitr_fig_path("08-")
 ```
 
+```{r load-libraries, echo = FALSE}
+library(raster)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+```
+
 > ## Things You’ll Need To Complete This episode
 > **R Skill Level:** Intermediate - you've got the basics of `R` down.
 >
@@ -56,11 +63,7 @@ field site. The third is a file containing the Harvard Forest Fisher tower
 location. These latter two we worked with in the
 [Explore Shapefile Attributes & Plot Shapefile Objects by Attribute Value in R]({{site.baseurl}}/R/shapefile-attributes-in-R/) episode.
 
-```{r load-packages-data }
-# load packages
-library(sf)
-library(raster)
-
+```{r load-data }
 # Import a polygon shapefile
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 

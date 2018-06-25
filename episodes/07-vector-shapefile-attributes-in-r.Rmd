@@ -19,6 +19,14 @@ source("../setup.R")
 knitr_fig_path("07-")
 ```
 
+```{r load-libraries, echo = FALSE}
+library(raster)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+```
+
+
 > ## Things You’ll Need To Complete This episode
 > **R Skill Level:** Intermediate - you've got the basics of `R` down.
 >
@@ -63,13 +71,7 @@ If you completed the
 [Open and Plot Shapefiles in R]({{site.baseurl}}/R/open-shapefiles-in-R/)
 episode, you can skip this code.
 
-```{r load-packages-data }
-# load packages
-# sf: for vector work
-library(sf)
-# raster: for raster metadata/attributes
-library(raster)
-
+```
 # Import a polygon shapefile
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 
