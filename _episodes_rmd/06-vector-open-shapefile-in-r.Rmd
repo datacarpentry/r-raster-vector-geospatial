@@ -259,11 +259,6 @@ plot(point_HARV, add  = TRUE, pch = 19, col = "purple")
 > 
 > Be sure to give your plot a meaningful title.
 > 
-> For assistance consider using the
-> [Shapefile Metadata & Attributes in R]({{site.baseurl}}/R/shapefile-attributes-in-R/),
-> the [Plot Raster Data in R]({{site.baseurl}}/R/Plot-Rasters-In-R/ )
-> episodes.
-> 
 > > ## Answers
 > > 
 > > ```{r challenge-vector-raster-overlay, echo=TRUE}
