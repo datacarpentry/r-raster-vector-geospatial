@@ -324,8 +324,10 @@ In most cases, we can work with a `RasterBrick` in the same way we might work
 with a `RasterStack`. However a `RasterBrick` is often more efficient and faster
 to process - which is important when working with larger files.
 
-* <a href="http://www.inside-r.org/packages/cran/raster/docs/brick" target="_blank">
+> ## More Resources
+> <a href="http://www.inside-r.org/packages/cran/raster/docs/brick" target="_blank">
 More on Raster Bricks</a>
+{: .callout}
 
 We can turn a `RasterStack` into a `RasterBrick` in `R` by using
 `brick(StackName)`. Let's use the `object.size()` function to compare `stack`
