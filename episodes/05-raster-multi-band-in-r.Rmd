@@ -1,7 +1,7 @@
 ---
 title: "Work With Multi-Band Rasters in R"
-teaching: 10
-exercises: 0
+teaching: 20
+exercises: 10
 questions:
 - ""
 objectives:
@@ -11,18 +11,6 @@ objectives:
 - "Understand what a `NoData` value is in a raster."
 keypoints:
 - "A single raster file can contain multiple bands or layers."
-authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
-contributors: [ ]
-packagesLibraries: [raster, rgdal]
-dateCreated:  2015-10-23
-lastModified: `r format(Sys.time(), "%Y-%m-%d")`
-categories:  [self-paced-episode]
-tags: [R, raster, spatial-data-gis]
-episodeSeries: [raster-data-series, raster-time-series]
-mainTag: raster-data-series
-description: "This episode explores how to import and plot a multi-band raster in
-R. It also covers how to plot a three-band color image using the plotRGB
-function in R."
 ---
 
 ```{r setup, echo=FALSE}
@@ -31,7 +19,21 @@ source("../setup.R")
 knitr_fig_path("05-")
 ```
 
-This episode explores how to import and plot a multi-band raster in
+```{r load-libraries, echo = FALSE, results='hide'}
+library(raster)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+```
+
+> ## Things You’ll Need To Complete This Episode
+> See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
+> data, and other prerequisites you will need to work through the examples in this episode.
+{: .prereq}
+
+We introduced multi-band raster data in
+[an earlier lesson](http://www.datacarpentry.org/organization-geospatial/01-spatial-data-structures-formats/index.html). This episode explores how to import and plot
+a multi-band raster in
 R. It also covers how to plot a three-band color image using the `plotRGB()`
 function in `R`.
 

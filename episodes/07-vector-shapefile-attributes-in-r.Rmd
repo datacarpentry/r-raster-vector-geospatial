@@ -1,7 +1,7 @@
 ---
 title: "Explore and Plot by Shapefile Attributes"
-teaching: 10
-exercises: 0
+teaching: 20
+exercises: 10
 questions:
 - "How can I view the attributes of a spatial object?"
 objectives:
@@ -11,23 +11,6 @@ objectives:
 keypoints:
 - "Spatial objects in sf are similar to standard data frames except for a geometry list-column."
 authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
-contributors: [Sarah Newman]
-dateCreated:  2015-10-23
-lastModified: `r format(Sys.time(), "%Y-%m-%d")`
-packagesLibraries: [rgdal, raster]
-categories: [self-paced-tutorial]
-mainTag: vector-data-series
-tags: [vector-data, R, spatial-data-gis]
-tutorialSeries: [vector-data-series]
-description: "This tutorial provides an overview of how to locate and query
-shapefile attributes as well as subset shapefiles by specific attribute values
-in R. It also covers plotting multiple shapefiles by attribute and building a
-custom plot legend. "
-image:
-  feature: NEONCarpentryHeader_2.png
-  credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
-  creditlink:
-comments: true
 ---
 
 ```{r setup, echo=FALSE}
@@ -36,7 +19,20 @@ source("../setup.R")
 knitr_fig_path("07-")
 ```
 
-This tutorial explains what shapefile attributes are and how to work with
+```{r load-libraries, echo = FALSE, results='hide'}
+library(raster)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+```
+
+
+> ## Things You’ll Need To Complete This Episode
+> See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
+> data, and other prerequisites you will need to work through the examples in this episode.
+{: .prereq}
+
+This episode explains what shapefile attributes are and how to work with
 shapefile attributes in `R`. It also covers how to identify and query shapefile
 attributes, as well as subset shapefiles by specific attribute values.
 Finally, we will review how to plot a shapefile according to a set of attribute
@@ -49,39 +45,19 @@ stores metadata and attributes associated with the file.
 ## Load the Data
 To work with vector data in `R`, we can use the `sf` package. The `raster`
 package also allows us to explore metadata using similar commands for both
-raster and vector files.
+raster and vector files. Make sure that you have these libraries loaded.
 
-We will import three shapefiles. The first is our `AOI` or area of
-interest boundary polygon that we worked with in
-[Open and Plot Shapefiles in R]({{site.baseurl}}/R/open-shapefiles-in-R/).
-The second is a shapefile containing the location of roads and trails within the
-field site. The third is a file containing the Fisher tower location.
-
-If you completed the
-[Open and Plot Shapefiles in R]({{site.baseurl}}/R/open-shapefiles-in-R/)
-tutorial, you can skip this code.
-
-```{r load-packages-data }
-# load packages
-# sf: for vector work
+```{r load-libraries-2, eval=FALSE}
 library(sf)
-# raster: for raster metadata/attributes
 library(raster)
-
-# Import a polygon shapefile
-aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
-
-# Import a line shapefile
-lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
-
-# Import a point shapefile
-point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
-
 ```
+
+We will continue to work with the three shapefiles that we loaded in the
+[Open and Plot Shapefiles in R]({{site.baseurl}}/06-vector-open-shapefile-in-r/) episode.
 
 ## Query Shapefile Metadata
 Remember, as covered in
-[Open and Plot Shapefiles in R]({{site.baseurl}}/R/open-shapefiles-in-R/),
+[Open and Plot Shapefiles in R]({{site.baseurl}}/06-vector-open-shapefile-in-r/),
 we can view metadata associated with an `R` object using:
 
 * `st_geometry_type()` - Describes the type of vector data stored in the object.
