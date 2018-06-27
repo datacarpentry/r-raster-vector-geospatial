@@ -1,7 +1,7 @@
 ---
 title: "Plot Multiple Shapefiles in R"
-teaching: 10
-exercises: 0
+teaching: 20
+exercises: 10
 questions:
 - "How to create map compositions with custom legends in base plot."
 objectives:
@@ -10,23 +10,6 @@ objectives:
 - "Be able to customize a baseplot legend in R."
 keypoints:
 - ""
-authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
-contributors: [Sarah Newman]
-dateCreated:  2016-02-09
-lastModified: `r format(Sys.time(), "%Y-%m-%d")`
-packagesLibraries: [rgdal, raster]
-categories: [self-paced-tutorial]
-mainTag: vector-data-series
-tags: [vector-data, R, spatial-data-gis]
-tutorialSeries: [vector-data-series]
-description: "This tutorial provides an overview of how to create a a plot of
-multiple shapefiles using base R plot. It also explores adding a legend with
-custom symbols that match your plot colors and symbols."
-image:
-  feature: NEONCarpentryHeader_2.png
-  credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
-  creditlink:
-comments: true
 ---
 
 ```{r setup, echo=FALSE}
@@ -35,44 +18,51 @@ source("../setup.R")
 knitr_fig_path("08-")
 ```
 
-This tutorial builds upon
-[the previous tutorial]({{ site.baseurl }}/R/shapefile-attributes-in-R/)
+```{r load-libraries, echo = FALSE, results='hide'}
+library(raster)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+```
+
+> ## Things You’ll Need To Complete This Episode
+> See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
+> data, and other prerequisites you will need to work through the examples in this episode.
+{: .prereq}
+
+This episode builds upon
+[the previous episode]({{ site.baseurl }}/07-vector-shapefile-attributes-in-r/)
 to work with shapefile attributes in `R` and explores how to plot multiple
-shapefiles using base R graphics. It then covers
-how to create a custom legend with colors and symbols that match your plot.
+shapefiles using base R graphics.
 
 ## Load the Data
 To work with vector data in `R`, we can use the `sf` library. The `raster`
 package also allows us to explore metadata using similar commands for both
-raster and vector files.
+raster and vector files. Make sure that you have these libraries loaded.
 
-We will import three shapefiles. The first is our `AOI` or *area of
-interest* boundary polygon that we worked with in
-[Open and Plot Shapefiles in R]({{site.baseurl}}/R/open-shapefiles-in-R/).
-The second is a shapefile containing the location of roads and trails within the
-field site. The third is a file containing the Harvard Forest Fisher tower
-location. These latter two we worked with in the
-[Explore Shapefile Attributes & Plot Shapefile Objects by Attribute Value in R]({{site.baseurl}}/R/shapefile-attributes-in-R/) tutorial.
-
-```{r load-packages-data }
-# load packages
+```{r load-libraries-2, eval=FALSE}
 library(sf)
 library(raster)
+```
 
-# Import a polygon shapefile
+We will continue to work with the three shapefiles that we loaded in the
+[Open and Plot Shapefiles in R]({{site.baseurl}}/06-vector-open-shapefile-in-r/) episode.
+
+```{r load-data, echo = FALSE, results='hide', warning=FALSE}
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 
-# Import a line shapefile
 lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 
-# Import a point shapefile
 point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
+
+chm_HARV <-
+raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 ```
 
 ## Plot Data
 
 In the
-[*Explore Shapefile Attributes & Plot Shapefile Objects by Attribute Value in R* tutorial]({{ site.baseurl }}/R/shapefile-attributes-in-R/)
+[Explore Shapefile Attributes & Plot Shapefile Objects by Attribute Value in R]({{ site.baseurl }}/07-vector-shapefile-attributes-in-r/) episode,
 we created a plot where we customized the width of each line in a spatial object
 according to a factor level or category. To do this, we create a vector of
 colors containing a color value for EACH feature in our spatial object grouped
@@ -116,7 +106,7 @@ plot(lines_HARV$geometry,
 
 ## Add Plot Legend
 In the
-[previous tutorial]({{ site.baseurl }}/R/shapefile-attributes-in-R/),
+[previous episode]({{ site.baseurl }}/R/shapefile-attributes-in-R/),
 we also learned how to add a basic legend to our plot.
 
 * `bottomright`: We specify the **location** of our legend by using a default
