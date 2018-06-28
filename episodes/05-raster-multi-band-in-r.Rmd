@@ -39,7 +39,7 @@ function in `R`.
 
 ## Getting Started with Multi-Band Data in R
 
-```{r load-libraries, echo = FALSE}
+```{r load-libraries-2, echo = FALSE}
 library(raster)
 library(rgdal)
 ```
