@@ -36,8 +36,12 @@ stored in shapefile format in `R`.
 ## Import Shapefiles
 
 We will use the `sf` package to work with vector data in `R`. Notice that the
-`rgdal` package automatically loads when `sf` is loaded. We will also load the
-`raster` package so we can explore raster and vector spatial metadata using similar commands.
+`rgdal` package automatically loads when `sf` is loaded. We will use the
+`raster` package, which has been loaded in previous episodes, so we can explore raster and vector spatial metadata using similar commands.
+
+```{r load-sf, results='hide'}
+library(sf)
+```
 
 The shapefiles that we will import are:
 
@@ -164,17 +168,15 @@ summary(aoi_boundary_HARV)
 
 
 # Plot a Shapefile
-Next, let's visualize the data in our `sf` object using
-`plot()`.
+Next, let's visualize the data in our `sf` object using the `ggplot` package.
 
 ``` {r plot-shapefile}
 # create a plot of the shapefile
-# 'lwd' sets the line width
-# 'col' sets internal color
-# 'border' sets line color
-plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
-     main = "AOI Boundary Plot")
-
+# 'size' sets the line width
+# 'fill' sets internal color
+# 'color' sets line color
+ggplot() + 
+  geom_sf(data = aoi_boundary_HARV, size = 3, color = "black", fill = "cyan1")
 ```
 
 > ## Challenge: Import Line and Point Shapefiles
@@ -222,23 +224,19 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > {: .solution}
 {: .challenge}
 
-
 ## Plot Multiple Shapefiles
-The `plot()` function can be used for basic plotting of spatial objects.
-We use the `add = TRUE` argument to overlay shapefiles on top of each other, as
-we would when creating a map in a typical GIS application like QGIS.
 
-We can use `main = ""` to give our plot a title. If we want the title to span two
-lines, we use `\n` where the line should break.
+The `ggplot` package can be used for basic plotting of spatial objects.
+We use multiple calls to `geom_sf` to overlay shapefiles on top of each other, as
+we would when creating a map in a typical GIS application like QGIS.
 
 ```{r plot-multiple-shapefiles}
 # Plot multiple shapefiles
-plot(aoi_boundary_HARV, col = "lightgreen",
-     main = "NEON Harvard Forest\nField Site")
-plot(lines_HARV, add = TRUE)
-
 # use the pch element to adjust the symbology of the points
-plot(point_HARV, add  = TRUE, pch = 19, col = "purple")
+ggplot() + 
+  geom_sf(data = aoi_boundary_HARV, fill = "lightgreen") +
+  geom_sf(data = lines_HARV) + 
+  geom_sf(data = point_HARV, pch = 19, color = "purple")
 ```
 
 > ## Data Tip
@@ -265,18 +263,14 @@ plot(point_HARV, add  = TRUE, pch = 19, col = "purple")
 > > 
 > > # import CHM
 > > chm_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
+> > chm_HARV_df <- rasterToPoints(chm_HARV, spatial = TRUE) %>%
+> >   data.frame()
 > > 
-> > plot(chm_HARV,
-> >      main = "Map of Study Area\n w/ Canopy Height Model\nNEON Harvard Forest Field Site")
-> > 
-> > plot(lines_HARV,
-> >      add = TRUE,
-> >      col = "black")
-> > plot(aoi_boundary_HARV, border="grey20",
-> >      add = TRUE,
-> >      lwd = 4)
-> > plot(point_HARV, pch=8,
-> >      add = TRUE)
+> > ggplot() + 
+> >   geom_raster(data = chm_HARV_df, aes(x = x, y = y, fill = HARV_chmCrop)) +
+> >   geom_sf(data = lines_HARV, color = "black") + 
+> >   geom_sf(data = aoi_boundary_HARV, color = "grey20", size = 1) + 
+> >   geom_sf(data = point_HARV, pch = 8)
 > > 
 > > ```
 > {: .solution}
