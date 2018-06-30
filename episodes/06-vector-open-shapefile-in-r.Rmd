@@ -18,7 +18,7 @@ source("../setup.R")
 knitr_fig_path("06-")
 ```
 
-```{r load-libraries, echo = FALSE, results='hide'}
+```{r load-libraries, echo = FALSE, results='hide', message = FALSE}
 library(raster)
 library(rgdal)
 library(ggplot2)
