@@ -19,13 +19,20 @@ source("../setup.R")
 knitr_fig_path("07-")
 ```
 
-```{r load-libraries, echo = FALSE, results='hide'}
+```{r load-libraries, echo=FALSE, results='hide', message=FALSE}
 library(raster)
 library(rgdal)
 library(ggplot2)
 library(dplyr)
+library(sf)
 ```
 
+```{r load-data, echo=FALSE, results='hide'}
+point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
+lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
+aoi_boundary_HARV <- st_read(
+  "data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
+```
 
 > ## Things You’ll Need To Complete This Episode
 > See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
@@ -204,30 +211,24 @@ We can plot our subsetted shapefiles.
 
 ```{r plot-subset-shapefile}
 # plot just footpaths
-plot(footpath_HARV$geometry,
-     lwd = 6,
-     main = "NEON Harvard Forest Field Site\n Footpaths")
-
+ggplot() + 
+  geom_sf(data = footpath_HARV)
 ```
 
 Interesting. Above, it appeared as if we had 2 features in our footpaths subset.
 Why does the plot look like there is only one feature?
 
 Let's adjust the colors used in our plot. If we have 2 features in our vector
-object, we can plot each using a unique color by assigning unique colors (`col=`)
-to our features. We use the syntax
+object, we can plot each using a unique color by assigning a column name to the color aesthetic (`color=`). We use the syntax
 
-`col = "c("colorOne", "colorTwo")`
+`aes(color = )`
 
 to do this.
 
 ```{r plot-subset-shapefile-unique-colors }
 # plot just footpaths
-plot(footpath_HARV$geometry,
-     col = c("green", "blue"), # set color for each feature
-     lwd = 6,
-     main = "NEON Harvard Forest Field Site\n Footpaths \n Feature one = blue, Feature two= green")
-
+ggplot() + 
+  geom_sf(data = footpath_HARV, aes(color = factor(OBJECTID)))
 ```
 
 Now, we see that there are in fact two features in our plot!
@@ -253,10 +254,8 @@ Now, we see that there are in fact two features in our plot!
 > > nrow(boardwalk_HARV)
 > > 
 > > # plot just footpaths
-> > plot(boardwalk_HARV$geometry,
-> >      col = c("green"), # set color for feature
-> >      lwd = 6,
-> >      main = "NEON Harvard Forest Field Site\n Boardwalks\n Feature one = blue, Feature two= green")
+> > ggplot() + 
+> >   geom_sf(data = boardwalk_HARV, color = "green")
 > > 
 > > # save an object with only stone wall lines
 > > stoneWall_HARV <- lines_HARV[lines_HARV$TYPE == "stone wall",]
@@ -266,11 +265,9 @@ Now, we see that there are in fact two features in our plot!
 > > nrow(stoneWall_HARV)
 > > 
 > > # plot just footpaths
-> > plot(stoneWall_HARV$geometry,
-> >      col = c("green", "blue", "orange", "brown", "darkgreen", "purple"),
-> >         # set color for each feature
-> >      lwd = 6,
-> >      main = "NEON Harvard Forest Field Site\n Stonewalls\n Each Feature in Different Color")
+> > # set a unique color for each feature
+> > ggplot() + 
+> >   geom_sf(data = stoneWall_HARV, aes(color = factor(OBJECTID)))
 > > 
 > > ```
 > {: .solution}
@@ -341,22 +338,18 @@ roadColors <- c("blue", "green", "grey", "purple")[lines_HARV$TYPE]
 roadColors
 
 # plot the lines data, apply a diff color to each factor level)
-plot(lines_HARV$geometry,
-     col=roadColors,
-     lwd = 3,
-     main = "NEON Harvard Forest Field Site\n Roads & Trails")
+ggplot() + 
+  geom_sf(data = lines_HARV, color = roadColors)
 ```
 
 ### Adjust Line Width
-We can also adjust the width of our plot lines using `lwd`. We can set all lines
-to be thicker or thinner using `lwd = `.
+We can also adjust the width of our plot lines using the `size` argument. 
+We can set all lines to be thicker or thinner using `size = `.
 
 ```{r adjust-line-width}
 # make all lines thicker
-plot(lines_HARV$geometry,
-     col=roadColors,
-     main = "NEON Harvard Forest Field Site\n Roads & Trails\n All Lines Thickness=6",
-     lwd = 6)
+ggplot() + 
+  geom_sf(data = lines_HARV, color = roadColors, size = 3)
 ```
 
 ### Adjust Line Width by Attribute
@@ -364,7 +357,7 @@ plot(lines_HARV$geometry,
 If we want a unique line width for each factor level or attribute category
 in our spatial object, we can use the same syntax that we used for colors, above.
 
-`lwd = c("widthOne", "widthTwo", "widthThree")[object$factor]`
+`size = c("widthOne", "widthTwo", "widthThree")[object$factor]`
 
 Note that this requires the attribute to be of class `factor`. Let's give it a
 try.
@@ -376,10 +369,8 @@ levels(lines_HARV$TYPE)
 lineWidths <- (c(1, 2, 3, 4))[lines_HARV$TYPE]
 # adjust line width by level
 # in this case, boardwalk (the first level) is the narrowest.
-plot(lines_HARV$geometry,
-     col=roadColors,
-     main = "NEON Harvard Forest Field Site\n Roads & Trails \n Line width varies by TYPE Attribute Value",
-     lwd = lineWidths)
+ggplot() +
+  geom_sf(data = lines_HARV, color = roadColors, size = lineWidths)
 ```
 
 > ## Challenge: Plot Line Width by Attribute
@@ -387,31 +378,30 @@ plot(lines_HARV$geometry,
 > We can customize the width of each line, according to specific attribute value,
 > too. To do this, we create a vector of line width values, and map that vector
 > to the factor levels - using the same syntax that we used above for colors.
-> HINT: `lwd = (vector of line width thicknesses)[spatialObject$factorAttribute]`
+> HINT: `size = (vector of line width thicknesses)[spatialObject$factorAttribute]`
 > 
 > Create a plot of roads using the following line thicknesses:
 > 
-> 1. woods road lwd = 8
-> 2. Boardwalks lwd = 2
-> 3. footpath lwd = 4
-> 4. stone wall lwd = 3
+> 1. woods road lwd = 6
+> 2. Boardwalks lwd = 1
+> 3. footpath lwd = 3
+> 4. stone wall lwd = 2
 > 
 > > ## Answers
 > > 
-> > ```{r bicycle-map, include=TRUE, results="hide", echo=FALSE}
+> > ```{r bicycle-map, include=TRUE, results="hide", echo=TRUE}
 > > 
 > > # view the factor levels
 > > levels(lines_HARV$TYPE)
 > > # create vector of line width values
-> > lineWidth <- c(2, 4, 3, 8)[lines_HARV$TYPE]
+> > lineWidth <- c(1, 3, 2, 6)[lines_HARV$TYPE]
 > > # view vector
 > > lineWidth
 > > 
 > > # in this case, boardwalk (the first level) is the widest.
-> > plot(lines_HARV$geometry,
-> >      col=roadColors,
-> >      main = "NEON Harvard Forest Field Site\n Roads & Trails \n Line width varies by Type Attribute Value",
-> >      lwd = lineWidth)
+> > 
+> > ggplot() +
+> >   geom_sf(data = lines_HARV, color = roadColors, size = lineWidth)
 > > ```
 > {: .solution}
 {: .challenge}
@@ -420,7 +410,7 @@ plot(lines_HARV$geometry,
 > ## Data Tip
 > Given we have a factor with 4 levels,
 > we can create an vector of numbers, each of which specifies the thickness of each
-> feature in our `SpatialLinesDataFrame` by factor level (category): `c(6, 4, 1, 2)[lines_HARV$TYPE]`
+> feature in our `sf` object by factor level (category): `c(6, 4, 1, 2)[lines_HARV$TYPE]`
 {: .callout}
 
 ## Add Plot Legend
@@ -438,40 +428,27 @@ the default set of colors that `R` applies to all plots.
 Let's add a legend to our plot.
 
 ```{r add-legend-to-plot }
-plot(lines_HARV$geometry,
-     col=roadColors,
-     main = "NEON Harvard Forest Field Site\n Roads & Trails\n Default Legend")
-
 # we can use the color object that we created above to color the legend objects
 roadPalette
 
-# add a legend to our map
-legend("bottomright",   # location of legend
-      legend=levels(lines_HARV$TYPE), # categories or elements to render in
-			 # the legend
-      fill=roadPalette) # color palette to use to fill objects in legend.
-
+ggplot() + 
+  geom_sf(data = lines_HARV, aes(color = factor(TYPE))) + 
+  scale_color_manual(values = roadPalette)
 ```
 
 We can tweak the appearance of our legend too.
 
-* `bty=n`: turn off the legend BORDER
-* `cex`: change the font size
+* `legend.text`: change the font size
+* `legend.box.background`: add an outline box
 
 Let's try it out.
 
 ```{r modify-legend-plot }
-
-plot(lines_HARV$geometry,
-     col=roadColors,
-     main = "NEON Harvard Forest Field Site\n Roads & Trails \n Modified Legend")
-# add a legend to our map
-legend("bottomright",
-       legend=levels(lines_HARV$TYPE),
-       fill=roadPalette,
-       bty = "n", # turn off the legend border
-       cex = .8) # decrease the font / legend size
-
+ggplot() + 
+  geom_sf(data = lines_HARV, aes(color = factor(TYPE))) + 
+  scale_color_manual(values = roadPalette) + 
+  theme(legend.text = element_text(size = 20), 
+        legend.box.background = element_rect())
 ```
 
 We can modify the colors used to plot our lines by creating a new color vector,
@@ -488,16 +465,11 @@ newColors <- c("springgreen", "blue", "magenta", "orange")
 newColors
 
 # plot using new colors
-plot(lines_HARV$geometry,
-     col=(newColors)[lines_HARV$TYPE],
-     main = "NEON Harvard Forest Field Site\n Roads & Trails \n Pretty Colors")
-
-# add a legend to our map
-legend("bottomright",
-       levels(lines_HARV$TYPE),
-       fill=newColors,
-       bty = "n", cex = .8)
-
+ggplot() + 
+  geom_sf(data = lines_HARV, aes(color = factor(TYPE))) + 
+  scale_color_manual(values = newColors) + 
+  theme(legend.text = element_text(size = 20), 
+        legend.box.background = element_rect())
 ```
 
 > ## Data Tip
@@ -534,30 +506,15 @@ legend("bottomright",
 > > 
 > > # remove NA values
 > > lines_removeNA <- lines_HARV[na.omit(lines_HARV$BicyclesHo),]
-> > # count factor levels
-> > length(levels(lines_HARV$BicyclesHo))
 > > # set colors so only the allowed roads are magenta
-> > # note there are 3 levels so we need 3 colors
-> > challengeColors <- c("magenta", "grey", "grey")
-> > challengeColors
 > > 
 > > # set line width so the first factor level is thicker than the others
-> > lines_HARV$BicyclesHo
-> > c(4, 1, 1)[lines_HARV$BicyclesHo]
 > > 
 > > # plot using new colors
-> > plot(lines_HARV$geometry,
-> >      col=(challengeColors)[lines_HARV$BicyclesHo],
-> >      lwd = c(4, 1, 1)[lines_HARV$BicyclesHo],
-> >      main = "NEON Harvard Forest Field Site\n Roads Where Bikes and Horses Are Allowed")
-> > 
-> > # add a legend to our map
-> > legend("bottomright",
-> >        levels(lines_HARV$BicyclesHo),
-> >        fill=challengeColors,
-> >        bty = "n", # turn off border
-> >        cex = .8) # adjust font size
-> > 
+> > ggplot() + 
+> >   geom_sf(data = lines_removeNA, aes(color = BicyclesHo), size = 2) + 
+> >   scale_color_manual(values = "magenta") +
+> >   geom_sf(data = lines_HARV, size = 0.5)
 > > ```
 > {: .solution}
 {: .challenge}
@@ -591,16 +548,9 @@ legend("bottomright",
 > > colors <- c("purple", "springgreen", "yellow", "brown", "grey")
 > > colors
 > > 
-> > plot(state_boundary_US$geometry,
-> >      col=(colors)[state_boundary_US$region],
-> >      main = "Contiguous U.S. State Boundaries \n 50 Colors")
-> > 
-> > # add a legend to our map
-> > legend("bottomright",
-> >        levels(state_boundary_US$region),
-> >        fill=colors,
-> >        bty = "n", #turn off border
-> >        cex = .7) #adjust font size
+> > ggplot() + 
+> >   geom_sf(data = state_boundary_US, aes(color = region)) + 
+> >   scale_color_manual(values = colors)
 > > 
 > > ## 2
 > > # open plot locations
@@ -614,41 +564,16 @@ legend("bottomright",
 > > blueGreen
 > > 
 > > # plot the locations
-> > plot(plotLocations$geometry,
-> >      col=(blueGreen)[plotLocations$soilTypeOr],
-> >      pch=18,
-> >      main = "NEON Harvard Forest Field Site\n Study Plots by Soil Type\n One Symbol for All Types")
 > > 
-> > # create legend
-> > legend("bottomright",
-> >        legend = c("Intceptisols", "Histosols"),
-> >        pch=18,
-> >        col=blueGreen,
-> >        bty = "n",
-> >        cex = 1)
+> > ggplot() + 
+> >   geom_sf(data = plotLocations, aes(color = soilTypeOr)) +
+> >   scale_color_manual(values = blueGreen)
 > > 
 > > ## 3
-> > # create vector of plot symbols
-> > plSymbols <- c(15, 17)[plotLocations$soilTypeOr]
-> > plSymbols
 > > 
-> > # plot the locations
-> > plot(plotLocations$geometry,
-> >      col=plotLocations$soilTypeOr,
-> >      pch=plSymbols,
-> >      main = "NEON Harvard Forest Field Site\n Study Plots by Soil Type\n Unique Symbol for Each Type")
-> > 
-> > # create vector of plot symbols ONLY. Legend needs only the symbols
-> > plSymbolsL <- c(15, 17)
-> > plSymbolsL
-> > 
-> > # create legend
-> > legend("bottomright",
-> >        legend = c("Intceptisols", "Histosols"),
-> >        pch=plSymbolsL,
-> >        col=palette(),
-> >        bty = "n",
-> >        cex = 1)
+> > # plot the locations with unique shapes
+> > ggplot() + 
+> >   geom_sf(data = plotLocations, aes(pch = soilTypeOr, color = soilTypeOr))
 > > ```
 > {: .solution}
 {: .challenge}
