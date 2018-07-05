@@ -176,7 +176,8 @@ Next, let's visualize the data in our `sf` object using the `ggplot` package.
 # 'fill' sets internal color
 # 'color' sets line color
 ggplot() + 
-  geom_sf(data = aoi_boundary_HARV, size = 3, color = "black", fill = "cyan1")
+  geom_sf(data = aoi_boundary_HARV, size = 3, color = "black", fill = "cyan1") + 
+  ggtitle("AOI Boundary Plot")
 ```
 
 > ## Challenge: Import Line and Point Shapefiles
@@ -236,7 +237,8 @@ we would when creating a map in a typical GIS application like QGIS.
 ggplot() + 
   geom_sf(data = aoi_boundary_HARV, fill = "lightgreen") +
   geom_sf(data = lines_HARV) + 
-  geom_sf(data = point_HARV, pch = 19, color = "purple")
+  geom_sf(data = point_HARV, pch = 19, color = "purple") + 
+  ggtitle("NEON Harvard Forest Field Site")
 ```
 
 > ## Data Tip
@@ -270,7 +272,8 @@ ggplot() +
 > >   geom_raster(data = chm_HARV_df, aes(x = x, y = y, fill = HARV_chmCrop)) +
 > >   geom_sf(data = lines_HARV, color = "black") + 
 > >   geom_sf(data = aoi_boundary_HARV, color = "grey20", size = 1) + 
-> >   geom_sf(data = point_HARV, pch = 8)
+> >   geom_sf(data = point_HARV, pch = 8) + 
+> >   ggtitle("Map of Study Area \n w/ Canopy Height Model \n NEON Harvard Forest Field Site")
 > > 
 > > ```
 > {: .solution}

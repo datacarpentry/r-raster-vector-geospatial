@@ -212,7 +212,8 @@ We can plot our subsetted shapefiles.
 ```{r plot-subset-shapefile}
 # plot just footpaths
 ggplot() + 
-  geom_sf(data = footpath_HARV)
+  geom_sf(data = footpath_HARV) + 
+  ggtitle("NEON Harvard Forest Field Site \n Footpaths")
 ```
 
 Interesting. Above, it appeared as if we had 2 features in our footpaths subset.
@@ -228,7 +229,8 @@ to do this.
 ```{r plot-subset-shapefile-unique-colors }
 # plot just footpaths
 ggplot() + 
-  geom_sf(data = footpath_HARV, aes(color = factor(OBJECTID)))
+  geom_sf(data = footpath_HARV, aes(color = factor(OBJECTID))) +
+  ggtitle("NEON Harvard Forest Field Site\n Footpaths \n Feature one = blue, Feature two = red")
 ```
 
 Now, we see that there are in fact two features in our plot!
@@ -255,7 +257,8 @@ Now, we see that there are in fact two features in our plot!
 > > 
 > > # plot just footpaths
 > > ggplot() + 
-> >   geom_sf(data = boardwalk_HARV, color = "green")
+> >   geom_sf(data = boardwalk_HARV, color = "green") + 
+> >   ggtitle("NEON Harvard Forest Field Site\n Boardwalks")
 > > 
 > > # save an object with only stone wall lines
 > > stoneWall_HARV <- lines_HARV[lines_HARV$TYPE == "stone wall",]
@@ -267,7 +270,8 @@ Now, we see that there are in fact two features in our plot!
 > > # plot just footpaths
 > > # set a unique color for each feature
 > > ggplot() + 
-> >   geom_sf(data = stoneWall_HARV, aes(color = factor(OBJECTID)))
+> >   geom_sf(data = stoneWall_HARV, aes(color = factor(OBJECTID))) + 
+> >   ggtitle("NEON Harvard Forest Field Site\n Stonewalls\n Each Feature in Different Color")
 > > 
 > > ```
 > {: .solution}
@@ -339,7 +343,8 @@ roadColors
 
 # plot the lines data, apply a diff color to each factor level)
 ggplot() + 
-  geom_sf(data = lines_HARV, color = roadColors)
+  geom_sf(data = lines_HARV, color = roadColors) + 
+  ggtitle("NEON Harvard Forest Field Site\n Roads & Trails")
 ```
 
 ### Adjust Line Width
@@ -349,7 +354,8 @@ We can set all lines to be thicker or thinner using `size = `.
 ```{r adjust-line-width}
 # make all lines thicker
 ggplot() + 
-  geom_sf(data = lines_HARV, color = roadColors, size = 3)
+  geom_sf(data = lines_HARV, color = roadColors, size = 3) + 
+  ggtitle("NEON Harvard Forest Field Site\n Roads & Trails\n All Lines Thickness=3")
 ```
 
 ### Adjust Line Width by Attribute
@@ -370,7 +376,8 @@ lineWidths <- (c(1, 2, 3, 4))[lines_HARV$TYPE]
 # adjust line width by level
 # in this case, boardwalk (the first level) is the narrowest.
 ggplot() +
-  geom_sf(data = lines_HARV, color = roadColors, size = lineWidths)
+  geom_sf(data = lines_HARV, color = roadColors, size = lineWidths) + 
+  ggtitle("NEON Harvard Forest Field Site\n Roads & Trails \n Line width varies by TYPE Attribute Value")
 ```
 
 > ## Challenge: Plot Line Width by Attribute
@@ -401,7 +408,8 @@ ggplot() +
 > > # in this case, boardwalk (the first level) is the widest.
 > > 
 > > ggplot() +
-> >   geom_sf(data = lines_HARV, color = roadColors, size = lineWidth)
+> >   geom_sf(data = lines_HARV, color = roadColors, size = lineWidth) + 
+> >   ggtitle("NEON Harvard Forest Field Site \n Roads & Trails \n Line width varies by Type Attribute Value")
 > > ```
 > {: .solution}
 {: .challenge}
@@ -433,7 +441,8 @@ roadPalette
 
 ggplot() + 
   geom_sf(data = lines_HARV, aes(color = factor(TYPE))) + 
-  scale_color_manual(values = roadPalette)
+  scale_color_manual(values = roadPalette) + 
+  ggtitle("NEON Harvard Forest Field Site\n Roads & Trails\n Default Legend")
 ```
 
 We can tweak the appearance of our legend too.
@@ -448,7 +457,8 @@ ggplot() +
   geom_sf(data = lines_HARV, aes(color = factor(TYPE))) + 
   scale_color_manual(values = roadPalette) + 
   theme(legend.text = element_text(size = 20), 
-        legend.box.background = element_rect())
+        legend.box.background = element_rect()) + 
+  ggtitle("NEON Harvard Forest Field Site\n Roads & Trails \n Modified Legend")
 ```
 
 We can modify the colors used to plot our lines by creating a new color vector,
@@ -469,7 +479,8 @@ ggplot() +
   geom_sf(data = lines_HARV, aes(color = factor(TYPE))) + 
   scale_color_manual(values = newColors) + 
   theme(legend.text = element_text(size = 20), 
-        legend.box.background = element_rect())
+        legend.box.background = element_rect()) + 
+  ggtitle("NEON Harvard Forest Field Site\n Roads & Trails \n Pretty Colors")
 ```
 
 > ## Data Tip
@@ -514,7 +525,8 @@ ggplot() +
 > > ggplot() + 
 > >   geom_sf(data = lines_removeNA, aes(color = BicyclesHo), size = 2) + 
 > >   scale_color_manual(values = "magenta") +
-> >   geom_sf(data = lines_HARV, size = 0.5)
+> >   geom_sf(data = lines_HARV, size = 0.5) + 
+> >   ggtitle("NEON Harvard Forest Field Site\n Roads Where Bikes and Horses Are Allowed")
 > > ```
 > {: .solution}
 {: .challenge}
@@ -550,7 +562,8 @@ ggplot() +
 > > 
 > > ggplot() + 
 > >   geom_sf(data = state_boundary_US, aes(color = region)) + 
-> >   scale_color_manual(values = colors)
+> >   scale_color_manual(values = colors) +
+> >   ggtitle("Contiguous U.S. State Boundaries \n 50 Colors")
 > > 
 > > ## 2
 > > # open plot locations
@@ -567,13 +580,15 @@ ggplot() +
 > > 
 > > ggplot() + 
 > >   geom_sf(data = plotLocations, aes(color = soilTypeOr)) +
-> >   scale_color_manual(values = blueGreen)
+> >   scale_color_manual(values = blueGreen) + 
+> >   ggtitle("NEON Harvard Forest Field Site\n Study Plots by Soil Type\n One Symbol for All Types")
 > > 
 > > ## 3
 > > 
 > > # plot the locations with unique shapes
 > > ggplot() + 
-> >   geom_sf(data = plotLocations, aes(pch = soilTypeOr, color = soilTypeOr))
+> >   geom_sf(data = plotLocations, aes(pch = soilTypeOr, color = soilTypeOr)) + 
+> >   ggtitle("NEON Harvard Forest Field Site\n Study Plots by Soil Type\n Unique Symbol for Each Type")
 > > ```
 > {: .solution}
 {: .challenge}
