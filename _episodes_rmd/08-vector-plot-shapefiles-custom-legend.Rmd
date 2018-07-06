@@ -3,11 +3,11 @@ title: "Plot Multiple Shapefiles in R"
 teaching: 20
 exercises: 10
 questions:
-- "How to create map compositions with custom legends in base plot."
+- "How to create map compositions with custom legends in ggplot."
 objectives:
-- "Be able to plot multiple shapefiles using base R graphics."
+- "Be able to plot multiple shapefiles using ggplot."
 - "Be able to apply custom symbology to spatial objects in a plot in R."
-- "Be able to customize a baseplot legend in R."
+- "Be able to customize a ggplot legend in R."
 keypoints:
 - ""
 ---
@@ -18,11 +18,12 @@ source("../setup.R")
 knitr_fig_path("08-")
 ```
 
-```{r load-libraries, echo = FALSE, results='hide'}
+```{r load-libraries, echo = FALSE, results='hide', message=FALSE}
 library(raster)
 library(rgdal)
 library(ggplot2)
 library(dplyr)
+library(sf)
 ```
 
 > ## Things You’ll Need To Complete This Episode
@@ -69,33 +70,18 @@ colors containing a color value for EACH feature in our spatial object grouped
 by factor level or category.
 
 ```{r plot-unique-lines }
-
-# view the factor levels
-levels(lines_HARV$TYPE)
-# create vector of line width values
-lineWidth <- c(2, 4, 3, 8)[lines_HARV$TYPE]
-# view vector
-lineWidth
-
 # create a color palette of 4 colors - one for each factor level
 road_palette <- c("blue", "green", "grey", "purple")
 road_palette
-# create a vector of colors - one for each feature in our vector object
-# according to its attribute value
-road_colors <- c("blue", "green", "grey", "purple")[lines_HARV$TYPE]
-road_colors
 
 # create vector of line width values
-lineWidth <- c(2, 4, 3, 8)[lines_HARV$TYPE]
-# view vector
-lineWidth
+lineWidth <- c(1, 3, 2, 6)[lines_HARV$TYPE]
 
 # in this case, boardwalk (the first level) is the widest.
-plot(lines_HARV$geometry,
-     col = road_colors,
-     main = "NEON Harvard Forest Field Site\n Roads & Trails \nLine Width Varies by Type Attribute Value",
-     lwd = lineWidth)
-
+ggplot() + 
+  geom_sf(data = lines_HARV, aes(color = TYPE), size = lineWidth) +
+  scale_color_manual(values = road_palette) + 
+  ggtitle("NEON Harvard Forest Field Site\n Roads & Trails \nLine Width Varies by Type Attribute Value")
 ```
 
 > ## Data Tip
@@ -104,199 +90,71 @@ plot(lines_HARV$geometry,
 > feature in our `sf` object by factor level (category): `c(6, 4, 1, 2)[lines_HARV$TYPE]`
 {: .callout}
 
-## Add Plot Legend
-In the
-[previous episode]({{ site.baseurl }}/R/shapefile-attributes-in-R/),
+## Customize Your Legend
+In the [previous episode]({{ site.baseurl }}/R/shapefile-attributes-in-R/),
 we also learned how to add a basic legend to our plot.
-
-* `bottomright`: We specify the **location** of our legend by using a default
-keyword. We could also use `top`, `topright`, etc.
-* `levels(objectName$attributeName)`: Label the **legend elements** using the
-categories of `levels` in an attribute (e.g., levels(lines_HARV$TYPE) means use
-the levels boardwalk, footpath, etc).
-* `fill=`: apply unique **colors** to the boxes in our legend. `palette()` is
-the default set of colors that `R` applies to all plots.
-
-Let's add a legend to our plot.
-
-```{r add-legend-to-plot }
-plot(lines_HARV$geometry,
-     col = road_colors,
-     main = "NEON Harvard Forest Field Site\n Roads & Trails\n Default Legend")
-
-# we can use the color object that we created above to color the legend objects
-road_palette
-
-# add a legend to our map
-legend("bottomright",
-       legend = levels(lines_HARV$TYPE),
-       fill = road_palette,
-       bty = "n", # turn off the legend border
-       cex = .8) # decrease the font / legend size
-
-```
 
 However, what if we want to create a more complex plot with many shapefiles
 and unique symbols that need to be represented clearly in a legend?
 
-## Plot Multiple Vector Layers
 Now, let's create a plot that combines our tower location (`point_HARV`),
 site boundary (`aoi_boundary_HARV`) and roads (`lines_HARV`) spatial objects. We
 will need to build a **custom legend** as well.
 
 To begin, create a plot with the site boundary as the first layer. Then layer
-the tower location and road data on top using `add = TRUE`.
+the tower location and road data on top using `+`.
 
 ```{r plot-many-shapefiles }
-
 # Plot multiple shapefiles
-plot(aoi_boundary_HARV$geometry,
-     col = "grey93",
-     border = "grey",
-     main = "NEON Harvard Forest Field Site")
-
-plot(lines_HARV$geometry,
-     col = road_colors,
-     add = TRUE)
-
-plot(point_HARV$geometry,
-     add = TRUE,
-     pch = 19,
-     col = "purple")
-
-# assign plot to an object for easy modification!
-plot_HARV <- recordPlot()
-
+ggplot() + 
+  geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey93") +
+  geom_sf(data = point_HARV) +
+  geom_sf(data = lines_HARV, aes(color = TYPE)) + 
+  ggtitle("NEON Harvard Forest Field Site")
 ```
-
-
-## Customize Your Legend
 
 Next, let's build a custom legend using the symbology (the colors and symbols)
-that we used to create the plot above. To do this,  we will need to build three
-things:
+that we used to create the plot above. For example, it might be good if the lines were symbolized as a line.
 
-1. A list of all "labels" (the text used to describe each element in the legend
-to use in the legend.
-2. A list of colors used to color each feature in our plot.
-3. A list of symbols to use in the plot. NOTE: we have a combination of points,
-lines and polygons in our plot. So we will need to customize our symbols!
-
-Let's create objects for the labels, colors and symbols so we can easily reuse
-them. We will start with the labels.
-
-```{r create-custom-labels }
-
-# create a list of all labels
-labels <- c("Tower", "AOI", levels(lines_HARV$TYPE))
-labels
-
-# render plot
-plot_HARV
-
-# add a legend to our map
-legend("bottomright",
-       legend = labels,
-       bty = "n", # turn off the legend border
-       cex = .8) # decrease the font / legend size
+```{r }
+ggplot() + 
+  geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey93") +
+  geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line") +
+  scale_color_manual(values = road_palette) +
+  geom_sf(data = point_HARV, aes(fill = Sub_Type), color = "black") +
+  scale_fill_manual(values = "black") + 
+  ggtitle("NEON Harvard Forest Field Site")
 ```
 
-Now we have a legend with the labels identified. Let's add colors to each legend
-element next. We can use the vectors of colors that we created earlier to do this.
+Now lets adjust the legend titles by passing a `name` to the respective `color` and `fill` palettes.
 
-```{r add-colors }
-
-# we have a list of colors that we used above - we can use it in the legend
-road_palette
-
-# create a list of colors to use
-plot_colors <- c("purple", "grey", road_palette)
-plot_colors
-
-# render plot
-plot_HARV
-
-# add a legend to our map
-legend("bottomright",
-       legend = labels,
-       fill = plot_colors,
-       bty = "n", # turn off the legend border
-       cex = .8) # decrease the font / legend size
-
+```{r create-custom-legend}
+ggplot() + 
+  geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey93") +
+  geom_sf(data = point_HARV, aes(fill = Sub_Type)) +
+  geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line") + 
+  scale_color_manual(values = road_palette, name = "Line Type") + 
+  scale_fill_manual(values = "black", name = "Tower Location") + 
+  ggtitle("NEON Harvard Forest Field Site")
 ```
 
-Great - now we have a legend however this legend uses boxes to symbolize each
-element in the plot. It might be better if the lines were symbolized as a line
-and the points, symbolized as a symbol. We can customize this using
-`pch=` in our legend: **16** is a point symbol, **15** is a box.
+Finally, it might be better if the points were symbolized as a symbol. We can customize this using `shape` parameters in our call to `geom_sf`: **16** is a point symbol, **15** is a box.
 
 > ## Data Tip
-> To view a short list of `pch` symbols,
+> To view a short list of `shape` symbols,
 > type `?pch` into the `R` console.
 {: .callout}
 
 
 ```{r custom-symbols }
-
-# create a list of pch values
-# these are the symbols that will be used for each legend value
-# ?pch will provide more information on values
-plotSym <- c(16, 15, 15, 15, 15, 15)
-plotSym
-
-# Plot multiple shapefiles
-plot_HARV
-
-# to create a custom legend, we need to fake it
-legend("bottomright",
-       legend = labels,
-       pch = plotSym,
-       bty = "n",
-       col = plot_colors,
-       cex = .8)
-
+(gg <- ggplot() + 
+         geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey93") +
+         geom_sf(data = point_HARV, aes(fill = Sub_Type), shape = 15) +
+         geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line") + 
+  scale_color_manual(values = road_palette, name = "Line Type") + 
+  scale_fill_manual(values = "black", name = "Tower Location")) + 
+  ggtitle("NEON Harvard Forest Field Site")
 ```
-
-Now we've added a point symbol to represent our point element in the plot. However
-it might be more useful to use line symbols in our legend
-rather than squares to represent the line data. We can create line symbols,
-using `lty = ()`. We have a total of 6 elements in our legend:
-
-1. A Tower Location
-2. An Area of Interest (AOI)
-3. and **4** Road types (levels)
-
-The `lty` list designates, in order, which of those elements should be
-designated as a line (`1`) and which should be designated as a symbol (`NA`).
-Our object will thus look like `lty = c(NA, NA, 1, 1, 1, 1)`. This tells `R` to use a
-line element for`the 3-6 elements in our legend only.
-
-Once we do this, we need to **modify** our `pch` element. Each **line** element
-(3-6) should be represented by a `NA` value - this tells `R` to not use a
-symbol, but to instead use a line.
-
-
-```{r refine-legend}
-# create line object
-line_legend <- c(NA, NA, 1, 1, 1, 1)
-line_legend
-plotSym <- c(16, 15, NA, NA, NA, NA)
-plotSym
-
-# plot multiple shapefiles
-plot_HARV
-
-# build a custom legend
-legend("bottomright",
-       legend = labels,
-       lty = line_legend,
-       pch = plotSym,
-       bty = "n",
-       col = plot_colors,
-       cex = .8)
-
-```
-
 
 > ## Challenge: Plot Polygon by Attribute
 > 
@@ -307,11 +165,7 @@ legend("bottomright",
 > custom legend that applies line symbols to lines and point symbols to the points.
 > 
 > 2. Modify the plot above. Tell `R` to plot each point, using a different
-symbol of `pch` value. HINT: to do this, create a vector object of symbols by
-factor level using the syntax described above for line width:
-`c(15, 17)[lines_HARV$soilTypeOr]`. Overlay this on top of the AOI Boundary.
-Create a custom legend.
-> 
+symbol of `shape` value. > 
 > 
 > > ## Answers
 > > 
@@ -327,69 +181,25 @@ Create a custom legend.
 > > blueGreen <- c("blue", "darkgreen")
 > > blueGreen
 > > 
-> > # plot roads
-> > plot(lines_HARV$geometry,
-> >      col=road_colors,
-> >      main = "NEON Harvard Forest Field Site\n Study Plots by Soil Type\n One Symbol for All Types")
-> > 
-> > # plot the locations
-> > plot(plotLocations$geometry,
-> >      col=(blueGreen)[plotLocations$soilTypeOr],
-> >      pch=18,
-> >      add = TRUE)
-> > 
-> > # create line object
-> > line_legendElement = c(NA, NA, 1, 1, 1, 1)
-> > line_legendElement
-> > plotSymElements <- c(18, 18, NA, NA, NA, NA)
-> > plotSymElements
-> > 
-> > # create vector of colors
-> > colorElements <- c(blueGreen, road_palette)
-> > colorElements
-> > 
-> > # create legend
-> > legend("bottomright",
-> >        legend = c(levels(plotLocations$soilTypeOr), levels(lines_HARV$TYPE)),
-> >        pch = plotSymElements,
-> >        lty = line_legendElement,
-> >        col = colorElements,
-> >        bty = "n",
-> >        cex = 1)
+> > ggplot() + 
+> >   geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line") + 
+> >   geom_sf(data = plotLocations, aes(fill = soilTypeOr), shape = 21) + 
+> >   scale_color_manual(name = "Line Type", values = road_palette) + 
+> >   scale_fill_manual(name = "Soil Type", values = blueGreen) + 
+> >   ggtitle("NEON Harvard Forest Field Site")
 > > 
 > > ## 2
-> > # create vector of DIFFERENT plot symbols
-> > plSymbols <- c(15, 17)[plotLocations$soilTypeOr]
-> > plSymbols
+> > # create vector of DIFFERENT filled symbols
+> > plSymbols <- c(21, 22)
 > > 
-> > # plot roads
-> > plot(lines_HARV$geometry,
-> >      col=road_colors,
-> >      main = "NEON Harvard Forest Field Site\n Study Plots by Soil Type\n Different Symbols for Types")
+> >  ggplot() + 
+> >    geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line") + 
+> >    geom_sf(data = plotLocations, aes(fill = soilTypeOr, shape = soilTypeOr)) + 
+> >    scale_shape_manual(name = "Soil Type", values = c(21, 22)) +
+> >    scale_color_manual(name = "Line Type", values = road_palette) + 
+> >    scale_fill_manual(name = "Soil Type", values = blueGreen) + 
+> >    ggtitle("NEON Harvard Forest Field Site")
 > > 
-> > # plot the locations
-> > plot(plotLocations$geometry,
-> >      col=(blueGreen)[plotLocations$soilTypeOr],
-> >      pch=plSymbols,
-> >      add = TRUE)
-> > 
-> > # create line object
-> > line_legendElement  <- c(NA, NA, 1, 1, 1, 1)
-> > line_legendElement
-> > plotSymElementsMod <- c(15, 17, NA, NA, NA, NA)
-> > plotSymElementsMod
-> > 
-> > # create vector of colors
-> > colorElements <- c(blueGreen, road_palette)
-> > colorElements
-> > # create legend
-> > legend("bottomright",
-> >        legend = c(levels(plotLocations$soilTypeOr), levels(lines_HARV$TYPE)),
-> >        pch = plotSymElementsMod,
-> >        lty = line_legendElement,
-> >        col = colorElements,
-> >        bty = "n",
-> >        cex = 1)
 > > ```
 > {: .solution}
 {: .challenge}
