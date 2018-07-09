@@ -1,7 +1,7 @@
 ---
 title: "Open and Plot Shapefiles in R"
-teaching: 10
-exercises: 0
+teaching: 20
+exercises: 10
 questions:
 - "Getting started with point, line and polygon vector data."
 objectives:
@@ -10,17 +10,6 @@ objectives:
 - "Understand the components of a spatial object in `R`."
 keypoints:
 - ""
-authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
-contributors: [Sarah Newman]
-dateCreated:  2015-10-23
-lastModified: `r format(Sys.time(), "%Y-%m-%d")`
-packagesLibraries: [rgdal, raster]
-categories: [self-paced-tutorial]
-mainTag: vector-data-series
-tags: [vector-data, R, spatial-data-gis]
-tutorialSeries: [vector-data-series]
-description: "This spatial data tutorial explains the how to open and plot
-shapefiles containing point, line and polygon vector data in R."
 ---
 
 ```{r setup, echo=FALSE}
@@ -29,71 +18,29 @@ source("../setup.R")
 knitr_fig_path("06-")
 ```
 
-In this tutorial, we will open and plot point, line and polygon vector data
+```{r load-libraries, echo = FALSE, results='hide', message = FALSE}
+library(raster)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+```
+
+> ## Things You’ll Need To Complete This Episode
+> See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
+> data, and other prerequisites you will need to work through the examples in this episode.
+{: .prereq}
+
+In this episode, we will open and plot point, line and polygon vector data
 stored in shapefile format in `R`.
-
-## About Vector Data
-Vector data are composed of discrete geometric locations (x, y values) known as
-**vertices** that define the "shape" of the spatial object. The organization
-of the vertices, determines the type of vector that we are working
-with: point, line or polygon.
-
-<figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-vector/pnt_line_poly.png">
-    <img src="{{ site.baseurl }}/images/dc-spatial-vector/pnt_line_poly.png"></a>
-    <figcaption> There are 3 types of vector objects: points, lines or
-    polygons. Each object type has a different structure.
-    Image Source: National Ecological Observatory Network (NEON)
-    </figcaption>
-</figure>
-
-* **Points:** Each individual point is defined by a single x, y coordinate.
-There can be many points in a vector point file. Examples of point data include:
-sampling locations, the location of individual trees or the location of plots.
-* **Lines:** Lines are composed of many (at least 2) vertices, or points, that
-are connected. For instance, a road or a stream may be represented by a line. This
-line is composed of a series of segments, each "bend" in the road or stream
-represents a vertex that has defined `x, y` location.
-* **Polygons:** A polygon consists of 3 or more vertices that are connected and
-"closed". Thus the outlines of plot boundaries, lakes, oceans, and states or
-countries are often represented by polygons. Occasionally, a polygon can have a
-hole in the middle of it (like a doughnut), this is something to be aware of but
-not an issue we will deal with in this tutorial.
-
-> ## Data Tip
-> Sometimes, boundary layers such as
->  states and countries, are stored as lines rather than polygons. However, these
-> boundaries, when represented as a line, will not create a closed object with a defined "area" that can be "filled".
-{: .callout}
-
-## Shapefiles: Points, Lines, and Polygons
-Geospatial data in vector format are often stored in a `shapefile` format.
-Because the structure of points, lines, and polygons are different, each
-individual shapefile can only contain one vector type (all points, all lines
-or all polygons). You will not find a mixture of point, line and polygon
-objects in a single shapefile.
-
-Objects stored in a shapefile often have a set of associated `attributes` that
-describe the data. For example, a line shapefile that contains the locations of
-streams, might contain the associated stream name, stream "order" and other
-information about each stream line object.
-
-* More about shapefiles can found on
-<a href="https://en.wikipedia.org/wiki/Shapefile" target="_blank">Wikipedia</a>.
 
 ## Import Shapefiles
 
 We will use the `sf` package to work with vector data in `R`. Notice that the
-`rgdal` package automatically loads when `sf` is loaded. We will also load the
-`raster` package so we can explore raster and vector spatial metadata using similar commands.
+`rgdal` package automatically loads when `sf` is loaded. We will use the
+`raster` package, which has been loaded in previous episodes, so we can explore raster and vector spatial metadata using similar commands.
 
-```{r load-libraries }
-# load required libraries
-# for vector work
+```{r load-sf, results='hide'}
 library(sf)
-# for metadata/attributes- vectors or rasters
-library(raster)
-
 ```
 
 The shapefiles that we will import are:
@@ -130,7 +77,7 @@ with each individual vector object.
 
 > ## Data Tip
 > The [Shapefile Metadata & Attributes in R]({{site.baseurl}}/R/shapefile-attributes-in-R/)
-> tutorial provides more information on both metadata and attributes
+> episode provides more information on both metadata and attributes
 > and using attributes to subset and plot data.
 {: .callout}
 
@@ -221,17 +168,16 @@ summary(aoi_boundary_HARV)
 
 
 # Plot a Shapefile
-Next, let's visualize the data in our `sf` object using
-`plot()`.
+Next, let's visualize the data in our `sf` object using the `ggplot` package.
 
 ``` {r plot-shapefile}
 # create a plot of the shapefile
-# 'lwd' sets the line width
-# 'col' sets internal color
-# 'border' sets line color
-plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
-     main = "AOI Boundary Plot")
-
+# 'size' sets the line width
+# 'fill' sets internal color
+# 'color' sets line color
+ggplot() + 
+  geom_sf(data = aoi_boundary_HARV, size = 3, color = "black", fill = "cyan1") + 
+  ggtitle("AOI Boundary Plot")
 ```
 
 > ## Challenge: Import Line and Point Shapefiles
@@ -279,23 +225,20 @@ plot(aoi_boundary_HARV, col = "cyan1", border = "black", lwd = 3,
 > {: .solution}
 {: .challenge}
 
-
 ## Plot Multiple Shapefiles
-The `plot()` function can be used for basic plotting of spatial objects.
-We use the `add = TRUE` argument to overlay shapefiles on top of each other, as
-we would when creating a map in a typical GIS application like QGIS.
 
-We can use `main = ""` to give our plot a title. If we want the title to span two
-lines, we use `\n` where the line should break.
+The `ggplot` package can be used for basic plotting of spatial objects.
+We use multiple calls to `geom_sf` to overlay shapefiles on top of each other, as
+we would when creating a map in a typical GIS application like QGIS.
 
 ```{r plot-multiple-shapefiles}
 # Plot multiple shapefiles
-plot(aoi_boundary_HARV, col = "lightgreen",
-     main = "NEON Harvard Forest\nField Site")
-plot(lines_HARV, add = TRUE)
-
 # use the pch element to adjust the symbology of the points
-plot(point_HARV, add  = TRUE, pch = 19, col = "purple")
+ggplot() + 
+  geom_sf(data = aoi_boundary_HARV, fill = "lightgreen") +
+  geom_sf(data = lines_HARV) + 
+  geom_sf(data = point_HARV, pch = 19, color = "purple") + 
+  ggtitle("NEON Harvard Forest Field Site")
 ```
 
 > ## Data Tip
@@ -316,37 +259,22 @@ plot(point_HARV, add  = TRUE, pch = 19, col = "purple")
 > 
 > Be sure to give your plot a meaningful title.
 > 
-> For assistance consider using the
-> [Shapefile Metadata & Attributes in R]({{site.baseurl}}/R/shapefile-attributes-in-R/),
-> the [Plot Raster Data in R]({{site.baseurl}}/R/Plot-Rasters-In-R/ )
-> tutorials.
-> 
 > > ## Answers
 > > 
 > > ```{r challenge-vector-raster-overlay, echo=TRUE}
 > > 
 > > # import CHM
 > > chm_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
+> > chm_HARV_df <- rasterToPoints(chm_HARV, spatial = TRUE) %>%
+> >   data.frame()
 > > 
-> > plot(chm_HARV,
-> >      main = "Map of Study Area\n w/ Canopy Height Model\nNEON Harvard Forest Field Site")
-> > 
-> > plot(lines_HARV,
-> >      add = TRUE,
-> >      col = "black")
-> > plot(aoi_boundary_HARV, border="grey20",
-> >      add = TRUE,
-> >      lwd = 4)
-> > plot(point_HARV, pch=8,
-> >      add = TRUE)
+> > ggplot() + 
+> >   geom_raster(data = chm_HARV_df, aes(x = x, y = y, fill = HARV_chmCrop)) +
+> >   geom_sf(data = lines_HARV, color = "black") + 
+> >   geom_sf(data = aoi_boundary_HARV, color = "grey20", size = 1) + 
+> >   geom_sf(data = point_HARV, pch = 8) + 
+> >   ggtitle("Map of Study Area \n w/ Canopy Height Model \n NEON Harvard Forest Field Site")
 > > 
 > > ```
 > {: .solution}
 {: .challenge}
-
-## Additional Resources: Plot Parameter Options
-For more on parameter options in the base `R` `plot()` function, check out these
-resources:
-
-* <a href="http://www.statmethods.net/advgraphs/parameters.html" target="_blank">Parameter methods in `R`.</a>
-* <a href="https://codeyarns.files.wordpress.com/2011/07/20110729-vim-named-colors.png?w=700" target="_blank">Color names in `R`</a>
