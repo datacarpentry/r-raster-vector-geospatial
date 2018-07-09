@@ -1,8 +1,8 @@
 ---
 source: Rmd
 title: "Intro to Raster Data in R"
-teaching: 10
-exercises: 2
+teaching: 20
+exercises: 10
 questions:
 -  "What is a raster dataset?"
 objectives:
@@ -13,7 +13,6 @@ objectives:
 -  "Understand the difference between single- and multi-band rasters."
 keypoints:
 -  "The Coordinate Reference System or CRS tells R where the raster is located in geographic space and what method should be used to “flatten” or project the raster."
-authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
 ---
 
 ```{r setup, echo=FALSE}
@@ -23,23 +22,16 @@ knitr_fig_path("01-")
 knitr::opts_chunk$set(fig.height = 6)
 ```
 
-```{r load-libraries, echo = FALSE}
+```{r load-libraries, echo = FALSE, results='hide'}
 library(raster)
 library(rgdal)
 library(ggplot2)
 library(dplyr)
 ```
 
-> ## Things You’ll Need To Complete This episode
-> **R Skill Level:** Intermediate - you've got the basics of `R` down.
->
-> ### Install software
-> For installation instructions, see the [workshop homepage](http://www.datacarpentry.org/geospatial-workshop/setup/).
->
-> ### Download Data
->
-> * [airborne remote sensing data](https://ndownloader.figshare.com/files/3701578)
-> * [site layout shapefiles](https://ndownloader.figshare.com/files/3708751)
+> ## Things You’ll Need To Complete This Episode
+> See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
+> data, and other prerequisites you will need to work through the examples in this episode.
 {: .prereq}
 
 In this episode, we will review the fundamental principles, packages and
