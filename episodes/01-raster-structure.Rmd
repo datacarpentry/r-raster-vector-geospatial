@@ -121,22 +121,29 @@ The `CRS` of our `DSM_HARV` object tells us that our data are in the universal t
 		</figcaption>
 </figure>
 
-The CRS in this case is in a `PROJ 4` format. This means that the projection
-information is strung together as a series of text elements, each of which
-begins with a `+` sign.
+## Understanding CRS in Proj4 Format
+The CRS for our data are given to us by `R` in `proj4` format. Let's break
+down the pieces of `proj4` string. The string contains all of the individual
+CRS elements that `R` or another GIS might need. Each element is specified
+with a `+` sign, similar to how a `.csv` file is delimited or broken up by
+a `,`. After each `+` we see the CRS element being defined. For example
+projection (`proj=`) and datum (`datum=`).
 
- `+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0`
+### UTM Proj4 String
+Our project string for `DSM_HARV` specifies the UTM projection as follows:
 
-We'll focus on the first few components of the CRS in this episode.
+`+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0`
 
-* `+proj=utm` The projection of the dataset. Our data are in Universal
-Transverse Mercator (UTM).
-* `+zone=18` The UTM projection divides up the world into zones, this element
-tells you which zone the data is in. Harvard Forest is in Zone 18.
-* `+datum=WGS84` The datum was used to define the center point of the
-projection. Our raster uses the `WGS84` datum.
-* `+units=m` This is the horizontal units that the data are in. Our units
-are meters.
+* **proj=utm:** the projection is UTM, UTM has several zones.
+* **zone=18:** the zone is 18
+* **datum=WGS84:** the datum WGS84 (the datum refers to the  0,0 reference for
+the coordinate system used in the projection)
+* **units=m:** the units for the coordinates are in METERS.
+* **ellps=WGS84:** the ellipsoid (how the earth's  roundness is calculated) for
+the data is WGS84
+
+Note that the `zone` is unique to the UTM projection. Not all CRS will have a
+zone.
 
 ## Calculate Raster Min and Max Values
 
