@@ -449,7 +449,7 @@ ggplot() +
 > {: .solution}
 {: .challenge}
 
-> ## Challenge: Plot Polygon by Attribute #1
+> ## Challenge: Plot Polygon by Attribute
 >
 > 1. Create a map of the state boundaries in the United States using the data
 > located in your downloaded data folder: `NEON-DS-Site-Layout-Files/US-Boundary-Layers\US-State-Boundaries-Census-2014`.
@@ -471,54 +471,6 @@ ggplot() +
 > >   geom_sf(data = state_boundary_US, aes(color = region)) +
 > >   scale_color_manual(values = colors) +
 > >   ggtitle("Contiguous U.S. State Boundaries \n 50 Colors")
-> > ```
-> {: .solution}
-{: .challenge}
-
-> ## Challenge: Plot Polygon by Attribute #2
-> Using the `NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp` shapefile,
-> create a map of study plot locations, with each point colored by the soil type
-> (`soilTypeOr`).  **Question:** How many different soil types are there at this particular field site?
->
-> > ## Answers
-> >
-> > ``` {r, warning=FALSE, echo=TRUE}
-> > # open plot locations
-> > plotLocations <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
-> >
-> > # how many unique soils?  Two
-> > unique(plotLocations$soilTypeOr)
-> >
-> > # create new color palette -- topo.colors palette
-> > blueGreen <- c("blue","springgreen")
-> > blueGreen
-> >
-> > # plot the locations
-> >
-> > ggplot() +
-> >   geom_sf(data = plotLocations, aes(color = soilTypeOr)) +
-> >   scale_color_manual(values = blueGreen) +
-> >   ggtitle("NEON Harvard Forest Field Site\n Study Plots by Soil Type\n One Symbol for All Types")
-> > ```
-> {: .solution}
-{: .challenge}
-
-> ## Challenge: Plot Polygon by Attribute #3
->
-> BONUS -- modify the field site plot above. Plot each point,
-> using a different symbol. HINT: you can assign the symbol using `pch=` value.
-> You can create a vector object of symbols by factor level using the syntax
-> syntax that we used above to create a vector of lines widths and colors:
-> `pch = c(15, 17)[lines_HARV$soilTypeOr]`. Type `?pch` to learn more about pch or
-> use google to find a list of pch symbols that you can use in `R`.
->
-> > ## Answers
-> >
-> > ``` {r, warning=FALSE, echo=TRUE}
-> > # plot the locations with unique shapes
-> > ggplot() +
-> >   geom_sf(data = plotLocations, aes(pch = soilTypeOr, color = soilTypeOr)) +
-> >   ggtitle("NEON Harvard Forest Field Site\n Study Plots by Soil Type\n Unique Symbol for Each Type")
 > > ```
 > {: .solution}
 {: .challenge}
