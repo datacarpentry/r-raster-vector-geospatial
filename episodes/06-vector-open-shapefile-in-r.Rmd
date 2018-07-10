@@ -121,28 +121,9 @@ in the CRS **UTM zone 18N**. The CRS is critical to interpreting the object
 </figure>
 
 ## Spatial Data Attributes
-Each object in a shapefile has one or more attributes associated with it.
-Shapefile attributes are similar to fields or columns in a spreadsheet. Each row
-in the spreadsheet has a set of columns associated with it that describe the row
-element. In the case of a shapefile, each row represents a spatial object - for
-example, a road, represented as a line in a line shapefile, will have one "row"
-of attributes associated with it. These attributes can include different types
-of information that describe objects stored within a shapefile. Thus, our road,
-may have a name, length, number of lanes, speed limit, type of road and other
-attributes stored with it.
-
-<figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-vector/Attribute_Table.png">
-    <img src="{{ site.baseurl }}/images/dc-spatial-vector/Attribute_Table.png"></a>
-    <figcaption>Each spatial feature in an R spatial object has the same set of
-    associated attributes that describe or characterize the feature.
-    Attribute data are stored in a separate *.dbf file. Attribute data can be
-    compared to a spreadsheet. Each row in a spreadsheet represents one feature
-    in the spatial object.
-    Image Source: National Ecological Observatory Network (NEON)
-    </figcaption>
-</figure>
-
+We introduced the idea of spatial data attributes in [a previous lesson](https://datacarpentry.org/organization-geospatial/01-spatial-data-structures-formats/index.html). Now we will explore
+how to use spatial data attributes stored in our data to plot
+different features.
 
 We can view the attributes of an `sf` object by printing it to the screen. The geometry of the object can be dropped by turning the object into a `data.frame`.
 

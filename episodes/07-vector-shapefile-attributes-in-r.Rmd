@@ -89,31 +89,6 @@ To see a summary of all of the metadata associated with our `point_HARV` object,
 point_HARV
 ```
 
-## About Shapefile Attributes
-Shapefiles often contain an associated database or spreadsheet of values called
-**attributes** that describe the vector features in the shapefile. You can think
-of this like a spreadsheet with rows and columns. Each column in the spreadsheet
-is an individual **attribute** that describes an object. Shapefile attributes
-include measurements that correspond to the geometry of the shapefile features.
-
-For example, the `HARV_Roads` shapefile (`lines_HARV` object) contains an
-attribute called `TYPE`. Each line in the shapefile has an associated `TYPE`
-which describes the type of road (woods road, footpath, boardwalk, or
-stone wall).
-
-<figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-vector/Attribute_Table.png">
-    <img src="{{ site.baseurl }}/images/dc-spatial-vector/Attribute_Table.png"></a>
-    <figcaption>The shapefile format allows us to store attributes for each
-    feature (vector object) stored in the shapefile. The attribute table, is
-    similar to a spreadsheet. There is a row for each feature. The first column
-    contains the unique ID of the feature. We can add additional columns that
-    describe the feature. Image Source: National Ecological Observatory Network
-    (NEON)
-    </figcaption>
-</figure>
-
-
 We can look at all of the associated data attributes by printing the contents of the `sf` object. We can use the `ncol` function to count the number of attributes associated with a spatial object too.
 
 ```{r shapefile-attributes}
