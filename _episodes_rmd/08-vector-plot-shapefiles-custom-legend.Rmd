@@ -203,3 +203,36 @@ symbol of `shape` value. >
 > > ```
 > {: .solution}
 {: .challenge}
+
+> ## Challenge: Plot Raster & Vector Data Together
+>
+> You can plot vector data layered on top of raster data using the `add = TRUE`
+> plot attribute. Create a plot that uses the NEON AOP Canopy Height Model `NEON_RemoteSensing/HARV/CHM/HARV_chmCrop.tif` as a base layer. On top of the
+> CHM, please add:
+>
+> * The study site AOI.
+> * Roads.
+> * The tower location.
+>
+> Be sure to give your plot a meaningful title.
+>
+> > ## Answers
+> >
+> > ```{r challenge-vector-raster-overlay, echo=TRUE}
+> >
+> > # import CHM
+> > chm_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
+> > chm_HARV_df <- rasterToPoints(chm_HARV, spatial = TRUE) %>%
+> >   data.frame()
+> >
+> > ggplot() +
+> >   geom_raster(data = chm_HARV_df, aes(x = x, y = y, fill = HARV_chmCrop)) +
+> >   geom_sf(data = lines_HARV, color = "black") +
+> >   geom_sf(data = aoi_boundary_HARV, color = "grey20", size = 1) +
+> >   geom_sf(data = point_HARV, pch = 8) +
+> >   ggtitle("Map of Study Area \n w/ Canopy Height Model \n NEON Harvard Forest Field Site")
+> >
+> > ```
+> {: .solution}
+{: .challenge}
+
