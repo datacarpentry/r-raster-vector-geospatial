@@ -113,8 +113,8 @@ ggplot() +
  geom_sf(data = point_HARV, aes(fill = Sub_Type), shape = 15) +
  geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line") +
  scale_color_manual(values = road_palette, name = "Line Type") +
- scale_fill_manual(values = "black", name = "Tower Location")) +
- ggtitle("NEON Harvard Forest Field Site"
+ scale_fill_manual(values = "black", name = "Tower Location") +
+ ggtitle("NEON Harvard Forest Field Site")
 ```
 
 > ## Challenge: Plot Polygon by Attribute
