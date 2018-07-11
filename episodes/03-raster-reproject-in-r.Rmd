@@ -30,9 +30,7 @@ library(dplyr)
 
 Sometimes we encounter raster datasets that do not "line up" when plotted or
 analyzed. Rasters that don't line up are most often in different Coordinate
-Reference Systems (CRS).
-
-This episode explains how to deal with rasters in different, known CRSs. It
+Reference Systems (CRS). This episode explains how to deal with rasters in different, known CRSs. It
 will walk though reprojecting rasters in `R` using the `projectRaster()`
 function in the `raster` package.
 
