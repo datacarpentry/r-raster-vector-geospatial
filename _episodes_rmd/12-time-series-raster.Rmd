@@ -24,6 +24,7 @@ library(raster)
 library(rgdal)
 library(ggplot2)
 library(dplyr)
+library(reshape)
 ```
 
 
@@ -372,6 +373,8 @@ derive our NDVI rasters to try to understand what appears to be outlier NDVI val
 > > ## Answers
 > > 
 > > ```{r view-all-rgb, echo=TRUE}
+> > library(gridExtra)
+> > 
 > > # open up file for Jday 277
 > > RGB_277 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif")/255
 > > 
