@@ -1,13 +1,10 @@
 ---
 title: "Reproject Raster Data in R"
+keypoints: ''
+objectives: Be able to reproject a raster in `R`.
+questions: What to do when rasters don't line up.
 teaching: 20
 exercises: 10
-questions:
-- "What to do when rasters don't line up."
-objectives:
-- "Be able to reproject a raster in `R`."
-keypoints:
-- ""
 ---
 
 ```{r setup, echo=FALSE}
@@ -48,18 +45,14 @@ we've been working with so far in that the digital terrain model
 (DSM) shows the ground level.
 
 We'll be looking at another model (the canopy height model) in
-[a later episode]({{ site.baseurl }}/04-raster-calculations-in-r/index.html) and will see how to calculate the CHM from the
+[a later episode]({{ site.baseurl }}/04-raster-calculations-in-r/) and will see how to calculate the CHM from the
 DSM and DTM. Here, we will create a map of the Harvard Forest Digital
 Terrain Model
 (`DTM_HARV`) draped or layered on top of the hillshade (`DTM_hill_HARV`).
 
-<figure>
-<a href="{{ site.baseurl }}/images/dc-spatial-raster/lidarTree-height.png">
-<img src="{{ site.baseurl }}/images/dc-spatial-raster/lidarTree-height.png">
-</a>
-<figcaption> Source: National Ecological Observatory Network (NEON)
-</figcaption>
-</figure>
+```{r, out.width = 7, fig.cap = "Source: National Ecological Observatory Network (NEON)"}
+knitr::include_graphics("../images/dc-spatial-raster/lidarTree-height.png")
+```
 
 First, we need to import the DTM and DTM hillshade data.
 
