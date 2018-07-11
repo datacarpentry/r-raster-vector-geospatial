@@ -220,7 +220,7 @@ NDVI_HARV_stack_df <- rasterToPoints(NDVI_HARV_stack, spatial = TRUE) %>%
     data.frame() %>%
 # Then reshape data to stack all the X*_HARV_ndvi_crop columns into 
 # one single column called HARV_ndvi_crop
-    melt(id.vars = c('x','y','optional'), variable.name = 'HARV_ndvi_crop')
+    melt(id.vars = c('x','y','optional'))
 
 # view a plot of all of the rasters
 # 'ncol' specifies number of columns (we will have 13 plots)
@@ -229,7 +229,7 @@ ggplot() +
   coord_equal() +  
 # we use ggplot2 faceting technique to split the plot into multiple plots
 # based on the factor HARV_ndvi_crop
-  facet_wrap(~HARV_ndvi_crop, ncol=4) 
+  facet_wrap(~variable, ncol=4) 
 
 ```
 
@@ -260,7 +260,7 @@ NDVI_HARV_stack_df <- rasterToPoints(NDVI_HARV_stack, spatial = TRUE) %>%
     data.frame() %>%
 # Then reshape data to stack all the X*_HARV_ndvi_crop columns into 
 # one single column called HARV_ndvi_crop
-    melt(id.vars = c('x','y','optional'), variable.name = 'HARV_ndvi_crop')
+    melt(id.vars = c('x','y','optional'))
 
 # view a plot of all of the rasters
 # 'ncol' specifies number of columns (we will have 13 plots)
@@ -269,7 +269,7 @@ ggplot() +
   coord_equal() +  
 # we use ggplot2 faceting technique to split the plot into multiple plots
 # based on the factor HARV_ndvi_crop
-  facet_wrap(~HARV_ndvi_crop, ncol=4) 
+  facet_wrap(~variable, ncol=4) 
 
 ```
 
@@ -301,7 +301,7 @@ each raster.
 # create histograms of each raster
 ggplot(NDVI_HARV_stack_df) +
   geom_histogram(aes(value)) +
-    facet_wrap(~HARV_ndvi_crop, ncol=4) 
+    facet_wrap(~variable, ncol=4) 
 ```
 
 It seems like things get green in the spring and summer like we expect, but the
