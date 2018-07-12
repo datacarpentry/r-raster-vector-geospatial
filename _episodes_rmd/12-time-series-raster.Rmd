@@ -419,6 +419,7 @@ derive our NDVI rasters to try to understand what appears to be outlier NDVI val
 > > # Then to a 'conventional' dataframe
 > > data.frame()
 > > 
+> > quantiles = c(0.02, 0.98)
 > > r <- quantile(RGB_133_df$X133_HARV_landRGB.1, quantiles, na.rm = TRUE)
 > > g <- quantile(RGB_133_df$X133_HARV_landRGB.2, quantiles, na.rm = TRUE)
 > > b <- quantile(RGB_133_df$X133_HARV_landRGB.3, quantiles, na.rm = TRUE)
