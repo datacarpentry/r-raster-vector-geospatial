@@ -21,7 +21,6 @@ knitr_fig_path("09-")
 ```{r load-libraries, echo = FALSE, results='hide'}
 library(raster)
 library(rgdal)
-library(sf)
 library(ggplot2)
 library(dplyr)
 ```
@@ -104,17 +103,32 @@ Next, let's plot the U.S. states data.
 
 ```{r find-coordinates }
 
-# plot state boundaries
-ggplot() +
-    geom_sf(data=state_boundary_US) +
-    ggtitle("Map of Continental US State Boundaries\n US Census Bureau Data")
+# view column names
+plot(state_boundary_US$geometry,
+     main = "Map of Continental US State Boundaries\n US Census Bureau Data")
 
 ```
 
 ## U.S. Boundary Layer
 
-    geom_sf(data=state_boundary_US, color="gray40") +
-     ggtitle("Map of Continental US State Boundaries\n US Census Bureau Data")
+We can add a boundary layer of the United States to our map - to make it look
+nicer. We will import
+`NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States`.
+If we specify a thicker line width using `lwd = 4` for the border layer, it will
+make our map pop!
+
+```{r check-out-coordinates }
+# Read the .csv file
+country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp")
+
+plot(state_boundary_US$geometry,
+     main = "Map of Continental US State Boundaries\n US Census Bureau Data",
+     border = "gray40")
+
+plot(country_boundary_US$geometry,
+     lwd = 4,
+     border = "gray18",
+     add = TRUE)
 
 ```
 
@@ -126,9 +140,10 @@ As we are adding these layers, take note of the class of each object.
 point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 
 # plot point - looks ok?
-ggplot() +
-    geom_sf(data=point_HARV, shape=19, color="purple") +
-    ggtitle("Harvard Fisher Tower Location")
+plot(point_HARV$geometry,
+     pch = 19,
+     col = "purple",
+     main = "Harvard Fisher Tower Location")
 ```
 
 The plot above demonstrates that the tower point location data is readable and
@@ -136,14 +151,22 @@ will plot! Let's next add it as a layer on top of the U.S. states and boundary
 layers in our basemap plot.
 
 ``` {r layer-point-on-states }
-ggplot() +
-    # plot state boundaries
-    geom_sf(data=country_boundary_US, size=2, color="gray18") +
-    # add US border outline
-    geom_sf(data=state_boundary_US, color="gray40") +
-    # add point tower location
-    geom_sf(data=point_HARV, shape=19, color="purple") +
-    ggtitle("Map of Continental US State Boundaries\n with Tower Location")
+# plot state boundaries
+plot(state_boundary_US$geometry,
+     main = "Map of Continental US State Boundaries \n with Tower Location",
+     border = "gray40")
+
+# add US border outline
+plot(country_boundary_US$geometry,
+     lwd = 4,
+     border = "gray18",
+     add = TRUE)
+
+# add point tower location
+plot(point_HARV$geometry,
+     pch = 19,
+     col = "purple",
+     add = TRUE)
 
 ```
 
@@ -286,14 +309,22 @@ Once our data are reprojected, we can try to plot again.
 
 ```{r plot-again }
 
-ggplot() +
-    # plot state boundaries
-    geom_sf(data=country_boundary_US, size=2, color="gray18") +
-    # add US border outline
-    geom_sf(data=state_boundary_US, color="gray40") +
-    # add point tower location
-    geom_sf(data=point_HARV_WGS84, shape=19, color="purple") +
-    ggtitle("Map of Continental US State Boundaries\n with Tower Location")
+# plot state boundaries
+plot(state_boundary_US$geometry,
+     main = "Map of Continental US State Boundaries\n With Fisher Tower Location",
+     border = "gray40")
+
+# add US border outline
+plot(country_boundary_US$geometry,
+     lwd = 4,
+     border = "gray18",
+     add = TRUE)
+
+# add point tower location
+plot(point_HARV_WGS84$geometry,
+     pch = 19,
+     col = "purple",
+     add = TRUE)
 
 ```
 
@@ -330,23 +361,26 @@ transformations) on our data.
 > >                                 UTM_CRS)
 > > NE.States.Boundary.US.UTM
 > > 
+> > # plot state boundaries
+> > plot(NE.States.Boundary.US.UTM$geometry,
+> >      main = "Map of Northeastern US\n With Fisher Tower Location - UTM Zone 18N",
+> >      border="gray18",
+> >      lwd = 2)
+> > 
+> > # add point tower location
+> > plot(point_HARV$geometry,
+> >      pch = 19,
+> >      col = "purple",
+> >      add = TRUE)
+> > 
+> > # add legend
 > > # to create a custom legend, we need to fake it
-> > ggplot() +
-> >     # plot state boundaries
-> >     # note the use of an aesthetic, `aes`, which will allow you to customize your legend
-> >     geom_sf(data=NE.States.Boundary.US.UTM, size=1, aes(color="color"), show.legend="line") +
-> >     # `scale_xx_manual` allows you to customize your legend
-> >     # note how the values correspond to the aesthetic
-> >     scale_color_manual(name="", labels="State Boundary", values=c("color"="gray18")) +
-> >     # add point tower location, and customize legend as before
-> >     geom_sf(data=point_HARV, aes(shape="shape"), color="purple") +
-> >     scale_shape_manual(name="", labels="Fisher Tower", values=c("shape"=19)) +
-> >     ggtitle("Map of Northeastern US\n With Fisher Tower Location - UTM Zone 18N") +
-> >     # you can customize the legend's appearance with `theme`
-> >     theme(legend.position="bottom",
-> >           legend.background = element_rect(color = NA)) 
-> > 
-> > 
+> > legend("bottomright",
+> >        legend = c("State Boundary", "Fisher Tower"),
+> >        lty = c(1, NA),
+> >        pch = c(NA, 19),
+> >        col = c("gray18", "purple"),
+> >        bty = "n")
 > > 
 > > ```
 > {: .solution}
