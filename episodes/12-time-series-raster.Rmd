@@ -1,7 +1,7 @@
 ---
 title: "Raster Time Series Data in R"
-teaching: 10
-exercises: 0
+teaching: 20
+exercises: 10
 questions:
 - ""
 objectives:
@@ -11,32 +11,28 @@ objectives:
 - "Be able to plot and explore time series raster data using the `plot()` function in `R`."
 keypoints:
 - ""
-authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek]
-contributors: [ ]
-packagesLibraries: [raster, rgdal]
-dateCreated:  2014-11-26
-lastModified: `r format(Sys.time(), "%Y-%m-%d")`
-categories:  [self-paced-tutorial]
-tags: [R, raster, spatial-data-gis]
-tutorialSeries: [raster-data-series, raster-time-series]
-mainTag: raster-data-series
-description: "This tutorial covers how to work with and plot a raster time
-series, using an R RasterStack object. It also covers the basics of practical
-data quality assessment of remote sensing imagery."
-image:
-  feature: NEONCarpentryHeader_2.png
-  credit: A collaboration between the National Ecological Observatory Network (NEON) and Data Carpentry
-  creditlink:
-comments: true
 ---
 
-```{r echo=FALSE}
+```{r setup, echo=FALSE}
 source("../bin/chunk-options.R")
 source("../setup.R")
 knitr_fig_path("12-")
 ```
 
-This tutorial covers how to work with and plot a raster time series, using an
+```{r load-libraries, echo = FALSE, results='hide'}
+library(raster)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+```
+
+
+> ## Things You’ll Need To Complete This Episode
+> See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
+> data, and other prerequisites you will need to work through the examples in this episode.
+{: .prereq}
+
+This episode covers how to work with and plot a raster time series, using an
 `R` `RasterStack` object. It also covers practical assessment of data quality in
 remote sensing derived imagery.
 
@@ -58,11 +54,11 @@ same **resolution**.
     </figcaption>
 </figure>
 
-The raster data that we will use in this tutorial are located in the
+The raster data that we will use in this episode are located in the
 (`NEON-DS-Landsat-NDVI\HARV\2011\NDVI`) directory and cover part of the
 <a href="http://www.neonscience.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>.
 
-In this tutorial, we will:
+In this episode, we will:
 
 1. Import NDVI data in `GeoTIFF` format.
 2. Import, explore and plot NDVI data derived for several dates throughout the
@@ -111,14 +107,7 @@ period that NDVI is available.
 </figure>
 
 ### Getting Started
-In this tutorial, we will use the `raster` and `rgdal` libraries.
-
-```{r load-libraries }
-# load packages
-library(raster)
-library(rgdal)
-
-```
+In this episode, we will use the `raster` and `rgdal` libraries. Make sure you have
 
 To begin, we will create a list of raster files using the `list.files()`
 function in `R`. This list will be used to generate a `RasterStack`. We will
@@ -174,9 +163,9 @@ xres(NDVI_HARV_stack)
 ```
 
 Notice that the CRS is `+proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs`. The
-CRS is in UTM Zone 19.  If you have completed the previous tutorials in
+CRS is in UTM Zone 19.  If you have completed the previous episodes in
 this
-[raster data in `R` series ]({{ site.baseurl }}tutorial-series/raster-data-series/),
+[raster data in `R` series ]({{ site.baseurl }}episode-series/raster-data-series/),
 you may have noticed that the UTM zone for the NEON collected remote sensing
 data was in Zone 18 rather than Zone 19. Why are the Landsat data in Zone 19?
 
@@ -250,8 +239,8 @@ quickly apply this factor using raster math on the entire stack as follows:
 > We can make this plot
 > even prettier by fixing the individual tile names, adding an plot title and by
 > using the (`levelplot`) function. This is covered in the NEON Data Skills
-> [Plot Time Series Rasters in R ]({{ site.baseurl }}/R/Plot-Raster-Times-Series-Data-In-R/)
-> tutorial.
+> [Plot Time Series Rasters in R ]({{ site.baseurl }}/13-plot-time-series-rasters-in-r/)
+> episode.
 {: .callout}
 
 ```{r apply-scale-factor }
@@ -278,7 +267,7 @@ Hint: the number after the "X" in each tile title is the Julian day which in
 this case represents the number of days into each year. If you are unfamiliar
 with Julian day, check out the NEON Data Skills
 [Converting to Julian Day ]({{ site.baseurl }}/R/julian-day-conversion/)
-tutorial.
+episode.
 
 ## View Distribution of Raster Values
 In the above exercise, we viewed plots of our NDVI time series and noticed a
