@@ -65,7 +65,7 @@ different Coordinate Reference Systems (CRS).
 Some reasons for data being in different CRS include:
 
 1. The data are stored in a particular CRS convention used by the data
-provider which (for example, a government agency).
+provider (for example, a government agency).
 2. The data are stored in a particular CRS that is customized to a region.
 For instance, many states in the US prefer to use a State Plane projection customized
 for that state.
@@ -125,14 +125,22 @@ ggplot() +
 
 ## U.S. Boundary Layer
 
-We can add a boundary layer (around the whole map) of the United States to our map. We will import
+
+We can add a boundary layer of the United States to our map - to make it look
+nicer. We will import
 `NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States`.
 If we specify a thicker line width using `lwd = 4` for the border layer, it will
-make our map look nice!
+make our map pop!
 
 ```{r check-out-coordinates }
+# Read the .csv file
+country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp")
+
+ggplot() + 
+    geom_sf(data=country_boundary_US, color="gray18", size=2) +
     geom_sf(data=state_boundary_US, color="gray40") +
-     ggtitle("Map of Continental US State Boundaries\n US Census Bureau Data")
+    ggtitle("Map of Continental US State Boundaries\n US Census Bureau Data")
+
 ```
 
 Next, let's add the location of a flux tower where our study area is.
@@ -355,7 +363,6 @@ transformations) on our data.
 > >     # you can customize the legend's appearance with `theme`
 > >     theme(legend.position="bottom",
 > >           legend.background = element_rect(color = NA)) 
-> > 
 > > 
 > > 
 > > ```
