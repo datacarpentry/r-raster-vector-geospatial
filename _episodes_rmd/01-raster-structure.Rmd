@@ -12,14 +12,12 @@ objectives:
 -  "Be able to quickly plot a raster file in `R`."
 -  "Understand the difference between single- and multi-band rasters."
 keypoints:
--  "The Coordinate Reference System or CRS tells R where the raster is located in geographic space and what method should be used to flatten or project the raster."
-editor_options: 
-  chunk_output_type: console
+-  "The Coordinate Reference System or CRS tells R where the raster is located in geographic space and what method should be used to “flatten” or project the raster."
 ---
 
 ```{r setup, echo=FALSE}
 source("../bin/chunk-options.R")
-source("../setup.R") # NB downloads ~180 MB
+source("../setup.R")
 knitr_fig_path("01-")
 knitr::opts_chunk$set(fig.height = 6)
 ```
@@ -31,20 +29,19 @@ library(ggplot2)
 library(dplyr)
 ```
 
-> ## Things You'll Need To Complete This Episode
+> ## Things You’ll Need To Complete This Episode
 > See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
 > data, and other prerequisites you will need to work through the examples in this episode.
 {: .prereq}
 
 In this episode, we will review the fundamental principles, packages and
-metadata/raster attributes that are needed to work with raster data in `R`. We
-discuss the three core metadata elements that we need to understand to work with
-rasters in `R`: CRS, extent and resolution. We will also explore missing and bad
-data values as stored in a raster and how `R` handles these elements. Finally,
-we will introduce the GeoTiff file format.
+metadata/raster attributes that are needed to work with raster data in `R`.
+We discuss the three core metadata elements that we need to understand to work
+with rasters in `R`: CRS, extent and resolution. We will also explore
+missing and bad data values as stored in a raster and how `R` handles these
+elements. Finally, we will introduce the GeoTiff file format.
 
-To open rasters in `R`, we will use the `raster` and `rgdal` packages. Make sure
-that you have these libraries loaded.
+To open rasters in `R`, we will use the `raster` and `rgdal` packages. Make sure that you have these libraries loaded.
 
 ```{r load-libraries-2, eval=FALSE}
 library(raster)
@@ -53,34 +50,26 @@ library(rgdal)
 
 ## View Raster File Attributes
 
-We will be working with a series of `GeoTIFF` files in this lesson. The
-`GeoTIFF` format contains a set of embedded tags with metadata about the raster
-data. We can use the function `GDALinfo()` to get information about our raster
-data before we read that data into R. It is ideal to do this before importing
+We will be working with a series of `GeoTIFF` files in this
+lesson. The `GeoTIFF` format contains a set of embedded tags with
+metadata about the raster data. We can use the function
+`GDALinfo()` to get information about our raster data before
+we read that data into R. It is ideal to do this before importing
 your data.
 
 ```{r view-attributes-gdal}
 GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 ```
 
-If you wish to store this information in R, you can do the following:
+We will be exploring this data throughout this episode. By the end of
+this episode, you will be able to explain and understand
+the output above.
 
-```{r 'capout'}
-HARV_dsmCrop_info <- capture.output(
-  GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
-)
-```
-
-Each line of text that was printed to the console is now stored as an element of
-the character vector `HARV_dsmCrop_info`.
-
-We will be exploring this data throughout this episode. By the end of this
-episode, you will be able to explain and understand the output above.
 
 ## Raster Data in R
 
-Now that we've previewed the metadata for our `GeoTIFF`, let's import this
-raster dataset into `R` and explore its metadata more closely.
+Now that we've previewed the metadata for our `GeoTIFF`, let's import
+this raster dataset into `R` and explore its metadata more closely.
 
 ## Open a Raster in R
 We can use the `raster()` function to open a raster in R.
@@ -92,42 +81,21 @@ We can use the `raster()` function to open a raster in R.
 > we'll use a naming convention of `datatype_HARV`.
 {: .callout}
 
-First we will load our raster file into `R` and view the data structure.
+First we will load our raster file into `R` and view the
+data structure.
 
 ```{r}
-DSM_HARV <- 
-  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 DSM_HARV
 ```
 
-The information above includes a report of min and max values, but no other data
-range statistics. Similar to other R data structures like vectors and data frame
-columns, descriptive statistics for raster data can be retrieved like
+To work with this data in R, we need to convert it to a dataframe. We
+learned about dataframes in [an earlier lesson](https://datacarpentry.org/r-intro-geospatial/04-data-structures-part2/index.html).
 
-```{r 'rast_struct'}
-summary(DSM_HARV)
-```
-
-but note the warning - unless you force R to calculate these statistics using
-every cell in the raster, it will take a random sample of 10,000 cells and
-calculate from that instead. To force calculation on more, or even all values,
-you can try tuning the parameter `maxsamp`:
-
-```{r }
-# lets try all cells instead
-summary(DSM_HARV, maxsamp = ncell(DSM_HARV))
-```
-
-You may not see major differences in summary stats as `maxsamp` increases,
-except with very large rasters.
-
-To visualise this data in R using `ggplot2`, we need to convert it to a
-dataframe. We learned about dataframes in [an earlier
-lesson](https://datacarpentry.org/r-intro-geospatial/04-data-structures-part2/index.html).
-
-First we will convert our data to a `SpatialPointsDataFrame` and then to a
-conventional dataframe like the gapminder data we worked with earlier.
+First we will convert our data to a `SpatialPointsDataFrame` and
+then to a conventional dataframe like the gapminder data we
+worked with earlier.
 
 ```{r}
 DSM_HARV_df <- rasterToPoints(DSM_HARV, spatial = TRUE) %>%
@@ -141,35 +109,24 @@ dataframe format.
 str(DSM_HARV_df)
 ```
 
-We can use `ggplot()` to plot this data:
+We can use `ggplot()` to plot this data.
 
 ```{r, fig.width= 7, fig.height=7}
 ggplot() +
     geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = HARV_dsmCrop)) +
-    scale_fill_viridis_c() +
     coord_equal()
+
 ```
 
-The add-on package `ggspatial` can also be used. The raster is still converted to a dataframe before plotting, but the work of converting spatial data into a ggplot-friendly format is done for you in the background.
-
-```{r 'ggspat', eval = FALSE}
-library(ggspatial)
-ggplot() +
-  geom_spatial(data = DSM_HARV, aes(fill = band1)) +
-  scale_fill_viridis_c() +
-  coord_equal()
-```
-
-This map shows the elevation of our study site in Harvard Forest. From the
-legend, we can see that the maximum elevation is ~400, but we can't tell whether
-this is 400 feet or 400 meters because the legend doesn't show us the units. We
-can look at the metadata of our object to see what the units are. Much of the
-metadata that we're interested in is part of the `CRS`. We introduced the
-concept of a `CRS` in [an earlier
-lesson](https://datacarpentry.org/organization-geospatial/01-spatial-data-structures-formats/index.html).
-
-Now we will see how features of the CRS appear in our data file and what
-meanings they have.
+This map shows the elevation of our study site in Harvard Forest.
+From the legend, we can see that the maximum elevation is ~400, but
+we can't tell whether this is 400 feet or 400 meters because the
+legend doesn't show us the units. We can look at the metadata of our
+object to see what the units are. Much of the metadata that we're
+interested in is part of the `CRS`. We introduced the concept of
+a `CRS` in [an earlier lesson](https://datacarpentry.org/organization-geospatial/01-spatial-data-structures-formats/index.html).
+Now we will see how features of the CRS appear in our data file
+and what meanings they have.
 
 ### View Raster Coordinate Reference System (CRS) in R
 We can view the `CRS` string associated with our `R` object using the`crs()`
@@ -188,12 +145,12 @@ crs(DSM_HARV)
 {: .challenge}
 
 ## Understanding CRS in Proj4 Format
-The CRS for our data are given to us by `R` in `proj4` format. Let's break down
-the pieces of `proj4` string. The string contains all of the individual CRS
-elements that `R` or another GIS might need. Each element is specified with a
-`+` sign, similar to how a `.csv` file is delimited or broken up by a `,`. After
-each `+` we see the CRS element being defined. For example projection (`proj=`)
-and datum (`datum=`).
+The CRS for our data are given to us by `R` in `proj4` format. Let's break
+down the pieces of `proj4` string. The string contains all of the individual
+CRS elements that `R` or another GIS might need. Each element is specified
+with a `+` sign, similar to how a `.csv` file is delimited or broken up by
+a `,`. After each `+` we see the CRS element being defined. For example
+projection (`proj=`) and datum (`datum=`).
 
 ### UTM Proj4 String
 Our project string for `point_HARV` specifies the UTM projection as follows:
@@ -219,14 +176,14 @@ Chrismurf, wikimedia.org.
 </figcaption>
 </figure>
 
+
 ## Calculate Raster Min and Max Values
 
-It is useful to know the minimum or maximum values of a raster dataset. In this
-case, given we are working with elevation data, these values represent the
+It is useful to know the minimum or maximum values of a raster dataset. In
+this case, given we are working with elevation data, these values represent the
 min/max elevation range at our site.
 
-Raster statistics are often calculated and embedded in a `geotiff` for us. We
-can view these values:
+Raster statistics are often calculated and embedded in a `geotiff` for us. We can view these values:
 
 ```{r view-min-max }
 minValue(DSM_HARV)
@@ -244,49 +201,21 @@ maxValue(DSM_HARV)
 > ```
 {: .callout}
 
-We can see that the elevation at our site ranges from `r minValue(DSM_HARV)`m to
-`r maxValue(DSM_HARV)`m.
-
-## Raster Bands
-The Digital Surface Model object (`DSM_HARV`) that we've been working with is a
-single band raster. This means that there is only one dataset stored in the
-raster: surface elevation in meters for one time period.
-
-<figure>
-    <a href="../images/dc-spatial-raster/single_multi_raster.png">
-    <img src="../images/dc-spatial-raster/single_multi_raster.png"></a>
-    <figcaption>Source: National Ecological Observatory Network (NEON).
-    </figcaption>
-</figure>
-
-A raster dataset can contain one or more bands. We can use the `raster()` function
-to import one single band from a single OR multi-band raster. We can view the number
-of bands in a raster using the `nlayers()` function.
-
-```{r view-raster-bands }
-nlayers(DSM_HARV)
-```
-
-However, raster data can also be multi-band meaning that one raster file
-contains data for more than one variable or time period for each cell. By
-default the `raster()` function only imports the first band in a raster
-regardless of whether it has one or more bands. Jump to a later episode in
-this series for information on working with multi-band rasters:
-<a href="{{ site.baseurl }}/05-raster-multi-band-in-r/" target="_blank">
-Work with Multi-band Rasters: Images in R</a>.
+We can see that the elevation at our site ranges from 305.07m to 416.07m.
 
 ## Dealing with Missing Data
 
 Raster data often has a `NoDataValue` associated with it. This is a value
 assigned to pixels where data is missing or no data were collected.
 
-By default the shape of a raster is always rectangular. So if we have  a dataset
-that has a shape that isn't rectangular, some pixels at the edge of the raster
-will have `NoDataValue`s. This often happens when the data were collected by an
-airplane which only flew over some part of a defined region.
+By default the shape of a raster is always rectangular. So if we
+have  a dataset that has a shape that isn't rectangular, some pixels
+at the edge of the raster will have `NoDataValue`s. This often happens when the
+data were collected by an airplane which only flew over some part of a defined
+region.
 
-In the image below, the pixels that are black have `NoDataValue`s. The camera
-did not collect data in these areas.
+In the image below, the pixels that are black have `NoDataValue`s.
+The camera did not collect data in these areas.
 
 
 ```{r demonstrate-no-data-black-ggplot, echo=FALSE }
@@ -295,81 +224,52 @@ did not collect data in these areas.
 RGB_stack <-
   stack("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
-# aggregate eclls from 0.25m to 2m for plotting to speed up the lesson and 
-# save memory
-RGB_2m <- raster::aggregate(RGB_stack, fact = 8, fun = median)
-# fix data values back to integer datatype
-values(RGB_2m) <- as.integer(round(values(RGB_2m)))
-
-# convert to a df for plotting using raster's built-in methods
-RGB_2m_df  <- raster::as.data.frame(RGB_2m, xy = TRUE)
-# make colnames easy to ref
-names(RGB_2m_df) <- c('x', 'y', 'red', 'green', 'blue')
+# convert to a df for plotting in two steps,
+# First, to a SpatialPointsDataFrame
+RGB_pts <- rasterToPoints(RGB_stack, spatial = TRUE)
+# Then to a 'conventional' dataframe
+RGB_df  <- data.frame(RGB_pts)
+# save some memory and remove the pts object
+rm(RGB_pts)
 
 ggplot() +
- geom_raster(data = RGB_2m_df , aes(x = x, y = y, fill = red),
-             show.legend = FALSE) +
-  scale_fill_gradient(low = 'black', high = "red") +
-  ggtitle("Orthographic Imagery", subtitle = 'Red Band') +
-  coord_equal()
+ geom_raster(data = RGB_df , aes(x = x, y = y, fill = HARV_RGB_Ortho.1),
+             show.legend = FALSE)
+
 # more memory saving
-#rm(RGB_df)
+rm(RGB_df)
 ```
 
-In the next image, the black edges have been assigned `NoDataValue`. `R` doesn't
-render pixels that contain a specified `NoDataValue`. `R` assigns missing data
-with the `NoDataValue` as `NA`.
-
-The difference here shows up as ragged edges on the plot, rather than black
-spaces where there is no data.
+In the next image, the black edges have been assigned `NoDataValue`. `R` doesn't render pixels that contain a specified `NoDataValue`. `R` assigns missing data with the `NoDataValue` as `NA`.
+The difference here shows up as ragged edges on the plot, rather than
+black spaces where there is no data.
 
 ```{r demonstrate-no-data-ggplot, echo=FALSE}
-RGB_2m_df_nd <- RGB_2m_df
-# convert the three rgb values to hex codes
-RGB_2m_df_nd$hex <- rgb(RGB_2m_df_nd$red,
-                        RGB_2m_df_nd$green,
-                        RGB_2m_df_nd$blue, maxColorValue = 255)
-# set black hex code to NA
-RGB_2m_df_nd$hex[RGB_2m_df_nd$hex == '#000000'] <- NA_character_ 
+# reassign cells with 0,0,0 to NA
+# this is simply demonstration code - we will not teach this.
+f <- function(x) {
+  x[rowSums(x == 0) == 3, ] <- NA
+  x
+  }
+
+newRGBImage <- calc(RGB_stack, f)
+newRGB_pts <- rasterToPoints(newRGBImage, spatial = TRUE)
+# Then to a 'conventional' dataframe
+newRGB_df  <- data.frame(newRGB_pts)
+# memory save
+rm(newRGB_pts)
 
 ggplot() +
-  geom_raster(data = RGB_2m_df_nd, aes(x = x, y = y, fill = hex)) +
-  scale_fill_identity() +
-  ggtitle("Orthographic Imagery", subtitle = "All bands") +
-  coord_equal()
-
+    geom_raster(data = newRGB_df , aes(x = x, y = y, fill = HARV_RGB_Ortho.1), 
+             show.legend = FALSE)
+#memory saving
+rm(newRGB_df)
 ```
 
-If your raster already has NA values set correctly but you aren't sure where they are, you can use `ggspatial` to deliberately plot them in a particular colour. This can be useful when checking a dataset's coverage. For instance, sometimes data can be missing where a sensor could not 'see' its target data, and you may wish to locate that missing data and fill it in.
-
-To highlight NA values in gpplot, alter the `scale_fill_*()` layer to contain a colour instruction for na values, like `scale_fill_viridis_c(na.value = 'deeppink')`
-
-```{r 'napink', eval = FALSE}
-RGB_2m_nas <- calc(RGB_2m, 
-                   fun = function(x) {
-                           x[rowSums(x == 0) == 3, ] <- rep(NA, nlayers(RGB_2m))
-                           x
-                   })
-                   
-ggplot() +
-  geom_spatial(data = RGB_2m_nas, aes(fill = band3), na.rm = FALSE) +
-  scale_fill_gradient(low = 'grey90', high = 'blue', na.value = 'deeppink') +
-  ggtitle("Orthographic Imagery", subtitle = "Blue band, with NA highlighted") +
-  coord_equal()
-```
-
-The value that is conventically used to take note of missing data (the
-`NoDataValue` value) varies by the raster data type. For floating-point rasters,
-the figure `-3.4e+38` is a common default, and for integers, `-9999` is also
-frequently seen. Some disciplines have specific conventions that vary from these
-common values.
-
-In some cases, other NA values may be more appropriate. An NA value should be a)
-outside the range of valid values, and b) a value that fits the data type in
-use. For instance, if your data ranges continuously from -20 to 100, 0 is not an
-acceptable NA value! Or, for categories that number 1-15, 0 might be fine for NA,
-but using -.000003 will force you to save the GeoTIFF on disk as a floating
-point raster, resulting in a bigger file.
+The value that is used to take note of missing data (the `NoDataValue` value) varies across disciplines; `-9999` is a common value
+used in both the remote sensing field and the atmospheric fields. It is also
+the standard used by the <a href="http://www.neonscience.org" target="_blank">
+National Ecological Observatory Network (NEON)</a>.
 
 If we are lucky, our GeoTIFF file has a tag that tells us what is the
 `NoDataValue`. If we are less lucky, we can find that information in the
@@ -439,9 +339,37 @@ ggplot() +
 ```
 
 Note that the shape of both histograms looks similar to the previous one that
-was created using the default of 30 bins. The distribution of elevation values
-for our `Digital Surface Model (DSM)` looks reasonable. It is likely there are
-no bad data values in this particular raster.
+ was created using the default of 30 bins. The
+distribution of elevation values for our `Digital Surface Model (DSM)` looks
+reasonable. It is likely there are no bad data values in this particular raster.
+
+## Raster Bands
+The Digital Surface Model object (`DSM_HARV`) that we've been working with
+is a single band raster. This means that there is only one dataset stored in
+the raster: surface elevation in meters for one time period.
+
+<figure>
+    <a href="../images/dc-spatial-raster/single_multi_raster.png">
+    <img src="../images/dc-spatial-raster/single_multi_raster.png"></a>
+    <figcaption>Source: National Ecological Observatory Network (NEON).
+    </figcaption>
+</figure>
+
+A raster dataset can contain one or more bands. We can use the `raster()` function
+to import one single band from a single OR multi-band raster. We can view the number
+of bands in a raster using the `nlayers()` function.
+
+```{r view-raster-bands }
+nlayers(DSM_HARV)
+```
+
+However, raster data can also be multi-band meaning that one raster file
+contains data for more than one variable or time period for each cell. By
+default the `raster()` function only imports the first band in a raster
+regardless of whether it has one or more bands. Jump to a later episode in
+this series for information on working with multi-band rasters:
+<a href="{{ site.baseurl }}/05-raster-multi-band-in-r/" target="_blank">
+Work with Multi-band Rasters: Images in R</a>.
 
 > ## Challenge: Explore Raster Metadata
 >
