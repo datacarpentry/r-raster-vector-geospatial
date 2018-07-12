@@ -126,12 +126,10 @@ To visualise this data in R using `ggplot2`, we need to convert it to a
 dataframe. We learned about dataframes in [an earlier
 lesson](https://datacarpentry.org/r-intro-geospatial/04-data-structures-part2/index.html).
 
-First we will convert our data to a `SpatialPointsDataFrame` and then to a
-conventional dataframe like the gapminder data we worked with earlier.
+`raster` has an inbuilt method for conversion to a plottable `data.frame`.
 
 ```{r}
-DSM_HARV_df <- rasterToPoints(DSM_HARV, spatial = TRUE) %>%
-    data.frame()
+DSM_HARV_df <- raster::as.data.frame(DSM_HARV, xy = TRUE)
 ```
 
 Now when we view the structure of our data, we will see a standard
@@ -150,7 +148,9 @@ ggplot() +
     coord_equal()
 ```
 
-The add-on package `ggspatial` can also be used. The raster is still converted to a dataframe before plotting, but the work of converting spatial data into a ggplot-friendly format is done for you in the background.
+The add-on package `ggspatial` can also be used. The raster is still converted
+to a dataframe before plotting, but the work of converting spatial data into a
+ggplot-friendly format is done for you in the background.
 
 ```{r 'ggspat', eval = FALSE}
 library(ggspatial)
