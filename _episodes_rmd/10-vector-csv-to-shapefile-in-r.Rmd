@@ -1,7 +1,7 @@
 ---
 title: "Convert from .csv to a Shapefile in R"
-teaching: 10
-exercises: 0
+teaching: 20
+exercises: 10
 questions:
 - ""
 objectives:
@@ -11,28 +11,28 @@ objectives:
 - "Be able to plot raster and vector data in the same plot to create a map."
 keypoints:
 - "It is important to know the projection (if any) of your point data prior to converting to a spatial object."
-authors: [Joseph Stachelek, Leah A. Wasser, Megan A. Jones]
-contributors: [Sarah Newman]
-dateCreated:  2015-10-23
-lastModified: `r format(Sys.time(), "%Y-%m-%d")`
-packagesLibraries: [rgdal, raster]
-categories: [self-paced-tutorial]
-mainTag: vector-data-series
-tags: [vector-data, R, spatial-data-gis]
-tutorialSeries: [vector-data-series]
-description: "This tutorial covers how to convert a .csv file that contains
-spatial coordinate information into a spatial object in R. We will then export
-the spatial object as a Shapefile for efficient import into R and other GUI GIS
-applications including QGIS and ArcGIS"
 ---
 
-```{r echo=FALSE}
+```{r setup, echo=FALSE}
 source("../bin/chunk-options.R")
 source("../setup.R")
 knitr_fig_path("10-")
 ```
 
-This tutorial will review how to import spatial points stored in `.csv` (Comma Separated Value) format into `R` as an `sf` spatial object. We will also reproject data imported from a shapefile format, export this data as a shapefile as well as plot raster and vector data as layers in the same plot.
+```{r load-libraries, echo = FALSE, results='hide'}
+library(raster)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+```
+
+
+> ## Things You’ll Need To Complete This Episode
+> See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
+> data, and other prerequisites you will need to work through the examples in this episode.
+{: .prereq}
+
+This episode will review how to import spatial points stored in `.csv` (Comma Separated Value) format into `R` as an `sf` spatial object. We will also reproject data imported from a shapefile format, export this data as a shapefile as well as plot raster and vector data as layers in the same plot.
 
 ## Spatial Data in Text Format
 
@@ -52,15 +52,7 @@ convert it into an `sf` spatial object. The `sf` object allows us to store both 
 of each point and the associated attribute data - or columns describing each
 feature in the spatial object.
 
-We will use the `sf` and `raster` libraries in this tutorial.
-
-```{r load-libraries}
-
-# load packages
-library(sf)  # for vector work;
-library(raster)   # for  raster metadata/attributes
-
-```
+We will use the `sf` and `raster` libraries in this episode.
 
 ## Import .csv
 To begin let's import `.csv` file that contains plot coordinate `x, y`
@@ -122,7 +114,7 @@ There are several ways to figure out the CRS of spatial data in text format.
 1. We can check the file **metadata** in hopes that the CRS was recorded in the
 data. For more information on metadata, check out the
 [Why Metadata Are Important: How to Work with Metadata in Text & EML Format]({{site.baseurl}}/R/why-metadata-are-important/)
-tutorial.
+episode.
 2. We can explore the file itself to see if CRS information is embedded in the
 file header or somewhere in the data columns.
 
@@ -226,8 +218,8 @@ a plot using `xlim` and `ylim`.
 
 Let's first create an `sf` object from the
 `NEON-DS-Site-Layout-Files/HarClip_UTMZ18` shapefile. (If you have completed
-Vector 00-02 tutorials in this
-[Introduction to Working with Vector Data in R]({{site.baseurl}}/tutorial-series/vector-data-series/)
+Vector 00-02 episodes in this
+[Introduction to Working with Vector Data in R]({{site.baseurl}}/episode-series/vector-data-series/)
 series, you can skip this code as you have already created this object.)
 
 ``` {r create-aoi-boundary}
@@ -354,7 +346,7 @@ legend("bottomright",
 > HINT: Refer to
 > [When Vector Data Don't Line Up - Handling Spatial Projection & CRS in R]({{site.baseurl}}/R/vector-data-reproject-crs-R/)
 > for more on working with geographic coordinate systems. You may want to "borrow"
-> the projection from the objects used in that tutorial!
+> the projection from the objects used in that episode!
 > 
 > > ## Answers
 > > 
@@ -438,7 +430,7 @@ legend("bottomright",
 > > # try again but this time specify the x and ylims
 > > # note: we could also write a function that would harvest the smallest and
 > > # largest
-> > # x and y values from an extent object. This is beyond the scope of this tutorial.
+> > # x and y values from an extent object. This is beyond the scope of this episode.
 > > plot(plot_locations_sp_HARV$geometry,
 > >      main = "NEON Harvard Forest Field Site\nVegetation & Phenology Plots",
 > >      pch=8,
