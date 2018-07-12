@@ -153,7 +153,7 @@ a `,`. After each `+` we see the CRS element being defined. For example
 projection (`proj=`) and datum (`datum=`).
 
 ### UTM Proj4 String
-Our project string for `point_HARV` specifies the UTM projection as follows:
+Our project string for `DSM_HARV` specifies the UTM projection as follows:
 
 `+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0`
 
@@ -165,7 +165,7 @@ the coordinate system used in the projection)
 * **ellps=WGS84:** the ellipsoid (how the earth's  roundness is calculated) for
 the data is WGS84
 
-Note that the `zone` is unique to the UTM projection. Not all CRSs will have a
+Note that the `zone` is unique to the UTM projection. Not all CRS will have a
 zone.
 
 <figure>
@@ -175,7 +175,6 @@ zone.
 Chrismurf, wikimedia.org.
 </figcaption>
 </figure>
-
 
 ## Calculate Raster Min and Max Values
 
