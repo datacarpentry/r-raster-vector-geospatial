@@ -259,9 +259,9 @@ raster: surface elevation in meters for one time period.
     </figcaption>
 </figure>
 
-A raster dataset can contain one or more bands. We can use the `raster()` function
-to import one single band from a single OR multi-band raster. We can view the number
-of bands in a raster using the `nlayers()` function.
+A raster dataset can contain one or more bands. We can use the `raster()`
+function to import one single band from a single OR multi-band raster. We can
+view the number of bands in a raster using the `nlayers()` function.
 
 ```{r view-raster-bands }
 nlayers(DSM_HARV)
@@ -287,7 +287,6 @@ airplane which only flew over some part of a defined region.
 
 In the image below, the pixels that are black have `NoDataValue`s. The camera
 did not collect data in these areas.
-
 
 ```{r demonstrate-no-data-black-ggplot, echo=FALSE }
 # no data demonstration code - not being taught
@@ -345,6 +344,7 @@ If your raster already has NA values set correctly but you aren't sure where the
 To highlight NA values in gpplot, alter the `scale_fill_*()` layer to contain a colour instruction for na values, like `scale_fill_viridis_c(na.value = 'deeppink')`
 
 ```{r 'napink', eval = FALSE}
+# function to replace 0 with NA where all three values are 0 only
 RGB_2m_nas <- calc(RGB_2m, 
                    fun = function(x) {
                            x[rowSums(x == 0) == 3, ] <- rep(NA, nlayers(RGB_2m))
@@ -364,12 +364,12 @@ the figure `-3.4e+38` is a common default, and for integers, `-9999` is also
 frequently seen. Some disciplines have specific conventions that vary from these
 common values.
 
-In some cases, other NA values may be more appropriate. An NA value should be a)
-outside the range of valid values, and b) a value that fits the data type in
-use. For instance, if your data ranges continuously from -20 to 100, 0 is not an
-acceptable NA value! Or, for categories that number 1-15, 0 might be fine for NA,
-but using -.000003 will force you to save the GeoTIFF on disk as a floating
-point raster, resulting in a bigger file.
+In some cases, other `NA` values may be more appropriate. An `NA` value should
+be a) outside the range of valid values, and b) a value that fits the data type
+in use. For instance, if your data ranges continuously from -20 to 100, `0` is
+not an acceptable `NA` value! Or, for categories that number 1-15, `0` might be
+fine for `NA`, but using `-.000003` will force you to save the GeoTIFF on disk
+as a floating point raster, resulting in a bigger file.
 
 If we are lucky, our GeoTIFF file has a tag that tells us what is the
 `NoDataValue`. If we are less lucky, we can find that information in the
@@ -409,11 +409,30 @@ when we analyze the data. Sometimes, we need to use some common sense and
 scientific insight as we examine the data - just as we would for field data to
 identify questionable values.
 
+Plotting data with appropriate highlighting can help reveal patterns in bad
+values and may suggest a solution. Below, reclassification is used to highlight
+elevation values over 400m with a contrasting colour.
+
+```{r 'demo-bad-data-highlighting'}
+# reclassify raster to ok/not ok
+DSM_highvals <- reclassify(DSM_HARV, rcl = c(0, 400, NA_integer_, 400, 420, 1L), include.lowest = TRUE)
+DSM_highvals <- raster::as.data.frame(DSM_highvals, xy = TRUE)
+DSM_highvals <- DSM_highvals[!is.na(DSM_highvals$layer), ]
+
+ggplot() +
+  geom_spatial(data = DSM_HARV, aes(fill = band1)) +
+  scale_fill_viridis_c() + 
+  # use reclassified raster data as an annotation
+  annotate(geom = 'raster', x = DSM_highvals$x, y = DSM_highvals$y, fill = scales::colour_ramp('deeppink')(DSM_highvals$layer)) +
+  ggtitle("Elevation Data", subtitle = "Highlighting values > 400m") +
+  coord_equal()
+```
+
 ## Create A Histogram of Raster Values
 
 We can explore the distribution of values contained within our raster using the
-`geom_histogram()` function which produces a histogram. Histograms are often useful in
-identifying outliers and bad data values in our raster data.
+`geom_histogram()` function which produces a histogram. Histograms are often
+useful in identifying outliers and bad data values in our raster data.
 
 ```{r view-raster-histogram }
 
@@ -426,9 +445,9 @@ Notice that an warning message is thrown when `R` creates the histogram.
 
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-This warning is caused by `ggplot`'s default settings enforcing that there are 30 bins for the data.
-We can define the number of bins we want in the histogram by using the `bins` value in the 
-`geom_histogram()` function.
+This warning is caused by `ggplot`'s default settings enforcing that there are
+30 bins for the data. We can define the number of bins we want in the histogram
+by using the `bins` value in the `geom_histogram()` function.
 
 
 ``` {r view-raster-histogram2}
