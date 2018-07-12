@@ -24,6 +24,7 @@ library(raster)
 library(rgdal)
 library(ggplot2)
 library(dplyr)
+library(reshape)
 ```
 
 
@@ -189,35 +190,46 @@ Harvard Forest is located in UTM Zone 18, but the Landsat data is in a `CRS` of
 UTM Zone 19.
 
 > ## Challenge: Raster Metadata
-> 
+>
 > Answer the following questions about our `RasterStack`.
-> 
+>
 > 1. What is the CRS?
 > 2. What is the x and y resolution of the data?
 > 3. What units is the above resolution in?
-> 
+>
 > > ## Answers
-> > 
+> >
 > > ``` {r challenge-code-raster-metadata, eval=TRUE, echo=TRUE}
 > > # 1. UTM zone 19 WGS 84
 > > # 2. 30x30 meters
 > > # 3. meters
-> > 
+> >
 > > ```
 > {: .solution}
 {: .challenge}
 
 ## Plotting Time Series Data
 Once we have created our `RasterStack`, we can visualize our data. We can use
-the `plot()` command to quickly plot a `RasterStack`.
+the `ggplot()` command to quickly plot a `RasterStack`.
 
 ```{r plot-time-series }
 
+# convert to a df for plotting in two steps,
+# First, to a SpatialPointsDataFrame
+NDVI_HARV_stack_df <- rasterToPoints(NDVI_HARV_stack, spatial = TRUE) %>%
+# Then to a 'conventional' dataframe
+    data.frame() %>%
+# Then reshape data to stack all the X*_HARV_ndvi_crop columns into
+# one single column called 'variable'
+    melt(id.vars = c('x','y','optional'))
+
 # view a plot of all of the rasters
-# 'nc' specifies number of columns (we will have 13 plots)
-plot(NDVI_HARV_stack,
-     zlim = c(1500, 10000),
-     nc = 4)
+# 'ncol' specifies number of columns (we will have 13 plots)
+ggplot() +
+  geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
+# we use ggplot2 faceting technique to split the plot into multiple plots
+# based on the factor called 'variable'
+  facet_wrap(~variable)
 
 ```
 
@@ -235,23 +247,28 @@ quickly apply this factor using raster math on the entire stack as follows:
 
 `raster_stack_object_name / 10000`
 
-> ## Data Tip
-> We can make this plot
-> even prettier by fixing the individual tile names, adding an plot title and by
-> using the (`levelplot`) function. This is covered in the NEON Data Skills
-> [Plot Time Series Rasters in R ]({{ site.baseurl }}/13-plot-time-series-rasters-in-r/)
-> episode.
-{: .callout}
 
 ```{r apply-scale-factor }
 
 # apply scale factor to data
 NDVI_HARV_stack <- NDVI_HARV_stack/10000
 # plot stack with scale factor applied
-# apply scale factor to limits to ensure uniform plottin
-plot(NDVI_HARV_stack,
-     zlim = c(.15, 1),
-     nc = 4)
+# convert to a df for plotting in two steps,
+# First, to a SpatialPointsDataFrame
+NDVI_HARV_stack_df <- rasterToPoints(NDVI_HARV_stack, spatial = TRUE) %>%
+# Then to a 'conventional' dataframe
+    data.frame() %>%
+# Then reshape data to stack all the X*_HARV_ndvi_crop columns into
+# one single column called 'variable'
+    melt(id.vars = c('x','y','optional'))
+
+# view a plot of all of the rasters
+# 'ncol' specifies number of columns (we will have 13 plots)
+ggplot() +
+  geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
+# we use ggplot2 faceting technique to split the plot into multiple plots
+# based on the factor called 'variable'
+  facet_wrap(~variable)
 
 ```
 
@@ -281,9 +298,9 @@ each raster.
 ```{r view-stack-histogram }
 
 # create histograms of each raster
-hist(NDVI_HARV_stack,
-     xlim = c(0, 1))
-
+ggplot(NDVI_HARV_stack_df) +
+  geom_histogram(aes(value)) +
+    facet_wrap(~variable)
 ```
 
 It seems like things get green in the spring and summer like we expect, but the
@@ -340,69 +357,111 @@ Let's have a look at the source Landsat imagery that was partially used used to
 derive our NDVI rasters to try to understand what appears to be outlier NDVI values.
 
 > ## Challenge: Examine RGB Raster Files
-> 
+>
 > 1. View the imagery located in the `/NEON-DS-Landsat-NDVI/HARV/2011` directory.
 > 2. Plot the RGB images for the Julian days 277 and 293 then plot and compare
 > those images to jdays 133 and 197.
 > 3. Does the RGB imagery from these two days explain the low NDVI values observed
 > on these days?
-> 
+>
 > HINT: if you want to plot 4 images in a tiled set, you can use
-> `par(mfrow=c(2, 2))` to create a 2x2 tiled layout. When you are done, be sure to
-> reset your layout using: `par(mfrow=c(1, 1))`.
-> 
+> `grid.arrange` from gridExtra R package. Make sure you load it by using:
+> `library(gridExtra)`.
+>
 > > ## Answers
-> > 
-> > ```{r view-all-rgb, echo=TRUE}
-> > 
-> > # reset layout
-> > par(mfrow=c(2,2))
-> > 
-> > # open up file for Jday 277
-> > RGB_277 <-
-> >   stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif")
-> > 
-> > plotRGB(RGB_277)
-> > 
-> > # open up file for jday 293
-> > RGB_293 <-
-> >   stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")
-> > 
-> > plotRGB(RGB_293)
-> > 
-> > # view a few other images
-> > # open up file for jday 133
-> > RGB_133 <-
-> >   stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
-> > 
-> > plotRGB(RGB_133,
-> >         stretch="lin")
-> > 
-> > # open up file for jday 197
-> > RGB_197 <-
-> >   stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/197_HARV_landRGB.tif")
-> > 
-> > plotRGB(RGB_197,
-> >         stretch="lin")
 > >
-> > # create list of files to make raster stack
-> > # RGB_HARV_allCropped <-  list.files("NEON-DS-Landsat-NDVI/HARV/2011/RGB/",
-> > #                              full.names=TRUE,
-> > #                              pattern = ".tif$")
-> > 
-> > 
-> > # create a layout
-> > # par(mfrow=c(4, 4))
-> > 
-> > # Super efficient code - plot using a loop
-> > # for (aFile in RGB_HARV_allCropped){
-> > #  NDVI.rastStack <- stack(aFile)
-> > #  plotRGB(NDVI.rastStack, stretch="lin")
-> > # }
-> > 
-> > # reset layout
-> > par(mfrow=c(1, 1))
-> > 
+> > ```{r view-all-rgb, echo=TRUE}
+> > library(gridExtra)
+> >
+> > # open up file for Jday 277
+> > RGB_277 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif")/255
+> >
+> > # convert to a df for plotting in two steps,
+> > # First, to a SpatialPointsDataFrame
+> > RGB_277_df <- rasterToPoints(RGB_277, spatial = TRUE)  %>%
+> > # Then to a 'conventional' dataframe
+> > data.frame()
+> >
+> > # Create RGB colors from the 3 channels
+> > RGB_277_df$rgb <- with(RGB_277_df, rgb(X277_HARV_landRGB.1,X277_HARV_landRGB.2,X277_HARV_landRGB.3,1))
+> >
+> > # plot raster data frame using RGB composite color as fill value
+> > p_277 <- ggplot() +
+> >     geom_raster(data=RGB_277_df, aes(x, y), fill=RGB_277_df$rgb)
+> >
+> > # open up file for Jday 293
+> > RGB_293 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")/255
+> >
+> > # convert to a df for plotting in two steps,
+> > # First, to a SpatialPointsDataFrame
+> > RGB_293_df <- rasterToPoints(RGB_293, spatial = TRUE)  %>%
+> > # Then to a 'conventional' dataframe
+> > data.frame()
+> >
+> > # Create RGB colors from the 3 channels
+> > RGB_293_df$rgb <- with(RGB_293_df, rgb(X293_HARV_landRGB.1,X293_HARV_landRGB.2,X293_HARV_landRGB.3,1))
+> >
+> > # plot raster data frame using RGB composite color as fill value
+> > p_293 <- ggplot() +
+> >     geom_raster(data = RGB_293_df, aes(x, y), fill = RGB_293_df$rgb)
+> >
+> > # view a few other images
+> > # open up file for Jday 133
+> > RGB_133 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
+> >
+> > # convert to a df for plotting in two steps,
+> > # First, to a SpatialPointsDataFrame
+> > RGB_133_df <- rasterToPoints(RGB_133, spatial = TRUE)  %>%
+> > # Then to a 'conventional' dataframe
+> > data.frame()
+> >
+> > quantiles = c(0.02, 0.98)
+> > r <- quantile(RGB_133_df$X133_HARV_landRGB.1, quantiles, na.rm = TRUE)
+> > g <- quantile(RGB_133_df$X133_HARV_landRGB.2, quantiles, na.rm = TRUE)
+> > b <- quantile(RGB_133_df$X133_HARV_landRGB.3, quantiles, na.rm = TRUE)
+> > tempR <-  (RGB_133_df$X133_HARV_landRGB.1 - r[1])/(r[2] - r[1])
+> > tempG <-  (RGB_133_df$X133_HARV_landRGB.2 - g[1])/(g[2] - g[1])
+> > tempB <-  (RGB_133_df$X133_HARV_landRGB.3 - b[1])/(b[2] - b[1])
+> > tempR[tempR < 0] <- 0
+> > tempG[tempG < 0] <- 0
+> > tempB[tempB < 0] <- 0
+> > tempR[tempR > 1] <- 1
+> > tempG[tempG > 1] <- 1
+> > tempB[tempB > 1] <- 1
+> > RGB_133_df$rgb <- rgb(tempR,tempG,tempB)
+
+> > p_133 <- ggplot() +
+> >     geom_raster(data = RGB_133_df, aes(x, y), fill = RGB_133_df$rgb)
+> >
+> > # open up file for Jday 197
+> > RGB_197 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/197_HARV_landRGB.tif")
+> >
+> > # convert to a df for plotting in two steps,
+> > # First, to a SpatialPointsDataFrame
+> > RGB_197_df <- rasterToPoints(RGB_197, spatial = TRUE)  %>%
+> > # Then to a 'conventional' dataframe
+> > data.frame()
+> >
+> > r <- quantile(RGB_197_df$X197_HARV_landRGB.1, quantiles, na.rm = TRUE)
+> > g <- quantile(RGB_197_df$X197_HARV_landRGB.2, quantiles, na.rm = TRUE)
+> > b <- quantile(RGB_197_df$X197_HARV_landRGB.3, quantiles, na.rm = TRUE)
+> > tempR <-  (RGB_197_df$X197_HARV_landRGB.1 - r[1])/(r[2] - r[1])
+> > tempG <-  (RGB_197_df$X197_HARV_landRGB.2 - g[1])/(g[2] - g[1])
+> > tempB <-  (RGB_197_df$X197_HARV_landRGB.3 - b[1])/(b[2] - b[1])
+> > tempR[tempR < 0] <- 0
+> > tempG[tempG < 0] <- 0
+> > tempB[tempB < 0] <- 0
+> > tempR[tempR > 1] <- 1
+> > tempG[tempG > 1] <- 1
+> > tempB[tempB > 1] <- 1
+> > RGB_197_df$rgb <- rgb(tempR,tempG,tempB)
+> >
+> > p_197 <- ggplot() +
+> >     geom_raster(data = RGB_197_df, aes(x, y), fill = RGB_197_df$rgb)
+> > 	
+> > grid.arrange(p_277,p_293,p_133,p_197, ncol = 2)
+> >
+> >
 > > ```
 > {: .solution}
 {: .challenge}
