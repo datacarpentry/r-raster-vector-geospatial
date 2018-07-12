@@ -3,7 +3,7 @@ title: "Plot Raster Data in R"
 teaching: 20
 exercises: 10
 questions:
-- ""
+- "How can I visualize raster data?"
 objectives:
 - "Know how to plot a single band raster in `R`."
 - "Know how to layer a raster dataset on top of a hillshade to create an elegant basemap."
