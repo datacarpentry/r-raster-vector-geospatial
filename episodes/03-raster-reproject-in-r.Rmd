@@ -2,7 +2,7 @@
 title: "Reproject Raster Data in R"
 keypoints: ''
 objectives: Be able to reproject a raster in `R`.
-questions: What to do when rasters don't line up.
+questions: What do I do when rasters don't line up?
 teaching: 20
 exercises: 10
 ---
