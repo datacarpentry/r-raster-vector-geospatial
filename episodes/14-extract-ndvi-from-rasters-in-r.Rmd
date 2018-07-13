@@ -3,7 +3,7 @@ title: "Derive Values from Raster Time Series"
 teaching: 20
 exercises: 10
 questions:
-- ""
+- "How can I calculate, extract, and export summarized raster pixel data?"
 objectives:
 - "Be able to extract summary pixel values from a raster."
 - "Know how to save summary values to a .csv file."
