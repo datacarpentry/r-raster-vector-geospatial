@@ -3,7 +3,7 @@ title: "Raster Time Series Data in R"
 teaching: 20
 exercises: 10
 questions:
-- ""
+- "How can I view and and plot NDVI data for different times of the year?"
 objectives:
 - "Understand the format of a time series raster dataset."
 - "Know how to work with time series rasters."
