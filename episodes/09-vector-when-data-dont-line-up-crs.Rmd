@@ -60,9 +60,9 @@ raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 
 To support a project, we often need to gather spatial datasets from
 different sources and/or data that cover different spatial `extents`. These data are often in
-different Coordinate Reference Systems (CRS).
+different Coordinate Reference Systems (CRSs).
 
-Some reasons for data being in different CRS include:
+Some reasons for data being in different CRSs include:
 
 1. The data are stored in a particular CRS convention used by the data
 provider (for example, a government agency).
@@ -188,7 +188,7 @@ st_crs(state_boundary_US)
 st_crs(country_boundary_US)
 ```
 
-It looks like our data are in different CRS. We can tell this by looking at
+It looks like our data are in different CRSs. We can tell this by looking at
 the CRS strings in `proj4` format. We discussed the `proj4` format
 in [an earlier episode]({{site.baseurl}}/01-raster-structure/).
 
@@ -205,7 +205,7 @@ the coordinate system used in the projection)
 * **ellps=WGS84:** the ellipsoid (how the earth's  roundness is calculated) for
 the data is WGS84
 
-Note that the `zone` is unique to the UTM projection. Not all CRS will have a
+Note that the `zone` is unique to the UTM projection. Not all CRSs will have a
 zone.
 
 ### Geographic (lat / long) Proj4 String
@@ -256,7 +256,7 @@ represented in meters.
 
 > ## Proj4 & CRS Resources
 > * <a href="http://proj.maptools.org/faq.html" target="_blank">More information on the proj4 format.</a>
-> * <a href="http://spatialreference.org" target="_blank">A fairly comprehensive list of CRS by format.</a>
+> * <a href="http://spatialreference.org" target="_blank">A fairly comprehensive list of CRSs by format.</a>
 > * To view a list of datum conversion factors type: `projInfo(type = "datum")`
 into the `R` console.
 {: .callout}
