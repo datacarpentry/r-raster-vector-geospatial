@@ -222,7 +222,7 @@ the image might improve clarity and contrast using  `stretch="lin"` or
 `stretch="hist"`.
 
 
-```{r, out.width = 7"}
+```{r, out.width = 7}
 knitr::include_graphics("../images/dc-spatial-raster/imageStretch_dark.jpg")
 ```
 When the range of pixel brightness values is closer to 0, a darker image is rendered by default. We can stretch 
