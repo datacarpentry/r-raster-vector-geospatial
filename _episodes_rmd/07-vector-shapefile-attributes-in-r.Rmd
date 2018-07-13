@@ -201,7 +201,7 @@ Now, we see that there are in fact two features in our plot!
 >
 > > ## Answers
 > > 
-> > ```{r challenge-code-feature-subset, echo=TRUE}
+> > ```{r challenge-code-feature-subset-1, echo=TRUE}
 > > 
 > > # save an object with only boardwalk lines
 > > boardwalk_HARV<-lines_HARV[lines_HARV$TYPE == "boardwalk",]
@@ -222,7 +222,7 @@ Now, we see that there are in fact two features in our plot!
 >
 > > ## Answer
 > >
-> > ```{r challenge-code-feature-subset, echo=TRUE}
+> > ```{r challenge-code-feature-subset-2, echo=TRUE}
 > >
 > > # save an object with only stone wall lines
 > > stoneWall_HARV <- lines_HARV[lines_HARV$TYPE == "stone wall",]
