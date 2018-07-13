@@ -3,7 +3,7 @@ title: "Plot Raster Time Series Data in R"
 teaching: 20
 exercises: 10
 questions:
-- ""
+- "How can I distinguish between the different times plotted using color?"
 objectives:
 - "Be able to assign custom names to bands in a RasterStack for prettier plotting."
 - "Understand advanced plotting of rasters using the `ggplot2` package."
