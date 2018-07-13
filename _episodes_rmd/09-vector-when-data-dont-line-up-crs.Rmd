@@ -120,7 +120,7 @@ Next, let's plot the U.S. states data.
 ```{r find-coordinates }
 ggplot() +
     geom_sf(data=state_boundary_US) +
-    ggtitle("Map of Continental US State Boundaries\n US Census Bureau Data")
+    ggtitle("Map of Contiguous US State Boundaries\n US Census Bureau Data")
 ```
 
 ## U.S. Boundary Layer
@@ -139,7 +139,7 @@ country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layer
 ggplot() + 
     geom_sf(data=country_boundary_US, color="gray18", size=2) +
     geom_sf(data=state_boundary_US, color="gray40") +
-    ggtitle("Map of Continental US State Boundaries\n US Census Bureau Data")
+    ggtitle("Map of Contiguous US State Boundaries\n US Census Bureau Data")
 
 ```
 
@@ -165,7 +165,7 @@ ggplot() +
     geom_sf(data=state_boundary_US, color="gray40") +
     # add point tower location
     geom_sf(data=point_HARV, shape=19, color="purple") +
-    ggtitle("Map of Continental US State Boundaries\n with Tower Location")
+    ggtitle("Map of Contiguous US State Boundaries\n with Tower Location")
 ```
 
 What do you notice about the resultant plot? Do you see the tower location in
@@ -312,7 +312,7 @@ ggplot() +
     geom_sf(data=state_boundary_US, color="gray40") +
     # add point tower location
     geom_sf(data=point_HARV_WGS84, shape=19, color="purple") +
-    ggtitle("Map of Continental US State Boundaries\n with Tower Location")
+    ggtitle("Map of Contiguous US State Boundaries\n with Tower Location")
 ```
 
 Reprojecting our data ensured that things line up on our map! It will also
