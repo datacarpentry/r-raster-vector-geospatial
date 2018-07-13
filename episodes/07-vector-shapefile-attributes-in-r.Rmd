@@ -50,16 +50,9 @@ When we import a shapefile into `R`, the `st_read()` function automatically
 stores metadata and attributes associated with the file.
 
 ## Load the Data
-To work with vector data in `R`, we can use the `sf` package. The `raster`
-package also allows us to explore metadata using similar commands for both
-raster and vector files. Make sure that you have these libraries loaded.
+We will continue using the `sf`, `raster` and `ggplot2` packages in this episode. Make sure that you have these libraries loaded.
 
-```{r load-libraries-2, eval=FALSE}
-library(sf)
-library(raster)
-```
-
-We will continue to work with the three shapefiles that we loaded in the
+For data, we will continue to work with the three shapefiles that we loaded in the
 [Open and Plot Shapefiles in R]({{site.baseurl}}/06-vector-open-shapefile-in-r/) episode.
 
 ## Query Shapefile Metadata
@@ -77,47 +70,24 @@ in.
 Let's explore the metadata for our `point_HARV` object.
 
 ```{r view-shapefile-metadata }
-# view geometry type
 st_geometry_type(point_HARV)
 
-# x= isn't actually needed; it just specifies which object
-# view features count
 nrow(point_HARV)
-
-# view crs - note - this only works with the raster package loaded
-st_crs(point_HARV)
-
-# view extent- note - this only works with the raster package loaded
-st_bbox(point_HARV)
-
-# view metadata summary
-point_HARV
 ```
 
-## About Shapefile Attributes
-Shapefiles often contain an associated database or spreadsheet of values called
-**attributes** that describe the vector features in the shapefile. You can think
-of this like a spreadsheet with rows and columns. Each column in the spreadsheet
-is an individual **attribute** that describes an object. Shapefile attributes
-include measurements that correspond to the geometry of the shapefile features.
+Using the `raster` package, we can also view the CRS and the extent (or boundary box) of our `point_HARV` object.
 
-For example, the `HARV_Roads` shapefile (`lines_HARV` object) contains an
-attribute called `TYPE`. Each line in the shapefile has an associated `TYPE`
-which describes the type of road (woods road, footpath, boardwalk, or
-stone wall).
+```{r view-shapefile-crs }
+st_crs(point_HARV)
 
-<figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-vector/Attribute_Table.png">
-    <img src="{{ site.baseurl }}/images/dc-spatial-vector/Attribute_Table.png"></a>
-    <figcaption>The shapefile format allows us to store attributes for each
-    feature (vector object) stored in the shapefile. The attribute table, is
-    similar to a spreadsheet. There is a row for each feature. The first column
-    contains the unique ID of the feature. We can add additional columns that
-    describe the feature. Image Source: National Ecological Observatory Network
-    (NEON)
-    </figcaption>
-</figure>
+st_bbox(point_HARV)
+```
 
+To see a summary of all of the metadata associated with our `point_HARV` object, we can view the object itself.
+
+```{r view-object }
+point_HARV
+```
 
 We can look at all of the associated data attributes by printing the contents of the `sf` object. We can use the `ncol` function to count the number of attributes associated with a spatial object too.
 
@@ -127,16 +97,16 @@ ncol(lines_HARV)
 ```
 
 We can view the individual **name of each attribute** using the
-`names` method in `R`. We could also view just the first 6 rows
-of attribute values using `head(lines_HARV)`.
-
-Let's give it a try.
+`names` function in `R`.
 
 ```{r view-shapefile-attributes }
-# view just the attribute names for the lines_HARV spatial object
 names(lines_HARV)
+```
 
-# just view the attributes & first 6 attribute values of the data
+We could also view just the first 6 rows
+of attribute values using `head(lines_HARV)` to get a preview of the data.
+
+```{r view-shapefile-attributes-head }
 head(lines_HARV)
 ```
 
@@ -144,9 +114,9 @@ head(lines_HARV)
 >
 > Explore the attributes associated with the `point_HARV` and `aoi_boundary_HARV` spatial objects.
 >
-> 1. How many attributes do each have?
+> 1. How many attributes does each have?
 > 2. Who owns the site in the `point_HARV` data object?
-> 3. Which of the following is NOT an attribute of the `point` data object?
+> 3. Which of the following is NOT an attribute of the `point_HARV` data object?
 >
 >     A) Latitude      B) County     C) Country
 >
@@ -154,63 +124,58 @@ head(lines_HARV)
 > >
 > > ```{r challenge-code-attributes-classes, echo=TRUE}
 > > # 1
-> > ncol(point_HARV)  #14 attributes
-> > ncol(aoi_boundary_HARV)  #1 attribute
+> > ncol(point_HARV)
+> > ncol(aoi_boundary_HARV)
 > > 
 > > # 2
-> > head(point_HARV)  #Harvard University, LTER
+> > head(point_HARV)
 > > 
 > > # 3
-> > names(point_HARV)  # C Country
+> > names(point_HARV)
 > > ```
 > {: .solution}
 {: .challenge}
 
 ## Explore Values within One Attribute
 We can explore individual values stored within a particular attribute.
-Again, comparing attributes to a spreadsheet or a `data.frame`, this is similar
-to exploring values in a column. We can do this using the `$` and the name of
-the attribute: `objectName$attributeName`.
+Comparing attributes to a spreadsheet or a `data.frame`, this is similar
+to exploring values in a column. We did this with the `gapminder` dataframe in [an earlier lesson](https://datacarpentry.org/r-intro-geospatial/05-data-subsetting/index.html). For spatial objects, we can use the same syntax: `objectName$attributeName`.
+
+We can see the contents of the `TYPE` field of our lines shapefile:
 
 ```{r explore-attribute-values }
-# view all attributes in the lines shapefile within the TYPE field
 lines_HARV$TYPE
-
-# view unique values within the "TYPE" attributes
-levels(lines_HARV$TYPE)
-
 ```
 
-Notice that two of our TYPE attribute values consist of two separate words:
-stone wall and woods road. There are really four unique TYPE values, not six
-TYPE values.
+To see only unique values within the `TYPE` field, we can use the
+`levels()` function for extracting the possible values of a
+categorical variable. The special term for categorical variables
+within `R` is `factor`. We worked with factors a little bit in [a previous lesson](https://datacarpentry.org/r-intro-geospatial/03-data-structures-part1/index.html).
+
+```{r explor-attribute-values-factor }
+levels(lines_HARV$TYPE)
+```
 
 ### Subset Shapefiles
-We can use the `objectName$attributeName` syntax to select a subset of features
-from a spatial object in `R`.
+We can also use the `objectName$attributeName` syntax to select a subset of features
+from a spatial object in `R`, just like with data frames.
+
+For example, we might be interested only in features that are of `TYPE` "footpath". Once we subset out this data, we can
+use it as input to other code so that that code only operates on the
+footpath lines.
 
 ```{r Subsetting-shapefiles}
-# select features that are of TYPE "footpath"
-# could put this code into other function to only have that function work on
-# "footpath" lines
-lines_HARV[lines_HARV$TYPE == "footpath",]
-
-# save an object with only footpath lines
 footpath_HARV <- lines_HARV[lines_HARV$TYPE == "footpath",]
-footpath_HARV
-
-# how many features are in our new object
 nrow(footpath_HARV)
 ```
 
-Our subsetting operation reduces the `features` count from 13 to 2. This means
+Our subsetting operation reduces the `features` count to 2. This means
 that only two feature lines in our spatial object have the attribute
 "TYPE=footpath".
 
-We can plot our subsetted shapefiles.
+We can plot only the footpath lines.
 
 ```{r plot-subset-shapefile}
-# plot just footpaths
 ggplot() + 
   geom_sf(data = footpath_HARV) + 
   ggtitle("NEON Harvard Forest Field Site \n Footpaths")
@@ -220,96 +185,64 @@ Interesting. Above, it appeared as if we had 2 features in our footpaths subset.
 Why does the plot look like there is only one feature?
 
 Let's adjust the colors used in our plot. If we have 2 features in our vector
-object, we can plot each using a unique color by assigning a column name to the color aesthetic (`color=`). We use the syntax
-
-`aes(color = )`
-
-to do this.
+object, we can plot each using a unique color by assigning a column name to the color aesthetic (`color=`). We use the syntax `aes(color = )` to do this.
 
 ```{r plot-subset-shapefile-unique-colors }
-# plot just footpaths
 ggplot() + 
   geom_sf(data = footpath_HARV, aes(color = factor(OBJECTID))) +
-  ggtitle("NEON Harvard Forest Field Site\n Footpaths \n Feature one = blue, Feature two = red")
+  ggtitle("NEON Harvard Forest Field Site\n Footpaths")
 ```
 
 Now, we see that there are in fact two features in our plot!
 
-> ## Challenge: Subset Spatial Line Objects
+> ## Challenge: Subset Spatial Line Objects Part 1
 > 
-> Subset out all:
-> 
-> 1. `boardwalk` from the lines layer and plot it.
-> 2. `stone wall` features from the lines layer and plot it.
-> 
-> For each plot, color each feature using a unique color.
-> 
+> Subset out all `boardwalk` from the lines layer and plot it.
+>
 > > ## Answers
 > > 
 > > ```{r challenge-code-feature-subset, echo=TRUE}
 > > 
 > > # save an object with only boardwalk lines
 > > boardwalk_HARV<-lines_HARV[lines_HARV$TYPE == "boardwalk",]
-> > boardwalk_HARV
-> > 
-> > # how many features are in our new object
+> > # check number of features
 > > nrow(boardwalk_HARV)
-> > 
-> > # plot just footpaths
+> >
 > > ggplot() + 
-> >   geom_sf(data = boardwalk_HARV, color = "green") + 
+> >   geom_sf(data = boardwalk_HARV) +
 > >   ggtitle("NEON Harvard Forest Field Site\n Boardwalks")
-> > 
-> > # save an object with only stone wall lines
-> > stoneWall_HARV <- lines_HARV[lines_HARV$TYPE == "stone wall",]
-> > stoneWall_HARV
-> > 
-> > # how many features are in our new object?
-> > nrow(stoneWall_HARV)
-> > 
-> > # plot just footpaths
-> > # set a unique color for each feature
-> > ggplot() + 
-> >   geom_sf(data = stoneWall_HARV, aes(color = factor(OBJECTID))) + 
-> >   ggtitle("NEON Harvard Forest Field Site\n Stonewalls\n Each Feature in Different Color")
 > > 
 > > ```
 > {: .solution}
 {: .challenge}
 
-## Plot Lines by Attribute Value
-To plot vector data with the color determined by a set of attribute values, the attribute values must be class = `factor`. A **factor** is similar to a category you can group vector objects by a particular category value for example you can group all lines of `TYPE=footpath`. However, in `R`, a factor can also have a determined *order*.
+> ## Challenge: Subset Spatial Line Objects Part 2
+>
+> Subset out all `stone wall` features from the lines layer and plot it. For each plot, color each feature using a unique color.
+>
+> > ## Answer
+> >
+> > ```{r challenge-code-feature-subset, echo=TRUE}
+> >
+> > # save an object with only stone wall lines
+> > stoneWall_HARV <- lines_HARV[lines_HARV$TYPE == "stone wall",]
+> > # check number of features
+> > nrow(stoneWall_HARV)
+> >
+> > ggplot() +
+> >   geom_sf(data = stoneWall_HARV, aes(color = factor(OBJECTID))) +
+> >   ggtitle("NEON Harvard Forest Field Site\n Stonewalls")
+> >
+> > ```
+> {: .solution}
+{: .challenge}
 
-By default, `R` will import spatial object attributes as `factors`.
 
-> ## Data Tip
-> If our data attribute values are not
-> read in as factors, we can convert the categorical
-> attribute values using `as.factor()`.
-{: .callout}
-
-```{r convert-to-factor }
-# view the original class of the TYPE column
-class(lines_HARV$TYPE)
-
-# view levels or categories - note that there are no categories yet in our data!
-# the attributes are just read as a list of character elements.
-levels(lines_HARV$TYPE)
-
-# Convert the TYPE attribute into a factor
-# Only do this IF the data do not import as a factor!
-# lines_HARV$TYPE <- as.factor(lines_HARV$TYPE)
-# class(lines_HARV$TYPE)
-# levels(lines_HARV$TYPE)
-
-# how many features are in each category or level?
-summary(lines_HARV$TYPE)
-```
-
-When we use `plot()`, we can specify the colors to use for each attribute using
-the `col=` element. To ensure that `R` renders each feature by it's associated
-factor / attribute value, we need to create a `vector` or colors - one for each
-feature, according to it's associated attribute value / `factor` value.
+## Customize Plots
+In the examples above, `ggplot()` automatically selected colors for
+each line based on a default color order. If we don't like those
+default colors, we can create a `vector` of colors - one for each
+feature.
 
 To create this vector we can use the following syntax:
 
@@ -320,29 +253,24 @@ Note in the above example we have
 1. a vector of colors - one for each factor value (unique attribute value)
 2. the attribute itself (`[object$factor]`) of class `factor`.
 
-Let's give this a try.
-
+First we need to check and see how many unique levels our
+factor has:
 
 ``` {r palette-and-plot}
-# Check the class of the attribute - is it a factor?
-class(lines_HARV$TYPE)
-
-# how many "levels" or unique values does hte factor have?
-# view factor values
 levels(lines_HARV$TYPE)
-# count the number of unique values or levels
-length(levels(lines_HARV$TYPE))
+```
 
-# create a color palette of 4 colors - one for each factor level
-roadPalette <- c("blue", "green", "grey", "purple")
-roadPalette
-# create a vector of colors - one for each feature in our vector object
-# according to its attribute value
+Then we can create a pallet of four colors, one for each
+feature in our vector object.
+
+```{r}
 roadColors <- c("blue", "green", "grey", "purple")[lines_HARV$TYPE]
-roadColors
+```
 
-# plot the lines data, apply a diff color to each factor level)
-ggplot() + 
+We can then tell `ggplot` to use these colors when we plot the data.
+
+```{r}
+ggplot() +
   geom_sf(data = lines_HARV, color = roadColors) + 
   ggtitle("NEON Harvard Forest Field Site\n Roads & Trails")
 ```
@@ -352,29 +280,26 @@ We can also adjust the width of our plot lines using the `size` argument.
 We can set all lines to be thicker or thinner using `size = `.
 
 ```{r adjust-line-width}
-# make all lines thicker
 ggplot() + 
   geom_sf(data = lines_HARV, color = roadColors, size = 3) + 
   ggtitle("NEON Harvard Forest Field Site\n Roads & Trails\n All Lines Thickness=3")
 ```
-
-### Adjust Line Width by Attribute
 
 If we want a unique line width for each factor level or attribute category
 in our spatial object, we can use the same syntax that we used for colors, above.
 
 `size = c("widthOne", "widthTwo", "widthThree")[object$factor]`
 
-Note that this requires the attribute to be of class `factor`. Let's give it a
-try.
+We already know that we have four different `TYPE` levels in the
+lines_HARV object, so we will set four different line widths.
 
 ```{r line-width-unique }
-class(lines_HARV$TYPE)
-levels(lines_HARV$TYPE)
-# create vector of line widths
 lineWidths <- (c(1, 2, 3, 4))[lines_HARV$TYPE]
-# adjust line width by level
-# in this case, boardwalk (the first level) is the narrowest.
+```
+
+We can use those line widths when we plot the data.
+
+```{r}
 ggplot() +
   geom_sf(data = lines_HARV, color = roadColors, size = lineWidths) + 
   ggtitle("NEON Harvard Forest Field Site\n Roads & Trails \n Line width varies by TYPE Attribute Value")
@@ -382,46 +307,46 @@ ggplot() +
 
 > ## Challenge: Plot Line Width by Attribute
 > 
-> We can customize the width of each line, according to specific attribute value,
-> too. To do this, we create a vector of line width values, and map that vector
-> to the factor levels - using the same syntax that we used above for colors.
-> HINT: `size = (vector of line width thicknesses)[spatialObject$factorAttribute]`
-> 
-> Create a plot of roads using the following line thicknesses:
-> 
-> 1. woods road lwd = 6
-> 2. Boardwalks lwd = 1
-> 3. footpath lwd = 3
-> 4. stone wall lwd = 2
+> In the example above, we set the line widths to be 1, 2, 3, and 4.
+> Because `R` orders factor levels alphabetically by default,
+> this gave us a plot where woods roads (the last factor level)
+> were the thickest and boardwalks were the thinest.
+>
+> Let's create another plot where we show the different line types
+> with the following thicknesses:
+>
+> 1. woods road size = 6
+> 2. boardwalks size = 1
+> 3. footpath size = 3
+> 4. stone wall size = 2
 > 
 > > ## Answers
 > > 
-> > ```{r bicycle-map, include=TRUE, results="hide", echo=TRUE}
-> > 
-> > # view the factor levels
+> > First we need to look at the levels of our factor to see
+> > what order the road types are in:
+> >
+> > ```{r}
 > > levels(lines_HARV$TYPE)
-> > # create vector of line width values
+> > ```
+> >
+> > We then can create our `lineWidth` vector setting each of the
+> > levels to the desired thickness.
+> >
+> > ```{r}
 > > lineWidth <- c(1, 3, 2, 6)[lines_HARV$TYPE]
-> > # view vector
-> > lineWidth
-> > 
-> > # in this case, boardwalk (the first level) is the widest.
-> > 
+> > ```
+> >
+> > Now we can create our plot.
+> >
+> > ```{r}
 > > ggplot() +
-> >   geom_sf(data = lines_HARV, color = roadColors, size = lineWidth) + 
+> >   geom_sf(data = lines_HARV, size = lineWidth) +
 > >   ggtitle("NEON Harvard Forest Field Site \n Roads & Trails \n Line width varies by Type Attribute Value")
 > > ```
 > {: .solution}
 {: .challenge}
 
-
-> ## Data Tip
-> Given we have a factor with 4 levels,
-> we can create an vector of numbers, each of which specifies the thickness of each
-> feature in our `sf` object by factor level (category): `c(6, 4, 1, 2)[lines_HARV$TYPE]`
-{: .callout}
-
-## Add Plot Legend
+### Add Plot Legend
 We can add a legend to our plot too. When we add a legend, we use the following
 elements to specify labels and colors:
 
@@ -433,28 +358,25 @@ the levels boardwalk, footpath, etc).
 * `fill=`: apply unique **colors** to the boxes in our legend. `palette()` is
 the default set of colors that `R` applies to all plots.
 
-Let's add a legend to our plot.
+Let's add a legend to our plot. We will use the `roadPalette` object
+that we created above to color the legend.
 
 ```{r add-legend-to-plot }
-# we can use the color object that we created above to color the legend objects
-roadPalette
-
 ggplot() + 
-  geom_sf(data = lines_HARV, aes(color = factor(TYPE))) + 
+  geom_sf(data = lines_HARV, color = roadColors) +
   scale_color_manual(values = roadPalette) + 
   ggtitle("NEON Harvard Forest Field Site\n Roads & Trails\n Default Legend")
 ```
 
-We can tweak the appearance of our legend too.
+We can change the appearance of our legend by manually setting
+different parameters.
 
 * `legend.text`: change the font size
 * `legend.box.background`: add an outline box
 
-Let's try it out.
-
 ```{r modify-legend-plot }
 ggplot() + 
-  geom_sf(data = lines_HARV, aes(color = factor(TYPE))) + 
+  geom_sf(data = lines_HARV, aes(color = factor(TYPE))) +
   scale_color_manual(values = roadPalette) + 
   theme(legend.text = element_text(size = 20), 
         legend.box.background = element_rect()) + 
@@ -466,15 +388,9 @@ directly in the plot code too rather than creating a separate object.
 
 `col=(newColors)[lines_HARV$TYPE]`
 
-Let's try it!
-
 ```{r plot-different-colors}
-
-# manually set the colors for the plot!
 newColors <- c("springgreen", "blue", "magenta", "orange")
-newColors
 
-# plot using new colors
 ggplot() + 
   geom_sf(data = lines_HARV, aes(color = factor(TYPE))) + 
   scale_color_manual(values = newColors) + 
@@ -484,7 +400,7 @@ ggplot() +
 ```
 
 > ## Data Tip
-> You can modify the defaul R color palette
+> You can modify the default R color palette
 > using the palette method. For example `palette(rainbow(6))` or
 > `palette(terrain.colors(6))`. You can reset the palette colors using
 > `palette("default")`!
@@ -498,30 +414,32 @@ ggplot() +
 > NOTE: this attribute information is located in the `lines_HARV$BicyclesHo`
 > attribute.
 > 
-> Be sure to add a title and legend to your map! You might consider a color
+> Be sure to add a title and legend to your map. You might consider a color
 > palette that has all bike/horse-friendly roads displayed in a bright color. All
 > other lines can be grey.
 > 
 > > ## Answers
-> > 
-> > ```{r bicycle-map-2, include=TRUE, results="hide", echo=TRUE}
-> > # view levels
-> > levels(lines_HARV$BicyclesHo)
-> > # make sure the attribute is of class "Factor"
-> > 
+> >
+> >
+> > First we need to make sure that the `BicyclesHo` attribute is a
+> > factor and check how many levels it has.
+> >
+> > ```{r}
 > > class(lines_HARV$BicyclesHo)
-> >  
-> > # convert to factor if necessary
-> > lines_HARV$BicyclesHo <- as.factor(lines_HARV$BicyclesHo)
 > > levels(lines_HARV$BicyclesHo)
-> > 
-> > # remove NA values
+> > ```
+> >
+> > Next, we will create a new object `lines_removeNA` that removes missing values.
+> >
+> > ```{r}
 > > lines_removeNA <- lines_HARV[na.omit(lines_HARV$BicyclesHo),]
-> > # set colors so only the allowed roads are magenta
-> > 
-> > # set line width so the first factor level is thicker than the others
-> > 
-> > # plot using new colors
+> > ```
+> >
+> > In our plot, we will set colors so that only the allowed roads
+> > are magenta, and we will set line width so that the first
+> > factor level is thicker than the others.
+> >
+> > ```{r}
 > > ggplot() + 
 > >   geom_sf(data = lines_removeNA, aes(color = BicyclesHo), size = 2) + 
 > >   scale_color_manual(values = "magenta") +
@@ -532,63 +450,27 @@ ggplot() +
 {: .challenge}
 
 > ## Challenge: Plot Polygon by Attribute
-> 
-> 1. Create a map of the State boundaries in the United States using the data
+>
+> 1. Create a map of the state boundaries in the United States using the data
 > located in your downloaded data folder: `NEON-DS-Site-Layout-Files/US-Boundary-Layers\US-State-Boundaries-Census-2014`.
 > Apply a fill color to each state using its `region` value. Add a legend.
-> 
-> 2. Using the `NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp` shapefile,
-> create a map of study plot locations, with each point colored by the soil type
-> (`soilTypeOr`).  **Question:** How many different soil types are there at this particular field site?
-> 
-> 3. BONUS -- modify the field site plot above. Plot each point,
-> using a different symbol. HINT: you can assign the symbol using `pch=` value.
-> You can create a vector object of symbols by factor level using the syntax
-> syntax that we used above to create a vector of lines widths and colors:
-> `pch = c(15, 17)[lines_HARV$soilTypeOr]`. Type `?pch` to learn more about pch or
-> use google to find a list of pch symbols that you can use in `R`.
-> 
+>
 > > ## Answers
-> > 
-> > ``` {r challenge-code-plot-color, warning=FALSE, echo=TRUE}
+> >
+> > ``` {r, warning=FALSE, echo=TRUE}
 > > ## 1
 > > # Read the shapefile file
 > > state_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp")
-> > 
+> >
 > > # how many levels?
 > > levels(state_boundary_US$region)
 > > colors <- c("purple", "springgreen", "yellow", "brown", "grey")
 > > colors
-> > 
-> > ggplot() + 
-> >   geom_sf(data = state_boundary_US, aes(color = region)) + 
+> >
+> > ggplot() +
+> >   geom_sf(data = state_boundary_US, aes(color = region)) +
 > >   scale_color_manual(values = colors) +
 > >   ggtitle("Contiguous U.S. State Boundaries \n 50 Colors")
-> > 
-> > ## 2
-> > # open plot locations
-> > plotLocations <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
-> > 
-> > # how many unique soils?  Two
-> > unique(plotLocations$soilTypeOr)
-> > 
-> > # create new color palette -- topo.colors palette
-> > blueGreen <- c("blue","springgreen")
-> > blueGreen
-> > 
-> > # plot the locations
-> > 
-> > ggplot() + 
-> >   geom_sf(data = plotLocations, aes(color = soilTypeOr)) +
-> >   scale_color_manual(values = blueGreen) + 
-> >   ggtitle("NEON Harvard Forest Field Site\n Study Plots by Soil Type\n One Symbol for All Types")
-> > 
-> > ## 3
-> > 
-> > # plot the locations with unique shapes
-> > ggplot() + 
-> >   geom_sf(data = plotLocations, aes(pch = soilTypeOr, color = soilTypeOr)) + 
-> >   ggtitle("NEON Harvard Forest Field Site\n Study Plots by Soil Type\n Unique Symbol for Each Type")
 > > ```
 > {: .solution}
 {: .challenge}
