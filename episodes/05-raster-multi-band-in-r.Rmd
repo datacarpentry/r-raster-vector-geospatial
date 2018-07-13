@@ -3,7 +3,7 @@ title: "Work With Multi-Band Rasters in R"
 teaching: 20
 exercises: 10
 questions:
-- ""
+- "How can I visualize individual and multiple bands in a raster object?"
 objectives:
 - "Know how to identify a single vs. a multi-band raster file."
 - "Be able to import multi-band rasters into `R` using the `raster` package."
