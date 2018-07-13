@@ -222,13 +222,13 @@ the image might improve clarity and contrast using  `stretch="lin"` or
 `stretch="hist"`.
 
 
-```{r, out.width = 7"}
+```{r, out.width = 7}
 knitr::include_graphics("../images/dc-spatial-raster/imageStretch_dark.jpg")
 ```
 When the range of pixel brightness values is closer to 0, a darker image is rendered by default. We can stretch 
 the values to extend to the full 0-255 range of potential values to increase the visual contrast of the image.
 
-```{r, out.width = 7"}
+```{r, out.width = 7}
 knitr::include_graphics("../images/dc-spatial-raster/imageStretch_light.jpg")
 ```
 When the range of pixel brightness values is closer to 255, a
