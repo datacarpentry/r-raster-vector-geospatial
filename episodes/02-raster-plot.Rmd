@@ -93,7 +93,6 @@ DSM_HARV_df <- DSM_HARV_df %>%
                 mutate(fct_elevation_2 = cut(HARV_dsmCrop, breaks = custom_bins))
 
 unique(DSM_HARV_df$fct_elevation_2)
-
 ```
 
 > ## Data Tips
@@ -118,8 +117,6 @@ DSM_HARV_df %>%
 
 ```
 
-
-
 We can use those bins to plot our raster data:
 
 ```{r ggplot-with-breaks, fig.width= 7, fig.height=7}
@@ -127,7 +124,6 @@ We can use those bins to plot our raster data:
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = fct_elevation_2))
 ```
-
 
 The plot above uses the default colors inside `ggplot` for raster objects. 
 We can specify our own colors to make the plot look a little nicer.
@@ -233,11 +229,8 @@ DSM_hill_HARV
 ```
 
 ```{r}
-# convert to a df for plotting in two steps,
-# First, to a SpatialPointsDataFrame
-DSM_hill_HARV_df <- rasterToPoints(DSM_hill_HARV, spatial = TRUE) %>%
-# Then to a 'conventional' dataframe
-    data.frame()
+# convert to a df for plotting
+DSM_hill_HARV_df <- raster::as.data.frame(DSM_hill_HARV, xy = TRUE) 
 
 # View data structure
 str(DSM_hill_HARV_df)
@@ -263,27 +256,22 @@ Let's overlay `DSM_HARV` on top of the `hill_HARV`.
 ggplot() +
     geom_raster(data = DSM_HARV_df , 
                 aes(x = x, y = y, 
-                     fill = HARV_dsmCrop,
-                     alpha=0.8)
-                ) + 
+                     fill = HARV_dsmCrop)) + 
     geom_raster(data = DSM_hill_HARV_df, 
                 aes(x = x, y = y, 
-                  alpha = HARV_DSMhill)
-                ) +
-    scale_fill_gradientn(name = "Elevation", colors = rainbow(100)) +
-    guides(fill = guide_colorbar()) +
+                  alpha = HARV_DSMhill)) +
+    scale_fill_viridis_c() +
     scale_alpha(range = c(0.15, 0.65), guide = "none") +
+    ggtitle("Elevation with hillshade") +
     coord_equal()
 
 ```
 
-
 The alpha value determines how transparent the colors will be (0 being
-transparent, 1 being opaque). Note that here we used the color palette
-`rainbow()` instead of `terrain.color()`.
+transparent, 1 being opaque).
 
-* More information in the
-<a href="https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/palettes.html" target="_blank">`R` color palettes documentation</a>.
+* More information about the Viridis palette used above at
+<a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html" target="_blank">`R` Viridis package documentation</a>.
 
 > ## Challenge: Create DTM & DSM for SJER
 > 
@@ -327,7 +315,7 @@ Range field site.
 > >                 aes(x = x, y = y, 
 > >                   alpha = SJER_dsmHill)
 > >                 ) +
-> >     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(100)) +
+> >     scale_fill_viridis_c() +
 > >     guides(fill = guide_colorbar()) +
 > >     scale_alpha(range = c(0.4, 0.7), guide = "none") +
 > >     # remove grey background and grid lines
@@ -342,13 +330,11 @@ Range field site.
 > > # CREATE DTM MAP
 > > # import DTM
 > > DTM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
-> > DTM_SJER_df <- rasterToPoints(DTM_SJER, spatial = TRUE) %>%
-> >     data.frame()
+> > DTM_SJER_df <- raster::as.data.frame(DTM_SJER, xy = TRUE)
 > >
 > > # DTM Hillshade
 > > DTM_hill_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmHill.tif")
-> > DTM_hill_SJER_df <- rasterToPoints(DTM_hill_SJER, spatial = TRUE) %>%
-> >     data.frame()
+> > DTM_hill_SJER_df <- raster::as.data.frame(DTM_hill_SJER, xy = TRUE)
 > > 
 > > ggplot() +
 > >     geom_raster(data = DTM_SJER_df ,
@@ -360,7 +346,7 @@ Range field site.
 > >                 aes(x = x, y = y,
 > >                   alpha = SJER_dtmHill)
 > >                 ) +
-> >     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(100)) +
+> >     scale_fill_viridis_c() +
 > >     guides(fill = guide_colorbar()) +
 > >     scale_alpha(range = c(0.4, 0.7), guide = "none") +
 > >     theme_bw() +
