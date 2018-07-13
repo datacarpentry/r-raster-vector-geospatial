@@ -60,9 +60,9 @@ raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 
 To support a project, we often need to gather spatial datasets from
 different sources and/or data that cover different spatial `extents`. These data are often in
-different Coordinate Reference Systems (CRS).
+different Coordinate Reference Systems (CRSs).
 
-Some reasons for data being in different CRS include:
+Some reasons for data being in different CRSs include:
 
 1. The data are stored in a particular CRS convention used by the data
 provider (for example, a government agency).
@@ -118,13 +118,13 @@ state_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/
 Next, let's plot the U.S. states data.
 
 ```{r find-coordinates }
-# plot state boundaries
 ggplot() +
     geom_sf(data=state_boundary_US) +
-    ggtitle("Map of Continental US State Boundaries\n US Census Bureau Data")
+    ggtitle("Map of Contiguous US State Boundaries\n US Census Bureau Data")
 ```
 
 ## U.S. Boundary Layer
+
 
 We can add a boundary layer of the United States to our map - to make it look
 nicer. We will import
@@ -139,7 +139,7 @@ country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layer
 ggplot() + 
     geom_sf(data=country_boundary_US, color="gray18", size=2) +
     geom_sf(data=state_boundary_US, color="gray40") +
-    ggtitle("Map of Continental US State Boundaries\n US Census Bureau Data")
+    ggtitle("Map of Contiguous US State Boundaries\n US Census Bureau Data")
 
 ```
 
@@ -147,9 +147,6 @@ Next, let's add the location of a flux tower where our study area is.
 As we are adding these layers, take note of the class of each object.
 
 ```{r explore-units}
-# Import a point shapefile
-point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
-
 # plot point - looks ok?
 ggplot() +
     geom_sf(data=point_HARV, shape=19, color="purple") +
@@ -168,7 +165,7 @@ ggplot() +
     geom_sf(data=state_boundary_US, color="gray40") +
     # add point tower location
     geom_sf(data=point_HARV, shape=19, color="purple") +
-    ggtitle("Map of Continental US State Boundaries\n with Tower Location")
+    ggtitle("Map of Contiguous US State Boundaries\n with Tower Location")
 ```
 
 What do you notice about the resultant plot? Do you see the tower location in
@@ -191,7 +188,7 @@ st_crs(state_boundary_US)
 st_crs(country_boundary_US)
 ```
 
-It looks like our data are in different CRS. We can tell this by looking at
+It looks like our data are in different CRSs. We can tell this by looking at
 the CRS strings in `proj4` format. We discussed the `proj4` format
 in [an earlier episode]({{site.baseurl}}/01-raster-structure/).
 
@@ -208,7 +205,7 @@ the coordinate system used in the projection)
 * **ellps=WGS84:** the ellipsoid (how the earth's  roundness is calculated) for
 the data is WGS84
 
-Note that the `zone` is unique to the UTM projection. Not all CRS will have a
+Note that the `zone` is unique to the UTM projection. Not all CRSs will have a
 zone.
 
 ### Geographic (lat / long) Proj4 String
@@ -259,7 +256,7 @@ represented in meters.
 
 > ## Proj4 & CRS Resources
 > * <a href="http://proj.maptools.org/faq.html" target="_blank">More information on the proj4 format.</a>
-> * <a href="http://spatialreference.org" target="_blank">A fairly comprehensive list of CRS by format.</a>
+> * <a href="http://spatialreference.org" target="_blank">A fairly comprehensive list of CRSs by format.</a>
 > * To view a list of datum conversion factors type: `projInfo(type = "datum")`
 into the `R` console.
 {: .callout}
@@ -315,7 +312,7 @@ ggplot() +
     geom_sf(data=state_boundary_US, color="gray40") +
     # add point tower location
     geom_sf(data=point_HARV_WGS84, shape=19, color="purple") +
-    ggtitle("Map of Continental US State Boundaries\n with Tower Location")
+    ggtitle("Map of Contiguous US State Boundaries\n with Tower Location")
 ```
 
 Reprojecting our data ensured that things line up on our map! It will also
