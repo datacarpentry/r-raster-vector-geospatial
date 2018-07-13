@@ -3,7 +3,7 @@ title: "Manipulate Raster Data in R"
 teaching: 20
 exercises: 10
 questions:
-- "How to crop raster layers and extract summary pixels."
+- "How can I crop raster objects to vector objects, and extract the summary of raster pixels?"
 objectives:
 - "Be able to crop a raster to the extent of a vector layer."
 - "Be able to extract values from raster that correspond to a vector file overlay."
