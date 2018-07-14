@@ -3,7 +3,7 @@ title: "Convert from .csv to a Shapefile in R"
 teaching: 20
 exercises: 10
 questions:
-- ""
+- "How can I import CSV files as shapefiles in R?"
 objectives:
 - "Be able to import .csv files containing x,y coordinate locations into `R`."
 - "Know how to convert a .csv to a spatial object."

@@ -358,7 +358,7 @@ ggplot() +
   coord_equal()
 ```
 
-The value that is conventically used to take note of missing data (the
+The value that is conventionally used to take note of missing data (the
 `NoDataValue` value) varies by the raster data type. For floating-point rasters,
 the figure `-3.4e+38` is a common default, and for integers, `-9999` is also
 frequently seen. Some disciplines have specific conventions that vary from these
