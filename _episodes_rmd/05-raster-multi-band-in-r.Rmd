@@ -3,7 +3,7 @@ title: "Work With Multi-Band Rasters in R"
 teaching: 20
 exercises: 10
 questions:
-- ""
+- "How can I visualize individual and multiple bands in a raster object?"
 objectives:
 - "Know how to identify a single vs. a multi-band raster file."
 - "Be able to import multi-band rasters into `R` using the `raster` package."
@@ -221,27 +221,21 @@ The image above looks pretty good. We can explore whether applying a stretch to
 the image might improve clarity and contrast using  `stretch="lin"` or
 `stretch="hist"`.
 
-<figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-raster/imageStretch_dark.jpg">
-    <img src="{{ site.baseurl }}/images/dc-spatial-raster/imageStretch_dark.jpg">
-    </a>
-    <figcaption>When the range of pixel brightness values is closer to 0, a
-    darker image is rendered by default. We can stretch the values to extend to
-    the full 0-255 range of potential values to increase the visual contrast of
-    the image.
-    </figcaption>
-</figure>
 
-<figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-raster/imageStretch_light.jpg">
-    <img src="{{ site.baseurl }}/images/dc-spatial-raster/imageStretch_light.jpg">
-    </a>
-    <figcaption>When the range of pixel brightness values is closer to 255, a
-    lighter image is rendered by default. We can stretch the values to extend to
-    the full 0-255 range of potential values to increase the visual contrast of
-    the image.
-    </figcaption>
-</figure>
+```{r, out.width = 7}
+knitr::include_graphics("../images/dc-spatial-raster/imageStretch_dark.jpg")
+```
+When the range of pixel brightness values is closer to 0, a darker image is rendered by default. We can stretch 
+the values to extend to the full 0-255 range of potential values to increase the visual contrast of the image.
+
+```{r, out.width = 7}
+knitr::include_graphics("../images/dc-spatial-raster/imageStretch_light.jpg")
+```
+When the range of pixel brightness values is closer to 255, a
+lighter image is rendered by default. We can stretch the values to extend to
+the full 0-255 range of potential values to increase the visual contrast of
+the image.
+
 
 ```{r image-stretch }
 
