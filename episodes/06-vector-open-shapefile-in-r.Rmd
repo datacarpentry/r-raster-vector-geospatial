@@ -3,7 +3,7 @@ title: "Open and Plot Shapefiles in R"
 teaching: 20
 exercises: 10
 questions:
-- "Getting started with point, line and polygon vector data."
+- "How can I distinguish between and visualize point, line and polygon vector data?"
 objectives:
 - "Know the difference between point, line, and polygon vector elements."
 - "Understand the differences between opening point, line and polygon shapefiles in `R`."

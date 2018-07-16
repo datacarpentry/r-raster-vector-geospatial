@@ -3,7 +3,7 @@ title: "Plot Multiple Shapefiles in R"
 teaching: 20
 exercises: 10
 questions:
-- "How to create map compositions with custom legends in ggplot."
+- "How can I create map compositions with custom legends using ggplot?"
 objectives:
 - "Be able to plot multiple shapefiles using ggplot."
 - "Be able to apply custom symbology to spatial objects in a plot in R."
@@ -203,4 +203,3 @@ symbol of `shape` value.
 > > ```
 > {: .solution}
 {: .challenge}
-
