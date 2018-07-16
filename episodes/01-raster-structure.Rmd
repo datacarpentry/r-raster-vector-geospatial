@@ -126,11 +126,21 @@ To visualise this data in R using `ggplot2`, we need to convert it to a
 dataframe. We learned about dataframes in [an earlier
 lesson](https://datacarpentry.org/r-intro-geospatial/04-data-structures-part2/index.html).
 
-`raster` has an inbuilt method for conversion to a plottable `data.frame`.
+`raster` has an built-in function for conversion to a plotable `data.frame`.
 
 ```{r}
 DSM_HARV_df <- raster::as.data.frame(DSM_HARV, xy = TRUE)
 ```
+
+> ## Data Tip
+> 
+> There are many user contributed packages for `R`, each with its own set of functions. 
+> Functions in different packages can have the same name, even though they do different things. 
+> The notation `package_name::function_name` tells `R` which package library you want 
+> it to look in for a particular function. In this case, this notation is required, because
+> the base `R` set of functions (which is always searched first unless otherwise specified) 
+> also includes an `as.data.frame()` function.
+{: .callout}
 
 Now when we view the structure of our data, we will see a standard
 dataframe format.
@@ -148,17 +158,19 @@ ggplot() +
     coord_equal()
 ```
 
-The add-on package `ggspatial` can also be used. The raster is still converted
-to a dataframe before plotting, but the work of converting spatial data into a
-ggplot-friendly format is done for you in the background.
-
-```{r 'ggspat', eval = FALSE}
-library(ggspatial)
-ggplot() +
-  geom_spatial(data = DSM_HARV, aes(fill = band1)) +
-  scale_fill_viridis_c() +
-  coord_equal()
-```
+> ## Data Tip
+> The add-on package `ggspatial` can also be used. The raster is still converted
+> to a dataframe before plotting, but the work of converting spatial data into a
+> ggplot-friendly format is done for you in the background.
+> 
+> ```{r 'ggspat', eval = FALSE}
+> library(ggspatial)
+> ggplot() +
+>   geom_spatial(data = DSM_HARV, aes(fill = band1)) +
+>   scale_fill_viridis_c() +
+>   coord_equal()
+> ```
+{: .callout}
 
 This map shows the elevation of our study site in Harvard Forest. From the
 legend, we can see that the maximum elevation is ~400, but we can't tell whether
@@ -294,7 +306,7 @@ did not collect data in these areas.
 RGB_stack <-
   stack("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
-# aggregate eclls from 0.25m to 2m for plotting to speed up the lesson and 
+# aggregate cells from 0.25m to 2m for plotting to speed up the lesson and 
 # save memory
 RGB_2m <- raster::aggregate(RGB_stack, fact = 8, fun = median)
 # fix data values back to integer datatype
@@ -312,7 +324,7 @@ ggplot() +
   ggtitle("Orthographic Imagery", subtitle = 'Red Band') +
   coord_equal()
 # more memory saving
-#rm(RGB_df)
+rm(RGB_df)
 ```
 
 In the next image, the black edges have been assigned `NoDataValue`. `R` doesn't
