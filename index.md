@@ -33,17 +33,13 @@ The episodes in this lesson cover how to open, work with and plot vector and ras
 > This lesson assumes you have some knowledge of geospatial data types and common file formats. If you
 > have never worked with geospatial data before, or need a refresher, start with our [Geospatial Project Organization and Management](http://www.datacarpentry.org/organization-geospatial/) lesson.
 >
-> ### Install Software
-> For installation instructions, see the [workshop homepage](http://www.datacarpentry.org/geospatial-workshop/setup/).
->
-> ### Download Data
->
-> * [airborne remote sensing data](https://ndownloader.figshare.com/files/3701578)
-> * [site layout shapefiles](https://ndownloader.figshare.com/files/3708751)
+> ### Install Software and Download Data
+> For installation instructions and to download the data used in this lesson, 
+> see the [workshop homepage](http://www.datacarpentry.org/geospatial-workshop/setup.html).
 >
 > ### Setup RStudio Project
 >
-> Make sure you have set up a RStudio project for this lesson, as described in the <a href="{{ site.baseurl }}/setup/" target="_blank">setup instructions</a>.
+> Make sure you have set up a RStudio project for this lesson, as described in the <a href="{{ site.baseurl }}/setup.html" target="_blank">setup instructions</a>.
 >
 > If you don't have an RStudio project, you will need to manually set the working directory with `setwd([your-directory-name])` so R can find the data files to load.
 {: .prereq}
