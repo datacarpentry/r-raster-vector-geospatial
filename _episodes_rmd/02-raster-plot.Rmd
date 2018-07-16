@@ -3,7 +3,7 @@ title: "Plot Raster Data in R"
 teaching: 20
 exercises: 10
 questions:
-- ""
+- "How can I visualize raster data?"
 objectives:
 - "Know how to plot a single band raster in `R`."
 - "Know how to layer a raster dataset on top of a hillshade to create an elegant basemap."
@@ -38,21 +38,17 @@ data.frame()
 > data, and other prerequisites you will need to work through the examples in this episode.
 {: .prereq}
 
+## Plot Raster Data in R
 This episode covers how to plot a raster in `R` using the `ggplot2`
 package. It also covers how to layer a raster on top of a hillshade to produce
-an eloquent map.
-
-## Plot Raster Data in R
-In this episode, we will plot the Digital Surface Model (DSM) raster
-for the NEON Harvard Forest Field Site. We will use the `hist()` function as a
-tool to explore raster values and render categorical plots, using the `breaks` argument to get bins that are meaningful representations of our data.
+an eloquent map. We will plot the Digital Surface Model (DSM) raster
+for the NEON Harvard Forest Field Site. 
 
 ## Plotting Data Using Breaks
-We can view our data "symbolized" or colored according to ranges of values
-rather than using a continuous color ramp. This is comparable to a "classified"
-map. However, to assign breaks, it is useful to first explore the distribution
-of the data using a bar plot. 
-We use `dplyr`'s mutate to combined with `cut()` to split the data into 3 bins.
+In the previous episode, we viewed our data using a continuous color ramp. For 
+clarity and visability of the plot, we may prefer to view the data "symbolized" or colored according to ranges of values. This is comparable to a "classified"
+map. To do this, we need to tell `ggplot` how many groups to break out data into, and
+where those breaks should be. To make these decisions, it is useful to first explore the distribution of the data using a bar plot. To begin with, we will use `dplyr`'s `mutate()` function combined with `cut()` to split the data into 3 bins.
 
 ```{r histogram-breaks-ggplot, fig.width= 7, fig.height=7}
 
@@ -64,13 +60,13 @@ ggplot() +
 
 ```
 
-If we are want to know what the bins are we can ask for the unique values 
+If we want to know the cutoff values for the groups, we can ask for the unique values 
 of `fct_elavation`:
 ```{r unique-breaks}
 unique(DSM_HARV_df$fct_elevation)
 ```
 
-And we can get the count of values in each bin using `dplyr`'s 
+And we can get the count of values in each group using `dplyr`'s 
 `group_by` and `summarize`:
 
 ```{r breaks-count}
@@ -79,11 +75,10 @@ DSM_HARV_df %>%
         summarize(counts = n())
 ```
 
-We can customize the break points for the bins that `cut()` yields using the 
-`breaks` variable in a different way. 
-Lets round the breaks so that we have bins ranges of 
+We might prefer to customize the cutoff values for these groups.
+Lets round the cutoff values so that we have groups for the ranges of 
 300-349m, 350 - 399m, and 400-450m.
-To implement this we pass a numeric vector of break points instead 
+To implement this we will give `mutate()` a numeric vector of break points instead 
 of the number of breaks we want.
 
 ```{r custom-bins}
@@ -93,7 +88,6 @@ DSM_HARV_df <- DSM_HARV_df %>%
                 mutate(fct_elevation_2 = cut(HARV_dsmCrop, breaks = custom_bins))
 
 unique(DSM_HARV_df$fct_elevation_2)
-
 ```
 
 > ## Data Tips
@@ -102,14 +96,14 @@ unique(DSM_HARV_df$fct_elevation_2)
 > The bin intervals are shown using `(` to mean inclusive and `]` to mean exclusive. For example: `(305, 342]` means "from 305 through 341".
 {: .callout}
 
-And now we can plot our bar plot again, using the new bins:
+And now we can plot our bar plot again, using the new groups:
 
 ```{r, fig.width= 7, fig.height=7 }
 ggplot() +
     geom_bar(data = DSM_HARV_df, aes(fct_elevation_2))
 ```
 
-We can also look at the how frequent each occurence of our bins is:
+And we can get the count of values in each group in the same way we did before:
 
 ```{r break-count-custom}
 DSM_HARV_df %>%
@@ -118,16 +112,13 @@ DSM_HARV_df %>%
 
 ```
 
-
-
-We can use those bins to plot our raster data:
+We can use those groups to plot our raster data, with each group being a different color:
 
 ```{r ggplot-with-breaks, fig.width= 7, fig.height=7}
 
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = fct_elevation_2))
 ```
-
 
 The plot above uses the default colors inside `ggplot` for raster objects. 
 We can specify our own colors to make the plot look a little nicer.
@@ -139,7 +130,7 @@ Since we have three bins, we want to use the first three terrain colors:
 terrain.colors(3)
 ```
 
-We can see the `terrain.colors()` function returns *hex colors* - 
+The `terrain.colors()` function returns *hex colors* - 
  each of these character strings represents a color.
 To use these in our map, we pass them across using the 
  `scale_fill_manual()` function.
@@ -157,8 +148,8 @@ ggplot() +
 
 If we need to create multiple plots using the same color palette, we can create
 an `R` object (`my_col`) for the set of colors that we want to use. We can then
-quickly change the palette across all plots by simply modifying the `my_col`
-object.
+quickly change the palette across all plots by modifying the `my_col`
+object, rather than each individual plot.
 
 We can label the x- and y-axes of our plot too using `xlab` and `ylab`.
 We can also give the legend a more meaningful title by passing a value 
@@ -174,7 +165,7 @@ ggplot() +
     scale_fill_manual(values = my_col, name = "Elevation")
 ```
 
-Or we can also turn off the axes altogether via passing `element_blank()` to
+Or we can also turn off the axes altogether by passing `element_blank()` to
 the relevant parts of the `theme()` function.
 
 ```{r turn-off-axes, fig.width= 7, fig.height=7 }
@@ -197,7 +188,7 @@ ggplot() +
 > 3. A plot title
 >
 > > ## Answers
-> > ``` {r challenge-code-plotting, eval=TRUE, echo=FALSE, fig.width= 7, fig.height=7}
+> > ``` {r challenge-code-plotting, eval=TRUE, echo=TRUE, fig.width= 7, fig.height=7}
 > > # Find min & max
 > > 
 > > DSM_HARV_df <- DSM_HARV_df  %>%
@@ -233,11 +224,8 @@ DSM_hill_HARV
 ```
 
 ```{r}
-# convert to a df for plotting in two steps,
-# First, to a SpatialPointsDataFrame
-DSM_hill_HARV_df <- rasterToPoints(DSM_hill_HARV, spatial = TRUE) %>%
-# Then to a 'conventional' dataframe
-    data.frame()
+# convert to a df for plotting
+DSM_hill_HARV_df <- raster::as.data.frame(DSM_hill_HARV, xy = TRUE) 
 
 # View data structure
 str(DSM_hill_HARV_df)
@@ -263,27 +251,22 @@ Let's overlay `DSM_HARV` on top of the `hill_HARV`.
 ggplot() +
     geom_raster(data = DSM_HARV_df , 
                 aes(x = x, y = y, 
-                     fill = HARV_dsmCrop,
-                     alpha=0.8)
-                ) + 
+                     fill = HARV_dsmCrop)) + 
     geom_raster(data = DSM_hill_HARV_df, 
                 aes(x = x, y = y, 
-                  alpha = HARV_DSMhill)
-                ) +
-    scale_fill_gradientn(name = "Elevation", colors = rainbow(100)) +
-    guides(fill = guide_colorbar()) +
+                  alpha = HARV_DSMhill)) +
+    scale_fill_viridis_c() +
     scale_alpha(range = c(0.15, 0.65), guide = "none") +
+    ggtitle("Elevation with hillshade") +
     coord_equal()
 
 ```
 
-
 The alpha value determines how transparent the colors will be (0 being
-transparent, 1 being opaque). Note that here we used the color palette
-`rainbow()` instead of `terrain.color()`.
+transparent, 1 being opaque).
 
-* More information in the
-<a href="https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/palettes.html" target="_blank">`R` color palettes documentation</a>.
+* More information about the Viridis palette used above at
+<a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html" target="_blank">`R` Viridis package documentation</a>.
 
 > ## Challenge: Create DTM & DSM for SJER
 > 
@@ -327,7 +310,7 @@ Range field site.
 > >                 aes(x = x, y = y, 
 > >                   alpha = SJER_dsmHill)
 > >                 ) +
-> >     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(100)) +
+> >     scale_fill_viridis_c() +
 > >     guides(fill = guide_colorbar()) +
 > >     scale_alpha(range = c(0.4, 0.7), guide = "none") +
 > >     # remove grey background and grid lines
@@ -342,13 +325,11 @@ Range field site.
 > > # CREATE DTM MAP
 > > # import DTM
 > > DTM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
-> > DTM_SJER_df <- rasterToPoints(DTM_SJER, spatial = TRUE) %>%
-> >     data.frame()
+> > DTM_SJER_df <- raster::as.data.frame(DTM_SJER, xy = TRUE)
 > >
 > > # DTM Hillshade
 > > DTM_hill_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmHill.tif")
-> > DTM_hill_SJER_df <- rasterToPoints(DTM_hill_SJER, spatial = TRUE) %>%
-> >     data.frame()
+> > DTM_hill_SJER_df <- raster::as.data.frame(DTM_hill_SJER, xy = TRUE)
 > > 
 > > ggplot() +
 > >     geom_raster(data = DTM_SJER_df ,
@@ -360,7 +341,7 @@ Range field site.
 > >                 aes(x = x, y = y,
 > >                   alpha = SJER_dtmHill)
 > >                 ) +
-> >     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(100)) +
+> >     scale_fill_viridis_c() +
 > >     guides(fill = guide_colorbar()) +
 > >     scale_alpha(range = c(0.4, 0.7), guide = "none") +
 > >     theme_bw() +

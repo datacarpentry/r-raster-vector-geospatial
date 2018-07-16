@@ -22,7 +22,7 @@ authors: [Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Will
 > **R Skill Level:** Intermediate - you've got the basics of `R` down.
 >
 > ### Install software
-> For installation instructions, see the [workshop homepage](http://www.datacarpentry.org/geospatial-workshop/setup/).
+> For installation instructions, see the [workshop homepage](http://www.datacarpentry.org/geospatial-workshop/setup.html).
 >
 > ### Download Data
 >
