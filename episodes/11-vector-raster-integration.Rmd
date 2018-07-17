@@ -18,10 +18,42 @@ knitr_fig_path("11-")
 ```
 
 ```{r load-libraries, echo = FALSE, results='hide'}
+library(sf)
 library(raster)
 library(rgdal)
 library(ggplot2)
 library(dplyr)
+```
+
+
+```{r load-data, echo = FALSE}
+# Learners will have this data loaded from earlier episodes
+# shapefiles
+point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
+lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
+aoi_boundary_HARV <- st_read(
+  "data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
+
+# CHM (calculated)
+DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+DSM_HARV_df <- rasterToPoints(DSM_HARV, spatial = TRUE) %>%
+data.frame()
+
+DTM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
+DTM_HARV_df <- rasterToPoints(DTM_HARV, spatial = TRUE) %>%
+data.frame()
+
+CHM_HARV <- DSM_HARV - DTM_HARV
+
+CHM_HARV_df <- CHM_HARV  %>% 
+   rasterToPoints(., spatial = TRUE) %>% 
+   data.frame()
+
+# plot locations
+plot_locations_HARV <-
+  read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_PlotLocations.csv")
+utm18nCRS <- st_crs(lines_HARV)
+plot_locations_sp_HARV <- st_as_sf(plot_locations_HARV, coords = c("easting", "northing"), crs = utm18nCRS)
 ```
 
 > ## Things You’ll Need To Complete This Episode
@@ -48,176 +80,120 @@ We often work with spatial layers that have different spatial extents.
 </figure>
 
 The graphic below illustrates the extent of several of the spatial layers that
-we have worked with in this vector data series:
+we have worked with in this workshop:
 
 * Area of interest (AOI) -- blue
 * Roads and trails -- purple
 * Vegetation plot locations -- black
-
-and a raster file, that we will introduce this episode:
-
 * A canopy height model (CHM) in GeoTIFF format -- green
 
 ```{r view-extents, echo=FALSE}
-chm_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
+CHM_HARV_sp <- st_as_sf(CHM_HARV_df, coords = c("x", "y"), crs = utm18nCRS)
+# approximate the boundary box with random sample of raster points
+CHM_rand_sample = sample_n(CHM_HARV_sp, 10000)
 
-utm18nCRS <- st_crs(point_HARV)
-
-# Read the .csv file
-plot_locations_HARV <-
-  read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_PlotLocations.csv",
-           stringsAsFactors = FALSE)
-
-# note that the easting and northing columns are in columns 1 and 2
-plot_locations_sp_HARV <- st_as_sf(plot_locations_HARV,
-                                  coords = c("easting", "northing"),
-                                  crs = utm18nCRS)
-
-plot(st_convex_hull(st_union(lines_HARV)),
-     col = "purple", lwd = "3",
-     xlab = "Easting", ylab = "Northing",
-    main = "Extent Boundary of Several Spatial Files",
-    xlim = c(730741.2, 735000),
-    col.lab = 'grey', # set axis label color
-    col.axis = 'grey') # set axis tick label color
-
-plot(st_convex_hull(st_union(plot_locations_sp_HARV)),
-     col = "black",
-     add = TRUE)
-
-plot(st_convex_hull(aoi_boundary_HARV),
-     add = TRUE,
-     col = "blue",
-     lwd = 4)
-
-plot(extent(chm_HARV),
-     add = TRUE,
-     lwd = 5,
-     col = "springgreen")
-
-legend("topright",
-       legend = c("Roads", "Plot Locations", "Tower AOI", "CHM"),
-       lwd = 3,
-       col = c("purple", "black", "blue", "springgreen"),
-       bty = "n",
-       cex = .8)
-
+ggplot() + 
+  geom_sf(data = st_convex_hull(st_union(CHM_rand_sample)), color = "green") +
+  geom_sf(data = st_convex_hull(st_union(lines_HARV)), color = "purple") +
+  geom_sf(data = aoi_boundary_HARV$geometry, color = "blue") +
+  geom_sf(data = st_convex_hull(st_union(plot_locations_sp_HARV)), color = "black")
 ```
 
 ```{r reset-par, results="hide", echo=FALSE }
-# reset par
 dev.off()
 ```
 
 Frequent use cases of cropping a raster file include reducing file size and
-creating maps.
-
-Sometimes we have a raster file that is much larger than our study area or area
-of interest. It is often most efficient to crop the raster to the extent of our
-study area to keep reduce file sizes as we process our data.
-
-Cropping a raster can also be useful when creating pretty maps so that the
-raster layer matches the extent of the desired vector layers.
-
-```{r load-data, echo = FALSE, results='hide', warning=FALSE}
-aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
-
-lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
-
-point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
-
-chm_HARV <-
-  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
-```
+creating maps. Sometimes we have a raster file that is much larger than our
+study area or area of interest. It is often more efficient to crop the
+raster to the extent of our study area to reduce file sizes as we process
+our data. Cropping a raster can also be useful when creating pretty maps so
+that the raster layer matches the extent of the desired vector layers.
 
 ## Crop a Raster Using Vector Extent
-We can use the `crop` function to crop a raster to the extent of another spatial
+We can use the `crop()` function to crop a raster to the extent of another spatial
 object. To do this, we need to specify the raster to be cropped and the spatial
 object that will be used to crop the raster. `R` will use the `extent` of the
-spatial object as the cropping boundary.
+spatial object as the cropping boundary. To illustrate this, we will
+start by plotting the full extent of the CHM data. 
 
 ```{r Crop-by-vector-extent}
-# plot full CHM
-plot(chm_HARV,
-     main = "LiDAR CHM - Not Cropped\nNEON Harvard Forest Field Site")
-
-# crop the chm
-chm_HARV_Crop <- crop(x = chm_HARV, y = as(aoi_boundary_HARV, "Spatial"))
-
-# plot full CHM
-plot(extent(chm_HARV),
-     lwd = 4,col = "springgreen",
-     main = "LiDAR CHM - Cropped\nNEON Harvard Forest Field Site",
-     xlab = "easting", ylab = "northing")
-
-plot(chm_HARV_Crop,
-     add = TRUE)
-
+ggplot() +
+      geom_raster(data = CHM_HARV_df, aes(x = x, y = y, fill = layer)) + 
+     scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10))
 ```
 
-We can see from the plot above that the full CHM extent (plotted in green) is
+Next we create a new object with only the portion of the CHM data
+that falls within the boundaries of the AOI. 
+
+```{r}
+CHM_HARV_Crop <- crop(x = CHM_HARV, y = as(aoi_boundary_HARV, "Spatial"))
+
+CHM_HARV_Crop_df <- raster::as.data.frame(CHM_HARV_Crop, xy = TRUE)
+```
+
+Now we can plot the cropped CHM data, along with a boundary box showing the full CHM 
+extent.
+
+```{r}
+
+ggplot() +
+  geom_sf(data = st_convex_hull(st_union(CHM_rand_sample)), color = "green") + 
+  geom_raster(data = CHM_HARV_Crop_df, aes(x = x, y = y, fill = layer)) + 
+     scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
+  ggtitle("LiDAR CHM - Cropped\nNEON Harvard Forest Field Site")
+```
+
+The plot above shows that the full CHM extent (plotted in green) is
 much larger than the resulting cropped raster. Our new cropped CHM now has the
 same extent as the `aoi_boundary_HARV` object that was used as a crop extent
 (blue border below).
 
 ```{r view-crop-extent, echo=FALSE}
-# view the data in a plot
-plot(aoi_boundary_HARV$geometry, lwd = 8, border = "blue",
-     main = "Cropped LiDAR Canopy Height Model \n NEON Harvard Forest Field Site")
-
-plot(chm_HARV_Crop, add = TRUE)
+ggplot() + 
+    geom_sf(data = aoi_boundary_HARV$geometry, color = "blue") + 
+  geom_raster(data = CHM_HARV_Crop_df, aes(x = x, y = y, fill = layer)) + 
+     scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
+  ggtitle("LiDAR CHM - Cropped\nNEON Harvard Forest Field Site")
 ```
 
-We can look at the extent of all the other objects.
+We can look at the extent of all of our other objects for this field site.
 
 ``` {r view-extent}
-# lets look at the extent of all of our objects
 extent(chm_HARV)
 extent(chm_HARV_Crop)
 st_bbox(aoi_boundary_HARV)
-
 ```
 
 Which object has the largest extent?  Our plot location extent is not the
 largest but is larger than the AOI Boundary. It would be nice to see our
-vegetation plot locations with the Canopy Height Model information.
+vegetation plot locations plotted on top of the Canopy Height Model information.
 
 > ## Challenge: Crop to Vector Points Extent
 > 
 > 1. Crop the Canopy Height Model to the extent of the study plot locations.
 > 2. Plot the vegetation plot location points on top of the Canopy Height Model.
 > 
-> If you completed
-> [.csv to Shapefile in R]({{site.baseurl}}/R/csv-to-shapefile-R/)
-> you have these plot locations as a spatial `R` object
-> `plot_locations_sp_HARV`. Otherwise, import the locations from the
-> `\HARV\PlotLocations_HARV.shp` shapefile in the downloaded data.
-> 
 > > ## Answers
 > > 
 > > ```{r challenge-code-crop-raster-points, include=TRUE, results="hide", echo=TRUE}
 > > 
-> > # Created/imported in L02: .csv to Shapefile in R
-> > plot.locationSp_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
+> > CHM_plots_HARVcrop <- crop(x = CHM_HARV, y = as(plot_locations_sp_HARV, "Spatial"))
 > > 
-> > # crop the chm
-> > CHM_plots_HARVcrop <- crop(x = chm_HARV, y = as(plot_locations_sp_HARV, "Spatial"))
+> > CHM_plots_HARVcrop_df <- raster::as.data.frame(CHM_plots_HARVcrop, xy = TRUE)
 > > 
-> > plot(CHM_plots_HARVcrop,
-> >      main = "Study Plot Locations\n NEON Harvard Forest")
-> > 
-> > plot(plot.locationSp_HARV$geometry,
-> >      add = TRUE,
-> >      pch=19,
-> >      col = "blue")
-> > 
+> > ggplot() + 
+> >   geom_raster(data = CHM_plots_HARVcrop_df, aes(x = x, y = y, fill = layer)) + 
+> >   scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
+> >   geom_sf(data = plot_locations_sp_HARV$geometry) + 
+> >   ggtitle("Study Plot Locations\n NEON Harvard Forest")
 > > ```
 > {: .solution}
 {: .challenge}
 
 In the plot above, created in the challenge, all the vegetation plot locations
 (blue) appear on the Canopy Height Model raster layer except for one. One is
-situated on the white space. Why?
+situated on the blank space to the left of the map. Why?
 
 A modification of the first figure in this episode is below, showing the
 relative extents of all the spatial objects. Notice that the extent for our
