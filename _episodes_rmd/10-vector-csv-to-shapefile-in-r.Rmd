@@ -26,6 +26,11 @@ library(ggplot2)
 library(dplyr)
 ```
 
+```{r load-data, echo = FALSE}
+# Learners will have this data loaded from earlier episode
+lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
+aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
+```
 
 > ## Things You’ll Need To Complete This Episode
 > See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
@@ -155,9 +160,6 @@ new spatial object. Let's import the roads layer from Harvard forest and check
 out its CRS.
 
 ```{r explore-units}
-# Import the line shapefile
-lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
-
 # view CRS
 st_crs(lines_HARV)
 
@@ -215,17 +217,6 @@ we learned about spatial object `extent`. When we plot several spatial layers in
 additional layers that are outside of that extent, then the data will not be
 visible in our plot. It is thus useful to know how to set the spatial extent of
 a plot using `xlim` and `ylim`.
-
-Let's first create an `sf` object from the
-`NEON-DS-Site-Layout-Files/HarClip_UTMZ18` shapefile. (If you have completed
-Vector 00-02 episodes in this
-[Introduction to Working with Vector Data in R]({{site.baseurl}}/episode-series/vector-data-series/)
-series, you can skip this code as you have already created this object.)
-
-``` {r create-aoi-boundary}
-# create boundary object
-aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
-```
 
 To begin, let's plot our `aoiBoundary` object with our vegetation plots.
 
