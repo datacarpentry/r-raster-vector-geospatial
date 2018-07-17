@@ -24,6 +24,7 @@ library(raster)
 library(rgdal)
 library(ggplot2)
 library(dplyr)
+library(sf)
 ```
 
 ```{r load-data, echo = FALSE}
@@ -62,64 +63,46 @@ We will use the `sf` and `raster` libraries in this episode.
 ## Import .csv
 To begin let's import `.csv` file that contains plot coordinate `x, y`
 locations at the NEON Harvard Forest Field Site (`HARV_PlotLocations.csv`) in
-`R`. Note that we set `stringsAsFactors=FALSE` so our data import as a
-`character` rather than a `factor` class.
+`R`.
 
 ```{r read-csv }
-# Read the .csv file
 plot_locations_HARV <-
-  read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_PlotLocations.csv",
-           stringsAsFactors = FALSE)
+  read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_PlotLocations.csv")
 
-# look at the data structure
 str(plot_locations_HARV)
 ```
 
-Also note that `plot_locations_HARV` is a `data.frame` that contains 21 locations (rows) and 15 variables (attributes).
-
-Next, let's explore the `data.frame` to determine whether it contains columns with coordinate values. If we are lucky, our `.csv` will contain columns labeled:
+We now have a dataframe that contains 21 locations (rows) and 16 variables (attributes). Note that all of our character data was imported into `R` as factor (categorical) data. Next, let's explore the dataframe to determine whether it contains columns with coordinate values. If we are lucky, our `.csv` will contain columns labeled:
 
  * "X" and "Y" OR
  * Latitude and Longitude OR
  * easting and northing (UTM coordinates)
 
-Let's check out the column `names` of our `data.frame`.
+Let's check out the column names of our dataframe. 
 
 ```{r find-coordinates }
-
-# view column names
 names(plot_locations_HARV)
-
 ```
 
 ## Identify X,Y Location Columns
 
-View the column names, we can see that our `data.frame`  that contains several
-fields that might contain spatial information. The `plot_locations_HARV$easting`
-and `plot_locations_HARV$northing` columns contain coordinate values.
+Our column names include several fields that might contain spatial information. The `plot_locations_HARV$easting`
+and `plot_locations_HARV$northing` columns contain coordinate values. We can confirm
+this by looking at the first six rows of our data.
 
 ```{r check-out-coordinates }
-# view first 6 rows of the X and Y columns
 head(plot_locations_HARV$easting)
 head(plot_locations_HARV$northing)
-
-# note that  you can also call the same two columns using their COLUMN NUMBER
-# view first 6 rows of the X and Y columns
-head(plot_locations_HARV[, 1])
-head(plot_locations_HARV[, 2])
-
 ```
 
-So, we have coordinate values in our `data.frame` but in order to convert our
-`data.frame` to an `sf` object, we also need to know the CRS (projection)
+We have coordinate values in our dataframe. In order to convert our
+dataframe to an `sf` object, we also need to know the CRS
 associated with those coordinate values.
 
 There are several ways to figure out the CRS of spatial data in text format.
 
-1. We can check the file **metadata** in hopes that the CRS was recorded in the
-data. For more information on metadata, check out the
-[Why Metadata Are Important: How to Work with Metadata in Text & EML Format]({{site.baseurl}}/R/why-metadata-are-important/)
-episode.
+1. We can check the file metadata in hopes that the CRS was recorded in the
+data. 
 2. We can explore the file itself to see if CRS information is embedded in the
 file header or somewhere in the data columns.
 
@@ -128,10 +111,8 @@ Following the `easting` and `northing` columns, there is a `geodeticDa` and a
 (`datum` and `projection`). Let's view those next.
 
 ```{r view-CRS-info }
-# view first 6 rows of the X and Y columns
 head(plot_locations_HARV$geodeticDa)
 head(plot_locations_HARV$utmZone)
-
 ```
 
 It is not typical to store CRS information in a column. But this particular
@@ -142,40 +123,30 @@ contain the information that helps us determine the CRS:
 * `utmZone`: 18
 
 In
-[When Vector Data Don't Line Up - Handling Spatial Projection & CRS in R]({{site.baseurl}}/03-raster-reproject-in-r/)
+[When Vector Data Don't Line Up - Handling Spatial Projection & CRS in R]({{site.baseurl}}/09-vector-when-data-dont-line-up-crs/)
 we learned about the components of a `proj4` string. We have everything we need
-to now assign a CRS to our data.frame.
+to assign a CRS to our data.frame.
 
-To create the `proj4` associated with `UTM Zone 18 WGS84` we can look up the
-projection on the
-<a href="http://www.spatialreference.org/ref/epsg/wgs-84-utm-zone-18n/" target="_blank"> spatial reference website</a>
-which contains a list of CRS formats for each projection:
+To create the `proj4` associated with UTM Zone 18 WGS84 we can look up the
+projection on the [Spatial Reference website](http://www.spatialreference.org/ref/epsg/wgs-84-utm-zone-18n/), which contains a list of CRS formats for each projection. From here, we can extract the [proj4 string for UTM Zone 18N WGS84](http://www.spatialreference.org/ref/epsg/wgs-84-utm-zone-18n/proj4/). 
 
-* This link shows
-<a href="http://www.spatialreference.org/ref/epsg/wgs-84-utm-zone-18n/proj4/" target="_blank">the proj4 string for UTM Zone 18N WGS84</a>.
-
-However, if we have other data in the `UTM Zone 18N` projection, it's much
-easier to simply assign the `st_crs()` in `proj4` format from that object to our
-new spatial object. Let's import the roads layer from Harvard forest and check
-out its CRS.
+However, if we have other data in the UTM Zone 18N projection, it's much
+easier to use the `st_crs()` function to extract the CRS in `proj4` format from that object and 
+assign it to our
+new spatial object. We've seen this CRS before with our Harvard Forest roads data (`lines_HARV`).
 
 ```{r explore-units}
-# view CRS
 st_crs(lines_HARV)
-
-# view extent
-st_bbox(lines_HARV)
 ```
 
-Exploring the data above, we can see that the lines shapefile is in
-`UTM zone 18N`. We can thus use the CRS from that spatial object to convert our
-non-spatial `data.frame` into an `sf` object.
+The output above shows that the lines shapefile is in
+UTM zone 18N. We can thus use the CRS from that spatial object to convert our
+non-spatial dataframe into an `sf` object.
 
 Next, let's create a `crs` object that we can use to define the CRS of our
-`sf` object when we create it
+`sf` object when we create it.
 
 ```{r crs-object }
-# create crs object
 utm18nCRS <- st_crs(lines_HARV)
 utm18nCRS
 
@@ -183,7 +154,7 @@ class(utm18nCRS)
 ```
 
 ## .csv to sf object
-Next, let's convert our `data.frame` into an `sf` object. To do
+Next, let's convert our dataframe into an `sf` object. To do
 this, we need to specify:
 
 1. The columns containing X (`easting`) and Y (`northing`) coordinate values
@@ -192,10 +163,12 @@ this, we need to specify:
 We will use the `st_as_sf()` function to perform the conversion.
 
 ```{r convert-csv-shapefile}
-# note that the easting and northing columns are in columns 1 and 2
 plot_locations_sp_HARV <- st_as_sf(plot_locations_HARV, coords = c("easting", "northing"), crs = utm18nCRS)
+```
 
-# look at the CRS
+We should double check the CRS to make sure it is correct. 
+
+```{r}
 st_crs(plot_locations_sp_HARV)
 ```
 
@@ -203,7 +176,6 @@ st_crs(plot_locations_sp_HARV)
 We now have a spatial `R` object, we can plot our newly created spatial object.
 
 ```{r plot-data-points}
-# plot spatial object
 plot(plot_locations_sp_HARV$geometry,
      main = "Map of Plot Locations")
 ```
@@ -235,9 +207,8 @@ st_crs(aoi_boundary_HARV)
 st_crs(plot_locations_sp_HARV)
 ```
 
-When we attempt to plot the two layers together, we can see that the plot
-locations are not rendered. We can see that our data are in the same projection
-- so what is going on?
+When we attempt to plot the two layers together, the plot
+locations are not rendered. Our data are in the same projection, so what is going on?
 
 ```{r compare-extents}
 # view extent of each
@@ -327,7 +298,7 @@ legend("bottomright",
 > 
 > 1. Find the X and Y coordinate locations. Which value is X and which value is Y?
 > 2. These data were collected in a geographic coordinate system (WGS84). Convert
-> the `data.frame` into an `sf` object.
+> the dataframe into an `sf` object.
 > 3. Plot the new points with the plot location points from above. Be sure to add
 > a legend. Use a different symbol for the 2 new points!  You may need to adjust
 > the X and Y limits of your plot to ensure that both points are rendered by `R`!
@@ -458,7 +429,6 @@ in `sf`. To do this we need the following arguments:
 We can now export the spatial object as a shapefile.
 
 ``` {r write-shapefile, warnings="hide", eval=FALSE}
-# write a shapefile
 st_write(plot_locations_sp_HARV,
          "data/PlotLocations_HARV.shp", driver = "ESRI Shapefile")
 ```
