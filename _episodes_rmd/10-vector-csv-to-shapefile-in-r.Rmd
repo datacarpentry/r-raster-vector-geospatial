@@ -28,7 +28,7 @@ library(sf)
 ```
 
 ```{r load-data, echo = FALSE}
-# Learners will have this data loaded from earlier episode
+# Learners will have this data loaded from earlier episodes
 lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 ```
@@ -176,118 +176,29 @@ st_crs(plot_locations_sp_HARV)
 We now have a spatial `R` object, we can plot our newly created spatial object.
 
 ```{r plot-data-points}
-plot(plot_locations_sp_HARV$geometry,
-     main = "Map of Plot Locations")
+ggplot() + 
+  geom_sf(data = plot_locations_sp_HARV$geometry) +
+  ggtitle("Map of Plot Locations")
 ```
 
-## Define Plot Extent
+## Plot Extent
 
 In
 [Open and Plot Shapefiles in R]({{site.baseurl}}/R/open-shapefiles-in-R/)
 we learned about spatial object `extent`. When we plot several spatial layers in
-`R`, the first layer that is plotted, becomes the extent of the plot. If we add
-additional layers that are outside of that extent, then the data will not be
-visible in our plot. It is thus useful to know how to set the spatial extent of
-a plot using `xlim` and `ylim`.
-
-To begin, let's plot our `aoiBoundary` object with our vegetation plots.
+`R` using `ggplot`, all of the layers of the plot are considered in setting the boundaries
+of the plot. To show this, let's plot our `aoiBoundary` object with our vegetation plots.
 
 ```{r plot-data}
-# plot Boundary
-plot(aoi_boundary_HARV$geometry,
-     main = "AOI Boundary\nNEON Harvard Forest Field Site")
-
-# add plot locations
-plot(plot_locations_sp_HARV$geometry,
-     pch = 8, add = TRUE)
-
-# no plots added, why? CRS?
-# view CRS of each
-st_crs(aoi_boundary_HARV)
-st_crs(plot_locations_sp_HARV)
+ggplot() + 
+  geom_sf(data = aoi_boundary_HARV$geometry) + 
+  geom_sf(data = plot_locations_sp_HARV$geometry) +
+  ggtitle("AOI Boundary Plot")
 ```
 
-When we attempt to plot the two layers together, the plot
-locations are not rendered. Our data are in the same projection, so what is going on?
-
-```{r compare-extents}
-# view extent of each
-st_bbox(aoi_boundary_HARV)
-st_bbox(plot_locations_sp_HARV)
-
-# add extra space to right of plot area;
-# par(mar = c(5.1, 4.1, 4.1, 8.1), xpd=TRUE)
-plot(st_convex_hull(st_sfc(st_union(plot_locations_sp_HARV))),
-     col = "purple",
-     xlab = "easting",
-     ylab = "northing", lwd = 8,
-     main = "Extent Boundary of Plot Locations \nCompared to the AOI Spatial Object",
-     ylim = c(4712400, 4714000)) # extent the y axis to make room for the legend
-
-plot(aoi_boundary_HARV$geometry,
-     add = TRUE,
-     lwd = 6,
-     col = "springgreen")
-
-legend("bottomright",
-       #inset = c(-0.5,0),
-       legend = c("Layer One Extent", "Layer Two Extent"),
-       bty = "n",
-       col = c("purple", "springgreen"),
-       cex = .8,
-       lty = c(1, 1),
-       lwd = 6)
-```
-
-The **extents** of our two objects are **different**. `plot_locations_sp_HARV` is
-much larger than `aoi_boundary_HARV`. When we plot `aoi_boundary_HARV` first, `R`
-uses the extent of that object to as the plot extent. Thus the points in the
-`plot_locations_sp_HARV` object are not rendered. To fix this, we can manually
-assign the plot extent using `xlims` and `ylims`. We can grab the extent
-values from the spatial object that has a larger extent. Let's try it.
-
-<figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-vector/spatial_extent.png">
-    <img src="{{ site.baseurl }}/images/dc-spatial-vector/spatial_extent.png"></a>
-    <figcaption>The spatial extent of a shapefile or R spatial object
-    represents the geographic <b> edge </b> or location that is the furthest
-    north, south, east and west. Thus is represents the overall geographic
-    coverage of the spatial object. Source: National Ecological Observatory
-    Network (NEON)
-    </figcaption>
-</figure>
-
-```{r set-plot-extent}
-
-plotLoc.extent <- st_bbox(plot_locations_sp_HARV)
-plotLoc.extent
-# grab the x and y min and max values from the spatial plot locations layer
-xmin <- plotLoc.extent[1]
-xmax <- plotLoc.extent[3]
-ymin <- plotLoc.extent[2]
-ymax <- plotLoc.extent[4]
-
-# adjust the plot extent using x and ylim
-plot(aoi_boundary_HARV$geometry,
-     main = "NEON Harvard Forest Field Site\nModified Extent",
-     border = "darkgreen",
-     xlim = c(xmin, xmax),
-     ylim = c(ymin, ymax))
-
-plot(plot_locations_sp_HARV$geometry,
-		 col = "purple",
-		 add = TRUE)
-
-# add a legend
-legend("bottomright",
-       legend = c("Plots", "AOI Boundary"),
-       pch = c(8, NA),
-       lty = c(NA, 1),
-       bty = "n",
-       col = c("purple", "darkgreen"),
-       cex = .8)
-
-```
+When we attempt to plot the two layers together, `ggplot` sets the plot boundaries
+so that they are large enough to include all of the data included in all of the layers. 
+That's really handy!
 
 > ## Challenge - Import & Plot Additional Points
 > 
