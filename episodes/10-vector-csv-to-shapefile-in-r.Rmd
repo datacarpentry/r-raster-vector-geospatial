@@ -134,13 +134,13 @@ projection on the [Spatial Reference website](http://www.spatialreference.org/re
 However, if we have other data in the UTM Zone 18N projection, it's much
 easier to use the `st_crs()` function to extract the CRS in `proj4` format from that object and 
 assign it to our
-new spatial object. We've seen this CRS before with our Harvard Forest roads data (`lines_HARV`).
+new spatial object. We've seen this CRS before with our Harvard Forest study site (`point_HARV`).
 
 ```{r explore-units}
-st_crs(lines_HARV)
+st_crs(point_HARV)
 ```
 
-The output above shows that the lines shapefile is in
+The output above shows that the points shapefile is in
 UTM zone 18N. We can thus use the CRS from that spatial object to convert our
 non-spatial dataframe into an `sf` object.
 
@@ -148,7 +148,7 @@ Next, let's create a `crs` object that we can use to define the CRS of our
 `sf` object when we create it.
 
 ```{r crs-object }
-utm18nCRS <- st_crs(lines_HARV)
+utm18nCRS <- st_crs(point_HARV)
 utm18nCRS
 
 class(utm18nCRS)
@@ -178,7 +178,7 @@ We now have a spatial `R` object, we can plot our newly created spatial object.
 
 ```{r plot-data-points}
 ggplot() + 
-  geom_sf(data = plot_locations_sp_HARV$geometry) +
+  geom_sf(data = plot_locations_sp_HARV) +
   ggtitle("Map of Plot Locations")
 ```
 
@@ -192,8 +192,8 @@ of the plot. To show this, let's plot our `aoiBoundary` object with our vegetati
 
 ```{r plot-data}
 ggplot() + 
-  geom_sf(data = aoi_boundary_HARV$geometry) + 
-  geom_sf(data = plot_locations_sp_HARV$geometry) +
+  geom_sf(data = aoi_boundary_HARV) + 
+  geom_sf(data = plot_locations_sp_HARV) +
   ggtitle("AOI Boundary Plot")
 ```
 
@@ -260,8 +260,8 @@ That's really handy!
 > > 
 > > ```{r}
 > > ggplot() + 
-> >   geom_sf(data = plot_locations_sp_HARV$geometry, color = "orange") +
-> >   geom_sf(data = newPlot.Sp.HARV$geometry, color = "lightblue") +
+> >   geom_sf(data = plot_locations_sp_HARV, color = "orange") +
+> >   geom_sf(data = newPlot.Sp.HARV, color = "lightblue") +
 > >   ggtitle("Map of All Plot Locations")
 > > ```
 > {: .solution}
