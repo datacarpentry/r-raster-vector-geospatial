@@ -103,10 +103,6 @@ ggplot() +
   theme(legend.position = "none")
 ```
 
-```{r reset-par, results="hide", echo=FALSE }
-dev.off()
-```
-
 Frequent use cases of cropping a raster file include reducing file size and
 creating maps. Sometimes we have a raster file that is much larger than our
 study area or area of interest. It is often more efficient to crop the
@@ -155,7 +151,7 @@ same extent as the `aoi_boundary_HARV` object that was used as a crop extent
 
 ```{r view-crop-extent, echo=FALSE}
 ggplot() +
-    geom_sf(data = aoi_boundary_HAR, color = "blue") + 
+    geom_sf(data = aoi_boundary_HARV, color = "blue") + 
   geom_raster(data = CHM_HARV_Crop_df, aes(x = x, y = y, fill = layer)) + 
      scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
   ggtitle("LiDAR CHM - Cropped\nNEON Harvard Forest Field Site")
@@ -232,7 +228,7 @@ boundary. This creates a new object of class `Extent`. Here we will
 provide the `extent()`
 function our xmin, xmax, ymin, and ymax (in that order). 
 
-```{r hidden-extent-chunk}
+```{r}
 new.extent <- extent(732161.2, 732238.7, 4713249, 4713333)
 class(new.extent)
 ```
@@ -334,98 +330,81 @@ summary(tree_height$layer)
 ## Summarize Extracted Raster Values
 
 We often want to extract summary values from a raster. We can tell `R` the type
-of summary statistic we are interested in using the `fun=` method. Let's extract
-a mean height value for our AOI.
+of summary statistic we are interested in using the `fun =` argument. Let's extract
+a mean height value for our AOI. Because we are extracting only a single number, we will
+not use the `df = TRUE` argument. 
 
 ```{r summarize-extract }
-# extract the average tree height (calculated using the raster pixels)
-# located within the AOI polygon
-av_tree_height_AOI <- extract(x = chm_HARV,
+mean_tree_height_AOI <- extract(x = CHM_HARV,
                               y = as(aoi_boundary_HARV, "Spatial"),
-                              fun = mean,
-                              df = TRUE)
+                              fun = mean)
 
-# view output
-av_tree_height_AOI
-
+mean_tree_height_AOI
 ```
 
 It appears that the mean height value, extracted from our LiDAR data derived
-canopy height model is 22.43 meters.
+canopy height model is 19.34 meters.
 
-##Extract Data using x,y Locations
+## Extract Data using x,y Locations
 
 We can also extract pixel values from a raster by defining a buffer or area
 surrounding individual point locations using the `extract()` function. To do this
-we define the summary method (`fun=mean`) and the buffer distance (`buffer=20`)
-which represents the radius of a circular region around each point.
-
-The units of the buffer are the same units of the data `CRS`.
+we define the summary argument (`fun = mean`) and the buffer distance (`buffer = 20`)
+which represents the radius of a circular region around each point. By default, the units of the
+buffer are the same units as the data's CRS.
 
 <figure>
-    <a href="http://neondataskills.org/images/spatialData/BufferCircular.png">
-    <img src="http://neondataskills.org/images/spatialData/BufferCircular.png"></a>
+    <a href="https://www.neonscience.org/sites/default/files/images/spatialData/BufferCircular.png">
+    <img src="https://www.neonscience.org/sites/default/files/images/spatialData/BufferCircular.png"></a>
     <figcaption> Extract raster information using a buffer region. All pixels
     that are touched by the buffer region are included in the extract.
     Source: National Ecological Observatory Network (NEON).
     </figcaption>
 </figure>
 
-Let's put this into practice by figuring out the average tree height in the
-20m around the tower location.
+Let's put this into practice by figuring out the mean tree height in the
+20m around the tower location (`point_HARV`). Because we are extracting only a single number, we
+will not use the `df = TRUE` argument. 
 
 ```{r extract-point-to-buffer }
-# what are the units of our buffer
-st_crs(point_HARV)
-
-# extract the average tree height (height is given by the raster pixel value)
-# at the tower location
-# use a buffer of 20 meters and mean function (fun)
-av_tree_height_tower <- extract(x = chm_HARV,
+mean_tree_height_tower <- extract(x = CHM_HARV,
                                 y = as(point_HARV, "Spatial"),
                                 buffer = 20,
-                                fun = mean,
-                                df = TRUE)
+                                fun = mean)
 
-# view data
-head(av_tree_height_tower)
-
-# how many pixels were extracted
-nrow(av_tree_height_tower)
-
+mean_tree_height_tower
 ```
 
 > ## Challenge: Extract Raster Height Values For Plot Locations
 > 
-> Use the plot location points shapefile `HARV/plot_locations_HARV.shp` or spatial
-> object `plot_locations_sp_HARV` to extract an average tree height value for the
-> area within 20m of each vegetation plot location in the study area.
+> 1) Use the plot locations object (`plot_locations_sp_HARV`)
+> to extract an average tree height for the
+> area within 20m of each vegetation plot location in the study area. Because there are 
+> multiple plot locations, there will be multiple averages returned, so the `df = TRUE` 
+> argument should be used.
 > 
-> Create a simple plot showing the mean tree height of each plot using the `plot()`
-> function in base-R.
+> 2) Create a plot showing the mean tree height of each area. 
 > 
 > > ## Answers
 > > 
-> > ```{r challenge-code-extract-plot-tHeight, include=TRUE, results="hide", echo=TRUE}
-> > 
-> > # first import the plot location file.
-> > plot_locations_sp_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
+> > ```{r}
 > > 
 > > # extract data at each plot location
-> > meanTreeHt_plots_HARV <- extract(x = chm_HARV,
+> > meanTreeHt_plots_HARV <- extract(x = CHM_HARV,
 > >                                y = as(plot_locations_sp_HARV, "Spatial"),
 > >                                buffer=20,
-> >                                fun=mean,
-> >                                df=TRUE)
+> >                                fun = mean,
+> >                                df = TRUE)
 > > 
 > > # view data
 > > meanTreeHt_plots_HARV
 > > 
 > > # plot data
-> > plot(meanTreeHt_plots_HARV,
-> >      main = "MeanTree Height at each Plot\nNEON Harvard Forest Field Site",
-> >      xlab = "Plot ID", ylab = "Tree Height (m)",
-> >      pch=16)
+> > ggplot(data = meanTreeHt_plots_HARV, aes(ID, layer)) + 
+> >   geom_col() + 
+> >   ggtitle("Mean Tree Height at each Plot") + 
+> >   xlab("Plot ID") + 
+> >   ylab("Tree Height (m)")
 > > ```
 > {: .solution}
 {: .challenge}
