@@ -178,7 +178,7 @@ We now have a spatial `R` object, we can plot our newly created spatial object.
 
 ```{r plot-data-points}
 ggplot() + 
-  geom_sf(data = plot_locations_sp_HARV$geometry) +
+  geom_sf(data = plot_locations_sp_HARV) +
   ggtitle("Map of Plot Locations")
 ```
 
@@ -192,8 +192,8 @@ of the plot. To show this, let's plot our `aoiBoundary` object with our vegetati
 
 ```{r plot-data}
 ggplot() + 
-  geom_sf(data = aoi_boundary_HARV$geometry) + 
-  geom_sf(data = plot_locations_sp_HARV$geometry) +
+  geom_sf(data = aoi_boundary_HARV) + 
+  geom_sf(data = plot_locations_sp_HARV) +
   ggtitle("AOI Boundary Plot")
 ```
 
@@ -260,8 +260,8 @@ That's really handy!
 > > 
 > > ```{r}
 > > ggplot() + 
-> >   geom_sf(data = plot_locations_sp_HARV$geometry, color = "orange") +
-> >   geom_sf(data = newPlot.Sp.HARV$geometry, color = "lightblue") +
+> >   geom_sf(data = plot_locations_sp_HARV, color = "orange") +
+> >   geom_sf(data = newPlot.Sp.HARV, color = "lightblue") +
 > >   ggtitle("Map of All Plot Locations")
 > > ```
 > {: .solution}
