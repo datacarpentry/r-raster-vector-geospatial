@@ -95,7 +95,7 @@ CHM_rand_sample = sample_n(CHM_HARV_sp, 10000)
 ```
 
 ```{r, echo = FALSE}
-ggplot() + 
+ggplot() +
   geom_sf(data = st_convex_hull(st_union(CHM_rand_sample)), fill = "green") +
   geom_sf(data = st_convex_hull(st_union(lines_HARV)), fill = "purple", aes(alpha = 0.1)) +
   geom_sf(data = aoi_boundary_HARV, fill = "blue") +
@@ -154,8 +154,8 @@ same extent as the `aoi_boundary_HARV` object that was used as a crop extent
 (blue border below).
 
 ```{r view-crop-extent, echo=FALSE}
-ggplot() + 
-    geom_sf(data = aoi_boundary_HARV, color = "blue") + 
+ggplot() +
+    geom_sf(data = aoi_boundary_HAR, color = "blue") + 
   geom_raster(data = CHM_HARV_Crop_df, aes(x = x, y = y, fill = layer)) + 
      scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
   ggtitle("LiDAR CHM - Cropped\nNEON Harvard Forest Field Site")
