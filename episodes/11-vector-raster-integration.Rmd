@@ -302,7 +302,7 @@ str(tree_height)
 
 When we use the `extract()` function, `R` extracts the value for each pixel located
 within the boundary of the polygon being used to perform the extraction - in
-this case the `aoi_boundary_HARV` object (a single polygon). In this case, the
+this case the `aoi_boundary_HARV` object (a single polygon). Here, the
 function extracted values from 18,450 pixels.
 
 We can create a histogram of tree height values within the boundary to better
