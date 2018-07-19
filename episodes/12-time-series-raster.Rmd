@@ -3,12 +3,12 @@ title: "Raster Time Series Data in R"
 teaching: 20
 exercises: 10
 questions:
-- "How can I view and and plot NDVI data for different times of the year?"
+- "How can I view and and plot data for different times of the year?"
 objectives:
 - "Understand the format of a time series raster dataset."
 - "Know how to work with time series rasters."
-- "Be able to efficiently import a set of rasters stored in a single directory."
-- "Be able to plot and explore time series raster data using the `plot()` function in `R`."
+- "Import a set of rasters stored in a single directory."
+- "Pplot and explore time series raster data."
 keypoints:
 - ""
 ---
@@ -19,7 +19,7 @@ source("../setup.R")
 knitr_fig_path("12-")
 ```
 
-```{r load-libraries, echo = FALSE, results='hide'}
+```{r load-libraries, echo = FALSE, results='hide', message = FALSE, warning = FALSE}
 library(raster)
 library(rgdal)
 library(ggplot2)
@@ -35,8 +35,7 @@ library(reshape)
 
 This episode covers how to work with and plot a raster time series, using an
 `R` `RasterStack` object. It also covers practical assessment of data quality in
-remote sensing derived imagery.
-
+remote sensing derived imagery. 
 
 ## About Raster Time Series Data
 
@@ -44,8 +43,10 @@ A raster data file can contain one single band or many bands. If the raster data
 contains imagery data, each band may represent reflectance for a different
 wavelength (color or type of light) or set of wavelengths - for
 example red, green and blue. A multi-band raster may two or more bands or layers
-of data collected at different times for the same **extent** (region) and of the
-same **resolution**.
+of data collected at different times for the same extent (region) and of the
+same resolution. For this episode, we will work with a time series
+of normalized difference vegetation index (NDVI) and RGB data from the Harvard Forest site. 
+We introduced the concepts of NDVI and RGB data in [an earlier lesson](https://datacarpentry.org/organization-geospatial/01-spatial-data-structures-formats/index.html).
 
 <figure>
     <a href="{{ site.baseurl }}/images/dc-spatial-raster/GreennessOverTime.jpg">
@@ -55,10 +56,6 @@ same **resolution**.
     </figcaption>
 </figure>
 
-The raster data that we will use in this episode are located in the
-(`NEON-DS-Landsat-NDVI\HARV\2011\NDVI`) directory and cover part of the
-<a href="http://www.neonscience.org/science-design/field-sites/harvard-forest" target="_blank">NEON Harvard Forest field site</a>.
-
 In this episode, we will:
 
 1. Import NDVI data in `GeoTIFF` format.
@@ -67,45 +64,11 @@ year.
 3. View the RGB imagery used to derived the NDVI time series to better
 understand unusual / outlier values.
 
-## NDVI Data
-The Normalized Difference Vegetation Index or NDVI is a quantitative index of
-greenness ranging from 0-1 where 0 represents minimal or no greenness and 1
-represents maximum greenness.
-
-NDVI is often used for a quantative proxy measure of vegetation health, cover
-and phenology (life cycle stage) over large areas. Our NDVI data is a Landsat
-derived single band product saved as a GeoTIFF for different times of the year.
-
-<figure>
- <a href="http://earthobservatory.nasa.gov/Features/MeasuringVegetation/Images/ndvi_example.jpg">
- <img src="http://earthobservatory.nasa.gov/Features/MeasuringVegetation/Images/ndvi_example.jpg"></a>
-    <figcaption>NDVI is calculated from the visible and near-infrared light
-    reflected by vegetation. Healthy vegetation (left) absorbs most of the
-    visible light that hits it, and reflects a large portion of
-    near-infrared light. Unhealthy or sparse vegetation (right) reflects more
-    visible light and less near-infrared light. Image & Caption Source: NASA
-    </figcaption>
-</figure>
-
-* <a href="http://earthobservatory.nasa.gov/Features/MeasuringVegetation/measuring_vegetation_2.php" target="_blank">
-More on NDVI from NASA</a>
-
 ## RGB Data
 While the NDVI data is a single band product, the RGB images that contain the
 red band used to derive NDVI, contain 3 (of the 7) 30m resolution bands
 available from Landsat data. The RGB directory contains RGB images for each time
 period that NDVI is available.
-
-
-<figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.jpg">
-    <img src="{{ site.baseurl }}/images/dc-spatial-raster/RGBSTack_1.jpg"></a>
-    <figcaption>A "true" color image consists of 3 bands - red, green and blue.
-    When composited or rendered together in a GIS, or even a image-editor like
-    Photoshop the bands create a color image.
-	Source: National Ecological Observatory Network (NEON).
-    </figcaption>
-</figure>
 
 ### Getting Started
 In this episode, we will use the `raster` and `rgdal` libraries. Make sure you have

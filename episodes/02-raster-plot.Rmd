@@ -29,8 +29,7 @@ library(dplyr)
 # DSM data for Harvard Forest
 DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
-DSM_HARV_df <- rasterToPoints(DSM_HARV, spatial = TRUE) %>%
-data.frame()
+DSM_HARV_df <- raster::as.data.frame(DSM_HARV, xy = TRUE)
 ```
 
 > ## Things You’ll Need To Complete This Episode
@@ -290,14 +289,12 @@ Range field site.
 > > # import DSM data
 > > DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
 > > # convert to a df for plotting
-> > DSM_SJER_df <- rasterToPoints(DSM_SJER, spatial = TRUE) %>%
-> >     data.frame()
+> > DSM_SJER_df <- raster::as.data.frame(DSM_SJER, xy = TRUE)
 > >
 > > # import DSM hillshade
 > > DSM_hill_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmHill.tif")
 > > # convert to a df for plotting
-> > DSM_hill_SJER_df <- rasterToPoints(DSM_hill_SJER, spatial = TRUE) %>%
-> >     data.frame()
+> > DSM_hill_SJER_df <- raster::as.data.frame(DSM_hill_SJER, xy = TRUE)
 > > 
 > > # Build Plot
 > > ggplot() +
