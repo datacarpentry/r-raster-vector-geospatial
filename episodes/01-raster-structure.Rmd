@@ -126,7 +126,7 @@ To visualise this data in R using `ggplot2`, we need to convert it to a
 dataframe. We learned about dataframes in [an earlier
 lesson](https://datacarpentry.org/r-intro-geospatial/04-data-structures-part2/index.html).
 
-`raster` has an built-in function for conversion to a plotable `data.frame`.
+`raster` has an built-in function for conversion to a plottable `data.frame`.
 
 ```{r}
 DSM_HARV_df <- raster::as.data.frame(DSM_HARV, xy = TRUE)
@@ -155,7 +155,7 @@ We can use `ggplot()` to plot this data:
 ggplot() +
     geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = HARV_dsmCrop)) +
     scale_fill_viridis_c() +
-    coord_equal()
+    coord_sf()
 ```
 
 > ## Data Tip
@@ -166,9 +166,9 @@ ggplot() +
 > ```{r 'ggspat', eval = FALSE}
 > library(ggspatial)
 > ggplot() +
->   geom_spatial(data = DSM_HARV, aes(fill = band1)) +
+>   layer_spatial(data = DSM_HARV, na.rm = TRUE) +
 >   scale_fill_viridis_c() +
->   coord_equal()
+>   coord_sf()
 > ```
 {: .callout}
 
@@ -322,9 +322,8 @@ ggplot() +
              show.legend = FALSE) +
   scale_fill_gradient(low = 'black', high = "red") +
   ggtitle("Orthographic Imagery", subtitle = 'Red Band') +
-  coord_equal()
-# more memory saving
-rm(RGB_df)
+  coord_sf()
+
 ```
 
 In the next image, the black edges have been assigned `NoDataValue`. `R` doesn't
@@ -344,16 +343,16 @@ RGB_2m_df_nd$hex <- rgb(RGB_2m_df_nd$red,
 RGB_2m_df_nd$hex[RGB_2m_df_nd$hex == '#000000'] <- NA_character_ 
 
 ggplot() +
-  geom_raster(data = RGB_2m_df_nd, aes(x = x, y = y, fill = hex)) +
+  geom_raster(data = RGB_2m_df_nd, aes(x = x, y = y, fill = hex), na.rm = TRUE) +
   scale_fill_identity() +
   ggtitle("Orthographic Imagery", subtitle = "All bands") +
-  coord_equal()
+  coord_sf()
 
 ```
 
-If your raster already has NA values set correctly but you aren't sure where they are, you can use `ggspatial` to deliberately plot them in a particular colour. This can be useful when checking a dataset's coverage. For instance, sometimes data can be missing where a sensor could not 'see' its target data, and you may wish to locate that missing data and fill it in.
+If your raster already has NA values set correctly but you aren't sure where they are, you can use `ggplot` to highlight them in a particular colour. This can be useful when checking a dataset's coverage. For instance, sometimes data can be missing where a sensor could not 'see' its target data, and you may wish to locate that missing data and fill it in.
 
-To highlight NA values in gpplot, alter the `scale_fill_*()` layer to contain a colour instruction for na values, like `scale_fill_viridis_c(na.value = 'deeppink')`
+To highlight `NA` values in `ggplot`, alter the `scale_fill_*()` layer to contain a colour instruction for na values, like `scale_fill_viridis_c(na.value = 'deeppink')`
 
 ```{r 'napink', eval = FALSE}
 # function to replace 0 with NA where all three values are 0 only
@@ -362,12 +361,13 @@ RGB_2m_nas <- calc(RGB_2m,
                            x[rowSums(x == 0) == 3, ] <- rep(NA, nlayers(RGB_2m))
                            x
                    })
-                   
+RGB_2m_nas_df <- raster::as.data.frame(RGB_2m_nas, xy = TRUE)                   
+
 ggplot() +
-  geom_spatial(data = RGB_2m_nas, aes(fill = band3), na.rm = FALSE) +
+  geom_raster(data = RGB_2m_nas_df, aes(x =x , y = y, fill = HARV_RGB_Ortho.3)) +
   scale_fill_gradient(low = 'grey90', high = 'blue', na.value = 'deeppink') +
   ggtitle("Orthographic Imagery", subtitle = "Blue band, with NA highlighted") +
-  coord_equal()
+  coord_sf()
 ```
 
 The value that is conventionally used to take note of missing data (the
@@ -432,12 +432,13 @@ DSM_highvals <- raster::as.data.frame(DSM_highvals, xy = TRUE)
 DSM_highvals <- DSM_highvals[!is.na(DSM_highvals$layer), ]
 
 ggplot() +
-  geom_spatial(data = DSM_HARV, aes(fill = band1)) +
+  geom_raster(data = DSM_HARV_df, aes(x = x, y = y, fill = HARV_dsmCrop)) +
   scale_fill_viridis_c() + 
   # use reclassified raster data as an annotation
-  annotate(geom = 'raster', x = DSM_highvals$x, y = DSM_highvals$y, fill = scales::colour_ramp('deeppink')(DSM_highvals$layer)) +
+  annotate(geom = 'raster', x = DSM_highvals$x, y = DSM_highvals$y, 
+           fill = scales::colour_ramp('deeppink')(DSM_highvals$layer)) +
   ggtitle("Elevation Data", subtitle = "Highlighting values > 400m") +
-  coord_equal()
+  coord_sf()
 ```
 
 ## Create A Histogram of Raster Values
