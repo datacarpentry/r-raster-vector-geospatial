@@ -27,11 +27,12 @@ library(dplyr)
 library(sf)
 ```
 
-```{r load-data, echo = FALSE}
+```{r load-data, echo = FALSE, results='hide'}
 # Learners will have this data loaded from earlier episodes
 lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp")
+point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 ```
 
 > ## Things You’ll Need To Complete This Episode
@@ -185,10 +186,10 @@ ggplot() +
 ## Plot Extent
 
 In
-[Open and Plot Shapefiles in R]({{site.baseurl}}/R/open-shapefiles-in-R/)
-we learned about spatial object `extent`. When we plot several spatial layers in
+[Open and Plot Shapefiles in R]({{site.baseurl}}/06-vector-open-shapefile-in-r/)
+we learned about spatial object extent. When we plot several spatial layers in
 `R` using `ggplot`, all of the layers of the plot are considered in setting the boundaries
-of the plot. To show this, let's plot our `aoiBoundary` object with our vegetation plots.
+of the plot. To show this, let's plot our `aoi_boundary_HARV` object with our vegetation plots.
 
 ```{r plot-data}
 ggplot() + 
@@ -197,7 +198,7 @@ ggplot() +
   ggtitle("AOI Boundary Plot")
 ```
 
-When we attempt to plot the two layers together, `ggplot` sets the plot boundaries
+When we plot the two layers together, `ggplot` sets the plot boundaries
 so that they are large enough to include all of the data included in all of the layers. 
 That's really handy!
 

@@ -48,13 +48,7 @@ same resolution. For this episode, we will work with a time series
 of normalized difference vegetation index (NDVI) and RGB data from the Harvard Forest site. 
 We introduced the concepts of NDVI and RGB data in [an earlier lesson](https://datacarpentry.org/organization-geospatial/01-spatial-data-structures-formats/index.html).
 
-<figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-raster/GreennessOverTime.jpg">
-    <img src="{{ site.baseurl }}/images/dc-spatial-raster/GreennessOverTime.jpg"></a>
-    <figcaption>A multi-band raster dataset can contain time series data.
-    Source: National Ecological Observatory Network (NEON).
-    </figcaption>
-</figure>
+![A multi-band raster dataset can contain time series data. Source: National Ecological Observatory Network (NEON)](../images/dc-spatial-raster/GreennessOverTime.jpg)
 
 In this episode, we will:
 
@@ -128,22 +122,16 @@ xres(NDVI_HARV_stack)
 
 Notice that the CRS is `+proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs`. The
 CRS is in UTM Zone 19.  If you have completed the previous episodes in
-this
-[raster data in `R` series ]({{ site.baseurl }}episode-series/raster-data-series/),
+this workshop,
 you may have noticed that the UTM zone for the NEON collected remote sensing
 data was in Zone 18 rather than Zone 19. Why are the Landsat data in Zone 19?
 
-<figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-raster/UTM_zones_18-19.jpg">
-    <img src="{{ site.baseurl }}/images/dc-spatial-raster/UTM_zones_18-19.jpg"></a>
-    <figcaption> Landsat imagery swaths are over 170 km N-S and 180 km E-W. As
-	a result a given image may overlap two UTM zones. The designated zone is
-	determined by the zone that the majority of the image is in.  In this
-	example, our point of interest is in UTM Zone 18 but the Landsat image will
-	be classified as UTM Zone 19. Source: National Ecological Observatory
-	Network (NEON).
-    </figcaption>
-</figure>
+![Source: National Ecological Observatory Network (NEON).](../images/dc-spatial-raster/UTM_zones_18-19.jpg)
+Landsat imagery swaths are over 170 km N-S and 180 km E-W. As 
+a result a given image may overlap two UTM zones. The designated zone is
+determined by the zone that the majority of the image is in.  In this
+example, our point of interest is in UTM Zone 18 but the Landsat image will
+be classified as UTM Zone 19.
 
 The width of a Landsat scene is extremely wide - spanning over 170km north to
 south and 180km east to west. This means that Landsat data often cover multiple
@@ -177,11 +165,7 @@ the `ggplot()` command to quickly plot a `RasterStack`.
 
 ```{r plot-time-series }
 
-# convert to a df for plotting in two steps,
-# First, to a SpatialPointsDataFrame
-NDVI_HARV_stack_df <- rasterToPoints(NDVI_HARV_stack, spatial = TRUE) %>%
-# Then to a 'conventional' dataframe
-    data.frame() %>%
+NDVI_HARV_stack_df <- raster::as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
 # Then reshape data to stack all the X*_HARV_ndvi_crop columns into
 # one single column called 'variable'
     melt(id.vars = c('x','y','optional'))
@@ -216,11 +200,7 @@ quickly apply this factor using raster math on the entire stack as follows:
 # apply scale factor to data
 NDVI_HARV_stack <- NDVI_HARV_stack/10000
 # plot stack with scale factor applied
-# convert to a df for plotting in two steps,
-# First, to a SpatialPointsDataFrame
-NDVI_HARV_stack_df <- rasterToPoints(NDVI_HARV_stack, spatial = TRUE) %>%
-# Then to a 'conventional' dataframe
-    data.frame() %>%
+NDVI_HARV_stack_df <- raster::as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
 # Then reshape data to stack all the X*_HARV_ndvi_crop columns into
 # one single column called 'variable'
     melt(id.vars = c('x','y','optional'))
@@ -246,8 +226,8 @@ about the patterns of greening and browning observed in the plots above?
 Hint: the number after the "X" in each tile title is the Julian day which in
 this case represents the number of days into each year. If you are unfamiliar
 with Julian day, check out the NEON Data Skills
-[Converting to Julian Day ]({{ site.baseurl }}/R/julian-day-conversion/)
-episode.
+[Converting to Julian Day ](https://www.neonscience.org/julian-day-conversion-r)
+tutorial.
 
 ## View Distribution of Raster Values
 In the above exercise, we viewed plots of our NDVI time series and noticed a
@@ -259,8 +239,6 @@ Next we will use histograms to explore the distribution of NDVI values stored in
 each raster.
 
 ```{r view-stack-histogram }
-
-# create histograms of each raster
 ggplot(NDVI_HARV_stack_df) +
   geom_histogram(aes(value)) +
     facet_wrap(~variable)
@@ -339,11 +317,7 @@ derive our NDVI rasters to try to understand what appears to be outlier NDVI val
 > > # open up file for Jday 277
 > > RGB_277 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif")/255
 > >
-> > # convert to a df for plotting in two steps,
-> > # First, to a SpatialPointsDataFrame
-> > RGB_277_df <- rasterToPoints(RGB_277, spatial = TRUE)  %>%
-> > # Then to a 'conventional' dataframe
-> > data.frame()
+> > RGB_277_df <- raster::as.data.frame(RGB_277, xy = TRUE)
 > >
 > > # Create RGB colors from the 3 channels
 > > RGB_277_df$rgb <- with(RGB_277_df, rgb(X277_HARV_landRGB.1,X277_HARV_landRGB.2,X277_HARV_landRGB.3,1))
@@ -355,11 +329,7 @@ derive our NDVI rasters to try to understand what appears to be outlier NDVI val
 > > # open up file for Jday 293
 > > RGB_293 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")/255
 > >
-> > # convert to a df for plotting in two steps,
-> > # First, to a SpatialPointsDataFrame
-> > RGB_293_df <- rasterToPoints(RGB_293, spatial = TRUE)  %>%
-> > # Then to a 'conventional' dataframe
-> > data.frame()
+> > RGB_293_df <- raster::as.data.frame(RGB_293, xy = TRUE)
 > >
 > > # Create RGB colors from the 3 channels
 > > RGB_293_df$rgb <- with(RGB_293_df, rgb(X293_HARV_landRGB.1,X293_HARV_landRGB.2,X293_HARV_landRGB.3,1))
@@ -372,11 +342,7 @@ derive our NDVI rasters to try to understand what appears to be outlier NDVI val
 > > # open up file for Jday 133
 > > RGB_133 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
 > >
-> > # convert to a df for plotting in two steps,
-> > # First, to a SpatialPointsDataFrame
-> > RGB_133_df <- rasterToPoints(RGB_133, spatial = TRUE)  %>%
-> > # Then to a 'conventional' dataframe
-> > data.frame()
+> > RGB_133_df <- raster::as.data.frame(RGB_133, xy = TRUE)
 > >
 > > quantiles = c(0.02, 0.98)
 > > r <- quantile(RGB_133_df$X133_HARV_landRGB.1, quantiles, na.rm = TRUE)
@@ -399,11 +365,7 @@ derive our NDVI rasters to try to understand what appears to be outlier NDVI val
 > > # open up file for Jday 197
 > > RGB_197 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/197_HARV_landRGB.tif")
 > >
-> > # convert to a df for plotting in two steps,
-> > # First, to a SpatialPointsDataFrame
-> > RGB_197_df <- rasterToPoints(RGB_197, spatial = TRUE)  %>%
-> > # Then to a 'conventional' dataframe
-> > data.frame()
+> > RGB_197_df <- raster::as.data.frame(RGB_197, xy = TRUE)
 > >
 > > r <- quantile(RGB_197_df$X197_HARV_landRGB.1, quantiles, na.rm = TRUE)
 > > g <- quantile(RGB_197_df$X197_HARV_landRGB.2, quantiles, na.rm = TRUE)
@@ -423,8 +385,6 @@ derive our NDVI rasters to try to understand what appears to be outlier NDVI val
 > >     geom_raster(data = RGB_197_df, aes(x, y), fill = RGB_197_df$rgb)
 > > 	
 > > grid.arrange(p_277,p_293,p_133,p_197, ncol = 2)
-> >
-> >
 > > ```
 > {: .solution}
 {: .challenge}
