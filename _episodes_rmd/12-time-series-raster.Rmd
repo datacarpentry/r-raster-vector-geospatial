@@ -72,7 +72,7 @@ function in `R`. This list will be used to generate a `RasterStack`. We will
 only add files to our list with a `.tif` extension using the syntax
 `pattern=".tif$"`.
 
-If we specify `full.names=TRUE`, the full path for each file will be added to
+If we specify `full.names = TRUE`, the full path for each file will be added to
 the list.
 
 ```{r import-NDVI-rasters }
