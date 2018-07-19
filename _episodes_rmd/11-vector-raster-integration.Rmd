@@ -34,14 +34,9 @@ lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 aoi_boundary_HARV <- st_read(
   "data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 
-# CHM (calculated)
-DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
-DSM_HARV_df <- raster::as.data.frame(DSM_HARV, xy = TRUE)
-
-DTM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
-DTM_HARV_df <- raster::as.data.frame(DTM_HARV, xy = TRUE)
-
-CHM_HARV <- DSM_HARV - DTM_HARV
+# CHM
+CHM_HARV <-
+  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 
 CHM_HARV_df <- raster::as.data.frame(CHM_HARV, xy = TRUE)
 
@@ -67,15 +62,7 @@ points.
 ## Crop a Raster to Vector Extent
 We often work with spatial layers that have different spatial extents.
 
-<figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-vector/spatial_extent.png">
-    <img src="{{ site.baseurl }}/images/dc-spatial-vector/spatial_extent.png"></a>
-    <figcaption>The spatial extent of a shapefile or R spatial object represents
-    the geographic "edge" or location that is the furthest north, south east and
-    west. Thus is represents the overall geographic coverage of the spatial
-    object. Image Source: National Ecological Observatory Network (NEON)
-    </figcaption>
-</figure>
+![The spatial extent of a shapefile or R spatial object represents the geographic "edge" or location that is the furthest north, south east and west. Thus is represents the overall geographic coverage of the spatial object. Image Source: National Ecological Observatory Network (NEON)](../images/dc-spatial-vector/spatial_extent.png)
 
 The graphic below illustrates the extent of several of the spatial layers that
 we have worked with in this workshop:
@@ -139,7 +126,7 @@ ggplot() +
   geom_sf(data = st_convex_hull(st_union(CHM_rand_sample)), color = "green") + 
   geom_raster(data = CHM_HARV_Crop_df, aes(x = x, y = y, fill = layer)) + 
      scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
-  ggtitle("LiDAR CHM - Cropped\nNEON Harvard Forest Field Site")
+  ggtitle("LiDAR CHM - Cropped", subtitle = "NEON Harvard Forest Field Site")
 ```
 
 The plot above shows that the full CHM extent (plotted in green) is
@@ -266,15 +253,7 @@ ggplot() +
 Often we want to extract values from a raster layer for particular locations -
 for example, plot locations that we are sampling on the ground.
 
-<figure>
-    <a href="https://www.neonscience.org/sites/default/files/images/spatialData/BufferSquare.png">
-    <img src="https://www.neonscience.org/sites/default/files/images/spatialData/BufferSquare.png"></a>
-    <figcaption> Extract raster information using a polygon boundary. We can
-    extract all pixel values within 20m of our x,y point of interest. These can
-    then be summarized into some value of interest (e.g. mean, maximum, total).
-    Source: National Ecological Observatory Network (NEON).
-    </figcaption>
-</figure>
+![Extract raster information using a polygon boundary. We can extract all pixel values within 20m of our x,y point of interest. These can then be summarized into some value of interest (e.g. mean, maximum, total). Source: National Ecological Observatory Network (NEON)](https://www.neonscience.org/sites/default/files/images/spatialData/BufferSquare.png)
 
 To do this in `R`, we use the `extract()` function. The `extract()` function
 requires:
@@ -282,8 +261,8 @@ requires:
 * The raster that we wish to extract values from,
 * The vector layer containing the polygons that we wish to use as a boundary or
 boundaries,
-* we can tell it to store the output values in a `data.frame` using
-`df=TRUE` (This is optional, the default is to return a list, NOT a dataframe.) .
+* we can tell it to store the output values in a dataframe using
+`df=TRUE`. (This is optional, the default is to return a list, NOT a dataframe.) .
 
 We will begin by extracting all canopy height pixel values located within our
 `aoi_boundary_HARV` polygon which surrounds the tower located at the NEON Harvard
@@ -351,14 +330,7 @@ we define the summary argument (`fun = mean`) and the buffer distance (`buffer =
 which represents the radius of a circular region around each point. By default, the units of the
 buffer are the same units as the data's CRS.
 
-<figure>
-    <a href="https://www.neonscience.org/sites/default/files/images/spatialData/BufferCircular.png">
-    <img src="https://www.neonscience.org/sites/default/files/images/spatialData/BufferCircular.png"></a>
-    <figcaption> Extract raster information using a buffer region. All pixels
-    that are touched by the buffer region are included in the extract.
-    Source: National Ecological Observatory Network (NEON).
-    </figcaption>
-</figure>
+![Extract raster information using a buffer region. All pixels that are touched by the buffer region are included in the extract. Source: National Ecological Observatory Network (NEON).](https://www.neonscience.org/sites/default/files/images/spatialData/BufferCircular.png)
 
 Let's put this into practice by figuring out the mean tree height in the
 20m around the tower location (`point_HARV`). Because we are extracting only a single number, we
