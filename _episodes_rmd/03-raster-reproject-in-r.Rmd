@@ -50,9 +50,7 @@ DSM and DTM. Here, we will create a map of the Harvard Forest Digital
 Terrain Model
 (`DTM_HARV`) draped or layered on top of the hillshade (`DTM_hill_HARV`).
 
-```{r, out.width = 7, fig.cap = "Source: National Ecological Observatory Network (NEON)"}
-knitr::include_graphics("../images/dc-spatial-raster/lidarTree-height.png")
-```
+![Source: National Ecological Observatory Network (NEON).](../images/dc-spatial-raster/lidarTree-height.png)
 
 First, we need to import the DTM and DTM hillshade data.
 
@@ -68,13 +66,9 @@ Next, we will convert each of these datasets to a dataframe.
 
 ```{r}
 # convert to data.frames
-DTM_HARV_df <- DTM_HARV  %>% 
-  rasterToPoints(., spatial = TRUE) %>% 
-  data.frame()
+DTM_HARV_df <- raster::as.data.frame(DTM_HARV, xy = TRUE)
 
-DTM_hill_HARV_df <- DTM_hill_HARV  %>% 
-  rasterToPoints(., spatial = TRUE) %>% 
-  data.frame()
+DTM_hill_HARV_df <- raster::as.data.frame(DTM_hill_HARV, xy = TRUE)
 ```
 
 Now we can create a map of the DTM layered over the hillshade.
@@ -242,9 +236,7 @@ data sets together. For plotting with `ggplot()`, we will need to
 create a dataframe from our newly reprojected raster.
 
 ```{r make-df-projected-raster}
-DTM_hill_HARV_2_df <- DTM_hill_UTMZ18N_HARV  %>%
-                          rasterToPoints(., spatial = TRUE) %>% 
-                          data.frame()
+DTM_hill_HARV_2_df <- raster::as.data.frame(DTM_hill_UTMZ18N_HARV, xy = TRUE)
 ```
 
 We can then create a plot of this data.
@@ -268,8 +260,8 @@ hillshade to produce a nice looking, textured map!
 
 > ## Challenge: Reproject, then Plot a Digital Terrain Model
 > Create a map of the
-> <a href="http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range</a>
-field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files.
+> [San Joaquin Experimental Range](http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range)
+> field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files.
 > 
 > Reproject the data as necessary to make things line up!
 > > ## Answers
@@ -286,13 +278,9 @@ field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files.
 > >                                   res = 1)
 > > 
 > > # convert to data.frames
-> > DSM_SJER_df <- DSM_SJER %>% 
-> >   rasterToPoints(., spatial = TRUE) %>% 
-> >   data.frame()
+> > DSM_SJER_df <- raster::as.data.frame(DSM_SJER, xy = TRUE)
 > > 
-> > DSM_hill_SJER_df <- DTM_hill_UTMZ18N_SJER  %>% 
-> >   rasterToPoints(., spatial = TRUE) %>% 
-> >   data.frame()
+> > DSM_hill_SJER_df <- raster::as.data.frame(DTM_hill_UTMZ18N_SJER, xy = TRUE)
 > > 
 > > ggplot() +
 > >      geom_raster(data = DSM_hill_SJER_df, 

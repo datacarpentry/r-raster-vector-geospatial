@@ -176,15 +176,15 @@ This map shows the elevation of our study site in Harvard Forest. From the
 legend, we can see that the maximum elevation is ~400, but we can't tell whether
 this is 400 feet or 400 meters because the legend doesn't show us the units. We
 can look at the metadata of our object to see what the units are. Much of the
-metadata that we're interested in is part of the `CRS`. We introduced the
-concept of a `CRS` in [an earlier
+metadata that we're interested in is part of the CRS. We introduced the
+concept of a CRS in [an earlier
 lesson](https://datacarpentry.org/organization-geospatial/01-spatial-data-structures-formats/index.html).
 
 Now we will see how features of the CRS appear in our data file and what
 meanings they have.
 
 ### View Raster Coordinate Reference System (CRS) in R
-We can view the `CRS` string associated with our `R` object using the`crs()`
+We can view the CRS string associated with our `R` object using the`crs()`
 function.
 
 ```{r view-resolution-units}
@@ -223,13 +223,8 @@ the data is WGS84
 Note that the `zone` is unique to the UTM projection. Not all CRSs will have a
 zone.
 
-<figure>
-<a href="https://en.wikipedia.org/wiki/File:Utm-zones-USA.svg">
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Utm-zones-USA.svg/720px-Utm-zones-USA.svg.png"></a>
-<figcaption> The UTM zones across the continental United States. Source:
-Chrismurf, wikimedia.org.
-</figcaption>
-</figure>
+
+![The UTM zones across the continental United States. Source: Chrismurf wikimedia.org.](https://en.wikipedia.org/wiki/File:Utm-zones-USA.svg)
 
 ## Calculate Raster Min and Max Values
 
@@ -264,12 +259,7 @@ The Digital Surface Model object (`DSM_HARV`) that we've been working with is a
 single band raster. This means that there is only one dataset stored in the
 raster: surface elevation in meters for one time period.
 
-<figure>
-    <a href="../images/dc-spatial-raster/single_multi_raster.png">
-    <img src="../images/dc-spatial-raster/single_multi_raster.png"></a>
-    <figcaption>Source: National Ecological Observatory Network (NEON).
-    </figcaption>
-</figure>
+![Source: National Ecological Observatory Network (NEON)](../images/dc-spatial-raster/single_multi_raster.png)
 
 A raster dataset can contain one or more bands. We can use the `raster()`
 function to import one single band from a single OR multi-band raster. We can
@@ -478,7 +468,7 @@ no bad data values in this particular raster.
 >
 > Use `GDALinfo() to determine the following about the  `NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif` file:
 >
-> 1. Does this file has the same `CRS` as `DSM_HARV`?
+> 1. Does this file has the same CRS as `DSM_HARV`?
 > 2. What is the `NoDataValue`?
 > 3. What is resolution of the raster data?
 > 4. How large would a 5x5 pixel area be on the Earth's surface?
@@ -501,10 +491,5 @@ GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 {: .challenge}
 
 > ## More Resources
-> * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
-> Read more about the `raster` package in `R`.</a>
-> * <a href="http://neondataskills.org/R/Raster-Data-In-R/" target="_blank" >
-> NEON Data Skills: Raster Data in R - The Basics</a>
-> * <a href="http://neondataskills.org/R/Image-Raster-Data-In-R/" target="_blank" >
-> NEON Data Skills: Image Raster Data in R - An Intro</a>
+> * [Read more about the `raster` package in `R`.](http://cran.r-project.org/web/packages/raster/raster.pdf)
 {: .callout}
