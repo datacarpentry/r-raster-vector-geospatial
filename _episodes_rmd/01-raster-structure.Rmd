@@ -126,7 +126,7 @@ To visualise this data in R using `ggplot2`, we need to convert it to a
 dataframe. We learned about dataframes in [an earlier
 lesson](https://datacarpentry.org/r-intro-geospatial/04-data-structures-part2/index.html).
 
-`raster` has an built-in function for conversion to a plottable `data.frame`.
+`raster` has an built-in function for conversion to a plotable `data.frame`.
 
 ```{r}
 DSM_HARV_df <- raster::as.data.frame(DSM_HARV, xy = TRUE)
@@ -155,7 +155,7 @@ We can use `ggplot()` to plot this data:
 ggplot() +
     geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = HARV_dsmCrop)) +
     scale_fill_viridis_c() +
-    coord_sf()
+    coord_equal()
 ```
 
 > ## Data Tip
@@ -166,9 +166,9 @@ ggplot() +
 > ```{r 'ggspat', eval = FALSE}
 > library(ggspatial)
 > ggplot() +
->   layer_spatial(data = DSM_HARV, na.rm = TRUE) +
+>   geom_spatial(data = DSM_HARV, aes(fill = band1)) +
 >   scale_fill_viridis_c() +
->   coord_sf()
+>   coord_equal()
 > ```
 {: .callout}
 
@@ -176,15 +176,15 @@ This map shows the elevation of our study site in Harvard Forest. From the
 legend, we can see that the maximum elevation is ~400, but we can't tell whether
 this is 400 feet or 400 meters because the legend doesn't show us the units. We
 can look at the metadata of our object to see what the units are. Much of the
-metadata that we're interested in is part of the `CRS`. We introduced the
-concept of a `CRS` in [an earlier
+metadata that we're interested in is part of the CRS. We introduced the
+concept of a CRS in [an earlier
 lesson](https://datacarpentry.org/organization-geospatial/01-spatial-data-structures-formats/index.html).
 
 Now we will see how features of the CRS appear in our data file and what
 meanings they have.
 
 ### View Raster Coordinate Reference System (CRS) in R
-We can view the `CRS` string associated with our `R` object using the`crs()`
+We can view the CRS string associated with our `R` object using the`crs()`
 function.
 
 ```{r view-resolution-units}
@@ -223,13 +223,8 @@ the data is WGS84
 Note that the `zone` is unique to the UTM projection. Not all CRSs will have a
 zone.
 
-<figure>
-<a href="https://en.wikipedia.org/wiki/File:Utm-zones-USA.svg">
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Utm-zones-USA.svg/720px-Utm-zones-USA.svg.png"></a>
-<figcaption> The UTM zones across the continental United States. Source:
-Chrismurf, wikimedia.org.
-</figcaption>
-</figure>
+
+![The UTM zones across the continental United States. Source: Chrismurf wikimedia.org.](https://en.wikipedia.org/wiki/File:Utm-zones-USA.svg)
 
 ## Calculate Raster Min and Max Values
 
@@ -264,12 +259,7 @@ The Digital Surface Model object (`DSM_HARV`) that we've been working with is a
 single band raster. This means that there is only one dataset stored in the
 raster: surface elevation in meters for one time period.
 
-<figure>
-    <a href="../images/dc-spatial-raster/single_multi_raster.png">
-    <img src="../images/dc-spatial-raster/single_multi_raster.png"></a>
-    <figcaption>Source: National Ecological Observatory Network (NEON).
-    </figcaption>
-</figure>
+![Source: National Ecological Observatory Network (NEON)](../images/dc-spatial-raster/single_multi_raster.png)
 
 A raster dataset can contain one or more bands. We can use the `raster()`
 function to import one single band from a single OR multi-band raster. We can
@@ -322,8 +312,9 @@ ggplot() +
              show.legend = FALSE) +
   scale_fill_gradient(low = 'black', high = "red") +
   ggtitle("Orthographic Imagery", subtitle = 'Red Band') +
-  coord_sf()
-
+  coord_equal()
+# more memory saving
+rm(RGB_df)
 ```
 
 In the next image, the black edges have been assigned `NoDataValue`. `R` doesn't
@@ -343,16 +334,16 @@ RGB_2m_df_nd$hex <- rgb(RGB_2m_df_nd$red,
 RGB_2m_df_nd$hex[RGB_2m_df_nd$hex == '#000000'] <- NA_character_ 
 
 ggplot() +
-  geom_raster(data = RGB_2m_df_nd, aes(x = x, y = y, fill = hex), na.rm = TRUE) +
+  geom_raster(data = RGB_2m_df_nd, aes(x = x, y = y, fill = hex)) +
   scale_fill_identity() +
   ggtitle("Orthographic Imagery", subtitle = "All bands") +
-  coord_sf()
+  coord_equal()
 
 ```
 
-If your raster already has NA values set correctly but you aren't sure where they are, you can use `ggplot` to highlight them in a particular colour. This can be useful when checking a dataset's coverage. For instance, sometimes data can be missing where a sensor could not 'see' its target data, and you may wish to locate that missing data and fill it in.
+If your raster already has NA values set correctly but you aren't sure where they are, you can use `ggspatial` to deliberately plot them in a particular colour. This can be useful when checking a dataset's coverage. For instance, sometimes data can be missing where a sensor could not 'see' its target data, and you may wish to locate that missing data and fill it in.
 
-To highlight `NA` values in `ggplot`, alter the `scale_fill_*()` layer to contain a colour instruction for na values, like `scale_fill_viridis_c(na.value = 'deeppink')`
+To highlight NA values in gpplot, alter the `scale_fill_*()` layer to contain a colour instruction for na values, like `scale_fill_viridis_c(na.value = 'deeppink')`
 
 ```{r 'napink', eval = FALSE}
 # function to replace 0 with NA where all three values are 0 only
@@ -361,13 +352,12 @@ RGB_2m_nas <- calc(RGB_2m,
                            x[rowSums(x == 0) == 3, ] <- rep(NA, nlayers(RGB_2m))
                            x
                    })
-RGB_2m_nas_df <- raster::as.data.frame(RGB_2m_nas, xy = TRUE)                   
-
+                   
 ggplot() +
-  geom_raster(data = RGB_2m_nas_df, aes(x =x , y = y, fill = HARV_RGB_Ortho.3)) +
+  geom_spatial(data = RGB_2m_nas, aes(fill = band3), na.rm = FALSE) +
   scale_fill_gradient(low = 'grey90', high = 'blue', na.value = 'deeppink') +
   ggtitle("Orthographic Imagery", subtitle = "Blue band, with NA highlighted") +
-  coord_sf()
+  coord_equal()
 ```
 
 The value that is conventionally used to take note of missing data (the
@@ -432,13 +422,12 @@ DSM_highvals <- raster::as.data.frame(DSM_highvals, xy = TRUE)
 DSM_highvals <- DSM_highvals[!is.na(DSM_highvals$layer), ]
 
 ggplot() +
-  geom_raster(data = DSM_HARV_df, aes(x = x, y = y, fill = HARV_dsmCrop)) +
+  geom_spatial(data = DSM_HARV, aes(fill = band1)) +
   scale_fill_viridis_c() + 
   # use reclassified raster data as an annotation
-  annotate(geom = 'raster', x = DSM_highvals$x, y = DSM_highvals$y, 
-           fill = scales::colour_ramp('deeppink')(DSM_highvals$layer)) +
+  annotate(geom = 'raster', x = DSM_highvals$x, y = DSM_highvals$y, fill = scales::colour_ramp('deeppink')(DSM_highvals$layer)) +
   ggtitle("Elevation Data", subtitle = "Highlighting values > 400m") +
-  coord_sf()
+  coord_equal()
 ```
 
 ## Create A Histogram of Raster Values
@@ -479,7 +468,7 @@ no bad data values in this particular raster.
 >
 > Use `GDALinfo() to determine the following about the  `NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif` file:
 >
-> 1. Does this file has the same `CRS` as `DSM_HARV`?
+> 1. Does this file has the same CRS as `DSM_HARV`?
 > 2. What is the `NoDataValue`?
 > 3. What is resolution of the raster data?
 > 4. How large would a 5x5 pixel area be on the Earth's surface?
@@ -502,10 +491,5 @@ GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 {: .challenge}
 
 > ## More Resources
-> * <a href="http://cran.r-project.org/web/packages/raster/raster.pdf" target="_blank">
-> Read more about the `raster` package in `R`.</a>
-> * <a href="http://neondataskills.org/R/Raster-Data-In-R/" target="_blank" >
-> NEON Data Skills: Raster Data in R - The Basics</a>
-> * <a href="http://neondataskills.org/R/Image-Raster-Data-In-R/" target="_blank" >
-> NEON Data Skills: Image Raster Data in R - An Intro</a>
+> * [Read more about the `raster` package in `R`.](http://cran.r-project.org/web/packages/raster/raster.pdf)
 {: .callout}

@@ -110,18 +110,10 @@ Our `aoi_boundary_HARV` is an `sf` polygon object,
 in the CRS **UTM zone 18N**. The CRS is critical to interpreting the object
 `extent` values as it specifies units.
 
-<figure>
-    <a href="{{ site.baseurl }}/images/dc-spatial-vector/spatial_extent.png">
-    <img src="{{ site.baseurl }}/images/dc-spatial-vector/spatial_extent.png"></a>
-    <figcaption>The spatial extent of a shapefile or R spatial object represents
-    the geographic "edge" or location that is the furthest north, south east and
-    west. Thus is represents the overall geographic coverage of the spatial object.
-    Image Source: National Ecological Observatory Network (NEON)
-    </figcaption>
-</figure>
+![The spatial extent of a shapefile or R spatial object represents the geographic "edge" or location that is the furthest north, south east and west. Thus is represents the overall geographic coverage of the spatial object. Image Source: National Ecological Observatory Network (NEON)](../images/dc-spatial-vector/spatial_extent.png)
 
 ## Spatial Data Attributes
-We introduced the idea of spatial data attributes in [a previous lesson](https://datacarpentry.org/organization-geospatial/01-spatial-data-structures-formats/index.html). Now we will explore
+We introduced the idea of spatial data attributes in [an earlier lesson](https://datacarpentry.org/organization-geospatial/01-spatial-data-structures-formats/index.html). Now we will explore
 how to use spatial data attributes stored in our data to plot
 different features.
 
@@ -152,10 +144,6 @@ summary(aoi_boundary_HARV)
 Next, let's visualize the data in our `sf` object using the `ggplot` package.
 
 ``` {r plot-shapefile}
-# create a plot of the shapefile
-# 'size' sets the line width
-# 'fill' sets internal color
-# 'color' sets line color
 ggplot() + 
   geom_sf(data = aoi_boundary_HARV, size = 3, color = "black", fill = "cyan1") + 
   ggtitle("AOI Boundary Plot")
@@ -198,8 +186,8 @@ ggplot() +
 > > # 3
 > > #lines_HARV contains only lines and point_HARV contains only 1 point
 > > 
-> > # 4 -> numerous ways to find this; lines_HARV=13,
-> > nrow(lines_HARV)  #easiest, but not previously taught
+> > # 4 -> numerous ways to find this
+> > nrow(lines_HARV)
 > > lines_HARV  #look at 'features'
 > > 
 > > ```
