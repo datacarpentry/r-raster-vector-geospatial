@@ -47,10 +47,8 @@ The shapefiles that we will import are:
 
 * A polygon shapefile representing our field site boundary,
 * A line shapefile representing roads, and
-* A point shapefile representing the location of the Fisher
-<a href="http://www.neonscience.org/science-design/collection-methods/flux-tower-measurements" target="_blank">flux tower</a>
-located at the
-<a href="http://www.neonscience.org/science-design/field-sites/harvard-forest" target="_blank"> NEON Harvard Forest field site</a>.
+* A point shapefile representing the location of the Fisher [flux tower](http://www.neonscience.org/science-design/collection-methods/flux-tower-measurements)
+located at the [NEON Harvard Forest field site](http://www.neonscience.org/science-design/field-sites/harvard-forest).
 
 The first shapefile that we will open contains the boundary of our study area
 (or our Area Of Interest or AOI, hence the name `aoiBoundary`). To import
@@ -61,7 +59,6 @@ shapefiles we use the `sf` function `st_read`.
 Let's import our AOI.
 
 ```{r Import-Shapefile}
-# Import a polygon shapefile
 aoi_boundary_HARV <- st_read(
   "data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 ```
