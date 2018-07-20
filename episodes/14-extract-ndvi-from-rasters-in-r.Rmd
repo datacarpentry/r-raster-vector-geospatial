@@ -169,10 +169,10 @@ Currently, the values in the Julian day column are stored as a `character` class
 Storing this data as a date object is better - for plotting, data subsetting and
 working with our data. Let's convert.
 
-For more information on date-time classes, see the NEON Data Skills episode
-[Convert Date & Time Data from Character Class to Date-Time Class (POSIX) in R]({{ site.baseurl }}/R/time-series-convert-date-time-class-POSIX/).
+For more information on date-time classes, see the NEON Data Skills tutorial
+[Convert Date & Time Data from Character Class to Date-Time Class (POSIX) in R](https://www.neonscience.org/dc-convert-date-time-POSIX-r).
 
-To convert a Julian Day number to a date class, we need to set the **origin**
+To convert a Julian Day number to a date class, we need to set the origin
 of the day which "counting" Julian Days began. Our data is from 2011, and we
 know that the USGS Landsat Team created Julian Day values for this year.
 Therefore, the first day or "origin" for our Julian day count is 01 January 2011.
@@ -216,7 +216,7 @@ error we then subtract 1 to get the correct day, January 05 2011.
 > We often want to compare two different sites. The National Ecological
 > Observatory Network (NEON) also has a field site in Southern California
 > at the
-> <a href="http://www.neonscience.org/science-design/field-sites/san-joaquin-experimental-range" target="_blank" >San Joaquin Experimental Range (SJER) </a>.
+> [San Joaquin Experimental Range (SJER)](http://www.neonscience.org/science-design/field-sites/san-joaquin-experimental-range).
 > 
 > For this challenge, compare NDVI values for the NEON Harvard Forest and San
 > Joaquin Experimental Range field sites. NDVI data for SJER are located in the
@@ -273,19 +273,13 @@ error we then subtract 1 to get the correct day, January 05 2011.
 We now have a clean data.frame with properly scaled NDVI and Julian days. Let's
 plot our data.
 
-We will use the `ggplot()` function within the `ggplot2` package for this plot.
-If you are unfamiliar with `ggplot()` or would like to learn more about plotting
-in `ggplot()` see the episode on
-[Plotting Time Series with ggplot in R]({{ site.baseurl }}/R/time-series-plot-ggplot/).
-
 ```{r ggplot-data }
 
-# plot NDVI
-ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI), na.rm=TRUE) +
-  geom_point(size=4, colour = "PeachPuff4") +
-  ggtitle("Landsat Derived NDVI - 2011\n NEON Harvard Forest Field Site") +
+ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI), na.rm = TRUE) +
+  geom_point(size = 4, colour = "PeachPuff4") +
+  ggtitle("Landsat Derived NDVI - 2011", subtitle = "NEON Harvard Forest Field Site") +
   xlab("Julian Days") + ylab("Mean NDVI") +
-  theme(text = element_text(size=20))
+  theme(text = element_text(size = 20))
 
 ```
 
@@ -301,10 +295,10 @@ different color.
 > > 
 > > # plot NDVI
 > > ggplot(avg_NDVI_SJER, aes(julianDay, meanNDVI)) +
-> >   geom_point(size=4, colour = "SpringGreen4") +
-> >   ggtitle("Landsat Derived NDVI - 2011\n NEON SJER Field Site") +
+> >   geom_point(size = 4, colour = "SpringGreen4") +
+> >   ggtitle("Landsat Derived NDVI - 2011", subtitle = "NEON SJER Field Site") +
 > >   xlab("Julian Day") + ylab("Mean NDVI") +
-> >   theme(text = element_text(size=20))
+> >   theme(text = element_text(size = 20))
 > > 
 > > ```
 > {: .solution}
@@ -324,7 +318,7 @@ NDVI_HARV_SJER <- rbind(avg_NDVI_HARV, avg_NDVI_SJER)
 ggplot(NDVI_HARV_SJER, aes(julianDay, meanNDVI, colour = site)) +
   geom_point(size = 4, aes(group = site)) +
   geom_line(aes(group = site)) +
-  ggtitle("Landsat Derived NDVI - 2011\n Harvard Forest vs San Joaquin \n NEON Field Sites") +
+  ggtitle("Landsat Derived NDVI - 2011", subtitle = "Harvard Forest vs San Joaquin") +
   xlab("Julian Day") + ylab("Mean NDVI") +
   scale_colour_manual(values = c("PeachPuff4", "SpringGreen4"))+
 	# scale_colour : match previous plots
@@ -344,7 +338,7 @@ ggplot(NDVI_HARV_SJER, aes(julianDay, meanNDVI, colour = site)) +
 > > ggplot(NDVI_HARV_SJER, aes(Date, meanNDVI, colour=site)) +
 > >   geom_point(size = 4, aes(group = site)) +
 > >   geom_line(aes(group = site)) +
-> >   ggtitle("Landsat Derived NDVI - 2011\n Harvard Forest vs San Joaquin \n NEON Field Sites") +
+> >   ggtitle("Landsat Derived NDVI - 2011", subtitle = "Harvard Forest vs San Joaquin") +
 > >   xlab("Date") + ylab("Mean NDVI") +
 > >   scale_colour_manual(values = c("PeachPuff4", "SpringGreen4"))+  # match previous plots
 > >   theme(text = element_text(size = 20))
@@ -456,7 +450,7 @@ Now we can create another plot without the suspect data.
 
 ggplot(avg_NDVI_HARV_clean, aes(julianDay, meanNDVI)) +
   geom_point(size = 4, colour = "SpringGreen4") +
-  ggtitle("Landsat Derived NDVI - 2011\n NEON Harvard Forest Field Site") +
+  ggtitle("Landsat Derived NDVI - 2011", subtitle = "NEON Harvard Forest Field Site") +
   xlab("Julian Days") + ylab("Mean NDVI") +
   theme(text = element_text(size=20))
 
@@ -479,9 +473,6 @@ Before saving our file, let's quickly view the format to make sure it is what we
 want as an output format.
 
 ``` {r write-csv }
-
-# confirm data frame is the way we want it
-
 head(avg_NDVI_HARV_clean)
 
 ```
@@ -492,19 +483,14 @@ the row names.
 
 ``` {r drop-rownames-write-csv}
 
-# create new df to prevent changes to avg_NDVI_HARV
 NDVI_HARV_toWrite<-avg_NDVI_HARV_clean
 
-# drop the row.names column
 row.names(NDVI_HARV_toWrite)<-NULL
 
-# check data frame
 head(NDVI_HARV_toWrite)
 ```
 
 ```{r eval=FALSE}
-# create a .csv of mean NDVI values being sure to give descriptive name
-# write.csv(DateFrameName, file="NewFileName")
 write.csv(NDVI_HARV_toWrite, file="meanNDVI_HARV_2011.csv")
 ```
 
@@ -517,23 +503,21 @@ write.csv(NDVI_HARV_toWrite, file="meanNDVI_HARV_2011.csv")
 > 
 > > ## Answers
 > > 
-> > ``` {r challenge-code-write-sjer, echo=TRUE}
+> > ``` {r challenge-code-write-sjer, echo = TRUE}
 > > 
-> > # retain only rows with meanNDVI>0.1
-> > avg_NDVI_SJER_clean<-subset(avg_NDVI_SJER, meanNDVI>0.1)
+> > # retain only rows with meanNDVI > 0.1
+> > avg_NDVI_SJER_clean <- subset(avg_NDVI_SJER, meanNDVI > 0.1)
 > > 
 > > # create new df to prevent changes to avg_NDVI_HARV
-> > NDVI_SJER_toWrite<-avg_NDVI_SJER_clean
+> > NDVI_SJER_toWrite <- avg_NDVI_SJER_clean
 > > 
 > > # drop the row.names column
-> > row.names(NDVI_SJER_toWrite)<-NULL
+> > row.names(NDVI_SJER_toWrite) <- NULL
 > > 
 > > # check data frame
 > > head(NDVI_SJER_toWrite)
 > > 
-> > # create a .csv of mean NDVI values being sure to give descriptive name
-> > # write.csv(DateFrameName, file="NewFileName")
-> > write.csv(NDVI_SJER_toWrite, file="meanNDVI_SJER_2011.csv")
+> > write.csv(NDVI_SJER_toWrite, file = "meanNDVI_SJER_2011.csv")
 > > 
 > > ```
 > {: .solution}

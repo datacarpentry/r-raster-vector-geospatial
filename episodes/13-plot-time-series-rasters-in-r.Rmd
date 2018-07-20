@@ -47,11 +47,8 @@ NDVI_HARV_stack <- stack(all_NDVI_HARV)
 # apply scale factor
 NDVI_HARV_stack <- NDVI_HARV_stack/10000
 
-# convert to a df for plotting in two steps,
-# First, to a SpatialPointsDataFrame
-NDVI_HARV_stack_df <- rasterToPoints(NDVI_HARV_stack, spatial = TRUE) %>%
-# Then to a 'conventional' dataframe
-    data.frame() %>%
+# convert to a df for plotting 
+NDVI_HARV_stack_df <- raster::as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
 # Then reshape data to stack all the X*_HARV_ndvi_crop columns into
 # one single column called 'variable'
     melt(id.vars = c('x','y','optional'))
@@ -68,22 +65,6 @@ ggplot() +
 # based on the factor called 'variable'
   facet_wrap(~variable)
 ```
-
-> ## Data Tip
-> The range of values for NDVI is 0-1.
-> However, the data stored in our raster ranges from 0 - 10,000. If we view the
-> metadata for the original .tif files, we will see a scale factor of 10,000 is
-> defined.
-> Multiplying values with decimal places by a factor of 10, allows the data to be
-> stored in integer format (no decimals) rather than a floating point format
-> (containing decimals). This keeps the file size smaller.
-{: .callout}
-
-Our plot is nice however, it's missing some key elements including, easily
-readable titles. We can customize it with `ggplot2` package to make our plot prettier!
-
-* <a href="https://ggplot2.tidyverse.org/" target="_blank">More on
-the `ggplot2` package</a>
 
 We use `ggtitle("TITLE")` to add a title to the entire plot series and `theme` to
 center the title.
@@ -117,7 +98,7 @@ ggplot() +
 # we use ggplot2 faceting technique to split the plot into multiple plots
 # based on the factor called 'variable'
   facet_wrap(~variable) +
-  ggtitle("Landsat NDVI -- Improved Colors \nNEON Harvard Forest Field Site") +
+  ggtitle("Landsat NDVI -- Improved Colors", subtitle = "NEON Harvard Forest Field Site") +
 # justify horizontally the title by giving a value of 0.5 (hjust is between [0,1])
   theme(plot.title = element_text(hjust = 0.5)) +
   scale_fill_gradientn(name = "NDVI", colours = cols(20))
@@ -127,15 +108,14 @@ The yellow to green color ramp visually represents NDVI well given it's a
 measure of greenness. Someone looking at the plot can quickly understand that
 pixels that are more green, have a higher NDVI value.
 
-* For all of the `brewer.pal` ramp names see the
-<a href="http://www.datavis.ca/sasmac/brewerpal.html" target="_blank">
-brewerpal page</a>.
+> ## Data Tip
+> For all of the `brewer.pal` ramp names see the [brewerpal page](http://www.datavis.ca/sasmac/brewerpal.html).
+{: .callout}
 
 > ## Data Tip
 > Cynthia Brewer, the creater of
 > ColorBrewer, offers an online tool to help choose suitable color ramps, or to
-> create your own. <a href="http://colorbrewer2.org/" target="_blank">
-> ColorBrewer 2.0; Color Advise for Cartography </a>
+> create your own. [ColorBrewer 2.0; Color Advise for Cartography](http://colorbrewer2.org/)
 {: .callout}
 
 ## Refine Plot & Tile Labels
@@ -177,7 +157,7 @@ ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
   # add customized labels for each plot
   facet_wrap(~variable, labeller = labeller(variable=labels_names)) +
-  ggtitle("Landsat NDVI - Julian Days \nHarvard Forest 2011") +
+  ggtitle("Landsat NDVI - Julian Days", subtitle = "Harvard Forest 2011") +
   theme(plot.title = element_text(hjust = 0.5)) +
   scale_fill_gradientn(name = "NDVI", colours = cols(20))
 ```
@@ -191,27 +171,27 @@ ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
   # create a 5x3 layout for the data
   facet_wrap(~variable, nrow=3, ncol=5, labeller = labeller(variable=labels_names)) +
-  ggtitle("Landsat NDVI - Julian Days \nHarvard Forest 2011") +
+  ggtitle("Landsat NDVI - Julian Days", subtitle = "Harvard Forest 2011") +
   theme(plot.title = element_text(hjust = 0.5)) +
   scale_fill_gradientn(name = "NDVI", colours = cols(20))
 ```
 
 Finally, `scales` allows us to modify the x and y-axis scale. Let's simply
-remove the axis ticks from the plot with `scales =list(draw=FALSE)`.
+remove the axis ticks from the plot with `scales = list(draw=FALSE)`.
 
 ```{r remove-axis-ticks }
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
-  facet_wrap(~variable, nrow=3, ncol=5, labeller = labeller(variable=labels_names)) +
-  ggtitle("Landsat NDVI - Julian Days \nHarvard Forest 2011") +
+  facet_wrap(~variable, nrow = 3, ncol = 5, labeller = labeller(variable = labels_names)) +
+  ggtitle("Landsat NDVI - Julian Days", subtitle = "Harvard Forest 2011") +
   theme(plot.title = element_text(hjust = 0.5),
   # remove x and y-axis title, text and ticks
-        axis.title.x=element_blank(),
-        axis.text.x=element_blank(),
-        axis.ticks.x=element_blank(),
-        axis.title.y=element_blank(),
-        axis.text.y=element_blank(),
-        axis.ticks.y=element_blank()
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()
         ) +
   # set same scale for both x and y coordinates
   coord_equal() +
@@ -227,7 +207,7 @@ ggplot() +
 > following.
 > 2. Change the colorramp to a divergent brown to green color ramp to
 > represent the data. *Hint:* Use the
-> <a href="http://www.datavis.ca/sasmac/brewerpal.html" target="_blank"> brewerpal page</a>
+> [brewerpal page](http://www.datavis.ca/sasmac/brewerpal.html)
 > to help choose a color ramp.
 >
 > **Questions:**
@@ -245,7 +225,7 @@ ggplot() +
 > > ggplot() +
 > >  geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
 > >  facet_wrap(~variable, nrow=3, ncol=5, labeller = labeller(variable=labels_names)) +
-> >  ggtitle("Landsat NDVI - Julian Days \nHarvard Forest 2011") +
+> >  ggtitle("Landsat NDVI - Julian Days", subtitle = "Harvard Forest 2011") +
 > >  theme(plot.title = element_text(hjust = 0.5)) +
 > >  scale_fill_gradientn(name = "NDVI", colours = cols(20))
 > >
