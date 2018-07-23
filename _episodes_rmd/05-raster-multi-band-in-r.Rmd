@@ -46,11 +46,9 @@ library(rgdal)
 
 In this episode, the multi-band data that we are working with is imagery
 collected using the
-<a href="http://www.neonscience.org/science-design/collection-methods/airborne-remote-sensing"
-target="_blank">NEON Airborne Observation Platform</a>
+[NEON Airborne Observation Platform](http://www.neonscience.org/science-design/collection-methods/airborne-remote-sensing)
 high resolution camera over the
-<a href="http://www.neonscience.org/science-design/field-sites/harvard-forest"
-target="_blank">NEON Harvard Forest field site</a>.
+[NEON Harvard Forest field site](http://www.neonscience.org/science-design/field-sites/harvard-forest).
 Each RGB image is a 3-band raster. The same steps would apply to
 working with a multi-spectral image with 4 or more bands - like Landsat imagery.
 
@@ -221,16 +219,13 @@ The image above looks pretty good. We can explore whether applying a stretch to
 the image might improve clarity and contrast using  `stretch="lin"` or
 `stretch="hist"`.
 
+![Image Stretch](../images/dc-spatial-raster/imageStretch_dark.jpg)
 
-```{r, out.width = 7}
-knitr::include_graphics("../images/dc-spatial-raster/imageStretch_dark.jpg")
-```
 When the range of pixel brightness values is closer to 0, a darker image is rendered by default. We can stretch 
 the values to extend to the full 0-255 range of potential values to increase the visual contrast of the image.
 
-```{r, out.width = 7}
-knitr::include_graphics("../images/dc-spatial-raster/imageStretch_light.jpg")
-```
+![Image Stretch light](../images/dc-spatial-raster/imageStretch_light.jpg)
+
 When the range of pixel brightness values is closer to 255, a
 lighter image is rendered by default. We can stretch the values to extend to
 the full 0-255 range of potential values to increase the visual contrast of
@@ -306,7 +301,7 @@ episode.
 > ## Data Tip
 > We can create a RasterStack from
 > several, individual single-band GeoTIFFs too. Check out:
-> [Raster Time Series Data in R]({{ site.baseurl }}/R/Raster-Times-Series-Data-In-R/)
+> [Raster Time Series Data in R]({{ site.baseurl }}/12-time-series-raster/)
 > for more information.
 {: .callout}
 
@@ -321,8 +316,7 @@ with a `RasterStack`. However a `RasterBrick` is often more efficient and faster
 to process - which is important when working with larger files.
 
 > ## More Resources
-> <a href="http://www.inside-r.org/packages/cran/raster/docs/brick" target="_blank">
-More on Raster Bricks</a>
+>[More on Raster Bricks](http://www.inside-r.org/packages/cran/raster/docs/brick)
 {: .callout}
 
 We can turn a `RasterStack` into a `RasterBrick` in `R` by using
@@ -349,7 +343,6 @@ object. Thus, the `RasterBrick` object size is much larger than the
 You use `plotRGB` to block a `RasterBrick` too.
 
 ``` {r plot-brick}
-# plot brick
 plotRGB(RGB_brick_HARV)
 
 ```

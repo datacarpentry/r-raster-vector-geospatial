@@ -5,9 +5,9 @@ exercises: 10
 questions:
 - "What do I do when vector data don't line up?"
 objectives:
-- "Know how to identify the `CRS` of a spatial dataset."
+- "Know how to identify the CRS of a spatial dataset."
 - "Be familiar with geographic vs. projected coordinate reference systems."
-- "Be familiar with the `proj4` string format which is one format used used to store / reference the `CRS` of a spatial object."
+- "Be familiar with the `proj4` string format which is one format used used to store / reference the CRS of a spatial object."
 keypoints:
 - ""
 ---
@@ -38,8 +38,8 @@ files with raster data in different projections.
 Now we will apply those same principles to working with vector data.
 We will create a base map of our study site using United States
 state and country boundary information accessed from the
-<a href="https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html" target="_blank"> United States Census Bureau</a>.
-We will learn how to map vector data that are in different `CRS`s and thus
+[United States Census Bureau](https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html).
+We will learn how to map vector data that are in different CRSs and thus
 don't line up on a map.
 
 We will continue to work with the three shapefiles that we loaded in the
@@ -52,7 +52,7 @@ lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 
 point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 
-chm_HARV <-
+CHM_HARV <-
 raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 ```
 
@@ -70,19 +70,10 @@ provider (for example, a government agency).
 For instance, many states in the US prefer to use a State Plane projection customized
 for that state.
 
-<figure>
-    <a href="https://media.opennews.org/cache/06/37/0637aa2541b31f526ad44f7cb2db7b6c.jpg">
-    <img src="https://media.opennews.org/cache/06/37/0637aa2541b31f526ad44f7cb2db7b6c.jpg">
-    </a>
+![Maps of the United States using data in different projections. Source: opennews.org](https://media.opennews.org/cache/06/37/0637aa2541b31f526ad44f7cb2db7b6c.jpg)
 
-    <figcaption>Maps of the United States using data in different projections.
-    Notice the differences in shape associated with each different projection.
-    These differences are a direct result of the calculations used to "flatten"
-    the data onto a 2-dimensional map. Often data are stored purposefully in a
-    particular projection that optimizes the relative shape and size of
-    surrounding geographic boundaries (states, counties, countries, etc).
-    Source: opennews.org</figcaption>
-</figure>
+Notice the differences in shape associated with each different projection. These differences are a direct result of the calculations used to "flatten" the data onto a 2-dimensional map. Often data are stored purposefully in a particular projection that optimizes the relative shape and size of surrounding geographic boundaries (states, counties, countries, etc). 
+
 
 In this episode we will learn how to identify and manage spatial data
 in different projections. We will learn how to `reproject` the data so that they
@@ -97,8 +88,7 @@ We will continue to use the `sf` and `raster` packages in this episode.
 There are many good sources of boundary base layers that we can use to create a
 basemap. Some `R` packages even have these base layers built in to support quick
 and efficient mapping. In this episode, we will use boundary layers for the
-United States, provided by the
-<a href="https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html" target="_blank"> United States Census Bureau.</a>
+United States, provided by the [United States Census Bureau](https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html).
 
 It is useful to have shapefiles to work with because we can add additional
 attributes to them if need be - for project specific mapping.
@@ -120,7 +110,7 @@ Next, let's plot the U.S. states data.
 ```{r find-coordinates }
 ggplot() +
     geom_sf(data=state_boundary_US) +
-    ggtitle("Map of Contiguous US State Boundaries\n US Census Bureau Data")
+    ggtitle("Map of Contiguous US State Boundaries", subtitle = "US Census Bureau Data")
 ```
 
 ## U.S. Boundary Layer
@@ -133,13 +123,12 @@ If we specify a thicker line width using `lwd = 4` for the border layer, it will
 make our map pop!
 
 ```{r check-out-coordinates }
-# Read the .csv file
 country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp")
 
 ggplot() + 
-    geom_sf(data=country_boundary_US, color="gray18", size=2) +
-    geom_sf(data=state_boundary_US, color="gray40") +
-    ggtitle("Map of Contiguous US State Boundaries\n US Census Bureau Data")
+    geom_sf(data = country_boundary_US, color="gray18", size=2) +
+    geom_sf(data = state_boundary_US, color="gray40") +
+    ggtitle("Map of Contiguous US State Boundaries", subtitle = "US Census Bureau Data")
 
 ```
 
@@ -147,9 +136,8 @@ Next, let's add the location of a flux tower where our study area is.
 As we are adding these layers, take note of the class of each object.
 
 ```{r explore-units}
-# plot point - looks ok?
 ggplot() +
-    geom_sf(data=point_HARV, shape=19, color="purple") +
+    geom_sf(data=point_HARV, shape=19, color = "purple") +
     ggtitle("Harvard Fisher Tower Location")
 ```
 
@@ -165,7 +153,7 @@ ggplot() +
     geom_sf(data=state_boundary_US, color="gray40") +
     # add point tower location
     geom_sf(data=point_HARV, shape=19, color="purple") +
-    ggtitle("Map of Contiguous US State Boundaries\n with Tower Location")
+    ggtitle("Map of Contiguous US State Boundaries", subtitle = "with Tower Location")
 ```
 
 What do you notice about the resultant plot? Do you see the tower location in
@@ -255,8 +243,8 @@ representing decimal degree units. Our tower location point is in UTM, is
 represented in meters.
 
 > ## Proj4 & CRS Resources
-> * <a href="http://proj.maptools.org/faq.html" target="_blank">More information on the proj4 format.</a>
-> * <a href="http://spatialreference.org" target="_blank">A fairly comprehensive list of CRSs by format.</a>
+> * [More information on the proj4 format.](http://proj.maptools.org/faq.html)
+> * [A fairly comprehensive list of CRSs by format.](http://spatialreference.org)
 > * To view a list of datum conversion factors type: `projInfo(type = "datum")`
 into the `R` console.
 {: .callout}
@@ -312,7 +300,7 @@ ggplot() +
     geom_sf(data=state_boundary_US, color="gray40") +
     # add point tower location
     geom_sf(data=point_HARV_WGS84, shape=19, color="purple") +
-    ggtitle("Map of Contiguous US State Boundaries\n with Tower Location")
+    ggtitle("Map of Contiguous US State Boundaries", subtitle = "with Tower Location")
 ```
 
 Reprojecting our data ensured that things line up on our map! It will also
@@ -359,12 +347,10 @@ transformations) on our data.
 > >     # add point tower location, and customize legend as before
 > >     geom_sf(data=point_HARV, aes(shape="shape"), color="purple") +
 > >     scale_shape_manual(name="", labels="Fisher Tower", values=c("shape"=19)) +
-> >     ggtitle("Map of Northeastern US\n With Fisher Tower Location - UTM Zone 18N") +
+> >     ggtitle("Map of Northeastern US", subtitle = "With Fisher Tower Location - UTM Zone 18N") +
 > >     # you can customize the legend's appearance with `theme`
 > >     theme(legend.position="bottom",
 > >           legend.background = element_rect(color = NA)) 
-> > 
-> > 
 > > ```
 > {: .solution}
 {: .challenge}
