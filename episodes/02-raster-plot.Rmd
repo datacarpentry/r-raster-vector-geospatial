@@ -3,10 +3,12 @@ title: "Plot Raster Data in R"
 teaching: 20
 exercises: 10
 questions:
-- "How can I visualize raster data?"
+- "How can I create categorized or customized maps of raster data?"
+- "How can I customize the color scheme of a raster image?"
+- "How can I layer raster data in a single image?"
 objectives:
-- "Know how to plot a single band raster in `R`."
-- "Know how to layer a raster dataset on top of a hillshade to create an elegant basemap."
+- "Build customized plots for a single band raster using the `ggplot2` package."
+- "Layer a raster dataset on top of a hillshade to create an elegant basemap."
 keypoints:
 - ""
 ---
@@ -17,7 +19,7 @@ source("../setup.R")
 knitr_fig_path("02-")
 ```
 
-```{r load-libraries, echo = FALSE, results='hide'}
+```{r load-libraries, echo = FALSE, results='hide', message = FALSE, warning = FALSE}
 library(raster)
 library(rgdal)
 library(ggplot2)
@@ -38,15 +40,16 @@ DSM_HARV_df <- raster::as.data.frame(DSM_HARV, xy = TRUE)
 {: .prereq}
 
 ## Plot Raster Data in R
-This episode covers how to plot a raster in `R` using the `ggplot2`
-package. It also covers how to layer a raster on top of a hillshade to produce
-an eloquent map. We will plot the Digital Surface Model (DSM) raster
+This episode covers how to plot a raster in R using the `ggplot2`
+package with customized coloring schemes. 
+It also covers how to layer a raster on top of a hillshade to produce
+an eloquent map. We will continue working with the Digital Surface Model (DSM) raster
 for the NEON Harvard Forest Field Site. 
 
 ## Plotting Data Using Breaks
 In the previous episode, we viewed our data using a continuous color ramp. For 
 clarity and visability of the plot, we may prefer to view the data "symbolized" or colored according to ranges of values. This is comparable to a "classified"
-map. To do this, we need to tell `ggplot` how many groups to break out data into, and
+map. To do this, we need to tell `ggplot` how many groups to break our data into, and
 where those breaks should be. To make these decisions, it is useful to first explore the distribution of the data using a bar plot. To begin with, we will use `dplyr`'s `mutate()` function combined with `cut()` to split the data into 3 bins.
 
 ```{r histogram-breaks-ggplot, fig.width= 7, fig.height=7}
@@ -66,7 +69,7 @@ unique(DSM_HARV_df$fct_elevation)
 ```
 
 And we can get the count of values in each group using `dplyr`'s 
-`group_by` and `summarize`:
+`group_by()` and `summarize()` functions:
 
 ```{r breaks-count}
 DSM_HARV_df %>%
@@ -121,8 +124,8 @@ ggplot() +
 
 The plot above uses the default colors inside `ggplot` for raster objects. 
 We can specify our own colors to make the plot look a little nicer.
-`R` has a built in set of colors for plotting terrain, which are built in
-to the `terrain.colors` function.
+R has a built in set of colors for plotting terrain, which are built in
+to the `terrain.colors()` function.
 Since we have three bins, we want to use the first three terrain colors:
 
 ```{r terrain-colors}
@@ -142,20 +145,19 @@ ggplot() +
     scale_fill_manual(values = terrain.colors(3))
 ```
 
-
 ### More Plot Formatting
 
 If we need to create multiple plots using the same color palette, we can create
-an `R` object (`my_col`) for the set of colors that we want to use. We can then
+an R object (`my_col`) for the set of colors that we want to use. We can then
 quickly change the palette across all plots by modifying the `my_col`
 object, rather than each individual plot.
 
 We can label the x- and y-axes of our plot too using `xlab` and `ylab`.
 We can also give the legend a more meaningful title by passing a value 
-to the `name` option of `scale_fill_manual.`
+to the `name` argument of the `scale_fill_manual()` function.
 
 ```{r add-ggplot-labels, fig.width= 7, fig.height=7 }
-# Assign color to a object for repeat use/ ease of changing
+
 my_col <- terrain.colors(3)
 
 ggplot() +
@@ -168,7 +170,6 @@ Or we can also turn off the axes altogether by passing `element_blank()` to
 the relevant parts of the `theme()` function.
 
 ```{r turn-off-axes, fig.width= 7, fig.height=7 }
-# or we can turn off the axis altogether
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
                                       fill = fct_elevation_2)) + 
@@ -177,18 +178,16 @@ ggplot() +
           axis.title.y = element_blank())
 ```
 
-
 > ## Challenge: Plot Using Custom Breaks
 >
 > Create a plot of the Harvard Forest Digital Surface Model (DSM) that has:
 >
 > 1. Six classified ranges of values (break points) that are evenly divided among the range of pixel values.
-> 2. Axis labels
-> 3. A plot title
+> 2. Axis labels.
+> 3. A plot title.
 >
 > > ## Answers
-> > ``` {r challenge-code-plotting, eval=TRUE, echo=TRUE, fig.width= 7, fig.height=7}
-> > # Find min & max
+> > ``` {r challenge-code-plotting, fig.width= 7, fig.height=7}
 > > 
 > > DSM_HARV_df <- DSM_HARV_df  %>%
 > >                mutate(fct_elevation_6 = cut(HARV_dsmCrop, breaks = 6)) 
@@ -208,27 +207,29 @@ ggplot() +
 
 ## Layering Rasters
 We can layer a raster on top of a hillshade raster for the same area, and use a
-transparency factor to created a 3-dimensional shaded effect. A
+transparency factor to create a 3-dimensional shaded effect. A
 hillshade is a raster that maps the shadows and texture that you would see from
 above when viewing terrain.
 We will add a custom color, making the plot grey. 
 
+First we need to read in our DSM hillshade data and view the structure:
+
 ```{r}
-# import DSM hillshade
 DSM_hill_HARV <-
   raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 
-# View data structure
 DSM_hill_HARV
 ```
 
+Next we convert it to a dataframe, so that we can plot it using `ggplot2`:
+
 ```{r}
-# convert to a df for plotting
 DSM_hill_HARV_df <- raster::as.data.frame(DSM_hill_HARV, xy = TRUE) 
 
-# View data structure
 str(DSM_hill_HARV_df)
 ```
+
+Now we can plot the hillshade data:
 
 ```{r, fig.width= 7, fig.height=7}
 ggplot() +
@@ -236,36 +237,37 @@ ggplot() +
     scale_alpha(range =  c(0.15, 0.65), guide = "none")
 ```
 
-
-> ## Data Tip
+> ## Data Tips
 > Turn off, or hide, the legend on a plot using by adding `guide = "none"` 
-to a `scale_something()` function or by setting
-`theme(legend.position="none")`.
+> to a `scale_something()` function or by setting
+> `theme(legend.position="none")`.
+> 
+> The alpha value determines how transparent the colors will be (0 being
+> transparent, 1 being opaque).
 {: .callout}
 
-We can layer another raster on top of our hillshade using by using `add = TRUE`.
-Let's overlay `DSM_HARV` on top of the `hill_HARV`.
+We can layer another raster on top of our hillshade using adding another call to 
+the `geom_raster()` function. Let's overlay `DSM_HARV` on top of the `hill_HARV`.
 
 ``` {r overlay-hillshade, fig.width= 7, fig.height=7}
+
 ggplot() +
     geom_raster(data = DSM_HARV_df , 
                 aes(x = x, y = y, 
                      fill = HARV_dsmCrop)) + 
+  
     geom_raster(data = DSM_hill_HARV_df, 
                 aes(x = x, y = y, 
                   alpha = HARV_DSMhill)) +
+  
     scale_fill_viridis_c() +
+  
     scale_alpha(range = c(0.15, 0.65), guide = "none") +
+  
     ggtitle("Elevation with hillshade") +
     coord_equal()
 
 ```
-
-The alpha value determines how transparent the colors will be (0 being
-transparent, 1 being opaque).
-
-* More information about the Viridis palette used above at
-<a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html" target="_blank">`R` Viridis package documentation</a>.
 
 > ## Challenge: Create DTM & DSM for SJER
 > 
@@ -351,7 +353,3 @@ Range field site.
 > > ```
 > {: .solution}
 {: .challenge}
-
-
-
-
