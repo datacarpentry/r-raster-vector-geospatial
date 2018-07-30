@@ -171,6 +171,11 @@ ggplot() +
 ```
 
 > ## Data Tip
+> More information about the Viridis palette used above at
+> [R Viridis package documentation](https://cran.r-project.org/web/packages/viridis/vignettes/ intro-to-viridis.html).
+{: .callout}
+
+> ## Data Tip
 > The add-on package `ggspatial` can also be used. The raster is still converted
 > to a dataframe before plotting, but the work of converting spatial data into a
 > ggplot-friendly format is done for you in the background.
