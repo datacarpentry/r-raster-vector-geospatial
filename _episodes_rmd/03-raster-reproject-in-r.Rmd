@@ -303,4 +303,5 @@ hillshade to produce a nice looking, textured map!
 > > ## Answers
 > > The maps look identical. Which is what they should be as the only difference
 > > is this one was reprojected from WGS84 to UTM prior to plotting.
+> {: .solution}
 {: .challenge}
