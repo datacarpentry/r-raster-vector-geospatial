@@ -6,7 +6,7 @@ get_stage("before_install") %>%
 get_stage("install") %>%
   add_code_step(remotes::install_deps(dependencies = TRUE))
 
-get_stage("script") %>%
+get_stage("deploy") %>%
     add_step(build_lesson())##  %>%
     ## add_step(check_links())
 
