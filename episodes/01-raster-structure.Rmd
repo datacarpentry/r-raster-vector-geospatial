@@ -180,7 +180,7 @@ ggplot() +
 > to a dataframe before plotting, but the work of converting spatial data into a
 > ggplot-friendly format is done for you in the background.
 > 
-> ```{r 'ggspat', eval = FALSE}
+> ```{r ggspatial-example, eval = TRUE}
 > library(ggspatial)
 > ggplot() +
 >   geom_spatial(data = DSM_HARV, aes(fill = band1)) +

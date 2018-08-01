@@ -24,6 +24,7 @@ library(raster)
 library(rgdal)
 library(ggplot2)
 library(dplyr)
+library(scales)
 library(reshape)
 ```
 
@@ -65,122 +66,112 @@ available from Landsat data. The RGB directory contains RGB images for each time
 period that NDVI is available.
 
 ### Getting Started
-In this episode, we will use the `raster` and `rgdal` libraries. Make sure you have
+In this episode, we will use the `raster`, `rgdal`, `reshape`, and `scales` libraries. Make sure you have these libraries loaded.
+
+```{r, eval = FALSE}
+library(raster)
+library(rgdal)
+library(reshape)
+library(scales)
+```
 
 To begin, we will create a list of raster files using the `list.files()`
 function in `R`. This list will be used to generate a `RasterStack`. We will
 only add files to our list with a `.tif` extension using the syntax
-`pattern=".tif$"`.
-
-If we specify `full.names = TRUE`, the full path for each file will be added to
+`pattern=".tif$"`. If we specify `full.names = TRUE`, the full path for each file will be added to
 the list.
+
+> ## Data Tip
+> In the pattern above, the `$` character represents the end of a line. Using it ensures
+> that our pattern will only match files that end in `.tif`. This pattern matching uses a 
+> language called "regular expressions", which is beyond the scope of this workshop. 
+> 
+> * [Regular expressions tutorial](https://regexone.com/)
+> * [Regular expressions cheatsheet](http://www.cbs.dtu.dk/courses/27610/regular-expressions-cheat-sheet-v2.pdf)
+{: .callout}
 
 ```{r import-NDVI-rasters }
 
-# Create list of NDVI file paths
-# assign path to object = cleaner code
 NDVI_HARV_path <- "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI"
 all_NDVI_HARV <- list.files(NDVI_HARV_path,
                             full.names = TRUE,
                             pattern = ".tif$")
-
-# view list - note the full path, relative to our working directory, is included
-all_NDVI_HARV
-
 ```
 
-Now we have a list of all GeoTIFF files in the `NDVI` directory for Harvard
+It's a good idea to look at the file names that matched our search to make sure they
+meet our expectations. 
+
+```{r}
+all_NDVI_HARV
+```
+
+Now we have a list of all GeoTIFF files in the NDVI directory for Harvard
 Forest. Next, we will create a `RasterStack` from this list using the `stack()`
-function.
+function. We introduced the `stack()` function in [an earlier episode]({{ site.baseurl }}/05-raster-multi-band-in-r/).
 
 ```{r create-timeSeries-raster-stack }
-
-# Create a raster stack of the NDVI time series
 NDVI_HARV_stack <- stack(all_NDVI_HARV)
-
 ```
 
-We can explore the GeoTIFF tags (the embedded metadata) in a `stack` using the
+We can explore the GeoTIFF tags (the embedded metadata) in a stack using the
 same syntax that we used on single-band raster objects in `R` including: `crs()`
 (coordinate reference system), `extent()` and `res()` (resolution; specifically
 `yres()` and `xres()`).
 
 ``` {r explore-RasterStack-tags}
-# view crs of rasters
 crs(NDVI_HARV_stack)
-
-# view extent of rasters in stack
-extent(NDVI_HARV_stack)
-
-# view the y resolution of our rasters
-yres(NDVI_HARV_stack)
-
-# view the x resolution of our rasters
-xres(NDVI_HARV_stack)
-
 ```
 
-Notice that the CRS is `+proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs`. The
-CRS is in UTM Zone 19.  If you have completed the previous episodes in
-this workshop,
-you may have noticed that the UTM zone for the NEON collected remote sensing
+The CRS for our stack is `+proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs`. The
+CRS is in UTM Zone 19. If you have completed the previous episodes in
+this workshop, you may have noticed that the UTM zone for the NEON collected remote sensing
 data was in Zone 18 rather than Zone 19. Why are the Landsat data in Zone 19?
 
 ![Source: National Ecological Observatory Network (NEON).](../images/dc-spatial-raster/UTM_zones_18-19.jpg)
-Landsat imagery swaths are over 170 km N-S and 180 km E-W. As 
-a result a given image may overlap two UTM zones. The designated zone is
-determined by the zone that the majority of the image is in.  In this
-example, our point of interest is in UTM Zone 18 but the Landsat image will
-be classified as UTM Zone 19.
 
-The width of a Landsat scene is extremely wide - spanning over 170km north to
+A Landsat scene is extremely wide - spanning over 170km north to
 south and 180km east to west. This means that Landsat data often cover multiple
 UTM zones. When the data are processed, the zone in which the majority of the
-data cover, is the zone which is used for the final CRS. Thus, our field site at
-Harvard Forest is located in UTM Zone 18, but the Landsat data is in a `CRS` of
+data cover is the zone which is used for the final CRS. Thus, our field site at
+Harvard Forest is located in UTM Zone 18, but the Landsat data is in a CRS of
 UTM Zone 19.
 
 > ## Challenge: Raster Metadata
 >
-> Answer the following questions about our `RasterStack`.
+> Investigate the metadata for our `RasterStack` and answer the following questions.
 >
-> 1. What is the CRS?
-> 2. What is the x and y resolution of the data?
-> 3. What units is the above resolution in?
+> 1. What are the x and y resolution of the data?
+> 2. What units are the above resolution in?
 >
 > > ## Answers
 > >
 > > ``` {r challenge-code-raster-metadata, eval=TRUE, echo=TRUE}
-> > # 1. UTM zone 19 WGS 84
-> > # 2. 30x30 meters
-> > # 3. meters
-> >
+> > extent(NDVI_HARV_stack)
+> > yres(NDVI_HARV_stack)
+> > xres(NDVI_HARV_stack)
 > > ```
 > {: .solution}
 {: .challenge}
 
 ## Plotting Time Series Data
 Once we have created our `RasterStack`, we can visualize our data. We can use
-the `ggplot()` command to quickly plot a `RasterStack`.
+the `ggplot()` command to create a multi-panelled plot showing each band in our `RasterStack`.
 
-```{r plot-time-series }
-
+```{r plot-time-series}
 NDVI_HARV_stack_df <- raster::as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
 # Then reshape data to stack all the X*_HARV_ndvi_crop columns into
 # one single column called 'variable'
-    melt(id.vars = c('x','y','optional'))
-
-# view a plot of all of the rasters
-# 'ncol' specifies number of columns (we will have 13 plots)
-ggplot() +
-  geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
-# we use ggplot2 faceting technique to split the plot into multiple plots
-# based on the factor called 'variable'
-  facet_wrap(~variable)
-
+    melt(id.vars = c('x','y'))
 ```
 
-Have a look at the range of NDVI values observed in the plot above. We know that
+
+```{r}
+ggplot() +
+  geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
+  facet_wrap(~variable)
+```
+
+Look at the range of NDVI values observed in the plot above. We know that
 the accepted values for NDVI range from 0-1. Why does our data range from
 0 - 10,000?
 
@@ -192,33 +183,25 @@ Storing data in integer format keeps files sizes smaller.
 Let's apply the scale factor before we go any further. Conveniently, we can
 quickly apply this factor using raster math on the entire stack as follows:
 
-`raster_stack_object_name / 10000`
-
-
 ```{r apply-scale-factor }
-
-# apply scale factor to data
 NDVI_HARV_stack <- NDVI_HARV_stack/10000
-# plot stack with scale factor applied
-NDVI_HARV_stack_df <- raster::as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
-# Then reshape data to stack all the X*_HARV_ndvi_crop columns into
-# one single column called 'variable'
-    melt(id.vars = c('x','y','optional'))
+```
 
-# view a plot of all of the rasters
-# 'ncol' specifies number of columns (we will have 13 plots)
+After applying our scale factor, we can recreate our plot using the same code we used above.
+
+```{r}
+NDVI_HARV_stack_df <- raster::as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
+    melt(id.vars = c('x','y'))
+
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
-# we use ggplot2 faceting technique to split the plot into multiple plots
-# based on the factor called 'variable'
   facet_wrap(~variable)
-
 ```
 
 ## Take a Closer Look at Our Data
-Let's take a closer look at the plots of our data. Note that Massachusettes,
-where the NEON Harvard Forest Field Site is located has a fairly consistent
-fall, winter, spring and summer season where vegetation turns green in the
+Let's take a closer look at the plots of our data. Massachusetts, 
+where the NEON Harvard Forest Field Site is located, has a fairly consistent
+fall, winter, spring, and summer season where vegetation turns green in the
 spring, continues to grow throughout the summer, and begins to change colors and
 senesce in the fall through winter. Do you notice anything that seems unusual
 about the patterns of greening and browning observed in the plots above?
@@ -257,146 +240,150 @@ thereafter.
 
 Let's next view some temperature data for our field site to see whether there
 were some unusual fluctuations that may explain this pattern of greening and
-browning seen in the NDVI data.
+browning seen in the NDVI data. First we will read in the temperature data and preview the structure
+of that dataframe:
 
 ```{r view-temp-data, echo=FALSE, warning=FALSE }
-library(ggplot2)
-library(scales)
-
 har_met_daily <-
-  read.csv("data/NEON-DS-Met-Time-Series/HARV/FisherTower-Met/hf001-06-daily-m.csv",
-                 stringsAsFactors = FALSE)
+  read.csv("data/NEON-DS-Met-Time-Series/HARV/FisherTower-Met/hf001-06-daily-m.csv")
 
-# set the field to be a date field
+str(har_met_daily)
+```
+
+The `date` column is currently coded as a factor. We want to be able to treat it as a date,
+so we will use the `as.Date()` function to convert it. We need to tell `R` what format the
+data is in. Our dates are YYY-MM-DD, which is represented by `R` as `%Y-%m-%d`.
+
+```{r}
 har_met_daily$date <- as.Date(har_met_daily$date, format = "%Y-%m-%d")
+```
 
-# subset out some of the data - 2011
+We only want to look at the data from 2011:
+
+```{r}
 yr_11_daily_avg <- subset(har_met_daily,
                             date >= as.Date('2011-01-01') &
                             date <= as.Date('2011-12-31'))
+```
 
-# plot Air Temperature Data (airt) by julian day (jd)
+Now we can plot the air temperature (the `airt` column) by Julian day (the `jd` column):
 
-my_plot <- ggplot(yr_11_daily_avg,aes(jd, airt)) +
-           geom_point() +
-           ggtitle("Daily Mean Air Temperature\nNEON Harvard Forest Field Site") +
-           theme(plot.title = element_text(lineheight=.8, face="bold",
-                                           size = 20)) +
-           theme(text = element_text(size=20)) +
-           xlab("Julian Day 2011") + ylab("Mean Air Temperature (Celcius)")
-
-my_plot
-
+```{r}
+ggplot(yr_11_daily_avg,aes(jd, airt)) +
+    geom_point() +
+    ggtitle("Daily Mean Air Temperature", subtitle = "NEON Harvard Forest Field Site") +
+    xlab("Julian Day 2011") + ylab("Mean Air Temperature (C)")
 ```
 
 There are no significant peaks or dips in the temperature during the late summer
-or early fall time period that might account for patterns seen in the NDVI data.
-
-What is our next step?
-
+or early fall time period that might account for patterns seen in the NDVI data. 
 Let's have a look at the source Landsat imagery that was partially used used to
-derive our NDVI rasters to try to understand what appears to be outlier NDVI values.
+derive our NDVI rasters to try to understand what appear to be outlier NDVI values.
+
+```{r, echo = FALSE, warning = FALSE}
+
+# Plot RGB data for Julian day 133
+RGB_133 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
+RGB_133_df <- raster::as.data.frame(RGB_133, xy = TRUE)
+quantiles = c(0.02, 0.98)
+r <- quantile(RGB_133_df$X133_HARV_landRGB.1, quantiles, na.rm = TRUE)
+g <- quantile(RGB_133_df$X133_HARV_landRGB.2, quantiles, na.rm = TRUE)
+b <- quantile(RGB_133_df$X133_HARV_landRGB.3, quantiles, na.rm = TRUE)
+tempR <-  (RGB_133_df$X133_HARV_landRGB.1 - r[1])/(r[2] - r[1])
+tempG <-  (RGB_133_df$X133_HARV_landRGB.2 - g[1])/(g[2] - g[1])
+tempB <-  (RGB_133_df$X133_HARV_landRGB.3 - b[1])/(b[2] - b[1])
+tempR[tempR < 0] <- 0
+tempG[tempG < 0] <- 0
+tempB[tempB < 0] <- 0
+tempR[tempR > 1] <- 1
+tempG[tempG > 1] <- 1
+tempB[tempB > 1] <- 1
+RGB_133_df$rgb <- rgb(tempR,tempG,tempB)
+ggplot() +
+  geom_raster(data = RGB_133_df, aes(x, y), fill = RGB_133_df$rgb) + 
+  ggtitle("Julian day 133")
+
+# Plot RGB data for Julian day 197
+RGB_197 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/197_HARV_landRGB.tif")
+RGB_197 <- RGB_197/255
+RGB_197_df <- raster::as.data.frame(RGB_197, xy = TRUE)
+r <- quantile(RGB_197_df$X197_HARV_landRGB.1, quantiles, na.rm = TRUE)
+g <- quantile(RGB_197_df$X197_HARV_landRGB.2, quantiles, na.rm = TRUE)
+b <- quantile(RGB_197_df$X197_HARV_landRGB.3, quantiles, na.rm = TRUE)
+tempR <-  (RGB_197_df$X197_HARV_landRGB.1 - r[1])/(r[2] - r[1])
+tempG <-  (RGB_197_df$X197_HARV_landRGB.2 - g[1])/(g[2] - g[1])
+tempB <-  (RGB_197_df$X197_HARV_landRGB.3 - b[1])/(b[2] - b[1])
+tempR[tempR < 0] <- 0
+tempG[tempG < 0] <- 0
+tempB[tempB < 0] <- 0
+tempR[tempR > 1] <- 1
+tempG[tempG > 1] <- 1
+tempB[tempB > 1] <- 1
+RGB_197_df$rgb <- rgb(tempR,tempG,tempB)
+ggplot() +
+  geom_raster(data = RGB_197_df, aes(x, y), fill = RGB_197_df$rgb) + 
+  ggtitle("Julian day 197")
+```
+
 
 > ## Challenge: Examine RGB Raster Files
 >
-> 1. View the imagery located in the `/NEON-DS-Landsat-NDVI/HARV/2011` directory.
-> 2. Plot the RGB images for the Julian days 277 and 293 then plot and compare
-> those images to jdays 133 and 197.
-> 3. Does the RGB imagery from these two days explain the low NDVI values observed
-> on these days?
->
-> HINT: if you want to plot 4 images in a tiled set, you can use
-> `grid.arrange` from gridExtra R package. Make sure you load it by using:
-> `library(gridExtra)`.
+> Plot the RGB images for the Julian days 277 and 293. Compare those with the RGB 
+> plots for Julian days 133 and 197 (shown above). Does the RGB imagery from these two days explain the low 
+> NDVI values observed on these days?
 >
 > > ## Answers
 > >
-> > ```{r view-all-rgb, echo=TRUE}
-> > library(gridExtra)
-> >
-> > # open up file for Jday 277
-> > RGB_277 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif")/255
-> >
-> > RGB_277_df <- raster::as.data.frame(RGB_277, xy = TRUE)
-> >
-> > # Create RGB colors from the 3 channels
-> > RGB_277_df$rgb <- with(RGB_277_df, rgb(X277_HARV_landRGB.1,X277_HARV_landRGB.2,X277_HARV_landRGB.3,1))
-> >
-> > # plot raster data frame using RGB composite color as fill value
-> > p_277 <- ggplot() +
-> >     geom_raster(data=RGB_277_df, aes(x, y), fill=RGB_277_df$rgb)
-> >
-> > # open up file for Jday 293
-> > RGB_293 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")/255
-> >
-> > RGB_293_df <- raster::as.data.frame(RGB_293, xy = TRUE)
-> >
-> > # Create RGB colors from the 3 channels
-> > RGB_293_df$rgb <- with(RGB_293_df, rgb(X293_HARV_landRGB.1,X293_HARV_landRGB.2,X293_HARV_landRGB.3,1))
-> >
-> > # plot raster data frame using RGB composite color as fill value
-> > p_293 <- ggplot() +
-> >     geom_raster(data = RGB_293_df, aes(x, y), fill = RGB_293_df$rgb)
-> >
-> > # view a few other images
-> > # open up file for Jday 133
-> > RGB_133 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
-> >
-> > RGB_133_df <- raster::as.data.frame(RGB_133, xy = TRUE)
-> >
-> > quantiles = c(0.02, 0.98)
-> > r <- quantile(RGB_133_df$X133_HARV_landRGB.1, quantiles, na.rm = TRUE)
-> > g <- quantile(RGB_133_df$X133_HARV_landRGB.2, quantiles, na.rm = TRUE)
-> > b <- quantile(RGB_133_df$X133_HARV_landRGB.3, quantiles, na.rm = TRUE)
-> > tempR <-  (RGB_133_df$X133_HARV_landRGB.1 - r[1])/(r[2] - r[1])
-> > tempG <-  (RGB_133_df$X133_HARV_landRGB.2 - g[1])/(g[2] - g[1])
-> > tempB <-  (RGB_133_df$X133_HARV_landRGB.3 - b[1])/(b[2] - b[1])
-> > tempR[tempR < 0] <- 0
-> > tempG[tempG < 0] <- 0
-> > tempB[tempB < 0] <- 0
-> > tempR[tempR > 1] <- 1
-> > tempG[tempG > 1] <- 1
-> > tempB[tempB > 1] <- 1
-> > RGB_133_df$rgb <- rgb(tempR,tempG,tempB)
-
-> > p_133 <- ggplot() +
-> >     geom_raster(data = RGB_133_df, aes(x, y), fill = RGB_133_df$rgb)
-> >
-> > # open up file for Jday 197
-> > RGB_197 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/197_HARV_landRGB.tif")
-> >
-> > RGB_197_df <- raster::as.data.frame(RGB_197, xy = TRUE)
-> >
-> > r <- quantile(RGB_197_df$X197_HARV_landRGB.1, quantiles, na.rm = TRUE)
-> > g <- quantile(RGB_197_df$X197_HARV_landRGB.2, quantiles, na.rm = TRUE)
-> > b <- quantile(RGB_197_df$X197_HARV_landRGB.3, quantiles, na.rm = TRUE)
-> > tempR <-  (RGB_197_df$X197_HARV_landRGB.1 - r[1])/(r[2] - r[1])
-> > tempG <-  (RGB_197_df$X197_HARV_landRGB.2 - g[1])/(g[2] - g[1])
-> > tempB <-  (RGB_197_df$X197_HARV_landRGB.3 - b[1])/(b[2] - b[1])
-> > tempR[tempR < 0] <- 0
-> > tempG[tempG < 0] <- 0
-> > tempB[tempB < 0] <- 0
-> > tempR[tempR > 1] <- 1
-> > tempG[tempG > 1] <- 1
-> > tempB[tempB > 1] <- 1
-> > RGB_197_df$rgb <- rgb(tempR,tempG,tempB)
-> >
-> > p_197 <- ggplot() +
-> >     geom_raster(data = RGB_197_df, aes(x, y), fill = RGB_197_df$rgb)
-> > 	
-> > grid.arrange(p_277,p_293,p_133,p_197, ncol = 2)
+> > First we need to load in the RGB data for Julian day 277 and look at its metadata.
+> > 
+> > ```{r}
+> > RGB_277 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif")
+> > RGB_277
 > > ```
+> > The RGB data has a max value of 255, but we need our color intensity to be between 0 and 1, so 
+> > we will divide our `RasterStack` object by 255.
+> > 
+> > ```{r}
+> > RGB_277 <- RGB_277/255
+> > ```
+> > Next we convert it to a dataframe. 
+> > 
+> > ```{r}
+> > RGB_277_df <- raster::as.data.frame(RGB_277, xy = TRUE)
+> > ```
+> > 
+> > We create RGB colors from the three channels:
+> > 
+> > ```{r}
+> > RGB_277_df$rgb <- with(RGB_277_df, rgb(X277_HARV_landRGB.1,X277_HARV_landRGB.2,X277_HARV_landRGB.3,1))
+> > ```
+> > 
+> > Finally, we can plot the RGB data for Julian day 277. 
+> > 
+> > ```{r}
+> > ggplot() +
+> >   geom_raster(data=RGB_277_df, aes(x, y), fill=RGB_277_df$rgb) + 
+> >   ggtitle("Julian day 277")  
+> >```
+> > We then do the same steps for Julian day 293
+> > 
+> > ```{r}
+> > # Julian day 293
+> > RGB_293 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")
+> > RGB_293 <- RGB_293/255
+> > RGB_293_df <- raster::as.data.frame(RGB_293, xy = TRUE)
+> > RGB_293_df$rgb <- with(RGB_293_df, rgb(X293_HARV_landRGB.1, X293_HARV_landRGB.2, X293_HARV_landRGB.3,1))
+> > ggplot() +
+> >   geom_raster(data = RGB_293_df, aes(x, y), fill = RGB_293_df$rgb) +
+> >   ggtitle("Julian day 293")
+> > ```
+> > This example highlights the importance of
+> > exploring the source of a derived data product. In this case, the NDVI data
+> > product was created using Landsat imagery - specifically the red
+> > and near-infrared bands. When we look at the RGB collected at Julian days 277 and 293 
+> > we see that most of
+> > the image is filled with clouds. The very low NDVI values resulted from cloud
+> > cover — a common challenge that we encounter when working with satellite remote
+> > sensing imagery.
 > {: .solution}
 {: .challenge}
-
-## Explore The Data's Source
-The third challenge question, "Does the RGB imagery from these two days explain
-the low NDVI values observed on these days?" highlights the importance of
-exploring the source of a derived data product. In this case, the NDVI data
-product was derived from (created using) Landsat imagery - specifically the red
-and near-infrared bands.
-
-When we look at the RGB collected at Julian days 277 and 293 we see that most of
-the image is filled with clouds. The very low NDVI values resulted from cloud
-cover — a common challenge that we encounter when working with satellite remote
-sensing imagery.
