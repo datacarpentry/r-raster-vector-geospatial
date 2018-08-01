@@ -6,10 +6,12 @@ questions:
 - "How can I distinguish between and visualize point, line and polygon vector data?"
 objectives:
 - "Know the difference between point, line, and polygon vector elements."
-- "Understand the differences between opening point, line and polygon shapefiles in R."
-- "Understand the components of a spatial object in R."
+- "Load point, line, and polygon shapefiles into R."
+- "Access the attributes of a spatial object in R."
 keypoints:
-- ""
+- "Shapefile metadata include geometry type, CRS, and extent."
+- "Load spatial objects into R with the `st_read()` function."
+- "Spatial objects can be plotted directly with `ggplot` using the `geom_sf()` function. No need to convert to a dataframe."
 ---
 
 ```{r setup, echo=FALSE}
