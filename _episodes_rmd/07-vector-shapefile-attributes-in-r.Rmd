@@ -9,7 +9,8 @@ objectives:
 - "Subset spatial objects using specific attribute values."
 - "Plot a shapefile, colored by unique attribute values."
 keypoints:
-- "Spatial objects in `sf` are similar to standard data frames except for a geometry list-column."
+- "Spatial objects in `sf` are similar to standard data frames and can be manipulated using the same functions."
+- "Almost any feature of a plot can be customized using the various functions and options in the `ggplot2` package."
 ---
 
 ```{r setup, echo=FALSE}
