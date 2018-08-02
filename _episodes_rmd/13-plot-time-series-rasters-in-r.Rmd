@@ -3,12 +3,15 @@ title: "Create Publication-quality Graphics"
 teaching: 20
 exercises: 10
 questions:
-- "How can I distinguish between the different times plotted using color?"
+- "How can I create a publication-quality graphic and customize plot parameters?"
 objectives:
-- "Be able to assign custom names to bands in a RasterStack for prettier plotting."
-- "Understand advanced plotting of rasters using the `ggplot2` package."
+- "Assign custom names to bands in a RasterStack."
+- "Customize raster plots using the `ggplot2` package."
 keypoints:
-- ""
+- "Use the `theme_void()` function for a clean background to your plot."
+- "Use the `element_text()` function to adjust text size, font, and position."
+- "Use the `brewer.pal()` function to create a custom color palette."
+- "Use the `gsub()` function to do pattern matching and replacement in text."
 ---
 
 ```{r setup, echo=FALSE}
@@ -28,7 +31,6 @@ library(scales)
 ```
 
 ```{r load-data, echo = FALSE, results = 'hide'}
-# load in data
 # learners will have this data loaded from the previous episode
 
 all_NDVI_HARV <- list.files("data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI", full.names = TRUE, pattern = ".tif$")
@@ -53,15 +55,16 @@ NDVI_HARV_stack_df <- raster::as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
 {: .prereq}
 
 This episode covers how to customize your raster plors using the `ggplot2` package
-in `R` to create publication-quality plots. 
+in R to create publication-quality plots. 
 
 ## Before and After
 
 In [the previous episode]({{ site.baseurl }}/12-time-series-raster/), we learned how to plot multi-band
-raster data in `R` using the `facet_wrap()` function. This created a separate panel in our plot
+raster data in R using the `facet_wrap()` function. This created a separate panel in our plot
 for each raster band. The plot we created together is shown below: 
 
 ```{r levelplot-time-series-before, echo = FALSE}
+# code not shown, demonstration only
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~variable) +
@@ -74,6 +77,15 @@ each panel don't clearly state that the number refers to the Julian day the data
 episode, we will customize this plot above to produce a publication quality graphic. We will go through these steps iteratively. When we're done, we will have created the plot shown below.
 
 ```{r levelplot-time-series-after, echo = FALSE}
+# code not shown, demonstration only
+
+rasterNames <- names(NDVI_HARV_stack)
+rasterNames <- gsub("_HARV_ndvi_crop", "", rasterNames)
+rasterNames  <- gsub("X", "Day ", rasterNames)
+labels_names <- setNames(rasterNames, unique(NDVI_HARV_stack_df$variable))
+green_colors <- brewer.pal(9, "YlGn") %>%
+  colorRampPalette()
+
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~variable, nrow = 3, ncol = 5, labeller = labeller(variable = labels_names)) +
@@ -82,6 +94,9 @@ ggplot() +
   theme(plot.title = element_text(hjust = 0.5, face = "bold"), plot.subtitle = element_text(hjust = 0.5)) + 
   coord_equal() +
   scale_fill_gradientn(name = "NDVI", colours = green_colors(20))
+
+# cleanup
+rm(rasterNames, labels_names, green_colors)
 ```
 
 ## Adjust the Plot Theme
@@ -98,7 +113,7 @@ ggplot() +
 ```
 
 Next we will center our plot title and subtitle. We need to do this **after** the `theme_void()` layer,
-because `R` interprets the `ggplot` layers in order. If we first tell `R` to center our plot title,
+because R interprets the `ggplot` layers in order. If we first tell R to center our plot title,
 and then set the theme to `void`, any adjustments we've made to the plot theme will be over-written
 by the `theme_void()` function. So first we make the theme `void` and then we center the title.
 We center both the title and subtitle by using the `theme()` function and setting the `hjust` 
@@ -161,10 +176,10 @@ green_colors <- brewer.pal(9, "YlGn") %>%
 ```
 
 We can 
-tell `colorRampPalette` how many discrete colors within this color range to
+tell the `colorRampPalette()` function how many discrete colors within this color range to
 create. In our case, we will use 20 colors when we plot our graphic.
 
-``` {r change-color-ramp}
+```{r change-color-ramp}
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~variable) +
@@ -196,7 +211,7 @@ raster data for that panel was collected. The current names come from the band
 `RasterStack` and the first part of each name is the Julian day.
 
 To create a more meaningful label we can remove the "x" and replace it with
-"day" using the `gsub()` function in `R`. The syntax is as follows:
+"day" using the `gsub()` function in R. The syntax is as follows:
 `gsub("StringToReplace", "TextToReplaceIt", object)`.
 
 First let's remove "_HARV_NDVI_crop" from each label to make the labels 
@@ -264,8 +279,9 @@ ggplot() +
   scale_fill_gradientn(name = "NDVI", colours = green_colors(20))
 ```
 
-Lastly, let's make sure that our x and y coordinates are equal. 
+Lastly, let's make sure that our x and y coordinates are equal.
 
+```{r}
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~variable, ncol = 5, labeller = labeller(variable = labels_names)) +
@@ -281,7 +297,7 @@ Now we have a beautiful, publication quality plot!
 
 > ## Challenge: Divergent Color Ramps
 >
-> When we used `gsub` to modify the tile labels we replaced the beginning of each
+> When we used the `gsub()` function to modify the tile labels we replaced the beginning of each
 > tile title with "Day". A more descriptive name could be "Julian Day". Update the 
 > plot above with the following changes:
 >
