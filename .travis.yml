@@ -10,7 +10,6 @@ before_install:
   - sudo apt-get install -y python-pip libudunits2-dev
   - sudo apt-add-repository -y ppa:ubuntugis/ubuntugis-unstable
   - sudo apt-get -qq update && sudo apt-get install -y libgdal-dev libproj-dev libjpeg-dev libpng-dev
-  - rvm $(travis_internal_ruby) --fuzzy do ruby -S gem install jekyll
   - sudo pip install update-copyright
   - R -q -e 'install.packages("remotes"); remotes::install_github("ropenscilabs/tic"); tic::prepare_all_stages(); tic::before_install()'
 install: R -q -e 'tic::install()'
