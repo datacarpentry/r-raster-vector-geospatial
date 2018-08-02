@@ -11,7 +11,7 @@ objectives:
 - "Compare NDVI values between two different sites."
 keypoints:
 - "Use the `cellStats()` function to calculate summary statistics for cells in a raster object."
-- "The `|` operator means "or"."
+- "The `|` operator means `or`."
 - "Use the `rbind()` function to combine data frames that have the same column names."
 ---
 
