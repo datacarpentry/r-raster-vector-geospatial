@@ -252,7 +252,7 @@ We can tell `ggplot` to use these colors when we plot the data.
 
 ```{r}
 ggplot() +
-  geom_sf(data = lines_HARV, color = roadColors) + 
+  geom_sf(data = lines_HARV, aes(color = roadColors)) + 
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads & Trails")
 ```
 
@@ -262,7 +262,7 @@ We can set all lines to be thicker or thinner using `size = `.
 
 ```{r adjust-line-width}
 ggplot() + 
-  geom_sf(data = lines_HARV, color = roadColors, size = 3) + 
+  geom_sf(data = lines_HARV, aes(color = roadColors, size = 3)) + 
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads & Trails - Thick lines")
 ```
 
@@ -282,7 +282,7 @@ We can use those line widths when we plot the data.
 
 ```{r}
 ggplot() +
-  geom_sf(data = lines_HARV, color = roadColors, size = lineWidths) + 
+  geom_sf(data = lines_HARV, aes(color = roadColors, size = lineWidths)) + 
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads & Trails - Line width varies")
 ```
 
