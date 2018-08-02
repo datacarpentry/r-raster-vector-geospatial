@@ -5,12 +5,13 @@ exercises: 10
 questions:
 - "How can I import CSV files as shapefiles in R?"
 objectives:
-- "Be able to import .csv files containing x,y coordinate locations into `R`."
-- "Know how to convert a .csv to a spatial object."
-- "Understand how to project coordinate locations provided in a Geographic Coordinate System (Latitude, Longitude) to a projected coordinate system (UTM)."
-- "Be able to plot raster and vector data in the same plot to create a map."
+- "Import .csv files containing x,y coordinate locations into R as a data frame."
+- "Convert a data frame to a spatial object."
+- "Export a spatial object to a text file."
 keypoints:
 - "It is important to know the projection (if any) of your point data prior to converting to a spatial object."
+- "Convert a data frame to an `sf` object using the `st_as_sf()` function."
+- "Export an `sf` object as text using the `st_write()` function."
 ---
 
 ```{r setup, echo=FALSE}
@@ -40,13 +41,13 @@ point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp"
 > data, and other prerequisites you will need to work through the examples in this episode.
 {: .prereq}
 
-This episode will review how to import spatial points stored in `.csv` (Comma Separated Value) format into `R` as an `sf` spatial object. We will also reproject data imported from a shapefile format, export this data as a shapefile as well as plot raster and vector data as layers in the same plot.
+This episode will review how to import spatial points stored in `.csv` (Comma Separated Value) format into R as an `sf` spatial object. We will also reproject data imported from a shapefile format, export this data as a shapefile, and plot raster and vector data as layers in the same plot.
 
 ## Spatial Data in Text Format
 
 The `HARV_PlotLocations.csv` file contains `x, y` (point) locations for study
 plot where NEON collects data on
-<a href="http://www.neonscience.org/science-design/collection-methods/terrestrial-organismal-sampling" target="_blank"> vegetation and other ecological metrics</a>.
+[vegetation and other ecological metrics](http://www.neonscience.org/science-design/collection-methods/terrestrial-organismal-sampling).
 We would like to:
 
 * Create a map of these plot locations.
@@ -60,12 +61,12 @@ convert it into an `sf` spatial object. The `sf` object allows us to store both 
 of each point and the associated attribute data - or columns describing each
 feature in the spatial object.
 
-We will use the `sf` and `raster` libraries in this episode.
+We will continue using the `sf` and `raster` libraries in this episode.
 
 ## Import .csv
-To begin let's import `.csv` file that contains plot coordinate `x, y`
-locations at the NEON Harvard Forest Field Site (`HARV_PlotLocations.csv`) in
-`R`.
+To begin let's import a `.csv` file that contains plot coordinate `x, y`
+locations at the NEON Harvard Forest Field Site (`HARV_PlotLocations.csv`) and look at the structure of
+that new object:
 
 ```{r read-csv }
 plot_locations_HARV <-
@@ -74,7 +75,7 @@ plot_locations_HARV <-
 str(plot_locations_HARV)
 ```
 
-We now have a dataframe that contains 21 locations (rows) and 16 variables (attributes). Note that all of our character data was imported into `R` as factor (categorical) data. Next, let's explore the dataframe to determine whether it contains columns with coordinate values. If we are lucky, our `.csv` will contain columns labeled:
+We now have a data frame that contains 21 locations (rows) and 16 variables (attributes). Note that all of our character data was imported into R as factor (categorical) data. Next, let's explore the dataframe to determine whether it contains columns with coordinate values. If we are lucky, our `.csv` will contain columns labeled:
 
  * "X" and "Y" OR
  * Latitude and Longitude OR
@@ -97,8 +98,8 @@ head(plot_locations_HARV$easting)
 head(plot_locations_HARV$northing)
 ```
 
-We have coordinate values in our dataframe. In order to convert our
-dataframe to an `sf` object, we also need to know the CRS
+We have coordinate values in our data frame. In order to convert our
+data frame to an `sf` object, we also need to know the CRS
 associated with those coordinate values.
 
 There are several ways to figure out the CRS of spatial data in text format.
@@ -127,7 +128,7 @@ contain the information that helps us determine the CRS:
 In
 [When Vector Data Don't Line Up - Handling Spatial Projection & CRS in R]({{site.baseurl}}/09-vector-when-data-dont-line-up-crs/)
 we learned about the components of a `proj4` string. We have everything we need
-to assign a CRS to our data.frame.
+to assign a CRS to our data frame.
 
 To create the `proj4` associated with UTM Zone 18 WGS84 we can look up the
 projection on the [Spatial Reference website](http://www.spatialreference.org/ref/epsg/wgs-84-utm-zone-18n/), which contains a list of CRS formats for each projection. From here, we can extract the [proj4 string for UTM Zone 18N WGS84](http://www.spatialreference.org/ref/epsg/wgs-84-utm-zone-18n/proj4/). 
@@ -175,7 +176,7 @@ st_crs(plot_locations_sp_HARV)
 ```
 
 ## Plot Spatial Object
-We now have a spatial `R` object, we can plot our newly created spatial object.
+We now have a spatial R object, we can plot our newly created spatial object.
 
 ```{r plot-data-points}
 ggplot() + 
@@ -188,7 +189,7 @@ ggplot() +
 In
 [Open and Plot Shapefiles in R]({{site.baseurl}}/06-vector-open-shapefile-in-r/)
 we learned about spatial object extent. When we plot several spatial layers in
-`R` using `ggplot`, all of the layers of the plot are considered in setting the boundaries
+R using `ggplot`, all of the layers of the plot are considered in setting the boundaries
 of the plot. To show this, let's plot our `aoi_boundary_HARV` object with our vegetation plots.
 
 ```{r plot-data}
@@ -207,7 +208,7 @@ That's really handy!
 > We want to add two phenology plots to our existing map of vegetation plot
 > locations.
 > 
-> Import the .csv: `HARV/HARV_2NewPhenPlots.csv` into `R` and do the following:
+> Import the .csv: `HARV/HARV_2NewPhenPlots.csv` into R and do the following:
 > 
 > 1. Find the X and Y coordinate locations. Which value is X and which value is Y?
 > 2. These data were collected in a geographic coordinate system (WGS84). Convert
@@ -270,7 +271,7 @@ That's really handy!
 
 ## Export a Shapefile
 
-We can write an `R` spatial object to a shapefile using the `st_write` function
+We can write an R spatial object to a shapefile using the `st_write` function
 in `sf`. To do this we need the following arguments:
 
 * the name of the spatial object (`plot_locations_sp_HARV`)
