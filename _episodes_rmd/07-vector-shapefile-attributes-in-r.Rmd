@@ -165,7 +165,7 @@ We can plot only the footpath lines.
 
 ```{r plot-subset-shapefile}
 ggplot() + 
-  geom_sf(data = footpath_HARV) 
+  geom_sf(data = footpath_HARV) +
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Footpaths")
 ```
 
