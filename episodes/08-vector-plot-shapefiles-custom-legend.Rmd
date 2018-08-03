@@ -116,7 +116,7 @@ ggplot() +
  scale_color_manual(values = road_palette, name = "Line Type") +
  scale_fill_manual(values = "black", name = "Tower Location") +
  ggtitle("NEON Harvard Forest Field Site")
-```x
+```
 
 > ## Challenge: Plot Polygon by Attribute
 > 
