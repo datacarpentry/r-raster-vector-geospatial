@@ -4,12 +4,10 @@
 
 # DO NOT CHANGE THE CODE BELOW
 before_install:
-  - sudo apt-get -qq update && sudo apt-get install -y linkchecker
+  - sudo add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
+  - sudo apt-get -qq update && sudo apt-get install -y python-pip linkchecker  libgdal-dev libproj-dev libjpeg-dev libpng-dev libgeos-dev libudunits2-dev
   - mkdir -p ~/.linkchecker
   - echo -e '[checking]\nsslverify=0' > ~/.linkchecker/linkcheckerrc
-  - sudo apt-get install -y python-pip libudunits2-dev
-  - sudo apt-add-repository -y ppa:ubuntugis/ubuntugis-unstable
-  - sudo apt-get -qq update && sudo apt-get install -y libgdal-dev libproj-dev libjpeg-dev libpng-dev
   - sudo pip install update-copyright
   - R -q -e 'install.packages("remotes"); remotes::install_github("ropenscilabs/tic"); tic::prepare_all_stages(); tic::before_install()'
 install: R -q -e 'tic::install()'
@@ -32,7 +30,7 @@ after_script: R -q -e 'tic::after_script()'
 
 # Header
 language: r
-sudo: required
+sudo: false
 dist: trusty
 cache: packages
 latex: false
