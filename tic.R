@@ -22,7 +22,4 @@ if (Sys.getenv("id_rsa") != "") {
       add_step(step_setup_ssh())
 
   get_stage("deploy") %>%
-      add_step(step_push_deploy(path = "_rendered", branch = "gh-pages", orphan = TRUE))
-
-
-}
+      add_step(step_push_deploy(path = "_rendered", branch = "gh-pages")
