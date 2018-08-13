@@ -70,7 +70,7 @@ To see a summary of all of the metadata associated with our `point_HARV` object,
 point_HARV
 ```
 
-We can look at all of the associated data attributes by printing the contents of the `sf` object. We can use the `ncol` function to count the number of attributes associated with a spatial object too.
+We can use the `ncol` function to count the number of attributes associated with a spatial object too. Note that the geometry is just another column and counts towards the total.
 
 ```{r shapefile-attributes}
 ncol(lines_HARV)
@@ -144,9 +144,7 @@ levels(lines_HARV$TYPE)
 We can use the `filter()` function from `dplyr` that we worked with in [an earlier lesson](https://datacarpentry.org/r-intro-geospatial/08-dplyr/index.html) to select a subset of features
 from a spatial object in R, just like with data frames.
 
-For example, we might be interested only in features that are of `TYPE` "footpath". Once we subset out this data, we can
-use it as input to other code so that that code only operates on the
-footpath lines.
+For example, we might be interested only in features that are of `TYPE` "footpath". Once we subset out this data, we can use it as input to other code so that that code only operates on the footpath lines.
 
 ```{r Subsetting-shapefiles}
 footpath_HARV <- lines_HARV %>% 
@@ -160,7 +158,7 @@ that only two feature lines in our spatial object have the attribute
 
 ```{r plot-subset-shapefile}
 ggplot() + 
-  geom_sf(data = footpath_HARV) + 
+  geom_sf(data = footpath_HARV) +
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Footpaths")
 ```
 
@@ -169,7 +167,8 @@ object, we can plot each using a unique color by assigning a column name to the 
 
 ```{r plot-subset-shapefile-unique-colors }
 ggplot() + 
-  geom_sf(data = footpath_HARV, aes(color = factor(OBJECTID))) +
+  geom_sf(data = footpath_HARV, aes(color = factor(OBJECTID)), size = 1.5) +
+  labs(color = 'Footpath ID') +
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Footpaths")
 ```
 
@@ -193,7 +192,7 @@ Now, we see that there are in fact two features in our plot!
 > > Now let's plot that data: 
 > > ```{r}
 > > ggplot() + 
-> >   geom_sf(data = boardwalk_HARV) +
+> >   geom_sf(data = boardwalk_HARV, size = 1.5) +
 > >   ggtitle("NEON Harvard Forest Field Site", subtitle = "Boardwalks")
 > > ```
 > {: .solution}
@@ -215,7 +214,8 @@ Now, we see that there are in fact two features in our plot!
 > > Now we can plot the data: 
 > > ```{r}
 > > ggplot() +
-> >   geom_sf(data = stoneWall_HARV, aes(color = factor(OBJECTID))) +
+> >   geom_sf(data = stoneWall_HARV, aes(color = factor(OBJECTID)), size = 1.5) +
+> >   labs(color = 'Wall ID') +
 > >   ggtitle("NEON Harvard Forest Field Site", subtitle = "Stonewalls")
 > > ```
 > {: .solution}
@@ -271,8 +271,7 @@ in our spatial object, we can use the same syntax that we used for colors, above
 
 `size = c("widthOne", "widthTwo", "widthThree")[object$factor]`
 
-We already know that we have four different `TYPE` levels in the
-lines_HARV object, so we will set four different line widths.
+We already know that we have four different `TYPE` levels in the lines_HARV object, so we will set four different line widths.
 
 ```{r line-width-unique }
 lineWidths <- (c(1, 2, 3, 4))[lines_HARV$TYPE]
@@ -286,12 +285,14 @@ ggplot() +
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads & Trails - Line width varies")
 ```
 
+Note that we could also use `aes(size = TYPE)` to tie the line thickness to the TYPE variable, so long as we had been careful to set factor levels appropriately. ggplot prints a warning when you do this, because it is not considered a good practice to plot non-spatial data this way.
+
 > ## Challenge: Plot Line Width by Attribute
 > 
 > In the example above, we set the line widths to be 1, 2, 3, and 4.
 > Because R orders factor levels alphabetically by default,
 > this gave us a plot where woods roads (the last factor level)
-> were the thickest and boardwalks were the thinest.
+> were the thickest and boardwalks were the thinnest.
 >
 > Let's create another plot where we show the different line types
 > with the following thicknesses:
@@ -343,20 +344,32 @@ Let's add a legend to our plot. We will use the `roadColors` object
 that we created above to color the legend. We can customize the
 appearance of our legend by manually setting different parameters.
 
+```{r add-legend-to-plot }
+ggplot() + 
+  geom_sf(data = lines_HARV, aes(color = TYPE), size = 1.5) +
+  scale_color_manual(values = roadColors) +
+  labs(color = 'Road Type') + 
+  ggtitle("NEON Harvard Forest Field Site", 
+          subtitle = "Roads & Trails - Default Legend")
+```
+
+We can change the appearance of our legend by manually setting different parameters.
+
 * `legend.text`: change the font size
 * `legend.box.background`: add an outline box
 
 ```{r modify-legend-plot }
 ggplot() + 
-  geom_sf(data = lines_HARV, aes(color = roadColors)) +
+  geom_sf(data = lines_HARV, aes(color = TYPE), size = 1.5) +
   scale_color_manual(values = roadColors) + 
+  labs(color = 'Road Type') +
   theme(legend.text = element_text(size = 20), 
-        legend.box.background = element_rect()) + 
-  ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads & Trails")
+        legend.box.background = element_rect(size = 1)) + 
+  ggtitle("NEON Harvard Forest Field Site", 
+          subtitle = "Roads & Trails - Modified Legend")
 ```
 
-We can modify the colors used to plot our lines by creating a new color vector,
-directly in the plot code too rather than creating a separate object.
+We can modify the colors used to plot our lines by creating a new color vector directly in the plot code rather than creating a separate object.
 
 `col = (newColors)[lines_HARV$TYPE]`
 
@@ -364,11 +377,13 @@ directly in the plot code too rather than creating a separate object.
 newColors <- c("springgreen", "blue", "magenta", "orange")
 
 ggplot() + 
-  geom_sf(data = lines_HARV, aes(color = factor(TYPE))) + 
-  scale_color_manual(values = newColors) + 
+  geom_sf(data = lines_HARV, aes(color = TYPE), size = 1.5) + 
+  scale_color_manual(values = newColors) +
+    labs(color = 'Road Type') +
   theme(legend.text = element_text(size = 20), 
-        legend.box.background = element_rect()) + 
-  ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads & Trails - Pretty Colors")
+        legend.box.background = element_rect(size = 1)) + 
+  ggtitle("NEON Harvard Forest Field Site", 
+          subtitle = "Roads & Trails - Pretty Colors")
 ```
 
 > ## Data Tip
@@ -412,9 +427,9 @@ ggplot() +
 > >
 > > ```{r}
 > > ggplot() + 
+> >   geom_sf(data = lines_HARV) + 
 > >   geom_sf(data = lines_removeNA, aes(color = BicyclesHo), size = 2) + 
 > >   scale_color_manual(values = "magenta") +
-> >   geom_sf(data = lines_HARV, size = 0.5) + 
 > >   ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads Where Bikes and Horses Are Allowed")
 > > ```
 > {: .solution}
@@ -442,7 +457,7 @@ ggplot() +
 > > Now we can create our plot: 
 > > ```{r}
 > > ggplot() +
-> >   geom_sf(data = state_boundary_US, aes(color = region)) +
+> >   geom_sf(data = state_boundary_US, aes(color = region), size = 1) +
 > >   scale_color_manual(values = colors) +
 > >   ggtitle("Contiguous U.S. State Boundaries")
 > > ```
