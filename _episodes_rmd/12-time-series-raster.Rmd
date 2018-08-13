@@ -6,11 +6,14 @@ questions:
 - "How can I view and and plot data for different times of the year?"
 objectives:
 - "Understand the format of a time series raster dataset."
-- "Know how to work with time series rasters."
+- "Work with time series rasters."
 - "Import a set of rasters stored in a single directory."
-- "Pplot and explore time series raster data."
+- "Create a multi-paneled plot."
+- "Convert character data to date format."
 keypoints:
-- ""
+- "Use the `list.files()` function to get a list of filenames matching a specific pattern."
+- "Use the `facet_wrap()` function to create multi-paneled plots with `ggplot2`."
+- "Use the `as.Date()` function to convert data to date format."
 ---
 
 ```{r setup, echo=FALSE}
@@ -35,7 +38,7 @@ library(reshape)
 {: .prereq}
 
 This episode covers how to work with and plot a raster time series, using an
-`R` `RasterStack` object. It also covers practical assessment of data quality in
+R RasterStack object. It also covers practical assessment of data quality in
 remote sensing derived imagery. 
 
 ## About Raster Time Series Data
@@ -47,13 +50,11 @@ example red, green and blue. A multi-band raster may two or more bands or layers
 of data collected at different times for the same extent (region) and of the
 same resolution. For this episode, we will work with a time series
 of normalized difference vegetation index (NDVI) and RGB data from the Harvard Forest site. 
-We introduced the concepts of NDVI and RGB data in [an earlier lesson](https://datacarpentry.org/organization-geospatial/01-spatial-data-structures-formats/index.html).
-
-![A multi-band raster dataset can contain time series data. Source: National Ecological Observatory Network (NEON)](../images/dc-spatial-raster/GreennessOverTime.jpg)
+We introduced the concepts of NDVI and RGB data in [an earlier lesson](https://datacarpentry.org/organization-geospatial/01-spatial-data-structures-formats/index.html) and worked with an RGB RasterStack in the [Work with Multi-band Rasters in R]({{ site.baseurl }}/ 05-raster-multi-band-in-r/) episode. 
 
 In this episode, we will:
 
-1. Import NDVI data in `GeoTIFF` format.
+1. Import NDVI data in GeoTIFF format.
 2. Import, explore and plot NDVI data derived for several dates throughout the
 year.
 3. View the RGB imagery used to derived the NDVI time series to better
@@ -76,8 +77,8 @@ library(scales)
 ```
 
 To begin, we will create a list of raster files using the `list.files()`
-function in `R`. This list will be used to generate a `RasterStack`. We will
-only add files to our list with a `.tif` extension using the syntax
+function. This list will be used to generate a RasterStack. We will
+only add files that have a `.tif` extension to our list. To do this, we will use the syntax
 `pattern=".tif$"`. If we specify `full.names = TRUE`, the full path for each file will be added to
 the list.
 
@@ -91,8 +92,8 @@ the list.
 {: .callout}
 
 ```{r import-NDVI-rasters }
-
 NDVI_HARV_path <- "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI"
+
 all_NDVI_HARV <- list.files(NDVI_HARV_path,
                             full.names = TRUE,
                             pattern = ".tif$")
@@ -106,7 +107,7 @@ all_NDVI_HARV
 ```
 
 Now we have a list of all GeoTIFF files in the NDVI directory for Harvard
-Forest. Next, we will create a `RasterStack` from this list using the `stack()`
+Forest. Next, we will create a RasterStack from this list using the `stack()`
 function. We introduced the `stack()` function in [an earlier episode]({{ site.baseurl }}/05-raster-multi-band-in-r/).
 
 ```{r create-timeSeries-raster-stack }
@@ -114,11 +115,11 @@ NDVI_HARV_stack <- stack(all_NDVI_HARV)
 ```
 
 We can explore the GeoTIFF tags (the embedded metadata) in a stack using the
-same syntax that we used on single-band raster objects in `R` including: `crs()`
+same syntax that we used on single-band raster objects in R including: `crs()`
 (coordinate reference system), `extent()` and `res()` (resolution; specifically
 `yres()` and `xres()`).
 
-``` {r explore-RasterStack-tags}
+```{r explore-RasterStack-tags}
 crs(NDVI_HARV_stack)
 ```
 
@@ -138,7 +139,7 @@ UTM Zone 19.
 
 > ## Challenge: Raster Metadata
 >
-> Investigate the metadata for our `RasterStack` and answer the following questions.
+> Investigate the metadata for our RasterStack and answer the following questions.
 >
 > 1. What are the x and y resolution of the data?
 > 2. What units are the above resolution in?
@@ -154,21 +155,27 @@ UTM Zone 19.
 {: .challenge}
 
 ## Plotting Time Series Data
-Once we have created our `RasterStack`, we can visualize our data. We can use
-the `ggplot()` command to create a multi-panelled plot showing each band in our `RasterStack`.
+Once we have created our RasterStack, we can visualize our data. We can use
+the `ggplot()` command to create a multi-panelled plot showing each band in our RasterStack. First we
+need to create a data frame object. Because there are multiple bands in our data, we will reshape (or "melt")
+the data so that we have a single column with 
+the NDVI observations. We will use the function
+`melt()` from the `reshape` package to do this: 
 
 ```{r plot-time-series}
 NDVI_HARV_stack_df <- raster::as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
-# Then reshape data to stack all the X*_HARV_ndvi_crop columns into
-# one single column called 'variable'
     melt(id.vars = c('x','y'))
 ```
 
+Now we can plot our data using `ggplot()`. We want
+to create a separate panel for each time point in our
+time series, so we will use the `facet_wrap()` 
+function to create a multi-paneled plot: 
 
 ```{r}
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
-  facet_wrap(~variable)
+  facet_wrap(~ variable)
 ```
 
 Look at the range of NDVI values observed in the plot above. We know that
@@ -243,7 +250,7 @@ were some unusual fluctuations that may explain this pattern of greening and
 browning seen in the NDVI data. First we will read in the temperature data and preview the structure
 of that dataframe:
 
-```{r view-temp-data, echo=FALSE, warning=FALSE }
+```{r view-temp-data}
 har_met_daily <-
   read.csv("data/NEON-DS-Met-Time-Series/HARV/FisherTower-Met/hf001-06-daily-m.csv")
 
@@ -251,8 +258,8 @@ str(har_met_daily)
 ```
 
 The `date` column is currently coded as a factor. We want to be able to treat it as a date,
-so we will use the `as.Date()` function to convert it. We need to tell `R` what format the
-data is in. Our dates are YYY-MM-DD, which is represented by `R` as `%Y-%m-%d`.
+so we will use the `as.Date()` function to convert it. We need to tell R what format the
+data is in. Our dates are YYY-MM-DD, which is represented by R as `%Y-%m-%d`.
 
 ```{r}
 har_met_daily$date <- as.Date(har_met_daily$date, format = "%Y-%m-%d")
@@ -281,7 +288,7 @@ Let's have a look at the source Landsat imagery that was partially used used to
 derive our NDVI rasters to try to understand what appear to be outlier NDVI values.
 
 ```{r, echo = FALSE, warning = FALSE}
-
+# code not shown, demonstration only
 # Plot RGB data for Julian day 133
 RGB_133 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
 RGB_133_df <- raster::as.data.frame(RGB_133, xy = TRUE)
@@ -341,7 +348,7 @@ ggplot() +
 > > RGB_277
 > > ```
 > > The RGB data has a max value of 255, but we need our color intensity to be between 0 and 1, so 
-> > we will divide our `RasterStack` object by 255.
+> > we will divide our RasterStack object by 255.
 > > 
 > > ```{r}
 > > RGB_277 <- RGB_277/255

@@ -5,11 +5,10 @@ exercises: 10
 questions:
 - "What do I do when vector data don't line up?"
 objectives:
-- "Know how to identify the CRS of a spatial dataset."
-- "Be familiar with geographic vs. projected coordinate reference systems."
-- "Be familiar with the `proj4` string format which is one format used used to store / reference the CRS of a spatial object."
+- "Plot vector objects with different CRSs in the same plot."
 keypoints:
-- ""
+- "`ggplot2` automatically converts all objects in a plot to the same CRS."
+- "It's still a good idea to be aware of your object CRSs and extents."
 ---
 
 ```{r setup, echo=FALSE}
@@ -33,9 +32,8 @@ library(dplyr)
 
 In [an earlier episode]({{ site.baseurl }}/03-raster-reproject-in-r/)
 we learned how to handle a situation where you have two different
-files with raster data in different projections.
-
-Now we will apply those same principles to working with vector data.
+files with raster data in different projections. Now we will apply
+those same principles to working with vector data.
 We will create a base map of our study site using United States
 state and country boundary information accessed from the
 [United States Census Bureau](https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html).
@@ -45,21 +43,21 @@ don't line up on a map.
 We will continue to work with the three shapefiles that we loaded in the
 [Open and Plot Shapefiles in R]({{site.baseurl}}/06-vector-open-shapefile-in-r/) episode.
 
-```{r load-data, echo = FALSE, results='hide', warning=FALSE}
+```{r load-data, echo = FALSE, results = 'hide', warning = FALSE, message = FALSE}
+# learners will have this data loaded from previous episodes
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
-
 lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
-
 point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
-
-CHM_HARV <-
-raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
+CHM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
+CHM_HARV_df <- raster::as.data.frame(CHM_HARV, xy = TRUE)
+roadColors <- c("blue", "green", "grey", "purple")[lines_HARV$TYPE]
 ```
 
 ## Working With Spatial Data From Different Sources
 
-To support a project, we often need to gather spatial datasets from
-different sources and/or data that cover different spatial `extents`. These data are often in
+We often need to gather spatial datasets from
+different sources and/or data that cover different spatial extents. 
+These data are often in
 different Coordinate Reference Systems (CRSs).
 
 Some reasons for data being in different CRSs include:
@@ -72,13 +70,20 @@ for that state.
 
 ![Maps of the United States using data in different projections. Source: opennews.org](https://media.opennews.org/cache/06/37/0637aa2541b31f526ad44f7cb2db7b6c.jpg)
 
-Notice the differences in shape associated with each different projection. These differences are a direct result of the calculations used to "flatten" the data onto a 2-dimensional map. Often data are stored purposefully in a particular projection that optimizes the relative shape and size of surrounding geographic boundaries (states, counties, countries, etc). 
-
+Notice the differences in shape associated with each different
+projection. These differences are a direct result of the calculations
+used to "flatten" the data onto a 2-dimensional map. Often data are
+stored purposefully in a particular projection that optimizes the
+relative shape and size of surrounding geographic boundaries (states,
+counties, countries, etc). 
 
 In this episode we will learn how to identify and manage spatial data
-in different projections. We will learn how to `reproject` the data so that they
-are in the same projection to support plotting / mapping. Note that these skills
-are also required for any geoprocessing / spatial analysis. Data need to be in
+in different projections. We will learn how to reproject the data so
+that they
+are in the same projection to support plotting / mapping. Note that
+these skills
+are also required for any geoprocessing / spatial analysis. Data need
+to be in
 the same CRS to ensure accurate results.
 
 We will continue to use the `sf` and `raster` packages in this episode.
@@ -86,17 +91,17 @@ We will continue to use the `sf` and `raster` packages in this episode.
 ## Import US Boundaries - Census Data
 
 There are many good sources of boundary base layers that we can use to create a
-basemap. Some `R` packages even have these base layers built in to support quick
-and efficient mapping. In this episode, we will use boundary layers for the
+basemap. Some R packages even have these base layers built in to support quick
+and efficient mapping. In this episode, we will use boundary layers for the contiguous
 United States, provided by the [United States Census Bureau](https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html).
-
-It is useful to have shapefiles to work with because we can add additional
-attributes to them if need be - for project specific mapping.
+It is useful to have shapefiles to work with because we can add
+additional attributes to them if need be - for project specific
+mapping.
 
 ## Read US Boundary File
 
 We will use the `st_read()` function to import the
-`/US-Boundary-Layers/US-State-Boundaries-Census-2014` layer into `R`. This layer
+`/US-Boundary-Layers/US-State-Boundaries-Census-2014` layer into R. This layer
 contains the boundaries of all contiguous states in the U.S. Please note that
 these data have been modified and reprojected from the original data downloaded
 from the Census website to support the learning goals of this episode.
@@ -105,82 +110,43 @@ from the Census website to support the learning goals of this episode.
 state_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp")
 ```
 
-Next, let's plot the U.S. states data.
+Next, let's plot the U.S. states data:
 
 ```{r find-coordinates }
 ggplot() +
-    geom_sf(data=state_boundary_US) +
-    ggtitle("Map of Contiguous US State Boundaries", subtitle = "US Census Bureau Data")
+    geom_sf(data = state_boundary_US) +
+    ggtitle("Map of Contiguous US State Boundaries")
 ```
 
 ## U.S. Boundary Layer
 
-
 We can add a boundary layer of the United States to our map - to make it look
 nicer. We will import
 `NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States`.
-If we specify a thicker line width using `lwd = 4` for the border layer, it will
-make our map pop!
 
-```{r check-out-coordinates }
+```{r}
 country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp")
+```
 
+If we specify a thicker line width using `size = 2` for the border layer, it will
+make our map pop! We will also manually set the colors of the state boundaries
+and country boundaries. 
+
+```{r}
 ggplot() + 
-    geom_sf(data = country_boundary_US, color="gray18", size=2) +
-    geom_sf(data = state_boundary_US, color="gray40") +
-    ggtitle("Map of Contiguous US State Boundaries", subtitle = "US Census Bureau Data")
-
+    geom_sf(data = country_boundary_US, color = "gray18", size = 2) +
+    geom_sf(data = state_boundary_US, color = "gray40") +
+    ggtitle("Map of Contiguous US State Boundaries")
 ```
 
 Next, let's add the location of a flux tower where our study area is.
-As we are adding these layers, take note of the class of each object.
-
-```{r explore-units}
-ggplot() +
-    geom_sf(data=point_HARV, shape=19, color = "purple") +
-    ggtitle("Harvard Fisher Tower Location")
-```
-
-The plot above demonstrates that the tower point location data is readable and
-will plot! Let's next add it as a layer on top of the U.S. states and boundary
-layers in our basemap plot.
-
-``` {r layer-point-on-states }
-ggplot() +
-    # plot state boundaries
-    geom_sf(data=country_boundary_US, size=2, color="gray18") +
-    # add US border outline
-    geom_sf(data=state_boundary_US, color="gray40") +
-    # add point tower location
-    geom_sf(data=point_HARV, shape=19, color="purple") +
-    ggtitle("Map of Contiguous US State Boundaries", subtitle = "with Tower Location")
-```
-
-What do you notice about the resultant plot? Do you see the tower location in
-purple in the Massachusetts area? No! What went wrong?
-
-Let's check out the CRS (`st_crs()`) of both datasets to see if we can identify any
-issues that might cause the point location to not plot properly on top of our
-U.S. boundary layers.
-
-First we'll look at the CRS of our study site.
+As we are adding these layers, take note of the CRS of each object. 
+First let's look at the CRS of our tower location object: 
 
 ```{r crs-sleuthing-1}
 st_crs(point_HARV)
 ```
 
-Then we'll look at the CRS of the US map data.
-
-```{r crs-sleuthing-2}
-st_crs(state_boundary_US)
-st_crs(country_boundary_US)
-```
-
-It looks like our data are in different CRSs. We can tell this by looking at
-the CRS strings in `proj4` format. We discussed the `proj4` format
-in [an earlier episode]({{site.baseurl}}/01-raster-structure/).
-
-### UTM Proj4 String
 Our project string for `DSM_HARV` specifies the UTM projection as follows:
 
 `+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0`
@@ -193,10 +159,16 @@ the coordinate system used in the projection)
 * **ellps=WGS84:** the ellipsoid (how the earth's  roundness is calculated) for
 the data is WGS84
 
-Note that the `zone` is unique to the UTM projection. Not all CRSs will have a
+Note that the `zone` is unique to the UTM projection. Not all CRSs
+will have a
 zone.
 
-### Geographic (lat / long) Proj4 String
+Let's check the CRS of our state and country boundary objects:
+
+```{r crs-sleuthing-2}
+st_crs(state_boundary_US)
+st_crs(country_boundary_US)
+```
 
 Our project string for `state_boundary_US` and `country_boundary_US` specifies
 the lat/long projection as follows:
@@ -246,111 +218,49 @@ represented in meters.
 > * [More information on the proj4 format.](http://proj.maptools.org/faq.html)
 > * [A fairly comprehensive list of CRSs by format.](http://spatialreference.org)
 > * To view a list of datum conversion factors type: `projInfo(type = "datum")`
-into the `R` console.
+into the R console.
 {: .callout}
 
-## Reproject Vector Data
+## Reproject Vector Data or No?
 
-Now we know our data are in different CRSs. To address this, we have to modify
-or reproject the data so they are all in the same CRS. We can use
-`st_transform()` function to reproject our data. When we reproject the data, we
-specify the CRS that we wish to transform our data to. This CRS contains
-the datum, units and other information that `R` needs to reproject our data.
+We saw in [an earlier episode]({{ site.baseurl }}/03-raster-reproject-in-r/) that when working with raster
+data in different CRSs, we needed to convert all objects to the same
+CRS. We can do the same thing with our vector data - however, we
+don't need to! When using the `ggplot2` package, `ggplot`
+automatically converts all objects to the same CRS before plotting. 
+This means we can plot our three data sets together
+without doing any conversion: 
 
-The `st_transform()` function requires two inputs:
-
-1. the name of the object that you wish to transform
-2. the CRS that you wish to transform that object too. In this case we can
-use the `st_crs()` of the `state_boundary_US` object as follows:
-`st_crs(state_boundary_US)`
-
-> ## Data Tip
-> `st_transform()` will only work if your
-> original spatial object has a CRS assigned to it AND if that CRS is the
-> correct CRS!
-{: .callout}
-
-Next, let's reproject our point layer into the geographic - latitude and
-longitude `WGS84` coordinate reference system (CRS).
-
-First we will reproject the data and check the CRS of the new object.
-
-```{r crs-st_tranform }
-
-point_HARV_WGS84 <- st_transform(point_HARV,
-                                st_crs(state_boundary_US))
-
-st_crs(point_HARV_WGS84)
-```
-
-We can also double check the extent of the new object to make sure
-it looks like decimal degrees.
-
-```{r}
-st_bbox(point_HARV_WGS84)
-```
-
-Once our data are reprojected, we can try to plot again.
-
-```{r plot-again }
+```{r layer-point-on-states}
 ggplot() +
-    # plot state boundaries
-    geom_sf(data=country_boundary_US, size=2, color="gray18") +
-    # add US border outline
-    geom_sf(data=state_boundary_US, color="gray40") +
-    # add point tower location
-    geom_sf(data=point_HARV_WGS84, shape=19, color="purple") +
-    ggtitle("Map of Contiguous US State Boundaries", subtitle = "with Tower Location")
+    geom_sf(data = country_boundary_US, size = 2, color = "gray18") +
+    geom_sf(data = state_boundary_US, color = "gray40") +
+    geom_sf(data = point_HARV, shape = 19, color = "purple") +
+    ggtitle("Map of Contiguous US State Boundaries")
 ```
 
-Reprojecting our data ensured that things line up on our map! It will also
-allow us to perform any required geoprocessing (spatial calculations /
-transformations) on our data.
-
-> ## Challenge - Reproject Spatial Data
+> ## Challenge - Plot Multiple Layers of Spatial Data
 > 
 > Create a map of the North Eastern United States as follows:
 > 
 > 1. Import and plot `Boundary-US-State-NEast.shp`. Adjust line width as necessary.
-> 2. **Reproject** the layer into UTM zone 18 north.
-> 3. Layer the Fisher Tower point location `point_HARV` on top of the above plot.
-> 4. Add a **title** to your plot.
-> 5. Add a **legend** to your plot that shows both the state boundary (line) and
+> 2. Layer the Fisher Tower point location `point_HARV` onto the plot.
+> 3. Add a title.
+> 4. Add a legend that shows both the state boundary (as a line) and
 > the Tower location point.
 > 
 > > ## Answers
 > > 
-> > ```{r challenge-code-MASS-Map,  include=TRUE, results="hide", echo=TRUE, warning=FALSE}
-> > # import mass boundary layer
-> > # read the .csv file
+> > ```{r}
 > > NE.States.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp")
-> > # view crs
-> > st_crs(NE.States.Boundary.US)
 > > 
-> > # create CRS object
-> > UTM_CRS <- st_crs(point_HARV)
-> > UTM_CRS
-> > 
-> > # reproject line and point data
-> > NE.States.Boundary.US.UTM  <- st_transform(NE.States.Boundary.US,
-> >                                 UTM_CRS)
-> > NE.States.Boundary.US.UTM
-> > 
-> > # to create a custom legend, we need to fake it
 > > ggplot() +
-> >     # plot state boundaries
-> >     # note the use of an aesthetic, `aes`, which will allow you to customize your legend
-> >     geom_sf(data=NE.States.Boundary.US.UTM, size=1, aes(color="color"), show.legend="line") +
-> >     # `scale_xx_manual` allows you to customize your legend
-> >     # note how the values correspond to the aesthetic
-> >     scale_color_manual(name="", labels="State Boundary", values=c("color"="gray18")) +
-> >     # add point tower location, and customize legend as before
-> >     geom_sf(data=point_HARV, aes(shape="shape"), color="purple") +
-> >     scale_shape_manual(name="", labels="Fisher Tower", values=c("shape"=19)) +
-> >     ggtitle("Map of Northeastern US", subtitle = "With Fisher Tower Location - UTM Zone 18N") +
-> >     # you can customize the legend's appearance with `theme`
-> >     theme(legend.position="bottom",
-> >           legend.background = element_rect(color = NA)) 
+> >     geom_sf(data = NE.States.Boundary.US, aes(color ="color"), show.legend = "line") +
+> >     scale_color_manual(name = "", labels = "State Boundary", values = c("color" = "gray18")) +
+> >     geom_sf(data = point_HARV, aes(shape = "shape"), color = "purple") +
+> >     scale_shape_manual(name = "", labels = "Fisher Tower", values = c("shape" = 19)) +
+> >     ggtitle("Fisher Tower location") + 
+> >     theme(legend.background = element_rect(color = NA)) 
 > > ```
 > {: .solution}
 {: .challenge}
