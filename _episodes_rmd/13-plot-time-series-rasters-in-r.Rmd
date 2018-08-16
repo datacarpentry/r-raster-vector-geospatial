@@ -1,14 +1,17 @@
 ---
-title: "Plot Raster Time Series Data in R"
+title: "Create Publication-quality Graphics"
 teaching: 20
 exercises: 10
 questions:
-- "How can I distinguish between the different times plotted using color?"
+- "How can I create a publication-quality graphic and customize plot parameters?"
 objectives:
-- "Be able to assign custom names to bands in a RasterStack for prettier plotting."
-- "Understand advanced plotting of rasters using the `ggplot2` package."
+- "Assign custom names to bands in a RasterStack."
+- "Customize raster plots using the `ggplot2` package."
 keypoints:
-- ""
+- "Use the `theme_void()` function for a clean background to your plot."
+- "Use the `element_text()` function to adjust text size, font, and position."
+- "Use the `brewer.pal()` function to create a custom color palette."
+- "Use the `gsub()` function to do pattern matching and replacement in text."
 ---
 
 ```{r setup, echo=FALSE}
@@ -17,7 +20,7 @@ source("../setup.R")
 knitr_fig_path("13-")
 ```
 
-```{r load-libraries, echo = FALSE, results='hide'}
+```{r load-libraries, echo = FALSE, results='hide', message = FALSE}
 library(raster)
 library(rgdal)
 library(ggplot2)
@@ -27,18 +30,9 @@ library(RColorBrewer)
 library(scales)
 ```
 
-
-> ## Things You’ll Need To Complete This Episode
-> See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
-> data, and other prerequisites you will need to work through the examples in this episode.
-{: .prereq}
-
-This episode covers how to improve plotting output using the `ggplot2` package
-in `R`. Specifically it covers adding meaningful custom names to bands within a `RasterStack`.
-
 ```{r load-data, echo = FALSE, results = 'hide'}
+# learners will have this data loaded from the previous episode
 
-# Create list of NDVI file paths
 all_NDVI_HARV <- list.files("data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI", full.names = TRUE, pattern = ".tif$")
 
 # Create a time series raster stack
@@ -51,35 +45,112 @@ NDVI_HARV_stack <- NDVI_HARV_stack/10000
 NDVI_HARV_stack_df <- raster::as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
 # Then reshape data to stack all the X*_HARV_ndvi_crop columns into
 # one single column called 'variable'
-    melt(id.vars = c('x','y','optional'))
-```
-## Plot Raster Time Series Data
-We can use the `ggplot` function to plot our raster time series data.
-
-```{r plot-time-series }
-# view a plot of all of the rasters
-# 'ncol' specifies number of columns (we will have 13 plots)
-ggplot() +
-  geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
-# we use ggplot2 faceting technique to split the plot into multiple plots
-# based on the factor called 'variable'
-  facet_wrap(~variable)
+    melt(id.vars = c('x','y'))
 ```
 
-We use `ggtitle("TITLE")` to add a title to the entire plot series and `theme` to
-center the title.
 
-```{r levelplot-time-series }
+> ## Things You’ll Need To Complete This Episode
+> See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
+> data, and other prerequisites you will need to work through the examples in this episode.
+{: .prereq}
+
+This episode covers how to customize your raster plors using the `ggplot2` package
+in R to create publication-quality plots. 
+
+## Before and After
+
+In [the previous episode]({{ site.baseurl }}/12-time-series-raster/), we learned how to plot multi-band
+raster data in R using the `facet_wrap()` function. This created a separate panel in our plot
+for each raster band. The plot we created together is shown below: 
+
+```{r levelplot-time-series-before, echo = FALSE}
+# code not shown, demonstration only
 ggplot() +
-# Add main title
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
-# we use ggplot2 faceting technique to split the plot into multiple plots
-# based on the factor called 'variable'
   facet_wrap(~variable) +
-  ggtitle("Landsat NDVI\nNEON Harvard Forest") +
-# justify horizontally the title by giving a value of 0.5 (hjust is between [0,1])
-  theme(plot.title = element_text(hjust = 0.5))
+  ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest")
 ```
+
+Although this plot is informative, it isn't something we would expect to see in a journal publication. The x
+and y-axis labels aren't informative. There is a lot of unnecessary gray background and the titles of
+each panel don't clearly state that the number refers to the Julian day the data was collected. In this
+episode, we will customize this plot above to produce a publication quality graphic. We will go through these steps iteratively. When we're done, we will have created the plot shown below.
+
+```{r levelplot-time-series-after, echo = FALSE}
+# code not shown, demonstration only
+
+rasterNames <- names(NDVI_HARV_stack)
+rasterNames <- gsub("_HARV_ndvi_crop", "", rasterNames)
+rasterNames  <- gsub("X", "Day ", rasterNames)
+labels_names <- setNames(rasterNames, unique(NDVI_HARV_stack_df$variable))
+green_colors <- brewer.pal(9, "YlGn") %>%
+  colorRampPalette()
+
+ggplot() +
+  geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
+  facet_wrap(~variable, nrow = 3, ncol = 5, labeller = labeller(variable = labels_names)) +
+  ggtitle("Landsat NDVI - Julian Days", subtitle = "Harvard Forest 2011") +
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"), plot.subtitle = element_text(hjust = 0.5)) + 
+  coord_equal() +
+  scale_fill_gradientn(name = "NDVI", colours = green_colors(20))
+
+# cleanup
+rm(rasterNames, labels_names, green_colors)
+```
+
+## Adjust the Plot Theme
+
+The first thing we will do to our plot remove the x and y-axis labels and axis ticks, as these are 
+unnecessary and make our plot look messy. We can do this by setting the plot theme to `void`. 
+
+```{r}
+ggplot() +
+  geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
+  facet_wrap(~variable) +
+  ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest") + 
+  theme_void()
+```
+
+Next we will center our plot title and subtitle. We need to do this **after** the `theme_void()` layer,
+because R interprets the `ggplot` layers in order. If we first tell R to center our plot title,
+and then set the theme to `void`, any adjustments we've made to the plot theme will be over-written
+by the `theme_void()` function. So first we make the theme `void` and then we center the title.
+We center both the title and subtitle by using the `theme()` function and setting the `hjust` 
+parameter to 0.5. The `hjust` parameter stands for "horizontal justification" and takes any value between 
+0 and 1. A setting of 0 indicates left justification and a setting of 1 indicates right justification. 
+
+```{r}
+ggplot() +
+  geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
+  facet_wrap(~variable) +
+  ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest") + 
+  theme_void() + 
+  theme(plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5))
+```
+
+> ## Challenge
+> Change the plot title (but not the subtitle) to bold font. You can 
+> (and should!) use the help menu in RStudio or any internet resources
+> to figure out how to change this setting.
+> 
+> > ## Answers
+> > 
+> > Learners can find this information in the help files for the `theme()` 
+> > function. The 
+> > parameter to set is called `face`. 
+> > 
+> > ```{r}
+> > ggplot() +
+> >   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
+> >   facet_wrap(~variable) +
+> >   ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest") + 
+> >   theme_void() + 
+> >   theme(plot.title = element_text(hjust = 0.5, face = "bold"), 
+> >     plot.subtitle = element_text(hjust = 0.5))
+> > ```
+> {: .solution}
+{: .challenge}
 
 ## Adjust the Color Ramp
 Next, let's adjust the color ramp used to render the rasters. First, we
@@ -88,25 +159,40 @@ NDVI (greenness) data using the `colorRampPalette()` function in combination wit
 `colorBrewer`. Then we use `scale_fill_gradientn` to pass the list of colours
 (here 20 different colours) to ggplot.
 
-``` {r change-color-ramp }
-# use colorbrewer which loads with the rasterVis package to generate
-# a color ramp of yellow to green
-cols <- colorRampPalette(brewer.pal(9, "YlGn"))
+First we need to create a set of colors to use. We will select a set of
+nine colors from the "YlGn" (yellow-green) color palette. This returns a 
+set of hex color codes:
+
+```{r}
+brewer.pal(9, "YlGn")
+```
+
+Then we will pass those color codes to the `colorRampPalette` function, which
+will interpolate from those colors a more nuanced color range.
+
+```{r}
+green_colors <- brewer.pal(9, "YlGn") %>%
+  colorRampPalette()
+```
+
+We can 
+tell the `colorRampPalette()` function how many discrete colors within this color range to
+create. In our case, we will use 20 colors when we plot our graphic.
+
+```{r change-color-ramp}
 ggplot() +
-# Add main title
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
-# we use ggplot2 faceting technique to split the plot into multiple plots
-# based on the factor called 'variable'
   facet_wrap(~variable) +
-  ggtitle("Landsat NDVI -- Improved Colors", subtitle = "NEON Harvard Forest Field Site") +
-# justify horizontally the title by giving a value of 0.5 (hjust is between [0,1])
-  theme(plot.title = element_text(hjust = 0.5)) +
-  scale_fill_gradientn(name = "NDVI", colours = cols(20))
+  ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest") + 
+  theme_void() + 
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"), 
+    plot.subtitle = element_text(hjust = 0.5)) + 
+  scale_fill_gradientn(name = "NDVI", colours = green_colors(20))
 ```
 
 The yellow to green color ramp visually represents NDVI well given it's a
 measure of greenness. Someone looking at the plot can quickly understand that
-pixels that are more green, have a higher NDVI value.
+pixels that are more green have a higher NDVI value.
 
 > ## Data Tip
 > For all of the `brewer.pal` ramp names see the [brewerpal page](http://www.datavis.ca/sasmac/brewerpal.html).
@@ -119,96 +205,105 @@ pixels that are more green, have a higher NDVI value.
 {: .callout}
 
 ## Refine Plot & Tile Labels
-Next, let's label each raster in our plot with the Julian day that the raster
-represents. The current names come from the band (layer names) stored in the
-`RasterStack` and first part each name is the Julian day.
+Next, let's label each panel in our plot with the Julian day that the 
+raster data for that panel was collected. The current names come from the band
+"layer names"" stored in the
+`RasterStack` and the first part of each name is the Julian day.
 
 To create a more meaningful label we can remove the "x" and replace it with
-"day" using the `gsub()` function in `R`. The syntax is as follows:
-`gsub("StringToReplace", "TextToReplaceIt", Robject)`.
+"day" using the `gsub()` function in R. The syntax is as follows:
+`gsub("StringToReplace", "TextToReplaceIt", object)`.
 
-First let's remove "_HARV_NDVI_crop" from each label.
+First let's remove "_HARV_NDVI_crop" from each label to make the labels 
+shorter and remove repetition. To illustrate how this works, we will first
+look at the names for our `NDVI_HARV_stack` object: 
 
-```{r clean-up-names }
-
-# view names for each raster layer
+```{r}
 names(NDVI_HARV_stack)
+```
 
-# use gsub to modify label names.that we'll use for the plot
-rasterNames  <- gsub("X", "Day ", names(NDVI_HARV_stack))
+Now we will use the `gsub()` function to find the character string
+"_HARV_ndvi_crop" and replace it with a blank string (""). We will 
+assign this output to a new object (`rasterNames`) and look
+at that object to make sure our code is doing what we want it to.
 
-# view Names
-rasterNames
+```{r}
+rasterNames <- names(NDVI_HARV_stack)
 
-# Remove HARV_NDVI_crop from the second part of the string
-rasterNames  <- gsub("_HARV_ndvi_crop", "", rasterNames)
-
-# view names for each raster layer
+rasterNames <- gsub("_HARV_ndvi_crop", "", rasterNames)
 rasterNames
 ```
+
+So far so good. Now we will use `gsub()` again to replace the "X" with the word
+"Day" followed by a space.
+
+```{r}
+rasterNames  <- gsub("X", "Day ", rasterNames)
+rasterNames
+```
+
+Our labels look good now. Let's reassign them to our `all_NDVI_HARV` object:
+```{r}
+labels_names <- setNames(rasterNames, unique(NDVI_HARV_stack_df$variable))
+```
+
 Once the names for each band have been reassigned, we can render our plot with
 the new labels using a`labeller`.
 
 ```{r create-levelplot }
-# Associate the new label names to each plot using rasterNames
-labels_names <- setNames(rasterNames, unique(NDVI_HARV_stack_df$variable))
-
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
-  # add customized labels for each plot
-  facet_wrap(~variable, labeller = labeller(variable=labels_names)) +
-  ggtitle("Landsat NDVI - Julian Days", subtitle = "Harvard Forest 2011") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  scale_fill_gradientn(name = "NDVI", colours = cols(20))
+  facet_wrap(~variable, labeller = labeller(variable = labels_names)) +
+  ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest") + 
+  theme_void() + 
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"), 
+    plot.subtitle = element_text(hjust = 0.5)) + 
+  scale_fill_gradientn(name = "NDVI", colours = green_colors(20))
 ```
 
-We can adjust the columns of our plot too by setting the number of columns `ncol`
-and the number of rows `nrow` in `facet_wrap`. Below
-we adjust the layout to be a matrix of 5 columns and 3 rows.
+
+## Change Layout of Panels
+
+We can adjust the columns of our plot by setting the number of columns `ncol`
+and the number of rows `nrow` in `facet_wrap`. Let's make our plot so that
+it has a width of five panels. 
 
 ```{r adjust-layout }
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
-  # create a 5x3 layout for the data
-  facet_wrap(~variable, nrow=3, ncol=5, labeller = labeller(variable=labels_names)) +
-  ggtitle("Landsat NDVI - Julian Days", subtitle = "Harvard Forest 2011") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  scale_fill_gradientn(name = "NDVI", colours = cols(20))
+  facet_wrap(~variable, ncol = 5, labeller = labeller(variable = labels_names)) +
+  ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest") + 
+  theme_void() + 
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"), 
+    plot.subtitle = element_text(hjust = 0.5)) + 
+  scale_fill_gradientn(name = "NDVI", colours = green_colors(20))
 ```
 
-Finally, `scales` allows us to modify the x and y-axis scale. Let's simply
-remove the axis ticks from the plot with `scales = list(draw=FALSE)`.
+Lastly, let's make sure that our x and y coordinates are equal.
 
-```{r remove-axis-ticks }
+```{r}
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
-  facet_wrap(~variable, nrow = 3, ncol = 5, labeller = labeller(variable = labels_names)) +
-  ggtitle("Landsat NDVI - Julian Days", subtitle = "Harvard Forest 2011") +
-  theme(plot.title = element_text(hjust = 0.5),
-  # remove x and y-axis title, text and ticks
-        axis.title.x = element_blank(),
-        axis.text.x = element_blank(),
-        axis.ticks.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.text.y = element_blank(),
-        axis.ticks.y = element_blank()
-        ) +
-  # set same scale for both x and y coordinates
+  facet_wrap(~variable, ncol = 5, labeller = labeller(variable = labels_names)) +
+  ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest") + 
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"), 
+    plot.subtitle = element_text(hjust = 0.5)) + 
   coord_equal() +
-  scale_fill_gradientn(name = "NDVI", colours = cols(20))
+  scale_fill_gradientn(name = "NDVI", colours = green_colors(20))
 ```
+
+Now we have a beautiful, publication quality plot!
 
 > ## Challenge: Divergent Color Ramps
 >
-> When we used `gsub` to modify the tile labels we replaced the beginning of each
-> tile title with "Day". A more descriptive name could be "Julian Day".
+> When we used the `gsub()` function to modify the tile labels we replaced the beginning of each
+> tile title with "Day". A more descriptive name could be "Julian Day". Update the 
+> plot above with the following changes:
 >
-> 1. Create a plot and label each tile "Julian Day" with the julian day value
+> 1. Label each tile "Julian Day" with the julian day value
 > following.
-> 2. Change the colorramp to a divergent brown to green color ramp to
-> represent the data. *Hint:* Use the
-> [brewerpal page](http://www.datavis.ca/sasmac/brewerpal.html)
-> to help choose a color ramp.
+> 2. Change the color ramp to a divergent brown to green color ramp. 
 >
 > **Questions:**
 > Does having a divergent color ramp represent the data
@@ -217,21 +312,25 @@ ggplot() +
 >
 > > ## Answers
 > >
-> > ```{r challenge-code-levelplot-divergent, echo=TRUE}
-> > # change Day to Julian Day
+> > ```{r}
 > > rasterNames  <- gsub("Day","Julian Day ", rasterNames)
-> > # create a new color ramp
-> > cols <- colorRampPalette(brewer.pal(9, "BrBG"))
+> > labels_names <- setNames(rasterNames, unique(NDVI_HARV_stack_df$variable))
+> > 
+> > brown_green_colors <- colorRampPalette(brewer.pal(9, "BrBG"))
+> > 
 > > ggplot() +
-> >  geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
-> >  facet_wrap(~variable, nrow=3, ncol=5, labeller = labeller(variable=labels_names)) +
-> >  ggtitle("Landsat NDVI - Julian Days", subtitle = "Harvard Forest 2011") +
-> >  theme(plot.title = element_text(hjust = 0.5)) +
-> >  scale_fill_gradientn(name = "NDVI", colours = cols(20))
-> >
-> > # The sequential is better than the divergent as it is more akin to the process
-> > # of greening up, which starts off at one end and just keeps increasing.
-> >
+> >   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
+> >   facet_wrap(~variable, ncol = 5, labeller = labeller(variable = labels_names)) +
+> >   ggtitle("Landsat NDVI - Julian Days", subtitle = "Harvard Forest 2011") +
+> >   theme_void() +
+> >   theme(plot.title = element_text(hjust = 0.5, face = "bold"), 
+> >   plot.subtitle = element_text(hjust = 0.5)) + 
+> >   coord_equal() +
+> >   scale_fill_gradientn(name = "NDVI", colours = brown_green_colors(20))
 > > ```
+> > 
+> > For NDVI data, the sequential color ramp is better than the divergent as it is 
+> > more akin to the process
+> > of greening up, which starts off at one end and just keeps increasing.
 > {: .solution}
 {: .challenge}
