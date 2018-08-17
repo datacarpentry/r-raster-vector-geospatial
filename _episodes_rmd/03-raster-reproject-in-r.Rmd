@@ -219,7 +219,7 @@ These two resolutions are different, but they're representing the same data. We 
 newly reprojected raster to be 1m x 1m resolution by adding a line of code
 (`res=`) within the `projectRaster()` function.
 
-``` {r reproject-assign-resolution }
+```{r reproject-assign-resolution}
 DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV,
                                   crs = crs(DTM_HARV),
                                   res = 1)
@@ -243,15 +243,12 @@ We can now create a plot of this data.
 
 ```{r plot-projected-raster}
 ggplot() +
+       geom_raster(data = DTM_HARV_df , 
+             aes(x = x, y = y, 
+                  fill = HARV_dtmCrop)) + 
      geom_raster(data = DTM_hill_HARV_2_df, 
                  aes(x = x, y = y, 
-                   alpha = HARV_DTMhill_WGS84)
-                 ) +
-     geom_raster(data = DTM_HARV_df , 
-             aes(x = x, y = y, 
-                  fill = HARV_dtmCrop,
-                  alpha=0.8)
-             ) + 
+                   alpha = HARV_DTMhill_WGS84)) +
      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10))
 ```
 
@@ -266,9 +263,9 @@ hillshade to produce a nice looking, textured map!
 > Reproject the data as necessary to make things line up!
 > > ## Answers
 > > ```{r challenge-code-reprojection, echo=TRUE}
-> > # import DTM
+> > # import DSM
 > > DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
-> > # import DTM hillshade
+> > # import DSM hillshade
 > > DSM_hill_SJER_WGS <-
 > > raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMhill_WGS84.tif")
 > > 
