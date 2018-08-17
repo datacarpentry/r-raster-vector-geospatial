@@ -232,6 +232,8 @@ class(avg_NDVI_HARV$Date)
 > > ```
 > > 
 > > Now we will create our Julian day column
+> > 
+> > ```{r}
 > > julianDays_SJER <- gsub("X|_SJER_ndvi_crop", "", row.names(avg_NDVI_SJER))
 > > origin <- as.Date("2011-01-01")
 > > avg_NDVI_SJER$julianDay <- as.integer(julianDays_SJER)
