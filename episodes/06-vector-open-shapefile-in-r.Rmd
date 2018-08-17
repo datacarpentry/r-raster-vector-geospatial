@@ -25,6 +25,7 @@ library(raster)
 library(rgdal)
 library(ggplot2)
 library(dplyr)
+library(sf)
 ```
 
 > ## Things You’ll Need To Complete This Episode
@@ -137,7 +138,7 @@ data to a dataframe before plotting with `ggplot`.
 We're going to customize our boundary plot by setting the 
 size, color, and fill for our plot: 
 
-``` {r plot-shapefile}
+```{r plot-shapefile}
 ggplot() + 
   geom_sf(data = aoi_boundary_HARV, size = 3, color = "black", fill = "cyan1") + 
   ggtitle("AOI Boundary Plot")
