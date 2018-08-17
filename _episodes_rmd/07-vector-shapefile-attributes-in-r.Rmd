@@ -64,7 +64,7 @@ of the object.
 * `st_crs()` - The CRS (spatial projection) of the data.
 
 We started to explore our `point_HARV` object in the previous episode.
-To see a summary of all of the metadata associated with our `point_HARV` object, we can view the object itself.
+To see a summary of all of the metadata associated with our `point_HARV` object, we can view the object with `View(point_HARV)` or print a summary of the object itself to the console.
 
 ```{r view-object}
 point_HARV
@@ -163,7 +163,10 @@ ggplot() +
 ```
 
 There are two features in our footpaths subset. Why does the plot look like there is only one feature? Let's adjust the colors used in our plot. If we have 2 features in our vector
-object, we can plot each using a unique color by assigning a column name to the color aesthetic (`color =`). We use the syntax `aes(color = )` to do this.
+object, we can plot each using a unique color by assigning a column name to the color aesthetic (`color =`). We use the syntax `aes(color = )` to do this. We can 
+also alter the deault line thickness by using the `size = ` parameter, as the 
+default value of 0.5 can be hard to see. Note that size is placed outside of the 
+`aes()` function, as we are not connecting line thickness to a data variable.
 
 ```{r plot-subset-shapefile-unique-colors }
 ggplot() + 
@@ -237,7 +240,7 @@ Note in the above example we have
 First we will check how many unique levels our
 factor has:
 
-``` {r palette-and-plot}
+```{r palette-and-plot}
 levels(lines_HARV$TYPE)
 ```
 
@@ -245,43 +248,37 @@ Then we can create a pallet of four colors, one for each
 feature in our vector object.
 
 ```{r}
-roadColors <- c("blue", "green", "grey", "purple")[lines_HARV$TYPE]
+roadColors <- c("blue", "green", "grey", "purple")
 ```
 
 We can tell `ggplot` to use these colors when we plot the data.
 
 ```{r}
 ggplot() +
-  geom_sf(data = lines_HARV, aes(color = roadColors)) + 
+  geom_sf(data = lines_HARV, aes(color = TYPE)) + 
+    scale_color_manual(values = roadColors) +
+    labs(color = 'Road Type') +
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads & Trails")
 ```
 
 ### Adjust Line Width
-We can also adjust the width of our plot lines using the `size` argument. 
-We can set all lines to be thicker or thinner using `size = `.
-
-```{r adjust-line-width}
-ggplot() + 
-  geom_sf(data = lines_HARV, aes(color = roadColors, size = 3)) + 
-  ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads & Trails - Thick lines")
-```
-
-If we want a unique line width for each factor level or attribute category
+We adjusted line width universally earlier. If we want a unique line width for each factor level or attribute category
 in our spatial object, we can use the same syntax that we used for colors, above.
-
-`size = c("widthOne", "widthTwo", "widthThree")[object$factor]`
 
 We already know that we have four different `TYPE` levels in the lines_HARV object, so we will set four different line widths.
 
 ```{r line-width-unique }
-lineWidths <- (c(1, 2, 3, 4))[lines_HARV$TYPE]
+lineWidths <- c(1, 2, 3, 4)
 ```
 
 We can use those line widths when we plot the data.
 
 ```{r}
 ggplot() +
-  geom_sf(data = lines_HARV, aes(color = roadColors, size = lineWidths)) + 
+  geom_sf(data = lines_HARV, aes(color = TYPE, size = TYPE)) + 
+    scale_color_manual(values = roadColors) +
+    labs(color = 'Road Type') +
+    scale_size_manual(values = lineWidths) +
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads & Trails - Line width varies")
 ```
 
@@ -315,14 +312,15 @@ Note that we could also use `aes(size = TYPE)` to tie the line thickness to the 
 > > levels to the desired thickness.
 > >
 > > ```{r}
-> > lineWidth <- c(1, 3, 2, 6)[lines_HARV$TYPE]
+> > lineWidth <- c(1, 3, 2, 6)
 > > ```
 > >
 > > Now we can create our plot.
 > >
 > > ```{r}
 > > ggplot() +
-> >   geom_sf(data = lines_HARV, size = lineWidth) +
+> >   geom_sf(data = lines_HARV, aes(size = TYPE)) +
+> >   scale_size_manual(values = lineWidth) +
 > >   ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads & Trails - Line width varies")
 > > ```
 > {: .solution}
@@ -368,10 +366,6 @@ ggplot() +
   ggtitle("NEON Harvard Forest Field Site", 
           subtitle = "Roads & Trails - Modified Legend")
 ```
-
-We can modify the colors used to plot our lines by creating a new color vector directly in the plot code rather than creating a separate object.
-
-`col = (newColors)[lines_HARV$TYPE]`
 
 ```{r plot-different-colors}
 newColors <- c("springgreen", "blue", "magenta", "orange")

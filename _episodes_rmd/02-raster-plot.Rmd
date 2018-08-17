@@ -10,7 +10,9 @@ objectives:
 - "Build customized plots for a single band raster using the `ggplot2` package."
 - "Layer a raster dataset on top of a hillshade to create an elegant basemap."
 keypoints:
-- ""
+- "Continuous data ranges can be grouped into categories using `mutate()` and `cut()`."
+- "Use built-in `terrain.colors()` or set your prefered color scheme manually."
+- "Layer rasters on top of one another by using the `alpha` aesthetic."
 ---
 
 ```{r setup, echo=FALSE}
