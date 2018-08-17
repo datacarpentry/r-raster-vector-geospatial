@@ -38,6 +38,16 @@ DSM_HARV_df <- raster::as.data.frame(DSM_HARV, xy = TRUE)
 DTM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 
 DTM_HARV_df <- raster::as.data.frame(DTM_HARV, xy = TRUE)
+
+# DSM data for SJER
+DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
+
+DSM_SJER_df <- raster::as.data.frame(DSM_SJER_df, xy = TRUE)
+
+# DTM data for SJER
+DTM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
+
+DTM_SJER_df <- raster::as.data.frame(DTM_SJER, xy = TRUE)
 ```
 
 > ## Things You’ll Need To Complete This Episode
@@ -69,7 +79,8 @@ buildings, etc. with the influence of ground elevation removed.
 
 ### Load the Data
 For this episode, we will use the DTM and DSM from the
-NEON Harvard Forest Field site,
+NEON Harvard Forest Field site and San Joaquin Experimental
+Range,
 which we already have loaded from previous episodes.
 
 > ## Exercise
