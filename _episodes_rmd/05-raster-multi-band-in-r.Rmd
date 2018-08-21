@@ -361,7 +361,8 @@ plotRGB(RGB_brick_HARV)
 > > ## Answers
 > > 1) We can see a list of all of the methods available for our
 > > RasterStack object:
-> > ``` {r}
+> >
+> > ```{r}
 > > methods(class=class(RGB_stack_HARV))
 > > ```
 > > 2) And compare that will the methoda available for a single band:
@@ -370,6 +371,5 @@ plotRGB(RGB_brick_HARV)
 > > ```
 > > 3) There are far more thing one could or wants to ask of a full stack than of
 > > a single band.
-> > ```
 > {: .solution}
 {: .challenge}
