@@ -42,7 +42,7 @@ DTM_HARV_df <- raster::as.data.frame(DTM_HARV, xy = TRUE)
 # DSM data for SJER
 DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
 
-DSM_SJER_df <- raster::as.data.frame(DSM_SJER_df, xy = TRUE)
+DSM_SJER_df <- raster::as.data.frame(DSM_SJER, xy = TRUE)
 
 # DTM data for SJER
 DTM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
