@@ -37,7 +37,7 @@ lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 CHM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 CHM_HARV_df <- raster::as.data.frame(CHM_HARV, xy = TRUE)
-roadColors <- c("blue", "green", "grey", "purple")[lines_HARV$TYPE]
+roadColors <- c("blue", "green", "grey", "purple")
 ```
 
 > ## Things You’ll Need To Complete This Episode
@@ -84,8 +84,6 @@ ggplot() +
 Next, let's build a custom legend using the symbology (the colors and symbols) that we used to create the plot above. For example, it might be good if the lines were symbolized as lines. In the previous episode, you may have noticed that the default legend behaviour for `geom_sf` is to draw a 'patch' for each legend entry. If you want the legend to draw lines or points, you need to add an instruction to the `geom_sf` call - in this case, `show.legend = 'line'`. 
 
 ```{r}
-roadColors <- c("blue", "green", "grey", "purple")[lines_HARV$TYPE]
-
 ggplot() + 
   geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey93") +
   geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line", size = 1) +
@@ -102,7 +100,7 @@ ggplot() +
   geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey93") +
   geom_sf(data = point_HARV, aes(fill = Sub_Type)) +
   geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line", size = 1) + 
-  scale_color_manual(values = road_palette, name = "Line Type") + 
+  scale_color_manual(values = roadColors, name = "Line Type") + 
   scale_fill_manual(values = "black", name = "Tower Location") + 
   ggtitle("NEON Harvard Forest Field Site")
 ```
@@ -120,7 +118,7 @@ ggplot() +
  geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey93") +
  geom_sf(data = point_HARV, aes(fill = Sub_Type), shape = 15) +
  geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line", size = 1) +
- scale_color_manual(values = road_palette, name = "Line Type") +
+ scale_color_manual(values = roadColors, name = "Line Type") +
  scale_fill_manual(values = "black", name = "Tower Location") +
  ggtitle("NEON Harvard Forest Field Site")
 ```
