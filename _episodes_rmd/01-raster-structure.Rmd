@@ -38,6 +38,7 @@ library(ggspatial) # for demonstration code only
 ```
 
 > ## Things You'll Need To Complete This Episode
+>
 > See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
 > data, and other prerequisites you will need to work through the examples in this episode.
 {: .prereq}
@@ -50,7 +51,7 @@ data values as stored in a raster and how R handles these elements.
 
 We will continue to work with the `dplyr` and `ggplot2` packages that were introduced
 in the [Introduction to R for Geospatial Data](https://datacarpentry.org/r-intro-geospatial/) lesson. We will use two additional packages in this episode to work with raster data - the
-`raster` and `rgdal` packages. Make sure that you have these libraries loaded.
+`raster` and `rgdal` packages. Make sure that you have these packages loaded.
 
 ```{r load-libraries-2, eval=FALSE}
 library(raster)
@@ -163,7 +164,7 @@ str(DSM_HARV_df)
 We can use `ggplot()` to plot this data. We will set the color scale to `scale_fill_viridis_c`
 which is a color-blindness friendly color scale:
 
-```{r, fig.width= 7, fig.height=7}
+```{r ggplot-raster, fig.width= 7, fig.height=7}
 ggplot() +
     geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = HARV_dsmCrop)) +
     scale_fill_viridis_c() +
@@ -171,11 +172,13 @@ ggplot() +
 ```
 
 > ## Data Tip
+>
 > More information about the Viridis palette used above at
 > [R Viridis package documentation](https://cran.r-project.org/web/packages/viridis/vignettes/ intro-to-viridis.html).
 {: .callout}
 
 > ## Data Tip
+>
 > The add-on package `ggspatial` can also be used. The raster is still converted
 > to a dataframe before plotting, but the work of converting spatial data into a
 > ggplot-friendly format is done for you in the background.
@@ -238,7 +241,7 @@ the coordinate system used in the projection)
 the data is WGS84
 
 Note that the zone is unique to the UTM projection. Not all CRSs will have a
-zone. Image source: Chrismurf at English Wikipedia, via Wikimedia Commons.
+zone. Image source: Chrismurf at English Wikipedia, via [Wikimedia Commons](https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system#/media/File:Utm-zones-USA.svg) (CC-BY).
 
 ![The UTM zones across the continental United States.](https://upload.wikimedia.org/wikipedia/commons/8/8d/Utm-zones-USA.svg)
 
@@ -355,9 +358,9 @@ ggplot() +
 
 ```
 
-If your raster already has NA values set correctly but you aren't sure where they are, you can use `ggspatial` to deliberately plot them in a particular colour. This can be useful when checking a dataset's coverage. For instance, sometimes data can be missing where a sensor could not 'see' its target data, and you may wish to locate that missing data and fill it in.
+If your raster already has `NA` values set correctly but you aren't sure where they are, you can use `ggspatial` to deliberately plot them in a particular colour. This can be useful when checking a dataset's coverage. For instance, sometimes data can be missing where a sensor could not 'see' its target data, and you may wish to locate that missing data and fill it in.
 
-To highlight NA values in gpplot, alter the `scale_fill_*()` layer to contain a colour instruction for NA values, like `scale_fill_viridis_c(na.value = 'deeppink')`
+To highlight `NA` values in ggplot, alter the `scale_fill_*()` layer to contain a colour instruction for `NA` values, like `scale_fill_viridis_c(na.value = 'deeppink')`
 
 ```{r 'napink', echo = FALSE}
 # demonstration code
@@ -384,18 +387,18 @@ the figure `-3.4e+38` is a common default, and for integers, `-9999` is
 common. Some disciplines have specific conventions that vary from these
 common values.
 
-In some cases, other NA values may be more appropriate. An NA value should
+In some cases, other `NA` values may be more appropriate. An `NA` value should
 be a) outside the range of valid values, and b) a value that fits the data type
 in use. For instance, if your data ranges continuously from -20 to 100, 0 is
-not an acceptable NA value! Or, for categories that number 1-15, 0 might be
-fine for NA, but using -.000003 will force you to save the GeoTIFF on disk
+not an acceptable `NA` value! Or, for categories that number 1-15, 0 might be
+fine for `NA`, but using -.000003 will force you to save the GeoTIFF on disk
 as a floating point raster, resulting in a bigger file.
 
 If we are lucky, our GeoTIFF file has a tag that tells us what is the
 `NoDataValue`. If we are less lucky, we can find that information in the
 raster's metadata. If a `NoDataValue` was stored in the GeoTIFF tag, when R
-opens up the raster, it will assign each instance of the value to NA. Values
-of NA will be ignored by R as demonstrated above.
+opens up the raster, it will assign each instance of the value to `NA`. Values
+of `NA` will be ignored by R as demonstrated above.
 
 > ## Challenge
 > Use the output from the `GDALinfo()` function to find out what `NoDataValue` is used for our DSM_HARV dataset.
@@ -405,6 +408,8 @@ of NA will be ignored by R as demonstrated above.
 > > ```{r}
 > > GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 > > ```
+> >
+> > `NoDataValue` are encoded as -9999.
 > {: .solution}
 {: .callout}
 
@@ -424,7 +429,7 @@ is likely caused by an error in either data collection or processing.
 
 ### Find Bad Data Values
 Sometimes a raster's metadata will tell us the range of expected values for a
-raster. Values outside of this range are suspect and we need to consider than
+raster. Values outside of this range are suspect and we need to consider that
 when we analyze the data. Sometimes, we need to use some common sense and
 scientific insight as we examine the data - just as we would for field data to
 identify questionable values.
@@ -474,7 +479,6 @@ by using the `bins` value in the `geom_histogram()` function.
 
 
 ``` {r view-raster-histogram2}
-
 ggplot() +
     geom_histogram(data = DSM_HARV_df, aes(HARV_dsmCrop), bins = 40)
 
@@ -487,7 +491,7 @@ no bad data values in this particular raster.
 
 > ## Challenge: Explore Raster Metadata
 >
-> Use `GDALinfo() to determine the following about the  `NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif` file:
+> Use `GDALinfo()` to determine the following about the  `NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif` file:
 >
 > 1. Does this file has the same CRS as `DSM_HARV`?
 > 2. What is the `NoDataValue`?
