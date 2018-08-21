@@ -39,7 +39,5 @@ The episodes in this lesson cover how to open, work with and plot vector and ras
 >
 > ### Setup RStudio Project
 >
-> Make sure you have set up a RStudio project for this lesson, as described in the <a href="{{ site.baseurl }}/setup.html" target="_blank">setup instructions</a>.
->
-> If you don't have an RStudio project, you will need to manually set the working directory with `setwd([your-directory-name])` so R can find the data files to load.
+> Make sure you have set up a RStudio project for this lesson, as described in the <a href="{{ site.baseurl }}/setup.html" target="_blank">setup instructions</a> and that your working directory is correctly set.
 {: .prereq}
