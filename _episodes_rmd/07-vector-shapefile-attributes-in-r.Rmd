@@ -48,17 +48,18 @@ Finally, we will learn how to plot a shapefile according to a set of attribute
 values.
 
 ## Load the Data
-We will continue using the `sf`, `raster` and `ggplot2` packages in this episode. Make sure that you have these libraries loaded. We will
+We will continue using the `sf`, `raster` and `ggplot2` packages in this episode. Make sure that you have these packages loaded. We will
 continue to work with the three shapefiles that we loaded in the
 [Open and Plot Shapefiles in R]({{site.baseurl}}/06-vector-open-shapefile-in-r/) episode.
 
 ## Query Shapefile Metadata
+
 As we discussed in the
 [Open and Plot Shapefiles in R]({{site.baseurl}}/06-vector-open-shapefile-in-r/) episode,
 we can view metadata associated with an R object using:
 
 * `st_geometry_type()` - The type of vector data stored in the object.
-* `nrow()` - How number of features in the object
+* `nrow()` - The number of features in the object
 * `st_bbox()` - The spatial extent (geographic area covered by) 
 of the object.
 * `st_crs()` - The CRS (spatial projection) of the data.
@@ -154,7 +155,7 @@ nrow(footpath_HARV)
 
 Our subsetting operation reduces the `features` count to 2. This means
 that only two feature lines in our spatial object have the attribute
-"TYPE == footpath". We can plot only the footpath lines:
+`TYPE == footpath`. We can plot only the footpath lines:
 
 ```{r plot-subset-shapefile}
 ggplot() + 
@@ -164,7 +165,7 @@ ggplot() +
 
 There are two features in our footpaths subset. Why does the plot look like there is only one feature? Let's adjust the colors used in our plot. If we have 2 features in our vector
 object, we can plot each using a unique color by assigning a column name to the color aesthetic (`color =`). We use the syntax `aes(color = )` to do this. We can 
-also alter the deault line thickness by using the `size = ` parameter, as the 
+also alter the deault line thickness by using the `size =` parameter, as the 
 default value of 0.5 can be hard to see. Note that size is placed outside of the 
 `aes()` function, as we are not connecting line thickness to a data variable.
 
@@ -248,7 +249,7 @@ Then we can create a pallet of four colors, one for each
 feature in our vector object.
 
 ```{r}
-roadColors <- c("blue", "green", "grey", "purple")
+road_colors <- c("blue", "green", "navy", "purple")
 ```
 
 We can tell `ggplot` to use these colors when we plot the data.
@@ -256,8 +257,8 @@ We can tell `ggplot` to use these colors when we plot the data.
 ```{r}
 ggplot() +
   geom_sf(data = lines_HARV, aes(color = TYPE)) + 
-    scale_color_manual(values = roadColors) +
-    labs(color = 'Road Type') +
+  scale_color_manual(values = road_colors) +
+  labs(color = 'Road Type') +
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads & Trails")
 ```
 
@@ -268,7 +269,7 @@ in our spatial object, we can use the same syntax that we used for colors, above
 We already know that we have four different `TYPE` levels in the lines_HARV object, so we will set four different line widths.
 
 ```{r line-width-unique }
-lineWidths <- c(1, 2, 3, 4)
+line_widths <- c(1, 2, 3, 4)
 ```
 
 We can use those line widths when we plot the data.
@@ -276,9 +277,9 @@ We can use those line widths when we plot the data.
 ```{r}
 ggplot() +
   geom_sf(data = lines_HARV, aes(color = TYPE, size = TYPE)) + 
-    scale_color_manual(values = roadColors) +
-    labs(color = 'Road Type') +
-    scale_size_manual(values = lineWidths) +
+  scale_color_manual(values = road_colors) +
+  labs(color = 'Road Type') +
+  scale_size_manual(values = line_widths) +
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads & Trails - Line width varies")
 ```
 
@@ -338,14 +339,14 @@ the levels boardwalk, footpath, etc).
 * `fill =`: apply unique colors to the boxes in our legend. `palette()` is
 the default set of colors that R applies to all plots.
 
-Let's add a legend to our plot. We will use the `roadColors` object
+Let's add a legend to our plot. We will use the `road_colors` object
 that we created above to color the legend. We can customize the
 appearance of our legend by manually setting different parameters.
 
 ```{r add-legend-to-plot }
 ggplot() + 
   geom_sf(data = lines_HARV, aes(color = TYPE), size = 1.5) +
-  scale_color_manual(values = roadColors) +
+  scale_color_manual(values = road_colors) +
   labs(color = 'Road Type') + 
   ggtitle("NEON Harvard Forest Field Site", 
           subtitle = "Roads & Trails - Default Legend")
@@ -359,7 +360,7 @@ We can change the appearance of our legend by manually setting different paramet
 ```{r modify-legend-plot }
 ggplot() + 
   geom_sf(data = lines_HARV, aes(color = TYPE), size = 1.5) +
-  scale_color_manual(values = roadColors) + 
+  scale_color_manual(values = road_colors) + 
   labs(color = 'Road Type') +
   theme(legend.text = element_text(size = 20), 
         legend.box.background = element_rect(size = 1)) + 
@@ -368,12 +369,12 @@ ggplot() +
 ```
 
 ```{r plot-different-colors}
-newColors <- c("springgreen", "blue", "magenta", "orange")
+new_colors <- c("springgreen", "blue", "magenta", "orange")
 
 ggplot() + 
   geom_sf(data = lines_HARV, aes(color = TYPE), size = 1.5) + 
-  scale_color_manual(values = newColors) +
-    labs(color = 'Road Type') +
+  scale_color_manual(values = new_colors) +
+  labs(color = 'Road Type') +
   theme(legend.text = element_text(size = 20), 
         legend.box.background = element_rect(size = 1)) + 
   ggtitle("NEON Harvard Forest Field Site", 
@@ -397,7 +398,7 @@ ggplot() +
 > 
 > Be sure to add a title and legend to your map. You might consider a color
 > palette that has all bike/horse-friendly roads displayed in a bright color. All
-> other lines can be grey.
+> other lines can be black.
 > 
 > > ## Answers
 > >
@@ -446,7 +447,7 @@ ggplot() +
 > > ```
 > > Next we set a color vector with that many items: 
 > > ```{r}
-> > colors <- c("purple", "springgreen", "yellow", "brown", "grey")
+> > colors <- c("purple", "springgreen", "yellow", "brown", "navy")
 > > ```
 > > Now we can create our plot: 
 > > ```{r}
