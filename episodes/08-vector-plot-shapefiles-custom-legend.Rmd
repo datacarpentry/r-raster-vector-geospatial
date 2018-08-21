@@ -37,7 +37,7 @@ lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 CHM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 CHM_HARV_df <- raster::as.data.frame(CHM_HARV, xy = TRUE)
-roadColors <- c("blue", "green", "grey", "purple")
+road_colors <- c("blue", "green", "navy", "purple")
 ```
 
 > ## Things You’ll Need To Complete This Episode
@@ -75,7 +75,7 @@ the tower location and road data on top using `+`.
 
 ```{r plot-many-shapefiles }
 ggplot() + 
-  geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey93") +
+  geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey") +
   geom_sf(data = lines_HARV, aes(color = TYPE), size = 1) +
   geom_sf(data = point_HARV) +
   ggtitle("NEON Harvard Forest Field Site")
@@ -85,10 +85,10 @@ Next, let's build a custom legend using the symbology (the colors and symbols) t
 
 ```{r}
 ggplot() + 
-  geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey93") +
+  geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey") +
   geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line", size = 1) +
   geom_sf(data = point_HARV, aes(fill = Sub_Type), color = "black") +
-  scale_color_manual(values = roadColors) +
+  scale_color_manual(values = road_colors) +
   scale_fill_manual(values = "black") +
   ggtitle("NEON Harvard Forest Field Site")
 ```
@@ -97,10 +97,10 @@ Now lets adjust the legend titles by passing a `name` to the respective `color` 
 
 ```{r create-custom-legend}
 ggplot() + 
-  geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey93") +
+  geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey") +
   geom_sf(data = point_HARV, aes(fill = Sub_Type)) +
   geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line", size = 1) + 
-  scale_color_manual(values = roadColors, name = "Line Type") + 
+  scale_color_manual(values = road_colors, name = "Line Type") + 
   scale_fill_manual(values = "black", name = "Tower Location") + 
   ggtitle("NEON Harvard Forest Field Site")
 ```
@@ -115,10 +115,10 @@ Finally, it might be better if the points were symbolized as a symbol. We can cu
 
 ```{r custom-symbols}
 ggplot() +
- geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey93") +
+ geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey") +
  geom_sf(data = point_HARV, aes(fill = Sub_Type), shape = 15) +
  geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line", size = 1) +
- scale_color_manual(values = roadColors, name = "Line Type") +
+ scale_color_manual(values = road_colors, name = "Line Type") +
  scale_fill_manual(values = "black", name = "Tower Location") +
  ggtitle("NEON Harvard Forest Field Site")
 ```
@@ -140,16 +140,16 @@ symbol of `shape` value.
 > > unique soils are represented in the `soilTypeOr` attribute.
 > >
 > > ```{r}
-> > plotLocations <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
+> > plot_locations <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
 > >
-> > levels(plotLocations$soilTypeOr)
+> > levels(plot_locations$soilTypeOr)
 > > ```
 > >
 > > Next we can create a new color palette with one color for
 > > each soil type.
 > >
 > > ```{r}
-> > blueGreen <- c("blue", "darkgreen")
+> > blue_green <- c("blue", "darkgreen")
 > > ```
 > >
 > > Finally, we will create our plot.
@@ -157,11 +157,11 @@ symbol of `shape` value.
 > > ```{r}
 > > ggplot() + 
 > >   geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line") + 
-> >   geom_sf(data = plotLocations, aes(fill = soilTypeOr), 
+> >   geom_sf(data = plot_locations, aes(fill = soilTypeOr), 
 > >           shape = 21, color = NA, show.legend = 'point') + 
-> >   scale_color_manual(name = "Line Type", values = roadColors,
+> >   scale_color_manual(name = "Line Type", values = road_colors,
 > >      guide = guide_legend(override.aes = list(linetype = "solid", shape = NA))) + 
-> >   scale_fill_manual(name = "Soil Type", values = blueGreen,
+> >   scale_fill_manual(name = "Soil Type", values = blue_green,
 > >      guide = guide_legend(override.aes = list(linetype = "blank", shape = 21, colour = NA))) + 
 > >   ggtitle("NEON Harvard Forest Field Site")
 > > ```
@@ -172,14 +172,14 @@ symbol of `shape` value.
 > > ```{r}
 > > ggplot() + 
 > >   geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line", size = 1) + 
-> >   geom_sf(data = plotLocations, aes(fill = soilTypeOr, shape = soilTypeOr),
+> >   geom_sf(data = plot_locations, aes(fill = soilTypeOr, shape = soilTypeOr),
 > >           show.legend = 'point', colour = NA, size = 3) + 
 > >   scale_shape_manual(name = "Soil Type", values = c(21, 22)) +
-> >   scale_color_manual(name = "Line Type", values = roadColors,
+> >   scale_color_manual(name = "Line Type", values = road_colors,
 > >      guide = guide_legend(override.aes = list(linetype = "solid", shape = NA))) + 
-> >   scale_fill_manual(name = "Soil Type", values = blueGreen,
+> >   scale_fill_manual(name = "Soil Type", values = blue_green,
 > >      guide = guide_legend(override.aes = list(linetype = "blank", shape = c(21, 22),
-> >      color = blueGreen))) + 
+> >      color = blue_green))) + 
 > >   ggtitle("NEON Harvard Forest Field Site")
 > > ```
 > {: .solution}
