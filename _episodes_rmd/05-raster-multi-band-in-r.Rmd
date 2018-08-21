@@ -85,9 +85,10 @@ ggplot() +
 
 
 > ## Data Tip
+>
 > The number of bands associated with a
-> raster object can also be determined using the `nbands` slot. Syntax is
-> `ObjectName@file@nbands`, or specifically for our file: `RGB_band1@file@nbands`.
+> raster object can also be determined using the `nbands()` function: syntax is
+> `nbands(RGB_band1_HARV)`.
 > 
 {: .callout}
 
