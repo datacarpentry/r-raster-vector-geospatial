@@ -42,11 +42,10 @@ episode, we learned how to layer a raster file on top of a hillshade for a nice
 looking basemap. In that episode, all of our data were in the same CRS. What
 happens when things don't line up?
 
-For this episode, we will be working with the Harvard Forest Digital
-Terrain Model data. This differes from the surface model data we've
-we've been working with so far in that the digital terrain model
-(DTM) includes the tops of trees, while the digital surface model
-(DSM) shows the ground level.
+For this episode, we will be working with the Harvard Forest Digital Terrain
+Model data. This differs from the surface model data we've been working with so
+far in that the digital terrain model (DTM) includes the tops of trees, while
+the digital surface model (DSM) shows the ground level.
 
 We'll be looking at another model (the canopy height model) in
 [a later episode]({{ site.baseurl }}/04-raster-calculations-in-r/) and will see how to calculate the CHM from the
@@ -199,10 +198,11 @@ UTM. However, the extent values of `DTM_hillUTMZ18N_HARV` are different from
 > ## Challenge: Extent Change with CRS Change
 > 
 > Why do you think the two extents differ?
+>
 > > ## Answers
+> >
 > > The extent for DTM_hill_UTMZ18N_HARV is in UTMs so the extent is in meters. The extent for DTM_hill_HARV is in lat/long so the extent is expressed
 > > in decimal degrees.
-> > ```
 > {: .solution}
 {: .challenge}
 
