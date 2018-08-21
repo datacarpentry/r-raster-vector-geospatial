@@ -55,10 +55,10 @@ Let's proceed as follows:
 
 A key advantage of an RStudio Project is that whenever we open this project in
   subsequent RStudio sessions our working directory will *always* be set to the
-  folder `r-geospatial.`
+  folder `r-geospatial`.
 Let's check our working directory by entering the following into the R console:
 
-```{r}
+```r
 getwd()
 ```
 
@@ -69,8 +69,8 @@ R should return `your/path/r-geospatial` as the working directory.
 Now we want to move the data that we downloaded above into a subdirectory
  inside `r-geospatial`.
 
-1. Create a new directory called `data` inside our working directory.
-2. Copy across the downloaded .zip files to the `data` directory.
+1. Create a new directory called `data` inside our working directory, either by typing `dir.create("data")` at the R console, or by clicking on the "New folder" button under the "Files" pane in RStudio.
+2. Copy across the downloaded zip files to the `data` directory.
 3. Once the data have been moved, unzip all files.
 
 Once you have completed moving the data across to the new folder,
