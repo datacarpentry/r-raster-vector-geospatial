@@ -78,7 +78,8 @@ ggplot() +
   geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey") +
   geom_sf(data = lines_HARV, aes(color = TYPE), size = 1) +
   geom_sf(data = point_HARV) +
-  ggtitle("NEON Harvard Forest Field Site")
+  ggtitle("NEON Harvard Forest Field Site") + 
+  coord_equal()
 ```
 
 Next, let's build a custom legend using the symbology (the colors and symbols) that we used to create the plot above. For example, it might be good if the lines were symbolized as lines. In the previous episode, you may have noticed that the default legend behaviour for `geom_sf` is to draw a 'patch' for each legend entry. If you want the legend to draw lines or points, you need to add an instruction to the `geom_sf` call - in this case, `show.legend = 'line'`. 
@@ -90,7 +91,8 @@ ggplot() +
   geom_sf(data = point_HARV, aes(fill = Sub_Type), color = "black") +
   scale_color_manual(values = road_colors) +
   scale_fill_manual(values = "black") +
-  ggtitle("NEON Harvard Forest Field Site")
+  ggtitle("NEON Harvard Forest Field Site") + 
+  coord_equal()
 ```
 
 Now lets adjust the legend titles by passing a `name` to the respective `color` and `fill` palettes.
@@ -102,7 +104,8 @@ ggplot() +
   geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line", size = 1) + 
   scale_color_manual(values = road_colors, name = "Line Type") + 
   scale_fill_manual(values = "black", name = "Tower Location") + 
-  ggtitle("NEON Harvard Forest Field Site")
+  ggtitle("NEON Harvard Forest Field Site") + 
+  coord_equal()
 ```
 
 Finally, it might be better if the points were symbolized as a symbol. We can customize this using `shape` parameters in our call to `geom_sf`: 16 is a point symbol, 15 is a box.
@@ -120,7 +123,8 @@ ggplot() +
  geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line", size = 1) +
  scale_color_manual(values = road_colors, name = "Line Type") +
  scale_fill_manual(values = "black", name = "Tower Location") +
- ggtitle("NEON Harvard Forest Field Site")
+ ggtitle("NEON Harvard Forest Field Site") + 
+ coord_equal()
 ```
 
 > ## Challenge: Plot Polygon by Attribute
@@ -163,7 +167,8 @@ symbol of `shape` value.
 > >      guide = guide_legend(override.aes = list(linetype = "solid", shape = NA))) + 
 > >   scale_fill_manual(name = "Soil Type", values = blue_green,
 > >      guide = guide_legend(override.aes = list(linetype = "blank", shape = 21, colour = NA))) + 
-> >   ggtitle("NEON Harvard Forest Field Site")
+> >   ggtitle("NEON Harvard Forest Field Site") + 
+> >   coord_equal()
 > > ```
 > >
 > > If we want each soil to be shown with a different symbol, we can
@@ -180,7 +185,8 @@ symbol of `shape` value.
 > >   scale_fill_manual(name = "Soil Type", values = blue_green,
 > >      guide = guide_legend(override.aes = list(linetype = "blank", shape = c(21, 22),
 > >      color = blue_green))) + 
-> >   ggtitle("NEON Harvard Forest Field Site")
+> >   ggtitle("NEON Harvard Forest Field Site") + 
+> >   coord_equal()
 > > ```
 > {: .solution}
 {: .challenge}
@@ -207,7 +213,8 @@ symbol of `shape` value.
 > >   geom_sf(data = lines_HARV, color = "black") +
 > >   geom_sf(data = aoi_boundary_HARV, color = "grey20", size = 1) +
 > >   geom_sf(data = point_HARV, pch = 8) +
-> >   ggtitle("NEON Harvard Forest Field Site w/ Canopy Height Model")
+> >   ggtitle("NEON Harvard Forest Field Site w/ Canopy Height Model") + 
+> >   coord_equal()
 > > ```
 > {: .solution}
 {: .challenge}
