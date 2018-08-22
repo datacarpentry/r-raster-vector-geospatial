@@ -141,18 +141,8 @@ lesson](https://datacarpentry.org/r-intro-geospatial/04-data-structures-part2/in
 The `raster` package has an built-in function for conversion to a plotable dataframe.
 
 ```{r}
-DSM_HARV_df <- raster::as.data.frame(DSM_HARV, xy = TRUE)
+DSM_HARV_df <- as.data.frame(DSM_HARV, xy = TRUE)
 ```
-
-> ## Data Tip
-> 
-> There are many user contributed packages for R, each with its own set of functions. 
-> Functions in different packages can have the same name, even though they do different things. 
-> The notation `package_name::function_name` tells R which package library you want 
-> it to look in for a particular function. In this case, this notation is required, because
-> the base R set of functions (which is always searched first unless otherwise specified) 
-> also includes an `as.data.frame()` function.
-{: .callout}
 
 Now when we view the structure of our data, we will see a standard
 dataframe format.
