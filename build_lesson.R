@@ -3,7 +3,9 @@ BuildLesson <- R6::R6Class(
     "BuildLesson", inherit = TicStep,
     public = list(
         run = function() {
-          source("bin/generate_md_episodes.R")
+          build_status <- system("make clean-rmd; make lesson-md")
+          if (build_status > 0)
+            stop("Error during building process")
           system("mkdir  _rendered")
           system("cp -r \`ls -A | grep -v '.git' | grep -v '_rendered' | grep -v '_site'\` _rendered")
         })
