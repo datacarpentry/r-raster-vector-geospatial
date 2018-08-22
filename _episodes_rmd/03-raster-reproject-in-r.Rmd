@@ -101,7 +101,8 @@ ggplot() +
 geom_raster(data = DTM_HARV_df,
     aes(x = x, y = y,
     fill = HARV_dtmCrop)) +
-scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10))
+scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
+coord_equal()
 ```
 
 Our DTM seems to contain data and plots just fine.
@@ -112,7 +113,8 @@ Next we plot the DTM Hillshade on its own to see whether everything is OK.
 ggplot() +
 geom_raster(data = DTM_hill_HARV_df,
     aes(x = x, y = y,
-    alpha = HARV_DTMhill_WGS84))
+    alpha = HARV_DTMhill_WGS84)) + 
+    coord_equal()
 ```
 
 If we look at the axes, we can see that the projections of the two rasters are different.
@@ -249,7 +251,8 @@ ggplot() +
      geom_raster(data = DTM_hill_HARV_2_df, 
                  aes(x = x, y = y, 
                    alpha = HARV_DTMhill_WGS84)) +
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10))
+     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
+     coord_equal()
 ```
 
 We have now successfully draped the Digital Terrain Model on top of our
@@ -289,7 +292,8 @@ hillshade to produce a nice looking, textured map!
 > >                   fill = SJER_dsmCrop,
 > >                   alpha=0.8)
 > >              ) + 
-> >      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10))
+> >      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
+> >      coord_equal()
 > > ```
 > {: .solution}
 >
