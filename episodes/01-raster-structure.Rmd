@@ -167,21 +167,6 @@ ggplot() +
 > [R Viridis package documentation](https://cran.r-project.org/web/packages/viridis/vignettes/ intro-to-viridis.html).
 {: .callout}
 
-> ## Data Tip
->
-> The add-on package `ggspatial` can also be used. The raster is still converted
-> to a dataframe before plotting, but the work of converting spatial data into a
-> ggplot-friendly format is done for you in the background.
-> 
-> ```{r ggspatial-example, eval = TRUE}
-> library(ggspatial)
-> ggplot() +
->   geom_spatial(data = DSM_HARV, aes(fill = band1)) +
->   scale_fill_viridis_c() +
->   coord_equal()
-> ```
-{: .callout}
-
 This map shows the elevation of our study site in Harvard Forest. From the
 legend, we can see that the maximum elevation is ~400, but we can't tell whether
 this is 400 feet or 400 meters because the legend doesn't show us the units. We
