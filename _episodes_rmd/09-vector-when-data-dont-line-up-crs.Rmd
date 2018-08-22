@@ -115,7 +115,8 @@ Next, let's plot the U.S. states data:
 ```{r find-coordinates }
 ggplot() +
     geom_sf(data = state_boundary_US) +
-    ggtitle("Map of Contiguous US State Boundaries")
+    ggtitle("Map of Contiguous US State Boundaries") + 
+    coord_equal()
 ```
 
 ## U.S. Boundary Layer
@@ -136,7 +137,8 @@ and country boundaries.
 ggplot() + 
     geom_sf(data = country_boundary_US, color = "gray18", size = 2) +
     geom_sf(data = state_boundary_US, color = "gray40") +
-    ggtitle("Map of Contiguous US State Boundaries")
+    ggtitle("Map of Contiguous US State Boundaries") + 
+    coord_equal()
 ```
 
 Next, let's add the location of a flux tower where our study area is.
@@ -236,7 +238,8 @@ ggplot() +
     geom_sf(data = country_boundary_US, size = 2, color = "gray18") +
     geom_sf(data = state_boundary_US, color = "gray40") +
     geom_sf(data = point_HARV, shape = 19, color = "purple") +
-    ggtitle("Map of Contiguous US State Boundaries")
+    ggtitle("Map of Contiguous US State Boundaries") + 
+    coord_equal()
 ```
 
 > ## Challenge - Plot Multiple Layers of Spatial Data
@@ -260,7 +263,8 @@ ggplot() +
 > >     geom_sf(data = point_HARV, aes(shape = "shape"), color = "purple") +
 > >     scale_shape_manual(name = "", labels = "Fisher Tower", values = c("shape" = 19)) +
 > >     ggtitle("Fisher Tower location") + 
-> >     theme(legend.background = element_rect(color = NA)) 
+> >     theme(legend.background = element_rect(color = NA)) + 
+> >     coord_equal()
 > > ```
 > {: .solution}
 {: .challenge}
