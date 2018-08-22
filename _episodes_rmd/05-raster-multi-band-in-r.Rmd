@@ -63,7 +63,8 @@ RGB_band1_HARV_df  <- raster::as.data.frame(RGB_band1_HARV, xy = TRUE)
 
 ```{r}
 ggplot() +
- geom_raster(data = RGB_band1_HARV_df , aes(x = x, y = y, alpha = HARV_RGB_Ortho))
+ geom_raster(data = RGB_band1_HARV_df , aes(x = x, y = y, alpha = HARV_RGB_Ortho)) + 
+ coord_equal()
 ```
 
 > ## Challenge
@@ -122,7 +123,8 @@ RGB_band2_HARV_df  <- raster::as.data.frame(RGB_band2_HARV, xy = TRUE)
 
 ```{r}
 ggplot() +
- geom_raster(data = RGB_band2_HARV_df , aes(x = x, y = y, alpha = HARV_RGB_Ortho))
+ geom_raster(data = RGB_band2_HARV_df , aes(x = x, y = y, alpha = HARV_RGB_Ortho)) + 
+ coord_equal()
 ```
 
 > ## Challenge: Making Sense of Single Band Images
@@ -191,7 +193,8 @@ And a raster plot of the second band:
 
 ```{r}
 ggplot() +
-  geom_raster(data = RGB_stack_HARV_df, aes(x = x, y = y, alpha = HARV_RGB_Ortho.2))
+  geom_raster(data = RGB_stack_HARV_df, aes(x = x, y = y, alpha = HARV_RGB_Ortho.2)) + 
+  coord_equal()
 ```
 
 We can access any individual band in the same way.
