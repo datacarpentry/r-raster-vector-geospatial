@@ -68,7 +68,8 @@ for each raster band. The plot we created together is shown below:
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~variable) +
-  ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest")
+  ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest") + 
+  coord_equal()
 ```
 
 Although this plot is informative, it isn't something we would expect to see in a journal publication. The x
@@ -109,7 +110,8 @@ ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~variable) +
   ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest") + 
-  theme_void()
+  theme_void() + 
+  coord_equal()
 ```
 
 Next we will center our plot title and subtitle. We need to do this **after** the `theme_void()` layer,
@@ -126,7 +128,8 @@ ggplot() +
   facet_wrap(~variable) +
   ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest") + 
   theme_void() + 
-  theme(plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5)) + 
+  coord_equal()
 ```
 
 > ## Challenge
@@ -147,7 +150,8 @@ ggplot() +
 > >   ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest") + 
 > >   theme_void() + 
 > >   theme(plot.title = element_text(hjust = 0.5, face = "bold"), 
-> >     plot.subtitle = element_text(hjust = 0.5))
+> >     plot.subtitle = element_text(hjust = 0.5)) + 
+> >   coord_equal()
 > > ```
 > {: .solution}
 {: .challenge}
@@ -187,7 +191,8 @@ ggplot() +
   theme_void() + 
   theme(plot.title = element_text(hjust = 0.5, face = "bold"), 
     plot.subtitle = element_text(hjust = 0.5)) + 
-  scale_fill_gradientn(name = "NDVI", colours = green_colors(20))
+  scale_fill_gradientn(name = "NDVI", colours = green_colors(20)) + 
+  coord_equal()
 ```
 
 The yellow to green color ramp visually represents NDVI well given it's a
@@ -258,7 +263,8 @@ ggplot() +
   theme_void() + 
   theme(plot.title = element_text(hjust = 0.5, face = "bold"), 
     plot.subtitle = element_text(hjust = 0.5)) + 
-  scale_fill_gradientn(name = "NDVI", colours = green_colors(20))
+  scale_fill_gradientn(name = "NDVI", colours = green_colors(20)) + 
+  coord_equal()
 ```
 
 
@@ -276,21 +282,8 @@ ggplot() +
   theme_void() + 
   theme(plot.title = element_text(hjust = 0.5, face = "bold"), 
     plot.subtitle = element_text(hjust = 0.5)) + 
-  scale_fill_gradientn(name = "NDVI", colours = green_colors(20))
-```
-
-Lastly, let's make sure that our x and y coordinates are equal.
-
-```{r}
-ggplot() +
-  geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
-  facet_wrap(~variable, ncol = 5, labeller = labeller(variable = labels_names)) +
-  ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest") + 
-  theme_void() +
-  theme(plot.title = element_text(hjust = 0.5, face = "bold"), 
-    plot.subtitle = element_text(hjust = 0.5)) + 
-  coord_equal() +
-  scale_fill_gradientn(name = "NDVI", colours = green_colors(20))
+  scale_fill_gradientn(name = "NDVI", colours = green_colors(20)) + 
+  coord_equal()
 ```
 
 Now we have a beautiful, publication quality plot!
