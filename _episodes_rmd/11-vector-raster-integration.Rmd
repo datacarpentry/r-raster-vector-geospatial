@@ -51,6 +51,7 @@ plot_locations_sp_HARV <- st_as_sf(plot_locations_HARV,
 ```
 
 > ## Things You’ll Need To Complete This Episode
+>
 > See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
 > data, and other prerequisites you will need to work through the examples in this episode.
 {: .prereq}
@@ -61,11 +62,11 @@ within a set of polygons, or in a buffer (surrounding) region around a set of
 points.
 
 ## Crop a Raster to Vector Extent
-We often work with spatial layers that have different spatial extents. The spatial extent of a shapefile or R
-spatial object represents the geographic "edge" or
-location that is the furthest north, south east and
-west. Thus is represents the overall geographic
-coverage of the spatial object.
+
+We often work with spatial layers that have different spatial extents. The
+spatial extent of a shapefile or R spatial object represents the geographic
+"edge" or location that is the furthest north, south east and west. Thus is
+represents the overall geographic coverage of the spatial object.
 
 ![Extent illustration](../images/dc-spatial-vector/spatial_extent.png) Image Source: National
 Ecological Observatory Network (NEON)
@@ -112,45 +113,53 @@ our data. Cropping a raster can also be useful when creating pretty maps so
 that the raster layer matches the extent of the desired vector layers.
 
 ## Crop a Raster Using Vector Extent
-We can use the `crop()` function to crop a raster to the extent of another spatial
-object. To do this, we need to specify the raster to be cropped and the spatial
-object that will be used to crop the raster. R will use the `extent` of the
-spatial object as the cropping boundary. To illustrate this, we will
-start by plotting the full extent of the CHM data. 
 
-```{r Crop-by-vector-extent}
+We can use the `crop()` function to crop a raster to the extent of another
+spatial object. To do this, we need to specify the raster to be cropped and the
+spatial object that will be used to crop the raster. R will use the `extent` of
+the spatial object as the cropping boundary.
+
+To illustrate this, we will crop the Canopy Height Model (CHM) to only include the area of interest (AIO). Let's start by plotting the full extent of the CHM data and overlay where the AIO falls within it. The boundaries of the AIO will be colored blue, and we use `fill = NA` to make the area transparent.
+
+```{r crop-by-vector-extent}
 ggplot() +
-      geom_raster(data = CHM_HARV_df, aes(x = x, y = y, fill = HARV_chmCrop)) + 
-     scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
-     coord_sf()
+  geom_raster(data = CHM_HARV_df, aes(x = x, y = y, fill = HARV_chmCrop)) + 
+  scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) +
+  geom_sf(data = aoi_boundary_HARV, color = "blue", fill = NA) +
+  coord_sf()
 ```
 
-Next we create a new object with only the portion of the CHM data
-that falls within the boundaries of the AOI. Remember,
-since this is raster data, we need to convert to 
-a data frame in order to plot using `ggplot`.
+Now that we have visualized the area of the CHM we want to subset, we can
+perform the cropping operation. We are going to create a new object with only
+the portion of the CHM data that falls within the boundaries of the AOI. The function `crop()` is from the raster package and doesn't know how to deal with `sf` objects. Therefore, we first need to convert `aoi_boundary_HARV` from a `sf` object to "Spatial" object.
 
 ```{r}
-CHM_HARV_Crop <- crop(x = CHM_HARV, y = as(aoi_boundary_HARV, "Spatial"))
-
-CHM_HARV_Crop_df <- raster::as.data.frame(CHM_HARV_Crop, xy = TRUE)
+CHM_HARV_Cropped <- crop(x = CHM_HARV, y = as(aoi_boundary_HARV, "Spatial"))
 ```
 
-Now we can plot the cropped CHM data, along with a boundary box showing the full CHM 
-extent.
+Now we can plot the cropped CHM data, along with a boundary box showing the full
+CHM extent. However, remember, since this is raster data, we need to convert to
+a data frame in order to plot using `ggplot`. To get the boundary box from CHM,
+the `st_bbox()` will extract the 4 corners of the rectangle that encompass all
+the features contained in this object. The `st_as_sfc()` converts these 4
+coordinates into a polygon that we can plot:
 
-```{r}
+```{r show-cropped-area}
+CHM_HARV_Cropped_df <- raster::as.data.frame(CHM_HARV_Cropped, xy = TRUE)
+
 ggplot() +
-  geom_sf(data = st_convex_hull(st_union(CHM_rand_sample)), color = "green") + 
-  geom_raster(data = CHM_HARV_Crop_df, aes(x = x, y = y, fill = HARV_chmCrop)) + 
-     scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
-     coord_sf()
+  geom_sf(data = st_as_sfc(st_bbox(CHM_HARV_sp)), fill = "green",
+          color = "green", alpha = .2) +  
+  geom_raster(data = CHM_HARV_Cropped_df,
+              aes(x = x, y = y, fill = HARV_chmCrop)) + 
+  scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
+  coord_sf()
 ```
 
-The plot above shows that the full CHM extent (plotted in green) is
-much larger than the resulting cropped raster. Our new cropped CHM now has the
-same extent as the `aoi_boundary_HARV` object that was used as a crop extent
-(blue border below).
+The plot above shows that the full CHM extent (plotted in green) is much larger
+than the resulting cropped raster. Our new cropped CHM now has the same extent
+as the `aoi_boundary_HARV` object that was used as a crop extent (blue border
+below).
 
 ```{r view-crop-extent}
 ggplot() +
