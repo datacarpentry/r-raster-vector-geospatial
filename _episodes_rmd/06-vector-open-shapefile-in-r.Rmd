@@ -141,7 +141,8 @@ size, color, and fill for our plot:
 ```{r plot-shapefile}
 ggplot() + 
   geom_sf(data = aoi_boundary_HARV, size = 3, color = "black", fill = "cyan1") + 
-  ggtitle("AOI Boundary Plot")
+  ggtitle("AOI Boundary Plot") + 
+  coord_equal()
 ```
 
 > ## Data Tip
