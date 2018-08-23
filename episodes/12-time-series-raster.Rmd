@@ -175,8 +175,7 @@ function to create a multi-paneled plot:
 ```{r}
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
-  facet_wrap(~ variable) + 
-  coord_equal()
+  facet_wrap(~ variable)
 ```
 
 Look at the range of NDVI values observed in the plot above. We know that
@@ -203,8 +202,7 @@ NDVI_HARV_stack_df <- raster::as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
 
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
-  facet_wrap(~variable) + 
-  coord_equal()
+  facet_wrap(~variable)
 ```
 
 ## Take a Closer Look at Our Data
@@ -233,8 +231,7 @@ each raster.
 ```{r view-stack-histogram }
 ggplot(NDVI_HARV_stack_df) +
   geom_histogram(aes(value)) +
-    facet_wrap(~variable) + 
-    coord_equal()
+    facet_wrap(~variable)
 ```
 
 It seems like things get green in the spring and summer like we expect, but the
@@ -311,8 +308,7 @@ tempB[tempB > 1] <- 1
 RGB_133_df$rgb <- rgb(tempR,tempG,tempB)
 ggplot() +
   geom_raster(data = RGB_133_df, aes(x, y), fill = RGB_133_df$rgb) + 
-  ggtitle("Julian day 133") + 
-  coord_equal()
+  ggtitle("Julian day 133")
 
 # Plot RGB data for Julian day 197
 RGB_197 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/197_HARV_landRGB.tif")
@@ -333,8 +329,7 @@ tempB[tempB > 1] <- 1
 RGB_197_df$rgb <- rgb(tempR,tempG,tempB)
 ggplot() +
   geom_raster(data = RGB_197_df, aes(x, y), fill = RGB_197_df$rgb) + 
-  ggtitle("Julian day 197") + 
-  coord_equal()
+  ggtitle("Julian day 197")
 ```
 
 
@@ -375,8 +370,7 @@ ggplot() +
 > > ```{r}
 > > ggplot() +
 > >   geom_raster(data=RGB_277_df, aes(x, y), fill=RGB_277_df$rgb) + 
-> >   ggtitle("Julian day 277") + 
-> >   coord_equal()
+> >   ggtitle("Julian day 277") 
 > >```
 > > We then do the same steps for Julian day 293
 > > 
@@ -388,8 +382,7 @@ ggplot() +
 > > RGB_293_df$rgb <- with(RGB_293_df, rgb(X293_HARV_landRGB.1, X293_HARV_landRGB.2, X293_HARV_landRGB.3,1))
 > > ggplot() +
 > >   geom_raster(data = RGB_293_df, aes(x, y), fill = RGB_293_df$rgb) +
-> >   ggtitle("Julian day 293") +
-> >   coord_equal()
+> >   ggtitle("Julian day 293")
 > > ```
 > > This example highlights the importance of
 > > exploring the source of a derived data product. In this case, the NDVI data

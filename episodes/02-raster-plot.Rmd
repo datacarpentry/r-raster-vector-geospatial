@@ -122,7 +122,7 @@ We can use those groups to plot our raster data, with each group being a differe
 
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = fct_elevation_2)) + 
- coord_equal()
+ coord_quickmap()
 ```
 
 The plot above uses the default colors inside `ggplot` for raster objects. 
@@ -146,7 +146,7 @@ ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
                                       fill = fct_elevation_2)) + 
     scale_fill_manual(values = terrain.colors(3)) + 
-    coord_equal()
+    coord_quickmap()
 ```
 
 ### More Plot Formatting
@@ -168,7 +168,7 @@ ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
                                       fill = fct_elevation_2)) + 
     scale_fill_manual(values = my_col, name = "Elevation") + 
-    coord_equal()
+    coord_quickmap()
 ```
 
 Or we can also turn off the axes altogether by passing `element_blank()` to
@@ -181,7 +181,7 @@ ggplot() +
     scale_fill_manual(values = my_col, name = "Elevation") +
     theme(axis.title.x = element_blank(),
           axis.title.y = element_blank()) + 
-    coord_equal()
+    coord_quickmap()
 ```
 
 > ## Challenge: Plot Using Custom Breaks
@@ -207,7 +207,7 @@ ggplot() +
 > >     ggtitle("Classified Elevation Map - NEON Harvard Forest Field Site") +
 > >     xlab("UTM Westing Coordinate (m)") +
 > >     ylab("UTM Northing Coordinate (m)") + 
-> >     coord_equal()
+> >     coord_quickmap()
 > > ```
 > {: .solution}
 {: .challenge}
@@ -242,7 +242,7 @@ Now we can plot the hillshade data:
 ggplot() +
  geom_raster(data = DSM_hill_HARV_df , aes(x = x, y = y, alpha = HARV_DSMhill)) + 
     scale_alpha(range =  c(0.15, 0.65), guide = "none") + 
-    coord_equal()
+    coord_quickmap()
 ```
 
 > ## Data Tips
@@ -273,7 +273,7 @@ ggplot() +
     scale_alpha(range = c(0.15, 0.65), guide = "none") +
   
     ggtitle("Elevation with hillshade") +
-    coord_equal()
+    coord_quickmap()
 
 ```
 
@@ -327,7 +327,7 @@ Range field site.
 > >     xlab("UTM Westing Coordinate (m)") +
 > >     ylab("UTM Northing Coordinate (m)") +
 > >     ggtitle("DSM with Hillshade") +
-> >     coord_equal()
+> >     coord_quickmap()
 > > 
 > > # CREATE DTM MAP
 > > # import DTM
@@ -357,7 +357,7 @@ Range field site.
 > >     theme(axis.title.x = element_blank(),
 > >           axis.title.y = element_blank()) +
 > >     ggtitle("DTM with Hillshade") +
-> >     coord_equal()
+> >     coord_quickmap()
 > > ```
 > {: .solution}
 {: .challenge}

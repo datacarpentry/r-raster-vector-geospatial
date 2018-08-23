@@ -152,14 +152,13 @@ str(DSM_HARV_df)
 ```
 
 We can use `ggplot()` to plot this data. We will set the color scale to `scale_fill_viridis_c`
-which is a color-blindness friendly color scale. We will also use the `coord_equal()` function to ensure that
-both axes are on the same scale:
+which is a color-blindness friendly color scale. We will also use the `coord_quickmap()` function to use an approximate Mercator projection for our plots. This approximation is suitable for small areas that are not too close to the poles. Other coordinate systems are available in ggplot2 if needed, you can learn about them at their help page `?coord_map`.
 
 ```{r ggplot-raster, fig.width= 7, fig.height=7}
 ggplot() +
     geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = HARV_dsmCrop)) +
     scale_fill_viridis_c() +
-    coord_equal()
+    coord_quickmap()
 ```
 
 > ## Data Tip
@@ -306,7 +305,7 @@ ggplot() +
              show.legend = FALSE) +
   scale_fill_gradient(low = 'black', high = "red") +
   ggtitle("Orthographic Imagery", subtitle = 'Red Band') +
-  coord_equal()
+  coord_quickmap()
 ```
 
 In the next image, the black edges have been assigned `NoDataValue`. R doesn't
@@ -330,7 +329,7 @@ ggplot() +
   geom_raster(data = RGB_2m_df_nd, aes(x = x, y = y, fill = hex)) +
   scale_fill_identity() +
   ggtitle("Orthographic Imagery", subtitle = "All bands") +
-  coord_equal()
+  coord_quickmap()
 
 ```
 
@@ -351,7 +350,7 @@ ggplot() +
   geom_spatial(data = RGB_2m_nas, aes(fill = band3), na.rm = FALSE) +
   scale_fill_gradient(low = 'grey90', high = 'blue', na.value = 'deeppink') +
   ggtitle("Orthographic Imagery", subtitle = "Blue band, with NA highlighted") +
-  coord_equal()
+  coord_quickmap()
 
 # memory saving
 rm(RGB_2m, RGB_stack, RGB_2m_df_nd, RGB_2m_df, RGB_2m_nas)
@@ -426,7 +425,7 @@ ggplot() +
   # use reclassified raster data as an annotation
   annotate(geom = 'raster', x = DSM_highvals$x, y = DSM_highvals$y, fill = scales::colour_ramp('deeppink')(DSM_highvals$layer)) +
   ggtitle("Elevation Data", subtitle = "Highlighting values > 400m") +
-  coord_equal()
+  coord_quickmap()
 
 # memory saving
 rm(DSM_highvals)

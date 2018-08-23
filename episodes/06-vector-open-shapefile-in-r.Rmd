@@ -130,22 +130,24 @@ We introduced the idea of spatial data attributes in [an earlier lesson](https:/
 how to use spatial data attributes stored in our data to plot
 different features.
 
-# Plot a Shapefile
+## Plot a Shapefile
+
 Next, let's visualize the data in our `sf` object using the `ggplot`
 package. Unlike with raster data, we do not need to convert vector
 data to a dataframe before plotting with `ggplot`. 
 
 We're going to customize our boundary plot by setting the 
-size, color, and fill for our plot: 
+size, color, and fill for our plot. When plotting `sf` objects with `ggplot2`, you need to use the `coord_sf()` coordinate system.
 
 ```{r plot-shapefile}
 ggplot() + 
   geom_sf(data = aoi_boundary_HARV, size = 3, color = "black", fill = "cyan1") + 
   ggtitle("AOI Boundary Plot") + 
-  coord_equal()
+  coord_sf()
 ```
 
 > ## Data Tip
+>
 > There is a known bug in the `geom_sf()` function that leads to an
 > intermitent error on some platforms. If you see the following error 
 > message, try to re-run your plotting command and it should work.

@@ -95,7 +95,7 @@ ggplot() +
   geom_sf(data = aoi_boundary_HARV, fill = "blue") +
   geom_sf(data = st_convex_hull(st_union(plot_locations_sp_HARV)), fill = "black") + 
   theme(legend.position = "none") + 
-  coord_equal()
+  coord_sf()
 ```
 
 Frequent use cases of cropping a raster file include reducing file size and
@@ -116,7 +116,7 @@ start by plotting the full extent of the CHM data.
 ggplot() +
       geom_raster(data = CHM_HARV_df, aes(x = x, y = y, fill = HARV_chmCrop)) + 
      scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
-     coord_equal()
+     coord_sf()
 ```
 
 Next we create a new object with only the portion of the CHM data
@@ -138,7 +138,7 @@ ggplot() +
   geom_sf(data = st_convex_hull(st_union(CHM_rand_sample)), color = "green") + 
   geom_raster(data = CHM_HARV_Crop_df, aes(x = x, y = y, fill = HARV_chmCrop)) + 
      scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
-     coord_equal()
+     coord_sf()
 ```
 
 The plot above shows that the full CHM extent (plotted in green) is
@@ -151,7 +151,7 @@ ggplot() +
   geom_raster(data = CHM_HARV_Crop_df, aes(x = x, y = y, fill = HARV_chmCrop)) + 
   geom_sf(data = aoi_boundary_HARV, color = "blue", fill = NA) + 
   scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
-  coord_equal()
+  coord_sf()
 ```
 
 We can look at the extent of all of our other objects for this field site.
@@ -183,7 +183,7 @@ vegetation plot locations plotted on top of the Canopy Height Model information.
 > >   geom_raster(data = CHM_plots_HARVcrop_df, aes(x = x, y = y, fill = HARV_chmCrop)) + 
 > >   scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
 > >   geom_sf(data = plot_locations_sp_HARV) + 
-> >   coord_equal()
+> >   coord_sf()
 > > ```
 > {: .solution}
 {: .challenge}
@@ -217,7 +217,7 @@ ggplot() +
   geom_sf(data = st_convex_hull(st_union(plot_locations_sp_HARV)), fill = "black") + 
   geom_sf(data = aoi_boundary_HARV, fill = "blue") +
   theme(legend.position = "none") + 
-  coord_equal()
+  coord_sf()
 ```
 
 ## Define an Extent
@@ -260,7 +260,7 @@ ggplot() +
     geom_sf(data = aoi_boundary_HARV, color = "blue", fill = NA) +
     geom_raster(data = CHM_HARV_manualCrop_df, aes(x = x, y = y, fill = HARV_chmCrop)) + 
     scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
-    coord_equal()
+    coord_sf()
 ```
 
 ## Extract Raster Pixels Values Using Vector Polygons

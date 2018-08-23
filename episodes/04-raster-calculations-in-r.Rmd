@@ -105,7 +105,7 @@ what this data looks like. First we'll plot the DTM elevation data:
       geom_raster(data = DTM_HARV_df , 
               aes(x = x, y = y, fill = HARV_dtmCrop)) +
      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
-     coord_equal()
+     coord_quickmap()
 ```
 
 And then the DSM elevation data: 
@@ -115,7 +115,7 @@ And then the DSM elevation data:
       geom_raster(data = DSM_HARV_df , 
               aes(x = x, y = y, fill = HARV_dsmCrop)) +
      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
-     coord_equal()
+     coord_quickmap()
 ```
 
 ## Two Ways to Perform Raster Calculations
@@ -152,7 +152,7 @@ We can now plot the output CHM.
                    fill = layer)
               ) + 
      scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
-     coord_equal()
+     coord_quickmap()
 ```
 
 Let's have a look at the distribution of values in our newly created
@@ -208,7 +208,7 @@ meters. Does this make sense for trees in Harvard Forest?
 > >   geom_raster(data = CHM_HARV_df , aes(x = x, y = y,
 > >                                        fill = canopy_discrete)) + 
 > >      scale_fill_manual(values = terrain.colors(4)) + 
-> >      coord_equal()
+> >      coord_quickmap()
 > > ```
 > {: .solution}
 {: .challenge}
@@ -272,7 +272,7 @@ Now we can plot the CHM:
                    fill = layer)
               ) + 
      scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
-     coord_equal()
+     coord_quickmap()
 ```
 
 How do the plots of the CHM created with manual raster math and the `overlay()`
@@ -360,7 +360,7 @@ are what you expect.
 > >                    fill = layer)
 > >               ) + 
 > >      scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
-> >      coord_equal()
+> >      coord_quickmap()
 > > ```
 > > 3) Export the CHM object to a file: 
 > > ```{r}
