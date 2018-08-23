@@ -247,7 +247,7 @@ ggplot() +
 > Create a map of the North Eastern United States as follows:
 > 
 > 1. Import and plot `Boundary-US-State-NEast.shp`. Adjust line width as necessary.
-> 2. Layer the Fisher Tower point location `point_HARV` onto the plot.
+> 2. Layer the Fisher Tower (in the NEON Harvard Forest site) point location `point_HARV` onto the plot.
 > 3. Add a title.
 > 4. Add a legend that shows both the state boundary (as a line) and
 > the Tower location point.
