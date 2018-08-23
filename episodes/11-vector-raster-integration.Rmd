@@ -279,8 +279,6 @@ for example, plot locations that we are sampling on the ground. We can extract a
 
 ![Extract raster information using a polygon boundary.](https://www.neonscience.org/sites/default/files/images/spatialData/BufferSquare.png)
 
-Source: National Ecological Observatory Network (NEON)
-
 To do this in R, we use the `extract()` function. The `extract()` function
 requires:
 
@@ -365,9 +363,9 @@ will not use the `df = TRUE` argument.
 
 ```{r extract-point-to-buffer }
 mean_tree_height_tower <- extract(x = CHM_HARV,
-                                y = as(point_HARV, "Spatial"),
-                                buffer = 20,
-                                fun = mean)
+                                  y = as(point_HARV, "Spatial"),
+                                  buffer = 20,
+                                  fun = mean)
 
 mean_tree_height_tower
 ```
