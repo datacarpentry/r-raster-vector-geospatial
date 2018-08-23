@@ -152,7 +152,8 @@ str(DSM_HARV_df)
 ```
 
 We can use `ggplot()` to plot this data. We will set the color scale to `scale_fill_viridis_c`
-which is a color-blindness friendly color scale:
+which is a color-blindness friendly color scale. We will also use the `coord_equal()` function to ensure that
+both axes are on the same scale:
 
 ```{r ggplot-raster, fig.width= 7, fig.height=7}
 ggplot() +

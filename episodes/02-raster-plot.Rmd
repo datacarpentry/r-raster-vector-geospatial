@@ -121,7 +121,8 @@ We can use those groups to plot our raster data, with each group being a differe
 ```{r ggplot-with-breaks, fig.width= 7, fig.height=7}
 
 ggplot() +
- geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = fct_elevation_2))
+ geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = fct_elevation_2)) + 
+ coord_equal()
 ```
 
 The plot above uses the default colors inside `ggplot` for raster objects. 
@@ -144,7 +145,8 @@ To use these in our map, we pass them across using the
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
                                       fill = fct_elevation_2)) + 
-    scale_fill_manual(values = terrain.colors(3))
+    scale_fill_manual(values = terrain.colors(3)) + 
+    coord_equal()
 ```
 
 ### More Plot Formatting
@@ -165,7 +167,8 @@ my_col <- terrain.colors(3)
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
                                       fill = fct_elevation_2)) + 
-    scale_fill_manual(values = my_col, name = "Elevation")
+    scale_fill_manual(values = my_col, name = "Elevation") + 
+    coord_equal()
 ```
 
 Or we can also turn off the axes altogether by passing `element_blank()` to
@@ -177,7 +180,8 @@ ggplot() +
                                       fill = fct_elevation_2)) + 
     scale_fill_manual(values = my_col, name = "Elevation") +
     theme(axis.title.x = element_blank(),
-          axis.title.y = element_blank())
+          axis.title.y = element_blank()) + 
+    coord_equal()
 ```
 
 > ## Challenge: Plot Using Custom Breaks
@@ -202,7 +206,8 @@ ggplot() +
 > >     scale_fill_manual(values = my_col, name = "Elevation") + 
 > >     ggtitle("Classified Elevation Map - NEON Harvard Forest Field Site") +
 > >     xlab("UTM Westing Coordinate (m)") +
-> >     ylab("UTM Northing Coordinate (m)")
+> >     ylab("UTM Northing Coordinate (m)") + 
+> >     coord_equal()
 > > ```
 > {: .solution}
 {: .challenge}
@@ -236,7 +241,8 @@ Now we can plot the hillshade data:
 ```{r, fig.width= 7, fig.height=7}
 ggplot() +
  geom_raster(data = DSM_hill_HARV_df , aes(x = x, y = y, alpha = HARV_DSMhill)) + 
-    scale_alpha(range =  c(0.15, 0.65), guide = "none")
+    scale_alpha(range =  c(0.15, 0.65), guide = "none") + 
+    coord_equal()
 ```
 
 > ## Data Tips
