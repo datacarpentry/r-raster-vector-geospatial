@@ -161,7 +161,7 @@ that only two feature lines in our spatial object have the attribute
 ggplot() + 
   geom_sf(data = footpath_HARV) +
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Footpaths") + 
-  coord_equal()
+  coord_sf()
 ```
 
 There are two features in our footpaths subset. Why does the plot look like there is only one feature? Let's adjust the colors used in our plot. If we have 2 features in our vector
@@ -175,7 +175,7 @@ ggplot() +
   geom_sf(data = footpath_HARV, aes(color = factor(OBJECTID)), size = 1.5) +
   labs(color = 'Footpath ID') +
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Footpaths") + 
-  coord_equal()
+  coord_sf()
 ```
 
 Now, we see that there are in fact two features in our plot!
@@ -200,7 +200,7 @@ Now, we see that there are in fact two features in our plot!
 > > ggplot() + 
 > >   geom_sf(data = boardwalk_HARV, size = 1.5) +
 > >   ggtitle("NEON Harvard Forest Field Site", subtitle = "Boardwalks") + 
-> >   coord_equal()
+> >   coord_sf()
 > > ```
 > {: .solution}
 {: .challenge}
@@ -224,7 +224,7 @@ Now, we see that there are in fact two features in our plot!
 > >   geom_sf(data = stoneWall_HARV, aes(color = factor(OBJECTID)), size = 1.5) +
 > >   labs(color = 'Wall ID') +
 > >   ggtitle("NEON Harvard Forest Field Site", subtitle = "Stonewalls") + 
-> >   coord_equal()
+> >   coord_sf()
 > > ```
 > {: .solution}
 {: .challenge}
@@ -264,7 +264,7 @@ ggplot() +
   scale_color_manual(values = road_colors) +
   labs(color = 'Road Type') +
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads & Trails") + 
-  coord_equal()
+  coord_sf()
 ```
 
 ### Adjust Line Width
@@ -286,7 +286,7 @@ ggplot() +
   labs(color = 'Road Type') +
   scale_size_manual(values = line_widths) +
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads & Trails - Line width varies") + 
-  coord_equal()
+  coord_sf()
 ```
 
 Note that we could also use `aes(size = TYPE)` to tie the line thickness to the TYPE variable, so long as we had been careful to set factor levels appropriately. ggplot prints a warning when you do this, because it is not considered a good practice to plot non-spatial data this way.
@@ -329,7 +329,7 @@ Note that we could also use `aes(size = TYPE)` to tie the line thickness to the 
 > >   geom_sf(data = lines_HARV, aes(size = TYPE)) +
 > >   scale_size_manual(values = lineWidth) +
 > >   ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads & Trails - Line width varies") + 
-> >   coord_equal()
+> >   coord_sf()
 > > ```
 > {: .solution}
 {: .challenge}
@@ -357,7 +357,7 @@ ggplot() +
   labs(color = 'Road Type') + 
   ggtitle("NEON Harvard Forest Field Site", 
           subtitle = "Roads & Trails - Default Legend") + 
-  coord_equal()
+  coord_sf()
 ```
 
 We can change the appearance of our legend by manually setting different parameters.
@@ -374,7 +374,7 @@ ggplot() +
         legend.box.background = element_rect(size = 1)) + 
   ggtitle("NEON Harvard Forest Field Site", 
           subtitle = "Roads & Trails - Modified Legend") +
-  coord_equal()
+  coord_sf()
 ```
 
 ```{r plot-different-colors}
@@ -388,7 +388,7 @@ ggplot() +
         legend.box.background = element_rect(size = 1)) + 
   ggtitle("NEON Harvard Forest Field Site", 
           subtitle = "Roads & Trails - Pretty Colors") +
-  coord_equal()
+  coord_sf()
 ```
 
 > ## Data Tip
@@ -436,7 +436,7 @@ ggplot() +
 > >   geom_sf(data = lines_removeNA, aes(color = BicyclesHo), size = 2) + 
 > >   scale_color_manual(values = "magenta") +
 > >   ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads Where Bikes and Horses Are Allowed") + 
-> >   coord_equal()
+> >   coord_sf()
 > > ```
 > {: .solution}
 {: .challenge}
@@ -466,7 +466,7 @@ ggplot() +
 > >   geom_sf(data = state_boundary_US, aes(color = region), size = 1) +
 > >   scale_color_manual(values = colors) +
 > >   ggtitle("Contiguous U.S. State Boundaries") + 
-> >   coord_equal()
+> >   coord_sf()
 > > ```
 > {: .solution}
 {: .challenge}
