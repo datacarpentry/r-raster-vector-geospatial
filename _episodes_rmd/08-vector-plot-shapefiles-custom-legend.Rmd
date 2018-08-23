@@ -118,13 +118,13 @@ Finally, it might be better if the points were symbolized as a symbol. We can cu
 
 ```{r custom-symbols}
 ggplot() +
- geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey") +
- geom_sf(data = point_HARV, aes(fill = Sub_Type), shape = 15) +
- geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line", size = 1) +
- scale_color_manual(values = road_colors, name = "Line Type") +
- scale_fill_manual(values = "black", name = "Tower Location") +
- ggtitle("NEON Harvard Forest Field Site") + 
- coord_sf()
+  geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey") +
+  geom_sf(data = point_HARV, aes(fill = Sub_Type), shape = 15) +
+  geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line", size = 1) +
+  scale_color_manual(values = road_colors, name = "Line Type") +
+  scale_fill_manual(values = "black", name = "Tower Location") +
+  ggtitle("NEON Harvard Forest Field Site") + 
+  coord_sf()
 ```
 
 > ## Challenge: Plot Polygon by Attribute
