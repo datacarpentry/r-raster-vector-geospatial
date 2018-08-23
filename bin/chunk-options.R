@@ -45,7 +45,7 @@ hook_in <- function(x, options) {
 hook_out <- function(x, options) {
   x <- gsub("\n$", "", x)
   stringr::str_c("\n\n~~~\n",
-                   paste0(x, collapse="\n"),
+                 paste0(x, collapse="\n"),
                  "\n~~~\n{: .output}\n\n")
 }
 
