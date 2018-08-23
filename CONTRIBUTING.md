@@ -15,7 +15,7 @@ In exchange,
 we will address your issues and/or assess your change proposal as promptly as we can,
 and help you become a member of our community.
 Everyone involved in [Software Carpentry][swc-site] and [Data Carpentry][dc-site]
-agrees to abide by our [code of conduct](CONDUCT.md).
+agrees to abide by our [code of conduct](CODE_OF_CONDUCT.md).
 
 ## How to Contribute
 
@@ -106,13 +106,10 @@ you may want to look at
 [How to Contribute to an Open Source Project on GitHub][how-contribute].
 In brief:
 
-1.  The published copy of the lesson is in the `gh-pages` branch of the repository
-    (so that GitHub will regenerate it automatically).
-    Please create all branches from that,
-    and merge the [master repository][repo]'s `gh-pages` branch into your `gh-pages` branch
-    before starting work.
-    Please do *not* work directly in your `gh-pages` branch,
-    since that will make it difficult for you to work on other contributions.
+1.  The website for the lesson is generated from the gh-pages branch. 
+  The content in this branch is generated automatically by Travis CI from the master branch. 
+  Make your contributions by creating a new branch from master. In this repository, 
+  please do not work from gh-branch.
 
 2.  We use [GitHub flow][github-flow] to manage changes:
     1.  Create a new branch in your desktop copy of this repository for each significant change.
