@@ -27,7 +27,7 @@ This is a good way to introduce yourself
 and to meet some of our community members.
 
 1.  If you do not have a [GitHub][github] account,
-    you can [send us comments by email][email].
+    you can [send us comments by email][contact].
     However,
     we will be able to respond more quickly if you use one of the other methods described below.
 
@@ -46,8 +46,8 @@ and to meet some of our community members.
 ## Where to Contribute
 
 1.  If you wish to change this lesson,
-    please work in <https://github.com/swcarpentry/FIXME>,
-    which can be viewed at <https://swcarpentry.github.io/FIXME>.
+    please work in <https://github.com/datacarpentry/r-raster-vector-geospatial/>,
+    which can be viewed at <https://datacarpentry.org/r-raster-vector-geospatial/>.
 
 2.  If you wish to change the example lesson,
     please work in <https://github.com/carpentries/lesson-example>,
@@ -71,9 +71,9 @@ from writing new exercises and improving existing ones
 to updating or filling in the documentation
 and submitting [bug reports][issues]
 about things that don't work, aren't clear, or are missing.
-If you are looking for ideas, please see the 'Issues' tab for
-a list of issues associated with this repository,
-or you may also look at the issues for [Data Carpentry][dc-issues]
+If you are looking for ideas,
+please see [the list of issues for this repository][issues],
+or the issues for [Data Carpentry][dc-issues]
 and [Software Carpentry][swc-issues] projects.
 
 Comments on issues and reviews of pull requests are just as welcome:
@@ -101,48 +101,54 @@ our lessons must run equally well on all three.
 
 ## Using GitHub
 
-If you choose to contribute via GitHub, you may want to look at
+If you choose to contribute via GitHub,
+you may want to look at
 [How to Contribute to an Open Source Project on GitHub][how-contribute].
-To manage changes, we follow [GitHub flow][github-flow].
-Each lesson has two maintainers who review issues and pull requests or encourage others to do so.
-The maintainers are community volunteers and have final say over what gets merged into the lesson.
-To use the web interface for contributing to a lesson:
+In brief:
 
-1.  Fork the originating repository to your GitHub profile.
-2.  Within your version of the forked repository, move to the `gh-pages` branch and
-create a new branch for each significant change being made.
-3.  Navigate to the file(s) you wish to change within the new branches and make revisions as required.
-4.  Commit all changed files within the appropriate branches.
-5.  Create individual pull requests from each of your changed branches
-to the `gh-pages` branch within the originating repository.
-6.  If you receive feedback, make changes using your issue-specific branches of the forked
-repository and the pull requests will update automatically.
-7.  Repeat as needed until all feedback has been addressed.
+1.  The website for the lesson is generated from the gh-pages branch. 
+  The content in this branch is generated automatically by Travis CI from the master branch. 
+  Make your contributions by creating a new branch from master. In this repository, 
+  please do not work from gh-branch.
 
-When starting work, please make sure your clone of the originating `gh-pages` branch is up-to-date
-before creating your own revision-specific branch(es) from there.
-Additionally, please only work from your newly-created branch(es) and *not*
-your clone of the originating `gh-pages` branch.
-Lastly, published copies of all the lessons are available in the `gh-pages` branch of the originating
-repository for reference while revising.
+2.  We use [GitHub flow][github-flow] to manage changes:
+    1.  Create a new branch in your desktop copy of this repository for each significant change.
+    2.  Commit the change in that branch.
+    3.  Push that branch to your fork of this repository on GitHub.
+    4.  Submit a pull request from that branch to the [master repository][repo].
+    5.  If you receive feedback,
+        make changes on your desktop and push to your branch on GitHub:
+        the pull request will update automatically.
+
+3.  This repository contains two repositories for storing the lesson episodes: 
+    `_episodes` and `_episodes_rmd`. To modify episodes, make changes to the
+    files in the `_episodes_rmd` directory **NOT** the `_episodes` directory.
+    The Markdown files in `_episodes` render automatically from the RMarkdown
+    files in the `_episodes_rmd` directory.
+
+Each lesson has at least two Maintainers who review issues and pull requests
+or encourage others to do so.
+The Maintainers are community volunteers,
+and have final say over what gets merged into the lesson.
 
 ## Other Resources
 
 General discussion of [Software Carpentry][swc-site] and [Data Carpentry][dc-site]
 happens on the [discussion mailing list][discuss-list],
 which everyone is welcome to join.
-You can also [reach us by email][email].
+You can also [reach us by email][contact].
 
-[email]: mailto:admin@software-carpentry.org
+[contact]: mailto:admin@software-carpentry.org
 [dc-issues]: https://github.com/issues?q=user%3Adatacarpentry
 [dc-lessons]: http://datacarpentry.org/lessons/
 [dc-site]: http://datacarpentry.org/
-[discuss-list]: http://lists.software-carpentry.org/listinfo/discuss
-[github]: https://github.com
+[discuss-list]: https://carpentries.topicbox.com/groups/discuss
+[github]: http://github.com
 [github-flow]: https://guides.github.com/introduction/flow/
 [github-join]: https://github.com/join
 [how-contribute]: https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github
-[issues]: https://guides.github.com/features/issues/
+[issues]: https://github.com/datacarpentry/r-raster-vector-geospatial/issues
+[repo]: https://github.com/datacarpentry/r-raster-vector-geospatial
 [swc-issues]: https://github.com/issues?q=user%3Aswcarpentry
-[swc-lessons]: https://software-carpentry.org/lessons/
-[swc-site]: https://software-carpentry.org/
+[swc-lessons]: http://software-carpentry.org/lessons/
+[swc-site]: http://software-carpentry.org/
