@@ -229,27 +229,27 @@ CHM_plots_HARVcrop_sp_rand_sample = sample_n(CHM_plots_HARVcrop_sp, 10000)
 ```
 
 ## Define an Extent
-So far, we have used a shapefile to crop the extent of a raster dataset. Alternatively,
-we can also the
-`extent()` function to define an extent to be used as a cropping
-boundary. This creates a new object of class extent. Here we will 
-provide the `extent()`
-function our xmin, xmax, ymin, and ymax (in that order). 
+
+So far, we have used a shapefile to crop the extent of a raster dataset.
+Alternatively, we can also the `extent()` function to define an extent to be
+used as a cropping boundary. This creates a new object of class extent. Here we
+will provide the `extent()` function our xmin, xmax, ymin, and ymax (in that
+order).
 
 ```{r}
-new.extent <- extent(732161.2, 732238.7, 4713249, 4713333)
-class(new.extent)
+new_extent <- extent(732161.2, 732238.7, 4713249, 4713333)
+class(new_extent)
 ```
 
 > ## Data Tip
-> The extent can be created from a numeric vector (as shown above),
-> a matrix, or a list. For more details see the `extent()` function help file. 
-> * `??raster::extent`
-> * More on the [extent class in R](http://www.inside-r.org/packages/cran/raster/docs/extent).
+>
+> The extent can be created from a numeric vector (as shown above), a matrix, or
+> a list. For more details see the `extent()` function help file
+> (`?raster::extent`).
 {: .callout}
 
-Once we have defined our new extent, we can use the `crop()` function to crop our
-raster to this extent object.
+Once we have defined our new extent, we can use the `crop()` function to crop
+our raster to this extent object.
 
 ```{r crop-using-drawn-extent}
 CHM_HARV_manual_cropped <- crop(x = CHM_HARV, y = new_extent)
