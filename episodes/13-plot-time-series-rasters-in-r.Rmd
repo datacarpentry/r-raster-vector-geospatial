@@ -54,7 +54,7 @@ NDVI_HARV_stack_df <- raster::as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
 > data, and other prerequisites you will need to work through the examples in this episode.
 {: .prereq}
 
-This episode covers how to customize your raster plors using the `ggplot2` package
+This episode covers how to customize your raster plots using the `ggplot2` package
 in R to create publication-quality plots. 
 
 ## Before and After
@@ -199,7 +199,8 @@ pixels that are more green have a higher NDVI value.
 {: .callout}
 
 > ## Data Tip
-> Cynthia Brewer, the creater of
+>
+> Cynthia Brewer, the creator of
 > ColorBrewer, offers an online tool to help choose suitable color ramps, or to
 > create your own. [ColorBrewer 2.0; Color Advise for Cartography](http://colorbrewer2.org/)
 {: .callout}

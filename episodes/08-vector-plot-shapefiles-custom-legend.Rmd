@@ -54,7 +54,7 @@ on the same plot.
 ## Load the Data
 To work with vector data in R, we can use the `sf` library. The `raster`
 package also allows us to explore metadata using similar commands for both
-raster and vector files. Make sure that you have these libraries loaded.
+raster and vector files. Make sure that you have these packages loaded.
 
 We will continue to work with the three shapefiles that we loaded in the
 [Open and Plot Shapefiles in R]({{site.baseurl}}/06-vector-open-shapefile-in-r/) episode.
@@ -82,7 +82,7 @@ ggplot() +
   coord_sf()
 ```
 
-Next, let's build a custom legend using the symbology (the colors and symbols) that we used to create the plot above. For example, it might be good if the lines were symbolized as lines. In the previous episode, you may have noticed that the default legend behaviour for `geom_sf` is to draw a 'patch' for each legend entry. If you want the legend to draw lines or points, you need to add an instruction to the `geom_sf` call - in this case, `show.legend = 'line'`. 
+Next, let's build a custom legend using the symbology (the colors and symbols) that we used to create the plot above. For example, it might be good if the lines were symbolized as lines. In the previous episode, you may have noticed that the default legend behavior for `geom_sf` is to draw a 'patch' for each legend entry. If you want the legend to draw lines or points, you need to add an instruction to the `geom_sf` call - in this case, `show.legend = 'line'`. 
 
 ```{r}
 ggplot() + 
@@ -194,7 +194,7 @@ symbol of `shape` value.
 > ## Challenge: Plot Raster & Vector Data Together
 >
 > You can plot vector data layered on top of raster data using the 
-> `+` to add a layer in `ggplot`. Create a plot that uses the NEON AOP
+> `+` to add a layer in `ggplot`. Create a plot that uses the NEON AOI
 > Canopy Height Model `NEON_RemoteSensing/HARV/CHM/HARV_chmCrop.tif`
 > as a base layer. On top of the
 > CHM, please add:

@@ -119,7 +119,7 @@ spatial object. To do this, we need to specify the raster to be cropped and the
 spatial object that will be used to crop the raster. R will use the `extent` of
 the spatial object as the cropping boundary.
 
-To illustrate this, we will crop the Canopy Height Model (CHM) to only include the area of interest (AIO). Let's start by plotting the full extent of the CHM data and overlay where the AIO falls within it. The boundaries of the AIO will be colored blue, and we use `fill = NA` to make the area transparent.
+To illustrate this, we will crop the Canopy Height Model (CHM) to only include the area of interest (AOI). Let's start by plotting the full extent of the CHM data and overlay where the AOI falls within it. The boundaries of the AOI will be colored blue, and we use `fill = NA` to make the area transparent.
 
 ```{r crop-by-vector-extent}
 ggplot() +
