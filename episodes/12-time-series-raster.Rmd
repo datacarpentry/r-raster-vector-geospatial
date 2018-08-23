@@ -163,7 +163,7 @@ the NDVI observations. We will use the function
 `melt()` from the `reshape` package to do this: 
 
 ```{r plot-time-series}
-NDVI_HARV_stack_df <- raster::as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
+NDVI_HARV_stack_df <- as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
     melt(id.vars = c('x','y'))
 ```
 
@@ -197,7 +197,7 @@ NDVI_HARV_stack <- NDVI_HARV_stack/10000
 After applying our scale factor, we can recreate our plot using the same code we used above.
 
 ```{r}
-NDVI_HARV_stack_df <- raster::as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
+NDVI_HARV_stack_df <- as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
     melt(id.vars = c('x','y'))
 
 ggplot() +
@@ -291,7 +291,7 @@ derive our NDVI rasters to try to understand what appear to be outlier NDVI valu
 # code not shown, demonstration only
 # Plot RGB data for Julian day 133
 RGB_133 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
-RGB_133_df <- raster::as.data.frame(RGB_133, xy = TRUE)
+RGB_133_df <- as.data.frame(RGB_133, xy = TRUE)
 quantiles = c(0.02, 0.98)
 r <- quantile(RGB_133_df$X133_HARV_landRGB.1, quantiles, na.rm = TRUE)
 g <- quantile(RGB_133_df$X133_HARV_landRGB.2, quantiles, na.rm = TRUE)
@@ -313,7 +313,7 @@ ggplot() +
 # Plot RGB data for Julian day 197
 RGB_197 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/197_HARV_landRGB.tif")
 RGB_197 <- RGB_197/255
-RGB_197_df <- raster::as.data.frame(RGB_197, xy = TRUE)
+RGB_197_df <- as.data.frame(RGB_197, xy = TRUE)
 r <- quantile(RGB_197_df$X197_HARV_landRGB.1, quantiles, na.rm = TRUE)
 g <- quantile(RGB_197_df$X197_HARV_landRGB.2, quantiles, na.rm = TRUE)
 b <- quantile(RGB_197_df$X197_HARV_landRGB.3, quantiles, na.rm = TRUE)
@@ -356,7 +356,7 @@ ggplot() +
 > > Next we convert it to a dataframe. 
 > > 
 > > ```{r}
-> > RGB_277_df <- raster::as.data.frame(RGB_277, xy = TRUE)
+> > RGB_277_df <- as.data.frame(RGB_277, xy = TRUE)
 > > ```
 > > 
 > > We create RGB colors from the three channels:
@@ -378,7 +378,7 @@ ggplot() +
 > > # Julian day 293
 > > RGB_293 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")
 > > RGB_293 <- RGB_293/255
-> > RGB_293_df <- raster::as.data.frame(RGB_293, xy = TRUE)
+> > RGB_293_df <- as.data.frame(RGB_293, xy = TRUE)
 > > RGB_293_df$rgb <- with(RGB_293_df, rgb(X293_HARV_landRGB.1, X293_HARV_landRGB.2, X293_HARV_landRGB.3,1))
 > > ggplot() +
 > >   geom_raster(data = RGB_293_df, aes(x, y), fill = RGB_293_df$rgb) +

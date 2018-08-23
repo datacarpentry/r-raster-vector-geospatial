@@ -32,22 +32,22 @@ library(dplyr)
 # DSM data for Harvard Forest
 DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
-DSM_HARV_df <- raster::as.data.frame(DSM_HARV, xy = TRUE)
+DSM_HARV_df <- as.data.frame(DSM_HARV, xy = TRUE)
 
 # DTM data for Harvard Forest
 DTM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 
-DTM_HARV_df <- raster::as.data.frame(DTM_HARV, xy = TRUE)
+DTM_HARV_df <- as.data.frame(DTM_HARV, xy = TRUE)
 
 # DSM data for SJER
 DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
 
-DSM_SJER_df <- raster::as.data.frame(DSM_SJER, xy = TRUE)
+DSM_SJER_df <- as.data.frame(DSM_SJER, xy = TRUE)
 
 # DTM data for SJER
 DTM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
 
-DTM_SJER_df <- raster::as.data.frame(DTM_SJER, xy = TRUE)
+DTM_SJER_df <- as.data.frame(DTM_SJER, xy = TRUE)
 ```
 
 > ## Things You’ll Need To Complete This Episode
@@ -140,7 +140,7 @@ After subtracting, let's create a dataframe so we can plot with `ggplot`.
 ```{r raster-math }
 CHM_HARV <- DSM_HARV - DTM_HARV
 
-CHM_HARV_df <- raster::as.data.frame(CHM_HARV, xy = TRUE)
+CHM_HARV_df <- as.data.frame(CHM_HARV, xy = TRUE)
 ```
 
 We can now plot the output CHM.
@@ -260,7 +260,7 @@ Next we need to convert our new object to a data frame for plotting with
 `ggplot`. 
 
 ```{r}
-CHM_ov_HARV_df <- raster::as.data.frame(CHM_ov_HARV, xy = TRUE)
+CHM_ov_HARV_df <- as.data.frame(CHM_ov_HARV, xy = TRUE)
 ```
 
 Now we can plot the CHM:
@@ -345,7 +345,7 @@ are what you expect.
 > > ```
 > > Convert the output to a dataframe:
 > > ```{r}
-> > CHM_ov_SJER_df <- raster::as.data.frame(CHM_ov_SJER, xy = TRUE)
+> > CHM_ov_SJER_df <- as.data.frame(CHM_ov_SJER, xy = TRUE)
 > > ```
 > > Create a histogram to check that the data distribution makes sense: 
 > > ```{r}

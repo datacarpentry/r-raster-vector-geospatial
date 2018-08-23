@@ -67,9 +67,9 @@ Next, we will convert each of these datasets to a dataframe for
 plotting with `ggplot`.
 
 ```{r}
-DTM_HARV_df <- raster::as.data.frame(DTM_HARV, xy = TRUE)
+DTM_HARV_df <- as.data.frame(DTM_HARV, xy = TRUE)
 
-DTM_hill_HARV_df <- raster::as.data.frame(DTM_hill_HARV, xy = TRUE)
+DTM_hill_HARV_df <- as.data.frame(DTM_hill_HARV, xy = TRUE)
 ```
 
 Now we can create a map of the DTM layered over the hillshade.
@@ -238,7 +238,7 @@ data sets together. For plotting with `ggplot()`, we will need to
 create a dataframe from our newly reprojected raster.
 
 ```{r make-df-projected-raster}
-DTM_hill_HARV_2_df <- raster::as.data.frame(DTM_hill_UTMZ18N_HARV, xy = TRUE)
+DTM_hill_HARV_2_df <- as.data.frame(DTM_hill_UTMZ18N_HARV, xy = TRUE)
 ```
 
 We can now create a plot of this data.
@@ -278,9 +278,9 @@ hillshade to produce a nice looking, textured map!
 > >                                   res = 1)
 > > 
 > > # convert to data.frames
-> > DSM_SJER_df <- raster::as.data.frame(DSM_SJER, xy = TRUE)
+> > DSM_SJER_df <- as.data.frame(DSM_SJER, xy = TRUE)
 > > 
-> > DSM_hill_SJER_df <- raster::as.data.frame(DTM_hill_UTMZ18N_SJER, xy = TRUE)
+> > DSM_hill_SJER_df <- as.data.frame(DTM_hill_UTMZ18N_SJER, xy = TRUE)
 > > 
 > > ggplot() +
 > >      geom_raster(data = DSM_hill_SJER_df, 
