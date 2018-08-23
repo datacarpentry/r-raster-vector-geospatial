@@ -67,7 +67,7 @@ available from Landsat data. The RGB directory contains RGB images for each time
 period that NDVI is available.
 
 ### Getting Started
-In this episode, we will use the `raster`, `rgdal`, `reshape`, and `scales` libraries. Make sure you have these libraries loaded.
+In this episode, we will use the `raster`, `rgdal`, `reshape`, and `scales` packages. Make sure you have them loaded.
 
 ```{r, eval = FALSE}
 library(raster)

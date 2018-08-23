@@ -7,7 +7,7 @@ questions:
 objectives:
 - "Perform a subtraction between two rasters using raster math."
 - "Perform a more efficient subtraction between two rasters using the raster `overlay()` function."
-- "Export raster data as a GeoTiff file."
+- "Export raster data as a GeoTIFF file."
 keypoints:
 - "Rasters can be computed on using mathematical functions."
 - "The `overlay()` function provides an efficient way to do raster math."
@@ -279,11 +279,11 @@ How do the plots of the CHM created with manual raster math and the `overlay()`
 function compare?
 
 ## Export a GeoTIFF
-Now that we've created a new raster, let's export the data as a GeoTiff
+Now that we've created a new raster, let's export the data as a GeoTIFF
 file using
 the `writeRaster()` function.
 
-When we write this raster object to a GeoTiff file we'll name it
+When we write this raster object to a GeoTIFF file we'll name it
 `CHM_HARV.tiff`. This name allows us to quickly remember both what the data
 contains (CHM data) and for where (HARVard Forest). The `writeRaster()` function
 by default writes the output file to your working directory unless you specify a
@@ -302,10 +302,10 @@ writeRaster(CHM_ov_HARV, "CHM_HARV.tiff",
 ### writeRaster() Options
 The function arguments that we used above include:
 
-* **format:** specify that the format will be `GTiff` or GeoTiff.
+* **format:** specify that the format will be `GTiff` or GeoTIFF.
 * **overwrite:** If TRUE, R will overwrite any existing file  with the same
 name in the specified directory. USE THIS SETTING WITH CAUTION!
-* **NAflag:** set the GeoTiff tag for `NoDataValue` to -9999, the National
+* **NAflag:** set the GeoTIFF tag for `NoDataValue` to -9999, the National
 Ecological Observatory Network's (NEON) standard `NoDataValue`.
 
 > ## Challenge: Explore the NEON San Joaquin Experimental Range Field Site
@@ -331,7 +331,7 @@ episode.) Don't forget to check the CRSs and units of the data.
 > 1. Create a CHM from the two raster layers and check to make sure the data
 are what you expect.
 > 2. Plot the CHM from SJER.
-> 3. Export the SJER CHM as a GeoTiff.
+> 3. Export the SJER CHM as a GeoTIFF.
 > 4. Compare the vegetation structure of the Harvard Forest and San Joaquin
 > Experimental Range.
 > 

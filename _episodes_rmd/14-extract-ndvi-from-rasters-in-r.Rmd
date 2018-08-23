@@ -52,7 +52,7 @@ raster time series dataset and plot them using the
 ## Extract Summary Statistics From Raster Data
 We often want to extract summary values from raster data. For
 example, we might want to understand overall greeness across a field site or at
-each plot within a field site. These values can then be compared betweeen
+each plot within a field site. These values can then be compared between
 different field sites and combined with other
 related metrics to support modeling and further analysis.
 
@@ -357,7 +357,7 @@ predominantly cloud covered. Thus, these points are likely bad data points.
 Let's remove them.
 
 First, we will identify the good data points that should be retained. One way
-to do this is by identifying a threhold value. All values below that threshold
+to do this is by identifying a threshold value. All values below that threshold
 will be removed from our analysis. We will use 0.1 as an example for this
 episode. We can then use the subset function to remove outlier datapoints
 (below our identified threshold).

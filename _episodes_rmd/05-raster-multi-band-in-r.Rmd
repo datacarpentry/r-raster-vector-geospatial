@@ -115,7 +115,7 @@ RGB_band2_HARV <-
            band = 2)
 ```
 
-We can conver this data to a data frame and plot the same way we plotted the red band: 
+We can convert this data to a data frame and plot the same way we plotted the red band: 
 
 ```{r}
 RGB_band2_HARV_df  <- raster::as.data.frame(RGB_band2_HARV, xy = TRUE)
@@ -368,7 +368,7 @@ plotRGB(RGB_brick_HARV)
 > > ```{r}
 > > methods(class=class(RGB_stack_HARV))
 > > ```
-> > 2) And compare that will the methoda available for a single band:
+> > 2) And compare that with the methods available for a single band:
 > > ```{r}
 > > methods(class=class(RGB_stack_HARV[1]))
 > > ```

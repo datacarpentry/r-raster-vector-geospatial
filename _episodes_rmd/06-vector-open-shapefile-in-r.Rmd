@@ -149,7 +149,7 @@ ggplot() +
 > ## Data Tip
 >
 > There is a known bug in the `geom_sf()` function that leads to an
-> intermitent error on some platforms. If you see the following error 
+> intermittent error on some platforms. If you see the following error 
 > message, try to re-run your plotting command and it should work.
 > The `ggplot` development team is working on fixing this bug.
 > ~~~

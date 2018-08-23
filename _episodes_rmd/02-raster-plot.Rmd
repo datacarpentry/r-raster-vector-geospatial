@@ -11,7 +11,7 @@ objectives:
 - "Layer a raster dataset on top of a hillshade to create an elegant basemap."
 keypoints:
 - "Continuous data ranges can be grouped into categories using `mutate()` and `cut()`."
-- "Use built-in `terrain.colors()` or set your prefered color scheme manually."
+- "Use built-in `terrain.colors()` or set your preferred color scheme manually."
 - "Layer rasters on top of one another by using the `alpha` aesthetic."
 ---
 
@@ -50,7 +50,7 @@ for the NEON Harvard Forest Field Site.
 
 ## Plotting Data Using Breaks
 In the previous episode, we viewed our data using a continuous color ramp. For 
-clarity and visability of the plot, we may prefer to view the data "symbolized" or colored according to ranges of values. This is comparable to a "classified"
+clarity and visibility of the plot, we may prefer to view the data "symbolized" or colored according to ranges of values. This is comparable to a "classified"
 map. To do this, we need to tell `ggplot` how many groups to break our data into, and
 where those breaks should be. To make these decisions, it is useful to first explore the distribution of the data using a bar plot. To begin with, we will use `dplyr`'s `mutate()` function combined with `cut()` to split the data into 3 bins.
 

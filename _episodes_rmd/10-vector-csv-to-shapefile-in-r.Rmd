@@ -61,7 +61,7 @@ convert it into an `sf` spatial object. The `sf` object allows us to store both 
 of each point and the associated attribute data - or columns describing each
 feature in the spatial object.
 
-We will continue using the `sf` and `raster` libraries in this episode.
+We will continue using the `sf` and `raster` packages in this episode.
 
 ## Import .csv
 To begin let's import a `.csv` file that contains plot coordinate `x, y`
