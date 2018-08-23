@@ -33,7 +33,7 @@ library(dplyr)
 # DSM data for Harvard Forest
 DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
-DSM_HARV_df <- raster::as.data.frame(DSM_HARV, xy = TRUE)
+DSM_HARV_df <- as.data.frame(DSM_HARV, xy = TRUE)
 ```
 
 > ## Things You’ll Need To Complete This Episode
@@ -231,7 +231,7 @@ DSM_hill_HARV
 Next we convert it to a dataframe, so that we can plot it using `ggplot2`:
 
 ```{r}
-DSM_hill_HARV_df <- raster::as.data.frame(DSM_hill_HARV, xy = TRUE) 
+DSM_hill_HARV_df <- as.data.frame(DSM_hill_HARV, xy = TRUE) 
 
 str(DSM_hill_HARV_df)
 ```
@@ -299,12 +299,12 @@ Range field site.
 > > # import DSM data
 > > DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
 > > # convert to a df for plotting
-> > DSM_SJER_df <- raster::as.data.frame(DSM_SJER, xy = TRUE)
+> > DSM_SJER_df <- as.data.frame(DSM_SJER, xy = TRUE)
 > >
 > > # import DSM hillshade
 > > DSM_hill_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmHill.tif")
 > > # convert to a df for plotting
-> > DSM_hill_SJER_df <- raster::as.data.frame(DSM_hill_SJER, xy = TRUE)
+> > DSM_hill_SJER_df <- as.data.frame(DSM_hill_SJER, xy = TRUE)
 > > 
 > > # Build Plot
 > > ggplot() +
@@ -332,11 +332,11 @@ Range field site.
 > > # CREATE DTM MAP
 > > # import DTM
 > > DTM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
-> > DTM_SJER_df <- raster::as.data.frame(DTM_SJER, xy = TRUE)
+> > DTM_SJER_df <- as.data.frame(DTM_SJER, xy = TRUE)
 > >
 > > # DTM Hillshade
 > > DTM_hill_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmHill.tif")
-> > DTM_hill_SJER_df <- raster::as.data.frame(DTM_hill_SJER, xy = TRUE)
+> > DTM_hill_SJER_df <- as.data.frame(DTM_hill_SJER, xy = TRUE)
 > > 
 > > ggplot() +
 > >     geom_raster(data = DTM_SJER_df ,

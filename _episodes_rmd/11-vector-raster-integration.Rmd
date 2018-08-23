@@ -39,7 +39,7 @@ aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18
 CHM_HARV <-
   raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 
-CHM_HARV_df <- raster::as.data.frame(CHM_HARV, xy = TRUE)
+CHM_HARV_df <- as.data.frame(CHM_HARV, xy = TRUE)
 
 # plot locations
 plot_locations_HARV <-
@@ -145,7 +145,7 @@ the features contained in this object. The `st_as_sfc()` converts these 4
 coordinates into a polygon that we can plot:
 
 ```{r show-cropped-area}
-CHM_HARV_Cropped_df <- raster::as.data.frame(CHM_HARV_Cropped, xy = TRUE)
+CHM_HARV_Cropped_df <- as.data.frame(CHM_HARV_Cropped, xy = TRUE)
 
 ggplot() +
   geom_sf(data = st_as_sfc(st_bbox(CHM_HARV_sp)), fill = "green",
@@ -194,7 +194,7 @@ Canopy Height Model information.
 > > 
 > > CHM_plots_HARVcrop <- crop(x = CHM_HARV, y = as(plot_locations_sp_HARV, "Spatial"))
 > > 
-> > CHM_plots_HARVcrop_df <- raster::as.data.frame(CHM_plots_HARVcrop, xy = TRUE)
+> > CHM_plots_HARVcrop_df <- as.data.frame(CHM_plots_HARVcrop, xy = TRUE)
 > > 
 > > ggplot() + 
 > >   geom_raster(data = CHM_plots_HARVcrop_df, aes(x = x, y = y, fill = HARV_chmCrop)) + 
@@ -258,7 +258,7 @@ CHM_HARV_manual_cropped <- crop(x = CHM_HARV, y = new_extent)
 To plot this data using `ggplot()` we need to convert it to a dataframe. 
 
 ```{r}
-CHM_HARV_manual_cropped_df <- raster::as.data.frame(CHM_HARV_manual_cropped, xy = TRUE)
+CHM_HARV_manual_cropped_df <- as.data.frame(CHM_HARV_manual_cropped, xy = TRUE)
 ```
 
 Now we can plot this cropped data. We will show the AOI boundary on the same plot for scale.

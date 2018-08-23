@@ -58,7 +58,7 @@ RGB_band1_HARV <-
 We need to convert this data to a data frame in order to plot it with `ggplot`. 
 
 ```{r}
-RGB_band1_HARV_df  <- raster::as.data.frame(RGB_band1_HARV, xy = TRUE)
+RGB_band1_HARV_df  <- as.data.frame(RGB_band1_HARV, xy = TRUE)
 ```
 
 ```{r}
@@ -118,7 +118,7 @@ RGB_band2_HARV <-
 We can convert this data to a data frame and plot the same way we plotted the red band: 
 
 ```{r}
-RGB_band2_HARV_df  <- raster::as.data.frame(RGB_band2_HARV, xy = TRUE)
+RGB_band2_HARV_df  <- as.data.frame(RGB_band2_HARV, xy = TRUE)
 ```
 
 ```{r}
@@ -173,7 +173,7 @@ of our RasterStack object. Remember, we need to convert to a data
 frame first. 
  
 ```{r}
-RGB_stack_HARV_df  <- raster::as.data.frame(RGB_stack_HARV, xy = TRUE)
+RGB_stack_HARV_df  <- as.data.frame(RGB_stack_HARV, xy = TRUE)
 ```
 
 Each band in our RasterStack gets its own column in the data frame. Thus we have: 

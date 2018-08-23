@@ -42,7 +42,7 @@ NDVI_HARV_stack <- stack(all_NDVI_HARV)
 NDVI_HARV_stack <- NDVI_HARV_stack/10000
 
 # convert to a df for plotting 
-NDVI_HARV_stack_df <- raster::as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
+NDVI_HARV_stack_df <- as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
 # Then reshape data to stack all the X*_HARV_ndvi_crop columns into
 # one single column called 'variable'
     melt(id.vars = c('x','y'))

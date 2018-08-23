@@ -49,7 +49,7 @@ aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18
 lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 CHM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
-CHM_HARV_df <- raster::as.data.frame(CHM_HARV, xy = TRUE)
+CHM_HARV_df <- as.data.frame(CHM_HARV, xy = TRUE)
 roadColors <- c("blue", "green", "grey", "purple")[lines_HARV$TYPE]
 ```
 

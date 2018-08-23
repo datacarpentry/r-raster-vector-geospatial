@@ -296,7 +296,7 @@ RGB_2m <- raster::aggregate(RGB_stack, fact = 8, fun = median)
 values(RGB_2m) <- as.integer(round(values(RGB_2m)))
 
 # convert to a df for plotting using raster's built-in method
-RGB_2m_df  <- raster::as.data.frame(RGB_2m, xy = TRUE)
+RGB_2m_df  <- as.data.frame(RGB_2m, xy = TRUE)
 # make colnames easy to ref
 names(RGB_2m_df) <- c('x', 'y', 'red', 'green', 'blue')
 
@@ -416,7 +416,7 @@ elevation values over 400m with a contrasting colour.
 ```{r demo-bad-data-highlighting, echo = FALSE, message = FALSE, warning = FALSE}
 # reclassify raster to ok/not ok
 DSM_highvals <- reclassify(DSM_HARV, rcl = c(0, 400, NA_integer_, 400, 420, 1L), include.lowest = TRUE)
-DSM_highvals <- raster::as.data.frame(DSM_highvals, xy = TRUE)
+DSM_highvals <- as.data.frame(DSM_highvals, xy = TRUE)
 DSM_highvals <- DSM_highvals[!is.na(DSM_highvals$layer), ]
 
 ggplot() +
