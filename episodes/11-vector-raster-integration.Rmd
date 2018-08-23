@@ -225,16 +225,7 @@ CHM_plots_HARVcrop_sp <- st_as_sf(CHM_plots_HARVcrop_df, coords = c("x", "y"), c
 CHM_plots_HARVcrop_sp_rand_sample = sample_n(CHM_plots_HARVcrop_sp, 10000)
 ```
 
-```{r, echo = FALSE}
-# code not shown, demonstration only
-ggplot() + 
-  geom_sf(data = st_convex_hull(st_union(CHM_rand_sample)), fill = "green") +
-  geom_sf(data = st_convex_hull(st_union(lines_HARV)), fill = "purple", aes(alpha = 0.1)) +
-  geom_sf(data = st_convex_hull(st_union(CHM_plots_HARVcrop_sp_rand_sample)), fill = "darkgreen") +
-  geom_sf(data = st_convex_hull(st_union(plot_locations_sp_HARV)), fill = "black") + 
-  geom_sf(data = aoi_boundary_HARV, fill = "blue") +
-  theme(legend.position = "none") + 
-  coord_sf()
+```{r repeat-compare-data-extents, ref.label="compare-data-extents", echo = FALSE}
 ```
 
 ## Define an Extent
