@@ -311,7 +311,7 @@ Now we have a beautiful, publication quality plot!
 > >   ggtitle("Landsat NDVI - Julian Days", subtitle = "Harvard Forest 2011") +
 > >   theme_void() +
 > >   theme(plot.title = element_text(hjust = 0.5, face = "bold"), 
-> >   plot.subtitle = element_text(hjust = 0.5))
+> >   plot.subtitle = element_text(hjust = 0.5)) +
 > >   scale_fill_gradientn(name = "NDVI", colours = brown_green_colors(20))
 > > ```
 > > 
