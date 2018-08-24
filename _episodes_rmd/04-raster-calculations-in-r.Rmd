@@ -101,7 +101,7 @@ We've already loaded and worked with these two data files in
 earlier episodes. Let's plot them each once more to remind ourselves
 what this data looks like. First we'll plot the DTM elevation data: 
 
-```{r}
+```{r harv-dtm-plot}
  ggplot() +
       geom_raster(data = DTM_HARV_df , 
               aes(x = x, y = y, fill = HARV_dtmCrop)) +
@@ -111,7 +111,7 @@ what this data looks like. First we'll plot the DTM elevation data:
 
 And then the DSM elevation data: 
 
-``` {r}
+``` {r harv-dsm-plot}
  ggplot() +
       geom_raster(data = DSM_HARV_df , 
               aes(x = x, y = y, fill = HARV_dsmCrop)) +
@@ -146,20 +146,18 @@ CHM_HARV_df <- as.data.frame(CHM_HARV, xy = TRUE)
 
 We can now plot the output CHM.
 
-```{r}
+```{r harv-chm-plot}
  ggplot() +
-      geom_raster(data = CHM_HARV_df , 
-              aes(x = x, y = y, 
-                   fill = layer)
-              ) + 
-     scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
-     coord_quickmap()
+   geom_raster(data = CHM_HARV_df , 
+               aes(x = x, y = y, fill = layer)) + 
+   scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
+   coord_quickmap()
 ```
 
 Let's have a look at the distribution of values in our newly created
 Canopy Height Model (CHM).
 
-```{r create-hist }
+```{r create-hist}
 ggplot(CHM_HARV_df) +
     geom_histogram(aes(layer))
 ```
@@ -190,17 +188,18 @@ meters. Does this make sense for trees in Harvard Forest?
 > > * Use the `min()` and `max()` functions.
 > > * Print the object and look at the `values` attribute.
 > > 3)
-> > ```{r}
+> > ```{r chm-harv-hist}
 > > ggplot(CHM_HARV_df) +
 > >     geom_histogram(aes(layer))
 > > ```
 > > 4)
-> > ```{r}
+> > ```{r chm-harv-hist-green}
 > > ggplot(CHM_HARV_df) +
-> >     geom_histogram(aes(layer), colour="black", fill="darkgreen", bins = 6)
+> >     geom_histogram(aes(layer), colour="black", 
+> >                    fill="darkgreen", bins = 6)
 > > ```
 > > 5) 
-> > ```{r}
+> > ```{r chm-harv-raster}
 > > custom_bins <- c(0, 10, 20, 30, 40)
 > > CHM_HARV_df <- CHM_HARV_df %>%
 > >                   mutate(canopy_discrete = cut(layer, breaks = custom_bins))
@@ -215,6 +214,7 @@ meters. Does this make sense for trees in Harvard Forest?
 {: .challenge}
 
 ## Efficient Raster Calculations: Overlay Function
+
 Raster math, like we just did, is an appropriate approach to raster calculations
 if:
 
@@ -244,11 +244,12 @@ Let's perform the same subtraction calculation that we calculated above using
 raster math, using the `overlay()` function.
 
 > ## Data Tip
+>
 > A custom function consists of a defined
 > set of commands performed on a input object. Custom functions are particularly
 > useful for tasks that need to be repeated over and over in the code. A
 > simplified syntax for writing a custom function in R is:
-> `functionName <- function(variable1, variable2){WhatYouWantDone, WhatToReturn}`
+> `function_name <- function(variable1, variable2) { WhatYouWantDone, WhatToReturn}`
 {: .callout}
 
 ```{r raster-overlay }
@@ -266,14 +267,12 @@ CHM_ov_HARV_df <- as.data.frame(CHM_ov_HARV, xy = TRUE)
 
 Now we can plot the CHM:
 
-```{r}
+```{r harv-chm-overlay}
  ggplot() +
-      geom_raster(data = CHM_ov_HARV_df, 
-              aes(x = x, y = y, 
-                   fill = layer)
-              ) + 
-     scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
-     coord_quickmap()
+   geom_raster(data = CHM_ov_HARV_df, 
+               aes(x = x, y = y, fill = layer)) + 
+   scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
+   coord_quickmap()
 ```
 
 How do the plots of the CHM created with manual raster math and the `overlay()`
@@ -301,6 +300,7 @@ writeRaster(CHM_ov_HARV, "CHM_HARV.tiff",
 ```
 
 ### writeRaster() Options
+
 The function arguments that we used above include:
 
 * **format:** specify that the format will be `GTiff` or GeoTIFF.
@@ -339,41 +339,52 @@ are what you expect.
 > > ## Answers
 > > 1) Use the `overlay()` function to subtract the two rasters & create
 > > the CHM.
+> >
 > > ```{r}
 > > CHM_ov_SJER <- overlay(DSM_SJER,
 > >                        DTM_SJER,
 > >                        fun = function(r1, r2){ return(r1 - r2) })
 > > ```
 > > Convert the output to a dataframe:
+> >
 > > ```{r}
 > > CHM_ov_SJER_df <- as.data.frame(CHM_ov_SJER, xy = TRUE)
 > > ```
+> >
 > > Create a histogram to check that the data distribution makes sense: 
-> > ```{r}
+> >
+> > ```{r sjer-chm-overlay-hist}
 > > ggplot(CHM_ov_SJER_df) +
 > >     geom_histogram(aes(layer))
 > > ```
+> >
 > > 2) Create a plot of the CHM: 
-> > ```{r}
+> >
+> > ```{r sjer-chm-overlay-raster}
 > >  ggplot() +
 > >       geom_raster(data = CHM_ov_SJER_df, 
 > >               aes(x = x, y = y, 
 > >                    fill = layer)
 > >               ) + 
-> >      scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
+> >      scale_fill_gradientn(name = "Canopy Height", 
+> >         colors = terrain.colors(10)) + 
 > >      coord_quickmap()
 > > ```
+> > 
 > > 3) Export the CHM object to a file: 
+> >
 > > ```{r}
 > > writeRaster(CHM_ov_SJER, "chm_ov_SJER.tiff",
 > >             format = "GTiff",
 > >             overwrite = TRUE,
 > >             NAflag = -9999)
 > > ```
+> >
 > > 4) Compare the SJER and HARV CHMs. 
 > > Tree heights are much shorter in SJER. You can confirm this by 
 > > looking at the histograms of the two CHMs. 
-> > ```{r}
+> >
+> > ```{r compare-chm-harv-sjer}
 > > ggplot(CHM_HARV_df) +
 > >     geom_histogram(aes(layer))
 > >

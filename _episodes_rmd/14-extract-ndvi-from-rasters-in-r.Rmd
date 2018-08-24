@@ -251,7 +251,6 @@ We now have a clean dataframe with properly scaled NDVI and Julian days. Let's
 plot our data.
 
 ```{r ggplot-data }
-
 ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI)) +
   geom_point() +
   ggtitle("Landsat Derived NDVI - 2011", subtitle = "NEON Harvard Forest Field Site") +
@@ -266,7 +265,7 @@ different color.
 > 
 > > ## Answers
 > > 
-> > ```{r}
+> > ```{r avg-ndvi-sjer}
 > > ggplot(avg_NDVI_SJER, aes(julianDay, meanNDVI)) +
 > >   geom_point(colour = "SpringGreen4") +
 > >   ggtitle("Landsat Derived NDVI - 2011", subtitle = "NEON SJER Field Site") +
@@ -287,7 +286,7 @@ NDVI_HARV_SJER <- rbind(avg_NDVI_HARV, avg_NDVI_SJER)
 
 Now we can plot both datasets on the same plot.
 
-```{r}
+```{r ndvi-harv-sjer-comp}
 ggplot(NDVI_HARV_SJER, aes(x = julianDay, y = meanNDVI, colour = site)) +
   geom_point(aes(group = site)) +
   geom_line(aes(group = site)) +
@@ -302,7 +301,7 @@ ggplot(NDVI_HARV_SJER, aes(x = julianDay, y = meanNDVI, colour = site)) +
 > 
 > > ## Answers
 > >
-> > ``` {r}
+> > ``` {r ndvi-harv-sjer-date}
 > > ggplot(NDVI_HARV_SJER, aes(x = Date, y = meanNDVI, colour = site)) +
 > >   geom_point(aes(group = site)) +
 > >   geom_line(aes(group = site)) +

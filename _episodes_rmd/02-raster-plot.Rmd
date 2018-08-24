@@ -55,7 +55,7 @@ clarity and visibility of the plot, we may prefer to view the data "symbolized" 
 map. To do this, we need to tell `ggplot` how many groups to break our data into, and
 where those breaks should be. To make these decisions, it is useful to first explore the distribution of the data using a bar plot. To begin with, we will use `dplyr`'s `mutate()` function combined with `cut()` to split the data into 3 bins.
 
-```{r histogram-breaks-ggplot, fig.width= 7, fig.height=7}
+```{r histogram-breaks-ggplot}
 
 DSM_HARV_df <- DSM_HARV_df %>%
                 mutate(fct_elevation = cut(HARV_dsmCrop, breaks = 3))
@@ -90,7 +90,7 @@ of the number of breaks we want.
 custom_bins <- c(300, 350, 400, 450)
 
 DSM_HARV_df <- DSM_HARV_df %>%
-                mutate(fct_elevation_2 = cut(HARV_dsmCrop, breaks = custom_bins))
+  mutate(fct_elevation_2 = cut(HARV_dsmCrop, breaks = custom_bins))
 
 unique(DSM_HARV_df$fct_elevation_2)
 ```
@@ -103,27 +103,25 @@ unique(DSM_HARV_df$fct_elevation_2)
 
 And now we can plot our bar plot again, using the new groups:
 
-```{r, fig.width= 7, fig.height=7 }
+```{r histogram-custom-breaks}
 ggplot() +
-    geom_bar(data = DSM_HARV_df, aes(fct_elevation_2))
+  geom_bar(data = DSM_HARV_df, aes(fct_elevation_2))
 ```
 
 And we can get the count of values in each group in the same way we did before:
 
 ```{r break-count-custom}
 DSM_HARV_df %>%
-        group_by(fct_elevation_2) %>%
-        summarize(counts = n())
-
+  group_by(fct_elevation_2) %>%
+  summarize(counts = n())
 ```
 
 We can use those groups to plot our raster data, with each group being a different color:
 
-```{r ggplot-with-breaks, fig.width= 7, fig.height=7}
-
+```{r raster-with-breaks}
 ggplot() +
- geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = fct_elevation_2)) + 
- coord_quickmap()
+  geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = fct_elevation_2)) + 
+  coord_quickmap()
 ```
 
 The plot above uses the default colors inside `ggplot` for raster objects. 
@@ -141,7 +139,7 @@ The `terrain.colors()` function returns *hex colors* -
 To use these in our map, we pass them across using the 
  `scale_fill_manual()` function.
 
-```{r ggplot-breaks-customcolors, fig.width= 7, fig.height=7}
+```{r ggplot-breaks-customcolors}
 
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
@@ -161,7 +159,7 @@ We can label the x- and y-axes of our plot too using `xlab` and `ylab`.
 We can also give the legend a more meaningful title by passing a value 
 to the `name` argument of the `scale_fill_manual()` function.
 
-```{r add-ggplot-labels, fig.width= 7, fig.height=7 }
+```{r add-ggplot-labels}
 
 my_col <- terrain.colors(3)
 
@@ -175,7 +173,7 @@ ggplot() +
 Or we can also turn off the axes altogether by passing `element_blank()` to
 the relevant parts of the `theme()` function.
 
-```{r turn-off-axes, fig.width= 7, fig.height=7 }
+```{r turn-off-axes}
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
                                       fill = fct_elevation_2)) + 
@@ -194,7 +192,7 @@ ggplot() +
 > 3. A plot title.
 >
 > > ## Answers
-> > ``` {r challenge-code-plotting, fig.width= 7, fig.height=7}
+> > ``` {r challenge-code-plotting}
 > > 
 > > DSM_HARV_df <- DSM_HARV_df  %>%
 > >                mutate(fct_elevation_6 = cut(HARV_dsmCrop, breaks = 6)) 
@@ -214,6 +212,7 @@ ggplot() +
 {: .challenge}
 
 ## Layering Rasters
+
 We can layer a raster on top of a hillshade raster for the same area, and use a
 transparency factor to create a 3-dimensional shaded effect. A
 hillshade is a raster that maps the shadows and texture that you would see from
@@ -239,11 +238,12 @@ str(DSM_hill_HARV_df)
 
 Now we can plot the hillshade data:
 
-```{r, fig.width= 7, fig.height=7}
+```{r raster-hillshade}
 ggplot() +
- geom_raster(data = DSM_hill_HARV_df , aes(x = x, y = y, alpha = HARV_DSMhill)) + 
-    scale_alpha(range =  c(0.15, 0.65), guide = "none") + 
-    coord_quickmap()
+  geom_raster(data = DSM_hill_HARV_df,
+              aes(x = x, y = y, alpha = HARV_DSMhill)) + 
+  scale_alpha(range =  c(0.15, 0.65), guide = "none") + 
+  coord_quickmap()
 ```
 
 > ## Data Tips
@@ -258,24 +258,18 @@ ggplot() +
 We can layer another raster on top of our hillshade using adding another call to 
 the `geom_raster()` function. Let's overlay `DSM_HARV` on top of the `hill_HARV`.
 
-``` {r overlay-hillshade, fig.width= 7, fig.height=7}
-
+``` {r overlay-hillshade}
 ggplot() +
-    geom_raster(data = DSM_HARV_df , 
-                aes(x = x, y = y, 
-                     fill = HARV_dsmCrop)) + 
-  
-    geom_raster(data = DSM_hill_HARV_df, 
-                aes(x = x, y = y, 
-                  alpha = HARV_DSMhill)) +
-  
-    scale_fill_viridis_c() +
-  
-    scale_alpha(range = c(0.15, 0.65), guide = "none") +
-  
-    ggtitle("Elevation with hillshade") +
-    coord_quickmap()
-
+  geom_raster(data = DSM_HARV_df , 
+              aes(x = x, y = y, 
+                  fill = HARV_dsmCrop)) + 
+  geom_raster(data = DSM_hill_HARV_df, 
+              aes(x = x, y = y, 
+                  alpha = HARV_DSMhill)) +  
+  scale_fill_viridis_c() +  
+  scale_alpha(range = c(0.15, 0.65), guide = "none") +  
+  ggtitle("Elevation with hillshade") +
+  coord_quickmap()
 ```
 
 > ## Challenge: Create DTM & DSM for SJER
@@ -294,7 +288,7 @@ Range field site.
 >
 > > ## Answers
 > > 
-> > ```{r challenge-hillshade-layering, echo=TRUE, fig.width= 7, fig.height=7}
+> > ```{r challenge-hillshade-layering, echo=TRUE}
 > > # CREATE DSM MAPS
 > > 
 > > # import DSM data

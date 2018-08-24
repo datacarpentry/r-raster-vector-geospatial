@@ -200,7 +200,7 @@ Now, we see that there are in fact two features in our plot!
 > > nrow(boardwalk_HARV)
 > > ```
 > > Now let's plot that data: 
-> > ```{r}
+> > ```{r harv-boardwalk-map}
 > > ggplot() + 
 > >   geom_sf(data = boardwalk_HARV, size = 1.5) +
 > >   ggtitle("NEON Harvard Forest Field Site", subtitle = "Boardwalks") + 
@@ -223,7 +223,7 @@ Now, we see that there are in fact two features in our plot!
 > > nrow(stoneWall_HARV)
 > > ```
 > > Now we can plot the data: 
-> > ```{r}
+> > ```{r harv-stone-wall-map}
 > > ggplot() +
 > >   geom_sf(data = stoneWall_HARV, aes(color = factor(OBJECTID)), size = 1.5) +
 > >   labs(color = 'Wall ID') +
@@ -234,20 +234,20 @@ Now, we see that there are in fact two features in our plot!
 {: .challenge}
 
 ## Customize Plots
+
 In the examples above, `ggplot()` automatically selected colors for
 each line based on a default color order. If we don't like those
 default colors, we can create a vector of colors - one for each
 feature. To create this vector we can use the following syntax:
 
-`c("colorOne", "colorTwo", "colorThree")[object$factor]`
+`c("color_one", "color_two", "color_three")[object$factor]`
 
 Note in the above example we have
 
 1. a vector of colors - one for each factor value (unique attribute value)
 2. the attribute itself (`[object$factor]`) of class factor.
 
-First we will check how many unique levels our
-factor has:
+First we will check how many unique levels our factor has:
 
 ```{r palette-and-plot}
 levels(lines_HARV$TYPE)
@@ -262,7 +262,7 @@ road_colors <- c("blue", "green", "navy", "purple")
 
 We can tell `ggplot` to use these colors when we plot the data.
 
-```{r}
+```{r harv-paths-map}
 ggplot() +
   geom_sf(data = lines_HARV, aes(color = TYPE)) + 
   scale_color_manual(values = road_colors) +
@@ -283,7 +283,7 @@ line_widths <- c(1, 2, 3, 4)
 
 We can use those line widths when we plot the data.
 
-```{r}
+```{r harv-paths-map-wide}
 ggplot() +
   geom_sf(data = lines_HARV, aes(color = TYPE, size = TYPE)) + 
   scale_color_manual(values = road_colors) +
@@ -319,26 +319,28 @@ Note that we could also use `aes(size = TYPE)` to tie the line thickness to the 
 > > levels(lines_HARV$TYPE)
 > > ```
 > >
-> > We then can create our `lineWidth` vector setting each of the
+> > We then can create our `line_width` vector setting each of the
 > > levels to the desired thickness.
 > >
 > > ```{r}
-> > lineWidth <- c(1, 3, 2, 6)
+> > line_width <- c(1, 3, 2, 6)
 > > ```
 > >
 > > Now we can create our plot.
 > >
-> > ```{r}
+> > ```{r harv-path-line-types}
 > > ggplot() +
 > >   geom_sf(data = lines_HARV, aes(size = TYPE)) +
-> >   scale_size_manual(values = lineWidth) +
+> >   scale_size_manual(values = line_width) +
 > >   ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads & Trails - Line width varies") + 
 > >   coord_sf()
 > > ```
 > {: .solution}
 {: .challenge}
 
+
 ### Add Plot Legend
+
 We can add a legend to our plot too. When we add a legend, we use the following
 elements to specify labels and colors:
 
@@ -434,7 +436,7 @@ ggplot() +
 > > are magenta, and we will set line width so that the first
 > > factor level is thicker than the others.
 > >
-> > ```{r}
+> > ```{r harv-paths-bike-horses}
 > > ggplot() + 
 > >   geom_sf(data = lines_HARV) + 
 > >   geom_sf(data = lines_removeNA, aes(color = BicyclesHo), size = 2) + 
@@ -465,7 +467,7 @@ ggplot() +
 > > colors <- c("purple", "springgreen", "yellow", "brown", "navy")
 > > ```
 > > Now we can create our plot: 
-> > ```{r}
+> > ```{r colored-state-boundaries}
 > > ggplot() +
 > >   geom_sf(data = state_boundary_US, aes(color = region), size = 1) +
 > >   scale_color_manual(values = colors) +
