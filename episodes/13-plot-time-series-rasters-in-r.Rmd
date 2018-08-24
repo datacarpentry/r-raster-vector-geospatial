@@ -80,10 +80,10 @@ episode, we will customize this plot above to produce a publication quality grap
 ```{r levelplot-time-series-after, echo = FALSE}
 # code not shown, demonstration only
 
-rasterNames <- names(NDVI_HARV_stack)
-rasterNames <- gsub("_HARV_ndvi_crop", "", rasterNames)
-rasterNames  <- gsub("X", "Day ", rasterNames)
-labels_names <- setNames(rasterNames, unique(NDVI_HARV_stack_df$variable))
+raster_names <- names(NDVI_HARV_stack)
+raster_names <- gsub("_HARV_ndvi_crop", "", raster_names)
+raster_names  <- gsub("X", "Day ", raster_names)
+labels_names <- setNames(raster_names, unique(NDVI_HARV_stack_df$variable))
 green_colors <- brewer.pal(9, "YlGn") %>%
   colorRampPalette()
 
@@ -96,7 +96,7 @@ ggplot() +
   scale_fill_gradientn(name = "NDVI", colours = green_colors(20))
 
 # cleanup
-rm(rasterNames, labels_names, green_colors)
+rm(raster_names, labels_names, green_colors)
 ```
 
 ## Adjust the Plot Theme
@@ -104,7 +104,7 @@ rm(rasterNames, labels_names, green_colors)
 The first thing we will do to our plot remove the x and y-axis labels and axis ticks, as these are 
 unnecessary and make our plot look messy. We can do this by setting the plot theme to `void`. 
 
-```{r}
+```{r adjust-theme}
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~variable) +
@@ -120,7 +120,7 @@ We center both the title and subtitle by using the `theme()` function and settin
 parameter to 0.5. The `hjust` parameter stands for "horizontal justification" and takes any value between 
 0 and 1. A setting of 0 indicates left justification and a setting of 1 indicates right justification. 
 
-```{r}
+```{r adjust-theme-2}
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~variable) +
@@ -131,6 +131,7 @@ ggplot() +
 ```
 
 > ## Challenge
+>
 > Change the plot title (but not the subtitle) to bold font. You can 
 > (and should!) use the help menu in RStudio or any internet resources
 > to figure out how to change this setting.
@@ -138,27 +139,28 @@ ggplot() +
 > > ## Answers
 > > 
 > > Learners can find this information in the help files for the `theme()` 
-> > function. The 
-> > parameter to set is called `face`. 
+> > function. The parameter to set is called `face`. 
 > > 
-> > ```{r}
+> > ```{r use-bold-face}
 > > ggplot() +
-> >   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
-> >   facet_wrap(~variable) +
+> >   geom_raster(data = NDVI_HARV_stack_df,
+> >               aes(x = x, y = y, fill = value)) +
+> >   facet_wrap(~ variable) +
 > >   ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest") + 
 > >   theme_void() + 
 > >   theme(plot.title = element_text(hjust = 0.5, face = "bold"), 
-> >     plot.subtitle = element_text(hjust = 0.5))
+> >         plot.subtitle = element_text(hjust = 0.5))
 > > ```
 > {: .solution}
 {: .challenge}
 
 ## Adjust the Color Ramp
-Next, let's adjust the color ramp used to render the rasters. First, we
-can change the blue color ramp to a green one that is more visually suited to our
-NDVI (greenness) data using the `colorRampPalette()` function in combination with
-`colorBrewer`. Then we use `scale_fill_gradientn` to pass the list of colours
-(here 20 different colours) to ggplot.
+
+Next, let's adjust the color ramp used to render the rasters. First, we can
+change the blue color ramp to a green one that is more visually suited to our
+NDVI (greenness) data using the `colorRampPalette()` function in combination
+with `colorBrewer`. Then we use `scale_fill_gradientn` to pass the list of
+colours (here 20 different colours) to ggplot.
 
 First we need to create a set of colors to use. We will select a set of
 nine colors from the "YlGn" (yellow-green) color palette. This returns a 
@@ -226,27 +228,27 @@ names(NDVI_HARV_stack)
 
 Now we will use the `gsub()` function to find the character string
 "_HARV_ndvi_crop" and replace it with a blank string (""). We will 
-assign this output to a new object (`rasterNames`) and look
+assign this output to a new object (`raster_names`) and look
 at that object to make sure our code is doing what we want it to.
 
 ```{r}
-rasterNames <- names(NDVI_HARV_stack)
+raster_names <- names(NDVI_HARV_stack)
 
-rasterNames <- gsub("_HARV_ndvi_crop", "", rasterNames)
-rasterNames
+raster_names <- gsub("_HARV_ndvi_crop", "", raster_names)
+raster_names
 ```
 
 So far so good. Now we will use `gsub()` again to replace the "X" with the word
 "Day" followed by a space.
 
 ```{r}
-rasterNames  <- gsub("X", "Day ", rasterNames)
-rasterNames
+raster_names  <- gsub("X", "Day ", raster_names)
+raster_names
 ```
 
 Our labels look good now. Let's reassign them to our `all_NDVI_HARV` object:
 ```{r}
-labels_names <- setNames(rasterNames, unique(NDVI_HARV_stack_df$variable))
+labels_names <- setNames(raster_names, unique(NDVI_HARV_stack_df$variable))
 ```
 
 Once the names for each band have been reassigned, we can render our plot with
@@ -300,9 +302,9 @@ Now we have a beautiful, publication quality plot!
 >
 > > ## Answers
 > >
-> > ```{r}
-> > rasterNames  <- gsub("Day","Julian Day ", rasterNames)
-> > labels_names <- setNames(rasterNames, unique(NDVI_HARV_stack_df$variable))
+> > ```{r final-figure}
+> > raster_names  <- gsub("Day","Julian Day ", raster_names)
+> > labels_names <- setNames(raster_names, unique(NDVI_HARV_stack_df$variable))
 > > 
 > > brown_green_colors <- colorRampPalette(brewer.pal(9, "BrBG"))
 > > 

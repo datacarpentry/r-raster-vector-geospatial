@@ -115,9 +115,9 @@ Next, let's plot the U.S. states data:
 
 ```{r find-coordinates }
 ggplot() +
-    geom_sf(data = state_boundary_US) +
-    ggtitle("Map of Contiguous US State Boundaries") + 
-    coord_sf()
+  geom_sf(data = state_boundary_US) +
+  ggtitle("Map of Contiguous US State Boundaries") + 
+  coord_sf()
 ```
 
 ## U.S. Boundary Layer
@@ -134,12 +134,12 @@ If we specify a thicker line width using `size = 2` for the border layer, it wil
 make our map pop! We will also manually set the colors of the state boundaries
 and country boundaries. 
 
-```{r}
+```{r us-boundaries-thickness}
 ggplot() + 
-    geom_sf(data = country_boundary_US, color = "gray18", size = 2) +
-    geom_sf(data = state_boundary_US, color = "gray40") +
-    ggtitle("Map of Contiguous US State Boundaries") + 
-    coord_sf()
+  geom_sf(data = country_boundary_US, color = "gray18", size = 2) +
+  geom_sf(data = state_boundary_US, color = "gray40") +
+  ggtitle("Map of Contiguous US State Boundaries") + 
+  coord_sf()
 ```
 
 Next, let's add the location of a flux tower where our study area is.
@@ -236,11 +236,11 @@ without doing any conversion:
 
 ```{r layer-point-on-states}
 ggplot() +
-    geom_sf(data = country_boundary_US, size = 2, color = "gray18") +
-    geom_sf(data = state_boundary_US, color = "gray40") +
-    geom_sf(data = point_HARV, shape = 19, color = "purple") +
-    ggtitle("Map of Contiguous US State Boundaries") + 
-    coord_sf()
+  geom_sf(data = country_boundary_US, size = 2, color = "gray18") +
+  geom_sf(data = state_boundary_US, color = "gray40") +
+  geom_sf(data = point_HARV, shape = 19, color = "purple") +
+  ggtitle("Map of Contiguous US State Boundaries") + 
+  coord_sf()
 ```
 
 > ## Challenge - Plot Multiple Layers of Spatial Data
@@ -255,7 +255,7 @@ ggplot() +
 > 
 > > ## Answers
 > > 
-> > ```{r}
+> > ```{r ne-states-harv}
 > > NE.States.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp")
 > > 
 > > ggplot() +

@@ -152,7 +152,8 @@ str(DSM_HARV_df)
 We can use `ggplot()` to plot this data. We will set the color scale to `scale_fill_viridis_c`
 which is a color-blindness friendly color scale. We will also use the `coord_quickmap()` function to use an approximate Mercator projection for our plots. This approximation is suitable for small areas that are not too close to the poles. Other coordinate systems are available in ggplot2 if needed, you can learn about them at their help page `?coord_map`.
 
-```{r ggplot-raster, fig.width= 7, fig.height=7}
+```{r ggplot-raster, fig.cap="Raster plot with ggplot2 using the viridis color scale"}
+
 ggplot() +
     geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = HARV_dsmCrop)) +
     scale_fill_viridis_c() +

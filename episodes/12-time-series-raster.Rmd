@@ -173,7 +173,7 @@ to create a separate panel for each time point in our
 time series, so we will use the `facet_wrap()` 
 function to create a multi-paneled plot: 
 
-```{r}
+```{r ndvi-wrap}
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~ variable)
@@ -197,7 +197,7 @@ NDVI_HARV_stack <- NDVI_HARV_stack/10000
 
 After applying our scale factor, we can recreate our plot using the same code we used above.
 
-```{r}
+```{r ndvi-stack-wrap}
 NDVI_HARV_stack_df <- as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
     melt(id.vars = c('x','y'))
 
@@ -207,6 +207,7 @@ ggplot() +
 ```
 
 ## Take a Closer Look at Our Data
+
 Let's take a closer look at the plots of our data. Massachusetts, 
 where the NEON Harvard Forest Field Site is located, has a fairly consistent
 fall, winter, spring, and summer season where vegetation turns green in the
@@ -276,11 +277,13 @@ yr_11_daily_avg <- subset(har_met_daily,
 
 Now we can plot the air temperature (the `airt` column) by Julian day (the `jd` column):
 
-```{r}
-ggplot(yr_11_daily_avg,aes(jd, airt)) +
-    geom_point() +
-    ggtitle("Daily Mean Air Temperature", subtitle = "NEON Harvard Forest Field Site") +
-    xlab("Julian Day 2011") + ylab("Mean Air Temperature (C)")
+```{r air-temperature}
+ggplot() +
+  geom_point(yr_11_daily_avg, aes(jd, airt)) +
+  ggtitle("Daily Mean Air Temperature",
+          subtitle = "NEON Harvard Forest Field Site") +
+  xlab("Julian Day 2011") +
+  ylab("Mean Air Temperature (C)")
 ```
 
 There are no significant peaks or dips in the temperature during the late summer
@@ -288,7 +291,7 @@ or early fall time period that might account for patterns seen in the NDVI data.
 Let's have a look at the source Landsat imagery that was partially used used to
 derive our NDVI rasters to try to understand what appear to be outlier NDVI values.
 
-```{r, echo = FALSE, warning = FALSE}
+```{r ndvi-plots, echo = FALSE, warning = FALSE}
 # code not shown, demonstration only
 # Plot RGB data for Julian day 133
 RGB_133 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
@@ -363,19 +366,19 @@ ggplot() +
 > > We create RGB colors from the three channels:
 > > 
 > > ```{r}
-> > RGB_277_df$rgb <- with(RGB_277_df, rgb(X277_HARV_landRGB.1,X277_HARV_landRGB.2,X277_HARV_landRGB.3,1))
+> > RGB_277_df$rgb <- with(RGB_277_df, rgb(X277_HARV_landRGB.1, X277_HARV_landRGB.2, X277_HARV_landRGB.3,1))
 > > ```
 > > 
 > > Finally, we can plot the RGB data for Julian day 277. 
 > > 
-> > ```{r}
+> > ```{r rgb-277}
 > > ggplot() +
 > >   geom_raster(data=RGB_277_df, aes(x, y), fill=RGB_277_df$rgb) + 
 > >   ggtitle("Julian day 277") 
 > >```
 > > We then do the same steps for Julian day 293
 > > 
-> > ```{r}
+> > ```{r rgb-293}
 > > # Julian day 293
 > > RGB_293 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")
 > > RGB_293 <- RGB_293/255

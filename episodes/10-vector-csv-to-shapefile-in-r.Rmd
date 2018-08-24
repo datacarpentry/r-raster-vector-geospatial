@@ -261,7 +261,7 @@ That's really handy!
 > > 
 > > 3) Now we can create our plot. 
 > > 
-> > ```{r}
+> > ```{r plot-locations-harv-orange}
 > > ggplot() + 
 > >   geom_sf(data = plot_locations_sp_HARV, color = "orange") +
 > >   geom_sf(data = newPlot.Sp.HARV, color = "lightblue") +

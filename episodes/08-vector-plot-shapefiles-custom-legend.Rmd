@@ -42,6 +42,7 @@ road_colors <- c("blue", "green", "navy", "purple")
 ```
 
 > ## Things You’ll Need To Complete This Episode
+>
 > See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
 > data, and other prerequisites you will need to work through the examples in this episode.
 {: .prereq}
@@ -53,6 +54,7 @@ shapefiles. It also covers how to plot raster and vector data together
 on the same plot.
 
 ## Load the Data
+
 To work with vector data in R, we can use the `sf` library. The `raster`
 package also allows us to explore metadata using similar commands for both
 raster and vector files. Make sure that you have these packages loaded.
@@ -85,10 +87,11 @@ ggplot() +
 
 Next, let's build a custom legend using the symbology (the colors and symbols) that we used to create the plot above. For example, it might be good if the lines were symbolized as lines. In the previous episode, you may have noticed that the default legend behavior for `geom_sf` is to draw a 'patch' for each legend entry. If you want the legend to draw lines or points, you need to add an instruction to the `geom_sf` call - in this case, `show.legend = 'line'`. 
 
-```{r}
+```{r plot-custom-shape}
 ggplot() + 
   geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey") +
-  geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line", size = 1) +
+  geom_sf(data = lines_HARV, aes(color = TYPE),
+          show.legend = "line", size = 1) +
   geom_sf(data = point_HARV, aes(fill = Sub_Type), color = "black") +
   scale_color_manual(values = road_colors) +
   scale_fill_manual(values = "black") +
@@ -102,7 +105,8 @@ Now lets adjust the legend titles by passing a `name` to the respective `color` 
 ggplot() + 
   geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey") +
   geom_sf(data = point_HARV, aes(fill = Sub_Type)) +
-  geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line", size = 1) + 
+  geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line",
+          size = 1) + 
   scale_color_manual(values = road_colors, name = "Line Type") + 
   scale_fill_manual(values = "black", name = "Tower Location") + 
   ggtitle("NEON Harvard Forest Field Site") + 
@@ -121,7 +125,8 @@ Finally, it might be better if the points were symbolized as a symbol. We can cu
 ggplot() +
   geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey") +
   geom_sf(data = point_HARV, aes(fill = Sub_Type), shape = 15) +
-  geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line", size = 1) +
+  geom_sf(data = lines_HARV, aes(color = TYPE),
+          show.legend = "line", size = 1) +
   scale_color_manual(values = road_colors, name = "Line Type") +
   scale_fill_manual(values = "black", name = "Tower Location") +
   ggtitle("NEON Harvard Forest Field Site") + 
@@ -159,7 +164,7 @@ symbol of `shape` value.
 > >
 > > Finally, we will create our plot.
 > >
-> > ```{r}
+> > ```{r harv-plot-locations-bg}
 > > ggplot() + 
 > >   geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line") + 
 > >   geom_sf(data = plot_locations, aes(fill = soilTypeOr), 
@@ -175,7 +180,7 @@ symbol of `shape` value.
 > > If we want each soil to be shown with a different symbol, we can
 > > give multiple values to the `scale_shape_manual()` argument.
 > >
-> > ```{r}
+> > ```{r harv-plot-locations-pch}
 > > ggplot() + 
 > >   geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line", size = 1) + 
 > >   geom_sf(data = plot_locations, aes(fill = soilTypeOr, shape = soilTypeOr),
