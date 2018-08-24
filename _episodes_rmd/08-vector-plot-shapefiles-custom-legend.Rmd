@@ -14,6 +14,7 @@ keypoints:
 - "Multi-layered plots can combine raster and vector datasets."
 - "Use the `show.legend` argument to set legend symbol types."
 - "Use the `scale_fill_manual()` function to set legend colors."
+source: Rmd
 ---
 
 ```{r setup, echo=FALSE}
@@ -218,3 +219,5 @@ symbol of `shape` value.
 > > ```
 > {: .solution}
 {: .challenge}
+
+{% include links.md %}

@@ -11,6 +11,7 @@ keypoints:
 - "Use the `crop()` function to crop a raster object."
 - "Use the `extract()` function to extract pixels from a raster object that fall within a particular extent boundary."
 - "Use the `extent()` function to define an extent."
+source: Rmd
 ---
 
 ```{r setup, echo=FALSE}
@@ -402,3 +403,5 @@ mean_tree_height_tower
 > > ```
 > {: .solution}
 {: .challenge}
+
+{% include links.md %}

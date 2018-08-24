@@ -9,6 +9,7 @@ objectives:
 keypoints:
 - "`ggplot2` automatically converts all objects in a plot to the same CRS."
 - "It's still a good idea to be aware of your object CRSs and extents."
+source: Rmd
 ---
 
 ```{r setup, echo=FALSE}
@@ -268,3 +269,5 @@ ggplot() +
 > > ```
 > {: .solution}
 {: .challenge}
+
+{% include links.md %}

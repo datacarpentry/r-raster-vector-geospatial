@@ -12,6 +12,7 @@ keypoints:
 - "Rasters can be computed on using mathematical functions."
 - "The `overlay()` function provides an efficient way to do raster math."
 - "The `exportRaster()` function can be used to write raster data to a file."
+source: Rmd
 ---
 
 ```{r setup, echo=FALSE}
@@ -381,3 +382,6 @@ are what you expect.
 > > ```
 > {: .solution}
 {: .challenge}
+
+
+{% include links.md %}

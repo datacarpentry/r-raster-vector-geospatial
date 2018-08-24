@@ -14,6 +14,7 @@ keypoints:
 - "Use the `list.files()` function to get a list of filenames matching a specific pattern."
 - "Use the `facet_wrap()` function to create multi-paneled plots with `ggplot2`."
 - "Use the `as.Date()` function to convert data to date format."
+source: Rmd
 ---
 
 ```{r setup, echo=FALSE}
@@ -394,3 +395,4 @@ ggplot() +
 > > sensing imagery.
 > {: .solution}
 {: .challenge}
+{% include links.md %}
