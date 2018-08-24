@@ -1,5 +1,7 @@
 ---
 ---
+{% include base_path.html %}
+
 <script>
   window.onload = function() {
     var lesson_episodes = [
