@@ -2,15 +2,7 @@
   Footer for lesson pages.
 {% endcomment %}
 
-{% comment %}
-identify the default branch of the GitHub repo for the lesson, to create the correct link for "Improve on GitHub"
-{% endcomment %}
-
-{% assign repo_name = site.github.repository_name %}
-
-{% assign repo_info = site.github.public_repositories | where: "name", repo_name %}
-
-{% assign default_branch = repo_info[0].default_branch %}
+{% include gh_default_branch.html %}
 
 <footer>
   <div class="row">
