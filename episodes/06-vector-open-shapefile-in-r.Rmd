@@ -12,6 +12,7 @@ keypoints:
 - "Shapefile metadata include geometry type, CRS, and extent."
 - "Load spatial objects into R with the `st_read()` function."
 - "Spatial objects can be plotted directly with `ggplot` using the `geom_sf()` function. No need to convert to a dataframe."
+source: Rmd
 ---
 
 ```{r setup, echo=FALSE}
@@ -199,3 +200,5 @@ ggplot() +
 > > `lines_HARV` contains 13 features (all lines) and `point_HARV` contains only one point. 
 > {: .solution}
 {: .challenge}
+
+{% include links.md %}

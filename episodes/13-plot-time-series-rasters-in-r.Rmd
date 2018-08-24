@@ -12,6 +12,7 @@ keypoints:
 - "Use the `element_text()` function to adjust text size, font, and position."
 - "Use the `brewer.pal()` function to create a custom color palette."
 - "Use the `gsub()` function to do pattern matching and replacement in text."
+source: Rmd
 ---
 
 ```{r setup, echo=FALSE}
@@ -320,3 +321,6 @@ Now we have a beautiful, publication quality plot!
 > > of greening up, which starts off at one end and just keeps increasing.
 > {: .solution}
 {: .challenge}
+
+{% include links.md %}
+

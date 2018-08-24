@@ -12,6 +12,7 @@ keypoints:
 - "It is important to know the projection (if any) of your point data prior to converting to a spatial object."
 - "Convert a data frame to an `sf` object using the `st_as_sf()` function."
 - "Export an `sf` object as text using the `st_write()` function."
+source: Rmd
 ---
 
 ```{r setup, echo=FALSE}
@@ -286,3 +287,5 @@ We can now export the spatial object as a shapefile.
 st_write(plot_locations_sp_HARV,
          "data/PlotLocations_HARV.shp", driver = "ESRI Shapefile")
 ```
+
+{% include links.md %}

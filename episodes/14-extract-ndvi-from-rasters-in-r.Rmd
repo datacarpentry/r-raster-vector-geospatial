@@ -13,6 +13,7 @@ keypoints:
 - "Use the `cellStats()` function to calculate summary statistics for cells in a raster object."
 - "The `|` operator means `or`."
 - "Use the `rbind()` function to combine data frames that have the same column names."
+source: Rmd
 ---
 
 ```{r setup, echo=FALSE}
@@ -435,3 +436,5 @@ write.csv(avg_NDVI_HARV_clean, file="meanNDVI_HARV_2011.csv")
 > > ```
 > {: .solution}
 {: .challenge}
+
+{% include links.md %}

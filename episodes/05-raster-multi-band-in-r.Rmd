@@ -12,6 +12,7 @@ keypoints:
 - "A single raster file can contain multiple bands or layers."
 - "Use the `stack()` function to load all bands in a multi-layer raster file into R."
 - "Individual bands within a stack can be accessed, analyzed, and visualized using the same functions as single bands."
+source: Rmd
 ---
 
 ```{r setup, echo=FALSE}
@@ -376,3 +377,6 @@ plotRGB(RGB_brick_HARV)
 > > a single band.
 > {: .solution}
 {: .challenge}
+
+
+{% include links.md %}

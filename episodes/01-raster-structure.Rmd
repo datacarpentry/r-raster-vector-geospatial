@@ -1,5 +1,4 @@
 ---
-source: Rmd
 title: "Intro to Raster Data in R"
 teaching: 20
 exercises: 10
@@ -18,8 +17,7 @@ keypoints:
 - "To plot raster data with the `ggplot2` package, we need to convert it to a dataframe."
 - "R stores CRS information in the Proj4 format."
 - "Be careful when dealing with missing or bad data values."
-editor_options: 
-  chunk_output_type: console
+source: Rmd
 ---
 
 ```{r setup, echo=FALSE}
@@ -493,3 +491,5 @@ GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 > ## More Resources
 > * [Read more about the `raster` package in R.](http://cran.r-project.org/web/packages/raster/raster.pdf)
 {: .callout}
+
+{% include links.md %}

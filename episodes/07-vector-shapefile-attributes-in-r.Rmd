@@ -11,6 +11,7 @@ objectives:
 keypoints:
 - "Spatial objects in `sf` are similar to standard data frames and can be manipulated using the same functions."
 - "Almost any feature of a plot can be customized using the various functions and options in the `ggplot2` package."
+source: Rmd
 ---
 
 ```{r setup, echo=FALSE}
@@ -473,3 +474,6 @@ ggplot() +
 > > ```
 > {: .solution}
 {: .challenge}
+
+{% include links.md %}
+

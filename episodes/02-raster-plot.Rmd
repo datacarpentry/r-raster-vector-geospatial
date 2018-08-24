@@ -13,6 +13,7 @@ keypoints:
 - "Continuous data ranges can be grouped into categories using `mutate()` and `cut()`."
 - "Use built-in `terrain.colors()` or set your preferred color scheme manually."
 - "Layer rasters on top of one another by using the `alpha` aesthetic."
+source: Rmd
 ---
 
 ```{r setup, echo=FALSE}
@@ -361,3 +362,5 @@ Range field site.
 > > ```
 > {: .solution}
 {: .challenge}
+
+{% include links.md %}
