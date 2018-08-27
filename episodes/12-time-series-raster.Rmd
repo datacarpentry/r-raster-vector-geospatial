@@ -279,7 +279,7 @@ Now we can plot the air temperature (the `airt` column) by Julian day (the `jd` 
 
 ```{r air-temperature}
 ggplot() +
-  geom_point(yr_11_daily_avg, aes(jd, airt)) +
+  geom_point(data = yr_11_daily_avg, aes(jd, airt)) +
   ggtitle("Daily Mean Air Temperature",
           subtitle = "NEON Harvard Forest Field Site") +
   xlab("Julian Day 2011") +
