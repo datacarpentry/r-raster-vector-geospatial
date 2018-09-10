@@ -179,7 +179,7 @@ DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV,
                                        crs = crs(DTM_HARV))
 ```
 
-Now we can compare the CRS our original DTM hillshade
+Now we can compare the CRS of our original DTM hillshade
 and our new DTM hillshade, to see how they are different.
 
 ```{r}
@@ -246,8 +246,8 @@ We can now create a plot of this data.
 
 ```{r plot-projected-raster}
 ggplot() +
-       geom_raster(data = DTM_HARV_df , 
-             aes(x = x, y = y, 
+     geom_raster(data = DTM_HARV_df , 
+                 aes(x = x, y = y, 
                   fill = HARV_dtmCrop)) + 
      geom_raster(data = DTM_hill_HARV_2_df, 
                  aes(x = x, y = y, 
