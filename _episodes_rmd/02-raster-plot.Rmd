@@ -66,7 +66,7 @@ ggplot() +
 ```
 
 If we want to know the cutoff values for the groups, we can ask for the unique values 
-of `fct_elavation`:
+of `fct_elevation`:
 ```{r unique-breaks}
 unique(DSM_HARV_df$fct_elevation)
 ```
