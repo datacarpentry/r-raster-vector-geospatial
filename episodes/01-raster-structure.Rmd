@@ -163,7 +163,7 @@ ggplot() +
 > ## Data Tip
 >
 > More information about the Viridis palette used above at
-> [R Viridis package documentation](https://cran.r-project.org/web/packages/viridis/vignettes/ intro-to-viridis.html).
+> [R Viridis package documentation](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html).
 {: .callout}
 
 This map shows the elevation of our study site in Harvard Forest. From the
