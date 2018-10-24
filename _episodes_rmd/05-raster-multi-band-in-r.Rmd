@@ -42,9 +42,9 @@ R.
 
 In this episode, the multi-band data that we are working with is imagery
 collected using the
-[NEON Airborne Observation Platform](http://www.neonscience.org/science-design/collection-methods/airborne-remote-sensing)
+[NEON Airborne Observation Platform](https://www.neonscience.org/data-collection/airborne-remote-sensing)
 high resolution camera over the
-[NEON Harvard Forest field site](http://www.neonscience.org/science-design/field-sites/harvard-forest).
+[NEON Harvard Forest field site](https://www.neonscience.org/field-sites/field-sites-map/HARV).
 Each RGB image is a 3-band raster. The same steps would apply to
 working with a multi-spectral image with 4 or more bands - like Landsat imagery.
 
