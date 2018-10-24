@@ -261,7 +261,7 @@ hillshade to produce a nice looking, textured map!
 
 > ## Challenge: Reproject, then Plot a Digital Terrain Model
 > Create a map of the
-> [San Joaquin Experimental Range](http://www.neoninc.org/science-design/field-sites/san-joaquin-experimental-range)
+> [San Joaquin Experimental Range](https://www.neonscience.org/field-sites/field-sites-map/SJER)
 > field site using the `SJER_DSMhill_WGS84.tif` and `SJER_dsmCrop.tif` files.
 > 
 > Reproject the data as necessary to make things line up!

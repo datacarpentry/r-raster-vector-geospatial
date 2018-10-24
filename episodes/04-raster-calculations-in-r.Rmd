@@ -75,7 +75,7 @@ buildings, etc. with the influence of ground elevation removed.
 
 > ## More Resources
 > * Check out more on LiDAR CHM, DTM and DSM in this NEON Data Skills overview tutorial:
-> [What is a CHM, DSM and DTM? About Gridded, Raster LiDAR Data](http://neondataskills.org/self-paced-episode/2_LiDAR-Data-Concepts_Activity2/).
+> [What is a CHM, DSM and DTM? About Gridded, Raster LiDAR Data](https://www.neonscience.org/chm-dsm-dtm-gridded-lidar-data).
 {: .callout}
 
 ### Load the Data
@@ -314,10 +314,10 @@ Ecological Observatory Network's (NEON) standard `NoDataValue`.
 > Data are often more interesting and powerful when we compare them across various
 > locations. Let's compare some data collected over Harvard Forest to data
 > collected in Southern California. The
-> [NEON San Joaquin Experimental Range (SJER) field site](www.neonscience.org/science-design/field-sites/san-joaquin-experimental-range)
+> [NEON San Joaquin Experimental Range (SJER) field site](https://www.neonscience.org/field-sites/field-sites-map/SJER)
 > located in Southern California has a very different ecosystem and climate than
 > the
-> [NEON Harvard Forest Field Site](http://www.neonscience.org/science-design/field-sites/harvard-forest)
+> [NEON Harvard Forest Field Site](https://www.neonscience.org/field-sites/field-sites-map/HARV)
 in Massachusetts.
 > 
 > Import the SJER DSM and DTM raster files and create a Canopy Height Model.

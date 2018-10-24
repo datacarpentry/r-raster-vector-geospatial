@@ -195,7 +195,7 @@ class(avg_NDVI_HARV$Date)
 > We often want to compare two different sites. The National Ecological
 > Observatory Network (NEON) also has a field site in Southern California
 > at the
-> [San Joaquin Experimental Range (SJER)](http://www.neonscience.org/science-design/field-sites/san-joaquin-experimental-range).
+> [San Joaquin Experimental Range (SJER)](https://www.neonscience.org/field-sites/field-sites-map/SJER).
 > 
 > For this challenge, create a dataframe containing the mean NDVI values 
 > and the Julian days the data was collected (in date format)
