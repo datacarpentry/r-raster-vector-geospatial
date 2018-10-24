@@ -36,7 +36,7 @@ library(sf)
 
 Starting with this episode, we will be moving from working with raster
 data to working with vector data. In this episode, we will open and plot point, line and polygon vector data
-stored in shapefile format in R. These data refer to the [NEON Harvard Forest field site](http://www.neonscience.org/science-design/field-sites/harvard-forest), which we have been working with in previous
+stored in shapefile format in R. These data refer to the [NEON Harvard Forest field site](https://www.neonscience.org/field-sites/field-sites-map/HARV), which we have been working with in previous
 episodes. In later episodes, we will learn how to work with raster and
 vector data together and combine them into a single plot.
 
@@ -54,8 +54,8 @@ The shapefiles that we will import are:
 
 * A polygon shapefile representing our field site boundary,
 * A line shapefile representing roads, and
-* A point shapefile representing the location of the [Fisher flux tower](http://www.neonscience.org/science-design/collection-methods/flux-tower-measurements)
-located at the [NEON Harvard Forest field site](http://www.neonscience.org/science-design/field-sites/harvard-forest).
+* A point shapefile representing the location of the [Fisher flux tower](https://www.neonscience.org/data-collection/flux-tower-measurements)
+located at the [NEON Harvard Forest field site](https://www.neonscience.org/field-sites/field-sites-map/HARV).
 
 The first shapefile that we will open contains the boundary of our study area
 (or our Area Of Interest or AOI, hence the name `aoiBoundary`). To import
