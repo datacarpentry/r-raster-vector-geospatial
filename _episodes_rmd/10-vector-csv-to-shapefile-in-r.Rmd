@@ -48,7 +48,7 @@ This episode will review how to import spatial points stored in `.csv` (Comma Se
 
 The `HARV_PlotLocations.csv` file contains `x, y` (point) locations for study
 plot where NEON collects data on
-[vegetation and other ecological metrics](http://www.neonscience.org/science-design/collection-methods/terrestrial-organismal-sampling).
+[vegetation and other ecological metrics](https://www.neonscience.org/data-collection/terrestrial-organismal-sampling).
 We would like to:
 
 * Create a map of these plot locations.

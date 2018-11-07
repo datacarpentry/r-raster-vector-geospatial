@@ -218,6 +218,7 @@ representing decimal degree units. Our tower location point is in UTM, is
 represented in meters.
 
 > ## Proj4 & CRS Resources
+> * [Official PROJ library documentation](https://proj4.org/)
 > * [More information on the proj4 format.](http://proj.maptools.org/faq.html)
 > * [A fairly comprehensive list of CRSs by format.](http://spatialreference.org)
 > * To view a list of datum conversion factors type: `projInfo(type = "datum")`
