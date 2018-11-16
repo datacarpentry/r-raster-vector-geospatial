@@ -32,7 +32,6 @@ library(raster)
 library(rgdal)
 library(ggplot2)
 library(dplyr)
-library(ggspatial) # for demonstration code only
 ```
 
 > ## Things You'll Need To Complete This Episode
@@ -332,7 +331,7 @@ ggplot() +
 
 ```
 
-If your raster already has `NA` values set correctly but you aren't sure where they are, you can use `ggspatial` to deliberately plot them in a particular colour. This can be useful when checking a dataset's coverage. For instance, sometimes data can be missing where a sensor could not 'see' its target data, and you may wish to locate that missing data and fill it in.
+If your raster already has `NA` values set correctly but you aren't sure where they are, you can deliberately plot them in a particular colour. This can be useful when checking a dataset's coverage. For instance, sometimes data can be missing where a sensor could not 'see' its target data, and you may wish to locate that missing data and fill it in.
 
 To highlight `NA` values in ggplot, alter the `scale_fill_*()` layer to contain a colour instruction for `NA` values, like `scale_fill_viridis_c(na.value = 'deeppink')`
 
