@@ -73,7 +73,7 @@ DTM_HARV_df <- as.data.frame(DTM_HARV, xy = TRUE)
 DTM_hill_HARV_df <- as.data.frame(DTM_hill_HARV, xy = TRUE)
 ```
 
-Now we can create a map of the DTM layered over the hillshade.
+Now we can create a map of the DTM layered over the hillshade. (Suggest that the instructor goes over this steps, but tell the class to just follow along.)
 
 ```{r}
 ggplot() +
@@ -95,7 +95,7 @@ ggplot() +
 Our results are curious - neither the Digital Terrain Model (`DTM_HARV_df`) 
 nor the DTM Hillshade (`DTM_hill_HARV_df`) plotted.
 Let's try to
-plot the DTM on its own to make sure there are data there.
+plot the DTM on its own to make sure there are data there. (Suggest that the instructor goes over this steps, but tell the class to just follow along.)
 
 ```{r plot-DTM }
 ggplot() +
@@ -108,7 +108,7 @@ coord_quickmap()
 
 Our DTM seems to contain data and plots just fine.
 
-Next we plot the DTM Hillshade on its own to see whether everything is OK.
+Next we plot the DTM Hillshade on its own to see whether everything is OK. (Suggest that the instructor goes over this steps, but tell the class to just follow along.)
 
 ```{r plot-DTM-hill}
 ggplot() +
@@ -121,7 +121,7 @@ geom_raster(data = DTM_hill_HARV_df,
 If we look at the axes, we can see that the projections of the two rasters are different.
 When this is the case, `ggplot` won't render the image. It won't even
 throw an error message to tell you something has gone wrong. We can look at Coordinate Reference Systems (CRSs) of the DTM and
-the hillshade data to see how they differ.
+the hillshade data to see how they differ with the `crs()` function.
 
 > ## Exercise
 > View the CRS for each of these two datasets. What projection
@@ -215,7 +215,7 @@ Let's next have a look at the resolution of our reprojected hillshade versus our
 
 ```{r view-resolution}
 res(DTM_hill_UTMZ18N_HARV)
-res(DTM_hill_HARV)
+res(DTM_hill_HARV) # see suggested edit in different commit
 ```
 
 These two resolutions are different, but they're representing the same data. We can tell R to force our
@@ -225,13 +225,13 @@ newly reprojected raster to be 1m x 1m resolution by adding a line of code
 ```{r reproject-assign-resolution}
 DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV,
                                   crs = crs(DTM_HARV),
-                                  res = 1)
+                                  res = 1) # see suggested edit in different commit
 ```
 
 Let's double-check our resolution to be sure
 ```{r}
 res(DTM_hill_UTMZ18N_HARV)
-res(DTM_hill_HARV)
+res(DTM_hill_HARV) # see suggested edit in different commit
 ```
 
 Now both our resolutions and our CRSs match, so we can plot these two
@@ -258,6 +258,8 @@ ggplot() +
 
 We have now successfully draped the Digital Terrain Model on top of our
 hillshade to produce a nice looking, textured map!
+
+(Suggest to skip challenge in interest of time)
 
 > ## Challenge: Reproject, then Plot a Digital Terrain Model
 > Create a map of the
