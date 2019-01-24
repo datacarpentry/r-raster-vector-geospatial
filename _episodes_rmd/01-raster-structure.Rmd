@@ -32,7 +32,6 @@ library(raster)
 library(rgdal)
 library(ggplot2)
 library(dplyr)
-library(ggspatial) # for demonstration code only
 ```
 
 > ## Things You'll Need To Complete This Episode
@@ -332,7 +331,7 @@ ggplot() +
 
 ```
 
-If your raster already has `NA` values set correctly but you aren't sure where they are, you can use `ggspatial` to deliberately plot them in a particular colour. This can be useful when checking a dataset's coverage. For instance, sometimes data can be missing where a sensor could not 'see' its target data, and you may wish to locate that missing data and fill it in.
+If your raster already has `NA` values set correctly but you aren't sure where they are, you can deliberately plot them in a particular colour. This can be useful when checking a dataset's coverage. For instance, sometimes data can be missing where a sensor could not 'see' its target data, and you may wish to locate that missing data and fill it in.
 
 To highlight `NA` values in ggplot, alter the `scale_fill_*()` layer to contain a colour instruction for `NA` values, like `scale_fill_viridis_c(na.value = 'deeppink')`
 
@@ -344,9 +343,10 @@ RGB_2m_nas <- calc(RGB_2m,
                            x[rowSums(x == 0) == 3, ] <- rep(NA, nlayers(RGB_2m))
                            x
                    })
-                   
+RGB_2m_nas <- as.data.frame(RGB_2m_nas, xy = TRUE)
+
 ggplot() +
-  geom_spatial(data = RGB_2m_nas, aes(fill = band3), na.rm = FALSE) +
+  geom_raster(data = RGB_2m_nas, aes(x = x, y = y, fill = HARV_RGB_Ortho.3)) + 
   scale_fill_gradient(low = 'grey90', high = 'blue', na.value = 'deeppink') +
   ggtitle("Orthographic Imagery", subtitle = "Blue band, with NA highlighted") +
   coord_quickmap()
@@ -418,8 +418,10 @@ DSM_highvals <- reclassify(DSM_HARV, rcl = c(0, 400, NA_integer_, 400, 420, 1L),
 DSM_highvals <- as.data.frame(DSM_highvals, xy = TRUE)
 DSM_highvals <- DSM_highvals[!is.na(DSM_highvals$layer), ]
 
+DSM_HARV <- as.data.frame(DSM_HARV, xy = TRUE)
+
 ggplot() +
-  geom_spatial(data = DSM_HARV, aes(fill = band1)) +
+  geom_raster(data = DSM_HARV, aes(x = x, y = y, fill = HARV_dsmCrop)) + 
   scale_fill_viridis_c() + 
   # use reclassified raster data as an annotation
   annotate(geom = 'raster', x = DSM_highvals$x, y = DSM_highvals$y, fill = scales::colour_ramp('deeppink')(DSM_highvals$layer)) +
