@@ -98,7 +98,7 @@ unique(DSM_HARV_df$fct_elevation_2)
 > ## Data Tips
 > Note that when we assign break values a set of 4 values will result in 3 bins of data.
 >
-> The bin intervals are shown using `(` to mean inclusive and `]` to mean exclusive. For example: `(305, 342]` means "from 305 through 341".
+> The bin intervals are shown using `(` to mean exclusive and `]` to mean inclusive. For example: `(305, 342]` means "from 306 through 342".
 {: .callout}
 
 And now we can plot our bar plot again, using the new groups:
