@@ -39,13 +39,13 @@ reprojecting spatial data, and working with raster time series data.
 > This lesson assumes you have some knowledge of geospatial data types
 > and common file formats. If you have never worked with geospatial
 > data before, or need a refresher, start with our
-> [Geospatial Project Organization and Management](http://www.datacarpentry.org/organization-geospatial/)
+> [Introduction to Geospatial Concepts](http://www.datacarpentry.org/organization-geospatial/)
 > lesson.
 >
 > ### Install Software and Download Data
 > For installation instructions and to download the data used in this 
 > lesson, see the 
-> [workshop homepage](http://www.datacarpentry.org/geospatial-workshop/setup.html).
+> [Geospatial Workshop Overview](http://www.datacarpentry.org/geospatial-workshop/setup.html).
 >
 > ### Setup RStudio Project
 >
