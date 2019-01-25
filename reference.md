@@ -3,6 +3,8 @@ layout: reference
 permalink: /reference/
 ---
 
+## References
+
 * [CRAN Spatial Task View](https://cran.r-project.org/web/views/Spatial.html)
 
 * [Geocomputation with R](http://robinlovelace.net/geocompr/)
