@@ -297,42 +297,59 @@ derive our NDVI rasters to try to understand what appear to be outlier NDVI valu
 RGB_133 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
 RGB_133_df <- as.data.frame(RGB_133, xy = TRUE)
 quantiles = c(0.02, 0.98)
-r <- quantile(RGB_133_df$X133_HARV_landRGB.1, quantiles, na.rm = TRUE)
-g <- quantile(RGB_133_df$X133_HARV_landRGB.2, quantiles, na.rm = TRUE)
-b <- quantile(RGB_133_df$X133_HARV_landRGB.3, quantiles, na.rm = TRUE)
-tempR <-  (RGB_133_df$X133_HARV_landRGB.1 - r[1])/(r[2] - r[1])
-tempG <-  (RGB_133_df$X133_HARV_landRGB.2 - g[1])/(g[2] - g[1])
-tempB <-  (RGB_133_df$X133_HARV_landRGB.3 - b[1])/(b[2] - b[1])
-tempR[tempR < 0] <- 0
-tempG[tempG < 0] <- 0
-tempB[tempB < 0] <- 0
-tempR[tempR > 1] <- 1
-tempG[tempG > 1] <- 1
-tempB[tempB > 1] <- 1
-RGB_133_df$rgb <- rgb(tempR,tempG,tempB)
+RGB_133_df <- RGB_133_df %>%
+    mutate(r = quantile(X133_HARV_landRGB.1, quantiles, na.rm = TRUE),
+           tempR = (X133_HARV_landRGB.1 - r[1])/(r[2] - r[1]),
+           tempR = case_when(
+             tempR < 0 ~ 0,
+             tempR > 1 ~ 1,
+             TRUE ~ tempR),
+           g = quantile(X133_HARV_landRGB.2, quantiles, na.rm = TRUE),
+           tempG = (X133_HARV_landRGB.2 - g[1])/(g[2] - g[1]),
+           tempG = case_when(
+             tempG < 0 ~ 0,
+             tempG > 1 ~ 1,
+             TRUE ~ tempG),
+           b = quantile(X133_HARV_landRGB.3, quantiles, na.rm = TRUE),
+           tempB = (X133_HARV_landRGB.3 - b[1])/(b[2] - b[1]),
+           tempB = case_when(
+             tempB < 0 ~ 0,
+             tempB > 1 ~ 1,
+             TRUE ~ tempB),
+           rgb = rgb(tempR,tempG,tempB)
+           ) %>%
+    dplyr::select(-(r:tempB))  # get rid of the temporary variables we created.
 ggplot() +
-  geom_raster(data = RGB_133_df, aes(x, y), fill = RGB_133_df$rgb) + 
+  geom_raster(data = RGB_133_df, aes(x, y), fill = rgb) + 
   ggtitle("Julian day 133")
 
 # Plot RGB data for Julian day 197
 RGB_197 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/197_HARV_landRGB.tif")
 RGB_197 <- RGB_197/255
-RGB_197_df <- as.data.frame(RGB_197, xy = TRUE)
-r <- quantile(RGB_197_df$X197_HARV_landRGB.1, quantiles, na.rm = TRUE)
-g <- quantile(RGB_197_df$X197_HARV_landRGB.2, quantiles, na.rm = TRUE)
-b <- quantile(RGB_197_df$X197_HARV_landRGB.3, quantiles, na.rm = TRUE)
-tempR <-  (RGB_197_df$X197_HARV_landRGB.1 - r[1])/(r[2] - r[1])
-tempG <-  (RGB_197_df$X197_HARV_landRGB.2 - g[1])/(g[2] - g[1])
-tempB <-  (RGB_197_df$X197_HARV_landRGB.3 - b[1])/(b[2] - b[1])
-tempR[tempR < 0] <- 0
-tempG[tempG < 0] <- 0
-tempB[tempB < 0] <- 0
-tempR[tempR > 1] <- 1
-tempG[tempG > 1] <- 1
-tempB[tempB > 1] <- 1
-RGB_197_df$rgb <- rgb(tempR,tempG,tempB)
+RGB_197_df <- as.data.frame(RGB_197, xy = TRUE) %>%
+    mutate(r = quantile(X133_HARV_landRGB.1, quantiles, na.rm = TRUE),
+           tempR = (X197_HARV_landRGB.1 - r[1])/(r[2] - r[1]),
+           tempR = case_when(
+             tempR < 0 ~ 0,
+             tempR > 1 ~ 1,
+             TRUE ~ tempR),
+           g = quantile(X197_HARV_landRGB.2, quantiles, na.rm = TRUE),
+           tempG = (X197_HARV_landRGB.2 - g[1])/(g[2] - g[1]),
+           tempG = case_when(
+             tempG < 0 ~ 0,
+             tempG > 1 ~ 1,
+             TRUE ~ tempG),
+           b = quantile(X197_HARV_landRGB.3, quantiles, na.rm = TRUE),
+           tempB = (X197_HARV_landRGB.3 - b[1])/(b[2] - b[1]),
+           tempB = case_when(
+             tempB < 0 ~ 0,
+             tempB > 1 ~ 1,
+             TRUE ~ tempB),
+           rgb = rgb(tempR,tempG,tempB)
+           ) %>%
+    dplyr::select(-(r:tempB)) # get rid of the temporary variables we created.
 ggplot() +
-  geom_raster(data = RGB_197_df, aes(x, y), fill = RGB_197_df$rgb) + 
+  geom_raster(data = RGB_197_df, aes(x, y), fill = rgb) + 
   ggtitle("Julian day 197")
 ```
 
