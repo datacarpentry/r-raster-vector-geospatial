@@ -8,7 +8,7 @@ objectives:
 - "Plot vector objects with different CRSs in the same plot."
 keypoints:
 - "`ggplot2` automatically converts all objects in a plot to the same CRS."
-- "It's still a good idea to be aware of your object CRSs and extents."
+- "Still be aware of the CRS and extent for each object."
 source: Rmd
 ---
 
@@ -57,7 +57,7 @@ roadColors <- c("blue", "green", "grey", "purple")[lines_HARV$TYPE]
 ## Working With Spatial Data From Different Sources
 
 We often need to gather spatial datasets from
-different sources and/or data that cover different spatial extents. 
+different sources and/or data that cover different spatial extents.
 These data are often in
 different Coordinate Reference Systems (CRSs).
 
@@ -76,7 +76,7 @@ projection. These differences are a direct result of the calculations
 used to "flatten" the data onto a 2-dimensional map. Often data are
 stored purposefully in a particular projection that optimizes the
 relative shape and size of surrounding geographic boundaries (states,
-counties, countries, etc). 
+counties, countries, etc).
 
 In this episode we will learn how to identify and manage spatial data
 in different projections. We will learn how to reproject the data so
@@ -116,7 +116,7 @@ Next, let's plot the U.S. states data:
 ```{r find-coordinates }
 ggplot() +
   geom_sf(data = state_boundary_US) +
-  ggtitle("Map of Contiguous US State Boundaries") + 
+  ggtitle("Map of Contiguous US State Boundaries") +
   coord_sf()
 ```
 
@@ -132,19 +132,19 @@ country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layer
 
 If we specify a thicker line width using `size = 2` for the border layer, it will
 make our map pop! We will also manually set the colors of the state boundaries
-and country boundaries. 
+and country boundaries.
 
 ```{r us-boundaries-thickness}
-ggplot() + 
+ggplot() +
   geom_sf(data = country_boundary_US, color = "gray18", size = 2) +
   geom_sf(data = state_boundary_US, color = "gray40") +
-  ggtitle("Map of Contiguous US State Boundaries") + 
+  ggtitle("Map of Contiguous US State Boundaries") +
   coord_sf()
 ```
 
 Next, let's add the location of a flux tower where our study area is.
-As we are adding these layers, take note of the CRS of each object. 
-First let's look at the CRS of our tower location object: 
+As we are adding these layers, take note of the CRS of each object.
+First let's look at the CRS of our tower location object:
 
 ```{r crs-sleuthing-1}
 st_crs(point_HARV)
@@ -231,41 +231,41 @@ We saw in [an earlier episode]({{ site.baseurl }}/03-raster-reproject-in-r/) tha
 data in different CRSs, we needed to convert all objects to the same
 CRS. We can do the same thing with our vector data - however, we
 don't need to! When using the `ggplot2` package, `ggplot`
-automatically converts all objects to the same CRS before plotting. 
+automatically converts all objects to the same CRS before plotting.
 This means we can plot our three data sets together
-without doing any conversion: 
+without doing any conversion:
 
 ```{r layer-point-on-states}
 ggplot() +
   geom_sf(data = country_boundary_US, size = 2, color = "gray18") +
   geom_sf(data = state_boundary_US, color = "gray40") +
   geom_sf(data = point_HARV, shape = 19, color = "purple") +
-  ggtitle("Map of Contiguous US State Boundaries") + 
+  ggtitle("Map of Contiguous US State Boundaries") +
   coord_sf()
 ```
 
 > ## Challenge - Plot Multiple Layers of Spatial Data
-> 
+>
 > Create a map of the North Eastern United States as follows:
-> 
+>
 > 1. Import and plot `Boundary-US-State-NEast.shp`. Adjust line width as necessary.
 > 2. Layer the Fisher Tower (in the NEON Harvard Forest site) point location `point_HARV` onto the plot.
 > 3. Add a title.
 > 4. Add a legend that shows both the state boundary (as a line) and
 > the Tower location point.
-> 
+>
 > > ## Answers
-> > 
+> >
 > > ```{r ne-states-harv}
 > > NE.States.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp")
-> > 
+> >
 > > ggplot() +
 > >     geom_sf(data = NE.States.Boundary.US, aes(color ="color"), show.legend = "line") +
 > >     scale_color_manual(name = "", labels = "State Boundary", values = c("color" = "gray18")) +
 > >     geom_sf(data = point_HARV, aes(shape = "shape"), color = "purple") +
 > >     scale_shape_manual(name = "", labels = "Fisher Tower", values = c("shape" = 19)) +
-> >     ggtitle("Fisher Tower location") + 
-> >     theme(legend.background = element_rect(color = NA)) + 
+> >     ggtitle("Fisher Tower location") +
+> >     theme(legend.background = element_rect(color = NA)) +
 > >     coord_sf()
 > > ```
 > {: .solution}

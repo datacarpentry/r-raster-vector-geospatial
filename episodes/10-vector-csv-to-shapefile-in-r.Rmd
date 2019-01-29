@@ -9,7 +9,7 @@ objectives:
 - "Convert a data frame to a spatial object."
 - "Export a spatial object to a text file."
 keypoints:
-- "It is important to know the projection (if any) of your point data prior to converting to a spatial object."
+- "Know the projection (if any) of your point data prior to converting to a spatial object."
 - "Convert a data frame to an `sf` object using the `st_as_sf()` function."
 - "Export an `sf` object as text using the `st_write()` function."
 source: Rmd
@@ -82,7 +82,7 @@ We now have a data frame that contains 21 locations (rows) and 16 variables (att
  * Latitude and Longitude OR
  * easting and northing (UTM coordinates)
 
-Let's check out the column names of our dataframe. 
+Let's check out the column names of our dataframe.
 
 ```{r find-coordinates }
 names(plot_locations_HARV)
@@ -106,7 +106,7 @@ associated with those coordinate values.
 There are several ways to figure out the CRS of spatial data in text format.
 
 1. We can check the file metadata in hopes that the CRS was recorded in the
-data. 
+data.
 2. We can explore the file itself to see if CRS information is embedded in the
 file header or somewhere in the data columns.
 
@@ -132,10 +132,10 @@ we learned about the components of a `proj4` string. We have everything we need
 to assign a CRS to our data frame.
 
 To create the `proj4` associated with UTM Zone 18 WGS84 we can look up the
-projection on the [Spatial Reference website](http://www.spatialreference.org/ref/epsg/wgs-84-utm-zone-18n/), which contains a list of CRS formats for each projection. From here, we can extract the [proj4 string for UTM Zone 18N WGS84](http://www.spatialreference.org/ref/epsg/wgs-84-utm-zone-18n/proj4/). 
+projection on the [Spatial Reference website](http://www.spatialreference.org/ref/epsg/wgs-84-utm-zone-18n/), which contains a list of CRS formats for each projection. From here, we can extract the [proj4 string for UTM Zone 18N WGS84](http://www.spatialreference.org/ref/epsg/wgs-84-utm-zone-18n/proj4/).
 
 However, if we have other data in the UTM Zone 18N projection, it's much
-easier to use the `st_crs()` function to extract the CRS in `proj4` format from that object and 
+easier to use the `st_crs()` function to extract the CRS in `proj4` format from that object and
 assign it to our
 new spatial object. We've seen this CRS before with our Harvard Forest study site (`point_HARV`).
 
@@ -170,7 +170,7 @@ We will use the `st_as_sf()` function to perform the conversion.
 plot_locations_sp_HARV <- st_as_sf(plot_locations_HARV, coords = c("easting", "northing"), crs = utm18nCRS)
 ```
 
-We should double check the CRS to make sure it is correct. 
+We should double check the CRS to make sure it is correct.
 
 ```{r}
 st_crs(plot_locations_sp_HARV)
@@ -180,7 +180,7 @@ st_crs(plot_locations_sp_HARV)
 We now have a spatial R object, we can plot our newly created spatial object.
 
 ```{r plot-data-points}
-ggplot() + 
+ggplot() +
   geom_sf(data = plot_locations_sp_HARV) +
   ggtitle("Map of Plot Locations")
 ```
@@ -194,75 +194,75 @@ R using `ggplot`, all of the layers of the plot are considered in setting the bo
 of the plot. To show this, let's plot our `aoi_boundary_HARV` object with our vegetation plots.
 
 ```{r plot-data}
-ggplot() + 
-  geom_sf(data = aoi_boundary_HARV) + 
+ggplot() +
+  geom_sf(data = aoi_boundary_HARV) +
   geom_sf(data = plot_locations_sp_HARV) +
   ggtitle("AOI Boundary Plot")
 ```
 
 When we plot the two layers together, `ggplot` sets the plot boundaries
-so that they are large enough to include all of the data included in all of the layers. 
+so that they are large enough to include all of the data included in all of the layers.
 That's really handy!
 
 > ## Challenge - Import & Plot Additional Points
-> 
+>
 > We want to add two phenology plots to our existing map of vegetation plot
 > locations.
-> 
+>
 > Import the .csv: `HARV/HARV_2NewPhenPlots.csv` into R and do the following:
-> 
+>
 > 1. Find the X and Y coordinate locations. Which value is X and which value is Y?
 > 2. These data were collected in a geographic coordinate system (WGS84). Convert
 > the dataframe into an `sf` object.
 > 3. Plot the new points with the plot location points from above. Be sure to add
 > a legend. Use a different symbol for the 2 new points!
-> 
+>
 > If you have extra time, feel free to add roads and other layers to your map!
-> 
+>
 > > ## Answers
-> > 
-> > 1) 
-> > First we will read in the new csv file and look at the 
-> > data structure. 
-> > 
+> >
+> > 1)
+> > First we will read in the new csv file and look at the
+> > data structure.
+> >
 > > ```{r}
 > > newplot_locations_HARV <-
 > >   read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_2NewPhenPlots.csv")
 > > str(newplot_locations_HARV)
 > > ```
-> > 
-> > 2) 
+> >
+> > 2)
 > > The US boundary data we worked with previously is in a geographic
 > > WGS84 CRS. We can use that data to establish a CRS for this data. First
 > > we will extract the CRS from the `country_boundary_US` object and
 > > confirm that it is WGS84.
-> > 
+> >
 > > ```{r}
 > > geogCRS <- st_crs(country_boundary_US)
 > > geogCRS
 > > ```
-> > 
+> >
 > > Then we will convert our new data to a spatial dataframe, using
-> > the `geogCRS` object as our CRS. 
-> > 
+> > the `geogCRS` object as our CRS.
+> >
 > > ```{r}
 > > newPlot.Sp.HARV <- st_as_sf(newplot_locations_HARV, coords = c("decimalLon", "decimalLat"), crs = geogCRS)
 > > ```
-> > 
-> > Next we'll confirm that the CRS for our new object is correct. 
-> > 
+> >
+> > Next we'll confirm that the CRS for our new object is correct.
+> >
 > > ```{r}
 > > st_crs(newPlot.Sp.HARV)
 > > ```
-> > 
-> > We will be adding these new data points to the plot we 
-> > created before. The data for the earlier plot was in UTM. 
+> >
+> > We will be adding these new data points to the plot we
+> > created before. The data for the earlier plot was in UTM.
 > > Since we're using `ggplot`, it will reproject the data for us.
-> > 
-> > 3) Now we can create our plot. 
-> > 
+> >
+> > 3) Now we can create our plot.
+> >
 > > ```{r plot-locations-harv-orange}
-> > ggplot() + 
+> > ggplot() +
 > >   geom_sf(data = plot_locations_sp_HARV, color = "orange") +
 > >   geom_sf(data = newPlot.Sp.HARV, color = "lightblue") +
 > >   ggtitle("Map of All Plot Locations")
