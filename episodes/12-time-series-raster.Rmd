@@ -30,6 +30,7 @@ library(ggplot2)
 library(dplyr)
 library(scales)
 library(reshape)
+library(tidyr)
 ```
 
 
@@ -75,6 +76,7 @@ library(raster)
 library(rgdal)
 library(reshape)
 library(scales)
+library(tidyr)
 ```
 
 To begin, we will create a list of raster files using the `list.files()`
@@ -158,14 +160,12 @@ UTM Zone 19.
 ## Plotting Time Series Data
 Once we have created our RasterStack, we can visualize our data. We can use
 the `ggplot()` command to create a multi-panelled plot showing each band in our RasterStack. First we
-need to create a data frame object. Because there are multiple bands in our data, we will reshape (or "melt")
-the data so that we have a single column with 
-the NDVI observations. We will use the function
-`melt()` from the `reshape` package to do this: 
+need to create a data frame object. Because there are multiple columns in our data that are not variables, we will tidy (or "gather") the data so that we have a single column with the NDVI observations. 
+We will use the function `gather()` from the `tidyr` package to do this:
 
 ```{r plot-time-series}
 NDVI_HARV_stack_df <- as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
-    melt(id.vars = c('x','y'))
+    gather(variable, value, -(x:y))
 ```
 
 Now we can plot our data using `ggplot()`. We want
@@ -199,7 +199,7 @@ After applying our scale factor, we can recreate our plot using the same code we
 
 ```{r ndvi-stack-wrap}
 NDVI_HARV_stack_df <- as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
-    melt(id.vars = c('x','y'))
+    gather(variable, value, -(x:y))
 
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
