@@ -270,9 +270,8 @@ har_met_daily$date <- as.Date(har_met_daily$date, format = "%Y-%m-%d")
 We only want to look at the data from 2011:
 
 ```{r}
-yr_11_daily_avg <- subset(har_met_daily,
-                            date >= as.Date('2011-01-01') &
-                            date <= as.Date('2011-12-31'))
+yr_11_daily_avg <- har_met_daily %>%
+  filter(between(date, as.Date('2011-01-01'), as.Date('2011-12-31')))
 ```
 
 Now we can plot the air temperature (the `airt` column) by Julian day (the `jd` column):
