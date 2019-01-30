@@ -40,7 +40,7 @@ library(dplyr)
 > data, and other prerequisites you will need to work through the examples in this episode.
 {: .prereq}
 
-In this episodes, we will introduce the fundamental principles, packages and
+In this episode, we will introduce the fundamental principles, packages and
 metadata/raster attributes that are needed to work with raster data in R. We will
 discuss some of the core metadata elements that we need to understand to work with
 rasters in R, including CRS and resolution. We will also explore missing and bad
@@ -61,7 +61,7 @@ library(rgdal)
 > lesson. A brief introduction to the datasets can be found on the 
 > [Geospatial workshop homepage](https://datacarpentry.org/geospatial-workshop/#data).
 > 
-> For more detailed information about the dataset, check
+> For more detailed information about the datasets, check
 out the [Geospatial workshop data
 page](http://datacarpentry.org/geospatial-workshop/data/).
 {: .callout}
@@ -193,7 +193,7 @@ crs(DSM_HARV)
 {: .challenge}
 
 ## Understanding CRS in Proj4 Format
-The CRS for our data are given to us by R in `proj4` format. Let's break down
+The CRS for our data is given to us by R in `proj4` format. Let's break down
 the pieces of `proj4` string. The string contains all of the individual CRS
 elements that R or another GIS might need. Each element is specified with a
 `+` sign, similar to how a `.csv` file is delimited or broken up by a `,`. After
@@ -445,7 +445,7 @@ ggplot() +
 
 ```
 
-Notice that an warning message is thrown when R creates the histogram.
+Notice that a warning message is thrown when R creates the histogram.
 
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
@@ -460,7 +460,7 @@ ggplot() +
 
 ```
 
-Note that the shape of both histograms looks similar to the previous one that
+Note that the shape of this histogram looks similar to the previous one that
 was created using the default of 30 bins. The distribution of elevation values
 for our `Digital Surface Model (DSM)` looks reasonable. It is likely there are
 no bad data values in this particular raster.
