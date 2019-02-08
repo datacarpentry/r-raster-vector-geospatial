@@ -128,7 +128,7 @@ The plot above uses the default colors inside `ggplot` for raster objects.
 We can specify our own colors to make the plot look a little nicer.
 R has a built in set of colors for plotting terrain, which are built in
 to the `terrain.colors()` function.
-Since we have three bins, we want to use the first three terrain colors:
+Since we have three bins, we want to create a 3-color palette:
 
 ```{r terrain-colors}
 terrain.colors(3)
