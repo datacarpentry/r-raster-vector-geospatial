@@ -121,7 +121,7 @@ summary(DSM_HARV)
 ```
 
 but note the warning - unless you force R to calculate these statistics using
-every cell in the raster, it will take a random sample of 10,000 cells and
+every cell in the raster, it will take a random sample of 100,000 cells and
 calculate from that instead. To force calculation on more, or even all values,
 you can use the parameter `maxsamp`:
 
