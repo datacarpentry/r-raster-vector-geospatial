@@ -201,7 +201,7 @@ each `+` we see the CRS element being defined. For example projection (`proj=`)
 and datum (`datum=`).
 
 ### UTM Proj4 String
-Our project string for `point_HARV` specifies the UTM projection as follows:
+Our projection string for `DSM_HARV` specifies the UTM projection as follows:
 
 `+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0`
 
@@ -375,7 +375,7 @@ opens up the raster, it will assign each instance of the value to `NA`. Values
 of `NA` will be ignored by R as demonstrated above.
 
 > ## Challenge
-> Use the output from the `GDALinfo()` function to find out what `NoDataValue` is used for our DSM_HARV dataset.
+> Use the output from the `GDALinfo()` function to find out what `NoDataValue` is used for our `DSM_HARV` dataset.
 >
 > > ## Answers
 > >
@@ -447,9 +447,7 @@ ggplot() +
 
 Notice that a warning message is thrown when R creates the histogram.
 
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
-This warning is caused by `ggplot`'s default settings enforcing that there are
+This warning is caused by `ggplot2`'s default settings enforcing that there are
 30 bins for the data. We can define the number of bins we want in the histogram
 by using the `bins` value in the `geom_histogram()` function.
 
@@ -467,9 +465,9 @@ no bad data values in this particular raster.
 
 > ## Challenge: Explore Raster Metadata
 >
-> Use `GDALinfo()` to determine the following about the  `NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif` file:
+> Use `GDALinfo()` to determine the following about the `NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif` file:
 >
-> 1. Does this file has the same CRS as `DSM_HARV`?
+> 1. Does this file have the same CRS as `DSM_HARV`?
 > 2. What is the `NoDataValue`?
 > 3. What is resolution of the raster data?
 > 4. How large would a 5x5 pixel area be on the Earth's surface?
