@@ -82,7 +82,7 @@ DSM_HARV_df %>%
 
 We might prefer to customize the cutoff values for these groups.
 Lets round the cutoff values so that we have groups for the ranges of 
-300-349m, 350 - 399m, and 400-450m.
+301–350 m, 351–400 m, and 401–450 m.
 To implement this we will give `mutate()` a numeric vector of break points instead 
 of the number of breaks we want.
 
