@@ -447,7 +447,7 @@ Notice that a warning message is thrown when R creates the histogram.
 
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-This warning is caused by `ggplot`'s default settings enforcing that there are
+This warning is caused by a default setting in `geom_histogram` enforcing that there are
 30 bins for the data. We can define the number of bins we want in the histogram
 by using the `bins` value in the `geom_histogram()` function.
 
