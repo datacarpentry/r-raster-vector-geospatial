@@ -170,16 +170,15 @@ ggplot() +
     coord_quickmap()
 ```
 
-Or we can also turn off the axes altogether by passing `element_blank()` to
-the relevant parts of the `theme()` function.
+Or we can also turn off the labels of both axes by passing `element_blank()` to
+the relevant part of the `theme()` function.
 
 ```{r turn-off-axes}
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
                                       fill = fct_elevation_2)) + 
     scale_fill_manual(values = my_col, name = "Elevation") +
-    theme(axis.title.x = element_blank(),
-          axis.title.y = element_blank()) + 
+    theme(axis.title = element_blank()) + 
     coord_quickmap()
 ```
 
