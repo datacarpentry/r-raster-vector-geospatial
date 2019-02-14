@@ -247,15 +247,15 @@ ggplot() +
 ```
 
 > ## Data Tips
-> Turn off, or hide, the legend on a plot using by adding `guide = "none"` 
+> Turn off, or hide, the legend on a plot by adding `guide = "none"` 
 > to a `scale_something()` function or by setting
-> `theme(legend.position="none")`.
+> `theme(legend.position = "none")`.
 > 
 > The alpha value determines how transparent the colors will be (0 being
 > transparent, 1 being opaque).
 {: .callout}
 
-We can layer another raster on top of our hillshade using adding another call to 
+We can layer another raster on top of our hillshade by adding another call to 
 the `geom_raster()` function. Let's overlay `DSM_HARV` on top of the `hill_HARV`.
 
 ``` {r overlay-hillshade}
