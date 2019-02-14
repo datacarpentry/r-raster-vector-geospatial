@@ -306,7 +306,7 @@ Range field site.
 > >     geom_raster(data = DSM_SJER_df , 
 > >                 aes(x = x, y = y, 
 > >                      fill = SJER_dsmCrop,
-> >                      alpha=0.8)
+> >                      alpha = 0.8)
 > >                 ) + 
 > >     geom_raster(data = DSM_hill_SJER_df, 
 > >                 aes(x = x, y = y, 
