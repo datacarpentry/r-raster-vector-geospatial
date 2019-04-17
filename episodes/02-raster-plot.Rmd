@@ -77,7 +77,7 @@ And we can get the count of values in each group using `dplyr`'s
 ```{r breaks-count}
 DSM_HARV_df %>%
         group_by(fct_elevation) %>%
-        summarize(counts = n())
+        count()
 ```
 
 We might prefer to customize the cutoff values for these groups.
