@@ -490,7 +490,7 @@ GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 {: .challenge}
 
 > ## More Resources
-> * [Read more about the `raster` package in R.](http://cran.r-project.org/web/packages/raster/raster.pdf)
+> * [Read more about the `raster` package in R.](http://cran.r-project.org/package=raster)
 {: .callout}
 
 {% include links.md %}
