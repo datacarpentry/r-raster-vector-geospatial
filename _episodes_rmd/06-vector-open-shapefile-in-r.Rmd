@@ -147,19 +147,6 @@ ggplot() +
   coord_sf()
 ```
 
-> ## Data Tip
->
-> There is a known bug in the `geom_sf()` function that leads to an
-> intermittent error on some platforms. If you see the following error 
-> message, try to re-run your plotting command and it should work.
-> The `ggplot` development team is working on fixing this bug.
-> ~~~
-> Error in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y,  : 
-  polygon edge not found
-> ~~~
-> {: .error}
-{: .callout}
-
 > ## Challenge: Import Line and Point Shapefiles
 > 
 > Using the steps above, import the HARV_roads and HARVtower_UTM18N layers into
