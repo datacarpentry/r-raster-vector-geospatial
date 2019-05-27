@@ -34,7 +34,7 @@ library(dplyr)
 {: .prereq}
 
 We introduced multi-band raster data in
-[an earlier lesson](http://www.datacarpentry.org/organization-geospatial/01-spatial-data-structures-formats/index.html). This episode explores how to import and plot
+[an earlier lesson](https://datacarpentry.org/organization-geospatial/01-intro-raster-data). This episode explores how to import and plot
 a multi-band raster in
 R.
 
