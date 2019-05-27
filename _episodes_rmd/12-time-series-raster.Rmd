@@ -51,7 +51,7 @@ example red, green and blue. A multi-band raster may two or more bands or layers
 of data collected at different times for the same extent (region) and of the
 same resolution. For this episode, we will work with a time series
 of normalized difference vegetation index (NDVI) and RGB data from the Harvard Forest site. 
-We introduced the concepts of NDVI and RGB data in [an earlier lesson](https://datacarpentry.org/organization-geospatial/01-spatial-data-structures-formats/index.html) and worked with an RGB RasterStack in the [Work with Multi-band Rasters in R]({{ site.baseurl }}/ 05-raster-multi-band-in-r/) episode. 
+We introduced the concepts of NDVI and RGB data in [an earlier lesson](https://datacarpentry.org/organization-geospatial/01-intro-raster-data) and worked with an RGB RasterStack in the [Work with Multi-band Rasters in R]({{ site.baseurl }}/ 05-raster-multi-band-in-r/) episode. 
 
 In this episode, we will:
 
@@ -89,7 +89,7 @@ the list.
 > language called "regular expressions", which is beyond the scope of this workshop. 
 > 
 > * [Regular expressions tutorial](https://regexone.com/)
-> * [Regular expressions cheatsheet](http://www.cbs.dtu.dk/courses/27610/regular-expressions-cheat-sheet-v2.pdf)
+> * [Regular expressions cheatsheet](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf)
 {: .callout}
 
 ```{r import-NDVI-rasters }

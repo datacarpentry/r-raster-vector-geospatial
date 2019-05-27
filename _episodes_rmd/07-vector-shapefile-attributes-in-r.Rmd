@@ -143,7 +143,7 @@ levels(lines_HARV$TYPE)
 ```
 
 ### Subset Shapefiles
-We can use the `filter()` function from `dplyr` that we worked with in [an earlier lesson](https://datacarpentry.org/r-intro-geospatial/08-dplyr/index.html) to select a subset of features
+We can use the `filter()` function from `dplyr` that we worked with in [an earlier lesson](https://datacarpentry.org/r-intro-geospatial/06-dplyr) to select a subset of features
 from a spatial object in R, just like with data frames.
 
 For example, we might be interested only in features that are of `TYPE` "footpath". Once we subset out this data, we can use it as input to other code so that that code only operates on the footpath lines.
