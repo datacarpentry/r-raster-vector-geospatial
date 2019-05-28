@@ -127,7 +127,7 @@ aoi_boundary_HARV
 ```
 
 ## Spatial Data Attributes
-We introduced the idea of spatial data attributes in [an earlier lesson](https://datacarpentry.org/organization-geospatial/01-spatial-data-structures-formats/index.html). Now we will explore
+We introduced the idea of spatial data attributes in [an earlier lesson](https://datacarpentry.org/organization-geospatial/02-intro-vector-data). Now we will explore
 how to use spatial data attributes stored in our data to plot
 different features.
 

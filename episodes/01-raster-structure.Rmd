@@ -171,7 +171,7 @@ this is 400 feet or 400 meters because the legend doesn't show us the units. We
 can look at the metadata of our object to see what the units are. Much of the
 metadata that we're interested in is part of the CRS. We introduced the
 concept of a CRS in [an earlier
-lesson](https://datacarpentry.org/organization-geospatial/01-spatial-data-structures-formats).
+lesson](https://datacarpentry.org/organization-geospatial/03-crs).
 
 Now we will see how features of the CRS appear in our data file and what
 meanings they have.
