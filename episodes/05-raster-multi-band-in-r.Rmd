@@ -381,7 +381,7 @@ plotRGB(RGB_brick_HARV)
 > > ```{r}
 > > methods(class=class(RGB_stack_HARV[1]))
 > > ```
-> > 3) There are far more thing one could or wants to ask of a full stack than of
+> > 3) There are far more things one could or want to ask of a full stack than of
 > > a single band.
 > {: .solution}
 {: .challenge}
