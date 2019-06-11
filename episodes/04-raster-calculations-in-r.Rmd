@@ -1,7 +1,7 @@
 ---
 title: "Raster Calculations in R"
-teaching: 20
-exercises: 10
+teaching: 40
+exercises: 20
 questions:
 - "How do I subtract one raster from another and extract pixel values for defined locations?"
 objectives:
