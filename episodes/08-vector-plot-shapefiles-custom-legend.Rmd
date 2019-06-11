@@ -1,7 +1,7 @@
 ---
 title: "Plot Multiple Shapefiles in R"
-teaching: 20
-exercises: 10
+teaching: 40
+exercises: 20
 questions:
 - "How can I create map compositions with custom legends using ggplot?"
 - "How can I plot raster and vector data together?"

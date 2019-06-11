@@ -1,7 +1,7 @@
 ---
 title: "Work With Multi-Band Rasters in R"
-teaching: 20
-exercises: 10
+teaching: 40
+exercises: 20
 questions:
 - "How can I visualize individual and multiple bands in a raster object?"
 objectives:
