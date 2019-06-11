@@ -1,7 +1,7 @@
 ---
 title: "Raster Time Series Data in R"
-teaching: 20
-exercises: 10
+teaching: 40
+exercises: 20
 questions:
 - "How can I view and and plot data for different times of the year?"
 objectives:
