@@ -416,13 +416,13 @@ elevation values over 400m with a contrasting colour.
 # reclassify raster to ok/not ok
 DSM_highvals <- reclassify(DSM_HARV, rcl = c(0, 400, NA_integer_, 400, 420, 1L), include.lowest = TRUE)
 DSM_highvals <- as.data.frame(DSM_highvals, xy = TRUE)
-DSM_highvals <- DSM_highvals[!is.na(DSM_highvals$layer), ]
+DSM_highvals <- DSM_highvals[!is.na(DSM_highvals$HARV_dsmCrop), ]
 
 ggplot() +
   geom_raster(data = DSM_HARV_df, aes(x = x, y = y, fill = HARV_dsmCrop)) + 
   scale_fill_viridis_c() + 
   # use reclassified raster data as an annotation
-  annotate(geom = 'raster', x = DSM_highvals$x, y = DSM_highvals$y, fill = scales::colour_ramp('deeppink')(DSM_highvals$layer)) +
+  annotate(geom = 'raster', x = DSM_highvals$x, y = DSM_highvals$y, fill = scales::colour_ramp('deeppink')(DSM_highvals$HARV_dsmCrop)) +
   ggtitle("Elevation Data", subtitle = "Highlighting values > 400m") +
   coord_quickmap()
 
