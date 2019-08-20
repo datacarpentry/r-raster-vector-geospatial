@@ -149,7 +149,7 @@ coordinates into a polygon that we can plot:
 CHM_HARV_Cropped_df <- as.data.frame(CHM_HARV_Cropped, xy = TRUE)
 
 ggplot() +
-  geom_sf(data = st_as_sfc(st_bbox(CHM_HARV_sp)), fill = "green",
+  geom_sf(data = st_as_sfc(st_bbox(CHM_HARV)), fill = "green",
           color = "green", alpha = .2) +  
   geom_raster(data = CHM_HARV_Cropped_df,
               aes(x = x, y = y, fill = HARV_chmCrop)) + 
