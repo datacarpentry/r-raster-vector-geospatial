@@ -1,6 +1,6 @@
 ---
 title: "Intro to Raster Data in R"
-teaching: 40
+teaching: 30
 exercises: 20
 questions:
 -  "What is a raster dataset?"
