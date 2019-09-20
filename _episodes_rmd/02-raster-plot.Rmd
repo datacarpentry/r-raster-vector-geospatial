@@ -1,7 +1,7 @@
 ---
 title: "Plot Raster Data in R"
 teaching: 40
-exercises: 20
+exercises: 30
 questions:
 - "How can I create categorized or customized maps of raster data?"
 - "How can I customize the color scheme of a raster image?"
