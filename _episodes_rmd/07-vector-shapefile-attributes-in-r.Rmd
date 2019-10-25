@@ -429,7 +429,7 @@ ggplot() +
 > > Next, we will create a new object `lines_removeNA` that removes missing values.
 > >
 > > ```{r}
-> > lines_removeNA <- lines_HARV[na.omit(lines_HARV$BicyclesHo),]
+> > lines_removeNA <- lines_HARV[!is.na(lines_HARV$BicyclesHo),] 
 > > ```
 > >
 > > In our plot, we will set colors so that only the allowed roads
@@ -437,9 +437,13 @@ ggplot() +
 > > factor level is thicker than the others.
 > >
 > > ```{r harv-paths-bike-horses}
+> > # First, create a data frame with only those roads where bicycles and horses are allowed
+> > lines_showHarv <- lines_removeNA %>% filter(BicyclesHo == "Bicycles and Horses Allowed")
+> >
+> > # Next, visualise using ggplot
 > > ggplot() + 
 > >   geom_sf(data = lines_HARV) + 
-> >   geom_sf(data = lines_removeNA, aes(color = BicyclesHo), size = 2) + 
+> >   geom_sf(data = lines_showHarv, aes(color = BicyclesHo), size = 2) + 
 > >   scale_color_manual(values = "magenta") +
 > >   ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads Where Bikes and Horses Are Allowed") + 
 > >   coord_sf()
