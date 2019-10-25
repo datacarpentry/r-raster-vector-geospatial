@@ -77,18 +77,13 @@ Now we can create a map of the DTM layered over the hillshade.
 
 ```{r}
 ggplot() +
+     geom_raster(data = DTM_HARV_df , 
+                 aes(x = x, y = y, 
+                  fill = HARV_dtmCrop)) + 
      geom_raster(data = DTM_hill_HARV_df, 
                  aes(x = x, y = y, 
-                   alpha = HARV_DTMhill_WGS84)
-                 ) +
-     geom_raster(data = DTM_HARV_df , 
-             aes(x = x, y = y, 
-                  fill = HARV_dtmCrop,
-                  alpha=0.8)
-             ) + 
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
-     guides(fill = guide_colorbar()) +
-     scale_alpha(range = c(0.25, 0.65), guide = "none") +
+                   alpha = HARV_DTMhill_WGS84)) +
+     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
      coord_quickmap()
 ```
 
