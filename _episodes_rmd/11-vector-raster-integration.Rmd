@@ -131,11 +131,12 @@ ggplot() +
 ```
 
 Now that we have visualized the area of the CHM we want to subset, we can
-perform the cropping operation. We are going to create a new object with only
-the portion of the CHM data that falls within the boundaries of the AOI. The function `crop()` is from the raster package and doesn't know how to deal with `sf` objects. Therefore, we first need to convert `aoi_boundary_HARV` from a `sf` object to "Spatial" object.
+perform the cropping operation. We are going to `crop()` function from the 
+raster package to create a new object with only the portion of the CHM data 
+that falls within the boundaries of the AOI.
 
 ```{r}
-CHM_HARV_Cropped <- crop(x = CHM_HARV, y = as(aoi_boundary_HARV, "Spatial"))
+CHM_HARV_Cropped <- crop(x = CHM_HARV, y = aoi_boundary_HARV)
 ```
 
 Now we can plot the cropped CHM data, along with a boundary box showing the full
