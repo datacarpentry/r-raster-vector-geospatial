@@ -295,9 +295,7 @@ We will begin by extracting all canopy height pixel values located within our
 Forest field site.
 
 ```{r extract-from-raster}
-tree_height <- extract(x = CHM_HARV,
-                       y = aoi_boundary_HARV,
-                       df = TRUE)
+tree_height <- extract(x = CHM_HARV, y = aoi_boundary_HARV, df = TRUE)
 
 str(tree_height)
 ```
@@ -337,9 +335,7 @@ a mean height value for our AOI. Because we are extracting only a single number,
 not use the `df = TRUE` argument. 
 
 ```{r summarize-extract }
-mean_tree_height_AOI <- extract(x = CHM_HARV,
-                              y = as(aoi_boundary_HARV, "Spatial"),
-                              fun = mean)
+mean_tree_height_AOI <- extract(x = CHM_HARV, y = aoi_boundary_HARV, fun = mean)
 
 mean_tree_height_AOI
 ```
@@ -365,7 +361,7 @@ will not use the `df = TRUE` argument.
 
 ```{r extract-point-to-buffer }
 mean_tree_height_tower <- extract(x = CHM_HARV,
-                                  y = as(point_HARV, "Spatial"),
+                                  y = point_HARV,
                                   buffer = 20,
                                   fun = mean)
 
