@@ -80,7 +80,7 @@ we have worked with in this workshop:
 * Vegetation plot locations (marked with white dots)-- black
 * A canopy height model (CHM) in GeoTIFF format -- green
 
-```{r view-extents, echo = FALSE}
+```{r view-extents, echo = FALSE, results='hide'}
 # code not shown, for demonstration purposes only
 # create CHM as a shapefile
 CHM_HARV_sp <- st_as_sf(CHM_HARV_df, coords = c("x", "y"), crs = utm18nCRS)
