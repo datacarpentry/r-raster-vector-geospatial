@@ -296,7 +296,7 @@ Forest field site.
 
 ```{r extract-from-raster}
 tree_height <- extract(x = CHM_HARV,
-                       y = as(aoi_boundary_HARV, "Spatial"),
+                       y = aoi_boundary_HARV,
                        df = TRUE)
 
 str(tree_height)
