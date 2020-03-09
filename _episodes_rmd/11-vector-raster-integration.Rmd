@@ -194,7 +194,7 @@ Canopy Height Model information.
 > > 
 > > ```{r challenge-code-crop-raster-points}
 > > 
-> > CHM_plots_HARVcrop <- crop(x = CHM_HARV, y = as(plot_locations_sp_HARV, "Spatial"))
+> > CHM_plots_HARVcrop <- crop(x = CHM_HARV, y = plot_locations_sp_HARV)
 > > 
 > > CHM_plots_HARVcrop_df <- as.data.frame(CHM_plots_HARVcrop, xy = TRUE)
 > > 
@@ -383,10 +383,10 @@ mean_tree_height_tower
 > > ```{r hist-tree-height-veg-plot}
 > > # extract data at each plot location
 > > mean_tree_height_plots_HARV <- extract(x = CHM_HARV,
-> >                                 y = as(plot_locations_sp_HARV, "Spatial"),
-> >                                buffer=20,
-> >                                fun = mean,
-> >                                df = TRUE)
+> >                                        y = plot_locations_sp_HARV,
+> >                                        buffer = 20,
+> >                                        fun = mean,
+> >                                        df = TRUE)
 > > 
 > > # view data
 > > mean_tree_height_plots_HARV
