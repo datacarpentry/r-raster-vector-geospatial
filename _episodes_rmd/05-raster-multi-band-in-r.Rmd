@@ -368,7 +368,7 @@ plotRGB(RGB_brick_HARV)
 > 
 > 1. What methods can be used on the `RGB_stack_HARV` object?
 > 2. What methods can be used on a single band within `RGB_stack_HARV`?
-> 3. Why do you think there is a difference?
+> 3. What are the differences?
 > 
 > > ## Answers
 > > 1) We can see a list of all of the methods available for our
@@ -379,10 +379,15 @@ plotRGB(RGB_brick_HARV)
 > > ```
 > > 2) And compare that with the methods available for a single band:
 > > ```{r}
-> > methods(class=class(RGB_stack_HARV[1]))
+> > methods(class=class(RGB_stack_HARV[[1]]))
 > > ```
-> > 3) There are far more things one could or want to ask of a full stack than of
-> > a single band.
+> > 3) We can use the same functions to figure out the differences:
+> > ```{r}
+> > Layer_Functions<-attr(methods(class=class(RGB_stack_HARV[[1]])),'info')$generic
+> > Stack_Functions<-attr(methods(class=class(RGB_stack_HARV)),'info')$generic
+> > Stack_Functions[!(Stack_Functions%in%Layer_Functions)]
+> > Layer_Functions[!(Layer_Functions%in%Stack_Functions)]
+> > ```
 > {: .solution}
 {: .challenge}
 
