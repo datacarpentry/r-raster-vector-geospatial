@@ -6,6 +6,8 @@
 
 # R for Raster and Vector Data
 
+This is a variant of the [Geospatial Data Carpentry Workshop](https://datacarpentry.org/geospatial-workshop/) [Introduction to Geospatial Raster and Vector Data with R Lesson](https://datacarpentry.org/r-raster-vector-geospatial/) created at UW-Madison as part of video workshop series.
+
 ## Contributing to lesson development
 
 * The lesson files to be edited are in the `_epiodes_rmd` folder. This repository uses the `master` branch for development.
