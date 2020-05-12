@@ -22,6 +22,8 @@ vector and raster-format spatial data in R. Additional topics include
 working with spatial metadata (extent and coordinate reference systems), 
 reprojecting spatial data, and working with raster time series data.
 
+This is a variant of the [Geospatial Data Carpentry Workshop](https://datacarpentry.org/geospatial-workshop/) [Introduction to Geospatial Raster and Vector Data with R Lesson](https://datacarpentry.org/r-raster-vector-geospatial/) created at UW-Madison as part of video workshop series.
+
 > ## Prerequisites
 > Data Carpentry’s teaching is hands-on, so participants are encouraged 
 > to use their own computers to ensure the proper setup of tools for an 
