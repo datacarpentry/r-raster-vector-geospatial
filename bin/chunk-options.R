@@ -6,7 +6,8 @@
 
 library("knitr")
 
-fix_fig_path <- function(pth) file.path("..", pth)
+#fix_fig_path <- function(pth) file.path("..", pth)
+fix_fig_path <- function(pth) file.path(".", pth)
 
 
 ## We set the path for the figures globally below, so if we want to

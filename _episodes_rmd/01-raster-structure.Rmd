@@ -34,11 +34,7 @@ library(ggplot2)
 library(dplyr)
 ```
 
-> ## Things You'll Need To Complete This Episode
->
-> See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
-> data, and other prerequisites you will need to work through the examples in this episode.
-{: .prereq}
+
 
 In this episode, we will introduce the fundamental principles, packages and
 metadata/raster attributes that are needed to work with raster data in R. We will
@@ -55,16 +51,6 @@ library(raster)
 library(rgdal)
 ```
 
-> ## Introduce the Data
->
-> If not already discussed, introduce the datasets that will be used in this
-> lesson. A brief introduction to the datasets can be found on the 
-> [Geospatial workshop homepage](https://datacarpentry.org/geospatial-workshop/#data).
-> 
-> For more detailed information about the datasets, check
-out the [Geospatial workshop data
-page](http://datacarpentry.org/geospatial-workshop/data/).
-{: .callout}
 
 ##The Data
 
@@ -107,12 +93,7 @@ Now that we've previewed the metadata for our GeoTIFF, let's import this
 raster dataset into R and explore its metadata more closely. We can use the `raster()` 
 function to open a raster in R.
 
-> ## Data Tip - Object names
-> To improve code
-> readability, file and object names should be used that make it clear what is in
-> the file. The data for this episode were collected from Harvard Forest so
-> we'll use a naming convention of `datatype_HARV`.
-{: .callout}
+
 
 First we will load our raster file into R and view the data structure.
 
@@ -168,21 +149,7 @@ ggplot() +
     scale_fill_viridis_c() +
     coord_quickmap()
 ```
-> ## Plotting Tip
->
-> More information about the Viridis palette used above at
-> [R Viridis package documentation](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html).
-{: .callout}
 
-> ## Plotting Tip
-> For faster, simpler plots, you can use the `plot` function from the `raster` package.
-> > ## Show plot
-> >  See `?plot` for more arguments to customize the plot
-> > ```{r, eval = TRUE}
-> > plot(DSM_HARV)
-> > ```
-> {: .solution}
-{: .callout}
 
 This map shows the elevation of our study site in Harvard Forest. From the
 legend, we can see that the maximum elevation is ~400, but we can't tell whether
@@ -310,7 +277,7 @@ of `NA` will be ignored by R as demonstrated above.
 > > ## Answers
 > >
 > > ```{r}
-> > GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+> > GDALinfo("../data/HARV_dsmCrop.tif")
 > > ```
 > >
 > > `NoDataValue` are encoded as -9999.
