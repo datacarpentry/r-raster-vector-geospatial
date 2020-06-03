@@ -18,7 +18,7 @@ source: Rmd
 
 ```{r setup, echo=FALSE}
 source("../bin/chunk-options.R")
-source("../setup.R")
+#source("../setup.R")
 knitr_fig_path("02-")
 ```
 
@@ -29,18 +29,30 @@ library(ggplot2)
 library(dplyr)
 ```
 
-```{r load-data, echo = FALSE}
-# Learners will have this data loaded from earlier episode
-# DSM data for Harvard Forest
-DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
-
-DSM_HARV_df <- as.data.frame(DSM_HARV, xy = TRUE)
-```
 
 > ## Things You’ll Need To Complete This Episode
 > See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
 > data, and other prerequisites you will need to work through the examples in this episode.
 {: .prereq}
+
+##The Data
+
+In this lesson, we will be working with two field sites: the Harvard Forest (`HARV`) and San Joaquin Experimental Range (`SJER`).
+
+In this lesson, the raster we will use is: `HARV_dsmCrop.tif`.
+    
+For the challenges in this lesson, we will use both and `HARV_dsmCrop.tif` and `HARV_DSMhill.tif`.    
+    
+    
+We will first start by loading in the raster `DSM_HARV` and converting it to a dataframe again:
+
+```{r dataload}
+DSM_HARV <- 
+  raster("../data/HARV_dsmCrop.tif")
+DSM_HARV_df <- as.data.frame(DSM_HARV, xy = TRUE)
+str(DSM_HARV_df)
+```
+
 
 ## Plot Raster Data in R
 This episode covers how to plot a raster in R using the `ggplot2`
@@ -124,36 +136,14 @@ ggplot() +
   coord_quickmap()
 ```
 
-The plot above uses the default colors inside `ggplot` for raster objects. 
-We can specify our own colors to make the plot look a little nicer.
-R has a built in set of colors for plotting terrain, which are built in
-to the `terrain.colors()` function.
-Since we have three bins, we want to create a 3-color palette:
 
-```{r terrain-colors}
-terrain.colors(3)
-```
-
-The `terrain.colors()` function returns *hex colors* - 
- each of these character strings represents a color.
-To use these in our map, we pass them across using the 
- `scale_fill_manual()` function.
-
-```{r ggplot-breaks-customcolors}
-
-ggplot() +
- geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
-                                      fill = fct_elevation_2)) + 
-    scale_fill_manual(values = terrain.colors(3)) + 
-    coord_quickmap()
-```
 
 ### More Plot Formatting
 
 If we need to create multiple plots using the same color palette, we can create
 an R object (`my_col`) for the set of colors that we want to use. We can then
 quickly change the palette across all plots by modifying the `my_col`
-object, rather than each individual plot.
+object, rather than each individual plot. In this example, we will set `my_col` to three terrain colors corresponding to our three groups: 301–350 m, 351–400 m, and 401–450 m.
 
 We can label the x- and y-axes of our plot too using `xlab` and `ylab`.
 We can also give the legend a more meaningful title by passing a value 
@@ -170,15 +160,15 @@ ggplot() +
     coord_quickmap()
 ```
 
-Or we can also turn off the labels of both axes by passing `element_blank()` to
-the relevant part of the `theme()` function.
+We can also modify the x-axis and y-axis labels with the function `xlab()` and `ylab()`:
 
 ```{r turn-off-axes}
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
                                       fill = fct_elevation_2)) + 
     scale_fill_manual(values = my_col, name = "Elevation") +
-    theme(axis.title = element_blank()) + 
+    xlab("UTM Easting (m)") +
+    ylab("UTM Northing (m)") +
     coord_quickmap()
 ```
 
@@ -203,7 +193,7 @@ ggplot() +
 > >                                       fill = fct_elevation_6)) + 
 > >     scale_fill_manual(values = my_col, name = "Elevation") + 
 > >     ggtitle("Classified Elevation Map - NEON Harvard Forest Field Site") +
-> >     xlab("UTM Westing Coordinate (m)") +
+> >     xlab("UTM Easting Coordinate (m)") +
 > >     ylab("UTM Northing Coordinate (m)") + 
 > >     coord_quickmap()
 > > ```
@@ -222,7 +212,7 @@ First we need to read in our DSM hillshade data and view the structure:
 
 ```{r}
 DSM_hill_HARV <-
-  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
+  raster("../data/HARV_DSMhill.tif")
 
 DSM_hill_HARV
 ```
@@ -235,7 +225,7 @@ DSM_hill_HARV_df <- as.data.frame(DSM_hill_HARV, xy = TRUE)
 str(DSM_hill_HARV_df)
 ```
 
-Now we can plot the hillshade data:
+Now we can plot the hillshade data. We will add transparency with the function `scale_alpha()`. The argument `range = c(0.15, 0.65)` specificies the range of transparency and `guide= 'none'` specifies that no additional legend for transparency should be added to the plot.
 
 ```{r raster-hillshade}
 ggplot() +
@@ -273,17 +263,15 @@ ggplot() +
 
 > ## Challenge: Create DTM & DSM for SJER
 > 
-> Use the files in the `NEON_RemoteSensing/SJER/` directory to create a Digital
-Terrain Model map and Digital Surface Model map of the San Joaquin Experimental
-Range field site.
+> Use the files in the `SJER` rastersto create a Digital
+Terrain Model (DTM) map of the San Joaquin Experimental
+Range (SJER) field site.
 > 
 > Make sure to:
 > 
 > * include hillshade in the maps,
 > * label axes on the DSM map and exclude them from the DTM map,
 > * include a title for each map,
-> * experiment with various alpha values and color palettes to represent the
- data.
 >
 > > ## Answers
 > > 
@@ -291,12 +279,12 @@ Range field site.
 > > # CREATE DSM MAPS
 > > 
 > > # import DSM data
-> > DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
+> > DSM_SJER <- raster("../data/SJER_dsmCrop.tif")
 > > # convert to a df for plotting
 > > DSM_SJER_df <- as.data.frame(DSM_SJER, xy = TRUE)
 > >
 > > # import DSM hillshade
-> > DSM_hill_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmHill.tif")
+> > DSM_hill_SJER <- raster("../data/SJER_dsmHill.tif")
 > > # convert to a df for plotting
 > > DSM_hill_SJER_df <- as.data.frame(DSM_hill_SJER, xy = TRUE)
 > > 
@@ -314,44 +302,11 @@ Range field site.
 > >     scale_fill_viridis_c() +
 > >     guides(fill = guide_colorbar()) +
 > >     scale_alpha(range = c(0.4, 0.7), guide = "none") +
-> >     # remove grey background and grid lines
-> >     theme_bw() + 
-> >     theme(panel.grid.major = element_blank(), 
-> >           panel.grid.minor = element_blank()) +
-> >     xlab("UTM Westing Coordinate (m)") +
+> >     xlab("UTM Easting Coordinate (m)") +
 > >     ylab("UTM Northing Coordinate (m)") +
 > >     ggtitle("DSM with Hillshade") +
 > >     coord_quickmap()
 > > 
-> > # CREATE DTM MAP
-> > # import DTM
-> > DTM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
-> > DTM_SJER_df <- as.data.frame(DTM_SJER, xy = TRUE)
-> >
-> > # DTM Hillshade
-> > DTM_hill_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmHill.tif")
-> > DTM_hill_SJER_df <- as.data.frame(DTM_hill_SJER, xy = TRUE)
-> > 
-> > ggplot() +
-> >     geom_raster(data = DTM_SJER_df ,
-> >                 aes(x = x, y = y,
-> >                      fill = SJER_dtmCrop,
-> >                      alpha = 2.0)
-> >                 ) +
-> >     geom_raster(data = DTM_hill_SJER_df,
-> >                 aes(x = x, y = y,
-> >                   alpha = SJER_dtmHill)
-> >                 ) +
-> >     scale_fill_viridis_c() +
-> >     guides(fill = guide_colorbar()) +
-> >     scale_alpha(range = c(0.4, 0.7), guide = "none") +
-> >     theme_bw() +
-> >     theme(panel.grid.major = element_blank(), 
-> >           panel.grid.minor = element_blank()) +
-> >     theme(axis.title.x = element_blank(),
-> >           axis.title.y = element_blank()) +
-> >     ggtitle("DTM with Hillshade") +
-> >     coord_quickmap()
 > > ```
 > {: .solution}
 {: .challenge}
