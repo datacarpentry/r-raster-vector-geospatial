@@ -22,7 +22,7 @@ source: Rmd
 
 ```{r setup, echo=FALSE}
 source("../bin/chunk-options.R")
-source("../setup.R") # NB downloads ~180 MB
+#source("../setup.R") # NB downloads ~180 MB
 knitr_fig_path("01-")
 knitr::opts_chunk$set(fig.height = 6)
 ```
@@ -34,11 +34,7 @@ library(ggplot2)
 library(dplyr)
 ```
 
-> ## Things You'll Need To Complete This Episode
->
-> See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
-> data, and other prerequisites you will need to work through the examples in this episode.
-{: .prereq}
+
 
 In this episode, we will introduce the fundamental principles, packages and
 metadata/raster attributes that are needed to work with raster data in R. We will
@@ -55,17 +51,17 @@ library(raster)
 library(rgdal)
 ```
 
-> ## Introduce the Data
->
-> If not already discussed, introduce the datasets that will be used in this
-> lesson. A brief introduction to the datasets can be found on the 
-> [Geospatial workshop homepage](https://datacarpentry.org/geospatial-workshop/#data).
-> 
-> For more detailed information about the datasets, check
-out the [Geospatial workshop data
-page](http://datacarpentry.org/geospatial-workshop/data/).
-{: .callout}
 
+##The Data
+
+In this lesson, we will be working with two field sites: the Harvard Forest (`HARV`) and San Joaquin Experimental Range (`SJER`).
+
+In this lesson, the raster we will use is: `HARV_dsmCrop.tif`.
+    
+For the challenges in this lesson, we will use both and `HARV_dsmCrop.tif` and `HARV_DSMhill.tif`.    
+    
+    
+    
 ## View Raster File Attributes
 
 We will be working with a series of GeoTIFF files in this lesson. The
@@ -75,15 +71,16 @@ data before we read that data into R. It is ideal to do this before importing
 your data.
 
 ```{r view-attributes-gdal}
-GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+GDALinfo("../data/HARV_dsmCrop.tif")
 ```
 
 If you wish to store this information in R, you can do the following:
 
 ```{r 'capout'}
 HARV_dsmCrop_info <- capture.output(
-  GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+  GDALinfo("../data/HARV_dsmCrop.tif")
 )
+HARV_dsmCrop_info
 ```
 
 Each line of text that was printed to the console is now stored as an element of
@@ -96,18 +93,13 @@ Now that we've previewed the metadata for our GeoTIFF, let's import this
 raster dataset into R and explore its metadata more closely. We can use the `raster()` 
 function to open a raster in R.
 
-> ## Data Tip - Object names
-> To improve code
-> readability, file and object names should be used that make it clear what is in
-> the file. The data for this episode were collected from Harvard Forest so
-> we'll use a naming convention of `datatype_HARV`.
-{: .callout}
+
 
 First we will load our raster file into R and view the data structure.
 
 ```{r}
 DSM_HARV <- 
-  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+  raster("../data/HARV_dsmCrop.tif")
 
 DSM_HARV
 ```
@@ -133,8 +125,7 @@ You may not see major differences in summary stats as `maxsamp` increases,
 except with very large rasters.
 
 To visualise this data in R using `ggplot2`, we need to convert it to a
-dataframe. We learned about dataframes in [an earlier
-lesson](https://datacarpentry.org/r-intro-geospatial/04-data-structures-part2/index.html).
+dataframe. 
 The `raster` package has an built-in function for conversion to a plotable dataframe.
 
 ```{r}
@@ -142,7 +133,7 @@ DSM_HARV_df <- as.data.frame(DSM_HARV, xy = TRUE)
 ```
 
 Now when we view the structure of our data, we will see a standard
-dataframe format.
+dataframe format. We can apply `str` to view the structure of the new dataframe, `DSM_HARV_df`
 
 ```{r}
 str(DSM_HARV_df)
@@ -158,29 +149,13 @@ ggplot() +
     scale_fill_viridis_c() +
     coord_quickmap()
 ```
-> ## Plotting Tip
->
-> More information about the Viridis palette used above at
-> [R Viridis package documentation](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html).
-{: .callout}
 
-> ## Plotting Tip
-> For faster, simpler plots, you can use the `plot` function from the `raster` package.
-> > ## Show plot
-> >  See `?plot` for more arguments to customize the plot
-> > ```{r, eval = TRUE}
-> > plot(DSM_HARV)
-> > ```
-> {: .solution}
-{: .callout}
 
 This map shows the elevation of our study site in Harvard Forest. From the
 legend, we can see that the maximum elevation is ~400, but we can't tell whether
 this is 400 feet or 400 meters because the legend doesn't show us the units. We
 can look at the metadata of our object to see what the units are. Much of the
-metadata that we're interested in is part of the CRS. We introduced the
-concept of a CRS in [an earlier
-lesson](https://datacarpentry.org/organization-geospatial/03-crs).
+metadata that we're interested in is part of the CRS..
 
 Now we will see how features of the CRS appear in our data file and what
 meanings they have.
@@ -222,7 +197,7 @@ the coordinate system used in the projection)
 * **ellps=WGS84:** the ellipsoid (how the earth's  roundness is calculated) for
 the data is WGS84
 
-Note that the zone is unique to the UTM projection. Not all CRSs will have a
+Note that the zone is unique to the UTM projection. Not all CRS's will have a
 zone. Image source: Chrismurf at English Wikipedia, via [Wikimedia Commons](https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system#/media/File:Utm-zones-USA.svg) (CC-BY).
 
 ![The UTM zones across the continental United States. From: https://upload.wikimedia.org/wikipedia/commons/8/8d/Utm-zones-USA.svg](../images/Utm-zones-USA.svg)
@@ -238,19 +213,16 @@ can view these values:
 
 ```{r view-min-max }
 minValue(DSM_HARV)
-
 maxValue(DSM_HARV)
 ```
 
-> ## Data Tip - Set min and max values
-> If the minimum and maximum values haven't already been
-> calculated, we can calculate them using the
-> `setMinMax()` function.
->
-> ```{r, eval = FALSE}
-> DSM_HARV <- setMinMax(DSM_HARV)
-> ```
-{: .callout}
+Since the minimum and maximum values haven't already been calculated, we can calculate them using the `setMinMax()` function.
+
+```{r setminmax}
+DSM_HARV <- setMinMax(DSM_HARV)
+minValue(DSM_HARV)
+maxValue(DSM_HARV)
+```
 
 We can see that the elevation at our site ranges from `r minValue(DSM_HARV)`m to
 `r maxValue(DSM_HARV)`m.
@@ -273,96 +245,10 @@ nlayers(DSM_HARV)
 However, raster data can also be multi-band, meaning that one raster file
 contains data for more than one variable or time period for each cell. By
 default the `raster()` function only imports the first band in a raster
-regardless of whether it has one or more bands. Jump to a later episode in
-this series for information on working with multi-band rasters:
-[Work with Multi-band Rasters in R]({{ site.baseurl }}/05-raster-multi-band-in-r/).
+regardless of whether it has one or more bands. 
 
-## Dealing with Missing Data
 
-Raster data often has a `NoDataValue` associated with it. This is a value
-assigned to pixels where data is missing or no data were collected.
-
-By default the shape of a raster is always rectangular. So if we have  a dataset
-that has a shape that isn't rectangular, some pixels at the edge of the raster
-will have `NoDataValue`s. This often happens when the data were collected by an
-airplane which only flew over some part of a defined region.
-
-In the image below, the pixels that are black have `NoDataValue`s. The camera
-did not collect data in these areas.
-
-```{r demonstrate-no-data-black-ggplot, echo=FALSE }
-# no data demonstration code - not being taught
-# Use stack function to read in all bands
-RGB_stack <-
-  stack("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
-
-# aggregate cells from 0.25m to 2m for plotting to speed up the lesson and 
-# save memory
-RGB_2m <- raster::aggregate(RGB_stack, fact = 8, fun = median)
-# fix data values back to integer datatype
-values(RGB_2m) <- as.integer(round(values(RGB_2m)))
-
-# convert to a df for plotting using raster's built-in method
-RGB_2m_df  <- as.data.frame(RGB_2m, xy = TRUE)
-# make colnames easy to ref
-names(RGB_2m_df) <- c('x', 'y', 'red', 'green', 'blue')
-
-ggplot() +
- geom_raster(data = RGB_2m_df , aes(x = x, y = y, fill = red),
-             show.legend = FALSE) +
-  scale_fill_gradient(low = 'black', high = "red") +
-  ggtitle("Orthographic Imagery", subtitle = 'Red Band') +
-  coord_quickmap()
-```
-
-In the next image, the black edges have been assigned `NoDataValue`. R doesn't
-render pixels that contain a specified `NoDataValue`. R assigns missing data
-with the `NoDataValue` as `NA`.
-
-The difference here shows up as ragged edges on the plot, rather than black
-spaces where there is no data.
-
-```{r demonstrate-no-data-ggplot, echo=FALSE, warning = FALSE}
-# demonstration code - not being taught
-RGB_2m_df_nd <- RGB_2m_df
-# convert the three rgb values to hex codes
-RGB_2m_df_nd$hex <- rgb(RGB_2m_df_nd$red,
-                        RGB_2m_df_nd$green,
-                        RGB_2m_df_nd$blue, maxColorValue = 255)
-# set black hex code to NA
-RGB_2m_df_nd$hex[RGB_2m_df_nd$hex == '#000000'] <- NA_character_ 
-
-ggplot() +
-  geom_raster(data = RGB_2m_df_nd, aes(x = x, y = y, fill = hex)) +
-  scale_fill_identity() +
-  ggtitle("Orthographic Imagery", subtitle = "All bands") +
-  coord_quickmap()
-
-```
-
-If your raster already has `NA` values set correctly but you aren't sure where they are, you can deliberately plot them in a particular colour. This can be useful when checking a dataset's coverage. For instance, sometimes data can be missing where a sensor could not 'see' its target data, and you may wish to locate that missing data and fill it in.
-
-To highlight `NA` values in ggplot, alter the `scale_fill_*()` layer to contain a colour instruction for `NA` values, like `scale_fill_viridis_c(na.value = 'deeppink')`
-
-```{r 'napink', echo = FALSE}
-# demonstration code
-# function to replace 0 with NA where all three values are 0 only
-RGB_2m_nas <- calc(RGB_2m, 
-                   fun = function(x) {
-                           x[rowSums(x == 0) == 3, ] <- rep(NA, nlayers(RGB_2m))
-                           x
-                   })
-RGB_2m_nas <- as.data.frame(RGB_2m_nas, xy = TRUE)
-
-ggplot() +
-  geom_raster(data = RGB_2m_nas, aes(x = x, y = y, fill = HARV_RGB_Ortho.3)) + 
-  scale_fill_gradient(low = 'grey90', high = 'blue', na.value = 'deeppink') +
-  ggtitle("Orthographic Imagery", subtitle = "Blue band, with NA highlighted") +
-  coord_quickmap()
-
-# memory saving
-rm(RGB_2m, RGB_stack, RGB_2m_df_nd, RGB_2m_df, RGB_2m_nas)
-```
+##Missing Data
 
 The value that is conventionally used to take note of missing data (the
 `NoDataValue` value) varies by the raster data type. For floating-point rasters,
@@ -383,61 +269,21 @@ raster's metadata. If a `NoDataValue` was stored in the GeoTIFF tag, when R
 opens up the raster, it will assign each instance of the value to `NA`. Values
 of `NA` will be ignored by R as demonstrated above.
 
+
+
 > ## Challenge
 > Use the output from the `GDALinfo()` function to find out what `NoDataValue` is used for our `DSM_HARV` dataset.
 >
 > > ## Answers
 > >
 > > ```{r}
-> > GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+> > GDALinfo("../data/HARV_dsmCrop.tif")
 > > ```
 > >
 > > `NoDataValue` are encoded as -9999.
 > {: .solution}
 {: .callout}
 
-## Bad Data Values in Rasters
-
-Bad data values are different from `NoDataValue`s. Bad data values are values
-that fall outside of the applicable range of a dataset.
-
-Examples of Bad Data Values:
-
-* The normalized difference vegetation index (NDVI), which is a measure of
-greenness, has a valid range of -1 to 1. Any value outside of that range would
-be considered a "bad" or miscalculated value.
-* Reflectance data in an image will often range from 0-1 or 0-10,000 depending
-upon how the data are scaled. Thus a value greater than 1 or greater than 10,000
-is likely caused by an error in either data collection or processing.
-
-### Find Bad Data Values
-Sometimes a raster's metadata will tell us the range of expected values for a
-raster. Values outside of this range are suspect and we need to consider that
-when we analyze the data. Sometimes, we need to use some common sense and
-scientific insight as we examine the data - just as we would for field data to
-identify questionable values.
-
-Plotting data with appropriate highlighting can help reveal patterns in bad
-values and may suggest a solution. Below, reclassification is used to highlight
-elevation values over 400m with a contrasting colour.
-
-```{r demo-bad-data-highlighting, echo = FALSE, message = FALSE, warning = FALSE}
-# reclassify raster to ok/not ok
-DSM_highvals <- reclassify(DSM_HARV, rcl = c(0, 400, NA_integer_, 400, 420, 1L), include.lowest = TRUE)
-DSM_highvals <- as.data.frame(DSM_highvals, xy = TRUE)
-DSM_highvals <- DSM_highvals[!is.na(DSM_highvals$HARV_dsmCrop), ]
-
-ggplot() +
-  geom_raster(data = DSM_HARV_df, aes(x = x, y = y, fill = HARV_dsmCrop)) + 
-  scale_fill_viridis_c() + 
-  # use reclassified raster data as an annotation
-  annotate(geom = 'raster', x = DSM_highvals$x, y = DSM_highvals$y, fill = scales::colour_ramp('deeppink')(DSM_highvals$HARV_dsmCrop)) +
-  ggtitle("Elevation Data", subtitle = "Highlighting values > 400m") +
-  coord_quickmap()
-
-# memory saving
-rm(DSM_highvals)
-```
 
 ## Create A Histogram of Raster Values
 
@@ -454,27 +300,13 @@ ggplot() +
 
 Notice that a warning message is thrown when R creates the histogram.
 
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
-This warning is caused by a default setting in `geom_histogram` enforcing that there are
-30 bins for the data. We can define the number of bins we want in the histogram
-by using the `bins` value in the `geom_histogram()` function.
+`stat_bin()` using `bins = 30`. We could pick a better bin value with the argument `binwidth`.
 
 
-``` {r view-raster-histogram2}
-ggplot() +
-    geom_histogram(data = DSM_HARV_df, aes(HARV_dsmCrop), bins = 40)
-
-```
-
-Note that the shape of this histogram looks similar to the previous one that
-was created using the default of 30 bins. The distribution of elevation values
-for our `Digital Surface Model (DSM)` looks reasonable. It is likely there are
-no bad data values in this particular raster.
 
 > ## Challenge: Explore Raster Metadata
 >
-> Use `GDALinfo()` to determine the following about the `NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif` file:
+> Use `GDALinfo()` to determine the following about the `../data/HARV_DSMhill.tif` file:
 >
 > 1. Does this file have the same CRS as `DSM_HARV`?
 > 2. What is the `NoDataValue`?
@@ -488,10 +320,10 @@ no bad data values in this particular raster.
 > > ## Answers
 > >
 > > ``` {r challenge-code-attributes}
-GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
+GDALinfo("../data/HARV_DSMhill.tif")
 > > ```
 > > 1. If this file has the same CRS as DSM_HARV?  Yes: UTM Zone 18, WGS84, meters.
-> > 2. What format `NoDataValues` take?  -9999
+> > 2. What format `NoDataValues` take?   -3.4e+38
 > > 3. The resolution of the raster data? 1x1
 > > 4. How large a 5x5 pixel area would be? 5mx5m How? We are given resolution of 1x1 and units in meters, therefore resolution of 5x5 means 5x5m.
 > > 5. Is the file a multi- or single-band raster?  Single.
