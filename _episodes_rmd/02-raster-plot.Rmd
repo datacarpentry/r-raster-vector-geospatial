@@ -48,7 +48,7 @@ We will first start by loading in the raster `DSM_HARV` and converting it to a d
 
 ```{r dataload}
 DSM_HARV <- 
-  raster("data/HARV_dsmCrop.tif")
+  raster("data/raster/HARV_dsmCrop.tif")
 DSM_HARV_df <- as.data.frame(DSM_HARV, xy = TRUE)
 str(DSM_HARV_df)
 ```
@@ -212,7 +212,7 @@ First we need to read in our DSM hillshade data and view the structure:
 
 ```{r}
 DSM_hill_HARV <-
-  raster("data/HARV_DSMhill.tif")
+  raster("data/raster/HARV_DSMhill.tif")
 
 DSM_hill_HARV
 ```
@@ -279,12 +279,12 @@ Range (SJER) field site.
 > > # CREATE DSM MAPS
 > > 
 > > # import DSM data
-> > DSM_SJER <- raster("data/SJER_dsmCrop.tif")
+> > DSM_SJER <- raster("data/raster/SJER_dsmCrop.tif")
 > > # convert to a df for plotting
 > > DSM_SJER_df <- as.data.frame(DSM_SJER, xy = TRUE)
 > >
 > > # import DSM hillshade
-> > DSM_hill_SJER <- raster("data/SJER_dsmHill.tif")
+> > DSM_hill_SJER <- raster("data/raster/SJER_dsmHill.tif")
 > > # convert to a df for plotting
 > > DSM_hill_SJER_df <- as.data.frame(DSM_hill_SJER, xy = TRUE)
 > > 

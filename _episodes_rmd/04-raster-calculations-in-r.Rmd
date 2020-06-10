@@ -17,7 +17,7 @@ source: Rmd
 
 ```{r setup, echo=FALSE}
 source("../bin/chunk-options.R")
-source("../setup.R")
+#source("../setup.R")
 knitr_fig_path("04-")
 ```
 
@@ -28,33 +28,42 @@ library(ggplot2)
 library(dplyr)
 ```
 
-```{r load-data, echo = FALSE}
+
+##The Data
+
+In this lesson, we will be working with two field sites: the Harvard Forest (`HARV`) and San Joaquin Experimental Range (`SJER`).
+
+In this lesson, the rasters we will use are: `HARV_dsmCrop.tif` (DSM) and `HARV_dtmCrop.tif`  (DTM) from `HARV`. We will also use `SJER_dsmCrop.tif` (DSM) and `SJER_dtmCrop.tif` (DTM) from `SJER`.
+
+If you are starting this lesson from the beginning, you will need to create dataframes from each of these four rasters using `as.data.frame()` and specifying the argument `xy=TRUE`.
+
+If you are continuing this lesson from episode 03, you should have these objects and dataframes already in your `R` environment.
+
+
+```{r load-data, echo = TRUE}
 # Learners will have these data loaded from earlier episode
 # DSM data for Harvard Forest
-DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+DSM_HARV <- raster("data/raster/HARV_dsmCrop.tif")
 
 DSM_HARV_df <- as.data.frame(DSM_HARV, xy = TRUE)
 
 # DTM data for Harvard Forest
-DTM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
+DTM_HARV <- raster("data/raster/HARV_dtmCrop.tif")
 
 DTM_HARV_df <- as.data.frame(DTM_HARV, xy = TRUE)
 
 # DSM data for SJER
-DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
+DSM_SJER <- raster("data/raster/SJER_dsmCrop.tif")
 
 DSM_SJER_df <- as.data.frame(DSM_SJER, xy = TRUE)
 
 # DTM data for SJER
-DTM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
+DTM_SJER <- raster("data/raster/SJER_dtmCrop.tif")
 
 DTM_SJER_df <- as.data.frame(DTM_SJER, xy = TRUE)
 ```
 
-> ## Things You’ll Need To Complete This Episode
-> See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
-> data, and other prerequisites you will need to work through the examples in this episode.
-{: .prereq}
+
 
 We often want to combine values of and perform calculations on rasters to create
 a new output raster. This episode covers how to subtract one raster from
@@ -73,51 +82,7 @@ buildings, etc. with the influence of ground elevation removed.
 
 ![Source: National Ecological Observatory Network (NEON)](../images/dc-spatial-raster/lidarTree-height.png) 
 
-> ## More Resources
-> * Check out more on LiDAR CHM, DTM and DSM in this NEON Data Skills overview tutorial:
-> [What is a CHM, DSM and DTM? About Gridded, Raster LiDAR Data](https://www.neonscience.org/chm-dsm-dtm-gridded-lidar-data).
-{: .callout}
 
-### Load the Data
-For this episode, we will use the DTM and DSM from the
-NEON Harvard Forest Field site and San Joaquin Experimental
-Range,
-which we already have loaded from previous episodes.
-
-> ## Exercise
-> Use the `GDALinfo()` function to view information about the DTM and
-> DSM data files. Do the two rasters have the same or different CRSs
-> and resolutions? Do they both have defined minimum and maximum values?
->
-> > ## Solution
-> > ```{r}
-> > GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
-> > GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
-> > ```
-> {: .solution}
-{: .challenge}
-
-We've already loaded and worked with these two data files in
-earlier episodes. Let's plot them each once more to remind ourselves
-what this data looks like. First we'll plot the DTM elevation data: 
-
-```{r harv-dtm-plot}
- ggplot() +
-      geom_raster(data = DTM_HARV_df , 
-              aes(x = x, y = y, fill = HARV_dtmCrop)) +
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
-     coord_quickmap()
-```
-
-And then the DSM elevation data: 
-
-``` {r harv-dsm-plot}
- ggplot() +
-      geom_raster(data = DSM_HARV_df , 
-              aes(x = x, y = y, fill = HARV_dsmCrop)) +
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
-     coord_quickmap()
-```
 
 ## Two Ways to Perform Raster Calculations
 
@@ -128,9 +93,9 @@ We can calculate the difference between two rasters in two different ways:
 or for more efficient processing - particularly if our rasters are large and/or
 the calculations we are performing are complex:
 
-* using the `overlay()` function.
+* using the `overlay()` function from the `raster` package.
 
-## Raster Math & Canopy Height Models
+## Raster Math & Canopy Height Models (CHM)
 We can perform raster calculations by subtracting (or adding,
 multiplying, etc) two rasters. In the geospatial world, we call this
 "raster math".
@@ -171,9 +136,8 @@ meters. Does this make sense for trees in Harvard Forest?
 > 
 > 1. What is the min and maximum value for the Harvard Forest Canopy Height Model (`CHM_HARV`) that we just created?
 > 2. What are two ways you can check this range of data for `CHM_HARV`?
-> 3. What is the distribution of all the pixel values in the CHM?
-> 4. Plot a histogram with 6 bins instead of the default and change the color of the histogram.
-> 5. Plot the `CHM_HARV` raster using breaks that make sense for the data. Include an appropriate color palette for the data, plot title and no axes ticks / labels.
+> 3. Plot a histogram with 6 bins instead of the default and change the color of the histogram.
+> 4. Plot the `CHM_HARV` raster using breaks that make sense for the data. Include an appropriate color palette for the data, plot title and no axes ticks / labels.
 > 
 > > ## Answers
 > > 
@@ -188,17 +152,12 @@ meters. Does this make sense for trees in Harvard Forest?
 > > * Use the `min()` and `max()` functions.
 > > * Print the object and look at the `values` attribute.
 > > 3)
-> > ```{r chm-harv-hist}
-> > ggplot(CHM_HARV_df) +
-> >     geom_histogram(aes(layer))
-> > ```
-> > 4)
 > > ```{r chm-harv-hist-green}
 > > ggplot(CHM_HARV_df) +
 > >     geom_histogram(aes(layer), colour="black", 
 > >                    fill="darkgreen", bins = 6)
 > > ```
-> > 5) 
+> > 4) 
 > > ```{r chm-harv-raster}
 > > custom_bins <- c(0, 10, 20, 30, 40)
 > > CHM_HARV_df <- CHM_HARV_df %>%
@@ -252,7 +211,23 @@ raster math, using the `overlay()` function.
 > `function_name <- function(variable1, variable2) { WhatYouWantDone, WhatToReturn}`
 {: .callout}
 
-```{r raster-overlay }
+```{r raster-overlay, eval=FALSE }
+CHM_ov_HARV <- overlay(DSM_HARV,
+                       DTM_HARV,
+                       fun = function(r1, r2) { return( r1 - r2) })
+```
+
+We get an error: `Error in compareRaster(x) : different extent`. We must first change the extents of the two rasters to match if we are to use `overlay()`:
+
+```{r updateextents}
+extent(DSM_HARV)
+extent(DTM_HARV)
+extent(DTM_HARV) <- extent(DSM_HARV)
+#check new extent
+extent(DTM_HARV)
+```
+
+```{r raster-overlay2}
 CHM_ov_HARV <- overlay(DSM_HARV,
                        DTM_HARV,
                        fun = function(r1, r2) { return( r1 - r2) })
@@ -332,9 +307,6 @@ episode.) Don't forget to check the CRSs and units of the data.
 > 1. Create a CHM from the two raster layers and check to make sure the data
 are what you expect.
 > 2. Plot the CHM from SJER.
-> 3. Export the SJER CHM as a GeoTIFF.
-> 4. Compare the vegetation structure of the Harvard Forest and San Joaquin
-> Experimental Range.
 > 
 > > ## Answers
 > > 1) Use the `overlay()` function to subtract the two rasters & create
@@ -371,26 +343,6 @@ are what you expect.
 > >      coord_quickmap()
 > > ```
 > > 
-> > 3) Export the CHM object to a file: 
-> >
-> > ```{r}
-> > writeRaster(CHM_ov_SJER, "chm_ov_SJER.tiff",
-> >             format = "GTiff",
-> >             overwrite = TRUE,
-> >             NAflag = -9999)
-> > ```
-> >
-> > 4) Compare the SJER and HARV CHMs. 
-> > Tree heights are much shorter in SJER. You can confirm this by 
-> > looking at the histograms of the two CHMs. 
-> >
-> > ```{r compare-chm-harv-sjer}
-> > ggplot(CHM_HARV_df) +
-> >     geom_histogram(aes(layer))
-> >
-> > ggplot(CHM_ov_SJER_df) +
-> >     geom_histogram(aes(layer))
-> > ```
 > {: .solution}
 {: .challenge}
 

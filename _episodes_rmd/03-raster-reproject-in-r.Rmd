@@ -72,9 +72,9 @@ In this lesson, the rasters we will use are: `HARV_dtmCrop.tif` (DTM) and `HARV_
 First, we need to import the DTM and DTM hillshade data.
 
 ```{r import-DTM-hillshade }
-DTM_HARV <- raster("../data/HARV_dtmCrop.tif")
+DTM_HARV <- raster("data/raster/HARV_dtmCrop.tif")
 
-DTM_hill_HARV <- raster("../data/HARV_DTMhill_WGS84.tif")
+DTM_hill_HARV <- raster("data/raster/HARV_DTMhill_WGS84.tif")
 ```
 
 Next, we will convert each of these datasets to a dataframe for 
