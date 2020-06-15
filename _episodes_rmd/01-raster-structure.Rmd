@@ -13,7 +13,7 @@ objectives:
 -  "Plot a raster file in R using the `ggplot2` package."
 -  "Describe the difference between single- and multi-band rasters."
 keypoints:
-- "The GeoTIFF file format includes metadata about the raster data." 
+- "The GeoTIFF file format includes metadata about the raster data."
 - "To plot raster data with the `ggplot2` package, we need to convert it to a dataframe."
 - "R stores CRS information in the Proj4 format."
 - "Be careful when dealing with missing or bad data values."
@@ -57,11 +57,11 @@ library(rgdal)
 In this lesson, we will be working with two field sites: the Harvard Forest (`HARV`) and San Joaquin Experimental Range (`SJER`).
 
 In this lesson, the raster we will use is: `HARV_dsmCrop.tif`.
-    
-For the challenges in this lesson, we will use both and `HARV_dsmCrop.tif` and `HARV_DSMhill.tif`.    
-    
-    
-    
+
+For the challenges in this lesson, we will use both and `HARV_dsmCrop.tif` and `HARV_DSMhill.tif`.
+
+
+
 ## View Raster File Attributes
 
 We will be working with a series of GeoTIFF files in this lesson. The
@@ -84,13 +84,13 @@ HARV_dsmCrop_info
 ```
 
 Each line of text that was printed to the console is now stored as an element of
-the character vector `HARV_dsmCrop_info`. We will be exploring this data throughout this 
+the character vector `HARV_dsmCrop_info`. We will be exploring this data throughout this
 episode. By the end of this episode, you will be able to explain and understand the output above.
 
 ## Open a Raster in R
 
 Now that we've previewed the metadata for our GeoTIFF, let's import this
-raster dataset into R and explore its metadata more closely. We can use the `raster()` 
+raster dataset into R and explore its metadata more closely. We can use the `raster()`
 function to open a raster in R.
 
 
@@ -98,8 +98,7 @@ function to open a raster in R.
 First we will load our raster file into R and view the data structure.
 
 ```{r}
-DSM_HARV <- 
-  raster("data/raster/HARV_dsmCrop.tif")
+DSM_HARV <- raster("data/raster/HARV_dsmCrop.tif")
 
 DSM_HARV
 ```
@@ -125,7 +124,7 @@ You may not see major differences in summary stats as `maxsamp` increases,
 except with very large rasters.
 
 To visualise this data in R using `ggplot2`, we need to convert it to a
-dataframe. 
+dataframe.
 The `raster` package has an built-in function for conversion to a plotable dataframe.
 
 ```{r}
@@ -224,8 +223,6 @@ minValue(DSM_HARV)
 maxValue(DSM_HARV)
 ```
 
-We can see that the elevation at our site ranges from `r minValue(DSM_HARV)`m to
-`r maxValue(DSM_HARV)`m.
 
 ## Raster Bands
 The Digital Surface Model object (`DSM_HARV`) that we've been working with is a
@@ -245,7 +242,7 @@ nlayers(DSM_HARV)
 However, raster data can also be multi-band, meaning that one raster file
 contains data for more than one variable or time period for each cell. By
 default the `raster()` function only imports the first band in a raster
-regardless of whether it has one or more bands. 
+regardless of whether it has one or more bands.
 
 
 ##Missing Data

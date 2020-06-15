@@ -1,5 +1,4 @@
 ## file structure
-## file structure
 
 if (! file.exists("data/raster") | ! file.exists("data/vector")) {
     dest <- tempfile()
