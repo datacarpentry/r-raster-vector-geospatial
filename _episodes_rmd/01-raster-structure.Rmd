@@ -224,6 +224,9 @@ minValue(DSM_HARV)
 maxValue(DSM_HARV)
 ```
 
+We can see that the elevation at our site ranges from `r minValue(DSM_HARV)`m to
+`r maxValue(DSM_HARV)`m.
+
 ## Raster Bands
 The Digital Surface Model object (`DSM_HARV`) that we've been working with is a
 single band raster. This means that there is only one dataset stored in the
