@@ -65,7 +65,7 @@ Let's import our AOI:
 
 ```{r Import-Shapefile}
 aoi_boundary_HARV <- st_read(
-  "data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
+  "data/vector/HarClip_UTMZ18.shp")
 ```
 
 ## Shapefile Metadata & Attributes
@@ -103,8 +103,15 @@ Our `aoi_boundary_HARV` is a polygon object. The 18 levels shown below
 our output list the possible categories of the geometry type. 
 Now let's check what CRS this file data is in:
 
+Remembering from an earlier lesson that CRS information uses a mathematical model  to connect data to the Earth’s surface.
+
+When we read in the shapefile into an R object, the metadata included the CRS – in this case is 32618
+We can get more information about the CRS with the 
+st_crs() function, the CRS code number, and method to get information on the CRS in the proj4string.   
+
+
 ```{r}
-st_crs(aoi_boundary_HARV)
+st_crs(32618)$proj4string
 ```
 
 Our data in the CRS **UTM zone 18N**. The CRS is critical to 
@@ -167,8 +174,8 @@ ggplot() +
 > > 
 > > First we import the data: 
 > > ```{r import-point-line, echo=TRUE}
-> > lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
-> > point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
+> > lines_HARV <- st_read("data/vector/HARV_roads.shp")
+> > point_HARV <- st_read("data/vector/HARVtower_UTM18N.shp")
 > > ```
 > > 
 > > Then we check its class: 
@@ -178,9 +185,8 @@ ggplot() +
 > > ```
 > > We also check the CRS and extent of each object: 
 > > ```{r}
-> > st_crs(lines_HARV)
+> > st_crs(32618)$proj4string
 > > st_bbox(lines_HARV)
-> > st_crs(point_HARV)
 > > st_bbox(point_HARV)
 > > ```
 > > To see the number of objects in each file, we can look at the output from when we read these objects into R. 
