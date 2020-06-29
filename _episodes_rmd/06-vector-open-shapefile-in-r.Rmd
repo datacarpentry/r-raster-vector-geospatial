@@ -185,8 +185,8 @@ ggplot() +
 > > We also check the CRS and extent of each object: 
 > > ```{r}
 > > st_crs(lines_HARV)$proj4string
-> > st_crs(point_HARV)$proj4string
 > > st_bbox(lines_HARV)
+> > st_crs(point_HARV)$proj4string
 > > st_bbox(point_HARV)
 > > ```
 > > To see the number of objects in each file, we can look at the output from when we read these objects into R. 
