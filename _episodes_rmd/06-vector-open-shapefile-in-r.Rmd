@@ -106,12 +106,11 @@ Now let's check what CRS this file data is in:
 Remembering from an earlier lesson that CRS information uses a mathematical model  to connect data to the Earth’s surface.
 
 When we read in the shapefile into an R object, the metadata included the CRS – in this case is 32618
-We can get more information about the CRS with the 
-st_crs() function, the CRS code number, and method to get information on the CRS in the proj4string.   
+We can get more information about the CRS with the st_crs() function, and the proj4string method to get information on the CRS in the proj4string.   
 
 
 ```{r}
-st_crs(32618)$proj4string
+st_crs(aoi_boundary_HARV)$proj4string
 ```
 
 Our data in the CRS **UTM zone 18N**. The CRS is critical to 
@@ -185,7 +184,8 @@ ggplot() +
 > > ```
 > > We also check the CRS and extent of each object: 
 > > ```{r}
-> > st_crs(32618)$proj4string
+> > st_crs(lines_HARV)$proj4string
+> > st_crs(point_HARV)$proj4string
 > > st_bbox(lines_HARV)
 > > st_bbox(point_HARV)
 > > ```
