@@ -21,6 +21,12 @@ source("../setup.R")
 knitr_fig_path("05-")
 ```
 
+Previously we have learned what raster data is, how to look at important metadata information, import and plot it in R. We also looked at raster coordinate reference system.
+
+Those examples were with single band raster data where there was only 1 "layer" of information. Raster data can also be considered *multi-band* where there are multiple layers. These layers share the same *extent*, *resolution*, and *crs*. Now we will explore how to import and plot a multi-band raster in R.
+
+We will use the same libraries as we have used in the previous episodes.Make sure that you have these packages loaded.
+
 ```{r load-libraries, echo = FALSE, results='hide', message = FALSE, warning = FALSE}
 library(raster)
 library(rgdal)
@@ -32,7 +38,6 @@ library(dplyr)
 
 In this lesson, we will be working with with both single and multi-band raster. The single-band raster we will use is called `HARV_RGB_Ortho.tif`.
 
-
 > ## Things You’ll Need To Complete This Episode
 > See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
 > data, and other prerequisites you will need to work through the examples in this episode.
@@ -40,8 +45,7 @@ In this lesson, we will be working with with both single and multi-band raster. 
 
 We introduced multi-band raster data in
 [an earlier lesson](https://datacarpentry.org/organization-geospatial/01-intro-raster-data). This episode explores how to import and plot
-a multi-band raster in
-R.
+a multi-band raster in R.
 
 ## Getting Started with Multi-Band Data in R
 
@@ -53,14 +57,14 @@ high resolution camera over the
 Each RGB image is a 3-band raster. The same steps would apply to
 working with a multi-spectral image with 4 or more bands - like Landsat imagery.
 
-If we read a RasterStack object into R using the `raster()` function, it only reads
-in the first band.
+We can use the same `raster()` function for a mult-band raster as we have been using for single-band raster data. When we read a multi-band raster file into R using the `raster()` function, it only reads
+in the first band. I am using "band1" in the object name to signify that only the first band of this raster is being loaded.
 
 ```{r read-single-band}
 RGB_band1_HARV <- raster("data/raster/HARV_RGB_Ortho.tif")
 ```
 
-We need to convert this data to a data frame in order to plot it with `ggplot`. 
+We need to convert this data to a data frame in order to plot it with `ggplot`.
 
 ```{r}
 RGB_band1_HARV_df  <- as.data.frame(RGB_band1_HARV, xy = TRUE)
