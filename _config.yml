@@ -14,7 +14,7 @@ title: "Introduction to Geospatial Raster and Vector Data with R"
 
 # Life cycle stage of the lesson
 # possible values: "pre-alpha", "alpha", "beta", "stable"
-life_cycle: "beta"
+life_cycle: "stable"
 
 
 #------------------------------------------------------------
