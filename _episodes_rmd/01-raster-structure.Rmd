@@ -53,6 +53,8 @@ in the [Introduction to R for Geospatial Data](https://datacarpentry.org/r-intro
 ```{r load-libraries-2, eval=FALSE}
 library(raster)
 library(rgdal)
+library(ggplot2)
+library(dplyr)
 ```
 
 > ## Introduce the Data
