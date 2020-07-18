@@ -7,7 +7,7 @@ questions:
 objectives:
 - "Query attributes of a spatial object."
 - "Subset spatial objects using specific attribute values."
-- "Plot a simple feature, colored by unique attribute values."
+- "Plot a vector feature, colored by unique attribute values."
 keypoints:
 - "Spatial objects in `sf` are similar to standard data frames and can be manipulated using the same functions."
 - "Almost any feature of a plot can be customized using the various functions and options in the `ggplot2` package."
@@ -43,7 +43,7 @@ aoi_boundary_HARV <- st_read(
 
 This episode continues our discussion of vector layer attributes and 
 covers how to work with vector layer attributes in R. It covers how
-to identify and query simple layer
+to identify and query layer
 attributes, as well as how to subset features by specific attribute values.
 Finally, we will learn how to plot a feature according to a set of attribute
 values.
