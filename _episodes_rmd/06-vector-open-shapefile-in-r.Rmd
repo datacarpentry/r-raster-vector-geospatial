@@ -117,7 +117,7 @@ st_bbox(aoi_boundary_HARV)
 
 The spatial extent of a shapefile or R spatial object represents the geographic "edge" or location that is the furthest north, south east and west. Thus is represents the overall geographic coverage of the spatial object. Image Source: National Ecological Observatory Network (NEON).
 
-![Extent image](../images/dc-spatial-vector/spatial_extent.png)
+![Extent image]({{ site.baseurl }}/images/dc-spatial-vector/spatial_extent.png)
 
 Lastly, we can view all of the metadata and attributes for this shapefile object
 by printing it to the screen:

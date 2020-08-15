@@ -226,12 +226,12 @@ The image above looks pretty good. We can explore whether applying a stretch to
 the image might improve clarity and contrast using `stretch="lin"` or
 `stretch="hist"`.
 
-![Image Stretch](../images/dc-spatial-raster/imageStretch_dark.jpg)
+![Image Stretch]({{ site.baseurl }}/images/dc-spatial-raster/imageStretch_dark.jpg)
 
 When the range of pixel brightness values is closer to 0, a darker image is rendered by default. We can stretch 
 the values to extend to the full 0-255 range of potential values to increase the visual contrast of the image.
 
-![Image Stretch light](../images/dc-spatial-raster/imageStretch_light.jpg)
+![Image Stretch light]({{ site.baseurl }}/images/dc-spatial-raster/imageStretch_light.jpg)
 
 When the range of pixel brightness values is closer to 255, a
 lighter image is rendered by default. We can stretch the values to extend to

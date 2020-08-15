@@ -54,7 +54,7 @@ DSM and DTM. Here, we will create a map of the Harvard Forest Digital
 Terrain Model
 (`DTM_HARV`) draped or layered on top of the hillshade (`DTM_hill_HARV`).
 
-![Source: National Ecological Observatory Network (NEON).](../images/dc-spatial-raster/lidarTree-height.png)
+![Source: National Ecological Observatory Network (NEON).]({{ site.baseurl }}/images/dc-spatial-raster/lidarTree-height.png)
 
 First, we need to import the DTM and DTM hillshade data.
 

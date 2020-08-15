@@ -129,7 +129,7 @@ CRS is in UTM Zone 19. If you have completed the previous episodes in
 this workshop, you may have noticed that the UTM zone for the NEON collected remote sensing
 data was in Zone 18 rather than Zone 19. Why are the Landsat data in Zone 19?
 
-![Source: National Ecological Observatory Network (NEON).](../images/dc-spatial-raster/UTM_zones_18-19.jpg)
+![Source: National Ecological Observatory Network (NEON).]({{ site.baseurl }}/images/dc-spatial-raster/UTM_zones_18-19.jpg)
 
 A Landsat scene is extremely wide - spanning over 170km north to
 south and 180km east to west. This means that Landsat data often cover multiple

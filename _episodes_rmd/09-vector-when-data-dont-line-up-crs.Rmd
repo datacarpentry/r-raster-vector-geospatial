@@ -69,7 +69,7 @@ provider (for example, a government agency).
 For instance, many states in the US prefer to use a State Plane projection customized
 for that state.
 
-![Maps of the United States using data in different projections. Source: opennews.org, from: https://media.opennews.org/cache/06/37/0637aa2541b31f526ad44f7cb2db7b6c.jpg](../images/map_usa_different_projections.jpg)
+![Maps of the United States using data in different projections. Source: opennews.org, from: https://media.opennews.org/cache/06/37/0637aa2541b31f526ad44f7cb2db7b6c.jpg]({{ site.baseurl }}/images/map_usa_different_projections.jpg)
 
 Notice the differences in shape associated with each different
 projection. These differences are a direct result of the calculations

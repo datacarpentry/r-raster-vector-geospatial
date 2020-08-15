@@ -69,7 +69,7 @@ spatial extent of a shapefile or R spatial object represents the geographic
 "edge" or location that is the furthest north, south east and west. Thus is
 represents the overall geographic coverage of the spatial object.
 
-![Extent illustration](../images/dc-spatial-vector/spatial_extent.png) Image Source: National
+![Extent illustration]({{ site.baseurl }}/images/dc-spatial-vector/spatial_extent.png) Image Source: National
 Ecological Observatory Network (NEON)
 
 The graphic below illustrates the extent of several of the spatial layers that
@@ -279,7 +279,7 @@ ggplot() +
 Often we want to extract values from a raster layer for particular locations -
 for example, plot locations that we are sampling on the ground. We can extract all pixel values within 20m of our x,y point of interest. These can then be summarized into some value of interest (e.g. mean, maximum, total).
 
-![Extract raster information using a polygon boundary. From https://www.neonscience.org/sites/default/files/images/spatialData/BufferSquare.png](../images//BufferSquare.png)
+![Extract raster information using a polygon boundary. From https://www.neonscience.org/sites/default/files/images/spatialData/BufferSquare.png]({{ site.baseurl }}/images//BufferSquare.png)
 
 To do this in R, we use the `extract()` function. The `extract()` function
 requires:
@@ -351,7 +351,7 @@ we define the summary argument (`fun = mean`) and the buffer distance (`buffer =
 which represents the radius of a circular region around each point. By default, the units of the
 buffer are the same units as the data's CRS. All pixels that are touched by the buffer region are included in the extract.
 
-![Extract raster information using a buffer region. From: https://www.neonscience.org/sites/default/files/images/spatialData/BufferCircular.png](../images/BufferCircular.png)
+![Extract raster information using a buffer region. From: https://www.neonscience.org/sites/default/files/images/spatialData/BufferCircular.png]({{ site.baseurl }}/images/BufferCircular.png)
 
 Source: National Ecological Observatory Network (NEON).
 
