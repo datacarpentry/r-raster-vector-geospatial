@@ -1,5 +1,5 @@
 ---
-title: "Work With Multi-Band Rasters in R"
+title: "Work With Multi-Band Rasters"
 teaching: 40
 exercises: 20
 questions:
