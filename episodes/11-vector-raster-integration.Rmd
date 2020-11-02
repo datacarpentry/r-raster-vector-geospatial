@@ -1,5 +1,5 @@
 ---
-title: "Manipulate Raster Data in R"
+title: "Manipulate Raster Data"
 teaching: 40
 exercises: 20
 questions:
