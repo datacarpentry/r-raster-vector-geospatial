@@ -1,5 +1,5 @@
 ---
-title: "Intro to Raster Data in R"
+title: "Intro to Raster Data"
 teaching: 40
 exercises: 20
 questions:

@@ -1,5 +1,5 @@
 ---
-title: "Reproject Raster Data in R"
+title: "Reproject Raster Data"
 keypoints: 
 - "In order to plot two raster data sets together, they must be in the same CRS."
 - "Use the `projectRaster()` function to convert between CRSs."
