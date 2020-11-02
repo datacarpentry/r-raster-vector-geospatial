@@ -1,5 +1,5 @@
 ---
-title: "Raster Calculations in R"
+title: "Raster Calculations"
 teaching: 40
 exercises: 20
 questions:
