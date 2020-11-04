@@ -13,8 +13,15 @@ _episodes_rmd/meanNDVI_SJER_2011.csv
 .DS_Store
 .ipynb_checkpoints
 .sass-cache
+.jekyll-cache/
 __pycache__
 _site
 .Rproj.user
 .Rhistory
 .RData
+.bundle/
+.vendor/
+vendor/
+.docker-vendor/
+Gemfile.lock
+.*history
