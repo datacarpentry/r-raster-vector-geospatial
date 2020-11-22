@@ -1,5 +1,5 @@
 ---
-title: "Plot Multiple Shapefiles in R"
+title: "Plot Multiple Shapefiles"
 teaching: 40
 exercises: 20
 questions:

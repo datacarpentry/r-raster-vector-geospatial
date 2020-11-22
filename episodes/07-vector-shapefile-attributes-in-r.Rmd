@@ -1,5 +1,5 @@
 ---
-title: "Explore and Plot by Shapefile Attributes"
+title: "Explore and Plot by Vector Layer Attributes"
 teaching: 40
 exercises: 20
 questions:
@@ -7,7 +7,7 @@ questions:
 objectives:
 - "Query attributes of a spatial object."
 - "Subset spatial objects using specific attribute values."
-- "Plot a shapefile, colored by unique attribute values."
+- "Plot a vector feature, colored by unique attribute values."
 keypoints:
 - "Spatial objects in `sf` are similar to standard data frames and can be manipulated using the same functions."
 - "Almost any feature of a plot can be customized using the various functions and options in the `ggplot2` package."
@@ -41,19 +41,19 @@ aoi_boundary_HARV <- st_read(
 > data, and other prerequisites you will need to work through the examples in this episode.
 {: .prereq}
 
-This episode continues our discussion of shapefile attributes and 
-covers how to work with shapefile attributes in R. It covers how
-to identify and query shapefile
-attributes, as well as how to subset shapefiles by specific attribute values.
-Finally, we will learn how to plot a shapefile according to a set of attribute
+This episode continues our discussion of vector layer attributes and 
+covers how to work with vector layer attributes in R. It covers how
+to identify and query layer
+attributes, as well as how to subset features by specific attribute values.
+Finally, we will learn how to plot a feature according to a set of attribute
 values.
 
 ## Load the Data
 We will continue using the `sf`, `raster` and `ggplot2` packages in this episode. Make sure that you have these packages loaded. We will
-continue to work with the three shapefiles that we loaded in the
+continue to work with the three shapefiles (vector layers) that we loaded in the
 [Open and Plot Shapefiles in R]({{site.baseurl}}/06-vector-open-shapefile-in-r/) episode.
 
-## Query Shapefile Metadata
+## Query Vector Feature Metadata
 
 As we discussed in the
 [Open and Plot Shapefiles in R]({{site.baseurl}}/06-vector-open-shapefile-in-r/) episode,
@@ -127,7 +127,7 @@ We can explore individual values stored within a particular attribute.
 Comparing attributes to a spreadsheet or a data frame, this is similar
 to exploring values in a column. We did this with the `gapminder` dataframe in [an earlier lesson](https://datacarpentry.org/r-intro-geospatial/05-data-subsetting/index.html). For spatial objects, we can use the same syntax: `objectName$attributeName`.
 
-We can see the contents of the `TYPE` field of our lines shapefile:
+We can see the contents of the `TYPE` field of our lines feature:
 
 ```{r explore-attribute-values }
 lines_HARV$TYPE
@@ -142,11 +142,11 @@ within R is factor. We worked with factors a little bit in [an earlier lesson](h
 levels(lines_HARV$TYPE)
 ```
 
-### Subset Shapefiles
+### Subset Features
 We can use the `filter()` function from `dplyr` that we worked with in [an earlier lesson](https://datacarpentry.org/r-intro-geospatial/06-dplyr) to select a subset of features
 from a spatial object in R, just like with data frames.
 
-For example, we might be interested only in features that are of `TYPE` "footpath". Once we subset out this data, we can use it as input to other code so that that code only operates on the footpath lines.
+For example, we might be interested only in features that are of `TYPE` "footpath". Once we subset out this data, we can use it as input to other code so that code only operates on the footpath lines.
 
 ```{r Subsetting-shapefiles}
 footpath_HARV <- lines_HARV %>% 
@@ -253,7 +253,7 @@ First we will check how many unique levels our factor has:
 levels(lines_HARV$TYPE)
 ```
 
-Then we can create a pallet of four colors, one for each
+Then we can create a palette of four colors, one for each
 feature in our vector object.
 
 ```{r}
@@ -429,7 +429,7 @@ ggplot() +
 > > Next, we will create a new object `lines_removeNA` that removes missing values.
 > >
 > > ```{r}
-> > lines_removeNA <- lines_HARV[na.omit(lines_HARV$BicyclesHo),]
+> > lines_removeNA <- lines_HARV[!is.na(lines_HARV$BicyclesHo),] 
 > > ```
 > >
 > > In our plot, we will set colors so that only the allowed roads
@@ -437,9 +437,13 @@ ggplot() +
 > > factor level is thicker than the others.
 > >
 > > ```{r harv-paths-bike-horses}
+> > # First, create a data frame with only those roads where bicycles and horses are allowed
+> > lines_showHarv <- lines_removeNA %>% filter(BicyclesHo == "Bicycles and Horses Allowed")
+> >
+> > # Next, visualise using ggplot
 > > ggplot() + 
 > >   geom_sf(data = lines_HARV) + 
-> >   geom_sf(data = lines_removeNA, aes(color = BicyclesHo), size = 2) + 
+> >   geom_sf(data = lines_showHarv, aes(color = BicyclesHo), size = 2) + 
 > >   scale_color_manual(values = "magenta") +
 > >   ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads Where Bikes and Horses Are Allowed") + 
 > >   coord_sf()

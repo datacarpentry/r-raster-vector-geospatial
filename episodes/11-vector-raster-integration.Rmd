@@ -1,5 +1,5 @@
 ---
-title: "Manipulate Raster Data in R"
+title: "Manipulate Raster Data"
 teaching: 40
 exercises: 20
 questions:
@@ -80,7 +80,7 @@ we have worked with in this workshop:
 * Vegetation plot locations (marked with white dots)-- black
 * A canopy height model (CHM) in GeoTIFF format -- green
 
-```{r view-extents, echo = FALSE}
+```{r view-extents, echo = FALSE, results='hide'}
 # code not shown, for demonstration purposes only
 # create CHM as a shapefile
 CHM_HARV_sp <- st_as_sf(CHM_HARV_df, coords = c("x", "y"), crs = utm18nCRS)
@@ -131,11 +131,12 @@ ggplot() +
 ```
 
 Now that we have visualized the area of the CHM we want to subset, we can
-perform the cropping operation. We are going to create a new object with only
-the portion of the CHM data that falls within the boundaries of the AOI. The function `crop()` is from the raster package and doesn't know how to deal with `sf` objects. Therefore, we first need to convert `aoi_boundary_HARV` from a `sf` object to "Spatial" object.
+perform the cropping operation. We are going to `crop()` function from the 
+raster package to create a new object with only the portion of the CHM data 
+that falls within the boundaries of the AOI.
 
 ```{r}
-CHM_HARV_Cropped <- crop(x = CHM_HARV, y = as(aoi_boundary_HARV, "Spatial"))
+CHM_HARV_Cropped <- crop(x = CHM_HARV, y = aoi_boundary_HARV)
 ```
 
 Now we can plot the cropped CHM data, along with a boundary box showing the full
@@ -193,7 +194,7 @@ Canopy Height Model information.
 > > 
 > > ```{r challenge-code-crop-raster-points}
 > > 
-> > CHM_plots_HARVcrop <- crop(x = CHM_HARV, y = as(plot_locations_sp_HARV, "Spatial"))
+> > CHM_plots_HARVcrop <- crop(x = CHM_HARV, y = plot_locations_sp_HARV)
 > > 
 > > CHM_plots_HARVcrop_df <- as.data.frame(CHM_plots_HARVcrop, xy = TRUE)
 > > 
@@ -294,9 +295,7 @@ We will begin by extracting all canopy height pixel values located within our
 Forest field site.
 
 ```{r extract-from-raster}
-tree_height <- extract(x = CHM_HARV,
-                       y = as(aoi_boundary_HARV, "Spatial"),
-                       df = TRUE)
+tree_height <- extract(x = CHM_HARV, y = aoi_boundary_HARV, df = TRUE)
 
 str(tree_height)
 ```
@@ -336,9 +335,7 @@ a mean height value for our AOI. Because we are extracting only a single number,
 not use the `df = TRUE` argument. 
 
 ```{r summarize-extract }
-mean_tree_height_AOI <- extract(x = CHM_HARV,
-                              y = as(aoi_boundary_HARV, "Spatial"),
-                              fun = mean)
+mean_tree_height_AOI <- extract(x = CHM_HARV, y = aoi_boundary_HARV, fun = mean)
 
 mean_tree_height_AOI
 ```
@@ -364,7 +361,7 @@ will not use the `df = TRUE` argument.
 
 ```{r extract-point-to-buffer }
 mean_tree_height_tower <- extract(x = CHM_HARV,
-                                  y = as(point_HARV, "Spatial"),
+                                  y = point_HARV,
                                   buffer = 20,
                                   fun = mean)
 
@@ -386,10 +383,10 @@ mean_tree_height_tower
 > > ```{r hist-tree-height-veg-plot}
 > > # extract data at each plot location
 > > mean_tree_height_plots_HARV <- extract(x = CHM_HARV,
-> >                                 y = as(plot_locations_sp_HARV, "Spatial"),
-> >                                buffer=20,
-> >                                fun = mean,
-> >                                df = TRUE)
+> >                                        y = plot_locations_sp_HARV,
+> >                                        buffer = 20,
+> >                                        fun = mean,
+> >                                        df = TRUE)
 > > 
 > > # view data
 > > mean_tree_height_plots_HARV

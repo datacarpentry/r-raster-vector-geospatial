@@ -1,5 +1,5 @@
 ---
-title: "Reproject Raster Data in R"
+title: "Reproject Raster Data"
 keypoints: 
 - "In order to plot two raster data sets together, they must be in the same CRS."
 - "Use the `projectRaster()` function to convert between CRSs."
@@ -45,14 +45,16 @@ happens when things don't line up?
 
 For this episode, we will be working with the Harvard Forest Digital Terrain
 Model data. This differs from the surface model data we've been working with so
-far in that the digital terrain model (DTM) includes the tops of trees, while
-the digital surface model (DSM) shows the ground level.
+far in that the digital surface model (DSM) includes the tops of trees, while
+the digital terrain model (DTM) shows the ground level.
 
 We'll be looking at another model (the canopy height model) in
 [a later episode]({{ site.baseurl }}/04-raster-calculations-in-r/) and will see how to calculate the CHM from the
 DSM and DTM. Here, we will create a map of the Harvard Forest Digital
 Terrain Model
-(`DTM_HARV`) draped or layered on top of the hillshade (`DTM_hill_HARV`).
+(`DTM_HARV`) draped or layered on top of the hillshade (`DTM_hill_HARV`). 
+The hillshade layer maps the terrain using light and shadow to create a 3D-looking image, 
+based on a hypothetical illumination of the ground level.
 
 ![Source: National Ecological Observatory Network (NEON).](../images/dc-spatial-raster/lidarTree-height.png)
 
@@ -77,18 +79,13 @@ Now we can create a map of the DTM layered over the hillshade.
 
 ```{r}
 ggplot() +
+     geom_raster(data = DTM_HARV_df , 
+                 aes(x = x, y = y, 
+                  fill = HARV_dtmCrop)) + 
      geom_raster(data = DTM_hill_HARV_df, 
                  aes(x = x, y = y, 
-                   alpha = HARV_DTMhill_WGS84)
-                 ) +
-     geom_raster(data = DTM_HARV_df , 
-             aes(x = x, y = y, 
-                  fill = HARV_dtmCrop,
-                  alpha=0.8)
-             ) + 
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
-     guides(fill = guide_colorbar()) +
-     scale_alpha(range = c(0.25, 0.65), guide = "none") +
+                   alpha = HARV_DTMhill_WGS84)) +
+     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
      coord_quickmap()
 ```
 
