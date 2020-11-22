@@ -1,5 +1,5 @@
 ---
-title: "Raster Time Series Data in R"
+title: "Raster Time Series Data"
 teaching: 40
 exercises: 20
 questions:

@@ -1,5 +1,5 @@
 ---
-title: "Raster Calculations in R"
+title: "Raster Calculations"
 teaching: 40
 exercises: 20
 questions:
@@ -11,7 +11,7 @@ objectives:
 keypoints:
 - "Rasters can be computed on using mathematical functions."
 - "The `overlay()` function provides an efficient way to do raster math."
-- "The `exportRaster()` function can be used to write raster data to a file."
+- "The `writeRaster()` function can be used to write raster data to a file."
 source: Rmd
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: "Intro to Raster Data in R"
+title: "Intro to Raster Data"
 teaching: 30
 exercises: 20
 questions:
@@ -53,6 +53,8 @@ in the [Introduction to R for Geospatial Data](https://datacarpentry.org/r-intro
 ```{r load-libraries-2, eval=FALSE}
 library(raster)
 library(rgdal)
+library(ggplot2)
+library(dplyr)
 ```
 
 > ## Introduce the Data
@@ -158,11 +160,20 @@ ggplot() +
     scale_fill_viridis_c() +
     coord_quickmap()
 ```
-
-> ## Data Tip
+> ## Plotting Tip
 >
 > More information about the Viridis palette used above at
 > [R Viridis package documentation](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html).
+{: .callout}
+
+> ## Plotting Tip
+> For faster, simpler plots, you can use the `plot` function from the `raster` package.
+> > ## Show plot
+> >  See `?plot` for more arguments to customize the plot
+> > ```{r, eval = TRUE}
+> > plot(DSM_HARV)
+> > ```
+> {: .solution}
 {: .callout}
 
 This map shows the elevation of our study site in Harvard Forest. From the

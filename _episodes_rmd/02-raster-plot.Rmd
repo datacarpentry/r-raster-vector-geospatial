@@ -1,5 +1,5 @@
 ---
-title: "Plot Raster Data in R"
+title: "Plot Raster Data"
 teaching: 40
 exercises: 30
 questions:
