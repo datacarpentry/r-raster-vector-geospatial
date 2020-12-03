@@ -217,23 +217,20 @@ res(DTM_hill_HARV)
 
 These two resolutions are different, but they're representing the same data. We can tell R to force our
 newly reprojected raster to be 1m x 1m resolution by adding a line of code
-(`res=`) within the `projectRaster()` function.
+`res=1` within the `projectRaster()` function. In the example below, we ensure a resolution match by using `res(DTM_HARV` as a variable.
 
 ```{r reproject-assign-resolution}
-DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV,
-                                  crs = crs(DTM_HARV),
-                                  res = 1)
+  DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV,
+                                         crs = crs(DTM_HARV),
+                                         res = res(DTM_HARV)) 
 ```
-
-Let's double-check our resolution to be sure
+Now both our resolutions and our CSRs match, so we can plot these two data sets together. Let's double-check our resolution to be sure
 ```{r}
 res(DTM_hill_UTMZ18N_HARV)
-res(DTM_hill_HARV)
+res(DTM_HARV)
 ```
 
-Now both our resolutions and our CRSs match, so we can plot these two
-data sets together. For plotting with `ggplot()`, we will need to
-create a dataframe from our newly reprojected raster.
+For plotting with `ggplot()`, we will need to create a dataframe from our newly reprojected raster.
 
 ```{r make-df-projected-raster}
 DTM_hill_HARV_2_df <- as.data.frame(DTM_hill_UTMZ18N_HARV, xy = TRUE)
