@@ -158,7 +158,7 @@ Our subsetting operation reduces the `features` count to 2. This means
 that only two feature lines in our spatial object have the attribute
 `TYPE == footpath`. We can plot only the footpath lines:
 
-```{r plot-subset-shapefile}
+```{r plot-subset-shapefile fig.cap="Map of the footpaths in the study area."}
 ggplot() + 
   geom_sf(data = footpath_HARV) +
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Footpaths") + 
@@ -174,7 +174,7 @@ using the `size =` parameter, as the default value of 0.5 can be hard to see.
 Note that size is placed outside of the `aes()` function, as we are not
 connecting line thickness to a data variable.
 
-```{r plot-subset-shapefile-unique-colors }
+```{r plot-subset-shapefile-unique-colors fig.cap="Map of the footpaths in the study area where each feature is colored differently."}
 ggplot() + 
   geom_sf(data = footpath_HARV, aes(color = factor(OBJECTID)), size = 1.5) +
   labs(color = 'Footpath ID') +
@@ -200,7 +200,7 @@ Now, we see that there are in fact two features in our plot!
 > > nrow(boardwalk_HARV)
 > > ```
 > > Now let's plot that data: 
-> > ```{r harv-boardwalk-map}
+> > ```{r harv-boardwalk-map fig.cap="Map of the boardwalks in the study area."}
 > > ggplot() + 
 > >   geom_sf(data = boardwalk_HARV, size = 1.5) +
 > >   ggtitle("NEON Harvard Forest Field Site", subtitle = "Boardwalks") + 
@@ -223,7 +223,7 @@ Now, we see that there are in fact two features in our plot!
 > > nrow(stoneWall_HARV)
 > > ```
 > > Now we can plot the data: 
-> > ```{r harv-stone-wall-map}
+> > ```{r harv-stone-wall-map fig.cap="Map of the stone walls in the study area where each feature is colored differently."}
 > > ggplot() +
 > >   geom_sf(data = stoneWall_HARV, aes(color = factor(OBJECTID)), size = 1.5) +
 > >   labs(color = 'Wall ID') +
@@ -262,7 +262,7 @@ road_colors <- c("blue", "green", "navy", "purple")
 
 We can tell `ggplot` to use these colors when we plot the data.
 
-```{r harv-paths-map}
+```{r harv-paths-map fig.cap="Roads and trails in the area."}
 ggplot() +
   geom_sf(data = lines_HARV, aes(color = TYPE)) + 
   scale_color_manual(values = road_colors) +
@@ -283,7 +283,7 @@ line_widths <- c(1, 2, 3, 4)
 
 We can use those line widths when we plot the data.
 
-```{r harv-paths-map-wide}
+```{r harv-paths-map-wide fig.cap="Roads and trails in the area demonstrating how to use different line thickness and colors."}
 ggplot() +
   geom_sf(data = lines_HARV, aes(color = TYPE, size = TYPE)) + 
   scale_color_manual(values = road_colors) +
@@ -328,7 +328,7 @@ Note that we could also use `aes(size = TYPE)` to tie the line thickness to the 
 > >
 > > Now we can create our plot.
 > >
-> > ```{r harv-path-line-types}
+> > ```{r harv-path-line-types fig.cap="Roads and trails in the area with different line thickness for each type of paths."}
 > > ggplot() +
 > >   geom_sf(data = lines_HARV, aes(size = TYPE)) +
 > >   scale_size_manual(values = line_width) +
@@ -356,7 +356,7 @@ Let's add a legend to our plot. We will use the `road_colors` object
 that we created above to color the legend. We can customize the
 appearance of our legend by manually setting different parameters.
 
-```{r add-legend-to-plot }
+```{r add-legend-to-plot fig.cap="Roads and trails in the study area using thicker lines than the previous figure."}
 ggplot() + 
   geom_sf(data = lines_HARV, aes(color = TYPE), size = 1.5) +
   scale_color_manual(values = road_colors) +
@@ -371,7 +371,7 @@ We can change the appearance of our legend by manually setting different paramet
 * `legend.text`: change the font size
 * `legend.box.background`: add an outline box
 
-```{r modify-legend-plot }
+```{r modify-legend-plot fig.cap="Map of the paths in the study area with large-font and border around the legend."}
 ggplot() + 
   geom_sf(data = lines_HARV, aes(color = TYPE), size = 1.5) +
   scale_color_manual(values = road_colors) + 
@@ -383,7 +383,7 @@ ggplot() +
   coord_sf()
 ```
 
-```{r plot-different-colors}
+```{r plot-different-colors fig.cap="Map of the paths in the study area using a different color palette."}
 new_colors <- c("springgreen", "blue", "magenta", "orange")
 
 ggplot() + 
@@ -436,7 +436,7 @@ ggplot() +
 > > are magenta, and we will set line width so that the first
 > > factor level is thicker than the others.
 > >
-> > ```{r harv-paths-bike-horses}
+> > ```{r harv-paths-bike-horses fig.cap="Roads and trails in the area highlighting paths where horses and bikes are allowed."}
 > > # First, create a data frame with only those roads where bicycles and horses are allowed
 > > lines_showHarv <- lines_removeNA %>% filter(BicyclesHo == "Bicycles and Horses Allowed")
 > >
@@ -471,7 +471,7 @@ ggplot() +
 > > colors <- c("purple", "springgreen", "yellow", "brown", "navy")
 > > ```
 > > Now we can create our plot: 
-> > ```{r colored-state-boundaries}
+> > ```{r colored-state-boundaries fig.cap="Map of the continental United States where the state lines are colored by region."}
 > > ggplot() +
 > >   geom_sf(data = state_boundary_US, aes(color = region), size = 1) +
 > >   scale_color_manual(values = colors) +
