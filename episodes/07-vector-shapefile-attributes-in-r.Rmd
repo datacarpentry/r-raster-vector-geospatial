@@ -371,7 +371,7 @@ We can change the appearance of our legend by manually setting different paramet
 * `legend.text`: change the font size
 * `legend.box.background`: add an outline box
 
-```{r modify-legend-plot fig.cap="Map of the paths in the study area with large-font and border around the legend."}
+```{r modify-legend-plot, fig.cap="Map of the paths in the study area with large-font and border around the legend."}
 ggplot() + 
   geom_sf(data = lines_HARV, aes(color = TYPE), size = 1.5) +
   scale_color_manual(values = road_colors) + 
