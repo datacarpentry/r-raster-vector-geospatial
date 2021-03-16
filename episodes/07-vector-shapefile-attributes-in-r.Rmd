@@ -471,7 +471,7 @@ ggplot() +
 > > colors <- c("purple", "springgreen", "yellow", "brown", "navy")
 > > ```
 > > Now we can create our plot: 
-> > ```{r colored-state-boundaries fig.cap="Map of the continental United States where the state lines are colored by region."}
+> > ```{r colored-state-boundaries, fig.cap="Map of the continental United States where the state lines are colored by region."}
 > > ggplot() +
 > >   geom_sf(data = state_boundary_US, aes(color = region), size = 1) +
 > >   scale_color_manual(values = colors) +
@@ -482,4 +482,3 @@ ggplot() +
 {: .challenge}
 
 {% include links.md %}
-
