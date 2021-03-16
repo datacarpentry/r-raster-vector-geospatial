@@ -200,7 +200,7 @@ Now, we see that there are in fact two features in our plot!
 > > nrow(boardwalk_HARV)
 > > ```
 > > Now let's plot that data: 
-> > ```{r harv-boardwalk-map fig.cap="Map of the boardwalks in the study area."}
+> > ```{r harv-boardwalk-map, fig.cap="Map of the boardwalks in the study area."}
 > > ggplot() + 
 > >   geom_sf(data = boardwalk_HARV, size = 1.5) +
 > >   ggtitle("NEON Harvard Forest Field Site", subtitle = "Boardwalks") + 
