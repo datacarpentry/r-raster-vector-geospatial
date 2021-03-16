@@ -262,7 +262,7 @@ road_colors <- c("blue", "green", "navy", "purple")
 
 We can tell `ggplot` to use these colors when we plot the data.
 
-```{r harv-paths-map fig.cap="Roads and trails in the area."}
+```{r harv-paths-map, fig.cap="Roads and trails in the area."}
 ggplot() +
   geom_sf(data = lines_HARV, aes(color = TYPE)) + 
   scale_color_manual(values = road_colors) +
