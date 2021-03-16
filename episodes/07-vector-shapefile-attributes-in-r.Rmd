@@ -436,7 +436,7 @@ ggplot() +
 > > are magenta, and we will set line width so that the first
 > > factor level is thicker than the others.
 > >
-> > ```{r harv-paths-bike-horses fig.cap="Roads and trails in the area highlighting paths where horses and bikes are allowed."}
+> > ```{r harv-paths-bike-horses, fig.cap="Roads and trails in the area highlighting paths where horses and bikes are allowed."}
 > > # First, create a data frame with only those roads where bicycles and horses are allowed
 > > lines_showHarv <- lines_removeNA %>% filter(BicyclesHo == "Bicycles and Horses Allowed")
 > >
