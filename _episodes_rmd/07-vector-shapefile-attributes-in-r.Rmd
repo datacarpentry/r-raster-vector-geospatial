@@ -174,7 +174,7 @@ using the `size =` parameter, as the default value of 0.5 can be hard to see.
 Note that size is placed outside of the `aes()` function, as we are not
 connecting line thickness to a data variable.
 
-```{r plot-subset-shapefile-unique-colors fig.cap="Map of the footpaths in the study area where each feature is colored differently."}
+```{r plot-subset-shapefile-unique-colors, fig.cap="Map of the footpaths in the study area where each feature is colored differently."}
 ggplot() + 
   geom_sf(data = footpath_HARV, aes(color = factor(OBJECTID)), size = 1.5) +
   labs(color = 'Footpath ID') +
