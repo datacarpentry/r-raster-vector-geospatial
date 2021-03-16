@@ -356,7 +356,7 @@ Let's add a legend to our plot. We will use the `road_colors` object
 that we created above to color the legend. We can customize the
 appearance of our legend by manually setting different parameters.
 
-```{r add-legend-to-plot fig.cap="Roads and trails in the study area using thicker lines than the previous figure."}
+```{r add-legend-to-plot, fig.cap="Roads and trails in the study area using thicker lines than the previous figure."}
 ggplot() + 
   geom_sf(data = lines_HARV, aes(color = TYPE), size = 1.5) +
   scale_color_manual(values = road_colors) +
