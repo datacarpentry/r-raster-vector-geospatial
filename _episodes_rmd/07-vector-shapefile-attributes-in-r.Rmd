@@ -158,7 +158,7 @@ Our subsetting operation reduces the `features` count to 2. This means
 that only two feature lines in our spatial object have the attribute
 `TYPE == footpath`. We can plot only the footpath lines:
 
-```{r plot-subset-shapefile fig.cap="Map of the footpaths in the study area."}
+```{r plot-subset-shapefile, fig.cap="Map of the footpaths in the study area."}
 ggplot() + 
   geom_sf(data = footpath_HARV) +
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Footpaths") + 
