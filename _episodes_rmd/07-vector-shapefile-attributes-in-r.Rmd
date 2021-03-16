@@ -223,7 +223,7 @@ Now, we see that there are in fact two features in our plot!
 > > nrow(stoneWall_HARV)
 > > ```
 > > Now we can plot the data: 
-> > ```{r harv-stone-wall-map fig.cap="Map of the stone walls in the study area where each feature is colored differently."}
+> > ```{r harv-stone-wall-map, fig.cap="Map of the stone walls in the study area where each feature is colored differently."}
 > > ggplot() +
 > >   geom_sf(data = stoneWall_HARV, aes(color = factor(OBJECTID)), size = 1.5) +
 > >   labs(color = 'Wall ID') +
