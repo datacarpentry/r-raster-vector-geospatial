@@ -283,7 +283,7 @@ line_widths <- c(1, 2, 3, 4)
 
 We can use those line widths when we plot the data.
 
-```{r harv-paths-map-wide fig.cap="Roads and trails in the area demonstrating how to use different line thickness and colors."}
+```{r harv-paths-map-wide, fig.cap="Roads and trails in the area demonstrating how to use different line thickness and colors."}
 ggplot() +
   geom_sf(data = lines_HARV, aes(color = TYPE, size = TYPE)) + 
   scale_color_manual(values = road_colors) +
