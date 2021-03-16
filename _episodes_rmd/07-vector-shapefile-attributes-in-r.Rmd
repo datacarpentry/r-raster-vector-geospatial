@@ -328,7 +328,7 @@ Note that we could also use `aes(size = TYPE)` to tie the line thickness to the 
 > >
 > > Now we can create our plot.
 > >
-> > ```{r harv-path-line-types fig.cap="Roads and trails in the area with different line thickness for each type of paths."}
+> > ```{r harv-path-line-types, fig.cap="Roads and trails in the area with different line thickness for each type of paths."}
 > > ggplot() +
 > >   geom_sf(data = lines_HARV, aes(size = TYPE)) +
 > >   scale_size_manual(values = line_width) +
