@@ -383,7 +383,7 @@ ggplot() +
   coord_sf()
 ```
 
-```{r plot-different-colors fig.cap="Map of the paths in the study area using a different color palette."}
+```{r plot-different-colors, fig.cap="Map of the paths in the study area using a different color palette."}
 new_colors <- c("springgreen", "blue", "magenta", "orange")
 
 ggplot() + 
