@@ -159,7 +159,7 @@ ggplot() +
 Next, let's adjust the color ramp used to render the rasters. First, we can
 change the blue color ramp to a green one that is more visually suited to our
 NDVI (greenness) data using the `colorRampPalette()` function in combination
-with `colorBrewer`. Then we use `scale_fill_gradientn` to pass the list of
+with `colorBrewer` which requires loading the `RColorBrewer` library. Then we use `scale_fill_gradientn` to pass the list of
 colours (here 20 different colours) to ggplot.
 
 First we need to create a set of colors to use. We will select a set of
@@ -167,6 +167,7 @@ nine colors from the "YlGn" (yellow-green) color palette. This returns a
 set of hex color codes:
 
 ```{r}
+library(RColorBrewer)
 brewer.pal(9, "YlGn")
 ```
 
