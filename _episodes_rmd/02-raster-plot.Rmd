@@ -273,7 +273,7 @@ ggplot() +
 
 > ## Challenge: Create DTM & DSM for SJER
 > 
-> Use the files in the `NEON_RemoteSensing/SJER/` directory to create a Digital
+> Use the files in the `data/NEON-DS-Airborne-Remote-Sensing/SJER/` directory to create a Digital
 Terrain Model map and Digital Surface Model map of the San Joaquin Experimental
 Range field site.
 > 
