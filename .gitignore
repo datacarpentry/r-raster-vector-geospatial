@@ -14,6 +14,7 @@ _episodes_rmd/meanNDVI_SJER_2011.csv
 .ipynb_checkpoints
 .sass-cache
 .jekyll-cache/
+.jekyll-metadata
 __pycache__
 _site
 .Rproj.user
