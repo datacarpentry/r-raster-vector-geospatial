@@ -85,7 +85,7 @@ a mean NDVI value for each file. Next, let's clean up the column names in our
 data frame to make it easier for colleagues to work with our code.
 
 It is a bit confusing to have duplicate object & column names (`avg_NDVI_HARV`). Additionally the "avg" does not clearly indicate what the value in that
-particular column is. Let's change the NDVI column name to `MeanNDVI`.
+particular column is. Let's change the NDVI column name to `meanNDVI`.
 
 ```{r view-dataframe-output }
 names(avg_NDVI_HARV) <- "meanNDVI"
