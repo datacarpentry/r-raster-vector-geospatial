@@ -201,7 +201,7 @@ symbol of `shape` value.
 >
 > You can plot vector data layered on top of raster data using the 
 > `+` to add a layer in `ggplot`. Create a plot that uses the NEON AOI
-> Canopy Height Model `NEON_RemoteSensing/HARV/CHM/HARV_chmCrop.tif`
+> Canopy Height Model `data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif`
 > as a base layer. On top of the
 > CHM, please add:
 >
