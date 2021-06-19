@@ -165,9 +165,10 @@ ggplot() +
 > 
 > > ## Answers
 > > 
-> > First we import the data: 
+> > First we import the data. The HARV_roads object has some fields that we want to 
+> > ensure are read as categorical (factor) data:
 > > ```{r import-point-line, echo=TRUE}
-> > lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
+> > lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp", stringsAsFactors = TRUE)
 > > point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 > > ```
 > > 

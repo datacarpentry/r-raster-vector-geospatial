@@ -31,7 +31,8 @@ library(sf)
 
 ```{r load-data, echo = FALSE, results='hide'}
 # Learners will have this data loaded from earlier episodes
-lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
+lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp",
+                      stringsAsFactors = TRUE)
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp")
 point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
@@ -71,12 +72,13 @@ that new object:
 
 ```{r read-csv }
 plot_locations_HARV <-
-  read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_PlotLocations.csv")
+  read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_PlotLocations.csv",
+           stringsAsFactors = TRUE)
 
 str(plot_locations_HARV)
 ```
 
-We now have a data frame that contains 21 locations (rows) and 16 variables (attributes). Note that all of our character data was imported into R as factor (categorical) data. Next, let's explore the dataframe to determine whether it contains columns with coordinate values. If we are lucky, our `.csv` will contain columns labeled:
+We now have a data frame that contains 21 locations (rows) and 16 variables (attributes). The `stringsAsFactors = TRUE` argument ensures that all of our character data is imported into R as factor (categorical) data. Next, let's explore the dataframe to determine whether it contains columns with coordinate values. If we are lucky, our `.csv` will contain columns labeled:
 
  * "X" and "Y" OR
  * Latitude and Longitude OR
@@ -227,7 +229,8 @@ That's really handy!
 > >
 > > ```{r}
 > > newplot_locations_HARV <-
-> >   read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_2NewPhenPlots.csv")
+> >   read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_2NewPhenPlots.csv",
+> >            stringsAsFactors = TRUE)
 > > str(newplot_locations_HARV)
 > > ```
 > >

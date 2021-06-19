@@ -28,14 +28,6 @@ library(dplyr)
 library(sf)
 ```
 
-```{r load-data, echo=FALSE, results='hide'}
-# learners will have this data loaded from previous episodes
-point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
-lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
-aoi_boundary_HARV <- st_read(
-  "data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
-```
-
 > ## Things You’ll Need To Complete This Episode
 > See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
 > data, and other prerequisites you will need to work through the examples in this episode.
@@ -52,6 +44,16 @@ values.
 We will continue using the `sf`, `raster` and `ggplot2` packages in this episode. Make sure that you have these packages loaded. We will
 continue to work with the three shapefiles (vector layers) that we loaded in the
 [Open and Plot Shapefiles in R]({{site.baseurl}}/06-vector-open-shapefile-in-r/) episode.
+
+```{r load-data, results='hide'}
+point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
+lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp",
+                      stringsAsFactors = TRUE)
+aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
+```
+
+To ensure that all of the strings in the HARV_roads object are read as categorical data,
+we include the `stringsAsFactors = TRUE` argument in our `st_read` command.
 
 ## Query Vector Feature Metadata
 
@@ -462,7 +464,8 @@ ggplot() +
 > > in the `region` column:
 > > ``` {r}
 > > state_boundary_US <- 
-> > st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp")
+> > st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp", 
+> >         stringsAsFactors = TRUE)
 > > 
 > > levels(state_boundary_US$region)
 > > ```

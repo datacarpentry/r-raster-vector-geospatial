@@ -34,7 +34,8 @@ library(sf)
 ```{r load-data, echo = FALSE, results='hide', warning=FALSE}
 # learners will have this data loaded from an earlier episode
 aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
-lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
+lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp",
+                      stringsAsFactors = TRUE)
 point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 CHM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 CHM_HARV_df <- as.data.frame(CHM_HARV, xy = TRUE)
@@ -150,7 +151,8 @@ symbol of `shape` value.
 > > unique soils are represented in the `soilTypeOr` attribute.
 > >
 > > ```{r}
-> > plot_locations <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
+> > plot_locations <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp",
+> >                           stringsAsFactors = TRUE)
 > >
 > > levels(plot_locations$soilTypeOr)
 > > ```

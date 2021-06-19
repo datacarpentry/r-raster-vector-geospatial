@@ -254,7 +254,8 @@ of that dataframe:
 
 ```{r view-temp-data}
 har_met_daily <-
-  read.csv("data/NEON-DS-Met-Time-Series/HARV/FisherTower-Met/hf001-06-daily-m.csv")
+  read.csv("data/NEON-DS-Met-Time-Series/HARV/FisherTower-Met/hf001-06-daily-m.csv",
+           stringsAsFactors = TRUE)
 
 str(har_met_daily)
 ```
