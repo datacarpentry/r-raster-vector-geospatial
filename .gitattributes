@@ -3,3 +3,4 @@
 bin/* linguist-vendored
 assets/* linguist-vendored
 *.R linguist-vendored=false
+assets/css/lesson.scss linguist-vendored
