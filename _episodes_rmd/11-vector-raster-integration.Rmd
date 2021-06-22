@@ -153,7 +153,7 @@ ggplot() +
   geom_sf(data = st_as_sfc(st_bbox(CHM_HARV)), fill = "green",
           color = "green", alpha = .2) +  
   geom_raster(data = CHM_HARV_Cropped_df,
-              aes(x = x, y = y, fill = HARV_chmCrop)) + 
+              aes(x = x, y = y, fill = layer)) + 
   scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
   coord_sf()
 ```
@@ -166,7 +166,7 @@ below).
 ```{r view-crop-extent}
 ggplot() +
   geom_raster(data = CHM_HARV_Cropped_df,
-              aes(x = x, y = y, fill = HARV_chmCrop)) + 
+              aes(x = x, y = y, fill = layer)) + 
   geom_sf(data = aoi_boundary_HARV, color = "blue", fill = NA) + 
   scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
   coord_sf()
@@ -199,7 +199,7 @@ Canopy Height Model information.
 > > CHM_plots_HARVcrop_df <- as.data.frame(CHM_plots_HARVcrop, xy = TRUE)
 > > 
 > > ggplot() + 
-> >   geom_raster(data = CHM_plots_HARVcrop_df, aes(x = x, y = y, fill = HARV_chmCrop)) + 
+> >   geom_raster(data = CHM_plots_HARVcrop_df, aes(x = x, y = y, fill = layer)) + 
 > >   scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
 > >   geom_sf(data = plot_locations_sp_HARV) + 
 > >   coord_sf()
@@ -269,7 +269,7 @@ Now we can plot this cropped data. We will show the AOI boundary on the same plo
 ggplot() + 
   geom_sf(data = aoi_boundary_HARV, color = "blue", fill = NA) +
   geom_raster(data = CHM_HARV_manual_cropped_df,
-              aes(x = x, y = y, fill = HARV_chmCrop)) + 
+              aes(x = x, y = y, fill = layer)) + 
   scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
   coord_sf()
 ```
@@ -312,7 +312,7 @@ represents the tree heights for each pixel.
 
 ```{r view-extract-histogram}
 ggplot() + 
-  geom_histogram(data = tree_height, aes(x = HARV_chmCrop)) +
+  geom_histogram(data = tree_height, aes(x = layer)) +
   ggtitle("Histogram of CHM Height Values (m)") +
   xlab("Tree Height") + 
   ylab("Frequency of Pixels")
@@ -324,7 +324,7 @@ height values. These values help us better understand vegetation at our field
 site.
 
 ```{r}
-summary(tree_height$HARV_chmCrop)
+summary(tree_height$layer)
 ```
 
 ## Summarize Extracted Raster Values
@@ -392,7 +392,7 @@ mean_tree_height_tower
 > > mean_tree_height_plots_HARV
 > > 
 > > # plot data
-> > ggplot(data = mean_tree_height_plots_HARV, aes(ID, HARV_chmCrop)) + 
+> > ggplot(data = mean_tree_height_plots_HARV, aes(ID, layer)) + 
 > >   geom_col() + 
 > >   ggtitle("Mean Tree Height at each Plot") + 
 > >   xlab("Plot ID") + 
