@@ -124,7 +124,7 @@ To illustrate this, we will crop the Canopy Height Model (CHM) to only include t
 
 ```{r crop-by-vector-extent}
 ggplot() +
-  geom_raster(data = CHM_HARV_df, aes(x = x, y = y, fill = HARV_chmCrop)) + 
+  geom_raster(data = CHM_HARV_df, aes(x = x, y = y, fill = layer)) + 
   scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) +
   geom_sf(data = aoi_boundary_HARV, color = "blue", fill = NA) +
   coord_sf()
