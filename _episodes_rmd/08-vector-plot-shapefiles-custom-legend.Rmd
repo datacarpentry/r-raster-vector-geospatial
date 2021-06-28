@@ -214,6 +214,8 @@ symbol of `shape` value.
 > > ## Answers
 > >
 > > ```{r challenge-vector-raster-overlay, echo=TRUE}
+> > CHM_HARV <- raster('data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif')
+> > CHM_HARV_df <- as.data.frame(CHM_HARV,xy=TRUE)
 > > ggplot() +
 > >   geom_raster(data = CHM_HARV_df, aes(x = x, y = y, fill = HARV_chmCrop)) +
 > >   geom_sf(data = lines_HARV, color = "black") +
