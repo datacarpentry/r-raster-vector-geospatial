@@ -136,11 +136,14 @@ multiplying, etc) two rasters. In the geospatial world, we call this
 "raster math".
 
 Let's subtract the DTM from the DSM to create a Canopy Height Model. 
-After subtracting, let's create a dataframe so we can plot with `ggplot`.
+After subtracting, change the column name from "layer" to be more 
+descriptive, "HARV_chmCrop", and create a dataframe so we can plot 
+with `ggplot`.
 
 ```{r raster-math }
 CHM_HARV <- DSM_HARV - DTM_HARV
-
+names(CHM_HARV)
+names(CHM_HARV)[1] <- "HARV_chmCrop"
 CHM_HARV_df <- as.data.frame(CHM_HARV, xy = TRUE)
 ```
 
@@ -149,7 +152,7 @@ We can now plot the output CHM.
 ```{r harv-chm-plot}
  ggplot() +
    geom_raster(data = CHM_HARV_df , 
-               aes(x = x, y = y, fill = layer)) + 
+               aes(x = x, y = y, fill = HARV_chmCrop)) + 
    scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
    coord_quickmap()
 ```
@@ -159,7 +162,7 @@ Canopy Height Model (CHM).
 
 ```{r create-hist}
 ggplot(CHM_HARV_df) +
-    geom_histogram(aes(layer))
+    geom_histogram(aes(HARV_chmCrop))
 ```
 
 Notice that the range of values for the output CHM is between 0 and 30 
@@ -180,8 +183,8 @@ meters. Does this make sense for trees in Harvard Forest?
 > > 1) There are missing values in our data, so we need to specify 
 > > `na.rm = TRUE`. 
 > > ```{r}
-> > min(CHM_HARV_df$layer, na.rm = TRUE)
-> > max(CHM_HARV_df$layer, na.rm = TRUE)
+> > min(CHM_HARV_df$HARV_chmCrop, na.rm = TRUE)
+> > max(CHM_HARV_df$HARV_chmCrop, na.rm = TRUE)
 > > ```
 > > 2) Possible ways include: 
 > > * Create a histogram
@@ -190,19 +193,19 @@ meters. Does this make sense for trees in Harvard Forest?
 > > 3)
 > > ```{r chm-harv-hist}
 > > ggplot(CHM_HARV_df) +
-> >     geom_histogram(aes(layer))
+> >     geom_histogram(aes(HARV_chmCrop))
 > > ```
 > > 4)
 > > ```{r chm-harv-hist-green}
 > > ggplot(CHM_HARV_df) +
-> >     geom_histogram(aes(layer), colour="black", 
+> >     geom_histogram(aes(HARV_chmCrop), colour="black", 
 > >                    fill="darkgreen", bins = 6)
 > > ```
 > > 5) 
 > > ```{r chm-harv-raster}
 > > custom_bins <- c(0, 10, 20, 30, 40)
 > > CHM_HARV_df <- CHM_HARV_df %>%
-> >                   mutate(canopy_discrete = cut(layer, breaks = custom_bins))
+> >                   mutate(canopy_discrete = cut(HARV_chmCrop, breaks = custom_bins))
 > > 
 > > ggplot() +
 > >   geom_raster(data = CHM_HARV_df , aes(x = x, y = y,
@@ -256,6 +259,7 @@ raster math, using the `overlay()` function.
 CHM_ov_HARV <- overlay(DSM_HARV,
                        DTM_HARV,
                        fun = function(r1, r2) { return( r1 - r2) })
+names(CHM_ov_HARV)[1] <- "HARV_chmCrop"                       
 ```
 
 Next we need to convert our new object to a data frame for plotting with 
@@ -270,7 +274,7 @@ Now we can plot the CHM:
 ```{r harv-chm-overlay}
  ggplot() +
    geom_raster(data = CHM_ov_HARV_df, 
-               aes(x = x, y = y, fill = layer)) + 
+               aes(x = x, y = y, fill = HARV_chmCrop)) + 
    scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
    coord_quickmap()
 ```
@@ -344,6 +348,7 @@ are what you expect.
 > > CHM_ov_SJER <- overlay(DSM_SJER,
 > >                        DTM_SJER,
 > >                        fun = function(r1, r2){ return(r1 - r2) })
+> > names(CHM_ov_SJER)[1] <- "SJER_chmCrop"                       
 > > ```
 > > Convert the output to a dataframe:
 > >
@@ -355,7 +360,7 @@ are what you expect.
 > >
 > > ```{r sjer-chm-overlay-hist}
 > > ggplot(CHM_ov_SJER_df) +
-> >     geom_histogram(aes(layer))
+> >     geom_histogram(aes(SJER_chmCrop))
 > > ```
 > >
 > > 2) Create a plot of the CHM: 
@@ -364,7 +369,7 @@ are what you expect.
 > >  ggplot() +
 > >       geom_raster(data = CHM_ov_SJER_df, 
 > >               aes(x = x, y = y, 
-> >                    fill = layer)
+> >                    fill = SJER_chmCrop)
 > >               ) + 
 > >      scale_fill_gradientn(name = "Canopy Height", 
 > >         colors = terrain.colors(10)) + 
@@ -386,10 +391,10 @@ are what you expect.
 > >
 > > ```{r compare-chm-harv-sjer}
 > > ggplot(CHM_HARV_df) +
-> >     geom_histogram(aes(layer))
+> >     geom_histogram(aes(SJER_chmCrop))
 > >
 > > ggplot(CHM_ov_SJER_df) +
-> >     geom_histogram(aes(layer))
+> >     geom_histogram(aes(SJER_chmCrop))
 > > ```
 > {: .solution}
 {: .challenge}
