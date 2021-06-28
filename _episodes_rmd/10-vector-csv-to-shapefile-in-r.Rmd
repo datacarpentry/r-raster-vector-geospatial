@@ -232,26 +232,17 @@ That's really handy!
 > > ```
 > >
 > > 2)
-> > The US boundary data we worked with previously is in a geographic
-> > WGS84 CRS. We can use that data to establish a CRS for this data. First
-> > we will extract the CRS from the `country_boundary_US` object and
-> > confirm that it is WGS84.
+> >  The data contains latitude and longtitude. In WGS84, this corresponds
+> >  to specification 4326. we will convert our new data to a spatial dataframe.
 > >
 > > ```{r}
-> > geogCRS <- st_crs(country_boundary_US)
-> > geogCRS
+> > newPlot.Sp.HARV <- st_as_sf(newplot_locations_HARV, coords = c("decimalLon", "decimalLat"), crs = "4326")
 > > ```
 > >
-> > Then we will convert our new data to a spatial dataframe, using
-> > the `geogCRS` object as our CRS.
+> > Next we'll add CRS information and confirm that the CRS for our new object is correct.
 > >
 > > ```{r}
-> > newPlot.Sp.HARV <- st_as_sf(newplot_locations_HARV, coords = c("decimalLon", "decimalLat"), crs = geogCRS)
-> > ```
-> >
-> > Next we'll confirm that the CRS for our new object is correct.
-> >
-> > ```{r}
+> > st_crs(newPlot.Sp.HARV)<-st_crs(4326)
 > > st_crs(newPlot.Sp.HARV)
 > > ```
 > >
