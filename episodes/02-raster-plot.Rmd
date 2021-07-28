@@ -318,7 +318,7 @@ Range field site.
 > >     theme_bw() + 
 > >     theme(panel.grid.major = element_blank(), 
 > >           panel.grid.minor = element_blank()) +
-> >     xlab("UTM Westing Coordinate (m)") +
+> >     xlab("UTM Easting Coordinate (m)") +
 > >     ylab("UTM Northing Coordinate (m)") +
 > >     ggtitle("DSM with Hillshade") +
 > >     coord_quickmap()
