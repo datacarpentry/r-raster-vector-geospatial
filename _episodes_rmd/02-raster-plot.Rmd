@@ -203,7 +203,7 @@ ggplot() +
 > >                                       fill = fct_elevation_6)) + 
 > >     scale_fill_manual(values = my_col, name = "Elevation") + 
 > >     ggtitle("Classified Elevation Map - NEON Harvard Forest Field Site") +
-> >     xlab("UTM Westing Coordinate (m)") +
+> >     xlab("UTM Easting Coordinate (m)") +
 > >     ylab("UTM Northing Coordinate (m)") + 
 > >     coord_quickmap()
 > > ```
