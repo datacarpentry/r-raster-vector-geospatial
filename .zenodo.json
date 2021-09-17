@@ -1,0 +1,90 @@
+{
+  "contributors": [
+    {
+      "type": "Editor",
+      "name": "Joseph Stachelek",
+      "orcid": "0000-0002-5924-2464"
+    },
+    {
+      "type": "Editor",
+      "name": "Jane Wyngaard"
+    },
+    {
+      "type": "Editor",
+      "name": "Lauren O'Brien",
+      "orcid": "0000-0002-7336-2171"
+    }
+  ],
+  "creators": [
+    {
+      "name": "Joseph Stachelek",
+      "orcid": "0000-0002-5924-2464"
+    },
+    {
+      "name": "Lauren O'Brien",
+      "orcid": "0000-0002-7336-2171"
+    },
+    {
+      "name": "Lachlan Deer",
+      "orcid": "0000-0001-8646-6095"
+    },
+    {
+      "name": "Ana Costa Conrado",
+      "orcid": "0000-0001-6345-987X"
+    },
+    {
+      "name": "Brett Lord-Castillo"
+    },
+    {
+      "name": "Stéphane Guillou",
+      "orcid": "0000-0001-8992-0951"
+    },
+    {
+      "name": "Kristina Riemer",
+      "orcid": "0000-0003-3802-3331"
+    },
+    {
+      "name": "Anne Fouilloux",
+      "orcid": "0000-0002-1784-2920"
+    },
+    {
+      "name": "Juan F Fung",
+      "orcid": "0000-0002-0820-787X"
+    },
+    {
+      "name": "Marchand"
+    },
+    {
+      "name": "Tracy Teal",
+      "orcid": "0000-0002-9180-9598"
+    },
+    {
+      "name": "Angela Li"
+    },
+    {
+      "name": "Ethan P White",
+      "orcid": "0000-0001-6728-7745"
+    },
+    {
+      "name": "Sergio Marconi",
+      "orcid": "0000-0002-8096-754X"
+    },
+    {
+      "name": "Katrin Leinweber",
+      "orcid": "0000-0001-5135-5758"
+    },
+    {
+      "name": "Klaus Schliep",
+      "orcid": "0000-0003-2941-0161"
+    },
+    {
+      "name": "Punam Amratia"
+    },
+    {
+      "name": "zenobieg"
+    }
+  ],
+  "license": {
+    "id": "CC-BY-4.0"
+  }
+}
