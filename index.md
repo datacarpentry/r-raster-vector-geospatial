@@ -4,7 +4,7 @@ root: .
 
 maintainers:
 - Leah Wasser
-- Joseph Stachelek
+- Jemma Stachelek
 - Tyson Swetnam
 - Lauren O'Brien
 - Janani Selvaraj
@@ -13,7 +13,7 @@ maintainers:
 - Juan Fung
 ---
 
-**Lesson Authors:** Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Joseph Stachelek
+**Lesson Authors:** Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Jemma Stachelek
 
 **Lesson Maintainers:** {{ page.maintainers | join: ', ' }}
 
