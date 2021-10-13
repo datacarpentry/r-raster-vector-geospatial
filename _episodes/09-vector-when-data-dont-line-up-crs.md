@@ -15,20 +15,6 @@ source: Rmd
 ---
 
 
-~~~
-## Warning in download.file("http://www.naturalearthdata.com/http//
-## www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", :
-## URL 'https://naciscdn.org/naturalearth/110m/physical/
-## ne_110m_graticules_all.zip': status was 'Couldn't resolve host name'
-~~~
-{: .warning}
-
-
-
-~~~
-## Error in download.file("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
-~~~
-{: .error}
 
 
 
@@ -122,7 +108,7 @@ Geometry type: MULTIPOLYGON
 Dimension:     XYZ
 Bounding box:  xmin: -124.7258 ymin: 24.49813 xmax: -66.9499 ymax: 49.38436
 z_range:       zmin: 0 zmax: 0
-CRS:           4326
+Geodetic CRS:  WGS 84
 ~~~
 {: .output}
 
@@ -162,7 +148,7 @@ Geometry type: MULTIPOLYGON
 Dimension:     XYZ
 Bounding box:  xmin: -124.7258 ymin: 24.49813 xmax: -66.9499 ymax: 49.38436
 z_range:       zmin: 0 zmax: 0
-CRS:           4326
+Geodetic CRS:  WGS 84
 ~~~
 {: .output}
 
@@ -196,23 +182,42 @@ st_crs(point_HARV)
 
 ~~~
 Coordinate Reference System:
-  User input: 32618 
+  User input: WGS 84 / UTM zone 18N 
   wkt:
-PROJCS["WGS_1984_UTM_Zone_18N",
-    GEOGCS["GCS_WGS_1984",
-        DATUM["WGS_1984",
-            SPHEROID["WGS_84",6378137,298.257223563]],
-        PRIMEM["Greenwich",0],
-        UNIT["Degree",0.017453292519943295],
-        AUTHORITY["EPSG","4326"]],
-    PROJECTION["Transverse_Mercator"],
-    PARAMETER["latitude_of_origin",0],
-    PARAMETER["central_meridian",-75],
-    PARAMETER["scale_factor",0.9996],
-    PARAMETER["false_easting",500000],
-    PARAMETER["false_northing",0],
-    UNIT["Meter",1],
-    AUTHORITY["EPSG","32618"]]
+PROJCRS["WGS 84 / UTM zone 18N",
+    BASEGEOGCRS["WGS 84",
+        DATUM["World Geodetic System 1984",
+            ELLIPSOID["WGS 84",6378137,298.257223563,
+                LENGTHUNIT["metre",1]]],
+        PRIMEM["Greenwich",0,
+            ANGLEUNIT["degree",0.0174532925199433]],
+        ID["EPSG",4326]],
+    CONVERSION["UTM zone 18N",
+        METHOD["Transverse Mercator",
+            ID["EPSG",9807]],
+        PARAMETER["Latitude of natural origin",0,
+            ANGLEUNIT["Degree",0.0174532925199433],
+            ID["EPSG",8801]],
+        PARAMETER["Longitude of natural origin",-75,
+            ANGLEUNIT["Degree",0.0174532925199433],
+            ID["EPSG",8802]],
+        PARAMETER["Scale factor at natural origin",0.9996,
+            SCALEUNIT["unity",1],
+            ID["EPSG",8805]],
+        PARAMETER["False easting",500000,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8806]],
+        PARAMETER["False northing",0,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8807]]],
+    CS[Cartesian,2],
+        AXIS["(E)",east,
+            ORDER[1],
+            LENGTHUNIT["metre",1]],
+        AXIS["(N)",north,
+            ORDER[2],
+            LENGTHUNIT["metre",1]],
+    ID["EPSG",32618]]
 ~~~
 {: .output}
 
@@ -244,14 +249,22 @@ st_crs(state_boundary_US)
 
 ~~~
 Coordinate Reference System:
-  User input: 4326 
+  User input: WGS 84 
   wkt:
-GEOGCS["GCS_WGS_1984",
-    DATUM["WGS_1984",
-        SPHEROID["WGS_84",6378137,298.257223563]],
-    PRIMEM["Greenwich",0],
-    UNIT["Degree",0.017453292519943295],
-    AUTHORITY["EPSG","4326"]]
+GEOGCRS["WGS 84",
+    DATUM["World Geodetic System 1984",
+        ELLIPSOID["WGS 84",6378137,298.257223563,
+            LENGTHUNIT["metre",1]]],
+    PRIMEM["Greenwich",0,
+        ANGLEUNIT["degree",0.0174532925199433]],
+    CS[ellipsoidal,2],
+        AXIS["latitude",north,
+            ORDER[1],
+            ANGLEUNIT["degree",0.0174532925199433]],
+        AXIS["longitude",east,
+            ORDER[2],
+            ANGLEUNIT["degree",0.0174532925199433]],
+    ID["EPSG",4326]]
 ~~~
 {: .output}
 
@@ -266,14 +279,22 @@ st_crs(country_boundary_US)
 
 ~~~
 Coordinate Reference System:
-  User input: 4326 
+  User input: WGS 84 
   wkt:
-GEOGCS["GCS_WGS_1984",
-    DATUM["WGS_1984",
-        SPHEROID["WGS_84",6378137,298.257223563]],
-    PRIMEM["Greenwich",0],
-    UNIT["Degree",0.017453292519943295],
-    AUTHORITY["EPSG","4326"]]
+GEOGCRS["WGS 84",
+    DATUM["World Geodetic System 1984",
+        ELLIPSOID["WGS 84",6378137,298.257223563,
+            LENGTHUNIT["metre",1]]],
+    PRIMEM["Greenwich",0,
+        ANGLEUNIT["degree",0.0174532925199433]],
+    CS[ellipsoidal,2],
+        AXIS["latitude",north,
+            ORDER[1],
+            ANGLEUNIT["degree",0.0174532925199433]],
+        AXIS["longitude",east,
+            ORDER[2],
+            ANGLEUNIT["degree",0.0174532925199433]],
+    ID["EPSG",4326]]
 ~~~
 {: .output}
 
@@ -401,7 +422,7 @@ ggplot() +
 > > Dimension:     XYZ
 > > Bounding box:  xmin: -80.51989 ymin: 37.91685 xmax: -66.9499 ymax: 47.45716
 > > z_range:       zmin: 0 zmax: 0
-> > CRS:           4326
+> > Geodetic CRS:  WGS 84
 > > ~~~
 > > {: .output}
 > > 

@@ -17,20 +17,6 @@ source: Rmd
 ---
 
 
-~~~
-## Warning in download.file("http://www.naturalearthdata.com/http//
-## www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", :
-## URL 'https://naciscdn.org/naturalearth/110m/physical/
-## ne_110m_graticules_all.zip': status was 'Couldn't resolve host name'
-~~~
-{: .warning}
-
-
-
-~~~
-## Error in download.file("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
-~~~
-{: .error}
 
 
 
@@ -81,7 +67,7 @@ Simple feature collection with 1 feature and 14 fields
 Geometry type: POINT
 Dimension:     XY
 Bounding box:  xmin: 732183.2 ymin: 4713265 xmax: 732183.2 ymax: 4713265
-CRS:           32618
+Projected CRS: WGS 84 / UTM zone 18N
   Un_ID Domain DomainName       SiteName Type       Sub_Type     Lat      Long
 1     A      1  Northeast Harvard Forest Core Advanced Tower 42.5369 -72.17266
   Zone  Easting Northing                Ownership    County annotation
@@ -141,7 +127,7 @@ Simple feature collection with 6 features and 15 fields
 Geometry type: MULTILINESTRING
 Dimension:     XY
 Bounding box:  xmin: 730741.2 ymin: 4712685 xmax: 732232.3 ymax: 4713726
-CRS:           32618
+Projected CRS: WGS 84 / UTM zone 18N
   OBJECTID_1 OBJECTID       TYPE             NOTES MISCNOTES RULEID
 1         14       48 woods road Locust Opening Rd      <NA>      5
 2         40       91   footpath              <NA>      <NA>      6
@@ -742,7 +728,7 @@ ggplot() +
 > > Dimension:     XYZ
 > > Bounding box:  xmin: -124.7258 ymin: 24.49813 xmax: -66.9499 ymax: 49.38436
 > > z_range:       zmin: 0 zmax: 0
-> > CRS:           4326
+> > Geodetic CRS:  WGS 84
 > > ~~~
 > > {: .output}
 > > 

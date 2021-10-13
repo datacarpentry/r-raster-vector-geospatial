@@ -20,20 +20,6 @@ source: Rmd
 ---
 
 
-~~~
-## Warning in download.file("http://www.naturalearthdata.com/http//
-## www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", :
-## URL 'https://naciscdn.org/naturalearth/110m/physical/
-## ne_110m_graticules_all.zip': status was 'Couldn't resolve host name'
-~~~
-{: .warning}
-
-
-
-~~~
-## Error in download.file("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
-~~~
-{: .error}
 
 
 
@@ -146,6 +132,40 @@ function. We introduced the `stack()` function in [an earlier episode]({{ site.b
 NDVI_HARV_stack <- stack(all_NDVI_HARV)
 ~~~
 {: .language-r}
+
+
+
+~~~
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+~~~
+{: .warning}
 
 We can explore the GeoTIFF tags (the embedded metadata) in a stack using the
 same syntax that we used on single-band raster objects in R including: `crs()`
@@ -485,7 +505,7 @@ derive our NDVI rasters to try to understand what appear to be outlier NDVI valu
 > > dimensions : 652, 696, 453792, 3  (nrow, ncol, ncell, nlayers)
 > > resolution : 30, 30  (x, y)
 > > extent     : 230775, 251655, 4704825, 4724385  (xmin, xmax, ymin, ymax)
-> > crs        : +proj=utm +zone=19 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+> > crs        : +proj=utm +zone=19 +datum=WGS84 +units=m +no_defs 
 > > names      : X277_HARV_landRGB.1, X277_HARV_landRGB.2, X277_HARV_landRGB.3 
 > > min values :                  26,                  29,                  79 
 > > max values :                 255,                 255,                 255 
@@ -522,12 +542,17 @@ derive our NDVI rasters to try to understand what appear to be outlier NDVI valu
 > > ggplot() +
 > >   geom_raster(data=RGB_277_df, aes(x, y), fill=RGB_277_df$rgb) + 
 > >   ggtitle("Julian day 277") 
+> > ```
+> > We then do the same steps for Julian day 293
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-12-rgb-277-1.png" title="plot of chunk rgb-277" alt="plot of chunk rgb-277" width="612" style="display: block; margin: auto;" />
-> > We then do the same steps for Julian day 293
 > > 
+> > 
+> > ~~~
+> > Error: attempt to use zero-length variable name
+> > ~~~
+> > {: .error}
 > > 
 > > ~~~
 > > # Julian day 293

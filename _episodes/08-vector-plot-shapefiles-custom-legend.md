@@ -20,20 +20,6 @@ source: Rmd
 ---
 
 
-~~~
-## Warning in download.file("http://www.naturalearthdata.com/http//
-## www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", :
-## URL 'https://naciscdn.org/naturalearth/110m/physical/
-## ne_110m_graticules_all.zip': status was 'Couldn't resolve host name'
-~~~
-{: .warning}
-
-
-
-~~~
-## Error in download.file("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
-~~~
-{: .error}
 
 
 
@@ -179,7 +165,7 @@ symbol of `shape` value.
 > > Geometry type: POINT
 > > Dimension:     XY
 > > Bounding box:  xmin: 731405.3 ymin: 4712845 xmax: 732275.3 ymax: 4713846
-> > CRS:           32618
+> > Projected CRS: WGS 84 / UTM zone 18N
 > > ~~~
 > > {: .output}
 > > 

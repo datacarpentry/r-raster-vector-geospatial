@@ -19,24 +19,41 @@ source: Rmd
 ---
 
 
+
+
+
+
 ~~~
-## Warning in download.file("http://www.naturalearthdata.com/http//
-## www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", :
-## URL 'https://naciscdn.org/naturalearth/110m/physical/
-## ne_110m_graticules_all.zip': status was 'Couldn't resolve host name'
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
+Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+prefer_proj): Discarded datum unknown in Proj4 definition
 ~~~
 {: .warning}
-
-
-
-~~~
-## Error in download.file("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
-~~~
-{: .error}
-
-
-
-
 
 > ## Things You’ll Need To Complete This Episode
 > See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
@@ -320,7 +337,54 @@ class(avg_NDVI_HARV$Date)
 > >                             pattern = ".tif$")
 > > 
 > > NDVI_stack_SJER <- stack(all_NDVI_SJER)
+> > ~~~
+> > {: .language-r}
 > > 
+> > 
+> > 
+> > ~~~
+> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+> > prefer_proj): Discarded datum unknown in Proj4 definition
+> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+> > prefer_proj): Discarded datum unknown in Proj4 definition
+> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+> > prefer_proj): Discarded datum unknown in Proj4 definition
+> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+> > prefer_proj): Discarded datum unknown in Proj4 definition
+> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+> > prefer_proj): Discarded datum unknown in Proj4 definition
+> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+> > prefer_proj): Discarded datum unknown in Proj4 definition
+> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+> > prefer_proj): Discarded datum unknown in Proj4 definition
+> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+> > prefer_proj): Discarded datum unknown in Proj4 definition
+> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+> > prefer_proj): Discarded datum unknown in Proj4 definition
+> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+> > prefer_proj): Discarded datum unknown in Proj4 definition
+> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+> > prefer_proj): Discarded datum unknown in Proj4 definition
+> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+> > prefer_proj): Discarded datum unknown in Proj4 definition
+> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+> > prefer_proj): Discarded datum unknown in Proj4 definition
+> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+> > prefer_proj): Discarded datum unknown in Proj4 definition
+> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+> > prefer_proj): Discarded datum unknown in Proj4 definition
+> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+> > prefer_proj): Discarded datum unknown in Proj4 definition
+> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+> > prefer_proj): Discarded datum unknown in Proj4 definition
+> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
+> > prefer_proj): Discarded datum unknown in Proj4 definition
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
 > > NDVI_stack_SJER <- NDVI_stack_SJER/10000
 > > ~~~
 > > {: .language-r}

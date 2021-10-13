@@ -19,20 +19,6 @@ source: Rmd
 ---
 
 
-~~~
-## Warning in download.file("http://www.naturalearthdata.com/http//
-## www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", :
-## URL 'https://naciscdn.org/naturalearth/110m/physical/
-## ne_110m_graticules_all.zip': status was 'Couldn't resolve host name'
-~~~
-{: .warning}
-
-
-
-~~~
-## Error in download.file("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
-~~~
-{: .error}
 
 
 
@@ -319,7 +305,7 @@ class      : RasterLayer
 dimensions : 1367, 1697, 2319799  (nrow, ncol, ncell)
 resolution : 1, 1  (x, y)
 extent     : 731453, 733150, 4712471, 4713838  (xmin, xmax, ymin, ymax)
-crs        : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+crs        : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
 source     : HARV_DSMhill.tif 
 names      : HARV_DSMhill 
 values     : -0.7136298, 0.9999997  (min, max)
