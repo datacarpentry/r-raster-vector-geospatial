@@ -149,6 +149,7 @@ from a spatial object in R, just like with data frames.
 For example, we might be interested only in features that are of `TYPE` "footpath". Once we subset out this data, we can use it as input to other code so that code only operates on the footpath lines.
 
 ```{r Subsetting-shapefiles}
+library(dplyr)
 footpath_HARV <- lines_HARV %>% 
   filter(TYPE == "footpath")
 nrow(footpath_HARV)
