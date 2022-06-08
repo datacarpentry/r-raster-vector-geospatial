@@ -139,8 +139,27 @@ not).
 mistakes as teaching moments: the most vital skill you can impart is how to
 debug and recover from unexpected errors.
 
+## Scheduling tips
+
+* You will almost certainly not have enough time to teach this entire curriculum. If pressed for time, 
+here is one possible shortened schedule you can use (used in a 4 half-day curriculum in May 2022):
+  * Day 1: Workshop intro, installation, troubleshooting. Episodes 1-5 of Introduction to R for Geospatial Data. 
+Skip everything in Episode 3 after "Vectors and Type Coercion, but keep Challenge 4. Skip everything in 
+Episode 4 starting at "Adding columns and rows in data frames". Only include the "Data frames" section of Episode 5.
+You can introduce factors on-the-fly in the rest of the curriculum.
+  * Day 2: Episodes 6-8 of Introduction to R for Geospatial Data, Episodes 6-8 of R for Raster and Vector Data (as far
+as you get in Episode 8).
+  * Day 3: Episodes 8-10 of R for Raster and Vector Data, Episodes 1-2 of R for Raster and Vector Data.
+  * Day 4: Episodes 3, 11 of Raster and Vector Data (and whatever else you'd like to cover), workshop conclusion.
+* It is a good idea to start your teaching with **vector data** (which is more immediately relevant to a greater number of 
+researchers, particularly those outside of environmental sciences), then move to raster data if there is extra time.
+* Skip Introduction to Geospatial Concepts. Spend at most 30 minutes reviewing things as this is currently not
+an interactive curriculum. Most of the concepts you can cover within the R for Raster and Vector Data curriculum.
+
 ## Common problems
 
-TBA - Instructors please add situations you encounter here.
+* Pre-installation for this curriculum is particularly important because geospatial data and software is large and can take
+a very long time to load during a workshop. Make sure everything is installed and downloaded ahead of time.
+*  TBA - Instructors please add other situations you encounter here.
 
 {% include links.md %}
