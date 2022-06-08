@@ -22,37 +22,6 @@ source: Rmd
 
 
 
-~~~
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-~~~
-{: .warning}
 
 
 > ## Things You’ll Need To Complete This Episode

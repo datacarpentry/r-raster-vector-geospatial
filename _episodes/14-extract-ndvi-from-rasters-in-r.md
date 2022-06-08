@@ -23,37 +23,6 @@ source: Rmd
 
 
 
-~~~
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-~~~
-{: .warning}
 
 > ## Things You’ll Need To Complete This Episode
 > See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
@@ -337,54 +306,7 @@ class(avg_NDVI_HARV$Date)
 > >                             pattern = ".tif$")
 > > 
 > > NDVI_stack_SJER <- stack(all_NDVI_SJER)
-> > ~~~
-> > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-> > prefer_proj): Discarded datum unknown in Proj4 definition
-> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-> > prefer_proj): Discarded datum unknown in Proj4 definition
-> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-> > prefer_proj): Discarded datum unknown in Proj4 definition
-> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-> > prefer_proj): Discarded datum unknown in Proj4 definition
-> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-> > prefer_proj): Discarded datum unknown in Proj4 definition
-> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-> > prefer_proj): Discarded datum unknown in Proj4 definition
-> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-> > prefer_proj): Discarded datum unknown in Proj4 definition
-> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-> > prefer_proj): Discarded datum unknown in Proj4 definition
-> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-> > prefer_proj): Discarded datum unknown in Proj4 definition
-> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-> > prefer_proj): Discarded datum unknown in Proj4 definition
-> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-> > prefer_proj): Discarded datum unknown in Proj4 definition
-> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-> > prefer_proj): Discarded datum unknown in Proj4 definition
-> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-> > prefer_proj): Discarded datum unknown in Proj4 definition
-> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-> > prefer_proj): Discarded datum unknown in Proj4 definition
-> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-> > prefer_proj): Discarded datum unknown in Proj4 definition
-> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-> > prefer_proj): Discarded datum unknown in Proj4 definition
-> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-> > prefer_proj): Discarded datum unknown in Proj4 definition
-> > Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-> > prefer_proj): Discarded datum unknown in Proj4 definition
-> > ~~~
-> > {: .warning}
-> > 
-> > 
-> > 
-> > ~~~
 > > NDVI_stack_SJER <- NDVI_stack_SJER/10000
 > > ~~~
 > > {: .language-r}

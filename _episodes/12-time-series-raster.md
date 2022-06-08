@@ -133,40 +133,6 @@ NDVI_HARV_stack <- stack(all_NDVI_HARV)
 ~~~
 {: .language-r}
 
-
-
-~~~
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj =
-prefer_proj): Discarded datum unknown in Proj4 definition
-~~~
-{: .warning}
-
 We can explore the GeoTIFF tags (the embedded metadata) in a stack using the
 same syntax that we used on single-band raster objects in R including: `crs()`
 (coordinate reference system), `extent()` and `res()` (resolution; specifically
@@ -181,8 +147,46 @@ crs(NDVI_HARV_stack)
 
 
 ~~~
-CRS arguments:
+Coordinate Reference System:
+Deprecated Proj.4 representation:
  +proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs 
+WKT2 2019 representation:
+PROJCRS["UTM Zone 19, Northern Hemisphere",
+    BASEGEOGCRS["WGS 84",
+        DATUM["unknown",
+            ELLIPSOID["WGS84",6378137,298.257223563,
+                LENGTHUNIT["metre",1,
+                    ID["EPSG",9001]]]],
+        PRIMEM["Greenwich",0,
+            ANGLEUNIT["degree",0.0174532925199433,
+                ID["EPSG",9122]]]],
+    CONVERSION["Transverse Mercator",
+        METHOD["Transverse Mercator",
+            ID["EPSG",9807]],
+        PARAMETER["Latitude of natural origin",0,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8801]],
+        PARAMETER["Longitude of natural origin",-69,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8802]],
+        PARAMETER["Scale factor at natural origin",0.9996,
+            SCALEUNIT["unity",1],
+            ID["EPSG",8805]],
+        PARAMETER["False easting",500000,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8806]],
+        PARAMETER["False northing",0,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8807]]],
+    CS[Cartesian,2],
+        AXIS["easting",east,
+            ORDER[1],
+            LENGTHUNIT["metre",1,
+                ID["EPSG",9001]]],
+        AXIS["northing",north,
+            ORDER[2],
+            LENGTHUNIT["metre",1,
+                ID["EPSG",9001]]]] 
 ~~~
 {: .output}
 
@@ -542,17 +546,12 @@ derive our NDVI rasters to try to understand what appear to be outlier NDVI valu
 > > ggplot() +
 > >   geom_raster(data=RGB_277_df, aes(x, y), fill=RGB_277_df$rgb) + 
 > >   ggtitle("Julian day 277") 
-> > ```
-> > We then do the same steps for Julian day 293
 > > ~~~
 > > {: .language-r}
 > > 
+> > <img src="../fig/rmd-12-rgb-277-1.png" title="plot of chunk rgb-277" alt="plot of chunk rgb-277" width="612" style="display: block; margin: auto;" />
+> > We then do the same steps for Julian day 293
 > > 
-> > 
-> > ~~~
-> > Error: attempt to use zero-length variable name
-> > ~~~
-> > {: .error}
 > > 
 > > ~~~
 > > # Julian day 293
