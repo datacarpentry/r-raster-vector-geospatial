@@ -158,4 +158,8 @@ an interactive curriculum. Most of the concepts you can cover within the R for R
 
 ## Common problems
 
+* Pre-installation for this curriculum is particularly important because geospatial data and software is large and can take
+a very long time to load during a workshop. Make sure everything is installed and downloaded ahead of time.
+*  TBA - Instructors please add other situations you encounter here.
+
 {% include links.md %}
