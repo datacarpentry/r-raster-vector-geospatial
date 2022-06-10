@@ -17,6 +17,12 @@ source: Rmd
 
 
 
+~~~
+Error: package or namespace load failed for 'sf' in dyn.load(file, DLLpath = DLLpath, ...):
+ unable to load shared object '/home/runner/work/_temp/Library/units/libs/units.so':
+  libudunits2.so.0: cannot open shared object file: No such file or directory
+~~~
+{: .error}
 
 > ## Things You’ll Need To Complete This Episode
 > See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
@@ -37,6 +43,31 @@ We will continue to work with the three shapefiles that we loaded in the
 [Open and Plot Shapefiles in R]({{site.baseurl}}/06-vector-open-shapefile-in-r/) episode.
 
 
+~~~
+Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp"): could not find function "st_read"
+~~~
+{: .error}
+
+
+
+~~~
+Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp"): could not find function "st_read"
+~~~
+{: .error}
+
+
+
+~~~
+Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp"): could not find function "st_read"
+~~~
+{: .error}
+
+
+
+~~~
+Error in eval(expr, envir, enclos): object 'lines_HARV' not found
+~~~
+{: .error}
 
 ## Working With Spatial Data From Different Sources
 
@@ -100,17 +131,9 @@ state_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/
 
 
 ~~~
-Reading layer `US-State-Boundaries-Census-2014' from data source 
-  `/home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp' 
-  using driver `ESRI Shapefile'
-Simple feature collection with 58 features and 10 fields
-Geometry type: MULTIPOLYGON
-Dimension:     XYZ
-Bounding box:  xmin: -124.7258 ymin: 24.49813 xmax: -66.9499 ymax: 49.38436
-z_range:       zmin: 0 zmax: 0
-Geodetic CRS:  WGS 84
+Error in st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp"): could not find function "st_read"
 ~~~
-{: .output}
+{: .error}
 
 Next, let's plot the U.S. states data:
 
@@ -123,7 +146,12 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-09-find-coordinates-1.png" title="plot of chunk find-coordinates" alt="plot of chunk find-coordinates" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in fortify(data): object 'state_boundary_US' not found
+~~~
+{: .error}
 
 ## U.S. Boundary Layer
 
@@ -140,17 +168,9 @@ country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layer
 
 
 ~~~
-Reading layer `US-Boundary-Dissolved-States' from data source 
-  `/home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp' 
-  using driver `ESRI Shapefile'
-Simple feature collection with 1 feature and 9 fields
-Geometry type: MULTIPOLYGON
-Dimension:     XYZ
-Bounding box:  xmin: -124.7258 ymin: 24.49813 xmax: -66.9499 ymax: 49.38436
-z_range:       zmin: 0 zmax: 0
-Geodetic CRS:  WGS 84
+Error in st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp"): could not find function "st_read"
 ~~~
-{: .output}
+{: .error}
 
 If we specify a thicker line width using `size = 2` for the border layer, it will
 make our map pop! We will also manually set the colors of the state boundaries
@@ -166,7 +186,12 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-09-us-boundaries-thickness-1.png" title="plot of chunk us-boundaries-thickness" alt="plot of chunk us-boundaries-thickness" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in fortify(data): object 'country_boundary_US' not found
+~~~
+{: .error}
 
 Next, let's add the location of a flux tower where our study area is.
 As we are adding these layers, take note of the CRS of each object.
@@ -181,45 +206,9 @@ st_crs(point_HARV)
 
 
 ~~~
-Coordinate Reference System:
-  User input: WGS 84 / UTM zone 18N 
-  wkt:
-PROJCRS["WGS 84 / UTM zone 18N",
-    BASEGEOGCRS["WGS 84",
-        DATUM["World Geodetic System 1984",
-            ELLIPSOID["WGS 84",6378137,298.257223563,
-                LENGTHUNIT["metre",1]]],
-        PRIMEM["Greenwich",0,
-            ANGLEUNIT["degree",0.0174532925199433]],
-        ID["EPSG",4326]],
-    CONVERSION["UTM zone 18N",
-        METHOD["Transverse Mercator",
-            ID["EPSG",9807]],
-        PARAMETER["Latitude of natural origin",0,
-            ANGLEUNIT["Degree",0.0174532925199433],
-            ID["EPSG",8801]],
-        PARAMETER["Longitude of natural origin",-75,
-            ANGLEUNIT["Degree",0.0174532925199433],
-            ID["EPSG",8802]],
-        PARAMETER["Scale factor at natural origin",0.9996,
-            SCALEUNIT["unity",1],
-            ID["EPSG",8805]],
-        PARAMETER["False easting",500000,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8806]],
-        PARAMETER["False northing",0,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8807]]],
-    CS[Cartesian,2],
-        AXIS["(E)",east,
-            ORDER[1],
-            LENGTHUNIT["metre",1]],
-        AXIS["(N)",north,
-            ORDER[2],
-            LENGTHUNIT["metre",1]],
-    ID["EPSG",32618]]
+Error in st_crs(point_HARV): could not find function "st_crs"
 ~~~
-{: .output}
+{: .error}
 
 Our project string for `DSM_HARV` specifies the UTM projection as follows:
 
@@ -248,25 +237,9 @@ st_crs(state_boundary_US)
 
 
 ~~~
-Coordinate Reference System:
-  User input: WGS 84 
-  wkt:
-GEOGCRS["WGS 84",
-    DATUM["World Geodetic System 1984",
-        ELLIPSOID["WGS 84",6378137,298.257223563,
-            LENGTHUNIT["metre",1]]],
-    PRIMEM["Greenwich",0,
-        ANGLEUNIT["degree",0.0174532925199433]],
-    CS[ellipsoidal,2],
-        AXIS["latitude",north,
-            ORDER[1],
-            ANGLEUNIT["degree",0.0174532925199433]],
-        AXIS["longitude",east,
-            ORDER[2],
-            ANGLEUNIT["degree",0.0174532925199433]],
-    ID["EPSG",4326]]
+Error in st_crs(state_boundary_US): could not find function "st_crs"
 ~~~
-{: .output}
+{: .error}
 
 
 
@@ -278,25 +251,9 @@ st_crs(country_boundary_US)
 
 
 ~~~
-Coordinate Reference System:
-  User input: WGS 84 
-  wkt:
-GEOGCRS["WGS 84",
-    DATUM["World Geodetic System 1984",
-        ELLIPSOID["WGS 84",6378137,298.257223563,
-            LENGTHUNIT["metre",1]]],
-    PRIMEM["Greenwich",0,
-        ANGLEUNIT["degree",0.0174532925199433]],
-    CS[ellipsoidal,2],
-        AXIS["latitude",north,
-            ORDER[1],
-            ANGLEUNIT["degree",0.0174532925199433]],
-        AXIS["longitude",east,
-            ORDER[2],
-            ANGLEUNIT["degree",0.0174532925199433]],
-    ID["EPSG",4326]]
+Error in st_crs(country_boundary_US): could not find function "st_crs"
 ~~~
-{: .output}
+{: .error}
 
 Our project string for `state_boundary_US` and `country_boundary_US` specifies
 the lat/long projection as follows:
@@ -336,10 +293,9 @@ st_bbox(point_HARV)
 
 
 ~~~
-     xmin      ymin      xmax      ymax 
- 732183.2 4713265.0  732183.2 4713265.0 
+Error in st_bbox(point_HARV): could not find function "st_bbox"
 ~~~
-{: .output}
+{: .error}
 
 And then the extent for the state boundary data.
 
@@ -352,10 +308,9 @@ st_bbox(state_boundary_US)
 
 
 ~~~
-      xmin       ymin       xmax       ymax 
--124.72584   24.49813  -66.94989   49.38436 
+Error in st_bbox(state_boundary_US): could not find function "st_bbox"
 ~~~
-{: .output}
+{: .error}
 
 Note the difference in the units for each object. The extent for
 `state_boundary_US` is in latitude and longitude which yields smaller numbers
@@ -391,7 +346,12 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-09-layer-point-on-states-1.png" title="plot of chunk layer-point-on-states" alt="plot of chunk layer-point-on-states" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in fortify(data): object 'country_boundary_US' not found
+~~~
+{: .error}
 
 > ## Challenge - Plot Multiple Layers of Spatial Data
 >
@@ -414,17 +374,9 @@ ggplot() +
 > > 
 > > 
 > > ~~~
-> > Reading layer `Boundary-US-State-NEast' from data source 
-> >   `/home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp' 
-> >   using driver `ESRI Shapefile'
-> > Simple feature collection with 12 features and 9 fields
-> > Geometry type: MULTIPOLYGON
-> > Dimension:     XYZ
-> > Bounding box:  xmin: -80.51989 ymin: 37.91685 xmax: -66.9499 ymax: 47.45716
-> > z_range:       zmin: 0 zmax: 0
-> > Geodetic CRS:  WGS 84
+> > Error in st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp"): could not find function "st_read"
 > > ~~~
-> > {: .output}
+> > {: .error}
 > > 
 > > 
 > > 
@@ -440,7 +392,12 @@ ggplot() +
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-09-ne-states-harv-1.png" title="plot of chunk ne-states-harv" alt="plot of chunk ne-states-harv" width="612" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error in fortify(data): object 'NE.States.Boundary.US' not found
+> > ~~~
+> > {: .error}
 > {: .solution}
 {: .challenge}
 

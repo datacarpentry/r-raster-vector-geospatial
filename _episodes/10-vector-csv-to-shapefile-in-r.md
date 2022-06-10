@@ -20,8 +20,39 @@ source: Rmd
 
 
 
+~~~
+Error: package or namespace load failed for 'sf' in dyn.load(file, DLLpath = DLLpath, ...):
+ unable to load shared object '/home/runner/work/_temp/Library/units/libs/units.so':
+  libudunits2.so.0: cannot open shared object file: No such file or directory
+~~~
+{: .error}
 
 
+~~~
+Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp"): could not find function "st_read"
+~~~
+{: .error}
+
+
+
+~~~
+Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp"): could not find function "st_read"
+~~~
+{: .error}
+
+
+
+~~~
+Error in st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp"): could not find function "st_read"
+~~~
+{: .error}
+
+
+
+~~~
+Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp"): could not find function "st_read"
+~~~
+{: .error}
 
 > ## Things You’ll Need To Complete This Episode
 > See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
@@ -215,45 +246,9 @@ st_crs(point_HARV)
 
 
 ~~~
-Coordinate Reference System:
-  User input: WGS 84 / UTM zone 18N 
-  wkt:
-PROJCRS["WGS 84 / UTM zone 18N",
-    BASEGEOGCRS["WGS 84",
-        DATUM["World Geodetic System 1984",
-            ELLIPSOID["WGS 84",6378137,298.257223563,
-                LENGTHUNIT["metre",1]]],
-        PRIMEM["Greenwich",0,
-            ANGLEUNIT["degree",0.0174532925199433]],
-        ID["EPSG",4326]],
-    CONVERSION["UTM zone 18N",
-        METHOD["Transverse Mercator",
-            ID["EPSG",9807]],
-        PARAMETER["Latitude of natural origin",0,
-            ANGLEUNIT["Degree",0.0174532925199433],
-            ID["EPSG",8801]],
-        PARAMETER["Longitude of natural origin",-75,
-            ANGLEUNIT["Degree",0.0174532925199433],
-            ID["EPSG",8802]],
-        PARAMETER["Scale factor at natural origin",0.9996,
-            SCALEUNIT["unity",1],
-            ID["EPSG",8805]],
-        PARAMETER["False easting",500000,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8806]],
-        PARAMETER["False northing",0,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8807]]],
-    CS[Cartesian,2],
-        AXIS["(E)",east,
-            ORDER[1],
-            LENGTHUNIT["metre",1]],
-        AXIS["(N)",north,
-            ORDER[2],
-            LENGTHUNIT["metre",1]],
-    ID["EPSG",32618]]
+Error in st_crs(point_HARV): could not find function "st_crs"
 ~~~
-{: .output}
+{: .error}
 
 The output above shows that the points shapefile is in
 UTM zone 18N. We can thus use the CRS from that spatial object to convert our
@@ -265,6 +260,19 @@ Next, let's create a `crs` object that we can use to define the CRS of our
 
 ~~~
 utm18nCRS <- st_crs(point_HARV)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in st_crs(point_HARV): could not find function "st_crs"
+~~~
+{: .error}
+
+
+
+~~~
 utm18nCRS
 ~~~
 {: .language-r}
@@ -272,45 +280,9 @@ utm18nCRS
 
 
 ~~~
-Coordinate Reference System:
-  User input: WGS 84 / UTM zone 18N 
-  wkt:
-PROJCRS["WGS 84 / UTM zone 18N",
-    BASEGEOGCRS["WGS 84",
-        DATUM["World Geodetic System 1984",
-            ELLIPSOID["WGS 84",6378137,298.257223563,
-                LENGTHUNIT["metre",1]]],
-        PRIMEM["Greenwich",0,
-            ANGLEUNIT["degree",0.0174532925199433]],
-        ID["EPSG",4326]],
-    CONVERSION["UTM zone 18N",
-        METHOD["Transverse Mercator",
-            ID["EPSG",9807]],
-        PARAMETER["Latitude of natural origin",0,
-            ANGLEUNIT["Degree",0.0174532925199433],
-            ID["EPSG",8801]],
-        PARAMETER["Longitude of natural origin",-75,
-            ANGLEUNIT["Degree",0.0174532925199433],
-            ID["EPSG",8802]],
-        PARAMETER["Scale factor at natural origin",0.9996,
-            SCALEUNIT["unity",1],
-            ID["EPSG",8805]],
-        PARAMETER["False easting",500000,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8806]],
-        PARAMETER["False northing",0,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8807]]],
-    CS[Cartesian,2],
-        AXIS["(E)",east,
-            ORDER[1],
-            LENGTHUNIT["metre",1]],
-        AXIS["(N)",north,
-            ORDER[2],
-            LENGTHUNIT["metre",1]],
-    ID["EPSG",32618]]
+Error in eval(expr, envir, enclos): object 'utm18nCRS' not found
 ~~~
-{: .output}
+{: .error}
 
 
 
@@ -322,9 +294,9 @@ class(utm18nCRS)
 
 
 ~~~
-[1] "crs"
+Error in eval(expr, envir, enclos): object 'utm18nCRS' not found
 ~~~
-{: .output}
+{: .error}
 
 ## .csv to sf object
 Next, let's convert our dataframe into an `sf` object. To do
@@ -341,6 +313,13 @@ plot_locations_sp_HARV <- st_as_sf(plot_locations_HARV, coords = c("easting", "n
 ~~~
 {: .language-r}
 
+
+
+~~~
+Error in st_as_sf(plot_locations_HARV, coords = c("easting", "northing"), : could not find function "st_as_sf"
+~~~
+{: .error}
+
 We should double check the CRS to make sure it is correct.
 
 
@@ -352,45 +331,9 @@ st_crs(plot_locations_sp_HARV)
 
 
 ~~~
-Coordinate Reference System:
-  User input: WGS 84 / UTM zone 18N 
-  wkt:
-PROJCRS["WGS 84 / UTM zone 18N",
-    BASEGEOGCRS["WGS 84",
-        DATUM["World Geodetic System 1984",
-            ELLIPSOID["WGS 84",6378137,298.257223563,
-                LENGTHUNIT["metre",1]]],
-        PRIMEM["Greenwich",0,
-            ANGLEUNIT["degree",0.0174532925199433]],
-        ID["EPSG",4326]],
-    CONVERSION["UTM zone 18N",
-        METHOD["Transverse Mercator",
-            ID["EPSG",9807]],
-        PARAMETER["Latitude of natural origin",0,
-            ANGLEUNIT["Degree",0.0174532925199433],
-            ID["EPSG",8801]],
-        PARAMETER["Longitude of natural origin",-75,
-            ANGLEUNIT["Degree",0.0174532925199433],
-            ID["EPSG",8802]],
-        PARAMETER["Scale factor at natural origin",0.9996,
-            SCALEUNIT["unity",1],
-            ID["EPSG",8805]],
-        PARAMETER["False easting",500000,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8806]],
-        PARAMETER["False northing",0,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8807]]],
-    CS[Cartesian,2],
-        AXIS["(E)",east,
-            ORDER[1],
-            LENGTHUNIT["metre",1]],
-        AXIS["(N)",north,
-            ORDER[2],
-            LENGTHUNIT["metre",1]],
-    ID["EPSG",32618]]
+Error in st_crs(plot_locations_sp_HARV): could not find function "st_crs"
 ~~~
-{: .output}
+{: .error}
 
 ## Plot Spatial Object
 We now have a spatial R object, we can plot our newly created spatial object.
@@ -403,7 +346,12 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-10-plot-data-points-1.png" title="plot of chunk plot-data-points" alt="plot of chunk plot-data-points" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in fortify(data): object 'plot_locations_sp_HARV' not found
+~~~
+{: .error}
 
 ## Plot Extent
 
@@ -422,7 +370,12 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-10-plot-data-1.png" title="plot of chunk plot-data" alt="plot of chunk plot-data" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in fortify(data): object 'aoi_boundary_HARV' not found
+~~~
+{: .error}
 
 When we plot the two layers together, `ggplot` sets the plot boundaries
 so that they are large enough to include all of the data included in all of the layers.
@@ -486,6 +439,19 @@ That's really handy!
 > > 
 > > ~~~
 > > geogCRS <- st_crs(country_boundary_US)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in st_crs(country_boundary_US): could not find function "st_crs"
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
 > > geogCRS
 > > ~~~
 > > {: .language-r}
@@ -493,25 +459,9 @@ That's really handy!
 > > 
 > > 
 > > ~~~
-> > Coordinate Reference System:
-> >   User input: WGS 84 
-> >   wkt:
-> > GEOGCRS["WGS 84",
-> >     DATUM["World Geodetic System 1984",
-> >         ELLIPSOID["WGS 84",6378137,298.257223563,
-> >             LENGTHUNIT["metre",1]]],
-> >     PRIMEM["Greenwich",0,
-> >         ANGLEUNIT["degree",0.0174532925199433]],
-> >     CS[ellipsoidal,2],
-> >         AXIS["latitude",north,
-> >             ORDER[1],
-> >             ANGLEUNIT["degree",0.0174532925199433]],
-> >         AXIS["longitude",east,
-> >             ORDER[2],
-> >             ANGLEUNIT["degree",0.0174532925199433]],
-> >     ID["EPSG",4326]]
+> > Error in eval(expr, envir, enclos): object 'geogCRS' not found
 > > ~~~
-> > {: .output}
+> > {: .error}
 > >
 > > Then we will convert our new data to a spatial dataframe, using
 > > the `geogCRS` object as our CRS.
@@ -521,6 +471,13 @@ That's really handy!
 > > newPlot.Sp.HARV <- st_as_sf(newplot_locations_HARV, coords = c("decimalLon", "decimalLat"), crs = geogCRS)
 > > ~~~
 > > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in st_as_sf(newplot_locations_HARV, coords = c("decimalLon", "decimalLat"), : could not find function "st_as_sf"
+> > ~~~
+> > {: .error}
 > >
 > > Next we'll confirm that the CRS for our new object is correct.
 > >
@@ -533,25 +490,9 @@ That's really handy!
 > > 
 > > 
 > > ~~~
-> > Coordinate Reference System:
-> >   User input: WGS 84 
-> >   wkt:
-> > GEOGCRS["WGS 84",
-> >     DATUM["World Geodetic System 1984",
-> >         ELLIPSOID["WGS 84",6378137,298.257223563,
-> >             LENGTHUNIT["metre",1]]],
-> >     PRIMEM["Greenwich",0,
-> >         ANGLEUNIT["degree",0.0174532925199433]],
-> >     CS[ellipsoidal,2],
-> >         AXIS["latitude",north,
-> >             ORDER[1],
-> >             ANGLEUNIT["degree",0.0174532925199433]],
-> >         AXIS["longitude",east,
-> >             ORDER[2],
-> >             ANGLEUNIT["degree",0.0174532925199433]],
-> >     ID["EPSG",4326]]
+> > Error in st_crs(newPlot.Sp.HARV): could not find function "st_crs"
 > > ~~~
-> > {: .output}
+> > {: .error}
 > >
 > > We will be adding these new data points to the plot we
 > > created before. The data for the earlier plot was in UTM.
@@ -568,7 +509,12 @@ That's really handy!
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-10-plot-locations-harv-orange-1.png" title="plot of chunk plot-locations-harv-orange" alt="plot of chunk plot-locations-harv-orange" width="612" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error in fortify(data): object 'plot_locations_sp_HARV' not found
+> > ~~~
+> > {: .error}
 > {: .solution}
 {: .challenge}
 

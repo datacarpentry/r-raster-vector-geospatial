@@ -1,5 +1,5 @@
 current directory: /home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/.vendor/bundle/ruby/2.7.0/gems/commonmarker-0.23.5/ext/commonmarker
-/opt/hostedtoolcache/Ruby/2.7.6/x64/bin/ruby -I /opt/hostedtoolcache/Ruby/2.7.6/x64/lib/ruby/2.7.0 -r ./siteconf20220608-13706-uwfzma.rb extconf.rb
+/opt/hostedtoolcache/Ruby/2.7.6/x64/bin/ruby -I /opt/hostedtoolcache/Ruby/2.7.6/x64/lib/ruby/2.7.0 -r ./siteconf20220610-12156-4zuios.rb extconf.rb
 creating Makefile
 
 current directory: /home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/.vendor/bundle/ruby/2.7.0/gems/commonmarker-0.23.5/ext/commonmarker
@@ -225,5 +225,5 @@ make[1]: Entering directory '/home/runner/work/r-raster-vector-geospatial/r-rast
 Makefile:260: warning: overriding recipe for target 'commonmarker.so'
 make[1]: Entering directory '/home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/.vendor/bundle/ruby/2.7.0/gems/commonmarker-0.23.5/ext/commonmarker'
 :260: warning: ignoring old recipe for target 'commonmarker.so'
-/usr/bin/install -c -m 0755 commonmarker.so ./.gem.20220608-13706-jp8dlj/commonmarker
+/usr/bin/install -c -m 0755 commonmarker.so ./.gem.20220610-12156-uchuqt/commonmarker
 make[1]: Leaving directory '/home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/.vendor/bundle/ruby/2.7.0/gems/commonmarker-0.23.5/ext/commonmarker'
