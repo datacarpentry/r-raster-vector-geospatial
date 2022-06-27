@@ -5,6 +5,7 @@ on:
       - gh-pages
       - main
   pull_request: []
+  workflow_dispatch:
 jobs:
   build-website:
     if: ${{ !endsWith(github.repository, '/styles') }}
