@@ -19,32 +19,8 @@ source: Rmd
 
 
 
-~~~
-Error: package or namespace load failed for 'sf' in dyn.load(file, DLLpath = DLLpath, ...):
- unable to load shared object '/home/runner/work/_temp/Library/units/libs/units.so':
-  libudunits2.so.0: cannot open shared object file: No such file or directory
-~~~
-{: .error}
 
 
-~~~
-Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp"): could not find function "st_read"
-~~~
-{: .error}
-
-
-
-~~~
-Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp"): could not find function "st_read"
-~~~
-{: .error}
-
-
-
-~~~
-Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp"): could not find function "st_read"
-~~~
-{: .error}
 
 > ## Things You’ll Need To Complete This Episode
 > See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
@@ -87,9 +63,19 @@ point_HARV
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'point_HARV' not found
+Simple feature collection with 1 feature and 14 fields
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: 732183.2 ymin: 4713265 xmax: 732183.2 ymax: 4713265
+Projected CRS: WGS 84 / UTM zone 18N
+  Un_ID Domain DomainName       SiteName Type       Sub_Type     Lat      Long
+1     A      1  Northeast Harvard Forest Core Advanced Tower 42.5369 -72.17266
+  Zone  Easting Northing                Ownership    County annotation
+1   18 732183.2  4713265 Harvard University, LTER Worcester         C1
+                  geometry
+1 POINT (732183.2 4713265)
 ~~~
-{: .error}
+{: .output}
 
 We can use the `ncol` function to count the number of attributes associated with a spatial object too. Note that the geometry is just another column and counts towards the total.
 
@@ -102,9 +88,9 @@ ncol(lines_HARV)
 
 
 ~~~
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'ncol': object 'lines_HARV' not found
+[1] 16
 ~~~
-{: .error}
+{: .output}
 
 We can view the individual name of each attribute using the
 `names()` function in R:
@@ -118,9 +104,12 @@ names(lines_HARV)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
+ [1] "OBJECTID_1" "OBJECTID"   "TYPE"       "NOTES"      "MISCNOTES" 
+ [6] "RULEID"     "MAPLABEL"   "SHAPE_LENG" "LABEL"      "BIKEHORSE" 
+[11] "RESVEHICLE" "RECMAP"     "Shape_Le_1" "ResVehic_1" "BicyclesHo"
+[16] "geometry"  
 ~~~
-{: .error}
+{: .output}
 
 We could also view just the first 6 rows
 of attribute values using the `head()` function to get a preview of the data:
@@ -134,9 +123,41 @@ head(lines_HARV)
 
 
 ~~~
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'head': object 'lines_HARV' not found
+Simple feature collection with 6 features and 15 fields
+Geometry type: MULTILINESTRING
+Dimension:     XY
+Bounding box:  xmin: 730741.2 ymin: 4712685 xmax: 732232.3 ymax: 4713726
+Projected CRS: WGS 84 / UTM zone 18N
+  OBJECTID_1 OBJECTID       TYPE             NOTES MISCNOTES RULEID
+1         14       48 woods road Locust Opening Rd      <NA>      5
+2         40       91   footpath              <NA>      <NA>      6
+3         41      106   footpath              <NA>      <NA>      6
+4        211      279 stone wall              <NA>      <NA>      1
+5        212      280 stone wall              <NA>      <NA>      1
+6        213      281 stone wall              <NA>      <NA>      1
+           MAPLABEL SHAPE_LENG             LABEL BIKEHORSE RESVEHICLE RECMAP
+1 Locust Opening Rd 1297.35706 Locust Opening Rd         Y         R1      Y
+2              <NA>  146.29984              <NA>         Y         R1      Y
+3              <NA>  676.71804              <NA>         Y         R2      Y
+4              <NA>  231.78957              <NA>      <NA>       <NA>   <NA>
+5              <NA>   45.50864              <NA>      <NA>       <NA>   <NA>
+6              <NA>  198.39043              <NA>      <NA>       <NA>   <NA>
+  Shape_Le_1                            ResVehic_1                  BicyclesHo
+1 1297.10617    R1 - All Research Vehicles Allowed Bicycles and Horses Allowed
+2  146.29983    R1 - All Research Vehicles Allowed Bicycles and Horses Allowed
+3  676.71807 R2 - 4WD/High Clearance Vehicles Only Bicycles and Horses Allowed
+4  231.78962                                  <NA>                        <NA>
+5   45.50859                                  <NA>                        <NA>
+6  198.39041                                  <NA>                        <NA>
+                        geometry
+1 MULTILINESTRING ((730819.2 ...
+2 MULTILINESTRING ((732040.2 ...
+3 MULTILINESTRING ((732057 47...
+4 MULTILINESTRING ((731903.6 ...
+5 MULTILINESTRING ((732039.1 ...
+6 MULTILINESTRING ((732056.2 ...
 ~~~
-{: .error}
+{: .output}
 
 > ## Challenge: Attributes for Different Spatial Classes
 >
@@ -160,9 +181,9 @@ Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in sele
 > > 
 > > 
 > > ~~~
-> > Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'ncol': object 'point_HARV' not found
+> > [1] 15
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > 
 > > 
 > > 
@@ -174,9 +195,9 @@ Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in sele
 > > 
 > > 
 > > ~~~
-> > Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'ncol': object 'aoi_boundary_HARV' not found
+> > [1] 2
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > 2) Ownership information is in a column named `Ownership`: 
 > > 
 > > ~~~
@@ -187,9 +208,9 @@ Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in sele
 > > 
 > > 
 > > ~~~
-> > Error in eval(expr, envir, enclos): object 'point_HARV' not found
+> > [1] "Harvard University, LTER"
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > 3) To see a list of all of the attributes, we can use the
 > > `names()` function: 
 > > 
@@ -201,9 +222,11 @@ Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in sele
 > > 
 > > 
 > > ~~~
-> > Error in eval(expr, envir, enclos): object 'point_HARV' not found
+> >  [1] "Un_ID"      "Domain"     "DomainName" "SiteName"   "Type"      
+> >  [6] "Sub_Type"   "Lat"        "Long"       "Zone"       "Easting"   
+> > [11] "Northing"   "Ownership"  "County"     "annotation" "geometry"  
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > "Country" is not an attribute of this object. 
 > {: .solution}
 {: .challenge}
@@ -224,9 +247,11 @@ lines_HARV$TYPE
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'lines_HARV' not found
+ [1] "woods road" "footpath"   "footpath"   "stone wall" "stone wall"
+ [6] "stone wall" "stone wall" "stone wall" "stone wall" "boardwalk" 
+[11] "woods road" "woods road" "woods road"
 ~~~
-{: .error}
+{: .output}
 
 To see only unique values within the `TYPE` field, we can use the
 `levels()` function for extracting the possible values of a
@@ -242,9 +267,9 @@ levels(lines_HARV$TYPE)
 
 
 ~~~
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'levels': object 'lines_HARV' not found
+NULL
 ~~~
-{: .error}
+{: .output}
 
 ### Subset Features
 We can use the `filter()` function from `dplyr` that we worked with in [an earlier lesson](https://datacarpentry.org/r-intro-geospatial/06-dplyr) to select a subset of features
@@ -256,19 +281,6 @@ For example, we might be interested only in features that are of `TYPE` "footpat
 ~~~
 footpath_HARV <- lines_HARV %>% 
   filter(TYPE == "footpath")
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in filter(., TYPE == "footpath"): object 'lines_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 nrow(footpath_HARV)
 ~~~
 {: .language-r}
@@ -276,9 +288,9 @@ nrow(footpath_HARV)
 
 
 ~~~
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'nrow': object 'footpath_HARV' not found
+[1] 2
 ~~~
-{: .error}
+{: .output}
 
 Our subsetting operation reduces the `features` count to 2. This means
 that only two feature lines in our spatial object have the attribute
@@ -293,12 +305,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in fortify(data): object 'footpath_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-07-plot-subset-shapefile-1.png" title="Map of the footpaths in the study area." alt="Map of the footpaths in the study area." width="612" style="display: block; margin: auto;" />
 
 There are two features in our footpaths subset. Why does the plot look like
 there is only one feature? Let's adjust the colors used in our plot. If we have
@@ -319,12 +326,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in fortify(data): object 'footpath_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-07-plot-subset-shapefile-unique-colors-1.png" title="Map of the footpaths in the study area where each feature is colored differently." alt="Map of the footpaths in the study area where each feature is colored differently." width="612" style="display: block; margin: auto;" />
 
 Now, we see that there are in fact two features in our plot!
 
@@ -341,13 +343,6 @@ Now, we see that there are in fact two features in our plot!
 > >   filter(TYPE == "boardwalk")
 > > ~~~
 > > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in filter(., TYPE == "boardwalk"): object 'lines_HARV' not found
-> > ~~~
-> > {: .error}
 > > Let's check how many features there are in this subset: 
 > > 
 > > ~~~
@@ -358,9 +353,9 @@ Now, we see that there are in fact two features in our plot!
 > > 
 > > 
 > > ~~~
-> > Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'nrow': object 'boardwalk_HARV' not found
+> > [1] 1
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > Now let's plot that data: 
 > > 
 > > ~~~
@@ -371,12 +366,7 @@ Now, we see that there are in fact two features in our plot!
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error in fortify(data): object 'boardwalk_HARV' not found
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-07-harv-boardwalk-map-1.png" title="Map of the boardwalks in the study area." alt="Map of the boardwalks in the study area." width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -392,19 +382,6 @@ Now, we see that there are in fact two features in our plot!
 > > ~~~
 > > stoneWall_HARV <- lines_HARV %>% 
 > >   filter(TYPE == "stone wall")
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in filter(., TYPE == "stone wall"): object 'lines_HARV' not found
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > nrow(stoneWall_HARV)
 > > ~~~
 > > {: .language-r}
@@ -412,9 +389,9 @@ Now, we see that there are in fact two features in our plot!
 > > 
 > > 
 > > ~~~
-> > Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'nrow': object 'stoneWall_HARV' not found
+> > [1] 6
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > Now we can plot the data: 
 > > 
 > > ~~~
@@ -426,12 +403,7 @@ Now, we see that there are in fact two features in our plot!
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error in fortify(data): object 'stoneWall_HARV' not found
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-07-harv-stone-wall-map-1.png" title="Map of the stone walls in the study area where each feature is colored differently." alt="Map of the stone walls in the study area where each feature is colored differently." width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -460,9 +432,9 @@ levels(lines_HARV$TYPE)
 
 
 ~~~
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'levels': object 'lines_HARV' not found
+NULL
 ~~~
-{: .error}
+{: .output}
 
 Then we can create a palette of four colors, one for each
 feature in our vector object.
@@ -486,12 +458,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in fortify(data): object 'lines_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-07-harv-paths-map-1.png" title="Roads and trails in the area." alt="Roads and trails in the area." width="612" style="display: block; margin: auto;" />
 
 ### Adjust Line Width
 We adjusted line width universally earlier. If we want a unique line width for each factor level or attribute category
@@ -519,12 +486,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in fortify(data): object 'lines_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-07-harv-paths-map-wide-1.png" title="Roads and trails in the area demonstrating how to use different line thickness and colors." alt="Roads and trails in the area demonstrating how to use different line thickness and colors." width="612" style="display: block; margin: auto;" />
 
 Note that we could also use `aes(size = TYPE)` to tie the line thickness to the TYPE variable, so long as we had been careful to set factor levels appropriately. ggplot prints a warning when you do this, because it is not considered a good practice to plot non-spatial data this way.
 
@@ -557,9 +519,9 @@ Note that we could also use `aes(size = TYPE)` to tie the line thickness to the 
 > > 
 > > 
 > > ~~~
-> > Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'levels': object 'lines_HARV' not found
+> > NULL
 > > ~~~
-> > {: .error}
+> > {: .output}
 > >
 > > We then can create our `line_width` vector setting each of the
 > > levels to the desired thickness.
@@ -582,12 +544,7 @@ Note that we could also use `aes(size = TYPE)` to tie the line thickness to the 
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error in fortify(data): object 'lines_HARV' not found
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-07-harv-path-line-types-1.png" title="Roads and trails in the area with different line thickness for each type of paths." alt="Roads and trails in the area with different line thickness for each type of paths." width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -621,12 +578,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in fortify(data): object 'lines_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-07-add-legend-to-plot-1.png" title="Roads and trails in the study area using thicker lines than the previous figure." alt="Roads and trails in the study area using thicker lines than the previous figure." width="612" style="display: block; margin: auto;" />
 
 We can change the appearance of our legend by manually setting different parameters.
 
@@ -647,12 +599,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in fortify(data): object 'lines_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-07-modify-legend-plot-1.png" title="Map of the paths in the study area with large-font and border around the legend." alt="Map of the paths in the study area with large-font and border around the legend." width="612" style="display: block; margin: auto;" />
 
 
 ~~~
@@ -670,12 +617,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in fortify(data): object 'lines_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-07-plot-different-colors-1.png" title="Map of the paths in the study area using a different color palette." alt="Map of the paths in the study area using a different color palette." width="612" style="display: block; margin: auto;" />
 
 > ## Data Tip
 > You can modify the default R color palette
@@ -710,9 +652,9 @@ Error in fortify(data): object 'lines_HARV' not found
 > > 
 > > 
 > > ~~~
-> > Error in eval(expr, envir, enclos): object 'lines_HARV' not found
+> > [1] "character"
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > 
 > > 
 > > 
@@ -724,9 +666,9 @@ Error in fortify(data): object 'lines_HARV' not found
 > > 
 > > 
 > > ~~~
-> > Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'levels': object 'lines_HARV' not found
+> > NULL
 > > ~~~
-> > {: .error}
+> > {: .output}
 > >
 > > Next, we will create a new object `lines_removeNA` that removes missing values.
 > >
@@ -735,13 +677,6 @@ Error in fortify(data): object 'lines_HARV' not found
 > > lines_removeNA <- lines_HARV[!is.na(lines_HARV$BicyclesHo),] 
 > > ~~~
 > > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in eval(expr, envir, enclos): object 'lines_HARV' not found
-> > ~~~
-> > {: .error}
 > >
 > > In our plot, we will set colors so that only the allowed roads
 > > are magenta, and we will set line width so that the first
@@ -751,19 +686,7 @@ Error in fortify(data): object 'lines_HARV' not found
 > > ~~~
 > > # First, create a data frame with only those roads where bicycles and horses are allowed
 > > lines_showHarv <- lines_removeNA %>% filter(BicyclesHo == "Bicycles and Horses Allowed")
-> > ~~~
-> > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error in filter(., BicyclesHo == "Bicycles and Horses Allowed"): object 'lines_removeNA' not found
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > # Next, visualise using ggplot
 > > ggplot() + 
 > >   geom_sf(data = lines_HARV) + 
@@ -774,12 +697,7 @@ Error in fortify(data): object 'lines_HARV' not found
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error in fortify(data): object 'lines_HARV' not found
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-07-harv-paths-bike-horses-1.png" title="Roads and trails in the area highlighting paths where horses and bikes are allowed." alt="Roads and trails in the area highlighting paths where horses and bikes are allowed." width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -802,9 +720,17 @@ Error in fortify(data): object 'lines_HARV' not found
 > > 
 > > 
 > > ~~~
-> > Error in st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp"): could not find function "st_read"
+> > Reading layer `US-State-Boundaries-Census-2014' from data source 
+> >   `/home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp' 
+> >   using driver `ESRI Shapefile'
+> > Simple feature collection with 58 features and 10 fields
+> > Geometry type: MULTIPOLYGON
+> > Dimension:     XYZ
+> > Bounding box:  xmin: -124.7258 ymin: 24.49813 xmax: -66.9499 ymax: 49.38436
+> > z_range:       zmin: 0 zmax: 0
+> > Geodetic CRS:  WGS 84
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > 
 > > 
 > > 
@@ -816,9 +742,9 @@ Error in fortify(data): object 'lines_HARV' not found
 > > 
 > > 
 > > ~~~
-> > Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'levels': object 'state_boundary_US' not found
+> > NULL
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > Next we set a color vector with that many items: 
 > > 
 > > ~~~
@@ -836,12 +762,7 @@ Error in fortify(data): object 'lines_HARV' not found
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error in fortify(data): object 'state_boundary_US' not found
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-07-colored-state-boundaries-1.png" title="Map of the continental United States where the state lines are colored by region." alt="Map of the continental United States where the state lines are colored by region." width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 

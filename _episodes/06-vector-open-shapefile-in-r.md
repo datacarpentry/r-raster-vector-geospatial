@@ -20,12 +20,6 @@ source: Rmd
 
 
 
-~~~
-Error: package or namespace load failed for 'sf' in dyn.load(file, DLLpath = DLLpath, ...):
- unable to load shared object '/home/runner/work/_temp/Library/units/libs/units.so':
-  libudunits2.so.0: cannot open shared object file: No such file or directory
-~~~
-{: .error}
 
 > ## Things You’ll Need To Complete This Episode
 > See the [lesson homepage]({{ site.baseurl }}) for detailed information about the software,
@@ -73,9 +67,16 @@ aoi_boundary_HARV <- st_read(
 
 
 ~~~
-Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp"): could not find function "st_read"
+Reading layer `HarClip_UTMZ18' from data source 
+  `/home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp' 
+  using driver `ESRI Shapefile'
+Simple feature collection with 1 feature and 1 field
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 732128 ymin: 4713209 xmax: 732251.1 ymax: 4713359
+Projected CRS: WGS 84 / UTM zone 18N
 ~~~
-{: .error}
+{: .output}
 
 ## Shapefile Metadata & Attributes
 
@@ -113,9 +114,10 @@ st_geometry_type(aoi_boundary_HARV)
 
 
 ~~~
-Error in st_geometry_type(aoi_boundary_HARV): could not find function "st_geometry_type"
+[1] POLYGON
+18 Levels: GEOMETRY POINT LINESTRING POLYGON MULTIPOINT ... TRIANGLE
 ~~~
-{: .error}
+{: .output}
 
 Our `aoi_boundary_HARV` is a polygon object. The 18 levels shown below
 our output list the possible categories of the geometry type. 
@@ -130,9 +132,45 @@ st_crs(aoi_boundary_HARV)
 
 
 ~~~
-Error in st_crs(aoi_boundary_HARV): could not find function "st_crs"
+Coordinate Reference System:
+  User input: WGS 84 / UTM zone 18N 
+  wkt:
+PROJCRS["WGS 84 / UTM zone 18N",
+    BASEGEOGCRS["WGS 84",
+        DATUM["World Geodetic System 1984",
+            ELLIPSOID["WGS 84",6378137,298.257223563,
+                LENGTHUNIT["metre",1]]],
+        PRIMEM["Greenwich",0,
+            ANGLEUNIT["degree",0.0174532925199433]],
+        ID["EPSG",4326]],
+    CONVERSION["UTM zone 18N",
+        METHOD["Transverse Mercator",
+            ID["EPSG",9807]],
+        PARAMETER["Latitude of natural origin",0,
+            ANGLEUNIT["Degree",0.0174532925199433],
+            ID["EPSG",8801]],
+        PARAMETER["Longitude of natural origin",-75,
+            ANGLEUNIT["Degree",0.0174532925199433],
+            ID["EPSG",8802]],
+        PARAMETER["Scale factor at natural origin",0.9996,
+            SCALEUNIT["unity",1],
+            ID["EPSG",8805]],
+        PARAMETER["False easting",500000,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8806]],
+        PARAMETER["False northing",0,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8807]]],
+    CS[Cartesian,2],
+        AXIS["(E)",east,
+            ORDER[1],
+            LENGTHUNIT["metre",1]],
+        AXIS["(N)",north,
+            ORDER[2],
+            LENGTHUNIT["metre",1]],
+    ID["EPSG",32618]]
 ~~~
-{: .error}
+{: .output}
 
 Our data in the CRS **UTM zone 18N**. The CRS is critical to 
 interpreting the object's extent values as it specifies units. To find
@@ -147,9 +185,10 @@ st_bbox(aoi_boundary_HARV)
 
 
 ~~~
-Error in st_bbox(aoi_boundary_HARV): could not find function "st_bbox"
+     xmin      ymin      xmax      ymax 
+ 732128.0 4713208.7  732251.1 4713359.2 
 ~~~
-{: .error}
+{: .output}
 
 The spatial extent of a shapefile or R spatial object represents the geographic "edge" or location that is the furthest north, south east and west. Thus is represents the overall geographic coverage of the spatial object. Image Source: National Ecological Observatory Network (NEON).
 
@@ -167,9 +206,15 @@ aoi_boundary_HARV
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'aoi_boundary_HARV' not found
+Simple feature collection with 1 feature and 1 field
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 732128 ymin: 4713209 xmax: 732251.1 ymax: 4713359
+Projected CRS: WGS 84 / UTM zone 18N
+  id                       geometry
+1  1 POLYGON ((732128 4713359, 7...
 ~~~
-{: .error}
+{: .output}
 
 ## Spatial Data Attributes
 We introduced the idea of spatial data attributes in [an earlier lesson](https://datacarpentry.org/organization-geospatial/02-intro-vector-data). Now we will explore
@@ -194,12 +239,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in fortify(data): object 'aoi_boundary_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-06-plot-shapefile-1.png" title="plot of chunk plot-shapefile" alt="plot of chunk plot-shapefile" width="612" style="display: block; margin: auto;" />
 
 > ## Challenge: Import Line and Point Shapefiles
 > 
@@ -229,9 +269,16 @@ Error in fortify(data): object 'aoi_boundary_HARV' not found
 > > 
 > > 
 > > ~~~
-> > Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp"): could not find function "st_read"
+> > Reading layer `HARV_roads' from data source 
+> >   `/home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp' 
+> >   using driver `ESRI Shapefile'
+> > Simple feature collection with 13 features and 15 fields
+> > Geometry type: MULTILINESTRING
+> > Dimension:     XY
+> > Bounding box:  xmin: 730741.2 ymin: 4711942 xmax: 733295.5 ymax: 4714260
+> > Projected CRS: WGS 84 / UTM zone 18N
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > 
 > > 
 > > 
@@ -243,9 +290,16 @@ Error in fortify(data): object 'aoi_boundary_HARV' not found
 > > 
 > > 
 > > ~~~
-> > Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp"): could not find function "st_read"
+> > Reading layer `HARVtower_UTM18N' from data source 
+> >   `/home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp' 
+> >   using driver `ESRI Shapefile'
+> > Simple feature collection with 1 feature and 14 fields
+> > Geometry type: POINT
+> > Dimension:     XY
+> > Bounding box:  xmin: 732183.2 ymin: 4713265 xmax: 732183.2 ymax: 4713265
+> > Projected CRS: WGS 84 / UTM zone 18N
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > 
 > > Then we check its class: 
 > > 
@@ -257,9 +311,9 @@ Error in fortify(data): object 'aoi_boundary_HARV' not found
 > > 
 > > 
 > > ~~~
-> > Error in eval(expr, envir, enclos): object 'lines_HARV' not found
+> > [1] "sf"         "data.frame"
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > 
 > > 
 > > 
@@ -271,9 +325,9 @@ Error in fortify(data): object 'aoi_boundary_HARV' not found
 > > 
 > > 
 > > ~~~
-> > Error in eval(expr, envir, enclos): object 'point_HARV' not found
+> > [1] "sf"         "data.frame"
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > We also check the CRS and extent of each object: 
 > > 
 > > ~~~
@@ -284,9 +338,45 @@ Error in fortify(data): object 'aoi_boundary_HARV' not found
 > > 
 > > 
 > > ~~~
-> > Error in st_crs(lines_HARV): could not find function "st_crs"
+> > Coordinate Reference System:
+> >   User input: WGS 84 / UTM zone 18N 
+> >   wkt:
+> > PROJCRS["WGS 84 / UTM zone 18N",
+> >     BASEGEOGCRS["WGS 84",
+> >         DATUM["World Geodetic System 1984",
+> >             ELLIPSOID["WGS 84",6378137,298.257223563,
+> >                 LENGTHUNIT["metre",1]]],
+> >         PRIMEM["Greenwich",0,
+> >             ANGLEUNIT["degree",0.0174532925199433]],
+> >         ID["EPSG",4326]],
+> >     CONVERSION["UTM zone 18N",
+> >         METHOD["Transverse Mercator",
+> >             ID["EPSG",9807]],
+> >         PARAMETER["Latitude of natural origin",0,
+> >             ANGLEUNIT["Degree",0.0174532925199433],
+> >             ID["EPSG",8801]],
+> >         PARAMETER["Longitude of natural origin",-75,
+> >             ANGLEUNIT["Degree",0.0174532925199433],
+> >             ID["EPSG",8802]],
+> >         PARAMETER["Scale factor at natural origin",0.9996,
+> >             SCALEUNIT["unity",1],
+> >             ID["EPSG",8805]],
+> >         PARAMETER["False easting",500000,
+> >             LENGTHUNIT["metre",1],
+> >             ID["EPSG",8806]],
+> >         PARAMETER["False northing",0,
+> >             LENGTHUNIT["metre",1],
+> >             ID["EPSG",8807]]],
+> >     CS[Cartesian,2],
+> >         AXIS["(E)",east,
+> >             ORDER[1],
+> >             LENGTHUNIT["metre",1]],
+> >         AXIS["(N)",north,
+> >             ORDER[2],
+> >             LENGTHUNIT["metre",1]],
+> >     ID["EPSG",32618]]
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > 
 > > 
 > > 
@@ -298,9 +388,10 @@ Error in fortify(data): object 'aoi_boundary_HARV' not found
 > > 
 > > 
 > > ~~~
-> > Error in st_bbox(lines_HARV): could not find function "st_bbox"
+> >      xmin      ymin      xmax      ymax 
+> >  730741.2 4711942.0  733295.5 4714260.0 
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > 
 > > 
 > > 
@@ -312,9 +403,45 @@ Error in fortify(data): object 'aoi_boundary_HARV' not found
 > > 
 > > 
 > > ~~~
-> > Error in st_crs(point_HARV): could not find function "st_crs"
+> > Coordinate Reference System:
+> >   User input: WGS 84 / UTM zone 18N 
+> >   wkt:
+> > PROJCRS["WGS 84 / UTM zone 18N",
+> >     BASEGEOGCRS["WGS 84",
+> >         DATUM["World Geodetic System 1984",
+> >             ELLIPSOID["WGS 84",6378137,298.257223563,
+> >                 LENGTHUNIT["metre",1]]],
+> >         PRIMEM["Greenwich",0,
+> >             ANGLEUNIT["degree",0.0174532925199433]],
+> >         ID["EPSG",4326]],
+> >     CONVERSION["UTM zone 18N",
+> >         METHOD["Transverse Mercator",
+> >             ID["EPSG",9807]],
+> >         PARAMETER["Latitude of natural origin",0,
+> >             ANGLEUNIT["Degree",0.0174532925199433],
+> >             ID["EPSG",8801]],
+> >         PARAMETER["Longitude of natural origin",-75,
+> >             ANGLEUNIT["Degree",0.0174532925199433],
+> >             ID["EPSG",8802]],
+> >         PARAMETER["Scale factor at natural origin",0.9996,
+> >             SCALEUNIT["unity",1],
+> >             ID["EPSG",8805]],
+> >         PARAMETER["False easting",500000,
+> >             LENGTHUNIT["metre",1],
+> >             ID["EPSG",8806]],
+> >         PARAMETER["False northing",0,
+> >             LENGTHUNIT["metre",1],
+> >             ID["EPSG",8807]]],
+> >     CS[Cartesian,2],
+> >         AXIS["(E)",east,
+> >             ORDER[1],
+> >             LENGTHUNIT["metre",1]],
+> >         AXIS["(N)",north,
+> >             ORDER[2],
+> >             LENGTHUNIT["metre",1]],
+> >     ID["EPSG",32618]]
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > 
 > > 
 > > 
@@ -326,9 +453,10 @@ Error in fortify(data): object 'aoi_boundary_HARV' not found
 > > 
 > > 
 > > ~~~
-> > Error in st_bbox(point_HARV): could not find function "st_bbox"
+> >      xmin      ymin      xmax      ymax 
+> >  732183.2 4713265.0  732183.2 4713265.0 
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > To see the number of objects in each file, we can look at the output from when we read these objects into R. 
 > > `lines_HARV` contains 13 features (all lines) and `point_HARV` contains only one point. 
 > {: .solution}

@@ -19,47 +19,9 @@ source: Rmd
 
 
 
-~~~
-Error: package or namespace load failed for 'sf' in dyn.load(file, DLLpath = DLLpath, ...):
- unable to load shared object '/home/runner/work/_temp/Library/units/libs/units.so':
-  libudunits2.so.0: cannot open shared object file: No such file or directory
-~~~
-{: .error}
 
 
 
-~~~
-Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp"): could not find function "st_read"
-~~~
-{: .error}
-
-
-
-~~~
-Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp"): could not find function "st_read"
-~~~
-{: .error}
-
-
-
-~~~
-Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp"): could not find function "st_read"
-~~~
-{: .error}
-
-
-
-~~~
-Error in st_crs(point_HARV): could not find function "st_crs"
-~~~
-{: .error}
-
-
-
-~~~
-Error in st_as_sf(plot_locations_HARV, coords = c("easting", "northing"), : could not find function "st_as_sf"
-~~~
-{: .error}
 
 > ## Things You’ll Need To Complete This Episode
 >
@@ -91,37 +53,8 @@ we have worked with in this workshop:
 * A canopy height model (CHM) in GeoTIFF format -- green
 
 
-~~~
-Error in st_as_sf(CHM_HARV_df, coords = c("x", "y"), crs = utm18nCRS): could not find function "st_as_sf"
-~~~
-{: .error}
 
-
-
-~~~
-Error in sample_n(CHM_HARV_sp, 10000): object 'CHM_HARV_sp' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp"): could not find function "st_read"
-~~~
-{: .error}
-
-
-
-~~~
-Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp"): could not find function "st_read"
-~~~
-{: .error}
-
-
-~~~
-Error in st_convex_hull(st_union(CHM_rand_sample)): could not find function "st_convex_hull"
-~~~
-{: .error}
+<img src="../fig/rmd-11-compare-data-extents-1.png" title="plot of chunk compare-data-extents" alt="plot of chunk compare-data-extents" width="612" style="display: block; margin: auto;" />
 
 Frequent use cases of cropping a raster file include reducing file size and
 creating maps. Sometimes we have a raster file that is much larger than our
@@ -149,12 +82,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in fortify(data): object 'aoi_boundary_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-11-crop-by-vector-extent-1.png" title="plot of chunk crop-by-vector-extent" alt="plot of chunk crop-by-vector-extent" width="612" style="display: block; margin: auto;" />
 
 Now that we have visualized the area of the CHM we want to subset, we can
 perform the cropping operation. We are going to `crop()` function from the 
@@ -167,13 +95,6 @@ CHM_HARV_Cropped <- crop(x = CHM_HARV, y = aoi_boundary_HARV)
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in .local(x, y, ...): Cannot get an Extent object from argument y
-~~~
-{: .error}
-
 Now we can plot the cropped CHM data, along with a boundary box showing the full
 CHM extent. However, remember, since this is raster data, we need to convert to
 a data frame in order to plot using `ggplot`. To get the boundary box from CHM,
@@ -184,19 +105,7 @@ coordinates into a polygon that we can plot:
 
 ~~~
 CHM_HARV_Cropped_df <- as.data.frame(CHM_HARV_Cropped, xy = TRUE)
-~~~
-{: .language-r}
 
-
-
-~~~
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'as.data.frame': object 'CHM_HARV_Cropped' not found
-~~~
-{: .error}
-
-
-
-~~~
 ggplot() +
   geom_sf(data = st_as_sfc(st_bbox(CHM_HARV)), fill = "green",
           color = "green", alpha = .2) +  
@@ -207,12 +116,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in st_as_sfc(st_bbox(CHM_HARV)): could not find function "st_as_sfc"
-~~~
-{: .error}
+<img src="../fig/rmd-11-show-cropped-area-1.png" title="plot of chunk show-cropped-area" alt="plot of chunk show-cropped-area" width="612" style="display: block; margin: auto;" />
 
 The plot above shows that the full CHM extent (plotted in green) is much larger
 than the resulting cropped raster. Our new cropped CHM now has the same extent
@@ -230,12 +134,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in fortify(data): object 'CHM_HARV_Cropped_df' not found
-~~~
-{: .error}
+<img src="../fig/rmd-11-view-crop-extent-1.png" title="plot of chunk view-crop-extent" alt="plot of chunk view-crop-extent" width="612" style="display: block; margin: auto;" />
 
 We can look at the extent of all of our other objects for this field site.
 
@@ -248,9 +147,10 @@ st_bbox(CHM_HARV)
 
 
 ~~~
-Error in st_bbox(CHM_HARV): could not find function "st_bbox"
+   xmin    ymin    xmax    ymax 
+ 731453 4712471  733150 4713838 
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -262,9 +162,10 @@ st_bbox(CHM_HARV_Cropped)
 
 
 ~~~
-Error in st_bbox(CHM_HARV_Cropped): could not find function "st_bbox"
+   xmin    ymin    xmax    ymax 
+ 732128 4713209  732251 4713359 
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -276,9 +177,10 @@ st_bbox(aoi_boundary_HARV)
 
 
 ~~~
-Error in st_bbox(aoi_boundary_HARV): could not find function "st_bbox"
+     xmin      ymin      xmax      ymax 
+ 732128.0 4713208.7  732251.1 4713359.2 
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -290,9 +192,10 @@ st_bbox(plot_locations_sp_HARV)
 
 
 ~~~
-Error in st_bbox(plot_locations_sp_HARV): could not find function "st_bbox"
+     xmin      ymin      xmax      ymax 
+ 731405.3 4712845.0  732275.3 4713846.3 
 ~~~
-{: .error}
+{: .output}
 
 Our plot location extent is not the largest but is larger than the AOI Boundary.
 It would be nice to see our vegetation plot locations plotted on top of the
@@ -308,33 +211,9 @@ Canopy Height Model information.
 > > 
 > > ~~~
 > > CHM_plots_HARVcrop <- crop(x = CHM_HARV, y = plot_locations_sp_HARV)
-> > ~~~
-> > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error in .local(x, y, ...): Cannot get an Extent object from argument y
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > CHM_plots_HARVcrop_df <- as.data.frame(CHM_plots_HARVcrop, xy = TRUE)
-> > ~~~
-> > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'as.data.frame': object 'CHM_plots_HARVcrop' not found
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > ggplot() + 
 > >   geom_raster(data = CHM_plots_HARVcrop_df, aes(x = x, y = y, fill = HARV_chmCrop)) + 
 > >   scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
@@ -343,12 +222,7 @@ Canopy Height Model information.
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error in fortify(data): object 'CHM_plots_HARVcrop_df' not found
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-11-challenge-code-crop-raster-points-1.png" title="plot of chunk challenge-code-crop-raster-points" alt="plot of chunk challenge-code-crop-raster-points" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -365,23 +239,8 @@ vegetation plot layer will still extend further west than the extent of our
 (cropped) raster data (dark green).
 
 
-~~~
-Error in st_as_sf(CHM_plots_HARVcrop_df, coords = c("x", "y"), crs = utm18nCRS): could not find function "st_as_sf"
-~~~
-{: .error}
 
-
-
-~~~
-Error in sample_n(CHM_plots_HARVcrop_sp, 10000): object 'CHM_plots_HARVcrop_sp' not found
-~~~
-{: .error}
-
-
-~~~
-Error in st_convex_hull(st_union(CHM_rand_sample)): could not find function "st_convex_hull"
-~~~
-{: .error}
+<img src="../fig/rmd-11-repeat-compare-data-extents-1.png" title="plot of chunk repeat-compare-data-extents" alt="plot of chunk repeat-compare-data-extents" width="612" style="display: block; margin: auto;" />
 
 ## Define an Extent
 
@@ -444,12 +303,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in fortify(data): object 'aoi_boundary_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-11-show-manual-crop-area-1.png" title="plot of chunk show-manual-crop-area" alt="plot of chunk show-manual-crop-area" width="612" style="display: block; margin: auto;" />
 
 ## Extract Raster Pixels Values Using Vector Polygons
 
@@ -474,19 +328,7 @@ Forest field site.
 
 ~~~
 tree_height <- extract(x = CHM_HARV, y = aoi_boundary_HARV, df = TRUE)
-~~~
-{: .language-r}
 
-
-
-~~~
-Error in h(simpleError(msg, call)): error in evaluating the argument 'y' in selecting a method for function 'extract': object 'aoi_boundary_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 str(tree_height)
 ~~~
 {: .language-r}
@@ -494,9 +336,11 @@ str(tree_height)
 
 
 ~~~
-Error in str(tree_height): object 'tree_height' not found
+'data.frame':	18450 obs. of  2 variables:
+ $ ID          : num  1 1 1 1 1 1 1 1 1 1 ...
+ $ HARV_chmCrop: num  21.2 23.9 23.8 22.4 23.9 ...
 ~~~
-{: .error}
+{: .output}
 
 When we use the `extract()` function, R extracts the value for each pixel located
 within the boundary of the polygon being used to perform the extraction - in
@@ -521,9 +365,11 @@ ggplot() +
 
 
 ~~~
-Error in fortify(data): object 'tree_height' not found
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ~~~
-{: .error}
+{: .output}
+
+<img src="../fig/rmd-11-view-extract-histogram-1.png" title="plot of chunk view-extract-histogram" alt="plot of chunk view-extract-histogram" width="612" style="display: block; margin: auto;" />
 
  We can also use the
 `summary()` function to view descriptive statistics including min, max, and mean
@@ -539,9 +385,10 @@ summary(tree_height$HARV_chmCrop)
 
 
 ~~~
-Error in h(simpleError(msg, call)): error in evaluating the argument 'object' in selecting a method for function 'summary': object 'tree_height' not found
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   2.03   21.36   22.81   22.43   23.97   38.17 
 ~~~
-{: .error}
+{: .output}
 
 ## Summarize Extracted Raster Values
 
@@ -553,19 +400,7 @@ not use the `df = TRUE` argument.
 
 ~~~
 mean_tree_height_AOI <- extract(x = CHM_HARV, y = aoi_boundary_HARV, fun = mean)
-~~~
-{: .language-r}
 
-
-
-~~~
-Error in h(simpleError(msg, call)): error in evaluating the argument 'y' in selecting a method for function 'extract': object 'aoi_boundary_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 mean_tree_height_AOI
 ~~~
 {: .language-r}
@@ -573,9 +408,10 @@ mean_tree_height_AOI
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'mean_tree_height_AOI' not found
+         [,1]
+[1,] 22.43018
 ~~~
-{: .error}
+{: .output}
 
 It appears that the mean height value, extracted from our LiDAR data derived
 canopy height model is 22.43 meters.
@@ -602,19 +438,7 @@ mean_tree_height_tower <- extract(x = CHM_HARV,
                                   y = point_HARV,
                                   buffer = 20,
                                   fun = mean)
-~~~
-{: .language-r}
 
-
-
-~~~
-Error in h(simpleError(msg, call)): error in evaluating the argument 'y' in selecting a method for function 'extract': object 'point_HARV' not found
-~~~
-{: .error}
-
-
-
-~~~
 mean_tree_height_tower
 ~~~
 {: .language-r}
@@ -622,9 +446,9 @@ mean_tree_height_tower
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'mean_tree_height_tower' not found
+[1] 22.38812
 ~~~
-{: .error}
+{: .output}
 
 > ## Challenge: Extract Raster Height Values For Plot Locations
 > 
@@ -646,19 +470,7 @@ Error in eval(expr, envir, enclos): object 'mean_tree_height_tower' not found
 > >                                        buffer = 20,
 > >                                        fun = mean,
 > >                                        df = TRUE)
-> > ~~~
-> > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error in h(simpleError(msg, call)): error in evaluating the argument 'y' in selecting a method for function 'extract': object 'plot_locations_sp_HARV' not found
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > # view data
 > > mean_tree_height_plots_HARV
 > > ~~~
@@ -667,9 +479,30 @@ Error in eval(expr, envir, enclos): object 'mean_tree_height_tower' not found
 > > 
 > > 
 > > ~~~
-> > Error in eval(expr, envir, enclos): object 'mean_tree_height_plots_HARV' not found
+> >    ID HARV_chmCrop
+> > 1   1           NA
+> > 2   2     23.96708
+> > 3   3     22.35182
+> > 4   4     16.49719
+> > 5   5     21.55459
+> > 6   6     19.16891
+> > 7   7     20.61542
+> > 8   8     21.61490
+> > 9   9     12.23897
+> > 10 10     19.13231
+> > 11 11     21.36908
+> > 12 12     19.31904
+> > 13 13     17.25802
+> > 14 14     20.47314
+> > 15 15     12.68322
+> > 16 16     15.51574
+> > 17 17     18.90796
+> > 18 18     18.19454
+> > 19 19     19.67558
+> > 20 20     20.23258
+> > 21 21     20.44836
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > 
 > > 
 > > 
@@ -686,9 +519,11 @@ Error in eval(expr, envir, enclos): object 'mean_tree_height_tower' not found
 > > 
 > > 
 > > ~~~
-> > Error in ggplot(data = mean_tree_height_plots_HARV, aes(ID, HARV_chmCrop)): object 'mean_tree_height_plots_HARV' not found
+> > Warning: Removed 1 rows containing missing values (position_stack).
 > > ~~~
-> > {: .error}
+> > {: .warning}
+> > 
+> > <img src="../fig/rmd-11-hist-tree-height-veg-plot-1.png" title="plot of chunk hist-tree-height-veg-plot" alt="plot of chunk hist-tree-height-veg-plot" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 

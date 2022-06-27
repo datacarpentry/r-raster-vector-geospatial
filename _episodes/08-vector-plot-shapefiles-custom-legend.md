@@ -22,32 +22,8 @@ source: Rmd
 
 
 
-~~~
-Error: package or namespace load failed for 'sf' in dyn.load(file, DLLpath = DLLpath, ...):
- unable to load shared object '/home/runner/work/_temp/Library/units/libs/units.so':
-  libudunits2.so.0: cannot open shared object file: No such file or directory
-~~~
-{: .error}
 
 
-~~~
-Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp"): could not find function "st_read"
-~~~
-{: .error}
-
-
-
-~~~
-Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp"): could not find function "st_read"
-~~~
-{: .error}
-
-
-
-~~~
-Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp"): could not find function "st_read"
-~~~
-{: .error}
 
 > ## Things You’ll Need To Complete This Episode
 >
@@ -95,12 +71,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in fortify(data): object 'aoi_boundary_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-08-plot-many-shapefiles-1.png" title="plot of chunk plot-many-shapefiles" alt="plot of chunk plot-many-shapefiles" width="612" style="display: block; margin: auto;" />
 
 Next, let's build a custom legend using the symbology (the colors and symbols) that we used to create the plot above. For example, it might be good if the lines were symbolized as lines. In the previous episode, you may have noticed that the default legend behavior for `geom_sf` is to draw a 'patch' for each legend entry. If you want the legend to draw lines or points, you need to add an instruction to the `geom_sf` call - in this case, `show.legend = 'line'`. 
 
@@ -118,12 +89,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in fortify(data): object 'aoi_boundary_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-08-plot-custom-shape-1.png" title="plot of chunk plot-custom-shape" alt="plot of chunk plot-custom-shape" width="612" style="display: block; margin: auto;" />
 
 Now lets adjust the legend titles by passing a `name` to the respective `color` and `fill` palettes.
 
@@ -141,12 +107,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in fortify(data): object 'aoi_boundary_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-08-create-custom-legend-1.png" title="plot of chunk create-custom-legend" alt="plot of chunk create-custom-legend" width="612" style="display: block; margin: auto;" />
 
 Finally, it might be better if the points were symbolized as a symbol. We can customize this using `shape` parameters in our call to `geom_sf`: 16 is a point symbol, 15 is a box.
 
@@ -170,12 +131,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in fortify(data): object 'aoi_boundary_HARV' not found
-~~~
-{: .error}
+<img src="../fig/rmd-08-custom-symbols-1.png" title="plot of chunk custom-symbols" alt="plot of chunk custom-symbols" width="612" style="display: block; margin: auto;" />
 
 > ## Challenge: Plot Polygon by Attribute
 > 
@@ -202,9 +158,16 @@ symbol of `shape` value.
 > > 
 > > 
 > > ~~~
-> > Error in st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp"): could not find function "st_read"
+> > Reading layer `PlotLocations_HARV' from data source 
+> >   `/home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/_episodes_rmd/data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp' 
+> >   using driver `ESRI Shapefile'
+> > Simple feature collection with 21 features and 25 fields
+> > Geometry type: POINT
+> > Dimension:     XY
+> > Bounding box:  xmin: 731405.3 ymin: 4712845 xmax: 732275.3 ymax: 4713846
+> > Projected CRS: WGS 84 / UTM zone 18N
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > 
 > > 
 > > 
@@ -216,9 +179,9 @@ symbol of `shape` value.
 > > 
 > > 
 > > ~~~
-> > Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'levels': object 'plot_locations' not found
+> > NULL
 > > ~~~
-> > {: .error}
+> > {: .output}
 > >
 > > Next we can create a new color palette with one color for
 > > each soil type.
@@ -246,12 +209,7 @@ symbol of `shape` value.
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error in fortify(data): object 'lines_HARV' not found
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-08-harv-plot-locations-bg-1.png" title="plot of chunk harv-plot-locations-bg" alt="plot of chunk harv-plot-locations-bg" width="612" style="display: block; margin: auto;" />
 > >
 > > If we want each soil to be shown with a different symbol, we can
 > > give multiple values to the `scale_shape_manual()` argument.
@@ -273,12 +231,7 @@ symbol of `shape` value.
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error in fortify(data): object 'lines_HARV' not found
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-08-harv-plot-locations-pch-1.png" title="plot of chunk harv-plot-locations-pch" alt="plot of chunk harv-plot-locations-pch" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -310,12 +263,7 @@ symbol of `shape` value.
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error in fortify(data): object 'lines_HARV' not found
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-08-challenge-vector-raster-overlay-1.png" title="plot of chunk challenge-vector-raster-overlay" alt="plot of chunk challenge-vector-raster-overlay" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
