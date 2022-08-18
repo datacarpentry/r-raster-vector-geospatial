@@ -455,7 +455,7 @@ ggplot() +
 >
 > 1. Create a map of the state boundaries in the United States using the data
 > located in your downloaded data folder: `NEON-DS-Site-Layout-Files/US-Boundary-Layers\US-State-Boundaries-Census-2014`.
-> Apply a fill color to each state using its `region` value. Add a legend.
+> Apply a line color to each state using its `region` value. Add a legend.
 >
 > > ## Answers
 > > First we read in the data and check how many levels there are
