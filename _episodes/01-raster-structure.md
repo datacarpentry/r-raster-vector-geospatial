@@ -254,7 +254,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-ggplot-raster-1.png" title="Raster plot with ggplot2 using the viridis color scale" alt="Raster plot with ggplot2 using the viridis color scale" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-ggplot-raster-1.png" alt="Raster plot with ggplot2 using the viridis color scale" width="612" style="display: block; margin: auto;" />
 > ## Plotting Tip
 >
 > More information about the Viridis palette used above at
@@ -271,7 +271,7 @@ ggplot() +
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-01-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-01-unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .callout}
 
@@ -473,7 +473,7 @@ airplane which only flew over some part of a defined region.
 In the image below, the pixels that are black have `NoDataValue`s. The camera
 did not collect data in these areas.
 
-<img src="../fig/rmd-01-demonstrate-no-data-black-ggplot-1.png" title="plot of chunk demonstrate-no-data-black-ggplot" alt="plot of chunk demonstrate-no-data-black-ggplot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-demonstrate-no-data-black-ggplot-1.png" alt="plot of chunk demonstrate-no-data-black-ggplot" width="612" style="display: block; margin: auto;" />
 
 In the next image, the black edges have been assigned `NoDataValue`. R doesn't
 render pixels that contain a specified `NoDataValue`. R assigns missing data
@@ -482,13 +482,17 @@ with the `NoDataValue` as `NA`.
 The difference here shows up as ragged edges on the plot, rather than black
 spaces where there is no data.
 
-<img src="../fig/rmd-01-demonstrate-no-data-ggplot-1.png" title="plot of chunk demonstrate-no-data-ggplot" alt="plot of chunk demonstrate-no-data-ggplot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-demonstrate-no-data-ggplot-1.png" alt="plot of chunk demonstrate-no-data-ggplot" width="612" style="display: block; margin: auto;" />
 
 If your raster already has `NA` values set correctly but you aren't sure where they are, you can deliberately plot them in a particular colour. This can be useful when checking a dataset's coverage. For instance, sometimes data can be missing where a sensor could not 'see' its target data, and you may wish to locate that missing data and fill it in.
 
 To highlight `NA` values in ggplot, alter the `scale_fill_*()` layer to contain a colour instruction for `NA` values, like `scale_fill_viridis_c(na.value = 'deeppink')`
 
-<img src="../fig/rmd-01-napink-1.png" title="plot of chunk napink" alt="plot of chunk napink" width="612" style="display: block; margin: auto;" />
+
+~~~
+Error in FUN(X[[i]], ...): object 'HARV_RGB_Ortho.3' not found
+~~~
+{: .error}
 
 The value that is conventionally used to take note of missing data (the
 `NoDataValue` value) varies by the raster data type. For floating-point rasters,
@@ -576,7 +580,7 @@ Plotting data with appropriate highlighting can help reveal patterns in bad
 values and may suggest a solution. Below, reclassification is used to highlight
 elevation values over 400m with a contrasting colour.
 
-<img src="../fig/rmd-01-demo-bad-data-highlighting-1.png" title="plot of chunk demo-bad-data-highlighting" alt="plot of chunk demo-bad-data-highlighting" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-demo-bad-data-highlighting-1.png" alt="plot of chunk demo-bad-data-highlighting" width="612" style="display: block; margin: auto;" />
 
 ## Create A Histogram of Raster Values
 
@@ -598,7 +602,7 @@ ggplot() +
 ~~~
 {: .output}
 
-<img src="../fig/rmd-01-view-raster-histogram-1.png" title="plot of chunk view-raster-histogram" alt="plot of chunk view-raster-histogram" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-view-raster-histogram-1.png" alt="plot of chunk view-raster-histogram" width="612" style="display: block; margin: auto;" />
 
 Notice that a warning message is thrown when R creates the histogram.
 
@@ -616,7 +620,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-view-raster-histogram2-1.png" title="plot of chunk view-raster-histogram2" alt="plot of chunk view-raster-histogram2" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-view-raster-histogram2-1.png" alt="plot of chunk view-raster-histogram2" width="612" style="display: block; margin: auto;" />
 
 Note that the shape of this histogram looks similar to the previous one that
 was created using the default of 30 bins. The distribution of elevation values

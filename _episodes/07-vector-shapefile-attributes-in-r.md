@@ -305,7 +305,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-07-plot-subset-shapefile-1.png" title="Map of the footpaths in the study area." alt="Map of the footpaths in the study area." width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-07-plot-subset-shapefile-1.png" alt="Map of the footpaths in the study area." width="612" style="display: block; margin: auto;" />
 
 There are two features in our footpaths subset. Why does the plot look like
 there is only one feature? Let's adjust the colors used in our plot. If we have
@@ -326,7 +326,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-07-plot-subset-shapefile-unique-colors-1.png" title="Map of the footpaths in the study area where each feature is colored differently." alt="Map of the footpaths in the study area where each feature is colored differently." width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-07-plot-subset-shapefile-unique-colors-1.png" alt="Map of the footpaths in the study area where each feature is colored differently." width="612" style="display: block; margin: auto;" />
 
 Now, we see that there are in fact two features in our plot!
 
@@ -366,7 +366,7 @@ Now, we see that there are in fact two features in our plot!
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-07-harv-boardwalk-map-1.png" title="Map of the boardwalks in the study area." alt="Map of the boardwalks in the study area." width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-07-harv-boardwalk-map-1.png" alt="Map of the boardwalks in the study area." width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -403,7 +403,7 @@ Now, we see that there are in fact two features in our plot!
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-07-harv-stone-wall-map-1.png" title="Map of the stone walls in the study area where each feature is colored differently." alt="Map of the stone walls in the study area where each feature is colored differently." width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-07-harv-stone-wall-map-1.png" alt="Map of the stone walls in the study area where each feature is colored differently." width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -458,7 +458,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-07-harv-paths-map-1.png" title="Roads and trails in the area." alt="Roads and trails in the area." width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-07-harv-paths-map-1.png" alt="Roads and trails in the area." width="612" style="display: block; margin: auto;" />
 
 ### Adjust Line Width
 We adjusted line width universally earlier. If we want a unique line width for each factor level or attribute category
@@ -486,7 +486,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-07-harv-paths-map-wide-1.png" title="Roads and trails in the area demonstrating how to use different line thickness and colors." alt="Roads and trails in the area demonstrating how to use different line thickness and colors." width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-07-harv-paths-map-wide-1.png" alt="Roads and trails in the area demonstrating how to use different line thickness and colors." width="612" style="display: block; margin: auto;" />
 
 Note that we could also use `aes(size = TYPE)` to tie the line thickness to the TYPE variable, so long as we had been careful to set factor levels appropriately. ggplot prints a warning when you do this, because it is not considered a good practice to plot non-spatial data this way.
 
@@ -544,7 +544,7 @@ Note that we could also use `aes(size = TYPE)` to tie the line thickness to the 
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-07-harv-path-line-types-1.png" title="Roads and trails in the area with different line thickness for each type of paths." alt="Roads and trails in the area with different line thickness for each type of paths." width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-07-harv-path-line-types-1.png" alt="Roads and trails in the area with different line thickness for each type of paths." width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -578,7 +578,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-07-add-legend-to-plot-1.png" title="Roads and trails in the study area using thicker lines than the previous figure." alt="Roads and trails in the study area using thicker lines than the previous figure." width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-07-add-legend-to-plot-1.png" alt="Roads and trails in the study area using thicker lines than the previous figure." width="612" style="display: block; margin: auto;" />
 
 We can change the appearance of our legend by manually setting different parameters.
 
@@ -599,7 +599,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-07-modify-legend-plot-1.png" title="Map of the paths in the study area with large-font and border around the legend." alt="Map of the paths in the study area with large-font and border around the legend." width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-07-modify-legend-plot-1.png" alt="Map of the paths in the study area with large-font and border around the legend." width="612" style="display: block; margin: auto;" />
 
 
 ~~~
@@ -617,7 +617,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-07-plot-different-colors-1.png" title="Map of the paths in the study area using a different color palette." alt="Map of the paths in the study area using a different color palette." width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-07-plot-different-colors-1.png" alt="Map of the paths in the study area using a different color palette." width="612" style="display: block; margin: auto;" />
 
 > ## Data Tip
 > You can modify the default R color palette
@@ -697,7 +697,7 @@ ggplot() +
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-07-harv-paths-bike-horses-1.png" title="Roads and trails in the area highlighting paths where horses and bikes are allowed." alt="Roads and trails in the area highlighting paths where horses and bikes are allowed." width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-07-harv-paths-bike-horses-1.png" alt="Roads and trails in the area highlighting paths where horses and bikes are allowed." width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -762,7 +762,7 @@ ggplot() +
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-07-colored-state-boundaries-1.png" title="Map of the continental United States where the state lines are colored by region." alt="Map of the continental United States where the state lines are colored by region." width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-07-colored-state-boundaries-1.png" alt="Map of the continental United States where the state lines are colored by region." width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 

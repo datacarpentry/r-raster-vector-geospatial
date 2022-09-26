@@ -38,14 +38,14 @@ In [the previous episode]({{ site.baseurl }}/12-time-series-raster/), we learned
 raster data in R using the `facet_wrap()` function. This created a separate panel in our plot
 for each raster band. The plot we created together is shown below: 
 
-<img src="../fig/rmd-13-levelplot-time-series-before-1.png" title="plot of chunk levelplot-time-series-before" alt="plot of chunk levelplot-time-series-before" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-13-levelplot-time-series-before-1.png" alt="plot of chunk levelplot-time-series-before" width="612" style="display: block; margin: auto;" />
 
 Although this plot is informative, it isn't something we would expect to see in a journal publication. The x
 and y-axis labels aren't informative. There is a lot of unnecessary gray background and the titles of
 each panel don't clearly state that the number refers to the Julian day the data was collected. In this
 episode, we will customize this plot above to produce a publication quality graphic. We will go through these steps iteratively. When we're done, we will have created the plot shown below.
 
-<img src="../fig/rmd-13-levelplot-time-series-after-1.png" title="plot of chunk levelplot-time-series-after" alt="plot of chunk levelplot-time-series-after" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-13-levelplot-time-series-after-1.png" alt="plot of chunk levelplot-time-series-after" width="612" style="display: block; margin: auto;" />
 
 ## Adjust the Plot Theme
 
@@ -62,7 +62,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-13-adjust-theme-1.png" title="plot of chunk adjust-theme" alt="plot of chunk adjust-theme" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-13-adjust-theme-1.png" alt="plot of chunk adjust-theme" width="612" style="display: block; margin: auto;" />
 
 Next we will center our plot title and subtitle. We need to do this **after** the `theme_void()` layer,
 because R interprets the `ggplot` layers in order. If we first tell R to center our plot title,
@@ -84,7 +84,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-13-adjust-theme-2-1.png" title="plot of chunk adjust-theme-2" alt="plot of chunk adjust-theme-2" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-13-adjust-theme-2-1.png" alt="plot of chunk adjust-theme-2" width="612" style="display: block; margin: auto;" />
 
 > ## Challenge
 >
@@ -110,7 +110,7 @@ ggplot() +
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-13-use-bold-face-1.png" title="plot of chunk use-bold-face" alt="plot of chunk use-bold-face" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-13-use-bold-face-1.png" alt="plot of chunk use-bold-face" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -168,7 +168,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-13-change-color-ramp-1.png" title="plot of chunk change-color-ramp" alt="plot of chunk change-color-ramp" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-13-change-color-ramp-1.png" alt="plot of chunk change-color-ramp" width="612" style="display: block; margin: auto;" />
 
 The yellow to green color ramp visually represents NDVI well given it's a
 measure of greenness. Someone looking at the plot can quickly understand that
@@ -279,7 +279,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-13-create-levelplot-1.png" title="plot of chunk create-levelplot" alt="plot of chunk create-levelplot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-13-create-levelplot-1.png" alt="plot of chunk create-levelplot" width="612" style="display: block; margin: auto;" />
 
 
 ## Change Layout of Panels
@@ -301,7 +301,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-13-adjust-layout-1.png" title="plot of chunk adjust-layout" alt="plot of chunk adjust-layout" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-13-adjust-layout-1.png" alt="plot of chunk adjust-layout" width="612" style="display: block; margin: auto;" />
 
 Now we have a beautiful, publication quality plot!
 
@@ -340,7 +340,7 @@ Now we have a beautiful, publication quality plot!
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-13-final-figure-1.png" title="plot of chunk final-figure" alt="plot of chunk final-figure" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-13-final-figure-1.png" alt="plot of chunk final-figure" width="612" style="display: block; margin: auto;" />
 > > 
 > > For NDVI data, the sequential color ramp is better than the divergent as it is 
 > > more akin to the process

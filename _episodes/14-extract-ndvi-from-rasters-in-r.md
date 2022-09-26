@@ -370,7 +370,7 @@ ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-14-ggplot-data-1.png" title="plot of chunk ggplot-data" alt="plot of chunk ggplot-data" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-14-ggplot-data-1.png" alt="plot of chunk ggplot-data" width="612" style="display: block; margin: auto;" />
 
 > ## Challenge: Plot San Joaquin Experimental Range Data
 >
@@ -388,7 +388,7 @@ different color.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-14-avg-ndvi-sjer-1.png" title="plot of chunk avg-ndvi-sjer" alt="plot of chunk avg-ndvi-sjer" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-14-avg-ndvi-sjer-1.png" alt="plot of chunk avg-ndvi-sjer" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -416,7 +416,7 @@ ggplot(NDVI_HARV_SJER, aes(x = julianDay, y = meanNDVI, colour = site)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-14-ndvi-harv-sjer-comp-1.png" title="plot of chunk ndvi-harv-sjer-comp" alt="plot of chunk ndvi-harv-sjer-comp" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-14-ndvi-harv-sjer-comp-1.png" alt="plot of chunk ndvi-harv-sjer-comp" width="612" style="display: block; margin: auto;" />
 
 > ## Challenge: Plot NDVI with date
 >
@@ -435,7 +435,7 @@ ggplot(NDVI_HARV_SJER, aes(x = julianDay, y = meanNDVI, colour = site)) +
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-14-ndvi-harv-sjer-date-1.png" title="plot of chunk ndvi-harv-sjer-date" alt="plot of chunk ndvi-harv-sjer-date" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-14-ndvi-harv-sjer-date-1.png" alt="plot of chunk ndvi-harv-sjer-date" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -451,7 +451,7 @@ data points with very low NDVI values can be associated with
 images that are filled with clouds. Thus, we can attribute the low NDVI values
 to high levels of cloud cover. Is the same thing happening at SJER?
 
-<img src="../fig/rmd-14-view-all-rgb-SJER-1.png" title="plot of chunk view-all-rgb-SJER" alt="plot of chunk view-all-rgb-SJER" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-14-view-all-rgb-SJER-1.png" alt="plot of chunk view-all-rgb-SJER" width="612" style="display: block; margin: auto;" />
 
 Without significant additional processing, we will not be able to retrieve a
 strong reflection from vegetation, from a remotely sensed image that is
@@ -498,7 +498,7 @@ ggplot(avg_NDVI_HARV_clean, aes(x = julianDay, y = meanNDVI)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-14-plot-clean-HARV-1.png" title="plot of chunk plot-clean-HARV" alt="plot of chunk plot-clean-HARV" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-14-plot-clean-HARV-1.png" alt="plot of chunk plot-clean-HARV" width="612" style="display: block; margin: auto;" />
 
 Now our outlier data points are removed and the pattern of "green-up" and
 "brown-down" makes more sense.

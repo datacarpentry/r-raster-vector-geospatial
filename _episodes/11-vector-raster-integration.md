@@ -54,7 +54,7 @@ we have worked with in this workshop:
 
 
 
-<img src="../fig/rmd-11-compare-data-extents-1.png" title="plot of chunk compare-data-extents" alt="plot of chunk compare-data-extents" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-11-compare-data-extents-1.png" alt="plot of chunk compare-data-extents" width="612" style="display: block; margin: auto;" />
 
 Frequent use cases of cropping a raster file include reducing file size and
 creating maps. Sometimes we have a raster file that is much larger than our
@@ -82,7 +82,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-11-crop-by-vector-extent-1.png" title="plot of chunk crop-by-vector-extent" alt="plot of chunk crop-by-vector-extent" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-11-crop-by-vector-extent-1.png" alt="plot of chunk crop-by-vector-extent" width="612" style="display: block; margin: auto;" />
 
 Now that we have visualized the area of the CHM we want to subset, we can
 perform the cropping operation. We are going to `crop()` function from the 
@@ -116,7 +116,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-11-show-cropped-area-1.png" title="plot of chunk show-cropped-area" alt="plot of chunk show-cropped-area" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-11-show-cropped-area-1.png" alt="plot of chunk show-cropped-area" width="612" style="display: block; margin: auto;" />
 
 The plot above shows that the full CHM extent (plotted in green) is much larger
 than the resulting cropped raster. Our new cropped CHM now has the same extent
@@ -134,7 +134,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-11-view-crop-extent-1.png" title="plot of chunk view-crop-extent" alt="plot of chunk view-crop-extent" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-11-view-crop-extent-1.png" alt="plot of chunk view-crop-extent" width="612" style="display: block; margin: auto;" />
 
 We can look at the extent of all of our other objects for this field site.
 
@@ -222,7 +222,7 @@ Canopy Height Model information.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-11-challenge-code-crop-raster-points-1.png" title="plot of chunk challenge-code-crop-raster-points" alt="plot of chunk challenge-code-crop-raster-points" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-11-challenge-code-crop-raster-points-1.png" alt="plot of chunk challenge-code-crop-raster-points" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -240,7 +240,7 @@ vegetation plot layer will still extend further west than the extent of our
 
 
 
-<img src="../fig/rmd-11-repeat-compare-data-extents-1.png" title="plot of chunk repeat-compare-data-extents" alt="plot of chunk repeat-compare-data-extents" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-11-repeat-compare-data-extents-1.png" alt="plot of chunk repeat-compare-data-extents" width="612" style="display: block; margin: auto;" />
 
 ## Define an Extent
 
@@ -303,7 +303,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-11-show-manual-crop-area-1.png" title="plot of chunk show-manual-crop-area" alt="plot of chunk show-manual-crop-area" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-11-show-manual-crop-area-1.png" alt="plot of chunk show-manual-crop-area" width="612" style="display: block; margin: auto;" />
 
 ## Extract Raster Pixels Values Using Vector Polygons
 
@@ -369,7 +369,7 @@ ggplot() +
 ~~~
 {: .output}
 
-<img src="../fig/rmd-11-view-extract-histogram-1.png" title="plot of chunk view-extract-histogram" alt="plot of chunk view-extract-histogram" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-11-view-extract-histogram-1.png" alt="plot of chunk view-extract-histogram" width="612" style="display: block; margin: auto;" />
 
  We can also use the
 `summary()` function to view descriptive statistics including min, max, and mean
@@ -523,7 +523,7 @@ mean_tree_height_tower
 > > ~~~
 > > {: .warning}
 > > 
-> > <img src="../fig/rmd-11-hist-tree-height-veg-plot-1.png" title="plot of chunk hist-tree-height-veg-plot" alt="plot of chunk hist-tree-height-veg-plot" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-11-hist-tree-height-veg-plot-1.png" alt="plot of chunk hist-tree-height-veg-plot" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 

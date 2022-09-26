@@ -145,7 +145,7 @@ what this data looks like. First we'll plot the DTM elevation data:
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-04-harv-dtm-plot-1.png" title="plot of chunk harv-dtm-plot" alt="plot of chunk harv-dtm-plot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-harv-dtm-plot-1.png" alt="plot of chunk harv-dtm-plot" width="612" style="display: block; margin: auto;" />
 
 And then the DSM elevation data: 
 
@@ -159,7 +159,7 @@ And then the DSM elevation data:
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-04-harv-dsm-plot-1.png" title="plot of chunk harv-dsm-plot" alt="plot of chunk harv-dsm-plot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-harv-dsm-plot-1.png" alt="plot of chunk harv-dsm-plot" width="612" style="display: block; margin: auto;" />
 
 ## Two Ways to Perform Raster Calculations
 
@@ -200,7 +200,7 @@ We can now plot the output CHM.
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-04-harv-chm-plot-1.png" title="plot of chunk harv-chm-plot" alt="plot of chunk harv-chm-plot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-harv-chm-plot-1.png" alt="plot of chunk harv-chm-plot" width="612" style="display: block; margin: auto;" />
 
 Let's have a look at the distribution of values in our newly created
 Canopy Height Model (CHM).
@@ -226,7 +226,7 @@ Warning: Removed 1 rows containing non-finite values (stat_bin).
 ~~~
 {: .warning}
 
-<img src="../fig/rmd-04-create-hist-1.png" title="plot of chunk create-hist" alt="plot of chunk create-hist" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-create-hist-1.png" alt="plot of chunk create-hist" width="612" style="display: block; margin: auto;" />
 
 Notice that the range of values for the output CHM is between 0 and 30 
 meters. Does this make sense for trees in Harvard Forest?
@@ -297,7 +297,7 @@ meters. Does this make sense for trees in Harvard Forest?
 > > ~~~
 > > {: .warning}
 > > 
-> > <img src="../fig/rmd-04-chm-harv-hist-1.png" title="plot of chunk chm-harv-hist" alt="plot of chunk chm-harv-hist" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-04-chm-harv-hist-1.png" alt="plot of chunk chm-harv-hist" width="612" style="display: block; margin: auto;" />
 > > 4)
 > > 
 > > ~~~
@@ -314,7 +314,7 @@ meters. Does this make sense for trees in Harvard Forest?
 > > ~~~
 > > {: .warning}
 > > 
-> > <img src="../fig/rmd-04-chm-harv-hist-green-1.png" title="plot of chunk chm-harv-hist-green" alt="plot of chunk chm-harv-hist-green" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-04-chm-harv-hist-green-1.png" alt="plot of chunk chm-harv-hist-green" width="612" style="display: block; margin: auto;" />
 > > 5) 
 > > 
 > > ~~~
@@ -330,7 +330,7 @@ meters. Does this make sense for trees in Harvard Forest?
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-04-chm-harv-raster-1.png" title="plot of chunk chm-harv-raster" alt="plot of chunk chm-harv-raster" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-04-chm-harv-raster-1.png" alt="plot of chunk chm-harv-raster" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -402,7 +402,7 @@ Now we can plot the CHM:
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-04-harv-chm-overlay-1.png" title="plot of chunk harv-chm-overlay" alt="plot of chunk harv-chm-overlay" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-harv-chm-overlay-1.png" alt="plot of chunk harv-chm-overlay" width="612" style="display: block; margin: auto;" />
 
 How do the plots of the CHM created with manual raster math and the `overlay()`
 function compare?
@@ -502,7 +502,7 @@ are what you expect.
 > > ~~~
 > > {: .output}
 > > 
-> > <img src="../fig/rmd-04-sjer-chm-overlay-hist-1.png" title="plot of chunk sjer-chm-overlay-hist" alt="plot of chunk sjer-chm-overlay-hist" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-04-sjer-chm-overlay-hist-1.png" alt="plot of chunk sjer-chm-overlay-hist" width="612" style="display: block; margin: auto;" />
 > >
 > > 2) Create a plot of the CHM: 
 > >
@@ -519,7 +519,7 @@ are what you expect.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-04-sjer-chm-overlay-raster-1.png" title="plot of chunk sjer-chm-overlay-raster" alt="plot of chunk sjer-chm-overlay-raster" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-04-sjer-chm-overlay-raster-1.png" alt="plot of chunk sjer-chm-overlay-raster" width="612" style="display: block; margin: auto;" />
 > > 
 > > 3) Export the CHM object to a file: 
 > >
@@ -557,7 +557,7 @@ are what you expect.
 > > ~~~
 > > {: .warning}
 > > 
-> > <img src="../fig/rmd-04-compare-chm-harv-sjer-1.png" title="plot of chunk compare-chm-harv-sjer" alt="plot of chunk compare-chm-harv-sjer" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-04-compare-chm-harv-sjer-1.png" alt="plot of chunk compare-chm-harv-sjer" width="612" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > ggplot(CHM_ov_SJER_df) +
@@ -572,7 +572,7 @@ are what you expect.
 > > ~~~
 > > {: .output}
 > > 
-> > <img src="../fig/rmd-04-compare-chm-harv-sjer-2.png" title="plot of chunk compare-chm-harv-sjer" alt="plot of chunk compare-chm-harv-sjer" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-04-compare-chm-harv-sjer-2.png" alt="plot of chunk compare-chm-harv-sjer" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 

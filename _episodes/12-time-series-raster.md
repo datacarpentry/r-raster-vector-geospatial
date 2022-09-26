@@ -288,7 +288,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-12-ndvi-wrap-1.png" title="plot of chunk ndvi-wrap" alt="plot of chunk ndvi-wrap" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-12-ndvi-wrap-1.png" alt="plot of chunk ndvi-wrap" width="612" style="display: block; margin: auto;" />
 
 Look at the range of NDVI values observed in the plot above. We know that
 the accepted values for NDVI range from 0-1. Why does our data range from
@@ -321,7 +321,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-12-ndvi-stack-wrap-1.png" title="plot of chunk ndvi-stack-wrap" alt="plot of chunk ndvi-stack-wrap" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-12-ndvi-stack-wrap-1.png" alt="plot of chunk ndvi-stack-wrap" width="612" style="display: block; margin: auto;" />
 
 ## Take a Closer Look at Our Data
 
@@ -362,7 +362,7 @@ ggplot(NDVI_HARV_stack_df) +
 ~~~
 {: .output}
 
-<img src="../fig/rmd-12-view-stack-histogram-1.png" title="plot of chunk view-stack-histogram" alt="plot of chunk view-stack-histogram" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-12-view-stack-histogram-1.png" alt="plot of chunk view-stack-histogram" width="612" style="display: block; margin: auto;" />
 
 It seems like things get green in the spring and summer like we expect, but the
 data at Julian days 277 and 293 are unusual. It appears as if the vegetation got
@@ -475,14 +475,41 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-12-air-temperature-1.png" title="plot of chunk air-temperature" alt="plot of chunk air-temperature" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-12-air-temperature-1.png" alt="plot of chunk air-temperature" width="612" style="display: block; margin: auto;" />
 
 There are no significant peaks or dips in the temperature during the late summer
 or early fall time period that might account for patterns seen in the NDVI data. 
 Let's have a look at the source Landsat imagery that was partially used used to
 derive our NDVI rasters to try to understand what appear to be outlier NDVI values.
 
-<img src="../fig/rmd-12-ndvi-plots-1.png" title="plot of chunk ndvi-plots" alt="plot of chunk ndvi-plots" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-12-ndvi-plots-2.png" title="plot of chunk ndvi-plots" alt="plot of chunk ndvi-plots" width="612" style="display: block; margin: auto;" />
+
+~~~
+Error in `$<-.data.frame`(`*tmp*`, rgb, value = character(0)): replacement has 0 rows, data has 453792
+~~~
+{: .error}
+
+
+
+~~~
+Error in `check_aesthetics()`:
+! Aesthetics must be either length 1 or the same as the data (453792): fill
+~~~
+{: .error}
+
+
+
+~~~
+Error in `$<-.data.frame`(`*tmp*`, rgb, value = character(0)): replacement has 0 rows, data has 453792
+~~~
+{: .error}
+
+
+
+~~~
+Error in `check_aesthetics()`:
+! Aesthetics must be either length 1 or the same as the data (453792): fill
+~~~
+{: .error}
 
 
 > ## Challenge: Examine RGB Raster Files
@@ -510,7 +537,7 @@ derive our NDVI rasters to try to understand what appear to be outlier NDVI valu
 > > resolution : 30, 30  (x, y)
 > > extent     : 230775, 251655, 4704825, 4724385  (xmin, xmax, ymin, ymax)
 > > crs        : +proj=utm +zone=19 +datum=WGS84 +units=m +no_defs 
-> > names      : X277_HARV_landRGB.1, X277_HARV_landRGB.2, X277_HARV_landRGB.3 
+> > names      : X277_HARV_landRGB_1, X277_HARV_landRGB_2, X277_HARV_landRGB_3 
 > > min values :                  26,                  29,                  79 
 > > max values :                 255,                 255,                 255 
 > > ~~~
@@ -539,6 +566,13 @@ derive our NDVI rasters to try to understand what appear to be outlier NDVI valu
 > > ~~~
 > > {: .language-r}
 > > 
+> > 
+> > 
+> > ~~~
+> > Error in rgb(X277_HARV_landRGB.1, X277_HARV_landRGB.2, X277_HARV_landRGB.3, : object 'X277_HARV_landRGB.1' not found
+> > ~~~
+> > {: .error}
+> > 
 > > Finally, we can plot the RGB data for Julian day 277. 
 > > 
 > > 
@@ -549,7 +583,13 @@ derive our NDVI rasters to try to understand what appear to be outlier NDVI valu
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-12-rgb-277-1.png" title="plot of chunk rgb-277" alt="plot of chunk rgb-277" width="612" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error in `check_aesthetics()`:
+> > ! Aesthetics must be either length 1 or the same as the data (453792): fill
+> > ~~~
+> > {: .error}
 > > We then do the same steps for Julian day 293
 > > 
 > > 
@@ -559,13 +599,32 @@ derive our NDVI rasters to try to understand what appear to be outlier NDVI valu
 > > RGB_293 <- RGB_293/255
 > > RGB_293_df <- as.data.frame(RGB_293, xy = TRUE)
 > > RGB_293_df$rgb <- with(RGB_293_df, rgb(X293_HARV_landRGB.1, X293_HARV_landRGB.2, X293_HARV_landRGB.3,1))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in rgb(X293_HARV_landRGB.1, X293_HARV_landRGB.2, X293_HARV_landRGB.3, : object 'X293_HARV_landRGB.1' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
 > > ggplot() +
 > >   geom_raster(data = RGB_293_df, aes(x, y), fill = RGB_293_df$rgb) +
 > >   ggtitle("Julian day 293")
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-12-rgb-293-1.png" title="plot of chunk rgb-293" alt="plot of chunk rgb-293" width="612" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error in `check_aesthetics()`:
+> > ! Aesthetics must be either length 1 or the same as the data (453792): fill
+> > ~~~
+> > {: .error}
 > > This example highlights the importance of
 > > exploring the source of a derived data product. In this case, the NDVI data
 > > product was created using Landsat imagery - specifically the red

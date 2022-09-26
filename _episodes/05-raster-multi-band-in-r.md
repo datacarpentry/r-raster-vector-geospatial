@@ -67,7 +67,12 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-harv-rgb-band1-1.png" title="plot of chunk harv-rgb-band1" alt="plot of chunk harv-rgb-band1" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in FUN(X[[i]], ...): object 'HARV_RGB_Ortho' not found
+~~~
+{: .error}
 
 > ## Challenge
 >
@@ -92,7 +97,7 @@ ggplot() +
 > > extent     : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
 > > crs        : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
 > > source     : HARV_RGB_Ortho.tif 
-> > names      : HARV_RGB_Ortho 
+> > names      : layer 
 > > values     : 0, 255  (min, max)
 > > ~~~
 > > {: .output}
@@ -153,7 +158,12 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-rgb-harv-band2-1.png" title="plot of chunk rgb-harv-band2" alt="plot of chunk rgb-harv-band2" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in FUN(X[[i]], ...): object 'HARV_RGB_Ortho' not found
+~~~
+{: .error}
 
 > ## Challenge: Making Sense of Single Band Images
 > 
@@ -195,7 +205,7 @@ dimensions : 2317, 3073, 7120141, 3  (nrow, ncol, ncell, nlayers)
 resolution : 0.25, 0.25  (x, y)
 extent     : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
 crs        : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
-names      : HARV_RGB_Ortho.1, HARV_RGB_Ortho.2, HARV_RGB_Ortho.3 
+names      : HARV_RGB_Ortho_1, HARV_RGB_Ortho_2, HARV_RGB_Ortho_3 
 min values :                0,                0,                0 
 max values :              255,              255,              255 
 ~~~
@@ -220,7 +230,7 @@ resolution : 0.25, 0.25  (x, y)
 extent     : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
 crs        : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
 source     : HARV_RGB_Ortho.tif 
-names      : HARV_RGB_Ortho.1 
+names      : HARV_RGB_Ortho_1 
 values     : 0, 255  (min, max)
 
 
@@ -232,7 +242,7 @@ resolution : 0.25, 0.25  (x, y)
 extent     : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
 crs        : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
 source     : HARV_RGB_Ortho.tif 
-names      : HARV_RGB_Ortho.2 
+names      : HARV_RGB_Ortho_2 
 values     : 0, 255  (min, max)
 
 
@@ -244,7 +254,7 @@ resolution : 0.25, 0.25  (x, y)
 extent     : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
 crs        : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
 source     : HARV_RGB_Ortho.tif 
-names      : HARV_RGB_Ortho.3 
+names      : HARV_RGB_Ortho_3 
 values     : 0, 255  (min, max)
 ~~~
 {: .output}
@@ -268,7 +278,7 @@ resolution : 0.25, 0.25  (x, y)
 extent     : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
 crs        : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
 source     : HARV_RGB_Ortho.tif 
-names      : HARV_RGB_Ortho.2 
+names      : HARV_RGB_Ortho_2 
 values     : 0, 255  (min, max)
 ~~~
 {: .output}
@@ -296,9 +306,9 @@ str(RGB_stack_HARV_df)
 'data.frame':	7120141 obs. of  5 variables:
  $ x               : num  731999 731999 731999 731999 732000 ...
  $ y               : num  4713535 4713535 4713535 4713535 4713535 ...
- $ HARV_RGB_Ortho.1: num  0 2 6 0 16 0 0 6 1 5 ...
- $ HARV_RGB_Ortho.2: num  1 0 9 0 5 0 4 2 1 0 ...
- $ HARV_RGB_Ortho.3: num  0 10 1 0 17 0 4 0 0 7 ...
+ $ HARV_RGB_Ortho_1: num  0 2 6 0 16 0 0 6 1 5 ...
+ $ HARV_RGB_Ortho_2: num  1 0 9 0 5 0 4 2 1 0 ...
+ $ HARV_RGB_Ortho_3: num  0 10 1 0 17 0 4 0 0 7 ...
 ~~~
 {: .output}
 
@@ -314,11 +324,9 @@ ggplot() +
 
 
 ~~~
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+Error in FUN(X[[i]], ...): object 'HARV_RGB_Ortho.1' not found
 ~~~
-{: .output}
-
-<img src="../fig/rmd-05-rgb-harv-hist-band1-1.png" title="plot of chunk rgb-harv-hist-band1" alt="plot of chunk rgb-harv-hist-band1" width="612" style="display: block; margin: auto;" />
+{: .error}
 
 And a raster plot of the second band: 
 
@@ -331,7 +339,12 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-rgb-harv-plot-band2-1.png" title="plot of chunk rgb-harv-plot-band2" alt="plot of chunk rgb-harv-plot-band2" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in FUN(X[[i]], ...): object 'HARV_RGB_Ortho.2' not found
+~~~
+{: .error}
 
 We can access any individual band in the same way.
 
@@ -358,7 +371,7 @@ plotRGB(RGB_stack_HARV,
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-plot-rgb-image-1.png" title="plot of chunk plot-rgb-image" alt="plot of chunk plot-rgb-image" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-plot-rgb-image-1.png" alt="plot of chunk plot-rgb-image" width="612" style="display: block; margin: auto;" />
 
 The image above looks pretty good. We can explore whether applying a stretch to
 the image might improve clarity and contrast using `stretch="lin"` or
@@ -386,7 +399,7 @@ plotRGB(RGB_stack_HARV,
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-plot-rbg-image-linear-1.png" title="plot of chunk plot-rbg-image-linear" alt="plot of chunk plot-rbg-image-linear" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-plot-rbg-image-linear-1.png" alt="plot of chunk plot-rbg-image-linear" width="612" style="display: block; margin: auto;" />
 
 
 ~~~
@@ -397,7 +410,7 @@ plotRGB(RGB_stack_HARV,
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-plot-rgb-image-hist-1.png" title="plot of chunk plot-rgb-image-hist" alt="plot of chunk plot-rgb-image-hist" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-plot-rgb-image-hist-1.png" alt="plot of chunk plot-rgb-image-hist" width="612" style="display: block; margin: auto;" />
 
 In this case, the stretch doesn't enhance the contrast our image significantly
 given the distribution of reflectance (or brightness) values is distributed well
@@ -485,7 +498,7 @@ between 0 and 255.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-05-harv-na-rgb-1.png" title="plot of chunk harv-na-rgb" alt="plot of chunk harv-na-rgb" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-05-harv-na-rgb-1.png" alt="plot of chunk harv-na-rgb" width="612" style="display: block; margin: auto;" />
 > >
 > > 6) The black edges are not plotted.
 > > 7) Both data sets have `NoData` values, however, in the RGB_stack the NoData value is not
@@ -566,7 +579,7 @@ object.size(RGB_stack_HARV)
 
 
 ~~~
-50360 bytes
+51848 bytes
 ~~~
 {: .output}
 
@@ -599,7 +612,7 @@ plotRGB(RGB_brick_HARV)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-plot-brick-1.png" title="plot of chunk plot-brick" alt="plot of chunk plot-brick" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-plot-brick-1.png" alt="plot of chunk plot-brick" width="612" style="display: block; margin: auto;" />
 
 > ## Challenge: What Functions Can Be Used on an R Object of a particular class?
 > 

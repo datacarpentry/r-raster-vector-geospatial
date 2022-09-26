@@ -88,7 +88,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-03-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
 
 Our results are curious - neither the Digital Terrain Model (`DTM_HARV_df`) 
 nor the DTM Hillshade (`DTM_hill_HARV_df`) plotted.
@@ -106,7 +106,7 @@ coord_quickmap()
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-03-plot-DTM-1.png" title="plot of chunk plot-DTM" alt="plot of chunk plot-DTM" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-plot-DTM-1.png" alt="plot of chunk plot-DTM" width="612" style="display: block; margin: auto;" />
 
 Our DTM seems to contain data and plots just fine.
 
@@ -122,7 +122,7 @@ geom_raster(data = DTM_hill_HARV_df,
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-03-plot-DTM-hill-1.png" title="plot of chunk plot-DTM-hill" alt="plot of chunk plot-DTM-hill" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-plot-DTM-hill-1.png" alt="plot of chunk plot-DTM-hill" width="612" style="display: block; margin: auto;" />
 
 If we look at the axes, we can see that the projections of the two rasters are different.
 When this is the case, `ggplot` won't render the image. It won't even
@@ -500,7 +500,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-03-plot-projected-raster-1.png" title="plot of chunk plot-projected-raster" alt="plot of chunk plot-projected-raster" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-plot-projected-raster-1.png" alt="plot of chunk plot-projected-raster" width="612" style="display: block; margin: auto;" />
 
 We have now successfully draped the Digital Terrain Model on top of our
 hillshade to produce a nice looking, textured map!
@@ -545,7 +545,7 @@ hillshade to produce a nice looking, textured map!
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-03-challenge-code-reprojection-1.png" title="plot of chunk challenge-code-reprojection" alt="plot of chunk challenge-code-reprojection" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-03-challenge-code-reprojection-1.png" alt="plot of chunk challenge-code-reprojection" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 >
 > If you completed the San Joaquin plotting challenge in the

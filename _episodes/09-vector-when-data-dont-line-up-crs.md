@@ -123,7 +123,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-09-find-coordinates-1.png" title="plot of chunk find-coordinates" alt="plot of chunk find-coordinates" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-09-find-coordinates-1.png" alt="plot of chunk find-coordinates" width="612" style="display: block; margin: auto;" />
 
 ## U.S. Boundary Layer
 
@@ -166,7 +166,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-09-us-boundaries-thickness-1.png" title="plot of chunk us-boundaries-thickness" alt="plot of chunk us-boundaries-thickness" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-09-us-boundaries-thickness-1.png" alt="plot of chunk us-boundaries-thickness" width="612" style="display: block; margin: auto;" />
 
 Next, let's add the location of a flux tower where our study area is.
 As we are adding these layers, take note of the CRS of each object.
@@ -391,7 +391,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-09-layer-point-on-states-1.png" title="plot of chunk layer-point-on-states" alt="plot of chunk layer-point-on-states" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-09-layer-point-on-states-1.png" alt="plot of chunk layer-point-on-states" width="612" style="display: block; margin: auto;" />
 
 > ## Challenge - Plot Multiple Layers of Spatial Data
 >
@@ -440,7 +440,7 @@ ggplot() +
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-09-ne-states-harv-1.png" title="plot of chunk ne-states-harv" alt="plot of chunk ne-states-harv" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-09-ne-states-harv-1.png" alt="plot of chunk ne-states-harv" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 

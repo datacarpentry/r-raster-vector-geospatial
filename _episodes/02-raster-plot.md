@@ -52,7 +52,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-histogram-breaks-ggplot-1.png" title="plot of chunk histogram-breaks-ggplot" alt="plot of chunk histogram-breaks-ggplot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-histogram-breaks-ggplot-1.png" alt="plot of chunk histogram-breaks-ggplot" width="612" style="display: block; margin: auto;" />
 
 If we want to know the cutoff values for the groups, we can ask for the unique values 
 of `fct_elevation`:
@@ -134,7 +134,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-histogram-custom-breaks-1.png" title="plot of chunk histogram-custom-breaks" alt="plot of chunk histogram-custom-breaks" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-histogram-custom-breaks-1.png" alt="plot of chunk histogram-custom-breaks" width="612" style="display: block; margin: auto;" />
 
 And we can get the count of values in each group in the same way we did before:
 
@@ -169,7 +169,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-raster-with-breaks-1.png" title="plot of chunk raster-with-breaks" alt="plot of chunk raster-with-breaks" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-raster-with-breaks-1.png" alt="plot of chunk raster-with-breaks" width="612" style="display: block; margin: auto;" />
 
 The plot above uses the default colors inside `ggplot` for raster objects. 
 We can specify our own colors to make the plot look a little nicer.
@@ -205,7 +205,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-ggplot-breaks-customcolors-1.png" title="plot of chunk ggplot-breaks-customcolors" alt="plot of chunk ggplot-breaks-customcolors" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-ggplot-breaks-customcolors-1.png" alt="plot of chunk ggplot-breaks-customcolors" width="612" style="display: block; margin: auto;" />
 
 ### More Plot Formatting
 
@@ -230,7 +230,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-add-ggplot-labels-1.png" title="plot of chunk add-ggplot-labels" alt="plot of chunk add-ggplot-labels" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-add-ggplot-labels-1.png" alt="plot of chunk add-ggplot-labels" width="612" style="display: block; margin: auto;" />
 
 Or we can also turn off the labels of both axes by passing `element_blank()` to
 the relevant part of the `theme()` function.
@@ -246,7 +246,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-turn-off-axes-1.png" title="plot of chunk turn-off-axes" alt="plot of chunk turn-off-axes" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-turn-off-axes-1.png" alt="plot of chunk turn-off-axes" width="612" style="display: block; margin: auto;" />
 
 > ## Challenge: Plot Using Custom Breaks
 >
@@ -275,7 +275,7 @@ ggplot() +
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-challenge-code-plotting-1.png" title="plot of chunk challenge-code-plotting" alt="plot of chunk challenge-code-plotting" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-02-challenge-code-plotting-1.png" alt="plot of chunk challenge-code-plotting" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -344,7 +344,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-raster-hillshade-1.png" title="plot of chunk raster-hillshade" alt="plot of chunk raster-hillshade" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-raster-hillshade-1.png" alt="plot of chunk raster-hillshade" width="612" style="display: block; margin: auto;" />
 
 > ## Data Tips
 > Turn off, or hide, the legend on a plot by adding `guide = "none"` 
@@ -374,7 +374,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-overlay-hillshade-1.png" title="plot of chunk overlay-hillshade" alt="plot of chunk overlay-hillshade" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-overlay-hillshade-1.png" alt="plot of chunk overlay-hillshade" width="612" style="display: block; margin: auto;" />
 
 > ## Challenge: Create DTM & DSM for SJER
 > 
@@ -431,7 +431,7 @@ Range field site.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-challenge-hillshade-layering-1.png" title="plot of chunk challenge-hillshade-layering" alt="plot of chunk challenge-hillshade-layering" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-02-challenge-hillshade-layering-1.png" alt="plot of chunk challenge-hillshade-layering" width="612" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > # CREATE DTM MAP
@@ -466,7 +466,7 @@ Range field site.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-challenge-hillshade-layering-2.png" title="plot of chunk challenge-hillshade-layering" alt="plot of chunk challenge-hillshade-layering" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-02-challenge-hillshade-layering-2.png" alt="plot of chunk challenge-hillshade-layering" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 

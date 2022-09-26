@@ -403,7 +403,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-10-plot-data-points-1.png" title="plot of chunk plot-data-points" alt="plot of chunk plot-data-points" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-10-plot-data-points-1.png" alt="plot of chunk plot-data-points" width="612" style="display: block; margin: auto;" />
 
 ## Plot Extent
 
@@ -422,7 +422,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-10-plot-data-1.png" title="plot of chunk plot-data" alt="plot of chunk plot-data" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-10-plot-data-1.png" alt="plot of chunk plot-data" width="612" style="display: block; margin: auto;" />
 
 When we plot the two layers together, `ggplot` sets the plot boundaries
 so that they are large enough to include all of the data included in all of the layers.
@@ -568,7 +568,7 @@ That's really handy!
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-10-plot-locations-harv-orange-1.png" title="plot of chunk plot-locations-harv-orange" alt="plot of chunk plot-locations-harv-orange" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-10-plot-locations-harv-orange-1.png" alt="plot of chunk plot-locations-harv-orange" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 

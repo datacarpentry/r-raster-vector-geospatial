@@ -239,7 +239,7 @@ ggplot() +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-plot-shapefile-1.png" title="plot of chunk plot-shapefile" alt="plot of chunk plot-shapefile" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-plot-shapefile-1.png" alt="plot of chunk plot-shapefile" width="612" style="display: block; margin: auto;" />
 
 > ## Challenge: Import Line and Point Shapefiles
 > 
