@@ -13,7 +13,7 @@ objectives:
 -  "Plot a raster file in R using the `ggplot2` package."
 -  "Describe the difference between single- and multi-band rasters."
 keypoints:
-- "The GeoTIFF file format includes metadata about the raster data." 
+- "The GeoTIFF file format includes metadata about the raster data."
 - "To plot raster data with the `ggplot2` package, we need to convert it to a dataframe."
 - "R stores CRS information in the Proj4 format."
 - "Be careful when dealing with missing or bad data values."
@@ -60,9 +60,9 @@ library(dplyr)
 > ## Introduce the Data
 >
 > If not already discussed, introduce the datasets that will be used in this
-> lesson. A brief introduction to the datasets can be found on the 
+> lesson. A brief introduction to the datasets can be found on the
 > [Geospatial workshop homepage](https://datacarpentry.org/geospatial-workshop/#data).
-> 
+>
 > For more detailed information about the datasets, check
 out the [Geospatial workshop data
 page](http://datacarpentry.org/geospatial-workshop/data/).
@@ -89,13 +89,13 @@ HARV_dsmCrop_info <- capture.output(
 ```
 
 Each line of text that was printed to the console is now stored as an element of
-the character vector `HARV_dsmCrop_info`. We will be exploring this data throughout this 
+the character vector `HARV_dsmCrop_info`. We will be exploring this data throughout this
 episode. By the end of this episode, you will be able to explain and understand the output above.
 
 ## Open a Raster in R
 
 Now that we've previewed the metadata for our GeoTIFF, let's import this
-raster dataset into R and explore its metadata more closely. We can use the `raster()` 
+raster dataset into R and explore its metadata more closely. We can use the `raster()`
 function to open a raster in R.
 
 > ## Data Tip - Object names
@@ -108,7 +108,7 @@ function to open a raster in R.
 First we will load our raster file into R and view the data structure.
 
 ```{r}
-DSM_HARV <- 
+DSM_HARV <-
   raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 DSM_HARV
@@ -254,8 +254,8 @@ maxValue(DSM_HARV)
 > ```
 {: .callout}
 
-We can see that the elevation at our site ranges from `r minValue(DSM_HARV)`m to
-`r maxValue(DSM_HARV)`m.
+We can see that the elevation at our site ranges from `r raster::minValue(DSM_HARV)`m to
+`r raster::maxValue(DSM_HARV)`m.
 
 ## Raster Bands
 The Digital Surface Model object (`DSM_HARV`) that we've been working with is a
@@ -298,7 +298,7 @@ did not collect data in these areas.
 RGB_stack <-
   stack("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
-# aggregate cells from 0.25m to 2m for plotting to speed up the lesson and 
+# aggregate cells from 0.25m to 2m for plotting to speed up the lesson and
 # save memory
 RGB_2m <- raster::aggregate(RGB_stack, fact = 8, fun = median)
 # fix data values back to integer datatype
@@ -332,7 +332,7 @@ RGB_2m_df_nd$hex <- rgb(RGB_2m_df_nd$red,
                         RGB_2m_df_nd$green,
                         RGB_2m_df_nd$blue, maxColorValue = 255)
 # set black hex code to NA
-RGB_2m_df_nd$hex[RGB_2m_df_nd$hex == '#000000'] <- NA_character_ 
+RGB_2m_df_nd$hex[RGB_2m_df_nd$hex == '#000000'] <- NA_character_
 
 ggplot() +
   geom_raster(data = RGB_2m_df_nd, aes(x = x, y = y, fill = hex)) +
@@ -349,7 +349,7 @@ To highlight `NA` values in ggplot, alter the `scale_fill_*()` layer to contain 
 ```{r 'napink', echo = FALSE}
 # demonstration code
 # function to replace 0 with NA where all three values are 0 only
-RGB_2m_nas <- calc(RGB_2m, 
+RGB_2m_nas <- calc(RGB_2m,
                    fun = function(x) {
                            x[rowSums(x == 0) == 3, ] <- rep(NA, nlayers(RGB_2m))
                            x
@@ -357,7 +357,7 @@ RGB_2m_nas <- calc(RGB_2m,
 RGB_2m_nas <- as.data.frame(RGB_2m_nas, xy = TRUE)
 
 ggplot() +
-  geom_raster(data = RGB_2m_nas, aes(x = x, y = y, fill = HARV_RGB_Ortho_3)) + 
+  geom_raster(data = RGB_2m_nas, aes(x = x, y = y, fill = HARV_RGB_Ortho_3)) +
   scale_fill_gradient(low = 'grey90', high = 'blue', na.value = 'deeppink') +
   ggtitle("Orthographic Imagery", subtitle = "Blue band, with NA highlighted") +
   coord_quickmap()
@@ -430,8 +430,8 @@ DSM_highvals <- as.data.frame(DSM_highvals, xy = TRUE)
 DSM_highvals <- DSM_highvals[!is.na(DSM_highvals$HARV_dsmCrop), ]
 
 ggplot() +
-  geom_raster(data = DSM_HARV_df, aes(x = x, y = y, fill = HARV_dsmCrop)) + 
-  scale_fill_viridis_c() + 
+  geom_raster(data = DSM_HARV_df, aes(x = x, y = y, fill = HARV_dsmCrop)) +
+  scale_fill_viridis_c() +
   # use reclassified raster data as an annotation
   annotate(geom = 'raster', x = DSM_highvals$x, y = DSM_highvals$y, fill = scales::colour_ramp('deeppink')(DSM_highvals$HARV_dsmCrop)) +
   ggtitle("Elevation Data", subtitle = "Highlighting values > 400m") +
