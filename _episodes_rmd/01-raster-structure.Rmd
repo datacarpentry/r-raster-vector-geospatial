@@ -357,7 +357,7 @@ RGB_2m_nas <- calc(RGB_2m,
 RGB_2m_nas <- as.data.frame(RGB_2m_nas, xy = TRUE)
 
 ggplot() +
-  geom_raster(data = RGB_2m_nas, aes(x = x, y = y, fill = HARV_RGB_Ortho.3)) + 
+  geom_raster(data = RGB_2m_nas, aes(x = x, y = y, fill = HARV_RGB_Ortho_3)) + 
   scale_fill_gradient(low = 'grey90', high = 'blue', na.value = 'deeppink') +
   ggtitle("Orthographic Imagery", subtitle = "Blue band, with NA highlighted") +
   coord_quickmap()
