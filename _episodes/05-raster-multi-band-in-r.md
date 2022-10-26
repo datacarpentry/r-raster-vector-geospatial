@@ -62,17 +62,12 @@ RGB_band1_HARV_df  <- as.data.frame(RGB_band1_HARV, xy = TRUE)
 ~~~
 ggplot() +
   geom_raster(data = RGB_band1_HARV_df,
-              aes(x = x, y = y, alpha = HARV_RGB_Ortho)) + 
+              aes(x = x, y = y, alpha = layer)) + 
   coord_quickmap()
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in FUN(X[[i]], ...): object 'HARV_RGB_Ortho' not found
-~~~
-{: .error}
+<img src="../fig/rmd-05-harv-rgb-band1-1.png" alt="plot of chunk harv-rgb-band1" width="612" style="display: block; margin: auto;" />
 
 > ## Challenge
 >
@@ -153,17 +148,12 @@ RGB_band2_HARV_df <- as.data.frame(RGB_band2_HARV, xy = TRUE)
 ~~~
 ggplot() +
   geom_raster(data = RGB_band2_HARV_df,
-              aes(x = x, y = y, alpha = HARV_RGB_Ortho)) + 
+              aes(x = x, y = y, alpha = layer)) + 
   coord_equal()
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in FUN(X[[i]], ...): object 'HARV_RGB_Ortho' not found
-~~~
-{: .error}
+<img src="../fig/rmd-05-rgb-harv-band2-1.png" alt="plot of chunk rgb-harv-band2" width="612" style="display: block; margin: auto;" />
 
 > ## Challenge: Making Sense of Single Band Images
 > 
@@ -317,16 +307,18 @@ Let's create a histogram of the first band:
 
 ~~~
 ggplot() +
-  geom_histogram(data = RGB_stack_HARV_df, aes(HARV_RGB_Ortho.1))
+  geom_histogram(data = RGB_stack_HARV_df, aes(HARV_RGB_Ortho_1))
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in FUN(X[[i]], ...): object 'HARV_RGB_Ortho.1' not found
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ~~~
-{: .error}
+{: .output}
+
+<img src="../fig/rmd-05-rgb-harv-hist-band1-1.png" alt="plot of chunk rgb-harv-hist-band1" width="612" style="display: block; margin: auto;" />
 
 And a raster plot of the second band: 
 
@@ -334,17 +326,12 @@ And a raster plot of the second band:
 ~~~
 ggplot() +
   geom_raster(data = RGB_stack_HARV_df,
-              aes(x = x, y = y, alpha = HARV_RGB_Ortho.2)) + 
+              aes(x = x, y = y, alpha = HARV_RGB_Ortho_2)) + 
   coord_quickmap()
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in FUN(X[[i]], ...): object 'HARV_RGB_Ortho.2' not found
-~~~
-{: .error}
+<img src="../fig/rmd-05-rgb-harv-plot-band2-1.png" alt="plot of chunk rgb-harv-plot-band2" width="612" style="display: block; margin: auto;" />
 
 We can access any individual band in the same way.
 

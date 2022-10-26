@@ -15,7 +15,7 @@ objectives:
 -  "Plot a raster file in R using the `ggplot2` package."
 -  "Describe the difference between single- and multi-band rasters."
 keypoints:
-- "The GeoTIFF file format includes metadata about the raster data." 
+- "The GeoTIFF file format includes metadata about the raster data."
 - "To plot raster data with the `ggplot2` package, we need to convert it to a dataframe."
 - "R stores CRS information in the Proj4 format."
 - "Be careful when dealing with missing or bad data values."
@@ -54,9 +54,9 @@ library(dplyr)
 > ## Introduce the Data
 >
 > If not already discussed, introduce the datasets that will be used in this
-> lesson. A brief introduction to the datasets can be found on the 
+> lesson. A brief introduction to the datasets can be found on the
 > [Geospatial workshop homepage](https://datacarpentry.org/geospatial-workshop/#data).
-> 
+>
 > For more detailed information about the datasets, check
 out the [Geospatial workshop data
 page](http://datacarpentry.org/geospatial-workshop/data/).
@@ -114,13 +114,13 @@ HARV_dsmCrop_info <- capture.output(
 {: .language-r}
 
 Each line of text that was printed to the console is now stored as an element of
-the character vector `HARV_dsmCrop_info`. We will be exploring this data throughout this 
+the character vector `HARV_dsmCrop_info`. We will be exploring this data throughout this
 episode. By the end of this episode, you will be able to explain and understand the output above.
 
 ## Open a Raster in R
 
 Now that we've previewed the metadata for our GeoTIFF, let's import this
-raster dataset into R and explore its metadata more closely. We can use the `raster()` 
+raster dataset into R and explore its metadata more closely. We can use the `raster()`
 function to open a raster in R.
 
 > ## Data Tip - Object names
@@ -134,7 +134,7 @@ First we will load our raster file into R and view the data structure.
 
 
 ~~~
-DSM_HARV <- 
+DSM_HARV <-
   raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 DSM_HARV
@@ -488,11 +488,7 @@ If your raster already has `NA` values set correctly but you aren't sure where t
 
 To highlight `NA` values in ggplot, alter the `scale_fill_*()` layer to contain a colour instruction for `NA` values, like `scale_fill_viridis_c(na.value = 'deeppink')`
 
-
-~~~
-Error in FUN(X[[i]], ...): object 'HARV_RGB_Ortho.3' not found
-~~~
-{: .error}
+<img src="../fig/rmd-01-napink-1.png" alt="plot of chunk napink" width="612" style="display: block; margin: auto;" />
 
 The value that is conventionally used to take note of missing data (the
 `NoDataValue` value) varies by the raster data type. For floating-point rasters,
