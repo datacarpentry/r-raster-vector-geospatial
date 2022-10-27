@@ -14,8 +14,10 @@ title: "Introduction to Geospatial Raster and Vector Data with R"
 
 # Life cycle stage of the lesson
 # possible values: "pre-alpha", "alpha", "beta", "stable"
-life_cycle: "stable"
-
+life_cycle: "transition-step-1"
+transition_date_prebeta: '2022-10-31' # pre-beta stage (two repos, two sites)
+transition_date_beta: '2022-11-28' # beta stage (one repo, two sites)
+transition_date_prerelease: '2023-02-06' # pre-release stage (one repo, one site)
 
 #------------------------------------------------------------
 # Generic settings (should not need to change).
