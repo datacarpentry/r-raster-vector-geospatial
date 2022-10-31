@@ -31,7 +31,8 @@ module Zeitwerk::Loader::Helpers
       next if ignored_paths.member?(abspath)
 
       if dir?(abspath)
-        next unless has_at_least_one_ruby_file?(abspath)
+        next if root_dirs.key?(abspath)
+        next if !has_at_least_one_ruby_file?(abspath)
       else
         next unless ruby?(abspath)
       end
@@ -72,6 +73,15 @@ module Zeitwerk::Loader::Helpers
   # @sig (String) -> bool
   def hidden?(basename)
     basename.start_with?(".")
+  end
+
+  # @sig (String) { (String) -> void } -> void
+  def walk_up(abspath)
+    loop do
+      yield abspath
+      abspath, basename = File.split(abspath)
+      break if basename == "/"
+    end
   end
 
   # --- Constants ---------------------------------------------------------------------------------

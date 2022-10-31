@@ -4,13 +4,12 @@ require "set"
 require "securerandom"
 
 module Zeitwerk::Loader::Config
-  # Absolute paths of the root directories. Stored in a hash to preserve
-  # order, easily handle duplicates, have a fast lookup needed for detecting
-  # nested paths, and store custom namespaces as values.
+  # Absolute paths of the root directories. Stored in a hash to preserve order,
+  # easily handle duplicates, have a fast lookup needed for detecting nested
+  # paths, and store namespaces as values.
   #
-  #   "/Users/fxn/blog/app/assets"   => Object,
   #   "/Users/fxn/blog/app/channels" => Object,
-  #   "/Users/fxn/blog/adapters"     => ActiveJob::QueueAdapters,
+  #   "/Users/fxn/blog/app/adapters" => ActiveJob::QueueAdapters,
   #   ...
   #
   # This is a private collection maintained by the loader. The public
@@ -273,12 +272,21 @@ module Zeitwerk::Loader::Config
     @logger = ->(msg) { puts msg }
   end
 
+  # Returns true if the argument has been configured to be ignored, or is a
+  # descendant of an ignored directory.
+  #
   # @private
   # @sig (String) -> bool
   def ignores?(abspath)
-    ignored_paths.any? do |ignored_path|
-      ignored_path == abspath || (dir?(ignored_path) && abspath.start_with?(ignored_path + "/"))
+    # Common use case.
+    return false if ignored_paths.empty?
+
+    walk_up(abspath) do |abspath|
+      return true  if ignored_paths.member?(abspath)
+      return false if root_dirs.key?(abspath)
     end
+
+    false
   end
 
   private
@@ -297,7 +305,15 @@ module Zeitwerk::Loader::Config
 
   # @sig (String) -> bool
   def excluded_from_eager_load?(abspath)
-    eager_load_exclusions.member?(abspath)
+    # Optimize this common use case.
+    return false if eager_load_exclusions.empty?
+
+    walk_up(abspath) do |abspath|
+      return true  if eager_load_exclusions.member?(abspath)
+      return false if root_dirs.key?(abspath)
+    end
+
+    false
   end
 
   # @sig (String) -> bool

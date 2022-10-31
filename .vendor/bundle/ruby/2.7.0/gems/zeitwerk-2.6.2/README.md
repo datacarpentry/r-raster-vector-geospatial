@@ -27,8 +27,14 @@
   - [Autoloading](#autoloading)
   - [Eager loading](#eager-loading)
     - [Eager load exclusions](#eager-load-exclusions)
+    - [Eager load directories](#eager-load-directories)
+    - [Eager load namespaces](#eager-load-namespaces)
+    - [Eager load namespaces shared by several loaders](#eager-load-namespaces-shared-by-several-loaders)
     - [Global eager load](#global-eager-load)
+  - [Loading individual files](#loading-individual-files)
   - [Reloading](#reloading)
+    - [Configuration and usage](#configuration-and-usage)
+    - [Thread-safety](#thread-safety)
   - [Inflection](#inflection)
     - [Zeitwerk::Inflector](#zeitwerkinflector)
     - [Zeitwerk::GemInflector](#zeitwerkgeminflector)
@@ -44,6 +50,7 @@
     - [Use case: Files that do not follow the conventions](#use-case-files-that-do-not-follow-the-conventions)
     - [Use case: The adapter pattern](#use-case-the-adapter-pattern)
     - [Use case: Test files mixed with implementation files](#use-case-test-files-mixed-with-implementation-files)
+  - [Shadowed files](#shadowed-files)
   - [Edge cases](#edge-cases)
   - [Beware of circular dependencies](#beware-of-circular-dependencies)
   - [Reopening third-party namespaces](#reopening-third-party-namespaces)
@@ -464,6 +471,75 @@ Which may be handy if the project eager loads in the test suite to [ensure proje
 
 The `force` flag does not affect ignored files and directories, those are still ignored.
 
+<a id="markdown-eager-load-directories" name="eager-load-directories"></a>
+#### Eager load directories
+
+The method `Zeitwerk::Loader#eager_load_dir` eager loads a given directory, recursively:
+
+```ruby
+loader.eager_load_dir("#{__dir__}/custom_web_app/routes")
+```
+
+This is useful when the loader is not eager loading the entire project, but you still need some subtree to be loaded for things to function properly.
+
+Both strings and `Pathname` objects are supported as arguments. If the argument is not a directory managed by the receiver, the method raises `Zeitwerk::Error`.
+
+[Eager load exclusions](#eager-load-exclusions), [ignored files and directories](#ignoring-parts-of-the-project), and [shadowed files](https://github.com/fxn/zeitwerk#shadowed-files) are not eager loaded.
+
+`Zeitwerk::Loader#eager_load_dir` is idempotent, but compatible with reloading. If you eager load a directory and then reload, eager loading that directory will load its (current) contents again.
+
+The method checks if a regular eager load was already executed, in which case it returns fast.
+
+Nested root directories which are descendants of the argument are skipped. Those subtrees are considered to be conceptually apart.
+
+<a id="markdown-eager-load-namespaces" name="eager-load-namespaces"></a>
+#### Eager load namespaces
+
+The method `Zeitwerk::Loader#eager_load_namespace` eager loads a given namespace, recursively:
+
+```ruby
+loader.eager_load_namespace(MyApp::Routes)
+```
+
+This is useful when the loader is not eager loading the entire project, but you still need some namespace to be loaded for things to function properly.
+
+The argument has to be a class or module object and the method raises `Zeitwerk::Error` otherwise.
+
+If the namespace is spread over multiple directories in the receiver's source tree, they are all eager loaded. For example, if you have a structure like
+
+```
+root_dir1/my_app/routes
+root_dir2/my_app/routes
+root_dir3/my_app/routes
+```
+
+where `root_directory{1,2,3}` are root directories, eager loading `MyApp::Routes` will eager load the contents of the three corresponding directories.
+
+There might exist external source trees implementing part of the namespace. This happens routinely, because top-level constants are stored in the globally shared `Object`. It happens also when deliberately [reopening third-party namespaces](reopening-third-party-namespaces). Such external code is not eager loaded, the implementation is carefully scoped to what the receiver manages to avoid side-effects elsewhere.
+
+This method is flexible about what it accepts. Its semantics have to be interpreted as: "_If_ you manage this namespace, or part of this namespace, please eager load what you got". In particular, if the receiver does not manage the namespace, it will simply do nothing, this is not an error condition.
+
+[Eager load exclusions](#eager-load-exclusions), [ignored files and directories](#ignoring-parts-of-the-project), and [shadowed files](https://github.com/fxn/zeitwerk#shadowed-files) are not eager loaded.
+
+`Zeitwerk::Loader#eager_load_namespace` is idempotent, but compatible with reloading. If you eager load a namespace and then reload, eager loading that namespace will load its (current) descendants again.
+
+The method checks if a regular eager load was already executed, in which case it returns fast.
+
+If root directories are assigned to custom namespaces, the method behaves as you'd expect, according to the namespacing relationship between the custom namespace and the argument.
+
+<a id="markdown-eager-load-namespaces-shared-by-several-loaders" name="eager-load-namespaces-shared-by-several-loaders"></a>
+#### Eager load namespaces shared by several loaders
+
+The method `Zeitwerk::Loader.eager_load_namespace` broadcasts `eager_load_namespace` to all loaders.
+
+```ruby
+Zeitwerk::Loader.eager_load_namespace(MyFramework::Routes)
+```
+
+This may be handy, for example, if a framework supports plugins and a shared namespace needs to be eager loaded for the project to function properly.
+
+Please, note that loaders only eager load namespaces they manage, as documented above. Therefore, this method does not allow you to eager load namespaces not managed by Zeitwerk loaders.
+
 <a id="markdown-global-eager-load" name="global-eager-load"></a>
 #### Global eager load
 
@@ -479,8 +555,28 @@ Note that thanks to idempotence `Zeitwerk::Loader.eager_load_all` won't eager lo
 
 This method does not accept the `force` flag, since in general it wouldn't be a good idea to force eager loading in 3rd party code.
 
+<a id="markdown-loading-individual-files" name="loading-individual-files"></a>
+### Loading individual files
+
+The method `Zeitwerk::Loader#load_file` loads an individual Ruby file:
+
+```ruby
+loader.load_file("#{__dir__}/custom_web_app/routes.rb")
+```
+
+This is useful when the loader is not eager loading the entire project, but you still need an individual file to be loaded for things to function properly.
+
+Both strings and `Pathname` objects are supported as arguments. The method raises `Zeitwerk::Error` if the argument is not a Ruby file, is [ignored](#ignoring-parts-of-the-project), is [shadowed](https://github.com/fxn/zeitwerk#shadowed-files), or is not managed by the receiver.
+
+`Zeitwerk::Loader#load_file` is idempotent, but compatible with reloading. If you load a file and then reload, a new call will load its (current) contents again.
+
+If you want to eager load a directory, `Zeitwerk::Loader#eager_load_dir` is more efficient than invoking `Zeitwerk::Loader#load_file` on its files.
+
 <a id="markdown-reloading" name="reloading"></a>
 ### Reloading
+
+<a id="markdown-configuration-and-usage" name="configuration-and-usage"></a>
+#### Configuration and usage
 
 Zeitwerk is able to reload code, but you need to enable this feature:
 
@@ -503,12 +599,34 @@ Reloading removes the currently loaded classes and modules and resets the loader
 
 It is important to highlight that this is an instance method. Don't worry about project dependencies managed by Zeitwerk, their loaders are independent.
 
-Reloading is not thread-safe:
+<a id="markdown-thread-safety" name="thread-safety"></a>
+#### Thread-safety
 
-* You should not reload while another thread is reloading.
-* You should not autoload while another thread is reloading.
+In order to reload safely, no other thread can be autoloading or reloading concurrently. Client code is responsible for this coordination.
 
-In order to reload in a thread-safe manner, frameworks need to implement some coordination. For example, a web framework that serves each request with its own thread may have a globally accessible read/write lock: When a request comes in, the framework acquires the lock for reading at the beginning, and releases it at the end. On the other hand, the code in the framework responsible for the call to `Zeitwerk::Loader#reload` needs to acquire the lock for writing.
+For example, a web framework that serves each request in its own thread and has reloading enabled could create a read-write lock on boot like this:
+
+```ruby
+require "concurrent/atomic/read_write_lock"
+
+MyFramework::RELOAD_RW_LOCK = Concurrent::ReadWriteLock.new
+```
+
+You acquire the lock for reading for serving each individual request:
+
+```ruby
+MyFramework::RELOAD_RW_LOCK.with_read_lock do
+  serve(request)
+end
+```
+
+Then, when a reload is triggered, just acquire the lock for writing in order to execute the method call safely:
+
+```ruby
+MyFramework::RELOAD_RW_LOCK.with_write_lock do
+  loader.reload
+end
+```
 
 On reloading, client code has to update anything that would otherwise be storing a stale object. For example, if the routing layer of a web framework stores reloadable controller class objects or instances in internal structures, on reload it has to refresh them somehow, possibly reevaluating routes.
 
@@ -905,10 +1023,39 @@ loader.ignore(tests)
 loader.setup
 ```
 
+<a id="markdown-shadowed-files" name="shadowed-files"></a>
+### Shadowed files
+
+In Ruby, if you have several files called `foo.rb` in different directories of `$LOAD_PATH` and execute
+
+```ruby
+require "foo"
+```
+
+the first one found gets loaded, and the rest are ignored.
+
+Zeitwerk behaves in a similar way. If `foo.rb` is present in several root directories (at the same namespace level), the constant `Foo` is autoloaded from the first one, and the rest of the files are not evaluated. If logging is enabled, you'll see something like
+
+```
+file #{file} is ignored because #{previous_occurrence} has precedence
+```
+
+(This message is not public interface and may change, you cannot rely on that exact wording.)
+
+Even if there's only one `foo.rb`, if the constant `Foo` is already defined when Zeitwerk finds `foo.rb`, then the file is ignored too. This could happen if `Foo` was defined by a dependency, for example. If logging is enabled, you'll see something like
+
+```
+file #{file} is ignored because #{constant_path} is already defined
+```
+
+(This message is not public interface and may change, you cannot rely on that exact wording.)
+
+Shadowing only applies to Ruby files, namespace definition can be spread over multiple directories. And you can also reopen third-party namespaces if done [orderly](#reopening-third-party-namespaces).
+
 <a id="markdown-edge-cases" name="edge-cases"></a>
 ### Edge cases
 
-A class or module that acts as a namespace:
+[Explicit namespaces](#explicit-namespaces) like `Trip` here:
 
 ```ruby
 # trip.rb
@@ -922,7 +1069,7 @@ module Trip::Geolocation
 end
 ```
 
-has to be defined with the `class` or `module` keywords, as in the example above.
+have to be defined with the `class`/`module` keywords, as in the example above.
 
 For technical reasons, raw constant assignment is not supported:
 
@@ -984,7 +1131,7 @@ require "active_job"
 require "active_job/queue_adapters"
 
 require "zeitwerk"
-# By passign the flag, we acknowledge the extra directory lib/active_job
+# By passing the flag, we acknowledge the extra directory lib/active_job
 # has to be managed by the loader and no warning has to be issued for it.
 loader = Zeitwerk::Loader.for_gem(warn_on_extra_files: false)
 loader.setup

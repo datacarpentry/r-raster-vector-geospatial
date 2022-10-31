@@ -7,11 +7,13 @@ module Zeitwerk
     require_relative "loader/helpers"
     require_relative "loader/callbacks"
     require_relative "loader/config"
+    require_relative "loader/eager_load"
 
     include RealModName
     include Callbacks
     include Helpers
     include Config
+    include EagerLoad
 
     MUTEX = Mutex.new
     private_constant :MUTEX
@@ -54,7 +56,7 @@ module Zeitwerk
     # @sig Hash[String, [String, [Module, Symbol]]]
     attr_reader :to_unload
 
-    # Maps constant paths of namespaces to arrays of corresponding directories.
+    # Maps namespace constant paths to their respective directories.
     #
     # For example, given this mapping:
     #
@@ -64,13 +66,24 @@ module Zeitwerk
     #     ...
     #   ]
     #
-    # when `Admin` gets defined we know that it plays the role of a namespace and
-    # that its children are spread over those directories. We'll visit them to set
-    # up the corresponding autoloads.
+    # when `Admin` gets defined we know that it plays the role of a namespace
+    # and that its children are spread over those directories. We'll visit them
+    # to set up the corresponding autoloads.
     #
     # @private
     # @sig Hash[String, Array[String]]
-    attr_reader :lazy_subdirs
+    attr_reader :namespace_dirs
+
+    # A shadowed file is a file managed by this loader that is ignored when
+    # setting autoloads because its matching constant is already taken.
+    #
+    # This private set is populated as we descend. For example, if the loader
+    # has only scanned the top-level, `shadowed_files` does not have shadowed
+    # files that may exist deep in the project tree yet.
+    #
+    # @private
+    # @sig Set[String]
+    attr_reader :shadowed_files
 
     # @private
     # @sig Mutex
@@ -86,7 +99,8 @@ module Zeitwerk
       @autoloads       = {}
       @autoloaded_dirs = []
       @to_unload       = {}
-      @lazy_subdirs    = Hash.new { |h, cpath| h[cpath] = [] }
+      @namespace_dirs  = Hash.new { |h, cpath| h[cpath] = [] }
+      @shadowed_files  = Set.new
       @mutex           = Mutex.new
       @mutex2          = Mutex.new
       @setup           = false
@@ -181,7 +195,8 @@ module Zeitwerk
         autoloads.clear
         autoloaded_dirs.clear
         to_unload.clear
-        lazy_subdirs.clear
+        namespace_dirs.clear
+        shadowed_files.clear
 
         Registry.on_unload(self)
         ExplicitNamespace.unregister_loader(self)
@@ -208,58 +223,6 @@ module Zeitwerk
       setup
     end
 
-    # Eager loads all files in the root directories, recursively. Files do not
-    # need to be in `$LOAD_PATH`, absolute file names are used. Ignored files
-    # are not eager loaded. You can opt-out specifically in specific files and
-    # directories with `do_not_eager_load`, and that can be overridden passing
-    # `force: true`.
-    #
-    # @sig (true | false) -> void
-    def eager_load(force: false)
-      mutex.synchronize do
-        break if @eager_loaded
-
-        log("eager load start") if logger
-
-        honour_exclusions = !force
-
-        queue = []
-        actual_root_dirs.each do |root_dir, namespace|
-          queue << [namespace, root_dir] unless honour_exclusions && excluded_from_eager_load?(root_dir)
-        end
-
-        while to_eager_load = queue.shift
-          namespace, dir = to_eager_load
-
-          ls(dir) do |basename, abspath|
-            next if honour_exclusions && excluded_from_eager_load?(abspath)
-
-            if ruby?(abspath)
-              if cref = autoloads[abspath]
-                cget(*cref)
-              end
-            elsif !root_dirs.key?(abspath)
-              if collapse?(abspath)
-                queue << [namespace, abspath]
-              else
-                cname = inflector.camelize(basename, abspath)
-                queue << [cget(namespace, cname), abspath]
-              end
-            end
-          end
-        end
-
-        autoloaded_dirs.each do |autoloaded_dir|
-          Registry.unregister_autoload(autoloaded_dir)
-        end
-        autoloaded_dirs.clear
-
-        @eager_loaded = true
-
-        log("eager load end") if logger
-      end
-    end
-
     # Says if the given constant path would be unloaded on reload. This
     # predicate returns `false` if reloading is disabled.
     #
@@ -283,6 +246,15 @@ module Zeitwerk
     def unregister
       Registry.unregister_loader(self)
       ExplicitNamespace.unregister_loader(self)
+    end
+
+    # The return value of this predicate is only meaningful if the loader has
+    # scanned the file. This is the case in the spots where we use it.
+    #
+    # @private
+    # @sig (String) -> Boolean
+    def shadowed_file?(file)
+      shadowed_files.member?(file)
     end
 
     # --- Class methods ---------------------------------------------------------------------------
@@ -318,6 +290,15 @@ module Zeitwerk
         Registry.loaders.each(&:eager_load)
       end
 
+      # Broadcasts `eager_load_namespace` to all loaders.
+      #
+      # @sig (Module) -> void
+      def eager_load_namespace(mod)
+        Registry.loaders.each do |loader|
+          loader.eager_load_namespace(mod)
+        end
+      end
+
       # Returns an array with the absolute paths of the root directories of all
       # registered loaders. This is a read-only collection.
       #
@@ -338,19 +319,11 @@ module Zeitwerk
             cname = inflector.camelize(basename, abspath).to_sym
             autoload_file(parent, cname, abspath)
           else
-            # In a Rails application, `app/models/concerns` is a subdirectory of
-            # `app/models`, but both of them are root directories.
-            #
-            # To resolve the ambiguity file name -> constant path this introduces,
-            # the `app/models/concerns` directory is totally ignored as a namespace,
-            # it counts only as root. The guard checks that.
-            unless root_dir?(abspath)
+            if collapse?(abspath)
+              set_autoloads_in_dir(abspath, parent)
+            else
               cname = inflector.camelize(basename, abspath).to_sym
-              if collapse?(abspath)
-                set_autoloads_in_dir(abspath, parent)
-              else
-                autoload_subdir(parent, cname, abspath)
-              end
+              autoload_subdir(parent, cname, abspath)
             end
           end
         rescue ::NameError => error
@@ -380,10 +353,10 @@ module Zeitwerk
         # We do not need to issue another autoload, the existing one is enough
         # no matter if it is for a file or a directory. Just remember the
         # subdirectory has to be visited if the namespace is used.
-        lazy_subdirs[cpath] << subdir
+        namespace_dirs[cpath] << subdir
       elsif !cdef?(parent, cname)
         # First time we find this namespace, set an autoload for it.
-        lazy_subdirs[cpath(parent, cname)] << subdir
+        namespace_dirs[cpath(parent, cname)] << subdir
         set_autoload(parent, cname, subdir)
       else
         # For whatever reason the constant that corresponds to this namespace has
@@ -398,6 +371,7 @@ module Zeitwerk
       if autoload_path = strict_autoload_path(parent, cname) || Registry.inception?(cpath(parent, cname))
         # First autoload for a Ruby file wins, just ignore subsequent ones.
         if ruby?(autoload_path)
+          shadowed_files << file
           log("file #{file} is ignored because #{autoload_path} has precedence") if logger
         else
           promote_namespace_from_implicit_to_explicit(
@@ -408,6 +382,7 @@ module Zeitwerk
           )
         end
       elsif cdef?(parent, cname)
+        shadowed_files << file
         log("file #{file} is ignored because #{cpath(parent, cname)} is already defined") if logger
       else
         set_autoload(parent, cname, file)
