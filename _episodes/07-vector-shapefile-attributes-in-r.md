@@ -599,6 +599,14 @@ ggplot() +
 ~~~
 {: .language-r}
 
+
+
+~~~
+Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.
+ℹ Please use the `linewidth` argument instead.
+~~~
+{: .warning}
+
 <img src="../fig/rmd-07-modify-legend-plot-1.png" alt="Map of the paths in the study area with large-font and border around the legend." width="612" style="display: block; margin: auto;" />
 
 

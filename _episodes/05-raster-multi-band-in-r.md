@@ -435,6 +435,27 @@ between 0 and 255.
 > > 
 > > 
 > > ~~~
+> > Warning: GDAL support is provided by the sf and terra packages among others
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning: GDAL support is provided by the sf and terra packages among others
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning: GDAL support is provided by the sf and terra packages among others
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
 > > rows        2317 
 > > columns     3073 
 > > bands       3 
@@ -497,6 +518,27 @@ between 0 and 255.
 > > GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 > > ~~~
 > > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning: GDAL support is provided by the sf and terra packages among others
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning: GDAL support is provided by the sf and terra packages among others
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning: GDAL support is provided by the sf and terra packages among others
+> > ~~~
+> > {: .warning}
 > > 
 > > 
 > > 
@@ -566,7 +608,7 @@ object.size(RGB_stack_HARV)
 
 
 ~~~
-51848 bytes
+51688 bytes
 ~~~
 {: .output}
 
@@ -583,7 +625,7 @@ object.size(RGB_brick_HARV)
 
 
 ~~~
-170898672 bytes
+170898632 bytes
 ~~~
 {: .output}
 

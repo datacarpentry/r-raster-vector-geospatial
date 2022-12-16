@@ -519,7 +519,7 @@ mean_tree_height_tower
 > > 
 > > 
 > > ~~~
-> > Warning: Removed 1 rows containing missing values (position_stack).
+> > Warning: Removed 1 rows containing missing values (`position_stack()`).
 > > ~~~
 > > {: .warning}
 > > 

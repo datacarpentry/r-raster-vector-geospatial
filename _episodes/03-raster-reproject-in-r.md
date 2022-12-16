@@ -149,14 +149,15 @@ the hillshade data to see how they differ.
 > > Deprecated Proj.4 representation:
 > >  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
 > > WKT2 2019 representation:
-> > PROJCRS["WGS 84 / UTM zone 18N",
-> >     BASEGEOGCRS["WGS 84",
+> > PROJCRS["unknown",
+> >     BASEGEOGCRS["unknown",
 > >         DATUM["World Geodetic System 1984",
 > >             ELLIPSOID["WGS 84",6378137,298.257223563,
-> >                 LENGTHUNIT["metre",1]]],
+> >                 LENGTHUNIT["metre",1]],
+> >             ID["EPSG",6326]],
 > >         PRIMEM["Greenwich",0,
-> >             ANGLEUNIT["degree",0.0174532925199433]],
-> >         ID["EPSG",4326]],
+> >             ANGLEUNIT["degree",0.0174532925199433],
+> >             ID["EPSG",8901]]],
 > >     CONVERSION["UTM zone 18N",
 > >         METHOD["Transverse Mercator",
 > >             ID["EPSG",9807]],
@@ -174,19 +175,17 @@ the hillshade data to see how they differ.
 > >             ID["EPSG",8806]],
 > >         PARAMETER["False northing",0,
 > >             LENGTHUNIT["metre",1],
-> >             ID["EPSG",8807]]],
+> >             ID["EPSG",8807]],
+> >         ID["EPSG",16018]],
 > >     CS[Cartesian,2],
 > >         AXIS["(E)",east,
 > >             ORDER[1],
-> >             LENGTHUNIT["metre",1]],
+> >             LENGTHUNIT["metre",1,
+> >                 ID["EPSG",9001]]],
 > >         AXIS["(N)",north,
 > >             ORDER[2],
-> >             LENGTHUNIT["metre",1]],
-> >     USAGE[
-> >         SCOPE["unknown"],
-> >         AREA["World - N hemisphere - 78°W to 72°W - by country"],
-> >         BBOX[0,-78,84,-72]],
-> >     ID["EPSG",32618]] 
+> >             LENGTHUNIT["metre",1,
+> >                 ID["EPSG",9001]]]] 
 > > ~~~
 > > {: .output}
 > > 
@@ -204,18 +203,20 @@ the hillshade data to see how they differ.
 > > Coordinate Reference System:
 > > Deprecated Proj.4 representation: +proj=longlat +datum=WGS84 +no_defs 
 > > WKT2 2019 representation:
-> > GEOGCRS["WGS 84 (with axis order normalized for visualization)",
+> > GEOGCRS["unknown",
 > >     DATUM["World Geodetic System 1984",
 > >         ELLIPSOID["WGS 84",6378137,298.257223563,
-> >             LENGTHUNIT["metre",1]]],
+> >             LENGTHUNIT["metre",1]],
+> >         ID["EPSG",6326]],
 > >     PRIMEM["Greenwich",0,
-> >         ANGLEUNIT["degree",0.0174532925199433]],
+> >         ANGLEUNIT["degree",0.0174532925199433],
+> >         ID["EPSG",8901]],
 > >     CS[ellipsoidal,2],
-> >         AXIS["geodetic longitude (Lon)",east,
+> >         AXIS["longitude",east,
 > >             ORDER[1],
 > >             ANGLEUNIT["degree",0.0174532925199433,
 > >                 ID["EPSG",9122]]],
-> >         AXIS["geodetic latitude (Lat)",north,
+> >         AXIS["latitude",north,
 > >             ORDER[2],
 > >             ANGLEUNIT["degree",0.0174532925199433,
 > >                 ID["EPSG",9122]]]] 
@@ -282,14 +283,15 @@ Coordinate Reference System:
 Deprecated Proj.4 representation:
  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
 WKT2 2019 representation:
-PROJCRS["WGS 84 / UTM zone 18N",
-    BASEGEOGCRS["WGS 84",
+PROJCRS["unknown",
+    BASEGEOGCRS["unknown",
         DATUM["World Geodetic System 1984",
             ELLIPSOID["WGS 84",6378137,298.257223563,
-                LENGTHUNIT["metre",1]]],
+                LENGTHUNIT["metre",1]],
+            ID["EPSG",6326]],
         PRIMEM["Greenwich",0,
-            ANGLEUNIT["degree",0.0174532925199433]],
-        ID["EPSG",4326]],
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8901]]],
     CONVERSION["UTM zone 18N",
         METHOD["Transverse Mercator",
             ID["EPSG",9807]],
@@ -307,19 +309,17 @@ PROJCRS["WGS 84 / UTM zone 18N",
             ID["EPSG",8806]],
         PARAMETER["False northing",0,
             LENGTHUNIT["metre",1],
-            ID["EPSG",8807]]],
+            ID["EPSG",8807]],
+        ID["EPSG",16018]],
     CS[Cartesian,2],
         AXIS["(E)",east,
             ORDER[1],
-            LENGTHUNIT["metre",1]],
+            LENGTHUNIT["metre",1,
+                ID["EPSG",9001]]],
         AXIS["(N)",north,
             ORDER[2],
-            LENGTHUNIT["metre",1]],
-    USAGE[
-        SCOPE["unknown"],
-        AREA["World - N hemisphere - 78°W to 72°W - by country"],
-        BBOX[0,-78,84,-72]],
-    ID["EPSG",32618]] 
+            LENGTHUNIT["metre",1,
+                ID["EPSG",9001]]]] 
 ~~~
 {: .output}
 
@@ -336,18 +336,20 @@ crs(DTM_hill_HARV)
 Coordinate Reference System:
 Deprecated Proj.4 representation: +proj=longlat +datum=WGS84 +no_defs 
 WKT2 2019 representation:
-GEOGCRS["WGS 84 (with axis order normalized for visualization)",
+GEOGCRS["unknown",
     DATUM["World Geodetic System 1984",
         ELLIPSOID["WGS 84",6378137,298.257223563,
-            LENGTHUNIT["metre",1]]],
+            LENGTHUNIT["metre",1]],
+        ID["EPSG",6326]],
     PRIMEM["Greenwich",0,
-        ANGLEUNIT["degree",0.0174532925199433]],
+        ANGLEUNIT["degree",0.0174532925199433],
+        ID["EPSG",8901]],
     CS[ellipsoidal,2],
-        AXIS["geodetic longitude (Lon)",east,
+        AXIS["longitude",east,
             ORDER[1],
             ANGLEUNIT["degree",0.0174532925199433,
                 ID["EPSG",9122]]],
-        AXIS["geodetic latitude (Lat)",north,
+        AXIS["latitude",north,
             ORDER[2],
             ANGLEUNIT["degree",0.0174532925199433,
                 ID["EPSG",9122]]]] 

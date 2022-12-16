@@ -71,6 +71,27 @@ which we already have loaded from previous episodes.
 > > 
 > > 
 > > ~~~
+> > Warning: GDAL support is provided by the sf and terra packages among others
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning: GDAL support is provided by the sf and terra packages among others
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning: GDAL support is provided by the sf and terra packages among others
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
 > > rows        1367 
 > > columns     1697 
 > > bands       1 
@@ -101,6 +122,27 @@ which we already have loaded from previous episodes.
 > > GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 > > ~~~
 > > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning: GDAL support is provided by the sf and terra packages among others
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning: GDAL support is provided by the sf and terra packages among others
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning: GDAL support is provided by the sf and terra packages among others
+> > ~~~
+> > {: .warning}
 > > 
 > > 
 > > 
@@ -222,7 +264,7 @@ ggplot(CHM_HARV_df) +
 
 
 ~~~
-Warning: Removed 1 rows containing non-finite values (stat_bin).
+Warning: Removed 1 rows containing non-finite values (`stat_bin()`).
 ~~~
 {: .warning}
 
@@ -293,7 +335,7 @@ meters. Does this make sense for trees in Harvard Forest?
 > > 
 > > 
 > > ~~~
-> > Warning: Removed 1 rows containing non-finite values (stat_bin).
+> > Warning: Removed 1 rows containing non-finite values (`stat_bin()`).
 > > ~~~
 > > {: .warning}
 > > 
@@ -310,7 +352,7 @@ meters. Does this make sense for trees in Harvard Forest?
 > > 
 > > 
 > > ~~~
-> > Warning: Removed 1 rows containing non-finite values (stat_bin).
+> > Warning: Removed 1 rows containing non-finite values (`stat_bin()`).
 > > ~~~
 > > {: .warning}
 > > 
@@ -553,7 +595,7 @@ are what you expect.
 > > 
 > > 
 > > ~~~
-> > Warning: Removed 1 rows containing non-finite values (stat_bin).
+> > Warning: Removed 1 rows containing non-finite values (`stat_bin()`).
 > > ~~~
 > > {: .warning}
 > > 

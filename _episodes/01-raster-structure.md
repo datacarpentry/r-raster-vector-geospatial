@@ -79,6 +79,27 @@ GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 
 ~~~
+Warning: GDAL support is provided by the sf and terra packages among others
+~~~
+{: .warning}
+
+
+
+~~~
+Warning: GDAL support is provided by the sf and terra packages among others
+~~~
+{: .warning}
+
+
+
+~~~
+Warning: GDAL support is provided by the sf and terra packages among others
+~~~
+{: .warning}
+
+
+
+~~~
 rows        1367 
 columns     1697 
 bands       1 
@@ -112,6 +133,27 @@ HARV_dsmCrop_info <- capture.output(
 )
 ~~~
 {: .language-r}
+
+
+
+~~~
+Warning: GDAL support is provided by the sf and terra packages among others
+~~~
+{: .warning}
+
+
+
+~~~
+Warning: GDAL support is provided by the sf and terra packages among others
+~~~
+{: .warning}
+
+
+
+~~~
+Warning: GDAL support is provided by the sf and terra packages among others
+~~~
+{: .warning}
 
 Each line of text that was printed to the console is now stored as an element of
 the character vector `HARV_dsmCrop_info`. We will be exploring this data throughout this
@@ -303,14 +345,15 @@ Coordinate Reference System:
 Deprecated Proj.4 representation:
  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
 WKT2 2019 representation:
-PROJCRS["WGS 84 / UTM zone 18N",
-    BASEGEOGCRS["WGS 84",
+PROJCRS["unknown",
+    BASEGEOGCRS["unknown",
         DATUM["World Geodetic System 1984",
             ELLIPSOID["WGS 84",6378137,298.257223563,
-                LENGTHUNIT["metre",1]]],
+                LENGTHUNIT["metre",1]],
+            ID["EPSG",6326]],
         PRIMEM["Greenwich",0,
-            ANGLEUNIT["degree",0.0174532925199433]],
-        ID["EPSG",4326]],
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8901]]],
     CONVERSION["UTM zone 18N",
         METHOD["Transverse Mercator",
             ID["EPSG",9807]],
@@ -328,19 +371,17 @@ PROJCRS["WGS 84 / UTM zone 18N",
             ID["EPSG",8806]],
         PARAMETER["False northing",0,
             LENGTHUNIT["metre",1],
-            ID["EPSG",8807]]],
+            ID["EPSG",8807]],
+        ID["EPSG",16018]],
     CS[Cartesian,2],
         AXIS["(E)",east,
             ORDER[1],
-            LENGTHUNIT["metre",1]],
+            LENGTHUNIT["metre",1,
+                ID["EPSG",9001]]],
         AXIS["(N)",north,
             ORDER[2],
-            LENGTHUNIT["metre",1]],
-    USAGE[
-        SCOPE["unknown"],
-        AREA["World - N hemisphere - 78°W to 72°W - by country"],
-        BBOX[0,-78,84,-72]],
-    ID["EPSG",32618]] 
+            LENGTHUNIT["metre",1,
+                ID["EPSG",9001]]]] 
 ~~~
 {: .output}
 
@@ -523,6 +564,27 @@ of `NA` will be ignored by R as demonstrated above.
 > > 
 > > 
 > > ~~~
+> > Warning: GDAL support is provided by the sf and terra packages among others
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning: GDAL support is provided by the sf and terra packages among others
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning: GDAL support is provided by the sf and terra packages among others
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
 > > rows        1367 
 > > columns     1697 
 > > bands       1 
@@ -643,6 +705,27 @@ no bad data values in this particular raster.
 > > GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 > > ~~~
 > > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning: GDAL support is provided by the sf and terra packages among others
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning: GDAL support is provided by the sf and terra packages among others
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning: GDAL support is provided by the sf and terra packages among others
+> > ~~~
+> > {: .warning}
 > > 
 > > 
 > > 
