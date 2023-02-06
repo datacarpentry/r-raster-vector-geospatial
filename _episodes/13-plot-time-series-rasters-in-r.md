@@ -18,21 +18,6 @@ source: Rmd
 ---
 
 
-~~~
-## Warning in
-## download.file("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
-## : cannot open URL
-## 'https://www.naturalearthdata.com/http/www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip':
-## HTTP status was '404 Not Found'
-~~~
-{: .warning}
-
-
-
-~~~
-## Error in download.file("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
-~~~
-{: .error}
 
 
 
