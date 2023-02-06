@@ -29,7 +29,6 @@ library(rgdal)
 library(ggplot2)
 library(dplyr)
 library(scales)
-library(reshape)
 library(tidyr)
 ```
 
@@ -69,14 +68,14 @@ available from Landsat data. The RGB directory contains RGB images for each time
 period that NDVI is available.
 
 ### Getting Started
-In this episode, we will use the `raster`, `rgdal`, `reshape`, and `scales` packages. Make sure you have them loaded.
+In this episode, we will use the `raster`, `rgdal`, `scales`, `tidyr`, and `ggplot2` packages. Make sure you have them loaded.
 
 ```{r, eval = FALSE}
 library(raster)
 library(rgdal)
-library(reshape)
 library(scales)
 library(tidyr)
+library(ggplot2)
 ```
 
 To begin, we will create a list of raster files using the `list.files()`
@@ -295,13 +294,13 @@ derive our NDVI rasters to try to understand what appear to be outlier NDVI valu
 # Plot RGB data for Julian day 133
 RGB_133 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
 quantiles = c(0.02, 0.98)
-r <- quantile(RGB_133$X133_HARV_landRGB.1, quantiles, na.rm = TRUE)
-g <- quantile(RGB_133$X133_HARV_landRGB.2, quantiles, na.rm = TRUE)
-b <- quantile(RGB_133$X133_HARV_landRGB.3, quantiles, na.rm = TRUE)
+r <- quantile(RGB_133$X133_HARV_landRGB_1, quantiles, na.rm = TRUE)
+g <- quantile(RGB_133$X133_HARV_landRGB_2, quantiles, na.rm = TRUE)
+b <- quantile(RGB_133$X133_HARV_landRGB_3, quantiles, na.rm = TRUE)
 RGB_133_df <- as.data.frame(RGB_133, xy = TRUE) %>%
-  mutate(tempR = (X133_HARV_landRGB.1 - r[1])/(r[2] - r[1]),
-         tempG = (X133_HARV_landRGB.2 - g[1])/(g[2] - g[1]),
-         tempB = (X133_HARV_landRGB.3 - b[1])/(b[2] - b[1]),
+  mutate(tempR = (X133_HARV_landRGB_1 - r[1])/(r[2] - r[1]),
+         tempG = (X133_HARV_landRGB_2 - g[1])/(g[2] - g[1]),
+         tempB = (X133_HARV_landRGB_3 - b[1])/(b[2] - b[1]),
          tempR = case_when(
              tempR < 0 ~ 0,
              tempR > 1 ~ 1,
@@ -325,21 +324,21 @@ ggplot() +
 # Plot RGB data for Julian day 197
 RGB_197 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/197_HARV_landRGB.tif")
 RGB_197 <- RGB_197/255
-r <- quantile(RGB_197$X197_HARV_landRGB.1, quantiles, na.rm = TRUE)
-g <- quantile(RGB_197$X197_HARV_landRGB.2, quantiles, na.rm = TRUE)
-b <- quantile(RGB_197$X197_HARV_landRGB.3, quantiles, na.rm = TRUE)
+r <- quantile(RGB_197$X197_HARV_landRGB_1, quantiles, na.rm = TRUE)
+g <- quantile(RGB_197$X197_HARV_landRGB_2, quantiles, na.rm = TRUE)
+b <- quantile(RGB_197$X197_HARV_landRGB_3, quantiles, na.rm = TRUE)
 RGB_197_df <- as.data.frame(RGB_197, xy = TRUE) %>%
-    mutate(tempR = (X197_HARV_landRGB.1 - r[1])/(r[2] - r[1]),
+    mutate(tempR = (X197_HARV_landRGB_1 - r[1])/(r[2] - r[1]),
            tempR = case_when(
              tempR < 0 ~ 0,
              tempR > 1 ~ 1,
              TRUE ~ tempR),
-           tempG = (X197_HARV_landRGB.2 - g[1])/(g[2] - g[1]),
+           tempG = (X197_HARV_landRGB_2 - g[1])/(g[2] - g[1]),
            tempG = case_when(
              tempG < 0 ~ 0,
              tempG > 1 ~ 1,
              TRUE ~ tempG),
-           tempB = (X197_HARV_landRGB.3 - b[1])/(b[2] - b[1]),
+           tempB = (X197_HARV_landRGB_3 - b[1])/(b[2] - b[1]),
            tempB = case_when(
              tempB < 0 ~ 0,
              tempB > 1 ~ 1,
@@ -382,7 +381,7 @@ ggplot() +
 > > We create RGB colors from the three channels:
 > > 
 > > ```{r}
-> > RGB_277_df$rgb <- with(RGB_277_df, rgb(X277_HARV_landRGB.1, X277_HARV_landRGB.2, X277_HARV_landRGB.3,1))
+> > RGB_277_df$rgb <- with(RGB_277_df, rgb(X277_HARV_landRGB_1, X277_HARV_landRGB_2, X277_HARV_landRGB_3,1))
 > > ```
 > > 
 > > Finally, we can plot the RGB data for Julian day 277. 
@@ -399,7 +398,7 @@ ggplot() +
 > > RGB_293 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")
 > > RGB_293 <- RGB_293/255
 > > RGB_293_df <- as.data.frame(RGB_293, xy = TRUE)
-> > RGB_293_df$rgb <- with(RGB_293_df, rgb(X293_HARV_landRGB.1, X293_HARV_landRGB.2, X293_HARV_landRGB.3,1))
+> > RGB_293_df$rgb <- with(RGB_293_df, rgb(X293_HARV_landRGB_1, X293_HARV_landRGB_2, X293_HARV_landRGB_3,1))
 > > ggplot() +
 > >   geom_raster(data = RGB_293_df, aes(x, y), fill = RGB_293_df$rgb) +
 > >   ggtitle("Julian day 293")
