@@ -18,6 +18,21 @@ source: Rmd
 ---
 
 
+~~~
+## Warning in
+## download.file("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
+## : cannot open URL
+## 'https://www.naturalearthdata.com/http/www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip':
+## HTTP status was '404 Not Found'
+~~~
+{: .warning}
+
+
+
+~~~
+## Error in download.file("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
+~~~
+{: .error}
 
 
 
@@ -608,7 +623,7 @@ object.size(RGB_stack_HARV)
 
 
 ~~~
-51688 bytes
+56432 bytes
 ~~~
 {: .output}
 
@@ -625,7 +640,7 @@ object.size(RGB_brick_HARV)
 
 
 ~~~
-170898632 bytes
+170898792 bytes
 ~~~
 {: .output}
 
@@ -688,44 +703,44 @@ plotRGB(RGB_brick_HARV)
 > >  [61] flip                  freq                  getValues            
 > >  [64] getValuesBlock        getValuesFocal        hasValues            
 > >  [67] head                  hist                  image                
-> >  [70] init                  inMemory              interpolate          
-> >  [73] intersect             is.factor             is.finite            
-> >  [76] is.infinite           is.na                 is.nan               
-> >  [79] isLonLat              KML                   labels               
-> >  [82] length                levels                levels<-             
-> >  [85] log                   Logic                 mask                 
-> >  [88] match                 Math                  Math2                
-> >  [91] maxValue              mean                  merge                
-> >  [94] metadata              minValue              modal                
-> >  [97] mosaic                names                 names<-              
-> > [100] ncell                 ncol                  ncol<-               
-> > [103] nlayers               nrow                  nrow<-               
-> > [106] origin                origin<-              overlay              
-> > [109] pairs                 persp                 plot                 
-> > [112] plotRGB               predict               print                
-> > [115] proj4string           proj4string<-         quantile             
-> > [118] raster                rasterize             ratify               
-> > [121] readAll               readStart             readStop             
-> > [124] reclassify            rectify               res                  
-> > [127] res<-                 resample              rotate               
-> > [130] rowColFromCell        rowFromCell           rowFromY             
-> > [133] rowSums               sampleRandom          sampleRegular        
-> > [136] scale                 select                setMinMax            
-> > [139] setValues             shift                 show                 
-> > [142] spplot                stack                 stackSelect          
-> > [145] stretch               subs                  subset               
-> > [148] Summary               summary               t                    
-> > [151] tail                  text                  trim                 
-> > [154] unique                unstack               values               
-> > [157] values<-              weighted.mean         which.max            
-> > [160] which.min             whiches.max           whiches.min          
-> > [163] wkt                   writeRaster           xFromCell            
-> > [166] xFromCol              xmax                  xmax<-               
-> > [169] xmin                  xmin<-                xres                 
-> > [172] xyFromCell            yFromCell             yFromRow             
-> > [175] ymax                  ymax<-                ymin                 
-> > [178] ymin<-                yres                  zonal                
-> > [181] zoom                 
+> >  [70] init                  initialize            inMemory             
+> >  [73] interpolate           intersect             is.factor            
+> >  [76] is.finite             is.infinite           is.na                
+> >  [79] is.nan                isLonLat              KML                  
+> >  [82] labels                length                levels               
+> >  [85] levels<-              log                   Logic                
+> >  [88] mask                  match                 Math                 
+> >  [91] Math2                 maxValue              mean                 
+> >  [94] merge                 metadata              minValue             
+> >  [97] modal                 mosaic                names                
+> > [100] names<-               ncell                 ncol                 
+> > [103] ncol<-                nlayers               nrow                 
+> > [106] nrow<-                origin                origin<-             
+> > [109] overlay               pairs                 persp                
+> > [112] plot                  plotRGB               predict              
+> > [115] print                 proj4string           proj4string<-        
+> > [118] quantile              raster                rasterize            
+> > [121] ratify                readAll               readStart            
+> > [124] readStop              reclassify            rectify              
+> > [127] res                   res<-                 resample             
+> > [130] rotate                rowColFromCell        rowFromCell          
+> > [133] rowFromY              rowSums               sampleRandom         
+> > [136] sampleRegular         scale                 select               
+> > [139] setMinMax             setValues             shift                
+> > [142] show                  spplot                stack                
+> > [145] stackSelect           stretch               subs                 
+> > [148] subset                Summary               summary              
+> > [151] t                     tail                  text                 
+> > [154] trim                  unique                unstack              
+> > [157] values                values<-              weighted.mean        
+> > [160] which.max             which.min             whiches.max          
+> > [163] whiches.min           wkt                   writeRaster          
+> > [166] xFromCell             xFromCol              xmax                 
+> > [169] xmax<-                xmin                  xmin<-               
+> > [172] xres                  xyFromCell            yFromCell            
+> > [175] yFromRow              ymax                  ymax<-               
+> > [178] ymin                  ymin<-                yres                 
+> > [181] zonal                 zoom                 
 > > see '?methods' for accessing help and source code
 > > ~~~
 > > {: .output}
@@ -739,22 +754,22 @@ plotRGB(RGB_brick_HARV)
 > > 
 > > 
 > > ~~~
-> > Warning in .S3methods(generic.function, class, envir): 'class' is of length > 1;
-> > only the first element will be used
+> > Warning in .S3methods(generic.function, class, envir): 'class' is of length >
+> > 1; only the first element will be used
 > > ~~~
 > > {: .warning}
 > > 
 > > 
 > > 
 > > ~~~
-> >  [1] [             [<-           anyDuplicated as_tibble     as.data.frame
-> >  [6] as.raster     bind          boxplot       brick         cellFromXY   
-> > [11] coerce        coordinates   determinant   distance      duplicated   
-> > [16] edit          extent        extract       head          initialize   
-> > [21] isSymmetric   Math          Math2         Ops           raster       
-> > [26] rasterize     relist        subset        summary       surfaceArea  
-> > [31] tail          trim          unique        values<-      weighted.mean
-> > [36] writeValues  
+> >  [1] [             [<-           anyDuplicated Arith         as_tibble    
+> >  [6] as.data.frame as.raster     bind          boxplot       brick        
+> > [11] cellFromXY    coerce        Compare       coordinates   determinant  
+> > [16] distance      duplicated    edit          extent        extract      
+> > [21] head          initialize    isSymmetric   Math          Math2        
+> > [26] Ops           raster        rasterize     relist        subset       
+> > [31] summary       surfaceArea   tail          trim          unique       
+> > [36] values<-      weighted.mean writeValues  
 > > see '?methods' for accessing help and source code
 > > ~~~
 > > {: .output}

@@ -2,86 +2,93 @@
   "contributors": [
     {
       "type": "Editor",
-      "name": "Joseph Stachelek",
+      "name": "Jemma Stachelek",
       "orcid": "0000-0002-5924-2464"
     },
     {
       "type": "Editor",
-      "name": "Jane Wyngaard"
+      "name": "Drake Asberry"
     },
     {
       "type": "Editor",
-      "name": "Lauren O'Brien",
-      "orcid": "0000-0002-7336-2171"
+      "name": "Ivo Agbor Arrey",
+      "orcid": "0000-0002-5311-3813"
     }
   ],
   "creators": [
     {
-      "name": "Joseph Stachelek",
+      "name": "Jemma Stachelek",
       "orcid": "0000-0002-5924-2464"
     },
     {
-      "name": "Lauren O'Brien",
-      "orcid": "0000-0002-7336-2171"
+      "name": "Erin Alison Becker",
+      "orcid": "0000-0002-6832-0233"
     },
     {
-      "name": "Lachlan Deer",
-      "orcid": "0000-0001-8646-6095"
+      "name": "Drake Asberry"
     },
     {
-      "name": "Ana Costa Conrado",
-      "orcid": "0000-0001-6345-987X"
+      "name": "Matt Strimas-Mackey",
+      "orcid": "0000-0001-8929-7776"
     },
     {
-      "name": "Brett Lord-Castillo"
+      "name": "Annajiat Alim Rasel",
+      "orcid": "0000-0003-0198-3734"
     },
     {
-      "name": "Stéphane Guillou",
-      "orcid": "0000-0001-8992-0951"
+      "name": "Angela Li",
+      "orcid": "0000-0002-8956-419X"
     },
     {
-      "name": "Kristina Riemer",
-      "orcid": "0000-0003-3802-3331"
+      "name": "Ryan Avery"
     },
     {
-      "name": "Anne Fouilloux",
-      "orcid": "0000-0002-1784-2920"
+      "name": "kcarini",
+      "orcid": "0000-0002-9630-0432"
     },
     {
-      "name": "Juan F Fung",
-      "orcid": "0000-0002-0820-787X"
+      "name": "Kunal Marwaha",
+      "orcid": "0000-0001-9084-6971"
     },
     {
-      "name": "Marchand"
+      "name": "mneilson-usgs"
     },
     {
-      "name": "Tracy Teal",
-      "orcid": "0000-0002-9180-9598"
+      "name": "Adam H. Sparks",
+      "orcid": "0000-0002-0061-8359"
     },
     {
-      "name": "Angela Li"
+      "name": "bart1"
     },
     {
-      "name": "Ethan P White",
-      "orcid": "0000-0001-6728-7745"
+      "name": "Christian Boldsen Knudsen",
+      "orcid": "0000-0002-9816-768X"
     },
     {
-      "name": "Sergio Marconi",
-      "orcid": "0000-0002-8096-754X"
+      "name": "Daniel Kerchner",
+      "orcid": "0000-0002-5921-2193"
     },
     {
-      "name": "Katrin Leinweber",
-      "orcid": "0000-0001-5135-5758"
+      "name": "Darya P Vanichkina",
+      "orcid": "0000-0002-0406-164X"
     },
     {
-      "name": "Klaus Schliep",
-      "orcid": "0000-0003-2941-0161"
+      "name": "Pérez-Suárez",
+      "orcid": "0000-0003-0784-6909"
     },
     {
-      "name": "Punam Amratia"
+      "name": "Jon Jablonski"
     },
     {
-      "name": "zenobieg"
+      "name": "Michael Liou"
+    },
+    {
+      "name": "Natalia Morandeira",
+      "orcid": "0000-0003-3674-2981"
+    },
+    {
+      "name": "Rob Williams",
+      "orcid": "0000-0001-9259-3883"
     }
   ],
   "license": {

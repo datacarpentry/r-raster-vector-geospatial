@@ -20,6 +20,21 @@ source: Rmd
 ---
 
 
+~~~
+## Warning in
+## download.file("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
+## : cannot open URL
+## 'https://www.naturalearthdata.com/http/www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip':
+## HTTP status was '404 Not Found'
+~~~
+{: .warning}
+
+
+
+~~~
+## Error in download.file("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
+~~~
+{: .error}
 
 
 
@@ -59,14 +74,15 @@ available from Landsat data. The RGB directory contains RGB images for each time
 period that NDVI is available.
 
 ### Getting Started
-In this episode, we will use the `raster`, `rgdal`, `reshape`, and `scales` packages. Make sure you have them loaded.
+In this episode, we will use the `raster`, `rgdal`, `scales`, `tidyr`, and `ggplot2` packages. Make sure you have them loaded.
 
 
 ~~~
 library(raster)
 library(rgdal)
-library(reshape)
 library(scales)
+library(tidyr)
+library(ggplot2)
 ~~~
 {: .language-r}
 
@@ -264,15 +280,13 @@ UTM Zone 19.
 ## Plotting Time Series Data
 Once we have created our RasterStack, we can visualize our data. We can use
 the `ggplot()` command to create a multi-panelled plot showing each band in our RasterStack. First we
-need to create a data frame object. Because there are multiple bands in our data, we will reshape (or "melt")
-the data so that we have a single column with 
-the NDVI observations. We will use the function
-`melt()` from the `reshape` package to do this: 
+need to create a data frame object. Because there are multiple columns in our data that are not variables, we will tidy (or "gather") the data so that we have a single column with the NDVI observations. 
+We will use the function `gather()` from the `tidyr` package to do this:
 
 
 ~~~
 NDVI_HARV_stack_df <- as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
-    melt(id.vars = c('x','y'))
+    gather(variable, value, -(x:y))
 ~~~
 {: .language-r}
 
@@ -314,7 +328,7 @@ After applying our scale factor, we can recreate our plot using the same code we
 
 ~~~
 NDVI_HARV_stack_df <- as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
-    melt(id.vars = c('x','y'))
+    gather(variable, value, -(x:y))
 
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
@@ -457,9 +471,8 @@ We only want to look at the data from 2011:
 
 
 ~~~
-yr_11_daily_avg <- subset(har_met_daily,
-                            date >= as.Date('2011-01-01') &
-                            date <= as.Date('2011-12-31'))
+yr_11_daily_avg <- har_met_daily %>%
+  filter(between(date, as.Date('2011-01-01'), as.Date('2011-12-31')))
 ~~~
 {: .language-r}
 
@@ -483,42 +496,7 @@ or early fall time period that might account for patterns seen in the NDVI data.
 Let's have a look at the source Landsat imagery that was partially used used to
 derive our NDVI rasters to try to understand what appear to be outlier NDVI values.
 
-
-~~~
-Error in `$<-.data.frame`(`*tmp*`, rgb, value = character(0)): replacement has 0 rows, data has 453792
-~~~
-{: .error}
-
-
-
-~~~
-Error in `geom_raster()`:
-! Problem while setting up geom aesthetics.
-ℹ Error occurred in the 1st layer.
-Caused by error in `check_aesthetics()`:
-! Aesthetics must be either length 1 or the same as the data (453792)
-✖ Fix the following mappings: `fill`
-~~~
-{: .error}
-
-
-
-~~~
-Error in `$<-.data.frame`(`*tmp*`, rgb, value = character(0)): replacement has 0 rows, data has 453792
-~~~
-{: .error}
-
-
-
-~~~
-Error in `geom_raster()`:
-! Problem while setting up geom aesthetics.
-ℹ Error occurred in the 1st layer.
-Caused by error in `check_aesthetics()`:
-! Aesthetics must be either length 1 or the same as the data (453792)
-✖ Fix the following mappings: `fill`
-~~~
-{: .error}
+<img src="../fig/rmd-12-ndvi-plots-1.png" alt="plot of chunk ndvi-plots" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-12-ndvi-plots-2.png" alt="plot of chunk ndvi-plots" width="612" style="display: block; margin: auto;" />
 
 
 > ## Challenge: Examine RGB Raster Files
@@ -571,16 +549,9 @@ Caused by error in `check_aesthetics()`:
 > > 
 > > 
 > > ~~~
-> > RGB_277_df$rgb <- with(RGB_277_df, rgb(X277_HARV_landRGB.1, X277_HARV_landRGB.2, X277_HARV_landRGB.3,1))
+> > RGB_277_df$rgb <- with(RGB_277_df, rgb(X277_HARV_landRGB_1, X277_HARV_landRGB_2, X277_HARV_landRGB_3,1))
 > > ~~~
 > > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in rgb(X277_HARV_landRGB.1, X277_HARV_landRGB.2, X277_HARV_landRGB.3, : object 'X277_HARV_landRGB.1' not found
-> > ~~~
-> > {: .error}
 > > 
 > > Finally, we can plot the RGB data for Julian day 277. 
 > > 
@@ -592,17 +563,7 @@ Caused by error in `check_aesthetics()`:
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error in `geom_raster()`:
-> > ! Problem while setting up geom aesthetics.
-> > ℹ Error occurred in the 1st layer.
-> > Caused by error in `check_aesthetics()`:
-> > ! Aesthetics must be either length 1 or the same as the data (453792)
-> > ✖ Fix the following mappings: `fill`
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-12-rgb-277-1.png" alt="plot of chunk rgb-277" width="612" style="display: block; margin: auto;" />
 > > We then do the same steps for Julian day 293
 > > 
 > > 
@@ -611,37 +572,14 @@ Caused by error in `check_aesthetics()`:
 > > RGB_293 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")
 > > RGB_293 <- RGB_293/255
 > > RGB_293_df <- as.data.frame(RGB_293, xy = TRUE)
-> > RGB_293_df$rgb <- with(RGB_293_df, rgb(X293_HARV_landRGB.1, X293_HARV_landRGB.2, X293_HARV_landRGB.3,1))
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in rgb(X293_HARV_landRGB.1, X293_HARV_landRGB.2, X293_HARV_landRGB.3, : object 'X293_HARV_landRGB.1' not found
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
+> > RGB_293_df$rgb <- with(RGB_293_df, rgb(X293_HARV_landRGB_1, X293_HARV_landRGB_2, X293_HARV_landRGB_3,1))
 > > ggplot() +
 > >   geom_raster(data = RGB_293_df, aes(x, y), fill = RGB_293_df$rgb) +
 > >   ggtitle("Julian day 293")
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error in `geom_raster()`:
-> > ! Problem while setting up geom aesthetics.
-> > ℹ Error occurred in the 1st layer.
-> > Caused by error in `check_aesthetics()`:
-> > ! Aesthetics must be either length 1 or the same as the data (453792)
-> > ✖ Fix the following mappings: `fill`
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-12-rgb-293-1.png" alt="plot of chunk rgb-293" width="612" style="display: block; margin: auto;" />
 > > This example highlights the importance of
 > > exploring the source of a derived data product. In this case, the NDVI data
 > > product was created using Landsat imagery - specifically the red
