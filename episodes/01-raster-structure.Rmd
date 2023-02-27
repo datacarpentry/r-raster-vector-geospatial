@@ -51,8 +51,10 @@ rasters in R, including CRS and resolution. We will also explore missing and bad
 data values as stored in a raster and how R handles these elements.
 
 We will continue to work with the `dplyr` and `ggplot2` packages that were introduced
-in the [Introduction to R for Geospatial Data](https://datacarpentry.org/r-intro-geospatial/) lesson. We will use two additional packages in this episode to work with raster data - the
-`raster` and `sf` packages. Make sure that you have these packages loaded.
+in the [Introduction to R for Geospatial Data](https://datacarpentry.org/r-intro-geospatial/) 
+lesson. We will use two additional packages in this episode to work with raster 
+data - the `terra` and `sf` packages. Make sure that you have these packages 
+loaded.
 
 ```{r load-libraries-2, eval=FALSE}
 library(terra)
