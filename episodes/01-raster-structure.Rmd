@@ -81,7 +81,7 @@ page](https://datacarpentry.org/geospatial-workshop/data/).
 
 We will be working with a series of GeoTIFF files in this lesson. The
 GeoTIFF format contains a set of embedded tags with metadata about the raster
-data. We can use the function `GDALinfo()` to get information about our raster
+data. We can use the function `describe()` to get information about our raster
 data before we read that data into R. It is ideal to do this before importing
 your data.
 
@@ -148,7 +148,7 @@ summary(values(DSM_HARV))
 To visualise this data in R using `ggplot2`, we need to convert it to a
 dataframe. We learned about dataframes in [an earlier
 lesson](https://datacarpentry.org/r-intro-geospatial/04-data-structures-part2/index.html).
-The `raster` package has an built-in function for conversion to a plotable dataframe.
+The `terra` package has an built-in function for conversion to a plotable dataframe.
 
 ```{r}
 DSM_HARV_df <- as.data.frame(DSM_HARV, xy = TRUE)
@@ -316,9 +316,9 @@ raster: surface elevation in meters for one time period.
 
 ![](fig/dc-spatial-raster/single_multi_raster.png){alt='Multi-band raster image'}
 
-A raster dataset can contain one or more bands. We can use the `raster()`
+A raster dataset can contain one or more bands. We can use the `rast()`
 function to import one single band from a single or multi-band raster. We can
-view the number of bands in a raster using the `nlayers()` function.
+view the number of bands in a raster using the `nly()` function.
 
 ```{r view-raster-bands}
 nlyr(DSM_HARV)
@@ -586,7 +586,7 @@ describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV\_DSMhill.tif")
 
 ## More Resources
 
-- [Read more about the `raster` package in R.](https://cran.r-project.org/package=raster)
+- [Read more about the `terra` package in R.](https://cran.r-project.org/package=terra)
   
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
