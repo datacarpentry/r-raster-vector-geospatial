@@ -412,7 +412,7 @@
         
 <section id="aio-01-raster-structure"><p>Content from <a href="01-raster-structure.html">Intro to Raster Data</a></p>
 <hr>
-<p> Last updated on 2023-02-21 | 
+<p> Last updated on 2023-03-10 | 
         
         
         
@@ -1266,7 +1266,7 @@ to convert it to a dataframe.</li>
 </div>
 </section></section><section id="aio-02-raster-plot"><p>Content from <a href="02-raster-plot.html">Plot Raster Data</a></p>
 <hr>
-<p> Last updated on 2023-02-21 | 
+<p> Last updated on 2023-03-10 | 
         
         
         
@@ -1808,7 +1808,7 @@ aesthetic.</li>
 </div>
 </section></section><section id="aio-03-raster-reproject-in-r"><p>Content from <a href="03-raster-reproject-in-r.html">Reproject Raster Data</a></p>
 <hr>
-<p> Last updated on 2023-02-21 | 
+<p> Last updated on 2023-03-10 | 
         
         
         
@@ -1969,7 +1969,7 @@ each use?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2248,7 +2248,7 @@ values of <code>DTM_hillUTMZ18N_HARV</code> are different from
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>The extent for DTM_hill_UTMZ18N_HARV is in UTMs so the extent is in
 meters. The extent for DTM_hill_HARV is in lat/long so the extent is
@@ -2370,7 +2370,7 @@ files.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2431,7 +2431,7 @@ map you just created compare to that map?</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>The maps look identical. Which is what they should be as the only
 difference is this one was reprojected from WGS84 to UTM prior to
@@ -2459,7 +2459,7 @@ CRSs.</li>
 </div>
 </section></section><section id="aio-04-raster-calculations-in-r"><p>Content from <a href="04-raster-calculations-in-r.html">Raster Calculations</a></p>
 <hr>
-<p> Last updated on 2023-02-21 | 
+<p> Last updated on 2023-03-10 | 
         
         
         
@@ -2572,7 +2572,7 @@ maximum values?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2790,7 +2790,7 @@ title and no axes ticks / labels.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>There are missing values in our data, so we need to specify
@@ -3044,7 +3044,7 @@ Joaquin Experimental Range.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>Use the <code>overlay()</code> function to subtract the two rasters
@@ -3167,7 +3167,7 @@ data to a file.</li>
 </div>
 </section></section><section id="aio-05-raster-multi-band-in-r"><p>Content from <a href="05-raster-multi-band-in-r.html">Work With Multi-Band Rasters</a></p>
 <hr>
-<p> Last updated on 2023-02-21 | 
+<p> Last updated on 2023-03-10 | 
         
         
         
@@ -3257,7 +3257,25 @@ more bands - like Landsat imagery.</p>
 <span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, alpha <span class="op">=</span> <span class="va">layer</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/05-raster-multi-band-in-r-rendered-harv-rgb-band1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge1" class="callout challenge">
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Don't know how to automatically pick scale for object of type &lt;function&gt;.
+Defaulting to continuous.</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in `geom_raster()`:
+! Problem while computing aesthetics.
+ℹ Error occurred in the 1st layer.
+Caused by error in `compute_aesthetics()`:
+! Aesthetics are not valid data columns.
+✖ The following aesthetics are invalid:
+✖ `alpha = layer`
+ℹ Did you mistype the name of a data column or forget to add `after_stat()`?</code></pre>
+</div>
+<div id="challenge1" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -3277,9 +3295,9 @@ resolution, min and max values, and band number?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3295,7 +3313,7 @@ resolution : 0.25, 0.25  (x, y)
 extent     : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
 crs        : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
 source     : HARV_RGB_Ortho.tif 
-names      : layer 
+names      : HARV_RGB_Ortho_1 
 values     : 0, 255  (min, max)</code></pre>
 </div>
 <p>Notice that when we look at the attributes of this band, we see:
@@ -3340,7 +3358,7 @@ similar to the color image a digital camera creates.</p>
 bands in our raster object by specifying which band we want with
 <code>band = N</code> (N represents the band number we want to work
 with). To import the green band, we would use <code>band = 2</code>.</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3348,13 +3366,13 @@ with). To import the green band, we would use <code>band = 2</code>.</p>
 </div>
 <p>We can convert this data to a data frame and plot the same way we
 plotted the red band:</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">RGB_band2_HARV_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">RGB_band2_HARV</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3363,7 +3381,25 @@ plotted the red band:</p>
 <span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, alpha <span class="op">=</span> <span class="va">layer</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/05-raster-multi-band-in-r-rendered-rgb-harv-band2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge2" class="callout challenge">
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Don't know how to automatically pick scale for object of type &lt;function&gt;.
+Defaulting to continuous.</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in `geom_raster()`:
+! Problem while computing aesthetics.
+ℹ Error occurred in the 1st layer.
+Caused by error in `compute_aesthetics()`:
+! Aesthetics are not valid data columns.
+✖ The following aesthetics are invalid:
+✖ `alpha = layer`
+ℹ Did you mistype the name of a data column or forget to add `after_stat()`?</code></pre>
+</div>
+<div id="challenge2" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -3385,7 +3421,7 @@ area darker or lighter in band 2 (the green band) compared to band 1
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>We’d expect a <em>brighter</em> value for the forest in band 2
 (green) than in band 1 (red) because the leaves on trees of most often
@@ -3404,14 +3440,14 @@ as an R RasterStack object. We will then plot a 3-band composite, or
 full color, image.</p>
 <p>To bring in all bands of a multi-band raster, we use
 the<code>stack()</code> function.</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">RGB_stack_HARV</span> <span class="op">&lt;-</span> <span class="fu">stack</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Let’s preview the attributes of our stack object:</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3431,7 +3467,7 @@ max values :              255,              255,              255 </code></pre>
 </div>
 <p>We can view the attributes of each band in the stack in a single
 output:</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3477,7 +3513,7 @@ values     : 0, 255  (min, max)</code></pre>
 </div>
 <p>If we have hundreds of bands, we can specify which band we’d like to
 view attributes for using an index value:</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3499,7 +3535,7 @@ values     : 0, 255  (min, max)</code></pre>
 <p>We can also use the <code>ggplot</code> functions to plot the data in
 any layer of our RasterStack object. Remember, we need to convert to a
 data frame first.</p>
-<div class="codewrapper sourceCode" id="cb16">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3507,7 +3543,7 @@ data frame first.</p>
 </div>
 <p>Each band in our RasterStack gets its own column in the data frame.
 Thus we have:</p>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3524,7 +3560,7 @@ Thus we have:</p>
  $ HARV_RGB_Ortho_3: num  0 10 1 0 17 0 4 0 0 7 ...</code></pre>
 </div>
 <p>Let’s create a histogram of the first band:</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3537,7 +3573,7 @@ Thus we have:</p>
 <pre class="output" tabindex="0"><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 </div>
 <figure><img src="fig/05-raster-multi-band-in-r-rendered-rgb-harv-hist-band1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>And a raster plot of the second band:</p>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3567,7 +3603,7 @@ contrast.</li>
 <code>plotRGB()</code> function directly with our RasterStack object (we
 don’t need a dataframe as this function isn’t part of the
 <code>ggplot2</code> package).</p>
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3585,7 +3621,7 @@ the image.</p>
 image is rendered by default. We can stretch the values to extend to the
 full 0-255 range of potential values to increase the visual contrast of
 the image.</p>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3594,7 +3630,7 @@ the image.</p>
 <span>        scale <span class="op">=</span> <span class="fl">800</span>,</span>
 <span>        stretch <span class="op">=</span> <span class="st">"lin"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/05-raster-multi-band-in-r-rendered-plot-rbg-image-linear-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb24">
+<figure><img src="fig/05-raster-multi-band-in-r-rendered-plot-rbg-image-linear-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3642,13 +3678,13 @@ can you check?</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>First we use the <code>GDALinfo()</code> function to view the data
 attributes.</li>
 </ol>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3705,7 +3741,7 @@ values and they are assigned the value of -9999.</p></li>
 <li><p>To read in the file, we will use the <code>stack()</code>
 function:</p></li>
 </ol>
-<div class="codewrapper sourceCode" id="cb30">
+<div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3714,7 +3750,7 @@ function:</p></li>
 <ol start="5" style="list-style-type: decimal">
 <li>We can plot the data with the <code>plotRGB()</code> function:</li>
 </ol>
-<div class="codewrapper sourceCode" id="cb31">
+<div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3728,7 +3764,7 @@ RGB_stack the NoData value is not defined in the tiff tags, thus R
 renders them as black as the reflectance values are 0. The black edges
 in the other file are defined as -9999 and R renders them as NA.</li>
 </ol>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb36">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3824,7 +3860,7 @@ which is important when working with larger files.</p>
 <code>brick(StackName)</code>. Let’s use the <code>object.size()</code>
 function to compare RasterStack and RasterBrick objects. First we will
 check the size of our RasterStack object:</p>
-<div class="codewrapper sourceCode" id="cb37">
+<div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3833,11 +3869,11 @@ check the size of our RasterStack object:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>56432 bytes</code></pre>
+<pre class="output" tabindex="0"><code>57800 bytes</code></pre>
 </div>
 <p>Now we will create a RasterBrick object from our RasterStack data and
 view its size:</p>
-<div class="codewrapper sourceCode" id="cb39">
+<div class="codewrapper sourceCode" id="cb43">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3848,14 +3884,14 @@ view its size:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>170898792 bytes</code></pre>
+<pre class="output" tabindex="0"><code>170900160 bytes</code></pre>
 </div>
 <p>Notice that in the RasterBrick, all of the bands are stored within
 the actual object. Thus, the RasterBrick object size is much larger than
 the RasterStack object.</p>
 <p>You use the <code>plotRGB()</code> function to plot a RasterBrick
 too:</p>
-<div class="codewrapper sourceCode" id="cb41">
+<div class="codewrapper sourceCode" id="cb45">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3890,13 +3926,13 @@ object?</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>We can see a list of all of the methods available for our
 RasterStack object:</li>
 </ol>
-<div class="codewrapper sourceCode" id="cb42">
+<div class="codewrapper sourceCode" id="cb46">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3971,7 +4007,7 @@ see '?methods' for accessing help and source code</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>And compare that with the methods available for a single band:</li>
 </ol>
-<div class="codewrapper sourceCode" id="cb44">
+<div class="codewrapper sourceCode" id="cb48">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -4024,7 +4060,7 @@ visualized using the same functions as single bands.</li>
 </div>
 </section></section><section id="aio-06-vector-open-shapefile-in-r"><p>Content from <a href="06-vector-open-shapefile-in-r.html">Open and Plot Shapefiles</a></p>
 <hr>
-<p> Last updated on 2023-02-21 | 
+<p> Last updated on 2023-03-10 | 
         
         
         
@@ -4334,7 +4370,7 @@ layer?</p></li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>First we import the data:</p>
 <div class="codewrapper sourceCode" id="cb13">
@@ -4544,7 +4580,7 @@ dataframe.</li>
 </div>
 </section></section><section id="aio-07-vector-shapefile-attributes-in-r"><p>Content from <a href="07-vector-shapefile-attributes-in-r.html">Explore and Plot by Vector Layer Attributes</a></p>
 <hr>
-<p> Last updated on 2023-02-21 | 
+<p> Last updated on 2023-03-10 | 
         
         
         
@@ -5497,7 +5533,7 @@ functions and options in the <code>ggplot2</code> package.</li>
 </div>
 </section></section><section id="aio-08-vector-plot-shapefiles-custom-legend"><p>Content from <a href="08-vector-plot-shapefiles-custom-legend.html">Plot Multiple Shapefiles</a></p>
 <hr>
-<p> Last updated on 2023-02-21 | 
+<p> Last updated on 2023-03-10 | 
         
         
         
@@ -5840,7 +5876,7 @@ colors.</li>
 </div>
 </section></section><section id="aio-09-vector-when-data-dont-line-up-crs"><p>Content from <a href="09-vector-when-data-dont-line-up-crs.html">Handling Spatial Projection &amp; CRS</a></p>
 <hr>
-<p> Last updated on 2023-02-21 | 
+<p> Last updated on 2023-03-10 | 
         
         
         
@@ -6338,7 +6374,7 @@ the same CRS.</li>
 </div>
 </section></section><section id="aio-10-vector-csv-to-shapefile-in-r"><p>Content from <a href="10-vector-csv-to-shapefile-in-r.html">Convert from .csv to a Shapefile</a></p>
 <hr>
-<p> Last updated on 2023-02-21 | 
+<p> Last updated on 2023-03-10 | 
         
         
         
@@ -6816,7 +6852,7 @@ your map!</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>First we will read in the new csv file and look at the data
@@ -6981,7 +7017,7 @@ to a spatial object.</li>
 </div>
 </section></section><section id="aio-11-vector-raster-integration"><p>Content from <a href="11-vector-raster-integration.html">Manipulate Raster Data</a></p>
 <hr>
-<p> Last updated on 2023-02-21 | 
+<p> Last updated on 2023-03-10 | 
         
         
         
@@ -7207,7 +7243,7 @@ Model.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -7469,7 +7505,7 @@ used.</p></li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -7551,7 +7587,7 @@ raster object that fall within a particular extent boundary.</li>
 </div>
 </section></section><section id="aio-12-time-series-raster"><p>Content from <a href="12-time-series-raster.html">Raster Time Series Data</a></p>
 <hr>
-<p> Last updated on 2023-02-21 | 
+<p> Last updated on 2023-03-10 | 
         
         
         
@@ -8196,7 +8232,7 @@ format.</li>
 </div>
 </section></section><section id="aio-13-plot-time-series-rasters-in-r"><p>Content from <a href="13-plot-time-series-rasters-in-r.html">Create Publication-quality Graphics</a></p>
 <hr>
-<p> Last updated on 2023-02-21 | 
+<p> Last updated on 2023-03-10 | 
         
         
         
@@ -8622,7 +8658,7 @@ replacement in text.</li>
 </div>
 </section></section><section id="aio-14-extract-ndvi-from-rasters-in-r"><p>Content from <a href="14-extract-ndvi-from-rasters-in-r.html">Derive Values from Raster Time Series</a></p>
 <hr>
-<p> Last updated on 2023-02-21 | 
+<p> Last updated on 2023-03-10 | 
         
         
         
@@ -8939,7 +8975,7 @@ directory.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>First we will read in the NDVI data for the SJER field site.</p>
 <div class="codewrapper sourceCode" id="cb21">
@@ -9037,7 +9073,7 @@ in a different color.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -9098,7 +9134,7 @@ Julian day, on the x-axis.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -9261,7 +9297,7 @@ sites.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -9338,7 +9374,7 @@ have the same column names.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.11.6" class="external-link">sandpaper (0.11.6)</a>,
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.11.8" class="external-link">sandpaper (0.11.8)</a>,
         <a href="https://github.com/carpentries/pegboard/tree/0.4.3" class="external-link">pegboard (0.4.3)</a>,
       and <a href="https://github.com/carpentries/varnish/tree/0.2.14" class="external-link">varnish (0.2.14)</a>.</p>
 			</div>
@@ -9361,9 +9397,9 @@ have the same column names.</li>
   "creativeWorkStatus": "active",
   "url": "https://preview.carpentries.org/r-raster-vector-geospatial/aio.html",
   "identifier": "https://preview.carpentries.org/r-raster-vector-geospatial/aio.html",
-  "dateCreated": "2023-02-09",
-  "dateModified": "2023-03-07",
-  "datePublished": "2023-03-07"
+  "dateCreated": "2023-03-10",
+  "dateModified": "2023-03-10",
+  "datePublished": "2023-03-10"
 }
 
   </script><script>
