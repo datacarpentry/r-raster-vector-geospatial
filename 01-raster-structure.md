@@ -11,7 +11,7 @@ source: Rmd
 
 - Describe the fundamental attributes of a raster dataset.
 - Explore raster attributes and metadata using R.
-- Import rasters into R using the `raster` package.
+- Import rasters into R using the `terra` package.
 - Plot a raster file in R using the `ggplot2` package.
 - Describe the difference between single- and multi-band rasters.
 
@@ -44,13 +44,14 @@ rasters in R, including CRS and resolution. We will also explore missing and bad
 data values as stored in a raster and how R handles these elements.
 
 We will continue to work with the `dplyr` and `ggplot2` packages that were introduced
-in the [Introduction to R for Geospatial Data](https://datacarpentry.org/r-intro-geospatial/) lesson. We will use two additional packages in this episode to work with raster data - the
-`raster` and `rgdal` packages. Make sure that you have these packages loaded.
+in the [Introduction to R for Geospatial Data](https://datacarpentry.org/r-intro-geospatial/) 
+lesson. We will use two additional packages in this episode to work with raster 
+data - the `terra` and `sf` packages. Make sure that you have these packages 
+loaded.
 
 
 ```r
-library(raster)
-library(rgdal)
+library(terra)
 library(ggplot2)
 library(dplyr)
 ```
@@ -74,49 +75,81 @@ page](https://datacarpentry.org/geospatial-workshop/data/).
 
 We will be working with a series of GeoTIFF files in this lesson. The
 GeoTIFF format contains a set of embedded tags with metadata about the raster
-data. We can use the function `GDALinfo()` to get information about our raster
+data. We can use the function `describe()` to get information about our raster
 data before we read that data into R. It is ideal to do this before importing
 your data.
 
 
 ```r
-GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
-```
-
-```{.warning}
-Warning: GDAL support is provided by the sf and terra packages among others
-```
-
-```{.warning}
-Warning: GDAL support is provided by the sf and terra packages among others
-```
-
-```{.warning}
-Warning: GDAL support is provided by the sf and terra packages among others
+describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 ```
 
 ```{.output}
-rows        1367 
-columns     1697 
-bands       1 
-lower left origin.x        731453 
-lower left origin.y        4712471 
-res.x       1 
-res.y       1 
-ysign       -1 
-oblique.x   0 
-oblique.y   0 
-driver      GTiff 
-projection  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
-file        data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif 
-apparent band summary:
-   GDType hasNoDataValue NoDataValue blockSize1 blockSize2
-1 Float64           TRUE       -9999          1       1697
-apparent band statistics:
-    Bmin   Bmax    Bmean      Bsd
-1 305.07 416.07 359.8531 17.83169
-Metadata:
-AREA_OR_POINT=Area 
+ [1] "Driver: GTiff/GeoTIFF"                                                                                                                                                                                                                                                         
+ [2] "Files: data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif"                                                                                                                                                                                                         
+ [3] "Size is 1697, 1367"                                                                                                                                                                                                                                                            
+ [4] "Coordinate System is:"                                                                                                                                                                                                                                                         
+ [5] "PROJCRS[\"WGS 84 / UTM zone 18N\","                                                                                                                                                                                                                                            
+ [6] "    BASEGEOGCRS[\"WGS 84\","                                                                                                                                                                                                                                                   
+ [7] "        DATUM[\"World Geodetic System 1984\","                                                                                                                                                                                                                                 
+ [8] "            ELLIPSOID[\"WGS 84\",6378137,298.257223563,"                                                                                                                                                                                                                       
+ [9] "                LENGTHUNIT[\"metre\",1]]],"                                                                                                                                                                                                                                    
+[10] "        PRIMEM[\"Greenwich\",0,"                                                                                                                                                                                                                                               
+[11] "            ANGLEUNIT[\"degree\",0.0174532925199433]],"                                                                                                                                                                                                                        
+[12] "        ID[\"EPSG\",4326]],"                                                                                                                                                                                                                                                   
+[13] "    CONVERSION[\"UTM zone 18N\","                                                                                                                                                                                                                                              
+[14] "        METHOD[\"Transverse Mercator\","                                                                                                                                                                                                                                       
+[15] "            ID[\"EPSG\",9807]],"                                                                                                                                                                                                                                               
+[16] "        PARAMETER[\"Latitude of natural origin\",0,"                                                                                                                                                                                                                           
+[17] "            ANGLEUNIT[\"degree\",0.0174532925199433],"                                                                                                                                                                                                                         
+[18] "            ID[\"EPSG\",8801]],"                                                                                                                                                                                                                                               
+[19] "        PARAMETER[\"Longitude of natural origin\",-75,"                                                                                                                                                                                                                        
+[20] "            ANGLEUNIT[\"degree\",0.0174532925199433],"                                                                                                                                                                                                                         
+[21] "            ID[\"EPSG\",8802]],"                                                                                                                                                                                                                                               
+[22] "        PARAMETER[\"Scale factor at natural origin\",0.9996,"                                                                                                                                                                                                                  
+[23] "            SCALEUNIT[\"unity\",1],"                                                                                                                                                                                                                                           
+[24] "            ID[\"EPSG\",8805]],"                                                                                                                                                                                                                                               
+[25] "        PARAMETER[\"False easting\",500000,"                                                                                                                                                                                                                                   
+[26] "            LENGTHUNIT[\"metre\",1],"                                                                                                                                                                                                                                          
+[27] "            ID[\"EPSG\",8806]],"                                                                                                                                                                                                                                               
+[28] "        PARAMETER[\"False northing\",0,"                                                                                                                                                                                                                                       
+[29] "            LENGTHUNIT[\"metre\",1],"                                                                                                                                                                                                                                          
+[30] "            ID[\"EPSG\",8807]]],"                                                                                                                                                                                                                                              
+[31] "    CS[Cartesian,2],"                                                                                                                                                                                                                                                          
+[32] "        AXIS[\"(E)\",east,"                                                                                                                                                                                                                                                    
+[33] "            ORDER[1],"                                                                                                                                                                                                                                                         
+[34] "            LENGTHUNIT[\"metre\",1]],"                                                                                                                                                                                                                                         
+[35] "        AXIS[\"(N)\",north,"                                                                                                                                                                                                                                                   
+[36] "            ORDER[2],"                                                                                                                                                                                                                                                         
+[37] "            LENGTHUNIT[\"metre\",1]],"                                                                                                                                                                                                                                         
+[38] "    USAGE["                                                                                                                                                                                                                                                                    
+[39] "        SCOPE[\"Engineering survey, topographic mapping.\"],"                                                                                                                                                                                                                  
+[40] "        AREA[\"Between 78°W and 72°W, northern hemisphere between equator and 84°N, onshore and offshore. Bahamas. Canada - Nunavut; Ontario; Quebec. Colombia. Cuba. Ecuador. Greenland. Haiti. Jamica. Panama. Turks and Caicos Islands. United States (USA). Venezuela.\"],"
+[41] "        BBOX[0,-78,84,-72]],"                                                                                                                                                                                                                                                  
+[42] "    ID[\"EPSG\",32618]]"                                                                                                                                                                                                                                                       
+[43] "Data axis to CRS axis mapping: 1,2"                                                                                                                                                                                                                                            
+[44] "Origin = (731453.000000000000000,4713838.000000000000000)"                                                                                                                                                                                                                     
+[45] "Pixel Size = (1.000000000000000,-1.000000000000000)"                                                                                                                                                                                                                           
+[46] "Metadata:"                                                                                                                                                                                                                                                                     
+[47] "  AREA_OR_POINT=Area"                                                                                                                                                                                                                                                          
+[48] "Image Structure Metadata:"                                                                                                                                                                                                                                                     
+[49] "  COMPRESSION=LZW"                                                                                                                                                                                                                                                             
+[50] "  INTERLEAVE=BAND"                                                                                                                                                                                                                                                             
+[51] "Corner Coordinates:"                                                                                                                                                                                                                                                           
+[52] "Upper Left  (  731453.000, 4713838.000) ( 72d10'52.71\"W, 42d32'32.18\"N)"                                                                                                                                                                                                     
+[53] "Lower Left  (  731453.000, 4712471.000) ( 72d10'54.71\"W, 42d31'47.92\"N)"                                                                                                                                                                                                     
+[54] "Upper Right (  733150.000, 4713838.000) ( 72d 9'38.40\"W, 42d32'30.35\"N)"                                                                                                                                                                                                     
+[55] "Lower Right (  733150.000, 4712471.000) ( 72d 9'40.41\"W, 42d31'46.08\"N)"                                                                                                                                                                                                     
+[56] "Center      (  732301.500, 4713154.500) ( 72d10'16.56\"W, 42d32' 9.13\"N)"                                                                                                                                                                                                     
+[57] "Band 1 Block=1697x1 Type=Float64, ColorInterp=Gray"                                                                                                                                                                                                                            
+[58] "  Min=305.070 Max=416.070 "                                                                                                                                                                                                                                                    
+[59] "  Minimum=305.070, Maximum=416.070, Mean=359.853, StdDev=17.832"                                                                                                                                                                                                               
+[60] "  NoData Value=-9999"                                                                                                                                                                                                                                                          
+[61] "  Metadata:"                                                                                                                                                                                                                                                                   
+[62] "    STATISTICS_MAXIMUM=416.06997680664"                                                                                                                                                                                                                                        
+[63] "    STATISTICS_MEAN=359.85311802914"                                                                                                                                                                                                                                           
+[64] "    STATISTICS_MINIMUM=305.07000732422"                                                                                                                                                                                                                                        
+[65] "    STATISTICS_STDDEV=17.83169335933"                                                                                                                                                                                                                                          
 ```
 
 If you wish to store this information in R, you can do the following:
@@ -124,20 +157,8 @@ If you wish to store this information in R, you can do the following:
 
 ```r
 HARV_dsmCrop_info <- capture.output(
-  GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+  describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 )
-```
-
-```{.warning}
-Warning: GDAL support is provided by the sf and terra packages among others
-```
-
-```{.warning}
-Warning: GDAL support is provided by the sf and terra packages among others
-```
-
-```{.warning}
-Warning: GDAL support is provided by the sf and terra packages among others
 ```
 
 Each line of text that was printed to the console is now stored as an element of
@@ -147,7 +168,7 @@ episode. By the end of this episode, you will be able to explain and understand 
 ## Open a Raster in R
 
 Now that we've previewed the metadata for our GeoTIFF, let's import this
-raster dataset into R and explore its metadata more closely. We can use the `raster()`
+raster dataset into R and explore its metadata more closely. We can use the `rast()`
 function to open a raster in R.
 
 :::::::::::::::::::::::::::::::::::::::::  callout
@@ -167,20 +188,21 @@ First we will load our raster file into R and view the data structure.
 
 ```r
 DSM_HARV <-
-  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+  rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 DSM_HARV
 ```
 
 ```{.output}
-class      : RasterLayer 
-dimensions : 1367, 1697, 2319799  (nrow, ncol, ncell)
-resolution : 1, 1  (x, y)
-extent     : 731453, 733150, 4712471, 4713838  (xmin, xmax, ymin, ymax)
-crs        : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
-source     : HARV_dsmCrop.tif 
-names      : HARV_dsmCrop 
-values     : 305.07, 416.07  (min, max)
+class       : SpatRaster 
+dimensions  : 1367, 1697, 1  (nrow, ncol, nlyr)
+resolution  : 1, 1  (x, y)
+extent      : 731453, 733150, 4712471, 4713838  (xmin, xmax, ymin, ymax)
+coord. ref. : WGS 84 / UTM zone 18N (EPSG:32618) 
+source      : HARV_dsmCrop.tif 
+name        : HARV_dsmCrop 
+min value   :       305.07 
+max value   :       416.07 
 ```
 
 The information above includes a report of min and max values, but no other data
@@ -193,46 +215,43 @@ summary(DSM_HARV)
 ```
 
 ```{.warning}
-Warning in .local(object, ...): summary is an estimate based on a sample of 1e+05 cells (4.31% of all cells)
+Warning: [summary] used a sample
 ```
 
 ```{.output}
-        HARV_dsmCrop
-Min.        305.5500
-1st Qu.     345.6500
-Median      359.6450
-3rd Qu.     374.2825
-Max.        413.9000
-NA's          0.0000
+  HARV_dsmCrop  
+ Min.   :305.6  
+ 1st Qu.:345.6  
+ Median :359.6  
+ Mean   :359.8  
+ 3rd Qu.:374.3  
+ Max.   :414.7  
 ```
 
 but note the warning - unless you force R to calculate these statistics using
 every cell in the raster, it will take a random sample of 100,000 cells and
-calculate from that instead. To force calculation on more, or even all values,
-you can use the parameter `maxsamp`:
+calculate from that instead. To force calculation all the values, you can use 
+the function `values`:
 
 
 ```r
-summary(DSM_HARV, maxsamp = ncell(DSM_HARV))
+summary(values(DSM_HARV))
 ```
 
 ```{.output}
-        HARV_dsmCrop
-Min.          305.07
-1st Qu.       345.59
-Median        359.67
-3rd Qu.       374.28
-Max.          416.07
-NA's            0.00
+  HARV_dsmCrop  
+ Min.   :305.1  
+ 1st Qu.:345.6  
+ Median :359.7  
+ Mean   :359.9  
+ 3rd Qu.:374.3  
+ Max.   :416.1  
 ```
-
-You may not see major differences in summary stats as `maxsamp` increases,
-except with very large rasters.
 
 To visualise this data in R using `ggplot2`, we need to convert it to a
 dataframe. We learned about dataframes in [an earlier
 lesson](https://datacarpentry.org/r-intro-geospatial/04-data-structures-part2/index.html).
-The `raster` package has an built-in function for conversion to a plotable dataframe.
+The `terra` package has an built-in function for conversion to a plotable dataframe.
 
 
 ```r
@@ -254,8 +273,12 @@ str(DSM_HARV_df)
  $ HARV_dsmCrop: num  409 408 407 407 409 ...
 ```
 
-We can use `ggplot()` to plot this data. We will set the color scale to `scale_fill_viridis_c`
-which is a color-blindness friendly color scale. We will also use the `coord_quickmap()` function to use an approximate Mercator projection for our plots. This approximation is suitable for small areas that are not too close to the poles. Other coordinate systems are available in ggplot2 if needed, you can learn about them at their help page `?coord_map`.
+We can use `ggplot()` to plot this data. We will set the color scale to 
+`scale_fill_viridis_c` which is a color-blindness friendly color scale. We will 
+also use the `coord_quickmap()` function to use an approximate Mercator 
+projection for our plots. This approximation is suitable for small areas that 
+are not too close to the poles. Other coordinate systems are available in 
+ggplot2 if needed, you can learn about them at their help page `?coord_map`.
 
 
 ```r
@@ -284,7 +307,7 @@ More information about the Viridis palette used above at
 
 ## Plotting Tip
 
-For faster, simpler plots, you can use the `plot` function from the `raster` package.
+For faster, simpler plots, you can use the `plot` function from the `terra` package.
 
 :::::::::::::::  solution
 
@@ -321,51 +344,11 @@ function.
 
 
 ```r
-crs(DSM_HARV)
+crs(DSM_HARV, proj = TRUE)
 ```
 
 ```{.output}
-Coordinate Reference System:
-Deprecated Proj.4 representation:
- +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
-WKT2 2019 representation:
-PROJCRS["unknown",
-    BASEGEOGCRS["unknown",
-        DATUM["World Geodetic System 1984",
-            ELLIPSOID["WGS 84",6378137,298.257223563,
-                LENGTHUNIT["metre",1]],
-            ID["EPSG",6326]],
-        PRIMEM["Greenwich",0,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8901]]],
-    CONVERSION["UTM zone 18N",
-        METHOD["Transverse Mercator",
-            ID["EPSG",9807]],
-        PARAMETER["Latitude of natural origin",0,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8801]],
-        PARAMETER["Longitude of natural origin",-75,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8802]],
-        PARAMETER["Scale factor at natural origin",0.9996,
-            SCALEUNIT["unity",1],
-            ID["EPSG",8805]],
-        PARAMETER["False easting",500000,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8806]],
-        PARAMETER["False northing",0,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8807]],
-        ID["EPSG",16018]],
-    CS[Cartesian,2],
-        AXIS["(E)",east,
-            ORDER[1],
-            LENGTHUNIT["metre",1,
-                ID["EPSG",9001]]],
-        AXIS["(N)",north,
-            ORDER[2],
-            LENGTHUNIT["metre",1,
-                ID["EPSG",9001]]]] 
+[1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
 ```
 
 :::::::::::::::::::::::::::::::::::::::  challenge
@@ -397,7 +380,8 @@ and datum (`datum=`).
 
 ### UTM Proj4 String
 
-Our projection string for `DSM_HARV` specifies the UTM projection as follows:
+A projection string (like the one of `DSM_HARV`) specifies the UTM projection 
+as follows:
 
 `+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0`
 
@@ -412,7 +396,8 @@ Our projection string for `DSM_HARV` specifies the UTM projection as follows:
 Note that the zone is unique to the UTM projection. Not all CRSs will have a
 zone. Image source: Chrismurf at English Wikipedia, via [Wikimedia Commons](https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system#/media/File:Utm-zones-USA.svg) (CC-BY).
 
-![The UTM zones across the continental United States. From: https://upload.wikimedia.org/wikipedia/commons/8/8d/Utm-zones-USA.svg](fig/Utm-zones-USA.svg)
+
+![The UTM zones across the continental United States. From: https://upload.wikimedia.org/wikipedia/commons/8/8d/Utm-zones-USA.svg](fig/Utm-zones-USA.svg){alt='UTM zones in the USA.'}
 
 ## Calculate Raster Min and Max Values
 
@@ -425,7 +410,17 @@ can view these values:
 
 
 ```r
-minValue(DSM_HARV)
+minmax(DSM_HARV)
+```
+
+```{.output}
+    HARV_dsmCrop
+min       305.07
+max       416.07
+```
+
+```r
+min(values(DSM_HARV))
 ```
 
 ```{.output}
@@ -433,7 +428,7 @@ minValue(DSM_HARV)
 ```
 
 ```r
-maxValue(DSM_HARV)
+max(values(DSM_HARV))
 ```
 
 ```{.output}
@@ -466,13 +461,13 @@ raster: surface elevation in meters for one time period.
 
 ![](fig/dc-spatial-raster/single_multi_raster.png){alt='Multi-band raster image'}
 
-A raster dataset can contain one or more bands. We can use the `raster()`
+A raster dataset can contain one or more bands. We can use the `rast()`
 function to import one single band from a single or multi-band raster. We can
-view the number of bands in a raster using the `nlayers()` function.
+view the number of bands in a raster using the `nly()` function.
 
 
 ```r
-nlayers(DSM_HARV)
+nlyr(DSM_HARV)
 ```
 
 ```{.output}
@@ -510,9 +505,14 @@ spaces where there is no data.
 
 <img src="fig/01-raster-structure-rendered-demonstrate-no-data-ggplot-1.png" style="display: block; margin: auto;" />
 
-If your raster already has `NA` values set correctly but you aren't sure where they are, you can deliberately plot them in a particular colour. This can be useful when checking a dataset's coverage. For instance, sometimes data can be missing where a sensor could not 'see' its target data, and you may wish to locate that missing data and fill it in.
+If your raster already has `NA` values set correctly but you aren't sure where 
+they are, you can deliberately plot them in a particular colour. This can be 
+useful when checking a dataset's coverage. For instance, sometimes data can be 
+missing where a sensor could not 'see' its target data, and you may wish to 
+locate that missing data and fill it in.
 
-To highlight `NA` values in ggplot, alter the `scale_fill_*()` layer to contain a colour instruction for `NA` values, like `scale_fill_viridis_c(na.value = 'deeppink')`
+To highlight `NA` values in ggplot, alter the `scale_fill_*()` layer to contain 
+a colour instruction for `NA` values, like `scale_fill_viridis_c(na.value = 'deeppink')`
 
 <img src="fig/01-raster-structure-rendered-unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
 
@@ -539,7 +539,8 @@ of `NA` will be ignored by R as demonstrated above.
 
 ## Challenge
 
-Use the output from the `GDALinfo()` function to find out what `NoDataValue` is used for our `DSM_HARV` dataset.
+Use the output from the `describe()` and `sources()` functions to find out what 
+`NoDataValue` is used for our `DSM_HARV` dataset.
 
 :::::::::::::::  solution
 
@@ -547,43 +548,75 @@ Use the output from the `GDALinfo()` function to find out what `NoDataValue` is 
 
 
 ```r
-GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
-```
-
-```{.warning}
-Warning: GDAL support is provided by the sf and terra packages among others
-```
-
-```{.warning}
-Warning: GDAL support is provided by the sf and terra packages among others
-```
-
-```{.warning}
-Warning: GDAL support is provided by the sf and terra packages among others
+describe(sources(DSM_HARV))
 ```
 
 ```{.output}
-rows        1367 
-columns     1697 
-bands       1 
-lower left origin.x        731453 
-lower left origin.y        4712471 
-res.x       1 
-res.y       1 
-ysign       -1 
-oblique.x   0 
-oblique.y   0 
-driver      GTiff 
-projection  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
-file        data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif 
-apparent band summary:
-   GDType hasNoDataValue NoDataValue blockSize1 blockSize2
-1 Float64           TRUE       -9999          1       1697
-apparent band statistics:
-    Bmin   Bmax    Bmean      Bsd
-1 305.07 416.07 359.8531 17.83169
-Metadata:
-AREA_OR_POINT=Area 
+ [1] "Driver: GTiff/GeoTIFF"                                                                                                                                                                                                                                                         
+ [2] "Files: /home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif"                                                                                                                      
+ [3] "Size is 1697, 1367"                                                                                                                                                                                                                                                            
+ [4] "Coordinate System is:"                                                                                                                                                                                                                                                         
+ [5] "PROJCRS[\"WGS 84 / UTM zone 18N\","                                                                                                                                                                                                                                            
+ [6] "    BASEGEOGCRS[\"WGS 84\","                                                                                                                                                                                                                                                   
+ [7] "        DATUM[\"World Geodetic System 1984\","                                                                                                                                                                                                                                 
+ [8] "            ELLIPSOID[\"WGS 84\",6378137,298.257223563,"                                                                                                                                                                                                                       
+ [9] "                LENGTHUNIT[\"metre\",1]]],"                                                                                                                                                                                                                                    
+[10] "        PRIMEM[\"Greenwich\",0,"                                                                                                                                                                                                                                               
+[11] "            ANGLEUNIT[\"degree\",0.0174532925199433]],"                                                                                                                                                                                                                        
+[12] "        ID[\"EPSG\",4326]],"                                                                                                                                                                                                                                                   
+[13] "    CONVERSION[\"UTM zone 18N\","                                                                                                                                                                                                                                              
+[14] "        METHOD[\"Transverse Mercator\","                                                                                                                                                                                                                                       
+[15] "            ID[\"EPSG\",9807]],"                                                                                                                                                                                                                                               
+[16] "        PARAMETER[\"Latitude of natural origin\",0,"                                                                                                                                                                                                                           
+[17] "            ANGLEUNIT[\"degree\",0.0174532925199433],"                                                                                                                                                                                                                         
+[18] "            ID[\"EPSG\",8801]],"                                                                                                                                                                                                                                               
+[19] "        PARAMETER[\"Longitude of natural origin\",-75,"                                                                                                                                                                                                                        
+[20] "            ANGLEUNIT[\"degree\",0.0174532925199433],"                                                                                                                                                                                                                         
+[21] "            ID[\"EPSG\",8802]],"                                                                                                                                                                                                                                               
+[22] "        PARAMETER[\"Scale factor at natural origin\",0.9996,"                                                                                                                                                                                                                  
+[23] "            SCALEUNIT[\"unity\",1],"                                                                                                                                                                                                                                           
+[24] "            ID[\"EPSG\",8805]],"                                                                                                                                                                                                                                               
+[25] "        PARAMETER[\"False easting\",500000,"                                                                                                                                                                                                                                   
+[26] "            LENGTHUNIT[\"metre\",1],"                                                                                                                                                                                                                                          
+[27] "            ID[\"EPSG\",8806]],"                                                                                                                                                                                                                                               
+[28] "        PARAMETER[\"False northing\",0,"                                                                                                                                                                                                                                       
+[29] "            LENGTHUNIT[\"metre\",1],"                                                                                                                                                                                                                                          
+[30] "            ID[\"EPSG\",8807]]],"                                                                                                                                                                                                                                              
+[31] "    CS[Cartesian,2],"                                                                                                                                                                                                                                                          
+[32] "        AXIS[\"(E)\",east,"                                                                                                                                                                                                                                                    
+[33] "            ORDER[1],"                                                                                                                                                                                                                                                         
+[34] "            LENGTHUNIT[\"metre\",1]],"                                                                                                                                                                                                                                         
+[35] "        AXIS[\"(N)\",north,"                                                                                                                                                                                                                                                   
+[36] "            ORDER[2],"                                                                                                                                                                                                                                                         
+[37] "            LENGTHUNIT[\"metre\",1]],"                                                                                                                                                                                                                                         
+[38] "    USAGE["                                                                                                                                                                                                                                                                    
+[39] "        SCOPE[\"Engineering survey, topographic mapping.\"],"                                                                                                                                                                                                                  
+[40] "        AREA[\"Between 78°W and 72°W, northern hemisphere between equator and 84°N, onshore and offshore. Bahamas. Canada - Nunavut; Ontario; Quebec. Colombia. Cuba. Ecuador. Greenland. Haiti. Jamica. Panama. Turks and Caicos Islands. United States (USA). Venezuela.\"],"
+[41] "        BBOX[0,-78,84,-72]],"                                                                                                                                                                                                                                                  
+[42] "    ID[\"EPSG\",32618]]"                                                                                                                                                                                                                                                       
+[43] "Data axis to CRS axis mapping: 1,2"                                                                                                                                                                                                                                            
+[44] "Origin = (731453.000000000000000,4713838.000000000000000)"                                                                                                                                                                                                                     
+[45] "Pixel Size = (1.000000000000000,-1.000000000000000)"                                                                                                                                                                                                                           
+[46] "Metadata:"                                                                                                                                                                                                                                                                     
+[47] "  AREA_OR_POINT=Area"                                                                                                                                                                                                                                                          
+[48] "Image Structure Metadata:"                                                                                                                                                                                                                                                     
+[49] "  COMPRESSION=LZW"                                                                                                                                                                                                                                                             
+[50] "  INTERLEAVE=BAND"                                                                                                                                                                                                                                                             
+[51] "Corner Coordinates:"                                                                                                                                                                                                                                                           
+[52] "Upper Left  (  731453.000, 4713838.000) ( 72d10'52.71\"W, 42d32'32.18\"N)"                                                                                                                                                                                                     
+[53] "Lower Left  (  731453.000, 4712471.000) ( 72d10'54.71\"W, 42d31'47.92\"N)"                                                                                                                                                                                                     
+[54] "Upper Right (  733150.000, 4713838.000) ( 72d 9'38.40\"W, 42d32'30.35\"N)"                                                                                                                                                                                                     
+[55] "Lower Right (  733150.000, 4712471.000) ( 72d 9'40.41\"W, 42d31'46.08\"N)"                                                                                                                                                                                                     
+[56] "Center      (  732301.500, 4713154.500) ( 72d10'16.56\"W, 42d32' 9.13\"N)"                                                                                                                                                                                                     
+[57] "Band 1 Block=1697x1 Type=Float64, ColorInterp=Gray"                                                                                                                                                                                                                            
+[58] "  Min=305.070 Max=416.070 "                                                                                                                                                                                                                                                    
+[59] "  Minimum=305.070, Maximum=416.070, Mean=359.853, StdDev=17.832"                                                                                                                                                                                                               
+[60] "  NoData Value=-9999"                                                                                                                                                                                                                                                          
+[61] "  Metadata:"                                                                                                                                                                                                                                                                   
+[62] "    STATISTICS_MAXIMUM=416.06997680664"                                                                                                                                                                                                                                        
+[63] "    STATISTICS_MEAN=359.85311802914"                                                                                                                                                                                                                                           
+[64] "    STATISTICS_MINIMUM=305.07000732422"                                                                                                                                                                                                                                        
+[65] "    STATISTICS_STDDEV=17.83169335933"                                                                                                                                                                                                                                          
 ```
 
 `NoDataValue` are encoded as -9999.
@@ -663,7 +696,7 @@ no bad data values in this particular raster.
 
 > ## Challenge: Explore Raster Metadata
 > 
-> Use `GDALinfo()` to determine the following about the `NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif` file:
+> Use `describe()` to determine the following about the `NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif` file:
 > 
 > 1. Does this file have the same CRS as `DSM_HARV`?
 > 2. What is the `NoDataValue`?
@@ -677,7 +710,7 @@ no bad data values in this particular raster.
 > > 
 > > 
 
-GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV\_DSMhill.tif")
+describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV\_DSMhill.tif")
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -699,7 +732,7 @@ GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV\_DSMhill.tif")
 
 ## More Resources
 
-- [Read more about the `raster` package in R.](https://cran.r-project.org/package=raster)
+- [Read more about the `terra` package in R.](https://cran.r-project.org/package=terra)
   
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::

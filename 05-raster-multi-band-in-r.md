@@ -71,7 +71,21 @@ ggplot() +
   coord_quickmap()
 ```
 
-<img src="fig/05-raster-multi-band-in-r-rendered-harv-rgb-band1-1.png" style="display: block; margin: auto;" />
+```{.output}
+Don't know how to automatically pick scale for object of type <function>.
+Defaulting to continuous.
+```
+
+```{.error}
+Error in `geom_raster()`:
+! Problem while computing aesthetics.
+ℹ Error occurred in the 1st layer.
+Caused by error in `compute_aesthetics()`:
+! Aesthetics are not valid data columns.
+✖ The following aesthetics are invalid:
+✖ `alpha = layer`
+ℹ Did you mistype the name of a data column or forget to add `after_stat()`?
+```
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -97,7 +111,7 @@ resolution : 0.25, 0.25  (x, y)
 extent     : 731998.5, 732766.8, 4712956, 4713536  (xmin, xmax, ymin, ymax)
 crs        : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
 source     : HARV_RGB_Ortho.tif 
-names      : layer 
+names      : HARV_RGB_Ortho_1 
 values     : 0, 255  (min, max)
 ```
 
@@ -161,7 +175,21 @@ ggplot() +
   coord_equal()
 ```
 
-<img src="fig/05-raster-multi-band-in-r-rendered-rgb-harv-band2-1.png" style="display: block; margin: auto;" />
+```{.output}
+Don't know how to automatically pick scale for object of type <function>.
+Defaulting to continuous.
+```
+
+```{.error}
+Error in `geom_raster()`:
+! Problem while computing aesthetics.
+ℹ Error occurred in the 1st layer.
+Caused by error in `compute_aesthetics()`:
+! Aesthetics are not valid data columns.
+✖ The following aesthetics are invalid:
+✖ `alpha = layer`
+ℹ Did you mistype the name of a data column or forget to add `after_stat()`?
+```
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -585,7 +613,7 @@ object.size(RGB_stack_HARV)
 ```
 
 ```{.output}
-56432 bytes
+57800 bytes
 ```
 
 Now we will create a RasterBrick object from our RasterStack data and view its size:
@@ -598,7 +626,7 @@ object.size(RGB_brick_HARV)
 ```
 
 ```{.output}
-170898792 bytes
+170900160 bytes
 ```
 
 Notice that in the RasterBrick, all of the bands are stored within the actual
