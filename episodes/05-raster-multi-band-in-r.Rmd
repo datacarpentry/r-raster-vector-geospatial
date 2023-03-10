@@ -71,7 +71,7 @@ RGB_band1_HARV_df  <- as.data.frame(RGB_band1_HARV, xy = TRUE)
 ```{r harv-rgb-band1}
 ggplot() +
   geom_raster(data = RGB_band1_HARV_df,
-              aes(x = x, y = y, alpha = layer)) + 
+              aes(x = x, y = y, alpha = HARV_RGB_Ortho_1)) + 
   coord_quickmap()
 ```
 
@@ -143,7 +143,7 @@ RGB_band2_HARV_df <- as.data.frame(RGB_band2_HARV, xy = TRUE)
 ```{r rgb-harv-band2}
 ggplot() +
   geom_raster(data = RGB_band2_HARV_df,
-              aes(x = x, y = y, alpha = layer)) + 
+              aes(x = x, y = y, alpha = HARV_RGB_Ortho_1)) + 
   coord_equal()
 ```
 
