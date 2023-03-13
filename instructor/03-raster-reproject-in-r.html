@@ -341,7 +341,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Reproject Raster Data</h1>
-        <p> Last updated on 2023-03-10 | 
+        <p> Last updated on 2023-03-13 | 
         
         
         
@@ -396,8 +396,8 @@ through the examples in this episode.</p>
 plotted or analyzed. Rasters that don’t line up are most often in
 different Coordinate Reference Systems (CRS). This episode explains how
 to deal with rasters in different, known CRSs. It will walk though
-reprojecting rasters in R using the <code>projectRaster()</code>
-function in the <code>raster</code> package.</p>
+reprojecting rasters in R using the <code>project()</code> function in
+the <code>terra</code> package.</p>
 <section id="raster-projection-in-r"><h2 class="section-heading">Raster Projection in R<a class="anchor" aria-label="anchor" href="#raster-projection-in-r"></a>
 </h2>
 <hr class="half-width"><p>In the <a href="02-raster-plot/">Plot Raster Data in R</a> episode,
@@ -421,9 +421,11 @@ level.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">DTM_HARV</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">DTM_HARV</span> <span class="op">&lt;-</span> </span>
+<span>    <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">DTM_hill_HARV</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif"</span><span class="op">)</span></span></code></pre>
+<span><span class="va">DTM_hill_HARV</span> <span class="op">&lt;-</span> </span>
+<span>    <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Next, we will convert each of these datasets to a dataframe for
 plotting with <code>ggplot</code>.</p>
@@ -503,90 +505,81 @@ each use?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># view crs for DTM</span></span>
-<span><span class="fu">crs</span><span class="op">(</span><span class="va">DTM_HARV</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">crs</span><span class="op">(</span><span class="va">DTM_HARV</span>, parse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Coordinate Reference System:
-Deprecated Proj.4 representation:
- +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
-WKT2 2019 representation:
-PROJCRS["unknown",
-    BASEGEOGCRS["unknown",
-        DATUM["World Geodetic System 1984",
-            ELLIPSOID["WGS 84",6378137,298.257223563,
-                LENGTHUNIT["metre",1]],
-            ID["EPSG",6326]],
-        PRIMEM["Greenwich",0,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8901]]],
-    CONVERSION["UTM zone 18N",
-        METHOD["Transverse Mercator",
-            ID["EPSG",9807]],
-        PARAMETER["Latitude of natural origin",0,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8801]],
-        PARAMETER["Longitude of natural origin",-75,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8802]],
-        PARAMETER["Scale factor at natural origin",0.9996,
-            SCALEUNIT["unity",1],
-            ID["EPSG",8805]],
-        PARAMETER["False easting",500000,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8806]],
-        PARAMETER["False northing",0,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8807]],
-        ID["EPSG",16018]],
-    CS[Cartesian,2],
-        AXIS["(E)",east,
-            ORDER[1],
-            LENGTHUNIT["metre",1,
-                ID["EPSG",9001]]],
-        AXIS["(N)",north,
-            ORDER[2],
-            LENGTHUNIT["metre",1,
-                ID["EPSG",9001]]]] </code></pre>
+<pre class="output" tabindex="0"><code> [1] "PROJCRS[\"WGS 84 / UTM zone 18N\","                                                                                                                                                                                                                                            
+ [2] "    BASEGEOGCRS[\"WGS 84\","                                                                                                                                                                                                                                                   
+ [3] "        DATUM[\"World Geodetic System 1984\","                                                                                                                                                                                                                                 
+ [4] "            ELLIPSOID[\"WGS 84\",6378137,298.257223563,"                                                                                                                                                                                                                       
+ [5] "                LENGTHUNIT[\"metre\",1]]],"                                                                                                                                                                                                                                    
+ [6] "        PRIMEM[\"Greenwich\",0,"                                                                                                                                                                                                                                               
+ [7] "            ANGLEUNIT[\"degree\",0.0174532925199433]],"                                                                                                                                                                                                                        
+ [8] "        ID[\"EPSG\",4326]],"                                                                                                                                                                                                                                                   
+ [9] "    CONVERSION[\"UTM zone 18N\","                                                                                                                                                                                                                                              
+[10] "        METHOD[\"Transverse Mercator\","                                                                                                                                                                                                                                       
+[11] "            ID[\"EPSG\",9807]],"                                                                                                                                                                                                                                               
+[12] "        PARAMETER[\"Latitude of natural origin\",0,"                                                                                                                                                                                                                           
+[13] "            ANGLEUNIT[\"degree\",0.0174532925199433],"                                                                                                                                                                                                                         
+[14] "            ID[\"EPSG\",8801]],"                                                                                                                                                                                                                                               
+[15] "        PARAMETER[\"Longitude of natural origin\",-75,"                                                                                                                                                                                                                        
+[16] "            ANGLEUNIT[\"degree\",0.0174532925199433],"                                                                                                                                                                                                                         
+[17] "            ID[\"EPSG\",8802]],"                                                                                                                                                                                                                                               
+[18] "        PARAMETER[\"Scale factor at natural origin\",0.9996,"                                                                                                                                                                                                                  
+[19] "            SCALEUNIT[\"unity\",1],"                                                                                                                                                                                                                                           
+[20] "            ID[\"EPSG\",8805]],"                                                                                                                                                                                                                                               
+[21] "        PARAMETER[\"False easting\",500000,"                                                                                                                                                                                                                                   
+[22] "            LENGTHUNIT[\"metre\",1],"                                                                                                                                                                                                                                          
+[23] "            ID[\"EPSG\",8806]],"                                                                                                                                                                                                                                               
+[24] "        PARAMETER[\"False northing\",0,"                                                                                                                                                                                                                                       
+[25] "            LENGTHUNIT[\"metre\",1],"                                                                                                                                                                                                                                          
+[26] "            ID[\"EPSG\",8807]]],"                                                                                                                                                                                                                                              
+[27] "    CS[Cartesian,2],"                                                                                                                                                                                                                                                          
+[28] "        AXIS[\"(E)\",east,"                                                                                                                                                                                                                                                    
+[29] "            ORDER[1],"                                                                                                                                                                                                                                                         
+[30] "            LENGTHUNIT[\"metre\",1]],"                                                                                                                                                                                                                                         
+[31] "        AXIS[\"(N)\",north,"                                                                                                                                                                                                                                                   
+[32] "            ORDER[2],"                                                                                                                                                                                                                                                         
+[33] "            LENGTHUNIT[\"metre\",1]],"                                                                                                                                                                                                                                         
+[34] "    USAGE["                                                                                                                                                                                                                                                                    
+[35] "        SCOPE[\"Engineering survey, topographic mapping.\"],"                                                                                                                                                                                                                  
+[36] "        AREA[\"Between 78°W and 72°W, northern hemisphere between equator and 84°N, onshore and offshore. Bahamas. Canada - Nunavut; Ontario; Quebec. Colombia. Cuba. Ecuador. Greenland. Haiti. Jamica. Panama. Turks and Caicos Islands. United States (USA). Venezuela.\"],"
+[37] "        BBOX[0,-78,84,-72]],"                                                                                                                                                                                                                                                  
+[38] "    ID[\"EPSG\",32618]]"                                                                                                                                                                                                                                                       </code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># view crs for hillshade</span></span>
-<span><span class="fu">crs</span><span class="op">(</span><span class="va">DTM_hill_HARV</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">crs</span><span class="op">(</span><span class="va">DTM_hill_HARV</span>, parse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Coordinate Reference System:
-Deprecated Proj.4 representation: +proj=longlat +datum=WGS84 +no_defs 
-WKT2 2019 representation:
-GEOGCRS["unknown",
-    DATUM["World Geodetic System 1984",
-        ELLIPSOID["WGS 84",6378137,298.257223563,
-            LENGTHUNIT["metre",1]],
-        ID["EPSG",6326]],
-    PRIMEM["Greenwich",0,
-        ANGLEUNIT["degree",0.0174532925199433],
-        ID["EPSG",8901]],
-    CS[ellipsoidal,2],
-        AXIS["longitude",east,
-            ORDER[1],
-            ANGLEUNIT["degree",0.0174532925199433,
-                ID["EPSG",9122]]],
-        AXIS["latitude",north,
-            ORDER[2],
-            ANGLEUNIT["degree",0.0174532925199433,
-                ID["EPSG",9122]]]] </code></pre>
+<pre class="output" tabindex="0"><code> [1] "GEOGCRS[\"WGS 84\","                                   
+ [2] "    DATUM[\"World Geodetic System 1984\","             
+ [3] "        ELLIPSOID[\"WGS 84\",6378137,298.257223563,"   
+ [4] "            LENGTHUNIT[\"metre\",1]]],"                
+ [5] "    PRIMEM[\"Greenwich\",0,"                           
+ [6] "        ANGLEUNIT[\"degree\",0.0174532925199433]],"    
+ [7] "    CS[ellipsoidal,2],"                                
+ [8] "        AXIS[\"geodetic latitude (Lat)\",north,"       
+ [9] "            ORDER[1],"                                 
+[10] "            ANGLEUNIT[\"degree\",0.0174532925199433]],"
+[11] "        AXIS[\"geodetic longitude (Lon)\",east,"       
+[12] "            ORDER[2],"                                 
+[13] "            ANGLEUNIT[\"degree\",0.0174532925199433]],"
+[14] "    ID[\"EPSG\",4326]]"                                </code></pre>
 </div>
 <p><code>DTM_HARV</code> is in the UTM projection, with units of meters.
 <code>DTM_hill_HARV</code> is in <code>Geographic WGS84</code> - which
@@ -601,10 +594,10 @@ when plotted in R. We need to reproject (or change the projection of)
 reproject <code>DTM_HARV</code> into WGS84.</p>
 </section><section id="reproject-rasters"><h2 class="section-heading">Reproject Rasters<a class="anchor" aria-label="anchor" href="#reproject-rasters"></a>
 </h2>
-<hr class="half-width"><p>We can use the <code>projectRaster()</code> function to reproject a
-raster into a new CRS. Keep in mind that reprojection only works when
-you first have a defined CRS for the raster object that you want to
-reproject. It cannot be used if no CRS is defined. Lucky for us, the
+<hr class="half-width"><p>We can use the <code>project()</code> function to reproject a raster
+into a new CRS. Keep in mind that reprojection only works when you first
+have a defined CRS for the raster object that you want to reproject. It
+cannot be used if no CRS is defined. Lucky for us, the
 <code>DTM_hill_HARV</code> has a defined CRS.</p>
 <div id="callout1" class="callout callout">
 <div class="callout-square">
@@ -620,17 +613,16 @@ raster data.</p>
 </div>
 </div>
 </div>
-<p>To use the <code>projectRaster()</code> function, we need to define
-two things:</p>
+<p>To use the <code>project()</code> function, we need to define two
+things:</p>
 <ol style="list-style-type: decimal"><li>the object we want to reproject and</li>
 <li>the CRS that we want to reproject it to.</li>
-</ol><p>The syntax is
-<code>projectRaster(RasterObject, crs = CRSToReprojectTo)</code></p>
+</ol><p>The syntax is <code>project(RasterObject, crs)</code></p>
 <p>We want the CRS of our hillshade to match the <code>DTM_HARV</code>
 raster. We can thus assign the CRS of our <code>DTM_HARV</code> to our
-hillshade within the <code>projectRaster()</code> function as follows:
-<code>crs = crs(DTM_HARV)</code>. Note that we are using the
-<code>projectRaster()</code> function on the raster object, not the
+hillshade within the <code>project()</code> function as follows:
+<code>crs(DTM_HARV)</code>. Note that we are using the
+<code>project()</code> function on the raster object, not the
 <code>data.frame()</code> we use for plotting with
 <code>ggplot</code>.</p>
 <p>First we will reproject our <code>DTM_hill_HARV</code> raster data to
@@ -639,8 +631,8 @@ match the <code>DTM_HARV</code> raster CRS:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">DTM_hill_UTMZ18N_HARV</span> <span class="op">&lt;-</span> <span class="fu">projectRaster</span><span class="op">(</span><span class="va">DTM_hill_HARV</span>,</span>
-<span>                                       crs <span class="op">=</span> <span class="fu">crs</span><span class="op">(</span><span class="va">DTM_HARV</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">DTM_hill_UTMZ18N_HARV</span> <span class="op">&lt;-</span> <span class="fu">project</span><span class="op">(</span><span class="va">DTM_hill_HARV</span>,</span>
+<span>                                 <span class="fu">crs</span><span class="op">(</span><span class="va">DTM_HARV</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Now we can compare the CRS of our original DTM hillshade and our new
 DTM hillshade, to see how they are different.</p>
@@ -648,113 +640,96 @@ DTM hillshade, to see how they are different.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">crs</span><span class="op">(</span><span class="va">DTM_hill_UTMZ18N_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">crs</span><span class="op">(</span><span class="va">DTM_hill_UTMZ18N_HARV</span>, parse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Coordinate Reference System:
-Deprecated Proj.4 representation:
- +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
-WKT2 2019 representation:
-PROJCRS["unknown",
-    BASEGEOGCRS["unknown",
-        DATUM["World Geodetic System 1984",
-            ELLIPSOID["WGS 84",6378137,298.257223563,
-                LENGTHUNIT["metre",1]],
-            ID["EPSG",6326]],
-        PRIMEM["Greenwich",0,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8901]]],
-    CONVERSION["UTM zone 18N",
-        METHOD["Transverse Mercator",
-            ID["EPSG",9807]],
-        PARAMETER["Latitude of natural origin",0,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8801]],
-        PARAMETER["Longitude of natural origin",-75,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8802]],
-        PARAMETER["Scale factor at natural origin",0.9996,
-            SCALEUNIT["unity",1],
-            ID["EPSG",8805]],
-        PARAMETER["False easting",500000,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8806]],
-        PARAMETER["False northing",0,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8807]],
-        ID["EPSG",16018]],
-    CS[Cartesian,2],
-        AXIS["(E)",east,
-            ORDER[1],
-            LENGTHUNIT["metre",1,
-                ID["EPSG",9001]]],
-        AXIS["(N)",north,
-            ORDER[2],
-            LENGTHUNIT["metre",1,
-                ID["EPSG",9001]]]] </code></pre>
+<pre class="output" tabindex="0"><code> [1] "PROJCRS[\"WGS 84 / UTM zone 18N\","                                                                                                                                                                                                                                            
+ [2] "    BASEGEOGCRS[\"WGS 84\","                                                                                                                                                                                                                                                   
+ [3] "        DATUM[\"World Geodetic System 1984\","                                                                                                                                                                                                                                 
+ [4] "            ELLIPSOID[\"WGS 84\",6378137,298.257223563,"                                                                                                                                                                                                                       
+ [5] "                LENGTHUNIT[\"metre\",1]]],"                                                                                                                                                                                                                                    
+ [6] "        PRIMEM[\"Greenwich\",0,"                                                                                                                                                                                                                                               
+ [7] "            ANGLEUNIT[\"degree\",0.0174532925199433]],"                                                                                                                                                                                                                        
+ [8] "        ID[\"EPSG\",4326]],"                                                                                                                                                                                                                                                   
+ [9] "    CONVERSION[\"UTM zone 18N\","                                                                                                                                                                                                                                              
+[10] "        METHOD[\"Transverse Mercator\","                                                                                                                                                                                                                                       
+[11] "            ID[\"EPSG\",9807]],"                                                                                                                                                                                                                                               
+[12] "        PARAMETER[\"Latitude of natural origin\",0,"                                                                                                                                                                                                                           
+[13] "            ANGLEUNIT[\"degree\",0.0174532925199433],"                                                                                                                                                                                                                         
+[14] "            ID[\"EPSG\",8801]],"                                                                                                                                                                                                                                               
+[15] "        PARAMETER[\"Longitude of natural origin\",-75,"                                                                                                                                                                                                                        
+[16] "            ANGLEUNIT[\"degree\",0.0174532925199433],"                                                                                                                                                                                                                         
+[17] "            ID[\"EPSG\",8802]],"                                                                                                                                                                                                                                               
+[18] "        PARAMETER[\"Scale factor at natural origin\",0.9996,"                                                                                                                                                                                                                  
+[19] "            SCALEUNIT[\"unity\",1],"                                                                                                                                                                                                                                           
+[20] "            ID[\"EPSG\",8805]],"                                                                                                                                                                                                                                               
+[21] "        PARAMETER[\"False easting\",500000,"                                                                                                                                                                                                                                   
+[22] "            LENGTHUNIT[\"metre\",1],"                                                                                                                                                                                                                                          
+[23] "            ID[\"EPSG\",8806]],"                                                                                                                                                                                                                                               
+[24] "        PARAMETER[\"False northing\",0,"                                                                                                                                                                                                                                       
+[25] "            LENGTHUNIT[\"metre\",1],"                                                                                                                                                                                                                                          
+[26] "            ID[\"EPSG\",8807]]],"                                                                                                                                                                                                                                              
+[27] "    CS[Cartesian,2],"                                                                                                                                                                                                                                                          
+[28] "        AXIS[\"(E)\",east,"                                                                                                                                                                                                                                                    
+[29] "            ORDER[1],"                                                                                                                                                                                                                                                         
+[30] "            LENGTHUNIT[\"metre\",1]],"                                                                                                                                                                                                                                         
+[31] "        AXIS[\"(N)\",north,"                                                                                                                                                                                                                                                   
+[32] "            ORDER[2],"                                                                                                                                                                                                                                                         
+[33] "            LENGTHUNIT[\"metre\",1]],"                                                                                                                                                                                                                                         
+[34] "    USAGE["                                                                                                                                                                                                                                                                    
+[35] "        SCOPE[\"Engineering survey, topographic mapping.\"],"                                                                                                                                                                                                                  
+[36] "        AREA[\"Between 78°W and 72°W, northern hemisphere between equator and 84°N, onshore and offshore. Bahamas. Canada - Nunavut; Ontario; Quebec. Colombia. Cuba. Ecuador. Greenland. Haiti. Jamica. Panama. Turks and Caicos Islands. United States (USA). Venezuela.\"],"
+[37] "        BBOX[0,-78,84,-72]],"                                                                                                                                                                                                                                                  
+[38] "    ID[\"EPSG\",32618]]"                                                                                                                                                                                                                                                       </code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">crs</span><span class="op">(</span><span class="va">DTM_hill_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">crs</span><span class="op">(</span><span class="va">DTM_hill_HARV</span>, parse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Coordinate Reference System:
-Deprecated Proj.4 representation: +proj=longlat +datum=WGS84 +no_defs 
-WKT2 2019 representation:
-GEOGCRS["unknown",
-    DATUM["World Geodetic System 1984",
-        ELLIPSOID["WGS 84",6378137,298.257223563,
-            LENGTHUNIT["metre",1]],
-        ID["EPSG",6326]],
-    PRIMEM["Greenwich",0,
-        ANGLEUNIT["degree",0.0174532925199433],
-        ID["EPSG",8901]],
-    CS[ellipsoidal,2],
-        AXIS["longitude",east,
-            ORDER[1],
-            ANGLEUNIT["degree",0.0174532925199433,
-                ID["EPSG",9122]]],
-        AXIS["latitude",north,
-            ORDER[2],
-            ANGLEUNIT["degree",0.0174532925199433,
-                ID["EPSG",9122]]]] </code></pre>
+<pre class="output" tabindex="0"><code> [1] "GEOGCRS[\"WGS 84\","                                   
+ [2] "    DATUM[\"World Geodetic System 1984\","             
+ [3] "        ELLIPSOID[\"WGS 84\",6378137,298.257223563,"   
+ [4] "            LENGTHUNIT[\"metre\",1]]],"                
+ [5] "    PRIMEM[\"Greenwich\",0,"                           
+ [6] "        ANGLEUNIT[\"degree\",0.0174532925199433]],"    
+ [7] "    CS[ellipsoidal,2],"                                
+ [8] "        AXIS[\"geodetic latitude (Lat)\",north,"       
+ [9] "            ORDER[1],"                                 
+[10] "            ANGLEUNIT[\"degree\",0.0174532925199433]],"
+[11] "        AXIS[\"geodetic longitude (Lon)\",east,"       
+[12] "            ORDER[2],"                                 
+[13] "            ANGLEUNIT[\"degree\",0.0174532925199433]],"
+[14] "    ID[\"EPSG\",4326]]"                                </code></pre>
 </div>
 <p>We can also compare the extent of the two objects.</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">extent</span><span class="op">(</span><span class="va">DTM_hill_UTMZ18N_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">ext</span><span class="op">(</span><span class="va">DTM_hill_UTMZ18N_HARV</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code><span><span class="va">class</span>      <span class="op">:</span> <span class="va">Extent</span> </span>
-<span><span class="va">xmin</span>       <span class="op">:</span> <span class="fl">731397.3</span> </span>
-<span><span class="va">xmax</span>       <span class="op">:</span> <span class="fl">733205.3</span> </span>
-<span><span class="va">ymin</span>       <span class="op">:</span> <span class="fl">4712403</span> </span>
-<span><span class="va">ymax</span>       <span class="op">:</span> <span class="fl">4713907</span> </span></code></pre>
+<pre class="output" tabindex="0"><code>SpatExtent : 731402.31567604, 733200.22199435, 4712407.19751409, 4713901.78222079 (xmin, xmax, ymin, ymax)</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">extent</span><span class="op">(</span><span class="va">DTM_hill_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">ext</span><span class="op">(</span><span class="va">DTM_hill_HARV</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code><span><span class="va">class</span>      <span class="op">:</span> <span class="va">Extent</span> </span>
-<span><span class="va">xmin</span>       <span class="op">:</span> <span class="op">-</span><span class="fl">72.18192</span> </span>
-<span><span class="va">xmax</span>       <span class="op">:</span> <span class="op">-</span><span class="fl">72.16061</span> </span>
-<span><span class="va">ymin</span>       <span class="op">:</span> <span class="fl">42.52941</span> </span>
-<span><span class="va">ymax</span>       <span class="op">:</span> <span class="fl">42.54234</span> </span></code></pre>
+<pre class="output" tabindex="0"><code>SpatExtent : -72.1819236223343, -72.1606102223342, 42.5294079700285, 42.5423355900285 (xmin, xmax, ymin, ymax)</code></pre>
 </div>
 <p>Notice in the output above that the <code>crs()</code> of
 <code>DTM_hill_UTMZ18N_HARV</code> is now UTM. However, the extent
@@ -779,7 +754,7 @@ values of <code>DTM_hillUTMZ18N_HARV</code> are different from
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>The extent for DTM_hill_UTMZ18N_HARV is in UTMs so the extent is in
 meters. The extent for DTM_hill_HARV is in lat/long so the extent is
@@ -801,7 +776,7 @@ versus our original data.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] 1.000 0.998</code></pre>
+<pre class="output" tabindex="0"><code>[1] 1.001061 1.001061</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -817,15 +792,15 @@ versus our original data.</p>
 <p>These two resolutions are different, but they’re representing the
 same data. We can tell R to force our newly reprojected raster to be 1m
 x 1m resolution by adding a line of code <code>res=1</code> within the
-<code>projectRaster()</code> function. In the example below, we ensure a
+<code>project()</code> function. In the example below, we ensure a
 resolution match by using <code>res(DTM_HARV)</code> as a variable.</p>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span>  <span class="va">DTM_hill_UTMZ18N_HARV</span> <span class="op">&lt;-</span> <span class="fu">projectRaster</span><span class="op">(</span><span class="va">DTM_hill_HARV</span>,</span>
-<span>                                         crs <span class="op">=</span> <span class="fu">crs</span><span class="op">(</span><span class="va">DTM_HARV</span><span class="op">)</span>,</span>
-<span>                                         res <span class="op">=</span> <span class="fu">res</span><span class="op">(</span><span class="va">DTM_HARV</span><span class="op">)</span><span class="op">)</span> </span></code></pre>
+<code class="sourceCode R"><span>  <span class="va">DTM_hill_UTMZ18N_HARV</span> <span class="op">&lt;-</span> <span class="fu">project</span><span class="op">(</span><span class="va">DTM_hill_HARV</span>, </span>
+<span>                                   <span class="fu">crs</span><span class="op">(</span><span class="va">DTM_HARV</span><span class="op">)</span>, </span>
+<span>                                   res <span class="op">=</span> <span class="fu">res</span><span class="op">(</span><span class="va">DTM_HARV</span><span class="op">)</span><span class="op">)</span> </span></code></pre>
 </div>
 <p>Now both our resolutions and our CRSs match, so we can plot these two
 data sets together. Let’s double-check our resolution to be sure:</p>
@@ -900,22 +875,23 @@ files.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import DSM</span></span>
-<span><span class="va">DSM_SJER</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif"</span><span class="op">)</span></span>
+<span><span class="va">DSM_SJER</span> <span class="op">&lt;-</span> </span>
+<span>    <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif"</span><span class="op">)</span></span>
 <span><span class="co"># import DSM hillshade</span></span>
 <span><span class="va">DSM_hill_SJER_WGS</span> <span class="op">&lt;-</span></span>
-<span><span class="fu">raster</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMhill_WGS84.tif"</span><span class="op">)</span></span>
+<span>    <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMhill_WGS84.tif"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># reproject raster</span></span>
-<span><span class="va">DTM_hill_UTMZ18N_SJER</span> <span class="op">&lt;-</span> <span class="fu">projectRaster</span><span class="op">(</span><span class="va">DSM_hill_SJER_WGS</span>,</span>
-<span>                                  crs <span class="op">=</span> <span class="fu">crs</span><span class="op">(</span><span class="va">DSM_SJER</span><span class="op">)</span>,</span>
-<span>                                  res <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">DTM_hill_UTMZ18N_SJER</span> <span class="op">&lt;-</span> <span class="fu">project</span><span class="op">(</span><span class="va">DSM_hill_SJER_WGS</span>,</span>
+<span>                                 <span class="fu">crs</span><span class="op">(</span><span class="va">DSM_SJER</span><span class="op">)</span>,</span>
+<span>                                 res <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># convert to data.frames</span></span>
 <span><span class="va">DSM_SJER_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">DSM_SJER</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -960,7 +936,7 @@ map you just created compare to that map?</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>The maps look identical. Which is what they should be as the only
 difference is this one was reprojected from WGS84 to UTM prior to
@@ -979,7 +955,7 @@ plotting.</p>
 <div class="callout-content">
 <ul><li>In order to plot two raster data sets together, they must be in the
 same CRS.</li>
-<li>Use the <code>projectRaster()</code> function to convert between
+<li>Use the <code>project()</code> function to convert between
 CRSs.</li>
 </ul></div>
 </div>
@@ -1019,7 +995,7 @@ CRSs.</li>
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
         <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.11.8" class="external-link">sandpaper (0.11.8)</a>,
         <a href="https://github.com/carpentries/pegboard/tree/0.4.3" class="external-link">pegboard (0.4.3)</a>,
-      and <a href="https://github.com/carpentries/varnish/tree/0.2.14" class="external-link">varnish (0.2.14)</a>.</p>
+      and <a href="https://github.com/carpentries/varnish/tree/0.2.15" class="external-link">varnish (0.2.15)</a>.</p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -1039,9 +1015,9 @@ CRSs.</li>
   "creativeWorkStatus": "active",
   "url": "https://preview.carpentries.org/r-raster-vector-geospatial/instructor/03-raster-reproject-in-r.html",
   "identifier": "https://preview.carpentries.org/r-raster-vector-geospatial/instructor/03-raster-reproject-in-r.html",
-  "dateCreated": "2023-03-10",
-  "dateModified": "2023-03-10",
-  "datePublished": "2023-03-10"
+  "dateCreated": "2023-03-13",
+  "dateModified": "2023-03-13",
+  "datePublished": "2023-03-13"
 }
 
   </script><script>

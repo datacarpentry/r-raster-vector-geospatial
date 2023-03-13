@@ -341,7 +341,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Plot Raster Data</h1>
-        <p> Last updated on 2023-03-10 | 
+        <p> Last updated on 2023-03-13 | 
         
         
         
@@ -628,7 +628,7 @@ divided among the range of pixel values.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -667,21 +667,22 @@ structure:</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">DSM_hill_HARV</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">raster</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif"</span><span class="op">)</span></span>
+<span>  <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">DSM_hill_HARV</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>class      : RasterLayer 
-dimensions : 1367, 1697, 2319799  (nrow, ncol, ncell)
-resolution : 1, 1  (x, y)
-extent     : 731453, 733150, 4712471, 4713838  (xmin, xmax, ymin, ymax)
-crs        : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
-source     : HARV_DSMhill.tif 
-names      : HARV_DSMhill 
-values     : -0.7136298, 0.9999997  (min, max)</code></pre>
+<pre class="output" tabindex="0"><code>class       : SpatRaster 
+dimensions  : 1367, 1697, 1  (nrow, ncol, nlyr)
+resolution  : 1, 1  (x, y)
+extent      : 731453, 733150, 4712471, 4713838  (xmin, xmax, ymin, ymax)
+coord. ref. : WGS 84 / UTM zone 18N (EPSG:32618) 
+source      : HARV_DSMhill.tif 
+name        : HARV_DSMhill 
+min value   :   -0.7136298 
+max value   :    0.9999997 </code></pre>
 </div>
 <p>Next we convert it to a dataframe, so that we can plot it using
 <code>ggplot2</code>:</p>
@@ -696,10 +697,10 @@ values     : -0.7136298, 0.9999997  (min, max)</code></pre>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>'data.frame':	2319799 obs. of  3 variables:
- $ x           : num  731454 731454 731456 731456 731458 ...
- $ y           : num  4713838 4713838 4713838 4713838 4713838 ...
- $ HARV_DSMhill: num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
+<pre class="output" tabindex="0"><code>'data.frame':	2313675 obs. of  3 variables:
+ $ x           : num  731454 731456 731456 731458 731458 ...
+ $ y           : num  4713836 4713836 4713836 4713836 4713836 ...
+ $ HARV_DSMhill: num  -0.15567 0.00743 0.86989 0.9791 0.96283 ...</code></pre>
 </div>
 <p>Now we can plot the hillshade data:</p>
 <div class="codewrapper sourceCode" id="cb22">
@@ -775,7 +776,7 @@ the data.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -784,12 +785,14 @@ the data.</li>
 <code class="sourceCode R"><span><span class="co"># CREATE DSM MAPS</span></span>
 <span></span>
 <span><span class="co"># import DSM data</span></span>
-<span><span class="va">DSM_SJER</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif"</span><span class="op">)</span></span>
+<span><span class="va">DSM_SJER</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif"</span><span class="op">)</span></span>
 <span><span class="co"># convert to a df for plotting</span></span>
 <span><span class="va">DSM_SJER_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">DSM_SJER</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># import DSM hillshade</span></span>
-<span><span class="va">DSM_hill_SJER</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmHill.tif"</span><span class="op">)</span></span>
+<span><span class="va">DSM_hill_SJER</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmHill.tif"</span><span class="op">)</span></span>
 <span><span class="co"># convert to a df for plotting</span></span>
 <span><span class="va">DSM_hill_SJER_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">DSM_hill_SJER</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
@@ -822,11 +825,13 @@ the data.</li>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># CREATE DTM MAP</span></span>
 <span><span class="co"># import DTM</span></span>
-<span><span class="va">DTM_SJER</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif"</span><span class="op">)</span></span>
+<span><span class="va">DTM_SJER</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif"</span><span class="op">)</span></span>
 <span><span class="va">DTM_SJER_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">DTM_SJER</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># DTM Hillshade</span></span>
-<span><span class="va">DTM_hill_SJER</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmHill.tif"</span><span class="op">)</span></span>
+<span><span class="va">DTM_hill_SJER</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmHill.tif"</span><span class="op">)</span></span>
 <span><span class="va">DTM_hill_SJER_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">DTM_hill_SJER</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -906,7 +911,7 @@ aesthetic.</li>
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
         <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.11.8" class="external-link">sandpaper (0.11.8)</a>,
         <a href="https://github.com/carpentries/pegboard/tree/0.4.3" class="external-link">pegboard (0.4.3)</a>,
-      and <a href="https://github.com/carpentries/varnish/tree/0.2.14" class="external-link">varnish (0.2.14)</a>.</p>
+      and <a href="https://github.com/carpentries/varnish/tree/0.2.15" class="external-link">varnish (0.2.15)</a>.</p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -926,9 +931,9 @@ aesthetic.</li>
   "creativeWorkStatus": "active",
   "url": "https://preview.carpentries.org/r-raster-vector-geospatial/instructor/02-raster-plot.html",
   "identifier": "https://preview.carpentries.org/r-raster-vector-geospatial/instructor/02-raster-plot.html",
-  "dateCreated": "2023-03-10",
-  "dateModified": "2023-03-10",
-  "datePublished": "2023-03-10"
+  "dateCreated": "2023-03-13",
+  "dateModified": "2023-03-13",
+  "datePublished": "2023-03-13"
 }
 
   </script><script>
