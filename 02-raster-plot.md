@@ -40,16 +40,20 @@ data, and other prerequisites you will need to work through the examples in this
 
 This episode covers how to plot a raster in R using the `ggplot2`
 package with customized coloring schemes.
-It also covers how to layer a raster on top of a hillshade to produce
-an eloquent map. We will continue working with the Digital Surface Model (DSM) raster
-for the NEON Harvard Forest Field Site.
+It also covers how to layer a raster on top of a hillshade to produce an 
+eloquent map. We will continue working with the Digital Surface Model (DSM) 
+raster for the NEON Harvard Forest Field Site.
 
 ## Plotting Data Using Breaks
 
 In the previous episode, we viewed our data using a continuous color ramp. For
-clarity and visibility of the plot, we may prefer to view the data "symbolized" or colored according to ranges of values. This is comparable to a "classified"
-map. To do this, we need to tell `ggplot` how many groups to break our data into, and
-where those breaks should be. To make these decisions, it is useful to first explore the distribution of the data using a bar plot. To begin with, we will use `dplyr`'s `mutate()` function combined with `cut()` to split the data into 3 bins.
+clarity and visibility of the plot, we may prefer to view the data "symbolized" 
+or colored according to ranges of values. This is comparable to a "classified"
+map. To do this, we need to tell `ggplot` how many groups to break our data 
+into, and where those breaks should be. To make these decisions, it is useful 
+to first explore the distribution of the data using a bar plot. To begin with, 
+we will use `dplyr`'s `mutate()` function combined with `cut()` to split the 
+data into 3 bins.
 
 
 ```r
@@ -62,8 +66,8 @@ ggplot() +
 
 <img src="fig/02-raster-plot-rendered-histogram-breaks-ggplot-1.png" style="display: block; margin: auto;" />
 
-If we want to know the cutoff values for the groups, we can ask for the unique values
-of `fct_elevation`:
+If we want to know the cutoff values for the groups, we can ask for the unique 
+values of `fct_elevation`:
 
 
 ```r
@@ -75,8 +79,8 @@ unique(DSM_HARV_df$fct_elevation)
 Levels: (305,342] (342,379] (379,416]
 ```
 
-And we can get the count of values in each group using `dplyr`'s
-`group_by()` and `count()` functions:
+And we can get the count of values in each group using `dplyr`'s `group_by()` 
+and `count()` functions:
 
 
 ```r
@@ -98,8 +102,8 @@ DSM_HARV_df %>%
 We might prefer to customize the cutoff values for these groups.
 Lets round the cutoff values so that we have groups for the ranges of
 301–350 m, 351–400 m, and 401–450 m.
-To implement this we will give `mutate()` a numeric vector of break points instead
-of the number of breaks we want.
+To implement this we will give `mutate()` a numeric vector of break points 
+instead of the number of breaks we want.
 
 
 ```r
@@ -120,9 +124,11 @@ Levels: (300,350] (350,400] (400,450]
 
 ## Data Tips
 
-Note that when we assign break values a set of 4 values will result in 3 bins of data.
+Note that when we assign break values a set of 4 values will result in 3 bins 
+of data.
 
-The bin intervals are shown using `(` to mean exclusive and `]` to mean inclusive. For example: `(305, 342]` means "from 306 through 342".
+The bin intervals are shown using `(` to mean exclusive and `]` to mean 
+inclusive. For example: `(305, 342]` means "from 306 through 342".
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -156,7 +162,8 @@ DSM_HARV_df %>%
 3 (400,450]         10668
 ```
 
-We can use those groups to plot our raster data, with each group being a different color:
+We can use those groups to plot our raster data, with each group being a 
+different color:
 
 
 ```r
@@ -202,8 +209,8 @@ ggplot() +
 
 If we need to create multiple plots using the same color palette, we can create
 an R object (`my_col`) for the set of colors that we want to use. We can then
-quickly change the palette across all plots by modifying the `my_col`
-object, rather than each individual plot.
+quickly change the palette across all plots by modifying the `my_col` object, 
+rather than each individual plot.
 
 We can label the x- and y-axes of our plot too using `xlab` and `ylab`.
 We can also give the legend a more meaningful title by passing a value
@@ -243,7 +250,8 @@ ggplot() +
 
 Create a plot of the Harvard Forest Digital Surface Model (DSM) that has:
 
-1. Six classified ranges of values (break points) that are evenly divided among the range of pixel values.
+1. Six classified ranges of values (break points) that are evenly divided among 
+   the range of pixel values.
 2. Axis labels.
 3. A plot title.
 
@@ -287,20 +295,21 @@ First we need to read in our DSM hillshade data and view the structure:
 
 ```r
 DSM_hill_HARV <-
-  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
+  rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 
 DSM_hill_HARV
 ```
 
 ```{.output}
-class      : RasterLayer 
-dimensions : 1367, 1697, 2319799  (nrow, ncol, ncell)
-resolution : 1, 1  (x, y)
-extent     : 731453, 733150, 4712471, 4713838  (xmin, xmax, ymin, ymax)
-crs        : +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
-source     : HARV_DSMhill.tif 
-names      : HARV_DSMhill 
-values     : -0.7136298, 0.9999997  (min, max)
+class       : SpatRaster 
+dimensions  : 1367, 1697, 1  (nrow, ncol, nlyr)
+resolution  : 1, 1  (x, y)
+extent      : 731453, 733150, 4712471, 4713838  (xmin, xmax, ymin, ymax)
+coord. ref. : WGS 84 / UTM zone 18N (EPSG:32618) 
+source      : HARV_DSMhill.tif 
+name        : HARV_DSMhill 
+min value   :   -0.7136298 
+max value   :    0.9999997 
 ```
 
 Next we convert it to a dataframe, so that we can plot it using `ggplot2`:
@@ -313,10 +322,10 @@ str(DSM_hill_HARV_df)
 ```
 
 ```{.output}
-'data.frame':	2319799 obs. of  3 variables:
- $ x           : num  731454 731454 731456 731456 731458 ...
- $ y           : num  4713838 4713838 4713838 4713838 4713838 ...
- $ HARV_DSMhill: num  NA NA NA NA NA NA NA NA NA NA ...
+'data.frame':	2313675 obs. of  3 variables:
+ $ x           : num  731454 731456 731456 731458 731458 ...
+ $ y           : num  4713836 4713836 4713836 4713836 4713836 ...
+ $ HARV_DSMhill: num  -0.15567 0.00743 0.86989 0.9791 0.96283 ...
 ```
 
 Now we can plot the hillshade data:
@@ -370,9 +379,9 @@ ggplot() +
 
 ## Challenge: Create DTM \& DSM for SJER
 
-Use the files in the `data/NEON-DS-Airborne-Remote-Sensing/SJER/` directory to create a Digital
-Terrain Model map and Digital Surface Model map of the San Joaquin Experimental
-Range field site.
+Use the files in the `data/NEON-DS-Airborne-Remote-Sensing/SJER/` directory to 
+create a Digital Terrain Model map and Digital Surface Model map of the San 
+Joaquin Experimental Range field site.
 
 Make sure to:
 
@@ -391,12 +400,14 @@ Make sure to:
 # CREATE DSM MAPS
 
 # import DSM data
-DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
+DSM_SJER <- 
+  rast("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
 # convert to a df for plotting
 DSM_SJER_df <- as.data.frame(DSM_SJER, xy = TRUE)
 
 # import DSM hillshade
-DSM_hill_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmHill.tif")
+DSM_hill_SJER <- 
+  rast("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmHill.tif")
 # convert to a df for plotting
 DSM_hill_SJER_df <- as.data.frame(DSM_hill_SJER, xy = TRUE)
 
@@ -429,11 +440,13 @@ ggplot() +
 ```r
 # CREATE DTM MAP
 # import DTM
-DTM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
+DTM_SJER <- 
+  rast("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
 DTM_SJER_df <- as.data.frame(DTM_SJER, xy = TRUE)
 
 # DTM Hillshade
-DTM_hill_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmHill.tif")
+DTM_hill_SJER <- 
+  rast("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmHill.tif")
 DTM_hill_SJER_df <- as.data.frame(DTM_hill_SJER, xy = TRUE)
 
 ggplot() +
