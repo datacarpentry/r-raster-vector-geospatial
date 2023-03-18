@@ -27,23 +27,28 @@ source: Rmd
 
 ## Things You'll Need To Complete This Episode
 
-See the [lesson homepage](.) for detailed information about the software,
-data, and other prerequisites you will need to work through the examples in this episode.
+See the [lesson homepage](.) for detailed information about the software, data, 
+and other prerequisites you will need to work through the examples in this 
+episode.
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-Starting with this episode, we will be moving from working with raster
-data to working with vector data. In this episode, we will open and plot point, line and polygon vector data
-stored in shapefile format in R. These data refer to the [NEON Harvard Forest field site](https://www.neonscience.org/field-sites/field-sites-map/HARV), which we have been working with in previous
-episodes. In later episodes, we will learn how to work with raster and
-vector data together and combine them into a single plot.
+Starting with this episode, we will be moving from working with raster data to 
+working with vector data. In this episode, we will open and plot point, line 
+and polygon vector data stored in shapefile format in R. These data refer to 
+the 
+[NEON Harvard Forest field site](https://www.neonscience.org/field-sites/field-sites-map/HARV), 
+which we have been working with in previous episodes. In later episodes, we 
+will learn how to work with raster and vector data together and combine them 
+into a single plot.
 
 ## Import Shapefiles
 
-We will use the `sf` package to work with vector data in R. Notice that the
-`rgdal` package automatically loads when `sf` is loaded. We will also use the
-`raster` package, which has been loaded in previous episodes, so we can explore raster and vector spatial metadata using similar commands. Make sure you have the `sf` library loaded.
+We will use the `sf` package to work with vector data in R. We will also use 
+the `terra` package, which has been loaded in previous episodes, so we can 
+explore raster and vector spatial metadata using similar commands. Make sure 
+you have the `sf` library loaded.
 
 
 ```r
@@ -59,7 +64,8 @@ The shapefiles that we will import are:
 
 The first shapefile that we will open contains the boundary of our study area
 (or our Area Of Interest or AOI, hence the name `aoiBoundary`). To import
-shapefiles we use the `sf` function `st_read()`. `st_read()` requires the file path to the shapefile.
+shapefiles we use the `sf` function `st_read()`. `st_read()` requires the file 
+path to the shapefile.
 
 Let's import our AOI:
 
@@ -85,9 +91,9 @@ Projected CRS: WGS 84 / UTM zone 18N
 When we import the `HarClip_UTMZ18` shapefile layer into R (as our
 `aoi_boundary_HARV` object), the `st_read()` function automatically stores
 information about the data. We are particularly interested in the geospatial
-metadata, describing the format, CRS, extent, and other components of
-the vector data, and the attributes which describe properties associated
-with each individual vector object.
+metadata, describing the format, CRS, extent, and other components of the 
+vector data, and the attributes which describe properties associated with each 
+individual vector object.
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
@@ -106,12 +112,13 @@ Key metadata for all shapefiles include:
 
 1. **Object Type:** the class of the imported object.
 2. **Coordinate Reference System (CRS):** the projection of the data.
-3. **Extent:** the spatial extent (i.e. geographic area that the shapefile covers) of
-  the shapefile. Note that the spatial extent for a shapefile represents the combined
-  extent for all spatial objects in the shapefile.
+3. **Extent:** the spatial extent (i.e. geographic area that the shapefile 
+   covers) of the shapefile. Note that the spatial extent for a shapefile 
+   represents the combined extent for all spatial objects in the shapefile.
 
-We can view shapefile metadata using the `st_geometry_type()`, `st_crs()` and `st_bbox()` functions. First, let's view the
-geometry type for our AOI shapefile:
+We can view shapefile metadata using the `st_geometry_type()`, `st_crs()` and 
+`st_bbox()` functions. First, let's view the geometry type for our AOI 
+shapefile:
 
 
 ```r
@@ -123,9 +130,9 @@ st_geometry_type(aoi_boundary_HARV)
 18 Levels: GEOMETRY POINT LINESTRING POLYGON MULTIPOINT ... TRIANGLE
 ```
 
-Our `aoi_boundary_HARV` is a polygon object. The 18 levels shown below
-our output list the possible categories of the geometry type.
-Now let's check what CRS this file data is in:
+Our `aoi_boundary_HARV` is a polygon object. The 18 levels shown below our 
+output list the possible categories of the geometry type. Now let's check what 
+CRS this file data is in:
 
 
 ```r
@@ -172,9 +179,9 @@ PROJCRS["WGS 84 / UTM zone 18N",
     ID["EPSG",32618]]
 ```
 
-Our data in the CRS **UTM zone 18N**. The CRS is critical to
-interpreting the object's extent values as it specifies units. To find
-the extent of our AOI, we can use the `st_bbox()` function:
+Our data in the CRS **UTM zone 18N**. The CRS is critical to interpreting the 
+object's extent values as it specifies units. To find the extent of our AOI, we 
+can use the `st_bbox()` function:
 
 
 ```r
@@ -186,12 +193,15 @@ st_bbox(aoi_boundary_HARV)
  732128.0 4713208.7  732251.1 4713359.2 
 ```
 
-The spatial extent of a shapefile or R spatial object represents the geographic "edge" or location that is the furthest north, south east and west. Thus is represents the overall geographic coverage of the spatial object. Image Source: National Ecological Observatory Network (NEON).
+The spatial extent of a shapefile or R spatial object represents the geographic 
+"edge" or location that is the furthest north, south east and west. Thus is 
+represents the overall geographic coverage of the spatial object. Image Source: 
+National Ecological Observatory Network (NEON).
 
 ![](fig/dc-spatial-vector/spatial_extent.png){alt='Extent image'}
 
-Lastly, we can view all of the metadata and attributes for this shapefile object
-by printing it to the screen:
+Lastly, we can view all of the metadata and attributes for this shapefile 
+object by printing it to the screen:
 
 
 ```r
@@ -210,18 +220,20 @@ Projected CRS: WGS 84 / UTM zone 18N
 
 ## Spatial Data Attributes
 
-We introduced the idea of spatial data attributes in [an earlier lesson](https://datacarpentry.org/organization-geospatial/02-intro-vector-data). Now we will explore
-how to use spatial data attributes stored in our data to plot
-different features.
+We introduced the idea of spatial data attributes in 
+[an earlier lesson](https://datacarpentry.org/organization-geospatial/02-intro-vector-data). 
+Now we will explore how to use spatial data attributes stored in our data to 
+plot different features.
 
 ## Plot a Shapefile
 
-Next, let's visualize the data in our `sf` object using the `ggplot`
-package. Unlike with raster data, we do not need to convert vector
-data to a dataframe before plotting with `ggplot`.
+Next, let's visualize the data in our `sf` object using the `ggplot` package. 
+Unlike with raster data, we do not need to convert vector data to a dataframe 
+before plotting with `ggplot`.
 
-We're going to customize our boundary plot by setting the
-size, color, and fill for our plot. When plotting `sf` objects with `ggplot2`, you need to use the `coord_sf()` coordinate system.
+We're going to customize our boundary plot by setting the size, color, and fill 
+for our plot. When plotting `sf` objects with `ggplot2`, you need to use the 
+`coord_sf()` coordinate system.
 
 
 ```r
@@ -416,8 +428,9 @@ st_bbox(point_HARV)
  732183.2 4713265.0  732183.2 4713265.0 
 ```
 
-To see the number of objects in each file, we can look at the output from when we read these objects into R.
-`lines_HARV` contains 13 features (all lines) and `point_HARV` contains only one point.
+To see the number of objects in each file, we can look at the output from when 
+we read these objects into R. `lines_HARV` contains 13 features (all lines) and 
+`point_HARV` contains only one point.
 
 
 
@@ -431,7 +444,8 @@ To see the number of objects in each file, we can look at the output from when w
 
 - Shapefile metadata include geometry type, CRS, and extent.
 - Load spatial objects into R with the `st_read()` function.
-- Spatial objects can be plotted directly with `ggplot` using the `geom_sf()` function. No need to convert to a dataframe.
+- Spatial objects can be plotted directly with `ggplot` using the `geom_sf()` 
+  function. No need to convert to a dataframe.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
