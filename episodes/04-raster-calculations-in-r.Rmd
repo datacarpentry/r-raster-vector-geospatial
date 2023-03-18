@@ -12,7 +12,7 @@ source("setup.R")
 ::::::::::::::::::::::::::::::::::::::: objectives
 
 - Perform a subtraction between two rasters using raster math.
-- Perform a more efficient subtraction between two rasters using the raster `overlay()` function.
+- Perform a more efficient subtraction between two rasters using the raster `lapp()` function.
 - Export raster data as a GeoTIFF file.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
