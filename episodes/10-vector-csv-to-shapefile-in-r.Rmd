@@ -73,7 +73,7 @@ the `x,y` values that represent the coordinate location of each point and the
 associated attribute data - or columns describing each feature in the spatial 
 object.
 
-We will continue using the `sf` and `raster` packages in this episode.
+We will continue using the `sf` and `terra` packages in this episode.
 
 ## Import .csv
 
