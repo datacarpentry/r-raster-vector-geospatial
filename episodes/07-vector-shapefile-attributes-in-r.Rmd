@@ -197,7 +197,7 @@ only two feature lines in our spatial object have the attribute
 `TYPE == footpath`. We can plot only the footpath lines:
 
 ```{r plot-subset-shapefile, fig.cap="Map of the footpaths in the study area."}
-gplot() + 
+ggplot() + 
   geom_sf(data = footpath_HARV) +
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Footpaths") + 
   coord_sf()
