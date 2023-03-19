@@ -30,77 +30,81 @@ source: Rmd
 
 ## Things You'll Need To Complete This Episode
 
-See the [lesson homepage](.) for detailed information about the software,
-data, and other prerequisites you will need to work through the examples in this episode.
+See the [lesson homepage](.) for detailed information about the software, data, 
+and other prerequisites you will need to work through the examples in this 
+episode.
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-In this episode, we will extract NDVI values from a
-raster time series dataset and plot them using the
-`ggplot2` package.
+In this episode, we will extract NDVI values from a raster time series dataset 
+and plot them using the `ggplot2` package.
 
 ## Extract Summary Statistics From Raster Data
 
-We often want to extract summary values from raster data. For
-example, we might want to understand overall greeness across a field site or at
-each plot within a field site. These values can then be compared between
-different field sites and combined with other
-related metrics to support modeling and further analysis.
+We often want to extract summary values from raster data. For example, we might 
+want to understand overall greeness across a field site or at each plot within 
+a field site. These values can then be compared between different field sites 
+and combined with other related metrics to support modeling and further 
+analysis.
 
 ## Calculate Average NDVI
 
-Our goal in this episode is to create a dataframe that contains a single,
-mean NDVI value for each raster in our time series. This value represents the
-mean NDVI value for this area on a given day.
+Our goal in this episode is to create a dataframe that contains a single, mean 
+NDVI value for each raster in our time series. This value represents the mean 
+NDVI value for this area on a given day.
 
-We can calculate the mean for each raster using the `cellStats()` function. The
-`cellStats()` function produces a named numeric vector, where each value
-is associated with the name of raster stack it was derived from.
+We can calculate the mean for each raster using the `global()` function. The
+`global()` function produces a named numeric vector, where each value is 
+associated with the name of raster stack it was derived from.
 
 
 ```r
-avg_NDVI_HARV <- cellStats(NDVI_HARV_stack, mean)
+avg_NDVI_HARV <- global(NDVI_HARV_stack, mean)
 avg_NDVI_HARV
 ```
 
 ```{.output}
-X005_HARV_ndvi_crop X037_HARV_ndvi_crop X085_HARV_ndvi_crop X133_HARV_ndvi_crop 
-           0.365150            0.242645            0.251390            0.599300 
-X181_HARV_ndvi_crop X197_HARV_ndvi_crop X213_HARV_ndvi_crop X229_HARV_ndvi_crop 
-           0.878725            0.893250            0.878395            0.881505 
-X245_HARV_ndvi_crop X261_HARV_ndvi_crop X277_HARV_ndvi_crop X293_HARV_ndvi_crop 
-           0.850120            0.796360            0.033050            0.056895 
-X309_HARV_ndvi_crop 
-           0.541130 
+                        mean
+X005_HARV_ndvi_crop 0.365150
+X037_HARV_ndvi_crop 0.242645
+X085_HARV_ndvi_crop 0.251390
+X133_HARV_ndvi_crop 0.599300
+X181_HARV_ndvi_crop 0.878725
+X197_HARV_ndvi_crop 0.893250
+X213_HARV_ndvi_crop 0.878395
+X229_HARV_ndvi_crop 0.881505
+X245_HARV_ndvi_crop 0.850120
+X261_HARV_ndvi_crop 0.796360
+X277_HARV_ndvi_crop 0.033050
+X293_HARV_ndvi_crop 0.056895
+X309_HARV_ndvi_crop 0.541130
 ```
 
-We can then convert our output to a data frame using `as.data.frame()`. It's a good
-idea to view the first few rows of our data frame with `head()` to make sure the
-structure is what we expect.
+The output is a data frame (othewise, we could use `as.data.frame()`). It's a 
+good idea to view the first few rows of our data frame with `head()` to make 
+sure the structure is what we expect.
 
 
 ```r
-avg_NDVI_HARV <- as.data.frame(avg_NDVI_HARV)
 head(avg_NDVI_HARV)
 ```
 
 ```{.output}
-                    avg_NDVI_HARV
-X005_HARV_ndvi_crop      0.365150
-X037_HARV_ndvi_crop      0.242645
-X085_HARV_ndvi_crop      0.251390
-X133_HARV_ndvi_crop      0.599300
-X181_HARV_ndvi_crop      0.878725
-X197_HARV_ndvi_crop      0.893250
+                        mean
+X005_HARV_ndvi_crop 0.365150
+X037_HARV_ndvi_crop 0.242645
+X085_HARV_ndvi_crop 0.251390
+X133_HARV_ndvi_crop 0.599300
+X181_HARV_ndvi_crop 0.878725
+X197_HARV_ndvi_crop 0.893250
 ```
 
-We now have a data frame with row names that are based on the original file name and
-a mean NDVI value for each file. Next, let's clean up the column names in our
-data frame to make it easier for colleagues to work with our code.
+We now have a data frame with row names that are based on the original file 
+name and a mean NDVI value for each file. Next, let's clean up the column names 
+in our data frame to make it easier for colleagues to work with our code.
 
-It is a bit confusing to have duplicate object \& column names (`avg_NDVI_HARV`). Additionally the "avg" does not clearly indicate what the value in that
-particular column is. Let's change the NDVI column name to `meanNDVI`.
+ Let's change the NDVI column name to `meanNDVI`.
 
 
 ```r
@@ -118,19 +122,17 @@ X181_HARV_ndvi_crop 0.878725
 X197_HARV_ndvi_crop 0.893250
 ```
 
-By renaming the column, we lose the "HARV" in the header that reminds us what
-site our data are from. While we are only working with one site now, we
-might want to compare several sites worth of data in the future. Let's add a
-column to our dataframe called "site".
+The new column name doesn't reminds us what site our data are from. While we 
+are only working with one site now, we might want to compare several sites 
+worth of data in the future. Let's add a column to our dataframe called "site".
 
 
 ```r
 avg_NDVI_HARV$site <- "HARV"
 ```
 
-We can populate this column with the
-site name - HARV. Let's also create a year column and populate it with 2011 -
-the year our data were collected.
+We can populate this column with the site name - HARV. Let's also create a year 
+column and populate it with 2011 - the year our data were collected.
 
 
 ```r
@@ -157,14 +159,15 @@ We'd like to produce a plot where Julian days (the numeric day of the year,
 0 - 365/366) are on the x-axis and NDVI is on the y-axis. To create this plot,
 we'll need a column that contains the Julian day value.
 
-One way to create a Julian day column is to use `gsub()` on the file name in each
-row. We can replace both the `X` and the `_HARV_NDVI_crop` to extract the Julian
-Day value, just like we did in the [previous episode](13-plot-time-series-rasters-in-r/).
+One way to create a Julian day column is to use `gsub()` on the file name in 
+each row. We can replace both the `X` and the `_HARV_NDVI_crop` to extract the 
+Julian Day value, just like we did in the 
+[previous episode](13-plot-time-series-rasters-in-r/).
 
-This time we will use one additional trick to do both of these steps at the same
-time. The vertical bar character ( `|` ) is equivalent to the word "or". Using
-this character in our search pattern
-allows us to search for more than one pattern in our text strings.
+This time we will use one additional trick to do both of these steps at the 
+same time. The vertical bar character ( `|` ) is equivalent to the word "or". 
+Using this character in our search pattern allows us to search for more than 
+one pattern in our text strings.
 
 
 ```r
@@ -199,16 +202,17 @@ class(avg_NDVI_HARV$julianDay)
 ## Convert Julian Day to Date Class
 
 Currently, the values in the Julian day column are stored as class `character`.
-Storing this data as a date object is better - for plotting, data subsetting and
-working with our data. Let's convert. We worked with data conversions
-[in an earlier episode](12-time-series-raster/). For a more
-introduction to date-time classes, see the NEON Data Skills tutorial
+Storing this data as a date object is better - for plotting, data subsetting 
+and working with our data. Let's convert. We worked with data conversions
+[in an earlier episode](12-time-series-raster/). For an introduction to 
+date-time classes, see the NEON Data Skills tutorial
 [Convert Date \& Time Data from Character Class to Date-Time Class (POSIX) in R](https://www.neonscience.org/dc-convert-date-time-POSIX-r).
 
-To convert a Julian day number to a date class, we need to set the origin, which is
-the day that our Julian days start counting from. Our data is from 2011 and we
-know that the USGS Landsat Team created Julian day values for this year.
-Therefore, the first day or "origin" for our Julian day count is 01 January 2011.
+To convert a Julian day number to a date class, we need to set the origin, 
+which is the day that our Julian days start counting from. Our data is from 
+2011 and we know that the USGS Landsat Team created Julian day values for this 
+year. Therefore, the first day or "origin" for our Julian day count is 01 
+January 2011.
 
 
 ```r
@@ -226,11 +230,12 @@ Once we set the Julian day origin, we can add the Julian day value (as an
 integer) to the origin date.
 
 Note that when we convert our integer class `julianDay` values to dates, we
-subtracted 1.  This is because the origin day is 01 January 2011, so the extracted day
-is 01. The Julian Day (or year day) for this is also 01. When we convert from the
-integer 05 `julianDay` value (indicating 5th of January), we cannot simply add
-`origin + julianDay` because `01 + 05 = 06` or 06 January 2011. To correct, this
-error we then subtract 1 to get the correct day, January 05 2011.
+subtracted 1.  This is because the origin day is 01 January 2011, so the 
+extracted day is 01. The Julian Day (or year day) for this is also 01. When we 
+convert from the integer 05 `julianDay` value (indicating 5th of January), we 
+cannot simply add `origin + julianDay` because `01 + 05 = 06` or 06 January 
+2011. To correct, this error we then subtract 1 to get the correct day, January 
+05 2011.
 
 
 ```r
@@ -260,14 +265,12 @@ class(avg_NDVI_HARV$Date)
 ## Challenge: NDVI for the San Joaquin Experimental Range
 
 We often want to compare two different sites. The National Ecological
-Observatory Network (NEON) also has a field site in Southern California
-at the
+Observatory Network (NEON) also has a field site in Southern California at the
 [San Joaquin Experimental Range (SJER)](https://www.neonscience.org/field-sites/field-sites-map/SJER).
 
-For this challenge, create a dataframe containing the mean NDVI values
-and the Julian days the data was collected (in date format)
-for the NEON San
-Joaquin Experimental Range field site. NDVI data for SJER are located in the
+For this challenge, create a dataframe containing the mean NDVI values and the 
+Julian days the data was collected (in date format) for the NEON San Joaquin 
+Experimental Range field site. NDVI data for SJER are located in the
 `NEON-DS-Landsat-NDVI/SJER/2011/NDVI` directory.
 
 :::::::::::::::  solution
@@ -284,7 +287,8 @@ all_NDVI_SJER <- list.files(NDVI_path_SJER,
                             full.names = TRUE,
                             pattern = ".tif$")
 
-NDVI_stack_SJER <- stack(all_NDVI_SJER)
+NDVI_stack_SJER <- rast(all_NDVI_SJER)
+names(NDVI_stack_SJER) <- paste0("X", names(NDVI_stack_SJER))
 
 NDVI_stack_SJER <- NDVI_stack_SJER/10000
 ```
@@ -293,7 +297,7 @@ Then we can calculate the mean values for each day and put that in a dataframe.
 
 
 ```r
-avg_NDVI_SJER <- as.data.frame(cellStats(NDVI_stack_SJER, mean))
+avg_NDVI_SJER <- as.data.frame(global(NDVI_stack_SJER, mean))
 ```
 
 Next we rename the NDVI column, and add site and year columns to our data.
@@ -341,7 +345,8 @@ plot our data.
 ```r
 ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI)) +
   geom_point() +
-  ggtitle("Landsat Derived NDVI - 2011", subtitle = "NEON Harvard Forest Field Site") +
+  ggtitle("Landsat Derived NDVI - 2011", 
+          subtitle = "NEON Harvard Forest Field Site") +
   xlab("Julian Days") + ylab("Mean NDVI")
 ```
 
@@ -391,7 +396,8 @@ Now we can plot both datasets on the same plot.
 ggplot(NDVI_HARV_SJER, aes(x = julianDay, y = meanNDVI, colour = site)) +
   geom_point(aes(group = site)) +
   geom_line(aes(group = site)) +
-  ggtitle("Landsat Derived NDVI - 2011", subtitle = "Harvard Forest vs San Joaquin") +
+  ggtitle("Landsat Derived NDVI - 2011", 
+          subtitle = "Harvard Forest vs San Joaquin") +
   xlab("Julian Day") + ylab("Mean NDVI")
 ```
 
@@ -413,7 +419,8 @@ on the x-axis.
 ggplot(NDVI_HARV_SJER, aes(x = Date, y = meanNDVI, colour = site)) +
   geom_point(aes(group = site)) +
   geom_line(aes(group = site)) +
-  ggtitle("Landsat Derived NDVI - 2011", subtitle = "Harvard Forest vs San Joaquin") +
+  ggtitle("Landsat Derived NDVI - 2011", 
+          subtitle = "Harvard Forest vs San Joaquin") +
   xlab("Date") + ylab("Mean NDVI")
 ```
 
@@ -431,10 +438,10 @@ towards 0 during a time period when we might expect the vegetation to have a
 higher greenness value. Is the vegetation truly senescent or gone or are these
 outlier values that should be removed from the data?
 
-We've seen in [an earlier episode](12-time-series-raster/) that
-data points with very low NDVI values can be associated with
-images that are filled with clouds. Thus, we can attribute the low NDVI values
-to high levels of cloud cover. Is the same thing happening at SJER?
+We've seen in [an earlier episode](12-time-series-raster/) that data points 
+with very low NDVI values can be associated with images that are filled with 
+clouds. Thus, we can attribute the low NDVI values to high levels of cloud 
+cover. Is the same thing happening at SJER?
 
 <img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-view-all-rgb-SJER-1.png" style="display: block; margin: auto;" />
 
@@ -453,12 +460,12 @@ episode. We can then use the subset function to remove outlier datapoints
 
 ## Data Tip
 
-Thresholding, or removing outlier data,
-can be tricky business. In this case, we can be confident that some of our NDVI
-values are not valid due to cloud cover. However, a threshold value may not
-always be sufficient given that 0.1 could be a valid NDVI value in some areas. This
-is where decision-making should be fueled by practical scientific knowledge of
-the data and the desired outcomes!
+Thresholding, or removing outlier data, can be tricky business. In this case, 
+we can be confident that some of our NDVI values are not valid due to cloud 
+cover. However, a threshold value may not always be sufficient given that 0.1 
+could be a valid NDVI value in some areas. This is where decision-making should 
+be fueled by practical scientific knowledge of the data and the desired 
+outcomes!
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -479,7 +486,8 @@ Now we can create another plot without the suspect data.
 ```r
 ggplot(avg_NDVI_HARV_clean, aes(x = julianDay, y = meanNDVI)) +
   geom_point() +
-  ggtitle("Landsat Derived NDVI - 2011", subtitle = "NEON Harvard Forest Field Site") +
+  ggtitle("Landsat Derived NDVI - 2011", 
+          subtitle = "NEON Harvard Forest Field Site") +
   xlab("Julian Days") + ylab("Mean NDVI")
 ```
 
@@ -499,8 +507,8 @@ We will use `write.csv()` to write a specified dataframe to a `.csv` file.
 Unless you designate a different directory, the output file will be saved in
 your working directory.
 
-Before saving our file, let's view the format to make sure it is what we
-want as an output format.
+Before saving our file, let's view the format to make sure it is what we want 
+as an output format.
 
 
 ```r
@@ -517,9 +525,9 @@ X181_HARV_ndvi_crop 0.878725 HARV 2011       181 2011-06-30
 X197_HARV_ndvi_crop 0.893250 HARV 2011       197 2011-07-16
 ```
 
-It looks like we have a series of `row.names` that we do not need because we have
-this information stored in individual columns in our data frame. Let's remove
-the row names.
+It looks like we have a series of `row.names` that we do not need because we 
+have this information stored in individual columns in our data frame. Let's 
+remove the row names.
 
 
 ```r
@@ -584,9 +592,11 @@ write.csv(avg_NDVI_SJER_clean, file = "meanNDVI_SJER_2011.csv")
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- Use the `cellStats()` function to calculate summary statistics for cells in a raster object.
+- Use the `global()` function to calculate summary statistics for cells in a 
+  raster object.
 - The pipe (`|`) operator means `or`.
-- Use the `rbind()` function to combine data frames that have the same column names.
+- Use the `rbind()` function to combine data frames that have the same column 
+  names.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
