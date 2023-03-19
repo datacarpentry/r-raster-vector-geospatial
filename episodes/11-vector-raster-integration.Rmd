@@ -252,9 +252,9 @@ CHM_plots_HARVcrop_sp_rand_sample = sample_n(CHM_plots_HARVcrop_sp, 10000)
 ## Define an Extent
 
 So far, we have used a shapefile to crop the extent of a raster dataset.
-Alternatively, we can also the `extent()` function to define an extent to be
+Alternatively, we can also the `ext()` function to define an extent to be
 used as a cropping boundary. This creates a new object of class extent. Here we
-will provide the `extent()` function our xmin, xmax, ymin, and ymax (in that
+will provide the `ext()` function our xmin, xmax, ymin, and ymax (in that
 order).
 
 ```{r}
@@ -305,7 +305,8 @@ for example, plot locations that we are sampling on the ground. We can extract
 all pixel values within 20m of our x,y point of interest. These can then be 
 summarized into some value of interest (e.g. mean, maximum, total).
 
-![Extract raster information using a polygon boundary. From https://www.neonscience.org/sites/default/files/images/spatialData/BufferSquare.png](fig//BufferSquare.png){alt = "Extract raster information using a polygon boundary. From https://www.neonscience.org/sites/default/files/images/spatialData/BufferSquare.png"}
+![](fig//BufferSquare.png){alt='Image shows raster information extraction using 20m polygon boundary'}
+Image Source: https://www.neonscience.org/sites/default/files/images/spatialData/BufferSquare.png
 
 To do this in R, we use the `extract()` function. The `extract()` function
 requires:
@@ -378,7 +379,8 @@ point. By default, the units of the buffer are the same units as the data's
 CRS. All pixels that are touched by the buffer region are included in the 
 extract.
 
-![Extract raster information using a buffer region. From: https://www.neonscience.org/sites/default/files/images/spatialData/BufferCircular.png](fig/BufferCircular.png){alt = "Extract raster information using a buffer region. From: https://www.neonscience.org/sites/default/files/images/spatialData/BufferCircular.png"}
+![](fig/BufferCircular.png){alt='Image shows raster information extraction using 20m buffer region.'}
+Image Source: https://www.neonscience.org/sites/default/files/images/spatialData/BufferCircular.png
 
 Source: National Ecological Observatory Network (NEON).
 
@@ -437,7 +439,7 @@ ggplot(data = mean_tree_height_plots_HARV, aes(ID, HARV_chmCrop)) +
 - Use the `crop()` function to crop a raster object.
 - Use the `extract()` function to extract pixels from a raster object that fall 
   within a particular extent boundary.
-- Use the `extent()` function to define an extent.
+- Use the `ext()` function to define an extent.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
