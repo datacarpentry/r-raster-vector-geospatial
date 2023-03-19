@@ -486,7 +486,7 @@ write.csv(avg_NDVI_SJER_clean, file = "meanNDVI_SJER_2011.csv")
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- Use the `cellStats()` function to calculate summary statistics for cells in a 
+- Use the `global()` function to calculate summary statistics for cells in a 
   raster object.
 - The pipe (`|`) operator means `or`.
 - Use the `rbind()` function to combine data frames that have the same column 
