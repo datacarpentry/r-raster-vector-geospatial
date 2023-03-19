@@ -29,26 +29,30 @@ source: Rmd
 
 ## Things You'll Need To Complete This Episode
 
-See the [lesson homepage](.) for detailed information about the software,
-data, and other prerequisites you will need to work through the examples in this episode.
+See the [lesson homepage](.) for detailed information about the software, data, 
+and other prerequisites you will need to work through the examples in this 
+episode.
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-This episode covers how to work with and plot a raster time series, using an
-R RasterStack object. It also covers practical assessment of data quality in
-remote sensing derived imagery.
+This episode covers how to work with and plot a raster time series, using an R 
+raster object. It also covers practical assessment of data quality in remote 
+sensing derived imagery.
 
 ## About Raster Time Series Data
 
-A raster data file can contain one single band or many bands. If the raster data
-contains imagery data, each band may represent reflectance for a different
-wavelength (color or type of light) or set of wavelengths - for
-example red, green and blue. A multi-band raster may two or more bands or layers
-of data collected at different times for the same extent (region) and of the
-same resolution. For this episode, we will work with a time series
-of normalized difference vegetation index (NDVI) and RGB data from the Harvard Forest site.
-We introduced the concepts of NDVI and RGB data in [an earlier lesson](https://datacarpentry.org/organization-geospatial/01-intro-raster-data) and worked with an RGB RasterStack in the [Work with Multi-band Rasters in R]( 05-raster-multi-band-in-r/) episode.
+A raster data file can contain one single band or many bands. If the raster 
+data contains imagery data, each band may represent reflectance for a different
+wavelength (color or type of light) or set of wavelengths - for example red, 
+green and blue. A multi-band raster may two or more bands or layers of data 
+collected at different times for the same extent (region) and of the same 
+resolution. For this episode, we will work with a time series of normalized 
+difference vegetation index (NDVI) and RGB data from the Harvard Forest site.
+We introduced the concepts of NDVI and RGB data in 
+[an earlier lesson](https://datacarpentry.org/organization-geospatial/01-intro-raster-data) 
+and worked with an RGB RasterStack in the 
+[Work with Multi-band Rasters in R]( 05-raster-multi-band-in-r/) episode.
 
 In this episode, we will:
 
@@ -62,38 +66,39 @@ In this episode, we will:
 
 While the NDVI data is a single band product, the RGB images that contain the
 red band used to derive NDVI, contain 3 (of the 7) 30m resolution bands
-available from Landsat data. The RGB directory contains RGB images for each time
-period that NDVI is available.
+available from Landsat data. The RGB directory contains RGB images for each 
+time period that NDVI is available.
 
 ### Getting Started
 
-In this episode, we will use the `raster`, `rgdal`, `scales`, `tidyr`, and `ggplot2` packages. Make sure you have them loaded.
+In this episode, we will use the `terra`, `scales`, `tidyr`, and `ggplot2` 
+packages. Make sure you have them loaded.
 
 
 ```r
-library(raster)
-library(rgdal)
+library(terra)
 library(scales)
 library(tidyr)
 library(ggplot2)
 ```
 
 To begin, we will create a list of raster files using the `list.files()`
-function. This list will be used to generate a RasterStack. We will
-only add files that have a `.tif` extension to our list. To do this, we will use the syntax
-`pattern=".tif$"`. If we specify `full.names = TRUE`, the full path for each file will be added to
-the list.
+function. This list will be used to generate a RasterStack. We will only add 
+files that have a `.tif` extension to our list. To do this, we will use the 
+syntax `pattern=".tif$"`. If we specify `full.names = TRUE`, the full path for 
+each file will be added to the list.
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
 ## Data Tip
 
-In the pattern above, the `$` character represents the end of a line. Using it ensures
-that our pattern will only match files that end in `.tif`. This pattern matching uses a
-language called "regular expressions", which is beyond the scope of this workshop.
+In the pattern above, the `$` character represents the end of a line. Using it 
+ensures that our pattern will only match files that end in `.tif`. This pattern 
+matching uses a language called "regular expressions", which is beyond the 
+scope of this workshop.
 
 - [Regular expressions tutorial](https://regexone.com/)
-- [Regular expressions cheatsheet](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf)
+- [Regular expressions cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/regex.pdf)
   
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -107,8 +112,8 @@ all_NDVI_HARV <- list.files(NDVI_HARV_path,
                             pattern = ".tif$")
 ```
 
-It's a good idea to look at the file names that matched our search to make sure they
-meet our expectations.
+It's a good idea to look at the file names that matched our search to make sure 
+they meet our expectations.
 
 
 ```r
@@ -132,79 +137,41 @@ all_NDVI_HARV
 ```
 
 Now we have a list of all GeoTIFF files in the NDVI directory for Harvard
-Forest. Next, we will create a RasterStack from this list using the `stack()`
-function. We introduced the `stack()` function in [an earlier episode](05-raster-multi-band-in-r/).
+Forest. Next, we will create a stack of rasters from this list using the 
+`rast()` function. We worked with the `rast()` function in 
+[an earlier episode](05-raster-multi-band-in-r/).
 
 
 ```r
-NDVI_HARV_stack <- stack(all_NDVI_HARV)
+NDVI_HARV_stack <- rast(all_NDVI_HARV)
 ```
 
 We can explore the GeoTIFF tags (the embedded metadata) in a stack using the
 same syntax that we used on single-band raster objects in R including: `crs()`
-(coordinate reference system), `extent()` and `res()` (resolution; specifically
+(coordinate reference system), `ext()` and `res()` (resolution; specifically
 `yres()` and `xres()`).
 
 
 ```r
-crs(NDVI_HARV_stack)
+crs(NDVI_HARV_stack, proj = TRUE)
 ```
 
 ```{.output}
-Coordinate Reference System:
-Deprecated Proj.4 representation:
- +proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs 
-WKT2 2019 representation:
-PROJCRS["unknown",
-    BASEGEOGCRS["unknown",
-        DATUM["Unknown based on WGS84 ellipsoid",
-            ELLIPSOID["WGS 84",6378137,298.257223563,
-                LENGTHUNIT["metre",1],
-                ID["EPSG",7030]]],
-        PRIMEM["Greenwich",0,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8901]]],
-    CONVERSION["UTM zone 19N",
-        METHOD["Transverse Mercator",
-            ID["EPSG",9807]],
-        PARAMETER["Latitude of natural origin",0,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8801]],
-        PARAMETER["Longitude of natural origin",-69,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8802]],
-        PARAMETER["Scale factor at natural origin",0.9996,
-            SCALEUNIT["unity",1],
-            ID["EPSG",8805]],
-        PARAMETER["False easting",500000,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8806]],
-        PARAMETER["False northing",0,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8807]],
-        ID["EPSG",16019]],
-    CS[Cartesian,2],
-        AXIS["(E)",east,
-            ORDER[1],
-            LENGTHUNIT["metre",1,
-                ID["EPSG",9001]]],
-        AXIS["(N)",north,
-            ORDER[2],
-            LENGTHUNIT["metre",1,
-                ID["EPSG",9001]]]] 
+[1] "+proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs"
 ```
 
-The CRS for our stack is `+proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs`. The
-CRS is in UTM Zone 19. If you have completed the previous episodes in
-this workshop, you may have noticed that the UTM zone for the NEON collected remote sensing
-data was in Zone 18 rather than Zone 19. Why are the Landsat data in Zone 19?
+The CRS for our stack is `+proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs`. 
+The CRS is in UTM Zone 19. If you have completed the previous episodes in this 
+workshop, you may have noticed that the UTM zone for the NEON collected remote 
+sensing data was in Zone 18 rather than Zone 19. Why are the Landsat data in 
+Zone 19?
 
 ![](fig/dc-spatial-raster/UTM_zones_18-19.jpg){alt='Source: National Ecological Observatory Network (NEON).'}
 
-A Landsat scene is extremely wide - spanning over 170km north to
-south and 180km east to west. This means that Landsat data often cover multiple
-UTM zones. When the data are processed, the zone in which the majority of the
-data cover is the zone which is used for the final CRS. Thus, our field site at
+A Landsat scene is extremely wide - spanning over 170km north to south and 
+180km east to west. This means that Landsat data often cover multiple UTM 
+zones. When the data are processed, the zone in which the majority of the data 
+cover is the zone which is used for the final CRS. Thus, our field site at
 Harvard Forest is located in UTM Zone 18, but the Landsat data is in a CRS of
 UTM Zone 19.
 
@@ -212,7 +179,8 @@ UTM Zone 19.
 
 ## Challenge: Raster Metadata
 
-Investigate the metadata for our RasterStack and answer the following questions.
+Investigate the metadata for our RasterStack and answer the following 
+questions.
 
 1. What are the x and y resolution of the data?
 2. What units are the above resolution in?
@@ -223,15 +191,11 @@ Investigate the metadata for our RasterStack and answer the following questions.
 
 
 ```r
-extent(NDVI_HARV_stack)
+ext(NDVI_HARV_stack)
 ```
 
 ```{.output}
-class      : Extent 
-xmin       : 239415 
-xmax       : 239535 
-ymin       : 4714215 
-ymax       : 4714365 
+SpatExtent : 239415, 239535, 4714215, 4714365 (xmin, xmax, ymin, ymax)
 ```
 
 ```r
@@ -256,10 +220,12 @@ xres(NDVI_HARV_stack)
 
 ## Plotting Time Series Data
 
-Once we have created our RasterStack, we can visualize our data. We can use
-the `ggplot()` command to create a multi-panelled plot showing each band in our RasterStack. First we
-need to create a data frame object. Because there are multiple columns in our data that are not variables, we will tidy (or "gather") the data so that we have a single column with the NDVI observations.
-We will use the function `gather()` from the `tidyr` package to do this:
+Once we have created our RasterStack, we can visualize our data. We can use the 
+`ggplot()` command to create a multi-panelled plot showing each band in our 
+RasterStack. First we need to create a data frame object. Because there are 
+multiple columns in our data that are not variables, we will tidy (or "gather") 
+the data so that we have a single column with the NDVI observations. We will 
+use the function `gather()` from the `tidyr` package to do this:
 
 
 ```r
@@ -267,9 +233,8 @@ NDVI_HARV_stack_df <- as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
     gather(variable, value, -(x:y))
 ```
 
-Now we can plot our data using `ggplot()`. We want
-to create a separate panel for each time point in our
-time series, so we will use the `facet_wrap()`
+Now we can plot our data using `ggplot()`. We want to create a separate panel 
+for each time point in our time series, so we will use the `facet_wrap()` 
 function to create a multi-paneled plot:
 
 
@@ -281,15 +246,15 @@ ggplot() +
 
 <img src="fig/12-time-series-raster-rendered-ndvi-wrap-1.png" style="display: block; margin: auto;" />
 
-Look at the range of NDVI values observed in the plot above. We know that
-the accepted values for NDVI range from 0-1. Why does our data range from
+Look at the range of NDVI values observed in the plot above. We know that the 
+accepted values for NDVI range from 0-1. Why does our data range from
 0 - 10,000?
 
 ## Scale Factors
 
-The metadata for this NDVI data specifies a scale factor: 10,000. A scale factor
-is sometimes used to maintain smaller file sizes by removing decimal places.
-Storing data in integer format keeps files sizes smaller.
+The metadata for this NDVI data specifies a scale factor: 10,000. A scale 
+factor is sometimes used to maintain smaller file sizes by removing decimal 
+places. Storing data in integer format keeps files sizes smaller.
 
 Let's apply the scale factor before we go any further. Conveniently, we can
 quickly apply this factor using raster math on the entire stack as follows:
@@ -299,7 +264,8 @@ quickly apply this factor using raster math on the entire stack as follows:
 NDVI_HARV_stack <- NDVI_HARV_stack/10000
 ```
 
-After applying our scale factor, we can recreate our plot using the same code we used above.
+After applying our scale factor, we can recreate our plot using the same code 
+we used above.
 
 
 ```r
@@ -315,10 +281,10 @@ ggplot() +
 
 ## Take a Closer Look at Our Data
 
-Let's take a closer look at the plots of our data. Massachusetts,
-where the NEON Harvard Forest Field Site is located, has a fairly consistent
-fall, winter, spring, and summer season where vegetation turns green in the
-spring, continues to grow throughout the summer, and begins to change colors and
+Let's take a closer look at the plots of our data. Massachusetts, where the 
+NEON Harvard Forest Field Site is located, has a fairly consistent fall, 
+winter, spring, and summer season where vegetation turns green in the spring, 
+continues to grow throughout the summer, and begins to change colors and 
 senesce in the fall through winter. Do you notice anything that seems unusual
 about the patterns of greening and browning observed in the plots above?
 
@@ -335,14 +301,14 @@ few images seem to be unusually light. However this was only a visual
 representation of potential issues in our data. What is another way we can look
 at these data that is quantitative?
 
-Next we will use histograms to explore the distribution of NDVI values stored in
-each raster.
+Next we will use histograms to explore the distribution of NDVI values stored 
+in each raster.
 
 
 ```r
 ggplot(NDVI_HARV_stack_df) +
-  geom_histogram(aes(value)) +
-    facet_wrap(~variable)
+  geom_histogram(aes(value)) + 
+  facet_wrap(~variable)
 ```
 
 ```{.output}
@@ -352,21 +318,21 @@ ggplot(NDVI_HARV_stack_df) +
 <img src="fig/12-time-series-raster-rendered-view-stack-histogram-1.png" style="display: block; margin: auto;" />
 
 It seems like things get green in the spring and summer like we expect, but the
-data at Julian days 277 and 293 are unusual. It appears as if the vegetation got
-green in the spring, but then died back only to get green again towards the end
-of the year. Is this right?
+data at Julian days 277 and 293 are unusual. It appears as if the vegetation 
+got green in the spring, but then died back only to get green again towards the 
+end of the year. Is this right?
 
 ### Explore Unusual Data Patterns
 
 The NDVI data that we are using comes from 2011, perhaps a strong freeze around
-Julian day 277 could cause a vegetation to senesce early, however in the eastern
-United States, it seems unusual that it would proceed to green up again shortly
-thereafter.
+Julian day 277 could cause a vegetation to senesce early, however in the 
+eastern United States, it seems unusual that it would proceed to green up again 
+shortly thereafter.
 
 Let's next view some temperature data for our field site to see whether there
 were some unusual fluctuations that may explain this pattern of greening and
-browning seen in the NDVI data. First we will read in the temperature data and preview the structure
-of that dataframe:
+browning seen in the NDVI data. First we will read in the temperature data and 
+preview the structure of that dataframe:
 
 
 ```r
@@ -426,9 +392,10 @@ str(har_met_daily)
  $ f.s10tmin: chr  "M" "M" "M" "M" ...
 ```
 
-The `date` column is currently coded as a factor. We want to be able to treat it as a date,
-so we will use the `as.Date()` function to convert it. We need to tell R what format the
-data is in. Our dates are YYY-MM-DD, which is represented by R as `%Y-%m-%d`.
+The `date` column is currently coded as a character. We want to be able to 
+treat it as a date, so we will use the `as.Date()` function to convert it. We 
+need to tell R what format the data is in. Our dates are YYY-MM-DD, which is 
+represented by R as `%Y-%m-%d`.
 
 
 ```r
@@ -443,7 +410,8 @@ yr_11_daily_avg <- har_met_daily %>%
   filter(between(date, as.Date('2011-01-01'), as.Date('2011-12-31')))
 ```
 
-Now we can plot the air temperature (the `airt` column) by Julian day (the `jd` column):
+Now we can plot the air temperature (the `airt` column) by Julian day (the `jd` 
+column):
 
 
 ```r
@@ -457,10 +425,11 @@ ggplot() +
 
 <img src="fig/12-time-series-raster-rendered-air-temperature-1.png" style="display: block; margin: auto;" />
 
-There are no significant peaks or dips in the temperature during the late summer
-or early fall time period that might account for patterns seen in the NDVI data.
-Let's have a look at the source Landsat imagery that was partially used used to
-derive our NDVI rasters to try to understand what appear to be outlier NDVI values.
+There are no significant peaks or dips in the temperature during the late 
+summer or early fall time period that might account for patterns seen in the 
+NDVI data. Let's have a look at the source Landsat imagery that was partially 
+used used to derive our NDVI rasters to try to understand what appear to be 
+outlier NDVI values.
 
 <img src="fig/12-time-series-raster-rendered-ndvi-plots-1.png" style="display: block; margin: auto;" /><img src="fig/12-time-series-raster-rendered-ndvi-plots-2.png" style="display: block; margin: auto;" />
 
@@ -469,34 +438,40 @@ derive our NDVI rasters to try to understand what appear to be outlier NDVI valu
 ## Challenge: Examine RGB Raster Files
 
 Plot the RGB images for the Julian days 277 and 293. Compare those with the RGB
-plots for Julian days 133 and 197 (shown above). Does the RGB imagery from these two days explain the low
-NDVI values observed on these days?
+plots for Julian days 133 and 197 (shown above). Does the RGB imagery from 
+these two days explain the low NDVI values observed on these days?
 
 :::::::::::::::  solution
 
 ## Answers
 
-First we need to load in the RGB data for Julian day 277 and look at its metadata.
+First we need to load in the RGB data for Julian day 277 and look at its 
+metadata.
 
 
 ```r
-RGB_277 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif")
+RGB_277 <- rast("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif")
+
+# NOTE: Fix the bands' names so they don't start with a number!
+names(RGB_277) <- paste0("X", names(RGB_277))
+
 RGB_277
 ```
 
 ```{.output}
-class      : RasterStack 
-dimensions : 652, 696, 453792, 3  (nrow, ncol, ncell, nlayers)
-resolution : 30, 30  (x, y)
-extent     : 230775, 251655, 4704825, 4724385  (xmin, xmax, ymin, ymax)
-crs        : +proj=utm +zone=19 +datum=WGS84 +units=m +no_defs 
-names      : X277_HARV_landRGB_1, X277_HARV_landRGB_2, X277_HARV_landRGB_3 
-min values :                  26,                  29,                  79 
-max values :                 255,                 255,                 255 
+class       : SpatRaster 
+dimensions  : 652, 696, 3  (nrow, ncol, nlyr)
+resolution  : 30, 30  (x, y)
+extent      : 230775, 251655, 4704825, 4724385  (xmin, xmax, ymin, ymax)
+coord. ref. : WGS 84 / UTM zone 19N (EPSG:32619) 
+source      : 277_HARV_landRGB.tif 
+names       : X277_HARV_landRGB_1, X277_HARV_landRGB_2, X277_HARV_landRGB_3 
+min values  :                  26,                  29,                  79 
+max values  :                 255,                 255,                 255 
 ```
 
-The RGB data has a max value of 255, but we need our color intensity to be between 0 and 1, so
-we will divide our RasterStack object by 255.
+The RGB data has a max value of 255, but we need our color intensity to be 
+between 0 and 1, so we will divide our RasterStack object by 255.
 
 
 ```r
@@ -514,7 +489,9 @@ We create RGB colors from the three channels:
 
 
 ```r
-RGB_277_df$rgb <- with(RGB_277_df, rgb(X277_HARV_landRGB_1, X277_HARV_landRGB_2, X277_HARV_landRGB_3,1))
+RGB_277_df$rgb <- 
+  with(RGB_277_df, rgb(X277_HARV_landRGB_1, X277_HARV_landRGB_2, 
+                       X277_HARV_landRGB_3, 1))
 ```
 
 Finally, we can plot the RGB data for Julian day 277.
@@ -533,10 +510,13 @@ We then do the same steps for Julian day 293
 
 ```r
 # Julian day 293
-RGB_293 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")
+RGB_293 <- rast("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")
+names(RGB_293) <- paste0("X", names(RGB_293))
 RGB_293 <- RGB_293/255
 RGB_293_df <- as.data.frame(RGB_293, xy = TRUE)
-RGB_293_df$rgb <- with(RGB_293_df, rgb(X293_HARV_landRGB_1, X293_HARV_landRGB_2, X293_HARV_landRGB_3,1))
+RGB_293_df$rgb <- 
+  with(RGB_293_df, rgb(X293_HARV_landRGB_1, X293_HARV_landRGB_2, 
+                       X293_HARV_landRGB_3,1))
 ggplot() +
   geom_raster(data = RGB_293_df, aes(x, y), fill = RGB_293_df$rgb) +
   ggtitle("Julian day 293")
@@ -544,14 +524,12 @@ ggplot() +
 
 <img src="fig/12-time-series-raster-rendered-rgb-293-1.png" style="display: block; margin: auto;" />
 
-This example highlights the importance of
-exploring the source of a derived data product. In this case, the NDVI data
-product was created using Landsat imagery - specifically the red
-and near-infrared bands. When we look at the RGB collected at Julian days 277 and 293
-we see that most of
-the image is filled with clouds. The very low NDVI values resulted from cloud
-cover — a common challenge that we encounter when working with satellite remote
-sensing imagery.
+This example highlights the importance of exploring the source of a derived 
+data product. In this case, the NDVI data product was created using Landsat 
+imagery - specifically the red and near-infrared bands. When we look at the RGB 
+collected at Julian days 277 and 293 we see that most of the image is filled 
+with clouds. The very low NDVI values resulted from cloud cover — a common 
+challenge that we encounter when working with satellite remote sensing imagery.
 
 
 
@@ -562,7 +540,8 @@ sensing imagery.
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- Use the `list.files()` function to get a list of filenames matching a specific pattern.
+- Use the `list.files()` function to get a list of filenames matching a 
+  specific pattern.
 - Use the `facet_wrap()` function to create multi-paneled plots with `ggplot2`.
 - Use the `as.Date()` function to convert data to date format.
 
