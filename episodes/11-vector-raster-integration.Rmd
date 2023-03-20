@@ -18,7 +18,8 @@ source("setup.R")
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
-- How can I crop raster objects to vector objects, and extract the summary of raster pixels?
+- How can I crop raster objects to vector objects, and extract the summary of 
+  raster pixels?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -215,7 +216,8 @@ CHM_plots_HARVcrop <- crop(x = CHM_HARV, y = plot_locations_sp_HARV)
 CHM_plots_HARVcrop_df <- as.data.frame(CHM_plots_HARVcrop, xy = TRUE)
 
 ggplot() + 
-  geom_raster(data = CHM_plots_HARVcrop_df, aes(x = x, y = y, fill = HARV_chmCrop)) + 
+  geom_raster(data = CHM_plots_HARVcrop_df, 
+              aes(x = x, y = y, fill = HARV_chmCrop)) + 
   scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
   geom_sf(data = plot_locations_sp_HARV) + 
   coord_sf()
@@ -322,7 +324,7 @@ We will begin by extracting all canopy height pixel values located within our
 Harvard Forest field site.
 
 ```{r extract-from-raster}
-tree_height <- extract(x = CHM_HARV, y = aoi_boundary_HARV, df = TRUE)
+tree_height <- extract(x = CHM_HARV, y = aoi_boundary_HARV, raw = FALSE)
 
 str(tree_height)
 ```
