@@ -176,21 +176,22 @@ ggplot() +
     coord_quickmap()
 ```
 
-:::::::::::::::::::::::::::::::::::::::::  callout
+::::::::::::::::  callout
 
 ## Plotting Tip
 
 More information about the Viridis palette used above at
 [R Viridis package documentation](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html).
 
+::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::::  callout
+:::::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Plotting Tip
 
 For faster, simpler plots, you can use the `plot` function from the `terra` package.
+
 
 :::::::::::::::  solution
 
@@ -202,9 +203,10 @@ See `?plot` for more arguments to customize the plot
 plot(DSM_HARV)
 ```
 
-:::::::::::::::::::::::::
+:::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::
+
 
 This map shows the elevation of our study site in Harvard Forest. From the
 legend, we can see that the maximum elevation is ~400, but we can't tell whether
@@ -237,8 +239,6 @@ What units are our data in?
 ## Answers
 
 `+units=m` tells us that our data is in meters.
-
-
 
 :::::::::::::::::::::::::
 
@@ -443,7 +443,7 @@ raster's metadata. If a `NoDataValue` was stored in the GeoTIFF tag, when R
 opens up the raster, it will assign each instance of the value to `NA`. Values
 of `NA` will be ignored by R as demonstrated above.
 
-:::::::::::::::::::::::::::::::::::::::::  callout
+:::::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Challenge
 
@@ -459,8 +459,6 @@ describe(sources(DSM_HARV))
 ```
 
 `NoDataValue` are encoded as -9999.
-
-
 
 :::::::::::::::::::::::::
 
@@ -547,40 +545,39 @@ was created using the default of 30 bins. The distribution of elevation values
 for our `Digital Surface Model (DSM)` looks reasonable. It is likely there are
 no bad data values in this particular raster.
 
-> ## Challenge: Explore Raster Metadata
-> 
-> Use `describe()` to determine the following about the `NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif` file:
-> 
-> 1. Does this file have the same CRS as `DSM_HARV`?
-> 2. What is the `NoDataValue`?
-> 3. What is resolution of the raster data?
-> 4. How large would a 5x5 pixel area be on the Earth's surface?
-> 5. Is the file a multi- or single-band raster?
-> 
-> Notice: this file is a hillshade. We will learn about hillshades in the [Working with[Multi-band Rasters in R](05-raster-multi-band-in-r/)  episode.
-> 
-> > ## Answers
-> > 
-> > ```{r challenge-code-attributes}
-> > ```
-
-describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV\_DSMhill.tif")
-
 :::::::::::::::::::::::::::::::::::::::  challenge
+
+## Challenge: Explore Raster Metadata
+
+Use `describe()` to determine the following about the `NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif` file:
+
+1. Does this file have the same CRS as `DSM_HARV`?
+2. What is the `NoDataValue`?
+3. What is resolution of the raster data?
+4. How large would a 5x5 pixel area be on the Earth's surface?
+5. Is the file a multi- or single-band raster?
+
+Notice: this file is a hillshade. We will learn about hillshades in the [Working with Multi-band Rasters in R](05-raster-multi-band-in-r/) episode.
 
 :::::::::::::::  solution
 
+## Answers
+
+```{r challenge-code-attributes}
+describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 ```
+
+
 1. If this file has the same CRS as DSM_HARV?  Yes: UTM Zone 18, WGS84, meters.
 2. What format `NoDataValues` take?  -9999
 3. The resolution of the raster data? 1x1
 4. How large a 5x5 pixel area would be? 5mx5m How? We are given resolution of 1x1 and units in meters, therefore resolution of 5x5 means 5x5m.
 5. Is the file a multi- or single-band raster?  Single.
-```
 
-:::::::::::::::::::::::::
+:::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
