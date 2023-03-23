@@ -683,16 +683,19 @@ Viridis package documentation</a>.</p>
 </div>
 </div>
 </div>
-<div id="callout4" class="callout callout">
+<div id="challenge1" class="callout challenge">
 <div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
+<i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="plotting-tip-1" class="callout-inner">
-<h3 class="callout-title">Plotting Tip<a class="anchor" aria-label="anchor" href="#callout4"></a>
+<h3 class="callout-title">Plotting Tip<a class="anchor" aria-label="anchor" href="#challenge1"></a>
 </h3>
 <div class="callout-content">
 <p>For faster, simpler plots, you can use the <code>plot</code> function
 from the <code>terra</code> package.</p>
+</div>
+</div>
+</div>
 <div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
@@ -710,9 +713,6 @@ from the <code>terra</code> package.</p>
 <code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">DSM_HARV</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/01-raster-structure-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
-</div>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -740,12 +740,12 @@ the<code>crs()</code> function.</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"</code></pre>
 </div>
-<div id="challenge1" class="callout challenge">
+<div id="challenge2" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge" class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge1"></a>
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge2"></a>
 </h3>
 <div class="callout-content">
 <p>What units are our data in?</p>
@@ -844,12 +844,12 @@ max       416.07</code></pre>
 </h3>
 <pre class="output" tabindex="0"><code>[1] 416.07</code></pre>
 </div>
-<div id="callout5" class="callout callout">
+<div id="callout4" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip---set-min-and-max-values" class="callout-inner">
-<h3 class="callout-title">Data Tip - Set min and max values<a class="anchor" aria-label="anchor" href="#callout5"></a>
+<h3 class="callout-title">Data Tip - Set min and max values<a class="anchor" aria-label="anchor" href="#callout4"></a>
 </h3>
 <div class="callout-content">
 <p>If the minimum and maximum values haven’t already been calculated, we
@@ -942,18 +942,21 @@ information in the raster’s metadata. If a <code>NoDataValue</code> was
 stored in the GeoTIFF tag, when R opens up the raster, it will assign
 each instance of the value to <code>NA</code>. Values of <code>NA</code>
 will be ignored by R as demonstrated above.</p>
-<div id="callout6" class="callout callout">
+<div id="challenge3" class="callout challenge">
 <div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
+<i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-1" class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#callout6"></a>
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge3"></a>
 </h3>
 <div class="callout-content">
 <p>Use the output from the <code>describe()</code> and
 <code>sources()</code> functions to find out what
 <code>NoDataValue</code> is used for our <code>DSM_HARV</code>
 dataset.</p>
+</div>
+</div>
+</div>
 <div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
@@ -1043,9 +1046,6 @@ dataset.</p>
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
 </section><section id="bad-data-values-in-rasters"><h2 class="section-heading">Bad Data Values in Rasters<a class="anchor" aria-label="anchor" href="#bad-data-values-in-rasters"></a>
 </h2>
 <hr class="half-width"><p>Bad data values are different from <code>NoDataValue</code>s. Bad
@@ -1110,9 +1110,14 @@ one that was created using the default of 30 bins. The distribution of
 elevation values for our <code>Digital Surface Model (DSM)</code> looks
 reasonable. It is likely there are no bad data values in this particular
 raster.</p>
-<blockquote>
-<h2 id="challenge-explore-raster-metadata">Challenge: Explore Raster
-Metadata</h2>
+<div id="challenge4" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-explore-raster-metadata" class="callout-inner">
+<h3 class="callout-title">Challenge: Explore Raster Metadata<a class="anchor" aria-label="anchor" href="#challenge4"></a>
+</h3>
+<div class="callout-content">
 <p>Use <code>describe()</code> to determine the following about the
 <code>NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif</code>
 file:</p>
@@ -1122,22 +1127,8 @@ file:</p>
 <li>How large would a 5x5 pixel area be on the Earth’s surface?</li>
 <li>Is the file a multi- or single-band raster?</li>
 </ol><p>Notice: this file is a hillshade. We will learn about hillshades in
-the [Working with<a href="05-raster-multi-band-in-r/">Multi-band Rasters
+the <a href="05-raster-multi-band-in-r/">Working with Multi-band Rasters
 in R</a> episode.</p>
-<blockquote>
-<h2 id="answers-2">Answers</h2>
-</blockquote>
-</blockquote>
-<p>describe(“data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif”)</p>
-<div id="challenge2" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<div class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge2"></a>
-</h3>
-<div class="callout-content">
-
 </div>
 </div>
 </div>
@@ -1145,26 +1136,104 @@ in R</a> episode.</p>
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4">
-  Show me the solution
+  Answers
   </h4>
 </button>
 <div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
-<pre><code>1. If this file has the same CRS as DSM_HARV?  Yes: UTM Zone 18, WGS84, meters.
-2. What format `NoDataValues` take?  -9999
-3. The resolution of the raster data? 1x1
-4. How large a 5x5 pixel area would be? 5mx5m How? We are given resolution of 1x1 and units in meters, therefore resolution of 5x5 means 5x5m.
-5. Is the file a multi- or single-band raster?  Single.</code></pre>
+<div class="codewrapper sourceCode" id="cb33">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">describe</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code> [1] "Driver: GTiff/GeoTIFF"                                                                                                                                                                                                                                                         
+ [2] "Files: data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif"                                                                                                                                                                                                         
+ [3] "Size is 1697, 1367"                                                                                                                                                                                                                                                            
+ [4] "Coordinate System is:"                                                                                                                                                                                                                                                         
+ [5] "PROJCRS[\"WGS 84 / UTM zone 18N\","                                                                                                                                                                                                                                            
+ [6] "    BASEGEOGCRS[\"WGS 84\","                                                                                                                                                                                                                                                   
+ [7] "        DATUM[\"World Geodetic System 1984\","                                                                                                                                                                                                                                 
+ [8] "            ELLIPSOID[\"WGS 84\",6378137,298.257223563,"                                                                                                                                                                                                                       
+ [9] "                LENGTHUNIT[\"metre\",1]]],"                                                                                                                                                                                                                                    
+[10] "        PRIMEM[\"Greenwich\",0,"                                                                                                                                                                                                                                               
+[11] "            ANGLEUNIT[\"degree\",0.0174532925199433]],"                                                                                                                                                                                                                        
+[12] "        ID[\"EPSG\",4326]],"                                                                                                                                                                                                                                                   
+[13] "    CONVERSION[\"UTM zone 18N\","                                                                                                                                                                                                                                              
+[14] "        METHOD[\"Transverse Mercator\","                                                                                                                                                                                                                                       
+[15] "            ID[\"EPSG\",9807]],"                                                                                                                                                                                                                                               
+[16] "        PARAMETER[\"Latitude of natural origin\",0,"                                                                                                                                                                                                                           
+[17] "            ANGLEUNIT[\"degree\",0.0174532925199433],"                                                                                                                                                                                                                         
+[18] "            ID[\"EPSG\",8801]],"                                                                                                                                                                                                                                               
+[19] "        PARAMETER[\"Longitude of natural origin\",-75,"                                                                                                                                                                                                                        
+[20] "            ANGLEUNIT[\"degree\",0.0174532925199433],"                                                                                                                                                                                                                         
+[21] "            ID[\"EPSG\",8802]],"                                                                                                                                                                                                                                               
+[22] "        PARAMETER[\"Scale factor at natural origin\",0.9996,"                                                                                                                                                                                                                  
+[23] "            SCALEUNIT[\"unity\",1],"                                                                                                                                                                                                                                           
+[24] "            ID[\"EPSG\",8805]],"                                                                                                                                                                                                                                               
+[25] "        PARAMETER[\"False easting\",500000,"                                                                                                                                                                                                                                   
+[26] "            LENGTHUNIT[\"metre\",1],"                                                                                                                                                                                                                                          
+[27] "            ID[\"EPSG\",8806]],"                                                                                                                                                                                                                                               
+[28] "        PARAMETER[\"False northing\",0,"                                                                                                                                                                                                                                       
+[29] "            LENGTHUNIT[\"metre\",1],"                                                                                                                                                                                                                                          
+[30] "            ID[\"EPSG\",8807]]],"                                                                                                                                                                                                                                              
+[31] "    CS[Cartesian,2],"                                                                                                                                                                                                                                                          
+[32] "        AXIS[\"(E)\",east,"                                                                                                                                                                                                                                                    
+[33] "            ORDER[1],"                                                                                                                                                                                                                                                         
+[34] "            LENGTHUNIT[\"metre\",1]],"                                                                                                                                                                                                                                         
+[35] "        AXIS[\"(N)\",north,"                                                                                                                                                                                                                                                   
+[36] "            ORDER[2],"                                                                                                                                                                                                                                                         
+[37] "            LENGTHUNIT[\"metre\",1]],"                                                                                                                                                                                                                                         
+[38] "    USAGE["                                                                                                                                                                                                                                                                    
+[39] "        SCOPE[\"Engineering survey, topographic mapping.\"],"                                                                                                                                                                                                                  
+[40] "        AREA[\"Between 78°W and 72°W, northern hemisphere between equator and 84°N, onshore and offshore. Bahamas. Canada - Nunavut; Ontario; Quebec. Colombia. Cuba. Ecuador. Greenland. Haiti. Jamica. Panama. Turks and Caicos Islands. United States (USA). Venezuela.\"],"
+[41] "        BBOX[0,-78,84,-72]],"                                                                                                                                                                                                                                                  
+[42] "    ID[\"EPSG\",32618]]"                                                                                                                                                                                                                                                       
+[43] "Data axis to CRS axis mapping: 1,2"                                                                                                                                                                                                                                            
+[44] "Origin = (731453.000000000000000,4713838.000000000000000)"                                                                                                                                                                                                                     
+[45] "Pixel Size = (1.000000000000000,-1.000000000000000)"                                                                                                                                                                                                                           
+[46] "Metadata:"                                                                                                                                                                                                                                                                     
+[47] "  AREA_OR_POINT=Area"                                                                                                                                                                                                                                                          
+[48] "Image Structure Metadata:"                                                                                                                                                                                                                                                     
+[49] "  COMPRESSION=LZW"                                                                                                                                                                                                                                                             
+[50] "  INTERLEAVE=BAND"                                                                                                                                                                                                                                                             
+[51] "Corner Coordinates:"                                                                                                                                                                                                                                                           
+[52] "Upper Left  (  731453.000, 4713838.000) ( 72d10'52.71\"W, 42d32'32.18\"N)"                                                                                                                                                                                                     
+[53] "Lower Left  (  731453.000, 4712471.000) ( 72d10'54.71\"W, 42d31'47.92\"N)"                                                                                                                                                                                                     
+[54] "Upper Right (  733150.000, 4713838.000) ( 72d 9'38.40\"W, 42d32'30.35\"N)"                                                                                                                                                                                                     
+[55] "Lower Right (  733150.000, 4712471.000) ( 72d 9'40.41\"W, 42d31'46.08\"N)"                                                                                                                                                                                                     
+[56] "Center      (  732301.500, 4713154.500) ( 72d10'16.56\"W, 42d32' 9.13\"N)"                                                                                                                                                                                                     
+[57] "Band 1 Block=1697x1 Type=Float64, ColorInterp=Gray"                                                                                                                                                                                                                            
+[58] "  Min=-0.714 Max=1.000 "                                                                                                                                                                                                                                                       
+[59] "  Minimum=-0.714, Maximum=1.000, Mean=0.313, StdDev=0.481"                                                                                                                                                                                                                     
+[60] "  NoData Value=-9999"                                                                                                                                                                                                                                                          
+[61] "  Metadata:"                                                                                                                                                                                                                                                                   
+[62] "    STATISTICS_MAXIMUM=0.99999973665016"                                                                                                                                                                                                                                       
+[63] "    STATISTICS_MEAN=0.31255246777216"                                                                                                                                                                                                                                          
+[64] "    STATISTICS_MINIMUM=-0.71362979358008"                                                                                                                                                                                                                                      
+[65] "    STATISTICS_STDDEV=0.48129385401108"                                                                                                                                                                                                                                        </code></pre>
+</div>
+<ol style="list-style-type: decimal"><li>If this file has the same CRS as DSM_HARV? Yes: UTM Zone 18, WGS84,
+meters.</li>
+<li>What format <code>NoDataValues</code> take? -9999</li>
+<li>The resolution of the raster data? 1x1</li>
+<li>How large a 5x5 pixel area would be? 5mx5m How? We are given
+resolution of 1x1 and units in meters, therefore resolution of 5x5 means
+5x5m.</li>
+<li>Is the file a multi- or single-band raster? Single.</li>
+</ol></div>
 </div>
 </div>
 </div>
-</div>
-<div id="callout7" class="callout callout">
+<div id="callout5" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="more-resources" class="callout-inner">
-<h3 class="callout-title">More Resources<a class="anchor" aria-label="anchor" href="#callout7"></a>
+<h3 class="callout-title">More Resources<a class="anchor" aria-label="anchor" href="#callout5"></a>
 </h3>
 <div class="callout-content">
 <ul><li><a href="https://cran.r-project.org/package=terra" class="external-link">Read more about
