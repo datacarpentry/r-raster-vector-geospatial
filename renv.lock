@@ -538,16 +538,6 @@
         "plyr"
       ]
     },
-    "rgdal": {
-      "Package": "rgdal",
-      "Version": "1.6-5",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "db30ee59b46241355b2da9620f591243",
-      "Requirements": [
-        "sp"
-      ]
-    },
     "rlang": {
       "Package": "rlang",
       "Version": "1.0.6",
