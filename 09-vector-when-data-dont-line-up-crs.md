@@ -25,21 +25,22 @@ source: Rmd
 
 ## Things You'll Need To Complete This Episode
 
-See the [lesson homepage](.) for detailed information about the software,
-data, and other prerequisites you will need to work through the examples in this episode.
+See the [lesson homepage](.) for detailed information about the software, data, 
+and other prerequisites you will need to work through the examples in this 
+episode.
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 In [an earlier episode](03-raster-reproject-in-r/)
-we learned how to handle a situation where you have two different
-files with raster data in different projections. Now we will apply
-those same principles to working with vector data.
-We will create a base map of our study site using United States
-state and country boundary information accessed from the
+we learned how to handle a situation where you have two different files with 
+raster data in different projections. Now we will apply those same principles 
+to working with vector data.
+We will create a base map of our study site using United States state and 
+country boundary information accessed from the
 [United States Census Bureau](https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html).
-We will learn how to map vector data that are in different CRSs and thus
-don't line up on a map.
+We will learn how to map vector data that are in different CRSs and thus don't 
+line up on a map.
 
 We will continue to work with the three shapefiles that we loaded in the
 [Open and Plot Shapefiles in R](06-vector-open-shapefile-in-r/) episode.
@@ -48,48 +49,43 @@ We will continue to work with the three shapefiles that we loaded in the
 
 ## Working With Spatial Data From Different Sources
 
-We often need to gather spatial datasets from
-different sources and/or data that cover different spatial extents.
-These data are often in
-different Coordinate Reference Systems (CRSs).
+We often need to gather spatial datasets from different sources and/or data 
+that cover different spatial extents.
+These data are often in different Coordinate Reference Systems (CRSs).
 
 Some reasons for data being in different CRSs include:
 
-1. The data are stored in a particular CRS convention used by the data
-  provider (for example, a government agency).
-2. The data are stored in a particular CRS that is customized to a region.
-  For instance, many states in the US prefer to use a State Plane projection customized
-  for that state.
+1. The data are stored in a particular CRS convention used by the data provider 
+   (for example, a government agency).
+2. The data are stored in a particular CRS that is customized to a region. For 
+   instance, many states in the US prefer to use a State Plane projection 
+   customized for that state.
 
-![Maps of the United States using data in different projections. Source: opennews.org, from: https://media.opennews.org/cache/06/37/0637aa2541b31f526ad44f7cb2db7b6c.jpg](fig/map_usa_different_projections.jpg)
+![Maps of the United States using data in different projections. Source: opennews.org, from: https://media.opennews.org/cache/06/37/0637aa2541b31f526ad44f7cb2db7b6c.jpg](fig/map_usa_different_projections.jpg){alt='Maps of the United States using data in different projections.}
 
-Notice the differences in shape associated with each different
-projection. These differences are a direct result of the calculations
-used to "flatten" the data onto a 2-dimensional map. Often data are
-stored purposefully in a particular projection that optimizes the
-relative shape and size of surrounding geographic boundaries (states,
-counties, countries, etc).
+Notice the differences in shape associated with each different projection. 
+These differences are a direct result of the calculations used to "flatten" the 
+data onto a 2-dimensional map. Often data are stored purposefully in a 
+particular projection that optimizes the relative shape and size of surrounding 
+geographic boundaries (states, counties, countries, etc).
 
-In this episode we will learn how to identify and manage spatial data
-in different projections. We will learn how to reproject the data so
-that they
-are in the same projection to support plotting / mapping. Note that
-these skills
-are also required for any geoprocessing / spatial analysis. Data need
-to be in
+In this episode we will learn how to identify and manage spatial data in 
+different projections. We will learn how to reproject the data so that they are 
+in the same projection to support plotting / mapping. Note that these skills
+are also required for any geoprocessing / spatial analysis. Data need to be in
 the same CRS to ensure accurate results.
 
-We will continue to use the `sf` and `raster` packages in this episode.
+We will continue to use the `sf` and `terra` packages in this episode.
 
 ## Import US Boundaries - Census Data
 
 There are many good sources of boundary base layers that we can use to create a
 basemap. Some R packages even have these base layers built in to support quick
-and efficient mapping. In this episode, we will use boundary layers for the contiguous
-United States, provided by the [United States Census Bureau](https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html).
-It is useful to have shapefiles to work with because we can add
-additional attributes to them if need be - for project specific
-mapping.
+and efficient mapping. In this episode, we will use boundary layers for the 
+contiguous United States, provided by the 
+[United States Census Bureau](https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html).
+It is useful to have shapefiles to work with because we can add additional 
+attributes to them if need be - for project specific mapping.
 
 ## Read US Boundary File
 
@@ -101,7 +97,8 @@ from the Census website to support the learning goals of this episode.
 
 
 ```r
-state_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp")
+state_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp") %>%
+  st_zm()
 ```
 
 ```{.output}
@@ -136,7 +133,8 @@ nicer. We will import
 
 
 ```r
-country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp")
+country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp") %>% 
+  st_zm()
 ```
 
 ```{.output}
@@ -151,9 +149,9 @@ z_range:       zmin: 0 zmax: 0
 Geodetic CRS:  WGS 84
 ```
 
-If we specify a thicker line width using `size = 2` for the border layer, it will
-make our map pop! We will also manually set the colors of the state boundaries
-and country boundaries.
+If we specify a thicker line width using `size = 2` for the border layer, it 
+will make our map pop! We will also manually set the colors of the state 
+boundaries and country boundaries.
 
 
 ```r
@@ -172,120 +170,50 @@ First let's look at the CRS of our tower location object:
 
 
 ```r
-st_crs(point_HARV)
+st_crs(point_HARV)$proj4string
 ```
 
 ```{.output}
-Coordinate Reference System:
-  User input: WGS 84 / UTM zone 18N 
-  wkt:
-PROJCRS["WGS 84 / UTM zone 18N",
-    BASEGEOGCRS["WGS 84",
-        DATUM["World Geodetic System 1984",
-            ELLIPSOID["WGS 84",6378137,298.257223563,
-                LENGTHUNIT["metre",1]]],
-        PRIMEM["Greenwich",0,
-            ANGLEUNIT["degree",0.0174532925199433]],
-        ID["EPSG",4326]],
-    CONVERSION["UTM zone 18N",
-        METHOD["Transverse Mercator",
-            ID["EPSG",9807]],
-        PARAMETER["Latitude of natural origin",0,
-            ANGLEUNIT["Degree",0.0174532925199433],
-            ID["EPSG",8801]],
-        PARAMETER["Longitude of natural origin",-75,
-            ANGLEUNIT["Degree",0.0174532925199433],
-            ID["EPSG",8802]],
-        PARAMETER["Scale factor at natural origin",0.9996,
-            SCALEUNIT["unity",1],
-            ID["EPSG",8805]],
-        PARAMETER["False easting",500000,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8806]],
-        PARAMETER["False northing",0,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8807]]],
-    CS[Cartesian,2],
-        AXIS["(E)",east,
-            ORDER[1],
-            LENGTHUNIT["metre",1]],
-        AXIS["(N)",north,
-            ORDER[2],
-            LENGTHUNIT["metre",1]],
-    ID["EPSG",32618]]
+[1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
 ```
 
 Our project string for `DSM_HARV` specifies the UTM projection as follows:
 
-`+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0`
+`+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs`
 
 - **proj=utm:** the projection is UTM, UTM has several zones.
 - **zone=18:** the zone is 18
 - **datum=WGS84:** the datum WGS84 (the datum refers to the  0,0 reference for
   the coordinate system used in the projection)
 - **units=m:** the units for the coordinates are in METERS.
-- **ellps=WGS84:** the ellipsoid (how the earth's  roundness is calculated) for
-  the data is WGS84
 
-Note that the `zone` is unique to the UTM projection. Not all CRSs
-will have a
+Note that the `zone` is unique to the UTM projection. Not all CRSs will have a
 zone.
 
 Let's check the CRS of our state and country boundary objects:
 
 
 ```r
-st_crs(state_boundary_US)
+st_crs(state_boundary_US)$proj4string
 ```
 
 ```{.output}
-Coordinate Reference System:
-  User input: WGS 84 
-  wkt:
-GEOGCRS["WGS 84",
-    DATUM["World Geodetic System 1984",
-        ELLIPSOID["WGS 84",6378137,298.257223563,
-            LENGTHUNIT["metre",1]]],
-    PRIMEM["Greenwich",0,
-        ANGLEUNIT["degree",0.0174532925199433]],
-    CS[ellipsoidal,2],
-        AXIS["latitude",north,
-            ORDER[1],
-            ANGLEUNIT["degree",0.0174532925199433]],
-        AXIS["longitude",east,
-            ORDER[2],
-            ANGLEUNIT["degree",0.0174532925199433]],
-    ID["EPSG",4326]]
+[1] "+proj=longlat +datum=WGS84 +no_defs"
 ```
 
 ```r
-st_crs(country_boundary_US)
+st_crs(country_boundary_US)$proj4string
 ```
 
 ```{.output}
-Coordinate Reference System:
-  User input: WGS 84 
-  wkt:
-GEOGCRS["WGS 84",
-    DATUM["World Geodetic System 1984",
-        ELLIPSOID["WGS 84",6378137,298.257223563,
-            LENGTHUNIT["metre",1]]],
-    PRIMEM["Greenwich",0,
-        ANGLEUNIT["degree",0.0174532925199433]],
-    CS[ellipsoidal,2],
-        AXIS["latitude",north,
-            ORDER[1],
-            ANGLEUNIT["degree",0.0174532925199433]],
-        AXIS["longitude",east,
-            ORDER[2],
-            ANGLEUNIT["degree",0.0174532925199433]],
-    ID["EPSG",4326]]
+[1] "+proj=longlat +datum=WGS84 +no_defs"
 ```
 
 Our project string for `state_boundary_US` and `country_boundary_US` specifies
 the lat/long projection as follows:
 
-`+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0`
+`+proj=longlat +datum=WGS84 +no_defs`
+
 
 - **proj=longlat:** the data are in a geographic (latitude and longitude)
   coordinate system
@@ -295,15 +223,15 @@ the lat/long projection as follows:
   is WGS84
 
 Note that there are no specified units above. This is because this geographic
-coordinate reference system is in latitude and longitude which is most
-often recorded in decimal degrees.
+coordinate reference system is in latitude and longitude which is most often 
+recorded in decimal degrees.
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
 ## Data Tip
 
-the last portion of each `proj4` string
-is `+towgs84=0,0,0 `. This is a conversion factor that is used if a datum
+the last portion of each `proj4` string could potentially be something like 
+`+towgs84=0,0,0 `. This is a conversion factor that is used if a datum 
 conversion is required. We will not deal with datums in this episode series.
 
 
@@ -350,21 +278,22 @@ represented in meters.
 - [Official PROJ library documentation](https://proj4.org/)
 - [More information on the proj4 format.](https://proj.maptools.org/faq.html)
 - [A fairly comprehensive list of CRSs by format.](https://spatialreference.org)
-- To view a list of datum conversion factors type: `projInfo(type = "datum")`
-  into the R console.
+- To view a list of datum conversion factors type: 
+  `sf_proj_info(type = "datum")` into the R console. However, the results would
+  depend on the underlying version of the PROJ library.
   
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Reproject Vector Data or No?
 
-We saw in [an earlier episode](03-raster-reproject-in-r/) that when working with raster
-data in different CRSs, we needed to convert all objects to the same
-CRS. We can do the same thing with our vector data - however, we
-don't need to! When using the `ggplot2` package, `ggplot`
-automatically converts all objects to the same CRS before plotting.
-This means we can plot our three data sets together
-without doing any conversion:
+We saw in [an earlier episode](03-raster-reproject-in-r/) that when working 
+with raster data in different CRSs, we needed to convert all objects to the 
+same CRS. We can do the same thing with our vector data - however, we don't 
+need to! When using the `ggplot2` package, `ggplot` automatically converts all 
+objects to the same CRS before plotting.
+This means we can plot our three data sets together without doing any 
+conversion:
 
 
 ```r
@@ -384,11 +313,13 @@ ggplot() +
 
 Create a map of the North Eastern United States as follows:
 
-1. Import and plot `Boundary-US-State-NEast.shp`. Adjust line width as necessary.
-2. Layer the Fisher Tower (in the NEON Harvard Forest site) point location `point_HARV` onto the plot.
+1. Import and plot `Boundary-US-State-NEast.shp`. Adjust line width as 
+   necessary.
+2. Layer the Fisher Tower (in the NEON Harvard Forest site) point location 
+   `point_HARV` onto the plot.
 3. Add a title.
-4. Add a legend that shows both the state boundary (as a line) and
-  the Tower location point.
+4. Add a legend that shows both the state boundary (as a line) and the Tower 
+   location point.
 
 :::::::::::::::  solution
 
@@ -396,7 +327,8 @@ Create a map of the North Eastern United States as follows:
 
 
 ```r
-NE.States.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp")
+NE.States.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp") %>%
+  st_zm()
 ```
 
 ```{.output}
@@ -413,10 +345,13 @@ Geodetic CRS:  WGS 84
 
 ```r
 ggplot() +
-    geom_sf(data = NE.States.Boundary.US, aes(color ="color"), show.legend = "line") +
-    scale_color_manual(name = "", labels = "State Boundary", values = c("color" = "gray18")) +
+    geom_sf(data = NE.States.Boundary.US, aes(color ="color"), 
+            show.legend = "line") +
+    scale_color_manual(name = "", labels = "State Boundary", 
+                       values = c("color" = "gray18")) +
     geom_sf(data = point_HARV, aes(shape = "shape"), color = "purple") +
-    scale_shape_manual(name = "", labels = "Fisher Tower", values = c("shape" = 19)) +
+    scale_shape_manual(name = "", labels = "Fisher Tower", 
+                       values = c("shape" = 19)) +
     ggtitle("Fisher Tower location") +
     theme(legend.background = element_rect(color = NA)) +
     coord_sf()
