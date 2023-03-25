@@ -1,5 +1,5 @@
 ---
-title: Work With Multi-Band Rasters
+title: Work with Multi-Band Rasters
 teaching: 40
 exercises: 20
 source: Rmd
@@ -10,7 +10,7 @@ source: Rmd
 ::::::::::::::::::::::::::::::::::::::: objectives
 
 - Identify a single vs. a multi-band raster file.
-- Import multi-band rasters into R using the `raster` package.
+- Import multi-band rasters into R using the `terra` package.
 - Plot multi-band color image rasters in R using the `ggplot` package.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
