@@ -14,7 +14,7 @@ carpentry: 'dc'
 title: 'Introduction to Geospatial Raster and Vector Data with R'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
-created: ~
+created: '2015-10-22'
 
 # Comma-separated list of keywords for the lesson
 keywords: 'software, data, lesson, The Carpentries'
@@ -89,7 +89,4 @@ profiles:
 # sandpaper and varnish versions) should live
 
 
-url: https://preview.carpentries.org/r-raster-vector-geospatial
-workbench-beta: 'true'
-beta-date: '2023-02-06'
-old-url: 'https://datacarpentry.github.io/r-raster-vector-geospatial'
+url: 'https://datacarpentry.org/r-raster-vector-geospatial'
