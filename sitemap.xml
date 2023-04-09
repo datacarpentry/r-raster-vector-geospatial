@@ -1,183 +1,183 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/01-raster-structure.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/01-raster-structure.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/02-raster-plot.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/02-raster-plot.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/03-raster-reproject-in-r.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/03-raster-reproject-in-r.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/04-raster-calculations-in-r.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/04-raster-calculations-in-r.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/05-raster-multi-band-in-r.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/05-raster-multi-band-in-r.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/06-vector-open-shapefile-in-r.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/06-vector-open-shapefile-in-r.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/07-vector-shapefile-attributes-in-r.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/07-vector-shapefile-attributes-in-r.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/08-vector-plot-shapefiles-custom-legend.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/08-vector-plot-shapefiles-custom-legend.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/09-vector-when-data-dont-line-up-crs.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/09-vector-when-data-dont-line-up-crs.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/10-vector-csv-to-shapefile-in-r.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/10-vector-csv-to-shapefile-in-r.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/11-vector-raster-integration.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/11-vector-raster-integration.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/12-time-series-raster.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/12-time-series-raster.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/13-plot-time-series-rasters-in-r.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/13-plot-time-series-rasters-in-r.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/14-extract-ndvi-from-rasters-in-r.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/14-extract-ndvi-from-rasters-in-r.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/404.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/404.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/CODE_OF_CONDUCT.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/LICENSE.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/about.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/about.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/aio.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/aio.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_graticules_1.README.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_graticules_1.README.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_graticules_10.README.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_graticules_10.README.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_graticules_15.README.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_graticules_15.README.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_graticules_20.README.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_graticules_20.README.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_graticules_30.README.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_graticules_30.README.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_graticules_5.README.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_graticules_5.README.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_wgs84_bounding_box.README.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_wgs84_bounding_box.README.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_land/ne_110m_land.README.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_land/ne_110m_land.README.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/discuss.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/discuss.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/images.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/images.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/index.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/index.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/01-raster-structure.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/01-raster-structure.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/02-raster-plot.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/02-raster-plot.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/03-raster-reproject-in-r.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/03-raster-reproject-in-r.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/04-raster-calculations-in-r.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/04-raster-calculations-in-r.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/05-raster-multi-band-in-r.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/05-raster-multi-band-in-r.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/06-vector-open-shapefile-in-r.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/06-vector-open-shapefile-in-r.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/07-vector-shapefile-attributes-in-r.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/07-vector-shapefile-attributes-in-r.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/08-vector-plot-shapefiles-custom-legend.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/08-vector-plot-shapefiles-custom-legend.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/09-vector-when-data-dont-line-up-crs.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/09-vector-when-data-dont-line-up-crs.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/10-vector-csv-to-shapefile-in-r.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/10-vector-csv-to-shapefile-in-r.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/11-vector-raster-integration.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/11-vector-raster-integration.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/12-time-series-raster.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/12-time-series-raster.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/13-plot-time-series-rasters-in-r.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/13-plot-time-series-rasters-in-r.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/14-extract-ndvi-from-rasters-in-r.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/14-extract-ndvi-from-rasters-in-r.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/404.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/404.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/CODE_OF_CONDUCT.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/LICENSE.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/about.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/about.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/aio.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/aio.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/discuss.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/discuss.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/images.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/images.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/index.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/index.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/instructor-notes.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/instructor-notes.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/key-points.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/key-points.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/profiles.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/profiles.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor/reference.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/reference.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/instructor-notes.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor-notes.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/key-points.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/key-points.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/profiles.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/profiles.html</loc>
   </url>
   <url>
-    <loc>https://preview.carpentries.org/r-raster-vector-geospatial/reference.html</loc>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/reference.html</loc>
   </url>
 </urlset>
