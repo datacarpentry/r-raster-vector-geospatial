@@ -613,6 +613,9 @@ ggplot() +
 ```{.warning}
 Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.
 ℹ Please use the `linewidth` argument instead.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.
 ```
 
 <div class="figure" style="text-align: center">
