@@ -25,52 +25,52 @@ source: Rmd
 
 ## Things You'll Need To Complete This Episode
 
-See the [lesson homepage](.) for detailed information about the software, data, 
-and other prerequisites you will need to work through the examples in this 
+See the [lesson homepage](.) for detailed information about the software, data,
+and other prerequisites you will need to work through the examples in this
 episode.
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 In [an earlier episode](03-raster-reproject-in-r/)
-we learned how to handle a situation where you have two different files with 
-raster data in different projections. Now we will apply those same principles 
+we learned how to handle a situation where you have two different files with
+raster data in different projections. Now we will apply those same principles
 to working with vector data.
-We will create a base map of our study site using United States state and 
+We will create a base map of our study site using United States state and
 country boundary information accessed from the
 [United States Census Bureau](https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html).
-We will learn how to map vector data that are in different CRSs and thus don't 
+We will learn how to map vector data that are in different CRSs and thus don't
 line up on a map.
 
-We will continue to work with the three shapefiles that we loaded in the
-[Open and Plot Shapefiles in R](06-vector-open-shapefile-in-r/) episode.
+We will continue to work with the three ESRI `shapefiles` that we loaded in the
+[Open and Plot Vector Layers in R](06-vector-open-shapefile-in-r/) episode.
 
 
 
 ## Working With Spatial Data From Different Sources
 
-We often need to gather spatial datasets from different sources and/or data 
+We often need to gather spatial datasets from different sources and/or data
 that cover different spatial extents.
 These data are often in different Coordinate Reference Systems (CRSs).
 
 Some reasons for data being in different CRSs include:
 
-1. The data are stored in a particular CRS convention used by the data provider 
+1. The data are stored in a particular CRS convention used by the data provider
    (for example, a government agency).
-2. The data are stored in a particular CRS that is customized to a region. For 
-   instance, many states in the US prefer to use a State Plane projection 
+2. The data are stored in a particular CRS that is customized to a region. For
+   instance, many states in the US prefer to use a State Plane projection
    customized for that state.
 
 ![Maps of the United States using data in different projections. Source: opennews.org, from: https://media.opennews.org/cache/06/37/0637aa2541b31f526ad44f7cb2db7b6c.jpg](fig/map_usa_different_projections.jpg){alt='Maps of the United States using data in different projections.}
 
-Notice the differences in shape associated with each different projection. 
-These differences are a direct result of the calculations used to "flatten" the 
-data onto a 2-dimensional map. Often data are stored purposefully in a 
-particular projection that optimizes the relative shape and size of surrounding 
+Notice the differences in shape associated with each different projection.
+These differences are a direct result of the calculations used to "flatten" the
+data onto a 2-dimensional map. Often data are stored purposefully in a
+particular projection that optimizes the relative shape and size of surrounding
 geographic boundaries (states, counties, countries, etc).
 
-In this episode we will learn how to identify and manage spatial data in 
-different projections. We will learn how to reproject the data so that they are 
+In this episode we will learn how to identify and manage spatial data in
+different projections. We will learn how to reproject the data so that they are
 in the same projection to support plotting / mapping. Note that these skills
 are also required for any geoprocessing / spatial analysis. Data need to be in
 the same CRS to ensure accurate results.
@@ -81,10 +81,10 @@ We will continue to use the `sf` and `terra` packages in this episode.
 
 There are many good sources of boundary base layers that we can use to create a
 basemap. Some R packages even have these base layers built in to support quick
-and efficient mapping. In this episode, we will use boundary layers for the 
-contiguous United States, provided by the 
+and efficient mapping. In this episode, we will use boundary layers for the
+contiguous United States, provided by the
 [United States Census Bureau](https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html).
-It is useful to have shapefiles to work with because we can add additional 
+It is useful to have vector layers in ESRI's `shapefile` format to work with because we can add additional
 attributes to them if need be - for project specific mapping.
 
 ## Read US Boundary File
@@ -133,7 +133,7 @@ nicer. We will import
 
 
 ```r
-country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp") %>% 
+country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp") %>%
   st_zm()
 ```
 
@@ -149,8 +149,8 @@ z_range:       zmin: 0 zmax: 0
 Geodetic CRS:  WGS 84
 ```
 
-If we specify a thicker line width using `size = 2` for the border layer, it 
-will make our map pop! We will also manually set the colors of the state 
+If we specify a thicker line width using `size = 2` for the border layer, it
+will make our map pop! We will also manually set the colors of the state
 boundaries and country boundaries.
 
 
@@ -223,15 +223,15 @@ the lat/long projection as follows:
   is WGS84
 
 Note that there are no specified units above. This is because this geographic
-coordinate reference system is in latitude and longitude which is most often 
+coordinate reference system is in latitude and longitude which is most often
 recorded in decimal degrees.
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
 ## Data Tip
 
-the last portion of each `proj4` string could potentially be something like 
-`+towgs84=0,0,0 `. This is a conversion factor that is used if a datum 
+the last portion of each `proj4` string could potentially be something like
+`+towgs84=0,0,0 `. This is a conversion factor that is used if a datum
 conversion is required. We will not deal with datums in this episode series.
 
 
@@ -278,21 +278,21 @@ represented in meters.
 - [Official PROJ library documentation](https://proj4.org/)
 - [More information on the proj4 format.](https://proj.maptools.org/faq.html)
 - [A fairly comprehensive list of CRSs by format.](https://spatialreference.org)
-- To view a list of datum conversion factors type: 
+- To view a list of datum conversion factors type:
   `sf_proj_info(type = "datum")` into the R console. However, the results would
   depend on the underlying version of the PROJ library.
-  
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Reproject Vector Data or No?
 
-We saw in [an earlier episode](03-raster-reproject-in-r/) that when working 
-with raster data in different CRSs, we needed to convert all objects to the 
-same CRS. We can do the same thing with our vector data - however, we don't 
-need to! When using the `ggplot2` package, `ggplot` automatically converts all 
+We saw in [an earlier episode](03-raster-reproject-in-r/) that when working
+with raster data in different CRSs, we needed to convert all objects to the
+same CRS. We can do the same thing with our vector data - however, we don't
+need to! When using the `ggplot2` package, `ggplot` automatically converts all
 objects to the same CRS before plotting.
-This means we can plot our three data sets together without doing any 
+This means we can plot our three data sets together without doing any
 conversion:
 
 
@@ -313,12 +313,12 @@ ggplot() +
 
 Create a map of the North Eastern United States as follows:
 
-1. Import and plot `Boundary-US-State-NEast.shp`. Adjust line width as 
+1. Import and plot `Boundary-US-State-NEast.shp`. Adjust line width as
    necessary.
-2. Layer the Fisher Tower (in the NEON Harvard Forest site) point location 
+2. Layer the Fisher Tower (in the NEON Harvard Forest site) point location
    `point_HARV` onto the plot.
 3. Add a title.
-4. Add a legend that shows both the state boundary (as a line) and the Tower 
+4. Add a legend that shows both the state boundary (as a line) and the Tower
    location point.
 
 :::::::::::::::  solution
@@ -345,12 +345,12 @@ Geodetic CRS:  WGS 84
 
 ```r
 ggplot() +
-    geom_sf(data = NE.States.Boundary.US, aes(color ="color"), 
+    geom_sf(data = NE.States.Boundary.US, aes(color ="color"),
             show.legend = "line") +
-    scale_color_manual(name = "", labels = "State Boundary", 
+    scale_color_manual(name = "", labels = "State Boundary",
                        values = c("color" = "gray18")) +
     geom_sf(data = point_HARV, aes(shape = "shape"), color = "purple") +
-    scale_shape_manual(name = "", labels = "Fisher Tower", 
+    scale_shape_manual(name = "", labels = "Fisher Tower",
                        values = c("shape" = 19)) +
     ggtitle("Fisher Tower location") +
     theme(legend.background = element_rect(color = NA)) +
