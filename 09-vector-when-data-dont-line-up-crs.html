@@ -182,7 +182,7 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="06-vector-open-shapefile-in-r.html">6. Open and Plot Shapefiles</a>
+        <a href="06-vector-open-shapefile-in-r.html">6. Open and Plot Vector Layers</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -200,7 +200,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="08-vector-plot-shapefiles-custom-legend.html">8. Plot Multiple Shapefiles</a>
+        <a href="08-vector-plot-shapefiles-custom-legend.html">8. Plot Multiple Vector Layers</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -234,7 +234,7 @@
 <div class="accordion accordion-flush" id="accordionFlush11">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading11">
-        <a href="10-vector-csv-to-shapefile-in-r.html">10. Convert from .csv to a Shapefile</a>
+        <a href="10-vector-csv-to-shapefile-in-r.html">10. Convert from .csv to a Vector Layer</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -322,12 +322,12 @@
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link" href="08-vector-plot-shapefiles-custom-legend.html" rel="prev"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous: Plot Multiple</a>
+        <a class="chapter-link" href="08-vector-plot-shapefiles-custom-legend.html" rel="prev"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous: Plot Multiple Vector</a>
         <a class="chapter-link float-end" href="10-vector-csv-to-shapefile-in-r.html" rel="next">Next: Convert from .csv to... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Handling Spatial Projection &amp; CRS</h1>
-        <p> Last updated on 2023-04-09 | 
+        <p> Last updated on 2023-04-11 | 
         
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/09-vector-when-data-dont-line-up-crs.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -383,9 +383,9 @@ study site using United States state and country boundary information
 accessed from the <a href="https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html" class="external-link">United
 States Census Bureau</a>. We will learn how to map vector data that are
 in different CRSs and thus don’t line up on a map.</p>
-<p>We will continue to work with the three shapefiles that we loaded in
-the <a href="06-vector-open-shapefile-in-r/">Open and Plot Shapefiles in
-R</a> episode.</p>
+<p>We will continue to work with the three ESRI <code>shapefiles</code>
+that we loaded in the <a href="06-vector-open-shapefile-in-r/">Open and
+Plot Vector Layers in R</a> episode.</p>
 <section id="working-with-spatial-data-from-different-sources"><h2 class="section-heading">Working With Spatial Data From Different Sources<a class="anchor" aria-label="anchor" href="#working-with-spatial-data-from-different-sources"></a>
 </h2>
 <hr class="half-width"><p>We often need to gather spatial datasets from different sources
@@ -418,9 +418,9 @@ packages in this episode.</p>
 to create a basemap. Some R packages even have these base layers built
 in to support quick and efficient mapping. In this episode, we will use
 boundary layers for the contiguous United States, provided by the <a href="https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html" class="external-link">United
-States Census Bureau</a>. It is useful to have shapefiles to work with
-because we can add additional attributes to them if need be - for
-project specific mapping.</p>
+States Census Bureau</a>. It is useful to have vector layers in ESRI’s
+<code>shapefile</code> format to work with because we can add additional
+attributes to them if need be - for project specific mapping.</p>
 </section><section id="read-us-boundary-file"><h2 class="section-heading">Read US Boundary File<a class="anchor" aria-label="anchor" href="#read-us-boundary-file"></a>
 </h2>
 <hr class="half-width"><p>We will use the <code>st_read()</code> function to import the
@@ -468,7 +468,7 @@ it look nicer. We will import
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">country_boundary_US</span> <span class="op">&lt;-</span> <span class="fu">st_read</span><span class="op">(</span><span class="st">"data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<code class="sourceCode R"><span><span class="va">country_boundary_US</span> <span class="op">&lt;-</span> <span class="fu">st_read</span><span class="op">(</span><span class="st">"data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">st_zm</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -711,12 +711,12 @@ Geodetic CRS:  WGS 84</code></pre>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">NE.States.Boundary.US</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span><span class="st">"color"</span><span class="op">)</span>, </span>
+<span>    <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">NE.States.Boundary.US</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span><span class="st">"color"</span><span class="op">)</span>,</span>
 <span>            show.legend <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">scale_color_manual</span><span class="op">(</span>name <span class="op">=</span> <span class="st">""</span>, labels <span class="op">=</span> <span class="st">"State Boundary"</span>, </span>
+<span>    <span class="fu">scale_color_manual</span><span class="op">(</span>name <span class="op">=</span> <span class="st">""</span>, labels <span class="op">=</span> <span class="st">"State Boundary"</span>,</span>
 <span>                       values <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"color"</span> <span class="op">=</span> <span class="st">"gray18"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">point_HARV</span>, <span class="fu">aes</span><span class="op">(</span>shape <span class="op">=</span> <span class="st">"shape"</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">scale_shape_manual</span><span class="op">(</span>name <span class="op">=</span> <span class="st">""</span>, labels <span class="op">=</span> <span class="st">"Fisher Tower"</span>, </span>
+<span>    <span class="fu">scale_shape_manual</span><span class="op">(</span>name <span class="op">=</span> <span class="st">""</span>, labels <span class="op">=</span> <span class="st">"Fisher Tower"</span>,</span>
 <span>                       values <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"shape"</span> <span class="op">=</span> <span class="fl">19</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Fisher Tower location"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">theme</span><span class="op">(</span>legend.background <span class="op">=</span> <span class="fu">element_rect</span><span class="op">(</span>color <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -748,7 +748,7 @@ the same CRS.</li>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link" href="08-vector-plot-shapefiles-custom-legend.html" rel="prev"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous: Plot Multiple</a>
+        <a class="chapter-link" href="08-vector-plot-shapefiles-custom-legend.html" rel="prev"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous: Plot Multiple Vector</a>
         <a class="chapter-link float-end" href="10-vector-csv-to-shapefile-in-r.html" rel="next">Next: Convert from .csv to... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
     </nav></div> <!-- / div.primary-content.col-xs-12 -->
@@ -794,7 +794,7 @@ the same CRS.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/09-vector-when-data-dont-line-up-crs.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/09-vector-when-data-dont-line-up-crs.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2023-04-09",
+  "dateModified": "2023-04-11",
   "datePublished": "2023-04-11"
 }
 
