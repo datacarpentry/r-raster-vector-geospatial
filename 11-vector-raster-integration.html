@@ -230,7 +230,7 @@
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
-        Manipulate Raster Data
+        11. Manipulate Raster Data
         </span>
       </button>
     </div><!--/div.accordion-header-->
@@ -363,13 +363,13 @@ overlay.</li>
 </div>
 </div>
 </div>
-<div id="prereq1" class="callout prereq">
+<div id="things-youll-need-to-complete-this-episode" class="callout prereq">
 <div class="callout-square">
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
 <h3 class="callout-title">Things You’ll Need To Complete This
-Episode<a class="anchor" aria-label="anchor" href="#prereq1"></a>
+Episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
 </h3>
 <div class="callout-content">
 <p>See the <a href=".">lesson homepage</a> for detailed information
@@ -389,8 +389,9 @@ extents. The spatial extent of a vector layer or R spatial object
 represents the geographic “edge” or location that is the furthest north,
 south east and west. Thus it represents the overall geographic coverage
 of the spatial object.</p>
-<figure><img src="fig/dc-spatial-vector/spatial_extent.png" alt="Extent illustration" class="figure mx-auto d-block"> Image Source: National Ecological
-Observatory Network (NEON)</figure><p>The graphic below illustrates the extent of several of the spatial
+<p><img src="fig/dc-spatial-vector/spatial_extent.png" alt="Extent illustration" class="figure"> Image Source: National Ecological
+Observatory Network (NEON)</p>
+<p>The graphic below illustrates the extent of several of the spatial
 layers that we have worked with in this workshop:</p>
 <ul><li>Area of interest (AOI) – blue</li>
 <li>Roads and trails – purple</li>
@@ -525,12 +526,12 @@ site.</p>
 <p>Our plot location extent is not the largest but is larger than the
 AOI Boundary. It would be nice to see our vegetation plot locations
 plotted on top of the Canopy Height Model information.</p>
-<div id="challenge1" class="callout challenge">
+<div id="challenge-crop-to-vector-points-extent" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-crop-to-vector-points-extent" class="callout-inner">
-<h3 class="callout-title">Challenge: Crop to Vector Points Extent<a class="anchor" aria-label="anchor" href="#challenge1"></a>
+<h3 class="callout-title">Challenge: Crop to Vector Points Extent<a class="anchor" aria-label="anchor" href="#challenge-crop-to-vector-points-extent"></a>
 </h3>
 <div class="callout-content">
 <ol style="list-style-type: decimal"><li>Crop the Canopy Height Model to the extent of the study plot
@@ -547,7 +548,7 @@ Model.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -601,12 +602,12 @@ function our xmin, xmax, ymin, and ymax (in that order).</p>
 attr(,"package")
 [1] "terra"</code></pre>
 </div>
-<div id="callout1" class="callout callout">
+<div id="data-tip" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#callout1"></a>
+<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip"></a>
 </h3>
 <div class="callout-content">
 <p>The extent can be created from a numeric vector (as shown above), a
@@ -652,8 +653,9 @@ locations - for example, plot locations that we are sampling on the
 ground. We can extract all pixel values within 20m of our x,y point of
 interest. These can then be summarized into some value of interest
 (e.g. mean, maximum, total).</p>
-<figure><img src="fig//BufferSquare.png" alt="Image shows raster information extraction using 20m polygon boundary." class="figure mx-auto d-block">
-Image Source: National Ecological Observatory Network (NEON)</figure><p>To do this in R, we use the <code>extract()</code> function. The
+<p><img src="fig//BufferSquare.png" alt="Image shows raster information extraction using 20m polygon boundary." class="figure">
+Image Source: National Ecological Observatory Network (NEON)</p>
+<p>To do this in R, we use the <code>extract()</code> function. The
 <code>extract()</code> function requires:</p>
 <ul><li>The raster that we wish to extract values from,</li>
 <li>The vector layer containing the polygons that we wish to use as a
@@ -751,8 +753,9 @@ argument (<code>fun = mean</code>) and the buffer distance
 region around each point. By default, the units of the buffer are the
 same units as the data’s CRS. All pixels that are touched by the buffer
 region are included in the extract.</p>
-<figure><img src="fig/BufferCircular.png" alt="Image shows raster information extraction using 20m buffer region." class="figure mx-auto d-block">
-Image Source: National Ecological Observatory Network (NEON)</figure><p>Let’s put this into practice by figuring out the mean tree height in
+<p><img src="fig/BufferCircular.png" alt="Image shows raster information extraction using 20m buffer region." class="figure">
+Image Source: National Ecological Observatory Network (NEON)</p>
+<p>Let’s put this into practice by figuring out the mean tree height in
 the 20m around the tower location (<code>point_HARV</code>).</p>
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -770,13 +773,13 @@ the 20m around the tower location (<code>point_HARV</code>).</p>
 <pre class="output" tabindex="0"><code>  ID HARV_chmCrop
 1  1     22.38806</code></pre>
 </div>
-<div id="challenge2" class="callout challenge">
+<div id="challenge-extract-raster-height-values-for-plot-locations" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-extract-raster-height-values-for-plot-locations" class="callout-inner">
 <h3 class="callout-title">Challenge: Extract Raster Height Values For
-Plot Locations<a class="anchor" aria-label="anchor" href="#challenge2"></a>
+Plot Locations<a class="anchor" aria-label="anchor" href="#challenge-extract-raster-height-values-for-plot-locations"></a>
 </h3>
 <div class="callout-content">
 <ol style="list-style-type: decimal"><li><p>Use the plot locations object
@@ -795,7 +798,7 @@ averages returned.</p></li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -901,9 +904,9 @@ raster object that fall within a particular extent boundary.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.11.16" class="external-link">sandpaper (0.11.16)</a>,
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.12.2" class="external-link">sandpaper (0.12.2)</a>,
         <a href="https://github.com/carpentries/pegboard" class="external-link">pegboard (0.5.3)</a>,
-      and <a href="https://github.com/carpentries/varnish/tree/0.2.16" class="external-link">varnish (0.2.16)</a>.</p>
+      and <a href="https://github.com/carpentries/varnish/tree/0.2.17" class="external-link">varnish (0.2.17)</a>.</p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -925,7 +928,7 @@ raster object that fall within a particular extent boundary.</li>
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/11-vector-raster-integration.html",
   "dateCreated": "2015-10-22",
   "dateModified": "2023-05-02",
-  "datePublished": "2023-05-16"
+  "datePublished": "2023-05-30"
 }
 
   </script><script>

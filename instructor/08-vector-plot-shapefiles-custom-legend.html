@@ -202,7 +202,7 @@
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
-        Plot Multiple Vector Layers
+        8. Plot Multiple Vector Layers
         </span>
       </button>
     </div><!--/div.accordion-header-->
@@ -361,13 +361,13 @@ ggplot?</li>
 </div>
 </div>
 </div>
-<div id="prereq1" class="callout prereq">
+<div id="things-youll-need-to-complete-this-episode" class="callout prereq">
 <div class="callout-square">
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
 <h3 class="callout-title">Things You’ll Need To Complete This
-Episode<a class="anchor" aria-label="anchor" href="#prereq1"></a>
+Episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
 </h3>
 <div class="callout-content">
 <p>See the <a href=".">lesson homepage</a> for detailed information
@@ -456,12 +456,12 @@ the respective <code>color</code> and <code>fill</code> palettes.</p>
 <figure><img src="../fig/08-vector-plot-shapefiles-custom-legend-rendered-create-custom-legend-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Finally, it might be better if the points were symbolized as a
 symbol. We can customize this using <code>shape</code> parameters in our
 call to <code>geom_sf</code>: 16 is a point symbol, 15 is a box.</p>
-<div id="callout1" class="callout callout">
+<div id="data-tip" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#callout1"></a>
+<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip"></a>
 </h3>
 <div class="callout-content">
 <p>To view a short list of <code>shape</code> symbols, type
@@ -483,12 +483,12 @@ call to <code>geom_sf</code>: 16 is a point symbol, 15 is a box.</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/08-vector-plot-shapefiles-custom-legend-rendered-custom-symbols-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge1" class="callout challenge">
+<figure><img src="../fig/08-vector-plot-shapefiles-custom-legend-rendered-custom-symbols-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-plot-polygon-by-attribute" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-plot-polygon-by-attribute" class="callout-inner">
-<h3 class="callout-title">Challenge: Plot Polygon by Attribute<a class="anchor" aria-label="anchor" href="#challenge1"></a>
+<h3 class="callout-title">Challenge: Plot Polygon by Attribute<a class="anchor" aria-label="anchor" href="#challenge-plot-polygon-by-attribute"></a>
 </h3>
 <div class="callout-content">
 <ol style="list-style-type: decimal"><li><p>Using the
@@ -511,7 +511,7 @@ different symbol of <code>shape</code> value.</p></li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>First we need to read in the data and see how many unique soils are
 represented in the <code>soilTypeOr</code> attribute.</p>
@@ -595,13 +595,13 @@ multiple values to the <code>scale_shape_manual()</code> argument.</p>
 </div>
 </div>
 </div>
-<div id="challenge2" class="callout challenge">
+<div id="challenge-plot-raster-vector-data-together" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-plot-raster-vector-data-together" class="callout-inner">
 <h3 class="callout-title">Challenge: Plot Raster &amp; Vector Data
-Together<a class="anchor" aria-label="anchor" href="#challenge2"></a>
+Together<a class="anchor" aria-label="anchor" href="#challenge-plot-raster-vector-data-together"></a>
 </h3>
 <div class="callout-content">
 <p>You can plot vector data layered on top of raster data using the
@@ -623,7 +623,7 @@ as a base layer. On top of the CHM, please add:</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -689,9 +689,9 @@ colors.</li>
         <p>Materials licensed under <a href="../LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.11.16" class="external-link">sandpaper (0.11.16)</a>,
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.12.2" class="external-link">sandpaper (0.12.2)</a>,
         <a href="https://github.com/carpentries/pegboard" class="external-link">pegboard (0.5.3)</a>,
-      and <a href="https://github.com/carpentries/varnish/tree/0.2.16" class="external-link">varnish (0.2.16)</a>.</p>
+      and <a href="https://github.com/carpentries/varnish/tree/0.2.17" class="external-link">varnish (0.2.17)</a>.</p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -713,7 +713,7 @@ colors.</li>
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/08-vector-plot-shapefiles-custom-legend.html",
   "dateCreated": "2015-10-22",
   "dateModified": "2023-05-02",
-  "datePublished": "2023-05-16"
+  "datePublished": "2023-05-30"
 }
 
   </script><script>

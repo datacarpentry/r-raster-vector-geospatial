@@ -257,7 +257,7 @@
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
-        Derive Values from Raster Time Series
+        14. Derive Values from Raster Time Series
         </span>
       </button>
     </div><!--/div.accordion-header-->
@@ -366,13 +366,13 @@ data?</li>
 </div>
 </div>
 </div>
-<div id="prereq1" class="callout prereq">
+<div id="things-youll-need-to-complete-this-episode" class="callout prereq">
 <div class="callout-square">
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
 <h3 class="callout-title">Things You’ll Need To Complete This
-Episode<a class="anchor" aria-label="anchor" href="#prereq1"></a>
+Episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
 </h3>
 <div class="callout-content">
 <p>See the <a href=".">lesson homepage</a> for detailed information
@@ -616,13 +616,13 @@ new <code>Date</code> column is also stored as class
 </h3>
 <pre class="output" tabindex="0"><code>[1] "Date"</code></pre>
 </div>
-<div id="challenge1" class="callout challenge">
+<div id="challenge-ndvi-for-the-san-joaquin-experimental-range" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-ndvi-for-the-san-joaquin-experimental-range" class="callout-inner">
 <h3 class="callout-title">Challenge: NDVI for the San Joaquin
-Experimental Range<a class="anchor" aria-label="anchor" href="#challenge1"></a>
+Experimental Range<a class="anchor" aria-label="anchor" href="#challenge-ndvi-for-the-san-joaquin-experimental-range"></a>
 </h3>
 <div class="callout-content">
 <p>We often want to compare two different sites. The National Ecological
@@ -722,13 +722,13 @@ days. Let’s plot our data.</p>
 <span>          subtitle <span class="op">=</span> <span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Julian Days"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">"Mean NDVI"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-ggplot-data-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge2" class="callout challenge">
+<figure><img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-ggplot-data-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-plot-san-joaquin-experimental-range-data" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-plot-san-joaquin-experimental-range-data" class="callout-inner">
 <h3 class="callout-title">Challenge: Plot San Joaquin Experimental Range
-Data<a class="anchor" aria-label="anchor" href="#challenge2"></a>
+Data<a class="anchor" aria-label="anchor" href="#challenge-plot-san-joaquin-experimental-range-data"></a>
 </h3>
 <div class="callout-content">
 <p>Create a complementary plot for the SJER data. Plot the data points
@@ -783,12 +783,12 @@ to be merged.</p>
 <span>          subtitle <span class="op">=</span> <span class="st">"Harvard Forest vs San Joaquin"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Julian Day"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">"Mean NDVI"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-ndvi-harv-sjer-comp-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge3" class="callout challenge">
+<figure><img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-ndvi-harv-sjer-comp-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-plot-ndvi-with-date" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-plot-ndvi-with-date" class="callout-inner">
-<h3 class="callout-title">Challenge: Plot NDVI with date<a class="anchor" aria-label="anchor" href="#challenge3"></a>
+<h3 class="callout-title">Challenge: Plot NDVI with date<a class="anchor" aria-label="anchor" href="#challenge-plot-ndvi-with-date"></a>
 </h3>
 <div class="callout-content">
 <p>Plot the SJER and HARV data in one plot but use date, rather than
@@ -841,12 +841,12 @@ One way to do this is by identifying a threshold value. All values below
 that threshold will be removed from our analysis. We will use 0.1 as an
 example for this episode. We can then use the subset function to remove
 outlier datapoints (below our identified threshold).</p>
-<div id="callout1" class="callout callout">
+<div id="data-tip" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#callout1"></a>
+<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip"></a>
 </h3>
 <div class="callout-content">
 <p>Thresholding, or removing outlier data, can be tricky business. In
@@ -939,12 +939,12 @@ in our data frame. Let’s remove the row names.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">write.csv</span><span class="op">(</span><span class="va">avg_NDVI_HARV_clean</span>, file<span class="op">=</span><span class="st">"meanNDVI_HARV_2011.csv"</span><span class="op">)</span></span></code></pre>
 </div>
-<div id="challenge4" class="callout challenge">
+<div id="challenge-write-to-.csv" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-write-to-.csv" class="callout-inner">
-<h3 class="callout-title">Challenge: Write to .csv<a class="anchor" aria-label="anchor" href="#challenge4"></a>
+<h3 class="callout-title">Challenge: Write to .csv<a class="anchor" aria-label="anchor" href="#challenge-write-to-.csv"></a>
 </h3>
 <div class="callout-content">
 <ol style="list-style-type: decimal"><li>Create a NDVI .csv file for the NEON SJER field site that is
@@ -1040,9 +1040,9 @@ have the same column names.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.11.16" class="external-link">sandpaper (0.11.16)</a>,
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.12.2" class="external-link">sandpaper (0.12.2)</a>,
         <a href="https://github.com/carpentries/pegboard" class="external-link">pegboard (0.5.3)</a>,
-      and <a href="https://github.com/carpentries/varnish/tree/0.2.16" class="external-link">varnish (0.2.16)</a>.</p>
+      and <a href="https://github.com/carpentries/varnish/tree/0.2.17" class="external-link">varnish (0.2.17)</a>.</p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -1064,7 +1064,7 @@ have the same column names.</li>
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/14-extract-ndvi-from-rasters-in-r.html",
   "dateCreated": "2015-10-22",
   "dateModified": "2023-05-02",
-  "datePublished": "2023-05-16"
+  "datePublished": "2023-05-30"
 }
 
   </script><script>

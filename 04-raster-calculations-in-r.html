@@ -167,7 +167,7 @@
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
-        Raster Calculations
+        4. Raster Calculations
         </span>
       </button>
     </div><!--/div.accordion-header-->
@@ -363,13 +363,13 @@ raster <code>lapp()</code> function.</li>
 </div>
 </div>
 </div>
-<div id="prereq1" class="callout prereq">
+<div id="things-youll-need-to-complete-this-episode" class="callout prereq">
 <div class="callout-square">
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
 <h3 class="callout-title">Things You’ll Need To Complete This
-Episode<a class="anchor" aria-label="anchor" href="#prereq1"></a>
+Episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
 </h3>
 <div class="callout-content">
 <p>See the <a href=".">lesson homepage</a> for detailed information
@@ -394,12 +394,12 @@ trees) and the Digital Terrain Model (DTM, ground level). The resulting
 dataset is referred to as a Canopy Height Model (CHM) and represents the
 actual height of trees, buildings, etc. with the influence of ground
 elevation removed.</p>
-<figure><img src="fig/dc-spatial-raster/lidarTree-height.png" alt="Source: National Ecological Observatory Network (NEON)" class="figure mx-auto d-block"></figure><div id="callout1" class="callout callout">
+<figure><img src="fig/dc-spatial-raster/lidarTree-height.png" alt="Source: National Ecological Observatory Network (NEON)" class="figure mx-auto d-block"></figure><div id="more-resources" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="more-resources" class="callout-inner">
-<h3 class="callout-title">More Resources<a class="anchor" aria-label="anchor" href="#callout1"></a>
+<h3 class="callout-title">More Resources<a class="anchor" aria-label="anchor" href="#more-resources"></a>
 </h3>
 <div class="callout-content">
 <ul><li>Check out more on LiDAR CHM, DTM and DSM in this NEON Data Skills
@@ -413,12 +413,12 @@ is a CHM, DSM and DTM? About Gridded, Raster LiDAR Data</a>.</li>
 <p>For this episode, we will use the DTM and DSM from the NEON Harvard
 Forest Field site and San Joaquin Experimental Range, which we already
 have loaded from previous episodes.</p>
-<div id="challenge1" class="callout challenge">
+<div id="exercise" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="exercise" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#challenge1"></a>
+<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise"></a>
 </h3>
 <div class="callout-content">
 <p>Use the <code>describe()</code> function to view information about
@@ -667,12 +667,12 @@ Canopy Height Model (CHM).</p>
 </div>
 <figure><img src="fig/04-raster-calculations-in-r-rendered-create-hist-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Notice that the range of values for the output CHM is between 0 and
 30 meters. Does this make sense for trees in Harvard Forest?</p>
-<div id="challenge2" class="callout challenge">
+<div id="challenge-explore-chm-raster-values" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-explore-chm-raster-values" class="callout-inner">
-<h3 class="callout-title">Challenge: Explore CHM Raster Values<a class="anchor" aria-label="anchor" href="#challenge2"></a>
+<h3 class="callout-title">Challenge: Explore CHM Raster Values<a class="anchor" aria-label="anchor" href="#challenge-explore-chm-raster-values"></a>
 </h3>
 <div class="callout-content">
 <p>It’s often a good idea to explore the range of values in a raster
@@ -785,12 +785,12 @@ syntax is</p>
 <p><code>outputRaster &lt;- lapp(x, fun=functionName)</code></p>
 <p>In which raster can be either a SpatRaster or a SpatRasterDataset
 which is an object that holds rasters. See <code>help(sds)</code>.</p>
-<div id="callout2" class="callout callout">
+<div id="data-tip" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#callout2"></a>
+<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip"></a>
 </h3>
 <div class="callout-content">
 <p>To create a SpatRasterDataset, we call the function <code>sds</code>
@@ -801,12 +801,12 @@ which can take a list of raster objects (each one created by calling
 </div>
 <p>Let’s perform the same subtraction calculation that we calculated
 above using raster math, using the <code>lapp()</code> function.</p>
-<div id="callout3" class="callout callout">
+<div id="data-tip-1" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip-1" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#callout3"></a>
+<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip-1"></a>
 </h3>
 <div class="callout-content">
 <p>A custom function consists of a defined set of commands performed on
@@ -880,13 +880,13 @@ WITH CAUTION!</li>
 <strong>NAflag:</strong> set the GeoTIFF tag for
 <code>NoDataValue</code> to -9999, the National Ecological Observatory
 Network’s (NEON) standard <code>NoDataValue</code>.</li>
-</ul><div id="challenge3" class="callout challenge">
+</ul><div id="challenge-explore-the-neon-san-joaquin-experimental-range-field-site" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-explore-the-neon-san-joaquin-experimental-range-field-site" class="callout-inner">
 <h3 class="callout-title">Challenge: Explore the NEON San Joaquin
-Experimental Range Field Site<a class="anchor" aria-label="anchor" href="#challenge3"></a>
+Experimental Range Field Site<a class="anchor" aria-label="anchor" href="#challenge-explore-the-neon-san-joaquin-experimental-range-field-site"></a>
 </h3>
 <div class="callout-content">
 <p>Data are often more interesting and powerful when we compare them
@@ -1053,9 +1053,9 @@ data to a file.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.11.16" class="external-link">sandpaper (0.11.16)</a>,
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.12.2" class="external-link">sandpaper (0.12.2)</a>,
         <a href="https://github.com/carpentries/pegboard" class="external-link">pegboard (0.5.3)</a>,
-      and <a href="https://github.com/carpentries/varnish/tree/0.2.16" class="external-link">varnish (0.2.16)</a>.</p>
+      and <a href="https://github.com/carpentries/varnish/tree/0.2.17" class="external-link">varnish (0.2.17)</a>.</p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -1077,7 +1077,7 @@ data to a file.</li>
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/04-raster-calculations-in-r.html",
   "dateCreated": "2015-10-22",
   "dateModified": "2023-05-02",
-  "datePublished": "2023-05-16"
+  "datePublished": "2023-05-30"
 }
 
   </script><script>

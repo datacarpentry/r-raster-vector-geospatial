@@ -211,7 +211,7 @@
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
-        Handling Spatial Projection &amp; CRS
+        9. Handling Spatial Projection &amp; CRS
         </span>
       </button>
     </div><!--/div.accordion-header-->
@@ -361,13 +361,13 @@
 </div>
 </div>
 </div>
-<div id="prereq1" class="callout prereq">
+<div id="things-youll-need-to-complete-this-episode" class="callout prereq">
 <div class="callout-square">
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
 <h3 class="callout-title">Things You’ll Need To Complete This
-Episode<a class="anchor" aria-label="anchor" href="#prereq1"></a>
+Episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
 </h3>
 <div class="callout-content">
 <p>See the <a href=".">lesson homepage</a> for detailed information
@@ -398,8 +398,9 @@ provider (for example, a government agency).</li>
 <li>The data are stored in a particular CRS that is customized to a
 region. For instance, many states in the US prefer to use a State Plane
 projection customized for that state.</li>
-</ol><figure><img src="../fig/map_usa_different_projections.jpg" alt="Maps of the United States using data in different projections. Source: opennews.org, from: https://media.opennews.org/cache/06/37/0637aa2541b31f526ad44f7cb2db7b6c.jpg" class="figure mx-auto d-block">{alt=’Maps
-of the United States using data in different projections.}</figure><p>Notice the differences in shape associated with each different
+</ol><p><img src="../fig/map_usa_different_projections.jpg" alt="Maps of the United States using data in different projections. Source: opennews.org, from: https://media.opennews.org/cache/06/37/0637aa2541b31f526ad44f7cb2db7b6c.jpg" class="figure">{alt=’Maps
+of the United States using data in different projections.}</p>
+<p>Notice the differences in shape associated with each different
 projection. These differences are a direct result of the calculations
 used to “flatten” the data onto a 2-dimensional map. Often data are
 stored purposefully in a particular projection that optimizes the
@@ -567,12 +568,12 @@ roundness is calculated) is WGS84</li>
 </ul><p>Note that there are no specified units above. This is because this
 geographic coordinate reference system is in latitude and longitude
 which is most often recorded in decimal degrees.</p>
-<div id="callout1" class="callout callout">
+<div id="data-tip" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#callout1"></a>
+<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip"></a>
 </h3>
 <div class="callout-content">
 <p>the last portion of each <code>proj4</code> string could potentially
@@ -617,12 +618,12 @@ with datums in this episode series.</p>
 <code>state_boundary_US</code> is in latitude and longitude which yields
 smaller numbers representing decimal degree units. Our tower location
 point is in UTM, is represented in meters.</p>
-<div id="callout2" class="callout callout">
+<div id="proj4-crs-resources" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="proj4-crs-resources" class="callout-inner">
-<h3 class="callout-title">Proj4 &amp; CRS Resources<a class="anchor" aria-label="anchor" href="#callout2"></a>
+<h3 class="callout-title">Proj4 &amp; CRS Resources<a class="anchor" aria-label="anchor" href="#proj4-crs-resources"></a>
 </h3>
 <div class="callout-content">
 <ul><li><a href="https://proj4.org/" class="external-link">Official PROJ library
@@ -658,13 +659,13 @@ three data sets together without doing any conversion:</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Map of Contiguous US State Boundaries"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/09-vector-when-data-dont-line-up-crs-rendered-layer-point-on-states-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge1" class="callout challenge">
+<figure><img src="../fig/09-vector-when-data-dont-line-up-crs-rendered-layer-point-on-states-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge---plot-multiple-layers-of-spatial-data" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge---plot-multiple-layers-of-spatial-data" class="callout-inner">
 <h3 class="callout-title">Challenge - Plot Multiple Layers of Spatial
-Data<a class="anchor" aria-label="anchor" href="#challenge1"></a>
+Data<a class="anchor" aria-label="anchor" href="#challenge---plot-multiple-layers-of-spatial-data"></a>
 </h3>
 <div class="callout-content">
 <p>Create a map of the North Eastern United States as follows:</p>
@@ -685,7 +686,7 @@ Tower location point.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -772,9 +773,9 @@ the same CRS.</li>
         <p>Materials licensed under <a href="../LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.11.16" class="external-link">sandpaper (0.11.16)</a>,
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.12.2" class="external-link">sandpaper (0.12.2)</a>,
         <a href="https://github.com/carpentries/pegboard" class="external-link">pegboard (0.5.3)</a>,
-      and <a href="https://github.com/carpentries/varnish/tree/0.2.16" class="external-link">varnish (0.2.16)</a>.</p>
+      and <a href="https://github.com/carpentries/varnish/tree/0.2.17" class="external-link">varnish (0.2.17)</a>.</p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -796,7 +797,7 @@ the same CRS.</li>
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/09-vector-when-data-dont-line-up-crs.html",
   "dateCreated": "2015-10-22",
   "dateModified": "2023-05-02",
-  "datePublished": "2023-05-16"
+  "datePublished": "2023-05-30"
 }
 
   </script><script>
