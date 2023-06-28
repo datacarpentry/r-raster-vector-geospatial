@@ -3,7 +3,6 @@ title: Instructor Notes
 ---
 
 
-
 ## Instructor notes
 
 ## Lesson motivation and learning objectives
@@ -90,40 +89,40 @@ polygon edge not found
 > {: .error}
 > ```
 
-#### [Explore and Plot by Shapefile Attributes](07-vector-shapefile-attributes-in-r/)
+#### [Explore and Plot by Shapefile Attributes](07-vector-shapefile-attributes-in-r.md)
 
 - No notes yet. Please add your tips and comments!
 
-#### [Plot Multiple Shapefiles in R](08-vector-plot-shapefiles-custom-legend/)
+#### [Plot Multiple Shapefiles in R](08-vector-plot-shapefiles-custom-legend.md)
 
 - No notes yet. Please add your tips and comments!
 
-#### [Handling Spatial Projection \& CRS in R](09-vector-when-data-dont-line-up-crs/)
+#### [Handling Spatial Projection \& CRS in R](09-vector-when-data-dont-line-up-crs.md)
 
 - Note that, although `ggplot` automatically reprojects vector data when plotting multiple shapefiles with
   different projections together, it is still important to be aware of the CRSs of your data and to keep track
   of how they are being transformed.
 
-#### [Convert from .csv to a Shapefile in R](10-vector-csv-to-shapefile-in-r/)
+#### [Convert from .csv to a Shapefile in R](10-vector-csv-to-shapefile-in-r.md)
 
 - No notes yet. Please add your tips and comments!
 
-#### [Manipulate Raster Data in R](11-vector-raster-integration/)
+#### [Manipulate Raster Data in R](11-vector-raster-integration.md)
 
 - Learners have not yet been exposed to the `melt()` function in this workshop. They will need to have
   the syntax explained.
 - This is the first instance of a faceted plot in this workshop.
 
-#### [Raster Time Series Data in R](12-time-series-raster/)
+#### [Raster Time Series Data in R](12-time-series-raster.md)
 
 - No notes yet. Please add your tips and comments!
 
-#### [Create Publication-quality Graphics](13-plot-time-series-rasters-in-r/)
+#### [Create Publication-quality Graphics](13-plot-time-series-rasters-in-r.md)
 
 - Be sure to show learners the before and after plots to motivate the complexity of the
   `ggplot` calls that will be used in this episode.
 
-#### [Derive Values from Raster Time Series](14-extract-ndvi-from-rasters-in-r/)
+#### [Derive Values from Raster Time Series](14-extract-ndvi-from-rasters-in-r.md)
 
 - This is the first time in the workshop that learners will have worked with date data.
 
