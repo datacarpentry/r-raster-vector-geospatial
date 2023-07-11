@@ -702,102 +702,104 @@ methods(class=class(RGB_stack_HARV))
   [1] !                     [                     [[                   
   [4] [[<-                  [<-                   %in%                 
   [7] $                     $<-                   activeCat            
- [10] activeCat<-           add<-                 adjacent             
- [13] aggregate             align                 allNA                
- [16] animate               anyNA                 app                  
- [19] approximate           area                  Arith                
- [22] as.array              as.bool               as.character         
- [25] as.contour            as.data.frame         as.factor            
- [28] as.int                as.integer            as.lines             
- [31] as.list               as.logical            as.matrix            
- [34] as.numeric            as.points             as.polygons          
- [37] as.raster             atan_2                atan2                
- [40] autocor               barplot               blocks               
- [43] boundaries            boxplot               buffer               
- [46] c                     catalyze              categories           
- [49] cats                  cellFromRowCol        cellFromRowColCombine
- [52] cellFromXY            cells                 cellSize             
- [55] clamp_ts              clamp                 classify             
- [58] click                 coerce                colFromCell          
- [61] colFromX              colorize              coltab               
- [64] coltab<-              Compare               compare              
- [67] compareGeom           concats               contour              
- [70] costDist              costDistance          cover                
- [73] crds                  crop                  crosstab             
- [76] crs                   crs<-                 datatype             
- [79] deepcopy              density               depth                
- [82] depth<-               diff                  dim                  
- [85] dim<-                 direction             disagg               
- [88] distance              droplevels            expanse              
- [91] ext                   ext<-                 extend               
- [94] extract               fillTime              flip                 
- [97] focal                 focal3D               focalCor             
-[100] focalCpp              focalPairs            focalReg             
-[103] focalValues           freq                  global               
-[106] gridDist              gridDistance          has.colors           
-[109] has.RGB               hasMinMax             hasValues            
-[112] head                  hist                  ifel                 
-[115] image                 init                  inMemory             
-[118] inset                 interpIDW             interpNear           
-[121] interpolate           intersect             is.bool              
-[124] is.factor             is.finite             is.infinite          
-[127] is.int                is.lonlat             is.na                
-[130] is.nan                is.related            isFALSE              
-[133] isTRUE                lapp                  layerCor             
-[136] levels                levels<-              linearUnits          
-[139] lines                 log                   Logic                
-[142] logic                 longnames             longnames<-          
-[145] makeTiles             mask                  match                
-[148] math                  Math                  Math2                
-[151] mean                  median                merge                
-[154] meta                  minmax                modal                
-[157] mosaic                NAflag                NAflag<-             
-[160] names                 names<-               ncell                
-[163] ncol                  ncol<-                nlyr                 
-[166] nlyr<-                noNA                  not.na               
-[169] nrow                  nrow<-                nsrc                 
-[172] origin                origin<-              pairs                
-[175] panel                 patches               persp                
-[178] plet                  plot                  plotRGB              
-[181] points                polys                 predict              
-[184] project               quantile              rangeFill            
-[187] rapp                  rast                  rasterize            
-[190] rasterizeGeom         rasterizeWin          rcl                  
-[193] readStart             readStop              readValues           
-[196] rectify               relate                rep                  
-[199] res                   res<-                 resample             
-[202] rescale               rev                   RGB                  
-[205] RGB<-                 roll                  rotate               
-[208] rowColCombine         rowColFromCell        rowFromCell          
-[211] rowFromY              sapp                  saveRDS              
-[214] scale                 scoff                 scoff<-              
-[217] sds                   segregate             sel                  
-[220] selectHighest         selectRange           serialize            
-[223] set.cats              set.crs               set.ext              
-[226] set.names             set.RGB               set.values           
-[229] setMinMax             setValues             shift                
-[232] show                  sieve                 size                 
-[235] sort                  sources               spatSample           
-[238] split                 sprc                  stdev                
-[241] str                   stretch               subset               
-[244] subst                 summary               Summary              
-[247] t                     tail                  tapp                 
-[250] terrain               text                  tighten              
-[253] time                  time<-                timeInfo             
-[256] trans                 trim                  unique               
-[259] units                 units<-               update               
-[262] values                values<-              varnames             
-[265] varnames<-            viewshed              weighted.mean        
-[268] where.max             where.min             which.lyr            
-[271] which.max             which.min             window               
-[274] window<-              wrap                  writeCDF             
-[277] writeRaster           writeStart            writeStop            
-[280] writeValues           xFromCell             xFromCol             
-[283] xmax                  xmax<-                xmin                 
-[286] xmin<-                xres                  xyFromCell           
-[289] yFromCell             yFromRow              ymax                 
-[292] ymax<-                ymin                  ymin<-               
-[295] yres                  zonal                 zoom                 
+ [10] activeCat<-           add<-                 addCats              
+ [13] adjacent              aggregate             align                
+ [16] all.equal             allNA                 animate              
+ [19] anyNA                 app                   approximate          
+ [22] area                  Arith                 as.array             
+ [25] as.bool               as.character          as.contour           
+ [28] as.data.frame         as.factor             as.int               
+ [31] as.integer            as.lines              as.list              
+ [34] as.logical            as.matrix             as.numeric           
+ [37] as.points             as.polygons           as.raster            
+ [40] atan_2                atan2                 autocor              
+ [43] barplot               blocks                boundaries           
+ [46] boxplot               buffer                c                    
+ [49] catalyze              categories            cats                 
+ [52] cellFromRowCol        cellFromRowColCombine cellFromXY           
+ [55] cells                 cellSize              clamp_ts             
+ [58] clamp                 classify              click                
+ [61] coerce                colFromCell           colFromX             
+ [64] colorize              coltab                coltab<-             
+ [67] Compare               compare               compareGeom          
+ [70] concats               contour               costDist             
+ [73] countNA               cover                 crds                 
+ [76] crop                  crosstab              crs                  
+ [79] crs<-                 datatype              deepcopy             
+ [82] density               depth                 depth<-              
+ [85] diff                  dim                   dim<-                
+ [88] direction             disagg                distance             
+ [91] droplevels            expanse               ext                  
+ [94] ext<-                 extend                extract              
+ [97] fillTime              flip                  focal                
+[100] focal3D               focalCor              focalCpp             
+[103] focalPairs            focalReg              focalValues          
+[106] freq                  global                gridDist             
+[109] gridDistance          has.colors            has.RGB              
+[112] hasMinMax             hasValues             head                 
+[115] hist                  ifel                  image                
+[118] init                  inMemory              inset                
+[121] interpIDW             interpNear            interpolate          
+[124] intersect             is.bool               is.factor            
+[127] is.finite             is.infinite           is.int               
+[130] is.lonlat             is.na                 is.nan               
+[133] is.related            isFALSE               isTRUE               
+[136] lapp                  layerCor              levels               
+[139] levels<-              linearUnits           lines                
+[142] log                   Logic                 logic                
+[145] longnames             longnames<-           makeTiles            
+[148] mask                  match                 math                 
+[151] Math                  Math2                 mean                 
+[154] median                merge                 meta                 
+[157] minmax                modal                 mosaic               
+[160] NAflag                NAflag<-              names                
+[163] names<-               ncell                 ncol                 
+[166] ncol<-                nlyr                  nlyr<-               
+[169] noNA                  not.na                nrow                 
+[172] nrow<-                nsrc                  origin               
+[175] origin<-              pairs                 panel                
+[178] patches               persp                 plet                 
+[181] plot                  plotRGB               points               
+[184] polys                 predict               project              
+[187] quantile              rangeFill             rapp                 
+[190] rast                  rasterize             rasterizeGeom        
+[193] rasterizeWin          rcl                   readStart            
+[196] readStop              readValues            rectify              
+[199] regress               relate                rep                  
+[202] res                   res<-                 resample             
+[205] rescale               rev                   RGB                  
+[208] RGB<-                 roll                  rotate               
+[211] rowColCombine         rowColFromCell        rowFromCell          
+[214] rowFromY              sapp                  saveRDS              
+[217] scale                 scoff                 scoff<-              
+[220] sds                   segregate             sel                  
+[223] selectHighest         selectRange           serialize            
+[226] set.cats              set.crs               set.ext              
+[229] set.names             set.RGB               set.values           
+[232] setMinMax             setValues             shift                
+[235] show                  sieve                 size                 
+[238] sort                  sources               spatSample           
+[241] split                 sprc                  stdev                
+[244] str                   stretch               subset               
+[247] subst                 summary               Summary              
+[250] t                     tail                  tapp                 
+[253] terrain               text                  tighten              
+[256] time                  time<-                timeInfo             
+[259] trans                 trim                  unique               
+[262] units                 units<-               update               
+[265] values                values<-              varnames             
+[268] varnames<-            viewshed              weighted.mean        
+[271] where.max             where.min             which.lyr            
+[274] which.max             which.min             window               
+[277] window<-              wrap                  wrapCache            
+[280] writeCDF              writeRaster           writeStart           
+[283] writeStop             writeValues           xFromCell            
+[286] xFromCol              xmax                  xmax<-               
+[289] xmin                  xmin<-                xres                 
+[292] xyFromCell            yFromCell             yFromRow             
+[295] ymax                  ymax<-                ymin                 
+[298] ymin<-                yres                  zonal                
+[301] zoom                 
 see '?methods' for accessing help and source code
 ```
 
@@ -812,102 +814,104 @@ methods(class=class(RGB_stack_HARV[[1]]))
   [1] !                     [                     [[                   
   [4] [[<-                  [<-                   %in%                 
   [7] $                     $<-                   activeCat            
- [10] activeCat<-           add<-                 adjacent             
- [13] aggregate             align                 allNA                
- [16] animate               anyNA                 app                  
- [19] approximate           area                  Arith                
- [22] as.array              as.bool               as.character         
- [25] as.contour            as.data.frame         as.factor            
- [28] as.int                as.integer            as.lines             
- [31] as.list               as.logical            as.matrix            
- [34] as.numeric            as.points             as.polygons          
- [37] as.raster             atan_2                atan2                
- [40] autocor               barplot               blocks               
- [43] boundaries            boxplot               buffer               
- [46] c                     catalyze              categories           
- [49] cats                  cellFromRowCol        cellFromRowColCombine
- [52] cellFromXY            cells                 cellSize             
- [55] clamp_ts              clamp                 classify             
- [58] click                 coerce                colFromCell          
- [61] colFromX              colorize              coltab               
- [64] coltab<-              Compare               compare              
- [67] compareGeom           concats               contour              
- [70] costDist              costDistance          cover                
- [73] crds                  crop                  crosstab             
- [76] crs                   crs<-                 datatype             
- [79] deepcopy              density               depth                
- [82] depth<-               diff                  dim                  
- [85] dim<-                 direction             disagg               
- [88] distance              droplevels            expanse              
- [91] ext                   ext<-                 extend               
- [94] extract               fillTime              flip                 
- [97] focal                 focal3D               focalCor             
-[100] focalCpp              focalPairs            focalReg             
-[103] focalValues           freq                  global               
-[106] gridDist              gridDistance          has.colors           
-[109] has.RGB               hasMinMax             hasValues            
-[112] head                  hist                  ifel                 
-[115] image                 init                  inMemory             
-[118] inset                 interpIDW             interpNear           
-[121] interpolate           intersect             is.bool              
-[124] is.factor             is.finite             is.infinite          
-[127] is.int                is.lonlat             is.na                
-[130] is.nan                is.related            isFALSE              
-[133] isTRUE                lapp                  layerCor             
-[136] levels                levels<-              linearUnits          
-[139] lines                 log                   Logic                
-[142] logic                 longnames             longnames<-          
-[145] makeTiles             mask                  match                
-[148] math                  Math                  Math2                
-[151] mean                  median                merge                
-[154] meta                  minmax                modal                
-[157] mosaic                NAflag                NAflag<-             
-[160] names                 names<-               ncell                
-[163] ncol                  ncol<-                nlyr                 
-[166] nlyr<-                noNA                  not.na               
-[169] nrow                  nrow<-                nsrc                 
-[172] origin                origin<-              pairs                
-[175] panel                 patches               persp                
-[178] plet                  plot                  plotRGB              
-[181] points                polys                 predict              
-[184] project               quantile              rangeFill            
-[187] rapp                  rast                  rasterize            
-[190] rasterizeGeom         rasterizeWin          rcl                  
-[193] readStart             readStop              readValues           
-[196] rectify               relate                rep                  
-[199] res                   res<-                 resample             
-[202] rescale               rev                   RGB                  
-[205] RGB<-                 roll                  rotate               
-[208] rowColCombine         rowColFromCell        rowFromCell          
-[211] rowFromY              sapp                  saveRDS              
-[214] scale                 scoff                 scoff<-              
-[217] sds                   segregate             sel                  
-[220] selectHighest         selectRange           serialize            
-[223] set.cats              set.crs               set.ext              
-[226] set.names             set.RGB               set.values           
-[229] setMinMax             setValues             shift                
-[232] show                  sieve                 size                 
-[235] sort                  sources               spatSample           
-[238] split                 sprc                  stdev                
-[241] str                   stretch               subset               
-[244] subst                 summary               Summary              
-[247] t                     tail                  tapp                 
-[250] terrain               text                  tighten              
-[253] time                  time<-                timeInfo             
-[256] trans                 trim                  unique               
-[259] units                 units<-               update               
-[262] values                values<-              varnames             
-[265] varnames<-            viewshed              weighted.mean        
-[268] where.max             where.min             which.lyr            
-[271] which.max             which.min             window               
-[274] window<-              wrap                  writeCDF             
-[277] writeRaster           writeStart            writeStop            
-[280] writeValues           xFromCell             xFromCol             
-[283] xmax                  xmax<-                xmin                 
-[286] xmin<-                xres                  xyFromCell           
-[289] yFromCell             yFromRow              ymax                 
-[292] ymax<-                ymin                  ymin<-               
-[295] yres                  zonal                 zoom                 
+ [10] activeCat<-           add<-                 addCats              
+ [13] adjacent              aggregate             align                
+ [16] all.equal             allNA                 animate              
+ [19] anyNA                 app                   approximate          
+ [22] area                  Arith                 as.array             
+ [25] as.bool               as.character          as.contour           
+ [28] as.data.frame         as.factor             as.int               
+ [31] as.integer            as.lines              as.list              
+ [34] as.logical            as.matrix             as.numeric           
+ [37] as.points             as.polygons           as.raster            
+ [40] atan_2                atan2                 autocor              
+ [43] barplot               blocks                boundaries           
+ [46] boxplot               buffer                c                    
+ [49] catalyze              categories            cats                 
+ [52] cellFromRowCol        cellFromRowColCombine cellFromXY           
+ [55] cells                 cellSize              clamp_ts             
+ [58] clamp                 classify              click                
+ [61] coerce                colFromCell           colFromX             
+ [64] colorize              coltab                coltab<-             
+ [67] Compare               compare               compareGeom          
+ [70] concats               contour               costDist             
+ [73] countNA               cover                 crds                 
+ [76] crop                  crosstab              crs                  
+ [79] crs<-                 datatype              deepcopy             
+ [82] density               depth                 depth<-              
+ [85] diff                  dim                   dim<-                
+ [88] direction             disagg                distance             
+ [91] droplevels            expanse               ext                  
+ [94] ext<-                 extend                extract              
+ [97] fillTime              flip                  focal                
+[100] focal3D               focalCor              focalCpp             
+[103] focalPairs            focalReg              focalValues          
+[106] freq                  global                gridDist             
+[109] gridDistance          has.colors            has.RGB              
+[112] hasMinMax             hasValues             head                 
+[115] hist                  ifel                  image                
+[118] init                  inMemory              inset                
+[121] interpIDW             interpNear            interpolate          
+[124] intersect             is.bool               is.factor            
+[127] is.finite             is.infinite           is.int               
+[130] is.lonlat             is.na                 is.nan               
+[133] is.related            isFALSE               isTRUE               
+[136] lapp                  layerCor              levels               
+[139] levels<-              linearUnits           lines                
+[142] log                   Logic                 logic                
+[145] longnames             longnames<-           makeTiles            
+[148] mask                  match                 math                 
+[151] Math                  Math2                 mean                 
+[154] median                merge                 meta                 
+[157] minmax                modal                 mosaic               
+[160] NAflag                NAflag<-              names                
+[163] names<-               ncell                 ncol                 
+[166] ncol<-                nlyr                  nlyr<-               
+[169] noNA                  not.na                nrow                 
+[172] nrow<-                nsrc                  origin               
+[175] origin<-              pairs                 panel                
+[178] patches               persp                 plet                 
+[181] plot                  plotRGB               points               
+[184] polys                 predict               project              
+[187] quantile              rangeFill             rapp                 
+[190] rast                  rasterize             rasterizeGeom        
+[193] rasterizeWin          rcl                   readStart            
+[196] readStop              readValues            rectify              
+[199] regress               relate                rep                  
+[202] res                   res<-                 resample             
+[205] rescale               rev                   RGB                  
+[208] RGB<-                 roll                  rotate               
+[211] rowColCombine         rowColFromCell        rowFromCell          
+[214] rowFromY              sapp                  saveRDS              
+[217] scale                 scoff                 scoff<-              
+[220] sds                   segregate             sel                  
+[223] selectHighest         selectRange           serialize            
+[226] set.cats              set.crs               set.ext              
+[229] set.names             set.RGB               set.values           
+[232] setMinMax             setValues             shift                
+[235] show                  sieve                 size                 
+[238] sort                  sources               spatSample           
+[241] split                 sprc                  stdev                
+[244] str                   stretch               subset               
+[247] subst                 summary               Summary              
+[250] t                     tail                  tapp                 
+[253] terrain               text                  tighten              
+[256] time                  time<-                timeInfo             
+[259] trans                 trim                  unique               
+[262] units                 units<-               update               
+[265] values                values<-              varnames             
+[268] varnames<-            viewshed              weighted.mean        
+[271] where.max             where.min             which.lyr            
+[274] which.max             which.min             window               
+[277] window<-              wrap                  wrapCache            
+[280] writeCDF              writeRaster           writeStart           
+[283] writeStop             writeValues           xFromCell            
+[286] xFromCol              xmax                  xmax<-               
+[289] xmin                  xmin<-                xres                 
+[292] xyFromCell            yFromCell             yFromRow             
+[295] ymax                  ymax<-                ymin                 
+[298] ymin<-                yres                  zonal                
+[301] zoom                 
 see '?methods' for accessing help and source code
 ```
 
