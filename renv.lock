@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.3.0",
+    "Version": "4.2.3",
     "Repositories": [
       {
         "Name": "carpentries",
@@ -543,6 +543,12 @@
       "Version": "0.12",
       "Source": "Repository",
       "Repository": "RSPM",
+      "RemoteType": "standard",
+      "RemotePkgRef": "mime",
+      "RemoteRef": "mime",
+      "RemoteRepos": "https://cran.rstudio.com",
+      "RemotePkgPlatform": "source",
+      "RemoteSha": "0.12",
       "Requirements": [
         "tools"
       ],
