@@ -675,48 +675,36 @@ other lines can be black.
 
 ## Answers
 
-First we need to make sure that the `BicyclesHo` attribute is a factor and
-check how many levels it has.
+First we explore the `BicyclesHo` attribute to learn the values that correspond
+to the roads we need.
 
 
 ```r
-lines_HARV$BicyclesHo <- as.factor(lines_HARV$BicyclesHo)
-class(lines_HARV$BicyclesHo)
+lines_HARV %>%
+  pull(BicyclesHo) %>%
+  unique()
 ```
 
 ```{.output}
-[1] "factor"
+[1] "Bicycles and Horses Allowed"     NA                               
+[3] "DO NOT SHOW ON REC MAP"          "Bicycles and Horses NOT ALLOWED"
 ```
 
-```r
-levels(lines_HARV$BicyclesHo)
-```
-
-```{.output}
-[1] "Bicycles and Horses Allowed"     "Bicycles and Horses NOT ALLOWED"
-[3] "DO NOT SHOW ON REC MAP"         
-```
-
-Next, we will create a new object `lines_removeNA` that removes missing values.
+Now, we can create a data frame with only those roads where bicycles and horses 
+are allowed.
 
 
 ```r
-lines_removeNA <- lines_HARV[!is.na(lines_HARV$BicyclesHo),]
-```
-
-In our plot, we will set colors so that only the allowed roads are magenta, and
-we will set line width so that the first factor level is thicker than the
-others.
-
-
-```r
-# First, create a data frame with only those roads where bicycles and horses
-# are allowed
 lines_showHarv <-
-  lines_removeNA %>%
+  lines_HARV %>%
   filter(BicyclesHo == "Bicycles and Horses Allowed")
+```
 
-# Next, visualise using ggplot
+Finally, we plot the needed roads after setting them to magenta and a thicker 
+line width.
+
+
+```r
 ggplot() +
   geom_sf(data = lines_HARV) +
   geom_sf(data = lines_showHarv, aes(color = BicyclesHo), size = 2) +
