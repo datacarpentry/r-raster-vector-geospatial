@@ -489,14 +489,14 @@ DSM_hill_SJER_WGS <-
     rast("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMhill_WGS84.tif")
 
 # reproject raster
-DTM_hill_UTMZ18N_SJER <- project(DSM_hill_SJER_WGS,
+DSM_hill_UTMZ18N_SJER <- project(DSM_hill_SJER_WGS,
                                  crs(DSM_SJER),
                                  res = 1)
 
 # convert to data.frames
 DSM_SJER_df <- as.data.frame(DSM_SJER, xy = TRUE)
 
-DSM_hill_SJER_df <- as.data.frame(DTM_hill_UTMZ18N_SJER, xy = TRUE)
+DSM_hill_SJER_df <- as.data.frame(DSM_hill_UTMZ18N_SJER, xy = TRUE)
 
 ggplot() +
      geom_raster(data = DSM_hill_SJER_df, 
