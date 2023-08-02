@@ -323,7 +323,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Reproject Raster Data</h1>
-        <p> Last updated on 2023-08-01 | 
+        <p> Last updated on 2023-08-02 | 
         
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/03-raster-reproject-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -871,14 +871,14 @@ files.</p>
 <span>    <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMhill_WGS84.tif"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># reproject raster</span></span>
-<span><span class="va">DTM_hill_UTMZ18N_SJER</span> <span class="op">&lt;-</span> <span class="fu">project</span><span class="op">(</span><span class="va">DSM_hill_SJER_WGS</span>,</span>
+<span><span class="va">DSM_hill_UTMZ18N_SJER</span> <span class="op">&lt;-</span> <span class="fu">project</span><span class="op">(</span><span class="va">DSM_hill_SJER_WGS</span>,</span>
 <span>                                 <span class="fu">crs</span><span class="op">(</span><span class="va">DSM_SJER</span><span class="op">)</span>,</span>
 <span>                                 res <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># convert to data.frames</span></span>
 <span><span class="va">DSM_SJER_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">DSM_SJER</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">DSM_hill_SJER_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">DTM_hill_UTMZ18N_SJER</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">DSM_hill_SJER_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">DSM_hill_UTMZ18N_SJER</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>     <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_hill_SJER_df</span>, </span>
@@ -995,8 +995,8 @@ CRSs.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/03-raster-reproject-in-r.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/03-raster-reproject-in-r.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2023-08-01",
-  "datePublished": "2023-08-01"
+  "dateModified": "2023-08-02",
+  "datePublished": "2023-08-02"
 }
 
   </script><script>
