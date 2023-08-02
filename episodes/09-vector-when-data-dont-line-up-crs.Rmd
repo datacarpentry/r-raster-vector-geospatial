@@ -251,8 +251,8 @@ conversion:
 
 ```{r layer-point-on-states}
 ggplot() +
-  geom_sf(data = country_boundary_US, size = 2, color = "gray18") +
-  geom_sf(data = state_boundary_US, color = "gray40") +
+  geom_sf(data = state_boundary_US, color = "gray60") +
+  geom_sf(data = country_boundary_US, size = 5, alpha = 0.25, color = "black") +
   geom_sf(data = point_HARV, shape = 19, color = "purple") +
   ggtitle("Map of Contiguous US State Boundaries") +
   coord_sf()
