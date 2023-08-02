@@ -101,7 +101,7 @@ community listed at <https://carpentries.org/connect/> including via social
 media, slack, newsletters, and email lists. You can also [reach us by
 email][contact].
 
-[repo]: https://example.com/FIXME
+[repo]: https://github.com/datacarpentry/r-raster-vector-geospatial
 [contact]: mailto:team@carpentries.org
 [cp-site]: https://carpentries.org/
 [dc-issues]: https://github.com/issues?q=user%3Adatacarpentry
