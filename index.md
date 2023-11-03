@@ -49,13 +49,13 @@ lesson.
 
 For installation instructions and to download the data used in this
 lesson, see the
-[Geospatial Workshop Overview](http://www.datacarpentry.org/geospatial-workshop/setup.html).
+[Geospatial Workshop Overview](http://www.datacarpentry.org/geospatial-workshop/#setup).
 
 ### Setup RStudio Project
 
 Make sure you have set up a RStudio project for this lesson, as
 described in the
-<a href="{{ site.baseurl }}/setup.html" target="_blank">setup instructions</a>
+[setup instructions](http://www.datacarpentry.org/geospatial-workshop/#setup)
 and that your working directory is correctly set.
 
 
