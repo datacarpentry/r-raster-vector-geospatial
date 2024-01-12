@@ -126,7 +126,8 @@ all_NDVI_HARV
 ```
 
 Now we have a list of all GeoTIFF files in the NDVI directory for Harvard
-Forest. Next, we will create a stack of rasters from this list using the 
+Forest. The number at the start of the filenames represents the julilan day. 
+Next, we will create a stack of rasters from this list using the 
 `rast()` function. We worked with the `rast()` function in 
 [an earlier episode](05-raster-multi-band-in-r/).
 
