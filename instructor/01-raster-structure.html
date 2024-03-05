@@ -414,13 +414,12 @@ loaded.</p>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">ggplot2</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span></code></pre>
 </div>
-<div id="introduce-the-data" class="callout callout">
+<div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="introduce-the-data" class="callout-inner">
-<h3 class="callout-title">Introduce the Data<a class="anchor" aria-label="anchor" href="#introduce-the-data"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="introduce-the-data">Introduce the Data<a class="anchor" aria-label="anchor" href="#introduce-the-data"></a></h3>
 <div class="callout-content">
 <p>If not already discussed, introduce the datasets that will be used in
 this lesson. A brief introduction to the datasets can be found on the <a href="https://datacarpentry.org/geospatial-workshop/#data" class="external-link">Geospatial
@@ -532,13 +531,12 @@ above.</p>
 <hr class="half-width"><p>Now that we’ve previewed the metadata for our GeoTIFF, let’s import
 this raster dataset into R and explore its metadata more closely. We can
 use the <code>rast()</code> function to open a raster in R.</p>
-<div id="data-tip---object-names" class="callout callout">
+<div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="data-tip---object-names" class="callout-inner">
-<h3 class="callout-title">Data Tip - Object names<a class="anchor" aria-label="anchor" href="#data-tip---object-names"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="data-tip---object-names">Data Tip - Object names<a class="anchor" aria-label="anchor" href="#data-tip---object-names"></a></h3>
 <div class="callout-content">
 <p>To improve code readability, file and object names should be used
 that make it clear what is in the file. The data for this episode were
@@ -663,13 +661,12 @@ page <code>?coord_map</code>.</p>
 </div>
 <figure style="text-align: center"><img src="../fig/01-raster-structure-rendered-ggplot-raster-1.png" alt="Raster plot with ggplot2 using the viridis color scale" class="figure mx-auto d-block"><figcaption>
 Raster plot with ggplot2 using the viridis color scale
-</figcaption></figure><div id="plotting-tip" class="callout callout">
+</figcaption></figure><div id="callout3" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="plotting-tip" class="callout-inner">
-<h3 class="callout-title">Plotting Tip<a class="anchor" aria-label="anchor" href="#plotting-tip"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="plotting-tip">Plotting Tip<a class="anchor" aria-label="anchor" href="#plotting-tip"></a></h3>
 <div class="callout-content">
 <p>More information about the Viridis palette used above at <a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html" class="external-link">R
 Viridis package documentation</a>.</p>
@@ -694,7 +691,7 @@ from the <code>terra</code> package.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show plot</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>See <code>?plot</code> for more arguments to customize the plot</p>
 <div class="codewrapper sourceCode" id="cb16">
@@ -748,7 +745,7 @@ the<code>crs()</code> function.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Answers</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p><code>+units=m</code> tells us that our data is in meters.</p>
 </div>
@@ -789,8 +786,10 @@ roundness is calculated) for the data is WGS84</li>
 </ul><p>Note that the zone is unique to the UTM projection. Not all CRSs will
 have a zone. Image source: Chrismurf at English Wikipedia, via <a href="https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system#/media/File:Utm-zones-USA.svg" class="external-link">Wikimedia
 Commons</a> (CC-BY).</p>
-<figure><img src="../fig/Utm-zones-USA.svg" alt="UTM zones in the USA." class="figure mx-auto d-block"><figcaption>The UTM zones across the continental United States.
-From: <a href="https://upload.wikimedia.org/wikipedia/commons/8/8d/Utm-zones-USA.svg" class="external-link uri">https://upload.wikimedia.org/wikipedia/commons/8/8d/Utm-zones-USA.svg</a></figcaption></figure></div>
+<figure><img src="../fig/Utm-zones-USA.svg" alt="UTM zones in the USA." class="figure mx-auto d-block"><div class="figcaption">The UTM zones across the continental United
+States. From: <a href="https://upload.wikimedia.org/wikipedia/commons/8/8d/Utm-zones-USA.svg" class="external-link uri">https://upload.wikimedia.org/wikipedia/commons/8/8d/Utm-zones-USA.svg</a>
+</div>
+</figure></div>
 </section><section id="calculate-raster-min-and-max-values"><h2 class="section-heading">Calculate Raster Min and Max Values<a class="anchor" aria-label="anchor" href="#calculate-raster-min-and-max-values"></a>
 </h2>
 <hr class="half-width"><p>It is useful to know the minimum or maximum values of a raster
@@ -833,13 +832,12 @@ max       416.07</code></pre>
 </h3>
 <pre class="output" tabindex="0"><code>[1] 416.07</code></pre>
 </div>
-<div id="data-tip---set-min-and-max-values" class="callout callout">
+<div id="callout4" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="data-tip---set-min-and-max-values" class="callout-inner">
-<h3 class="callout-title">Data Tip - Set min and max values<a class="anchor" aria-label="anchor" href="#data-tip---set-min-and-max-values"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="data-tip---set-min-and-max-values">Data Tip - Set min and max values<a class="anchor" aria-label="anchor" href="#data-tip---set-min-and-max-values"></a></h3>
 <div class="callout-content">
 <p>If the minimum and maximum values haven’t already been calculated, we
 can calculate them using the <code>setMinMax()</code> function.</p>
@@ -963,7 +961,7 @@ dataset.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3">Answers</h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1136,7 +1134,7 @@ in R</a> episode.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4">Answers</h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1225,13 +1223,12 @@ resolution of 1x1 and units in meters, therefore resolution of 5x5 means
 </div>
 </div>
 </div>
-<div id="more-resources" class="callout callout">
+<div id="callout5" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="more-resources" class="callout-inner">
-<h3 class="callout-title">More Resources<a class="anchor" aria-label="anchor" href="#more-resources"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="more-resources">More Resources<a class="anchor" aria-label="anchor" href="#more-resources"></a></h3>
 <div class="callout-content">
 <ul><li><a href="https://cran.r-project.org/package=terra" class="external-link">Read more about
 the <code>terra</code> package in R.</a></li>
@@ -1314,7 +1311,7 @@ to convert it to a dataframe.</li>
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/01-raster-structure.html",
   "dateCreated": "2015-10-22",
   "dateModified": "2023-11-21",
-  "datePublished": "2024-02-27"
+  "datePublished": "2024-03-05"
 }
 
   </script><script>
