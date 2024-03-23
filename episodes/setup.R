@@ -33,7 +33,7 @@ if (! file.exists("data/Global/Boundaries/ne_110m_graticules_all")) {
   dest <- tempfile()
   #download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
   #              dest, mode = "wb")
-  # The original url prompts a 302 response, 
+  # The original url (above) prompts a 302 response, 
   # which means that the request is redirected. The correct url is:
   download.file("https://naciscdn.org/naturalearth/110m/physical/ne_110m_graticules_all.zip",
                 dest, mode = "wb")
@@ -44,7 +44,7 @@ if (! file.exists("data/Global/Boundaries/ne_110m_land")) {
   dest <- tempfile()
   #download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_land.zip",
   #              dest, mode = "wb")
-  # The original url prompts a 302 response, 
+  # The original url (above) prompts a 302 response, 
   # which means that the request is redirected. The correct url is:
   download.file("https://naciscdn.org/naturalearth/110m/physical/ne_110m_land.zip",
                 dest, mode = "wb")
