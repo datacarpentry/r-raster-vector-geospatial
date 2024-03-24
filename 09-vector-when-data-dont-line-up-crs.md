@@ -168,19 +168,12 @@ boundaries and country boundaries.
 ```r
 ggplot() +
   geom_sf(data = state_boundary_US, color = "gray60") +
-  geom_sf(data = country_boundary_US, color = "black",alpha = 0.25,size = 5)
-```
-
-<img src="fig/09-vector-when-data-dont-line-up-crs-rendered-us-boundaries-thickness-1.png" style="display: block; margin: auto;" />
-
-```r
+  geom_sf(data = country_boundary_US, color = "black",alpha = 0.25,size = 5) +
   ggtitle("Map of Contiguous US State Boundaries") +
   coord_sf()
 ```
 
-```{.output}
-NULL
-```
+<img src="fig/09-vector-when-data-dont-line-up-crs-rendered-us-boundaries-thickness-1.png" style="display: block; margin: auto;" />
 
 Next, let's add the location of a flux tower where our study area is.
 As we are adding these layers, take note of the CRS of each object.
@@ -195,7 +188,7 @@ st_crs(point_HARV)$proj4string
 [1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
 ```
 
-Our project string for `DSM_HARV` specifies the UTM projection as follows:
+Our project string for `point_HARV` specifies the UTM projection as follows:
 
 `+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs`
 
@@ -237,8 +230,7 @@ the lat/long projection as follows:
   coordinate system
 - **datum=WGS84:** the datum WGS84 (the datum refers to the  0,0 reference for
   the coordinate system used in the projection)
-- **ellps=WGS84:** the ellipsoid (how the earth's roundness is calculated)
-  is WGS84
+- **no_defs:** ensures that no defaults are used, but this is now obsolete
 
 Note that there are no specified units above. This is because this geographic
 coordinate reference system is in latitude and longitude which is most often
