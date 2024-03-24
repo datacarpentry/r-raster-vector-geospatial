@@ -561,14 +561,14 @@ information that helps us determine the CRS:</p>
 <code>geodeticDa</code>: WGS84 – this is geodetic datum WGS84</li>
 <li>
 <code>utmZone</code>: 18</li>
-</ul><p>In <a href="09-vector-when-data-dont-line-up-crs/">When Vector Data
-Don’t Line Up - Handling Spatial Projection &amp; CRS in R</a> we
+</ul><p>In <a href="09-vector-when-data-dont-line-up-crs.html">When Vector
+Data Don’t Line Up - Handling Spatial Projection &amp; CRS in R</a> we
 learned about the components of a <code>proj4</code> string. We have
 everything we need to assign a CRS to our data frame.</p>
 <p>To create the <code>proj4</code> associated with UTM Zone 18 WGS84 we
-can look up the projection on the <a href="https://www.spatialreference.org/ref/epsg/wgs-84-utm-zone-18n/" class="external-link">Spatial
-Reference website</a>, which contains a list of CRS formats for each
-projection. From here, we can extract the <a href="https://www.spatialreference.org/ref/epsg/wgs-84-utm-zone-18n/proj4/" class="external-link">proj4
+can look up the projection on the <a href="https://spatialreference.org/ref/epsg/32618/" class="external-link">Spatial Reference
+website</a>, which contains a list of CRS formats for each projection.
+From here, we can extract the <a href="https://spatialreference.org/ref/epsg/32618/proj4.txt" class="external-link">proj4
 string for UTM Zone 18N WGS84</a>.</p>
 <p>However, if we have other data in the UTM Zone 18N projection, it’s
 much easier to use the <code>st_crs()</code> function to extract the CRS
@@ -766,7 +766,7 @@ object.</p>
 </div>
 <figure><img src="fig/10-vector-csv-to-shapefile-in-r-rendered-plot-data-points-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section id="plot-extent"><h2 class="section-heading">Plot Extent<a class="anchor" aria-label="anchor" href="#plot-extent"></a>
 </h2>
-<hr class="half-width"><p>In <a href="06-vector-open-shapefile-in-r/">Open and Plot Vector
+<hr class="half-width"><p>In <a href="06-vector-open-shapefile-in-r.html">Open and Plot Vector
 Layers in R</a> we learned about spatial object extent. When we plot
 several spatial layers in R using <code>ggplot</code>, all of the layers
 of the plot are considered in setting the boundaries of the plot. To
@@ -813,7 +813,7 @@ your map!</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Answers</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>First we will read in the new csv file and look at the data
 structure.</li>
