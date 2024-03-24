@@ -234,14 +234,14 @@ xres(NDVI_HARV_stack)
 Once we have created our RasterStack, we can visualize our data. We can use the 
 `ggplot()` command to create a multi-panelled plot showing each band in our 
 RasterStack. First we need to create a data frame object. Because there are 
-multiple columns in our data that are not variables, we will tidy (or "gather") 
+multiple columns in our data that are not variables, we will tidy (or "pivot") 
 the data so that we have a single column with the NDVI observations. We will 
-use the function `gather()` from the `tidyr` package to do this:
+use the function `pivot_longer()` from the `tidyr` package to do this:
 
 
 ```r
 NDVI_HARV_stack_df <- as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
-    gather(variable, value, -(x:y))
+    pivot_longer(-(x:y), names_to = "variable", values_to = "value")
 ```
 
 Now we can plot our data using `ggplot()`. We want to create a separate panel 
@@ -281,7 +281,7 @@ we used above.
 
 ```r
 NDVI_HARV_stack_df <- as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
-    gather(variable, value, -(x:y))
+    pivot_longer(-(x:y), names_to = "variable", values_to = "value")
 
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
