@@ -194,16 +194,16 @@ contain the information that helps us determine the CRS:
 - `utmZone`: 18
 
 In
-[When Vector Data Don't Line Up - Handling Spatial Projection \& CRS in R](09-vector-when-data-dont-line-up-crs/)
+[When Vector Data Don't Line Up - Handling Spatial Projection \& CRS in R](09-vector-when-data-dont-line-up-crs.html)
 we learned about the components of a `proj4` string. We have everything we need
 to assign a CRS to our data frame.
 
 To create the `proj4` associated with UTM Zone 18 WGS84 we can look up the
 projection on the
-[Spatial Reference website](https://www.spatialreference.org/ref/epsg/wgs-84-utm-zone-18n/),
+[Spatial Reference website](https://spatialreference.org/ref/epsg/32618/),
 which contains a list of CRS formats for each projection. From here, we can
 extract the
-[proj4 string for UTM Zone 18N WGS84](https://www.spatialreference.org/ref/epsg/wgs-84-utm-zone-18n/proj4/).
+[proj4 string for UTM Zone 18N WGS84](https://spatialreference.org/ref/epsg/32618/proj4.txt).
 
 However, if we have other data in the UTM Zone 18N projection, it's much easier
 to use the `st_crs()` function to extract the CRS in `proj4` format from that
@@ -396,7 +396,7 @@ ggplot() +
 ## Plot Extent
 
 In
-[Open and Plot Vector Layers in R](06-vector-open-shapefile-in-r/)
+[Open and Plot Vector Layers in R](06-vector-open-shapefile-in-r.html)
 we learned about spatial object extent. When we plot several spatial layers in
 R using `ggplot`, all of the layers of the plot are considered in setting the
 boundaries of the plot. To show this, let's plot our `aoi_boundary_HARV` object
