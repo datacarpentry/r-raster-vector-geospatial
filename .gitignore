@@ -59,5 +59,3 @@ vendor/
 .docker-vendor/
 Gemfile.lock
 .*history
-# local Rporj file
-r-raster-vector-geospatial.Rproj
