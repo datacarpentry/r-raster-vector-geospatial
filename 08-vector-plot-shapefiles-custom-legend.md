@@ -6,7 +6,7 @@ source: Rmd
 ---
 
 
-```{.warning}
+``` warning
 Warning in
 download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
 : cannot open URL
@@ -14,7 +14,7 @@ download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/d
 HTTP status was '500 Internal Server Error'
 ```
 
-```{.error}
+``` error
 Error in download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
 ```
 
@@ -79,7 +79,7 @@ To begin, we will create a plot with the site boundary as the first layer. Then
 layer the tower location and road data on top using `+`.
 
 
-```r
+``` r
 ggplot() +
   geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey") +
   geom_sf(data = lines_HARV, aes(color = TYPE), size = 1) +
@@ -98,7 +98,7 @@ legend entry. If you want the legend to draw lines or points, you need to add
 an instruction to the `geom_sf` call - in this case, `show.legend = 'line'`.
 
 
-```r
+``` r
 ggplot() +
   geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey") +
   geom_sf(data = lines_HARV, aes(color = TYPE),
@@ -116,7 +116,7 @@ Now lets adjust the legend titles by passing a `name` to the respective `color`
 and `fill` palettes.
 
 
-```r
+``` r
 ggplot() +
   geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey") +
   geom_sf(data = point_HARV, aes(fill = Sub_Type)) +
@@ -145,7 +145,7 @@ type `?pch` into the R console.
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-```r
+``` r
 ggplot() +
   geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey") +
   geom_sf(data = point_HARV, aes(fill = Sub_Type), shape = 15) +
@@ -181,12 +181,12 @@ First we need to read in the data and see how many unique soils are represented
 in the `soilTypeOr` attribute.
 
 
-```r
+``` r
 plot_locations <-
   st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
 ```
 
-```{.output}
+``` output
 Reading layer `PlotLocations_HARV' from data source 
   `/home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp' 
   using driver `ESRI Shapefile'
@@ -197,26 +197,26 @@ Bounding box:  xmin: 731405.3 ymin: 4712845 xmax: 732275.3 ymax: 4713846
 Projected CRS: WGS 84 / UTM zone 18N
 ```
 
-```r
+``` r
 plot_locations$soilTypeOr <- as.factor(plot_locations$soilTypeOr)
 levels(plot_locations$soilTypeOr)
 ```
 
-```{.output}
+``` output
 [1] "Histosols"   "Inceptisols"
 ```
 
 Next we can create a new color palette with one color for each soil type.
 
 
-```r
+``` r
 blue_orange <- c("cornflowerblue", "darkorange")
 ```
 
 Finally, we will create our plot.
 
 
-```r
+``` r
 ggplot() +
   geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line") +
   geom_sf(data = plot_locations, aes(fill = soilTypeOr),
@@ -237,7 +237,7 @@ If we want each soil to be shown with a different symbol, we can give multiple
 values to the `scale_shape_manual()` argument.
 
 
-```r
+``` r
 ggplot() +
   geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line", size = 1) +
   geom_sf(data = plot_locations, aes(fill = soilTypeOr, shape = soilTypeOr),
@@ -278,7 +278,7 @@ Be sure to give your plot a meaningful title.
 ## Answers
 
 
-```r
+``` r
 ggplot() +
   geom_raster(data = CHM_HARV_df, aes(x = x, y = y, fill = HARV_chmCrop)) +
   geom_sf(data = lines_HARV, color = "black") +

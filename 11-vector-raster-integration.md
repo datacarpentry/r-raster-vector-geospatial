@@ -6,7 +6,7 @@ source: Rmd
 ---
 
 
-```{.warning}
+``` warning
 Warning in
 download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
 : cannot open URL
@@ -14,7 +14,7 @@ download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/d
 HTTP status was '500 Internal Server Error'
 ```
 
-```{.error}
+``` error
 Error in download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
 ```
 
@@ -94,7 +94,7 @@ data and overlay where the AOI falls within it. The boundaries of the AOI will
 be colored blue, and we use `fill = NA` to make the area transparent.
 
 
-```r
+``` r
 ggplot() +
   geom_raster(data = CHM_HARV_df, aes(x = x, y = y, fill = HARV_chmCrop)) +
   scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) +
@@ -110,7 +110,7 @@ raster package to create a new object with only the portion of the CHM data
 that falls within the boundaries of the AOI.
 
 
-```r
+``` r
 CHM_HARV_Cropped <- crop(x = CHM_HARV, y = aoi_boundary_HARV)
 ```
 
@@ -122,7 +122,7 @@ encompass all the features contained in this object. The `st_as_sfc()` converts
 these 4 coordinates into a polygon that we can plot:
 
 
-```r
+``` r
 CHM_HARV_Cropped_df <- as.data.frame(CHM_HARV_Cropped, xy = TRUE)
 
 ggplot() +
@@ -142,7 +142,7 @@ as the `aoi_boundary_HARV` object that was used as a crop extent (blue border
 below).
 
 
-```r
+``` r
 ggplot() +
   geom_raster(data = CHM_HARV_Cropped_df,
               aes(x = x, y = y, fill = HARV_chmCrop)) +
@@ -156,38 +156,38 @@ ggplot() +
 We can look at the extent of all of our other objects for this field site.
 
 
-```r
+``` r
 st_bbox(CHM_HARV)
 ```
 
-```{.output}
+``` output
    xmin    ymin    xmax    ymax 
  731453 4712471  733150 4713838 
 ```
 
-```r
+``` r
 st_bbox(CHM_HARV_Cropped)
 ```
 
-```{.output}
+``` output
    xmin    ymin    xmax    ymax 
  732128 4713209  732251 4713359 
 ```
 
-```r
+``` r
 st_bbox(aoi_boundary_HARV)
 ```
 
-```{.output}
+``` output
      xmin      ymin      xmax      ymax 
  732128.0 4713208.7  732251.1 4713359.2 
 ```
 
-```r
+``` r
 st_bbox(plot_locations_sp_HARV)
 ```
 
-```{.output}
+``` output
      xmin      ymin      xmax      ymax 
  731405.3 4712845.0  732275.3 4713846.3 
 ```
@@ -208,7 +208,7 @@ of the Canopy Height Model information.
 ## Answers
 
 
-```r
+``` r
 CHM_plots_HARVcrop <- crop(x = CHM_HARV, y = plot_locations_sp_HARV)
 
 CHM_plots_HARVcrop_df <- as.data.frame(CHM_plots_HARVcrop, xy = TRUE)
@@ -252,12 +252,12 @@ will provide the `ext()` function our xmin, xmax, ymin, and ymax (in that
 order).
 
 
-```r
+``` r
 new_extent <- ext(732161.2, 732238.7, 4713249, 4713333)
 class(new_extent)
 ```
 
-```{.output}
+``` output
 [1] "SpatExtent"
 attr(,"package")
 [1] "terra"
@@ -278,14 +278,14 @@ Once we have defined our new extent, we can use the `crop()` function to crop
 our raster to this extent object.
 
 
-```r
+``` r
 CHM_HARV_manual_cropped <- crop(x = CHM_HARV, y = new_extent)
 ```
 
 To plot this data using `ggplot()` we need to convert it to a dataframe.
 
 
-```r
+``` r
 CHM_HARV_manual_cropped_df <- as.data.frame(CHM_HARV_manual_cropped, xy = TRUE)
 ```
 
@@ -293,7 +293,7 @@ Now we can plot this cropped data. We will show the AOI boundary on the same
 plot for scale.
 
 
-```r
+``` r
 ggplot() +
   geom_sf(data = aoi_boundary_HARV, color = "blue", fill = NA) +
   geom_raster(data = CHM_HARV_manual_cropped_df,
@@ -328,13 +328,13 @@ We will begin by extracting all canopy height pixel values located within our
 Harvard Forest field site.
 
 
-```r
+``` r
 tree_height <- extract(x = CHM_HARV, y = aoi_boundary_HARV, raw = FALSE)
 
 str(tree_height)
 ```
 
-```{.output}
+``` output
 'data.frame':	18450 obs. of  2 variables:
  $ ID          : num  1 1 1 1 1 1 1 1 1 1 ...
  $ HARV_chmCrop: num  21.2 23.9 23.8 22.4 23.9 ...
@@ -351,7 +351,7 @@ use the column `HARV_chmCrop` from our data frame as our x values, as this
 column represents the tree heights for each pixel.
 
 
-```r
+``` r
 ggplot() +
   geom_histogram(data = tree_height, aes(x = HARV_chmCrop)) +
   ggtitle("Histogram of CHM Height Values (m)") +
@@ -359,7 +359,7 @@ ggplot() +
   ylab("Frequency of Pixels")
 ```
 
-```{.output}
+``` output
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
@@ -370,11 +370,11 @@ including min, max, and mean height values. These values help us better
 understand vegetation at our field site.
 
 
-```r
+``` r
 summary(tree_height$HARV_chmCrop)
 ```
 
-```{.output}
+``` output
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
    2.03   21.36   22.81   22.43   23.97   38.17 
 ```
@@ -386,14 +386,14 @@ of summary statistic we are interested in using the `fun =` argument. Let's
 extract a mean height value for our AOI.
 
 
-```r
+``` r
 mean_tree_height_AOI <- extract(x = CHM_HARV, y = aoi_boundary_HARV,
                                 fun = mean)
 
 mean_tree_height_AOI
 ```
 
-```{.output}
+``` output
   ID HARV_chmCrop
 1  1     22.43018
 ```
@@ -418,7 +418,7 @@ Let's put this into practice by figuring out the mean tree height in the 20m
 around the tower location (`point_HARV`).
 
 
-```r
+``` r
 mean_tree_height_tower <- extract(x = CHM_HARV,
                                   y = st_buffer(point_HARV, dist = 20),
                                   fun = mean)
@@ -426,7 +426,7 @@ mean_tree_height_tower <- extract(x = CHM_HARV,
 mean_tree_height_tower
 ```
 
-```{.output}
+``` output
   ID HARV_chmCrop
 1  1     22.38806
 ```
@@ -447,7 +447,7 @@ mean_tree_height_tower
 ## Answers
 
 
-```r
+``` r
 # extract data at each plot location
 mean_tree_height_plots_HARV <- extract(x = CHM_HARV,
                                        y = st_buffer(plot_locations_sp_HARV,
@@ -458,7 +458,7 @@ mean_tree_height_plots_HARV <- extract(x = CHM_HARV,
 mean_tree_height_plots_HARV
 ```
 
-```{.output}
+``` output
    ID HARV_chmCrop
 1   1          NaN
 2   2     23.96756
@@ -483,7 +483,7 @@ mean_tree_height_plots_HARV
 21 21     20.44984
 ```
 
-```r
+``` r
 # plot data
 ggplot(data = mean_tree_height_plots_HARV, aes(ID, HARV_chmCrop)) +
   geom_col() +
@@ -492,7 +492,7 @@ ggplot(data = mean_tree_height_plots_HARV, aes(ID, HARV_chmCrop)) +
   ylab("Tree Height (m)")
 ```
 
-```{.warning}
+``` warning
 Warning: Removed 1 row containing missing values or values outside the scale range
 (`geom_col()`).
 ```

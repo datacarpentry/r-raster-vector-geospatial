@@ -6,7 +6,7 @@ source: Rmd
 ---
 
 
-```{.warning}
+``` warning
 Warning in
 download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
 : cannot open URL
@@ -14,7 +14,7 @@ download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/d
 HTTP status was '500 Internal Server Error'
 ```
 
-```{.error}
+``` error
 Error in download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
 ```
 
@@ -67,7 +67,7 @@ we will use `dplyr`'s `mutate()` function combined with `cut()` to split the
 data into 3 bins.
 
 
-```r
+``` r
 DSM_HARV_df <- DSM_HARV_df %>%
                 mutate(fct_elevation = cut(HARV_dsmCrop, breaks = 3))
 
@@ -81,11 +81,11 @@ If we want to know the cutoff values for the groups, we can ask for the unique
 values of `fct_elevation`:
 
 
-```r
+``` r
 unique(DSM_HARV_df$fct_elevation)
 ```
 
-```{.output}
+``` output
 [1] (379,416] (342,379] (305,342]
 Levels: (305,342] (342,379] (379,416]
 ```
@@ -94,13 +94,13 @@ And we can get the count of values in each group using `dplyr`'s `group_by()`
 and `count()` functions:
 
 
-```r
+``` r
 DSM_HARV_df %>%
         group_by(fct_elevation) %>%
         count()
 ```
 
-```{.output}
+``` output
 # A tibble: 3 × 2
 # Groups:   fct_elevation [3]
   fct_elevation       n
@@ -117,7 +117,7 @@ To implement this we will give `mutate()` a numeric vector of break points
 instead of the number of breaks we want.
 
 
-```r
+``` r
 custom_bins <- c(300, 350, 400, 450)
 
 DSM_HARV_df <- DSM_HARV_df %>%
@@ -126,7 +126,7 @@ DSM_HARV_df <- DSM_HARV_df %>%
 unique(DSM_HARV_df$fct_elevation_2)
 ```
 
-```{.output}
+``` output
 [1] (400,450] (350,400] (300,350]
 Levels: (300,350] (350,400] (400,450]
 ```
@@ -147,7 +147,7 @@ inclusive. For example: `(305, 342]` means "from 306 through 342".
 And now we can plot our bar plot again, using the new groups:
 
 
-```r
+``` r
 ggplot() +
   geom_bar(data = DSM_HARV_df, aes(fct_elevation_2))
 ```
@@ -157,13 +157,13 @@ ggplot() +
 And we can get the count of values in each group in the same way we did before:
 
 
-```r
+``` r
 DSM_HARV_df %>%
   group_by(fct_elevation_2) %>%
   count()
 ```
 
-```{.output}
+``` output
 # A tibble: 3 × 2
 # Groups:   fct_elevation_2 [3]
   fct_elevation_2       n
@@ -177,7 +177,7 @@ We can use those groups to plot our raster data, with each group being a
 different color:
 
 
-```r
+``` r
 ggplot() +
   geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = fct_elevation_2)) + 
   coord_quickmap()
@@ -192,11 +192,11 @@ to the `terrain.colors()` function.
 Since we have three bins, we want to create a 3-color palette:
 
 
-```r
+``` r
 terrain.colors(3)
 ```
 
-```{.output}
+``` output
 [1] "#00A600" "#ECB176" "#F2F2F2"
 ```
 
@@ -206,7 +206,7 @@ To use these in our map, we pass them across using the
 `scale_fill_manual()` function.
 
 
-```r
+``` r
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
                                       fill = fct_elevation_2)) + 
@@ -228,7 +228,7 @@ We can also give the legend a more meaningful title by passing a value
 to the `name` argument of the `scale_fill_manual()` function.
 
 
-```r
+``` r
 my_col <- terrain.colors(3)
 
 ggplot() +
@@ -244,7 +244,7 @@ Or we can also turn off the labels of both axes by passing `element_blank()` to
 the relevant part of the `theme()` function.
 
 
-```r
+``` r
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
                                       fill = fct_elevation_2)) + 
@@ -271,7 +271,7 @@ Create a plot of the Harvard Forest Digital Surface Model (DSM) that has:
 ## Answers
 
 
-```r
+``` r
 DSM_HARV_df <- DSM_HARV_df  %>%
                mutate(fct_elevation_6 = cut(HARV_dsmCrop, breaks = 6)) 
 
@@ -304,14 +304,14 @@ We will add a custom color, making the plot grey.
 First we need to read in our DSM hillshade data and view the structure:
 
 
-```r
+``` r
 DSM_hill_HARV <-
   rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 
 DSM_hill_HARV
 ```
 
-```{.output}
+``` output
 class       : SpatRaster 
 dimensions  : 1367, 1697, 1  (nrow, ncol, nlyr)
 resolution  : 1, 1  (x, y)
@@ -326,13 +326,13 @@ max value   :    0.9999997
 Next we convert it to a dataframe, so that we can plot it using `ggplot2`:
 
 
-```r
+``` r
 DSM_hill_HARV_df <- as.data.frame(DSM_hill_HARV, xy = TRUE) 
 
 str(DSM_hill_HARV_df)
 ```
 
-```{.output}
+``` output
 'data.frame':	2313675 obs. of  3 variables:
  $ x           : num  731454 731456 731456 731458 731458 ...
  $ y           : num  4713836 4713836 4713836 4713836 4713836 ...
@@ -342,7 +342,7 @@ str(DSM_hill_HARV_df)
 Now we can plot the hillshade data:
 
 
-```r
+``` r
 ggplot() +
   geom_raster(data = DSM_hill_HARV_df,
               aes(x = x, y = y, alpha = HARV_DSMhill)) + 
@@ -370,7 +370,7 @@ We can layer another raster on top of our hillshade by adding another call to
 the `geom_raster()` function. Let's overlay `DSM_HARV` on top of the `hill_HARV`.
 
 
-```r
+``` r
 ggplot() +
   geom_raster(data = DSM_HARV_df , 
               aes(x = x, y = y, 
@@ -407,7 +407,7 @@ Make sure to:
 ## Answers
 
 
-```r
+``` r
 # CREATE DSM MAPS
 
 # import DSM data
@@ -448,7 +448,7 @@ ggplot() +
 
 <img src="fig/02-raster-plot-rendered-challenge-hillshade-layering-1.png" style="display: block; margin: auto;" />
 
-```r
+``` r
 # CREATE DTM MAP
 # import DTM
 DTM_SJER <- 

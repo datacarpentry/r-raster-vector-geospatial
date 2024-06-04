@@ -6,7 +6,7 @@ source: Rmd
 ---
 
 
-```{.warning}
+``` warning
 Warning in
 download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
 : cannot open URL
@@ -14,7 +14,7 @@ download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/d
 HTTP status was '500 Internal Server Error'
 ```
 
-```{.error}
+``` error
 Error in download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
 ```
 
@@ -75,7 +75,7 @@ ticks, as these are unnecessary and make our plot look messy. We can do this by
 setting the plot theme to `void`.
 
 
-```r
+``` r
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~variable) +
@@ -97,7 +97,7 @@ of 0 indicates left justification and a setting of 1 indicates right
 justification.
 
 
-```r
+``` r
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~variable) +
@@ -125,7 +125,7 @@ Learners can find this information in the help files for the `theme()`
 function. The parameter to set is called `face`.
 
 
-```r
+``` r
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df,
               aes(x = x, y = y, fill = value)) +
@@ -156,12 +156,12 @@ colors from the "YlGn" (yellow-green) color palette. This returns a set of hex
 color codes:
 
 
-```r
+``` r
 library(RColorBrewer)
 brewer.pal(9, "YlGn")
 ```
 
-```{.output}
+``` output
 [1] "#FFFFE5" "#F7FCB9" "#D9F0A3" "#ADDD8E" "#78C679" "#41AB5D" "#238443"
 [8] "#006837" "#004529"
 ```
@@ -170,7 +170,7 @@ Then we will pass those color codes to the `colorRampPalette` function, which
 will interpolate from those colors a more nuanced color range.
 
 
-```r
+``` r
 green_colors <- brewer.pal(9, "YlGn") %>%
   colorRampPalette()
 ```
@@ -180,7 +180,7 @@ this color range to create. In our case, we will use 20 colors when we plot our
 graphic.
 
 
-```r
+``` r
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~variable) +
@@ -234,11 +234,11 @@ shorter and remove repetition. To illustrate how this works, we will first
 look at the names for our `NDVI_HARV_stack` object:
 
 
-```r
+``` r
 names(NDVI_HARV_stack)
 ```
 
-```{.output}
+``` output
  [1] "X005_HARV_ndvi_crop" "X037_HARV_ndvi_crop" "X085_HARV_ndvi_crop"
  [4] "X133_HARV_ndvi_crop" "X181_HARV_ndvi_crop" "X197_HARV_ndvi_crop"
  [7] "X213_HARV_ndvi_crop" "X229_HARV_ndvi_crop" "X245_HARV_ndvi_crop"
@@ -252,14 +252,14 @@ this output to a new object (`raster_names`) and look at that object to make
 sure our code is doing what we want it to.
 
 
-```r
+``` r
 raster_names <- names(NDVI_HARV_stack)
 
 raster_names <- gsub("_HARV_ndvi_crop", "", raster_names)
 raster_names
 ```
 
-```{.output}
+``` output
  [1] "X005" "X037" "X085" "X133" "X181" "X197" "X213" "X229" "X245" "X261"
 [11] "X277" "X293" "X309"
 ```
@@ -268,12 +268,12 @@ So far so good. Now we will use `gsub()` again to replace the "X" with the word
 "Day" followed by a space.
 
 
-```r
+``` r
 raster_names  <- gsub("X", "Day ", raster_names)
 raster_names
 ```
 
-```{.output}
+``` output
  [1] "Day 005" "Day 037" "Day 085" "Day 133" "Day 181" "Day 197" "Day 213"
  [8] "Day 229" "Day 245" "Day 261" "Day 277" "Day 293" "Day 309"
 ```
@@ -281,7 +281,7 @@ raster_names
 Our labels look good now. Let's reassign them to our `all_NDVI_HARV` object:
 
 
-```r
+``` r
 labels_names <- setNames(raster_names, unique(NDVI_HARV_stack_df$variable))
 ```
 
@@ -289,7 +289,7 @@ Once the names for each band have been reassigned, we can render our plot with
 the new labels using a`labeller`.
 
 
-```r
+``` r
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~variable, labeller = labeller(variable = labels_names)) +
@@ -309,7 +309,7 @@ and the number of rows `nrow` in `facet_wrap`. Let's make our plot so that it
 has a width of five panels.
 
 
-```r
+``` r
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~variable, ncol = 5, 
@@ -346,7 +346,7 @@ color ramp may be best?
 ## Answers
 
 
-```r
+``` r
 raster_names  <- gsub("Day","Julian Day ", raster_names)
 labels_names <- setNames(raster_names, unique(NDVI_HARV_stack_df$variable))
 

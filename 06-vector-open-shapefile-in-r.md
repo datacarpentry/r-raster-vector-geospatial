@@ -6,7 +6,7 @@ source: Rmd
 ---
 
 
-```{.warning}
+``` warning
 Warning in
 download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
 : cannot open URL
@@ -14,7 +14,7 @@ download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/d
 HTTP status was '500 Internal Server Error'
 ```
 
-```{.error}
+``` error
 Error in download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
 ```
 
@@ -62,7 +62,7 @@ explore raster and vector spatial metadata using similar commands. Make sure
 you have the `sf` library loaded.
 
 
-```r
+``` r
 library(sf)
 ```
 
@@ -81,12 +81,12 @@ requires the file path to the ESRI `shapefile`.
 Let's import our AOI:
 
 
-```r
+``` r
 aoi_boundary_HARV <- st_read(
   "data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 ```
 
-```{.output}
+``` output
 Reading layer `HarClip_UTMZ18' from data source 
   `/home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp' 
   using driver `ESRI Shapefile'
@@ -132,11 +132,11 @@ We can view metadata of a vector layer using the `st_geometry_type()`, `st_crs()
 vector layer:
 
 
-```r
+``` r
 st_geometry_type(aoi_boundary_HARV)
 ```
 
-```{.output}
+``` output
 [1] POLYGON
 18 Levels: GEOMETRY POINT LINESTRING POLYGON MULTIPOINT ... TRIANGLE
 ```
@@ -146,11 +146,11 @@ output list the possible categories of the geometry type. Now let's check what
 CRS this file data is in:
 
 
-```r
+``` r
 st_crs(aoi_boundary_HARV)
 ```
 
-```{.output}
+``` output
 Coordinate Reference System:
   User input: WGS 84 / UTM zone 18N 
   wkt:
@@ -195,11 +195,11 @@ spatial object's extent values as it specifies units. To find the extent of our 
 can use the `st_bbox()` function:
 
 
-```r
+``` r
 st_bbox(aoi_boundary_HARV)
 ```
 
-```{.output}
+``` output
      xmin      ymin      xmax      ymax 
  732128.0 4713208.7  732251.1 4713359.2 
 ```
@@ -215,11 +215,11 @@ Lastly, we can view all of the metadata and attributes for this R spatial
 object by printing it to the screen:
 
 
-```r
+``` r
 aoi_boundary_HARV
 ```
 
-```{.output}
+``` output
 Simple feature collection with 1 feature and 1 field
 Geometry type: POLYGON
 Dimension:     XY
@@ -247,7 +247,7 @@ for our plot. When plotting `sf` objects with `ggplot2`, you need to use the
 `coord_sf()` coordinate system.
 
 
-```r
+``` r
 ggplot() +
   geom_sf(data = aoi_boundary_HARV, size = 3, color = "black", fill = "cyan1") +
   ggtitle("AOI Boundary Plot") +
@@ -281,11 +281,11 @@ Answer the following questions:
 First we import the data:
 
 
-```r
+``` r
 lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 ```
 
-```{.output}
+``` output
 Reading layer `HARV_roads' from data source 
   `/home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp' 
   using driver `ESRI Shapefile'
@@ -296,11 +296,11 @@ Bounding box:  xmin: 730741.2 ymin: 4711942 xmax: 733295.5 ymax: 4714260
 Projected CRS: WGS 84 / UTM zone 18N
 ```
 
-```r
+``` r
 point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 ```
 
-```{.output}
+``` output
 Reading layer `HARVtower_UTM18N' from data source 
   `/home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp' 
   using driver `ESRI Shapefile'
@@ -314,30 +314,30 @@ Projected CRS: WGS 84 / UTM zone 18N
 Then we check its class:
 
 
-```r
+``` r
 class(lines_HARV)
 ```
 
-```{.output}
+``` output
 [1] "sf"         "data.frame"
 ```
 
-```r
+``` r
 class(point_HARV)
 ```
 
-```{.output}
+``` output
 [1] "sf"         "data.frame"
 ```
 
 We also check the CRS and extent of each object:
 
 
-```r
+``` r
 st_crs(lines_HARV)
 ```
 
-```{.output}
+``` output
 Coordinate Reference System:
   User input: WGS 84 / UTM zone 18N 
   wkt:
@@ -377,20 +377,20 @@ PROJCRS["WGS 84 / UTM zone 18N",
     ID["EPSG",32618]]
 ```
 
-```r
+``` r
 st_bbox(lines_HARV)
 ```
 
-```{.output}
+``` output
      xmin      ymin      xmax      ymax 
  730741.2 4711942.0  733295.5 4714260.0 
 ```
 
-```r
+``` r
 st_crs(point_HARV)
 ```
 
-```{.output}
+``` output
 Coordinate Reference System:
   User input: WGS 84 / UTM zone 18N 
   wkt:
@@ -430,11 +430,11 @@ PROJCRS["WGS 84 / UTM zone 18N",
     ID["EPSG",32618]]
 ```
 
-```r
+``` r
 st_bbox(point_HARV)
 ```
 
-```{.output}
+``` output
      xmin      ymin      xmax      ymax 
  732183.2 4713265.0  732183.2 4713265.0 
 ```

@@ -6,7 +6,7 @@ source: Rmd
 ---
 
 
-```{.warning}
+``` warning
 Warning in
 download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
 : cannot open URL
@@ -14,7 +14,7 @@ download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/d
 HTTP status was '500 Internal Server Error'
 ```
 
-```{.error}
+``` error
 Error in download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
 ```
 
@@ -61,7 +61,7 @@ data - the `terra` and `sf` packages. Make sure that you have these packages
 loaded.
 
 
-```r
+``` r
 library(terra)
 library(ggplot2)
 library(dplyr)
@@ -91,11 +91,11 @@ data before we read that data into R. It is ideal to do this before importing
 your data.
 
 
-```r
+``` r
 describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 ```
 
-```{.output}
+``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                                                                                                                                                                         
  [2] "Files: data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif"                                                                                                                                                                                                         
  [3] "Size is 1697, 1367"                                                                                                                                                                                                                                                            
@@ -166,7 +166,7 @@ describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 If you wish to store this information in R, you can do the following:
 
 
-```r
+``` r
 HARV_dsmCrop_info <- capture.output(
   describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 )
@@ -197,14 +197,14 @@ we'll use a naming convention of `datatype_HARV`.
 First we will load our raster file into R and view the data structure.
 
 
-```r
+``` r
 DSM_HARV <-
   rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 DSM_HARV
 ```
 
-```{.output}
+``` output
 class       : SpatRaster 
 dimensions  : 1367, 1697, 1  (nrow, ncol, nlyr)
 resolution  : 1, 1  (x, y)
@@ -221,15 +221,15 @@ range statistics. Similar to other R data structures like vectors and data frame
 columns, descriptive statistics for raster data can be retrieved like
 
 
-```r
+``` r
 summary(DSM_HARV)
 ```
 
-```{.warning}
+``` warning
 Warning: [summary] used a sample
 ```
 
-```{.output}
+``` output
   HARV_dsmCrop  
  Min.   :305.6  
  1st Qu.:345.6  
@@ -245,11 +245,11 @@ calculate from that instead. To force calculation all the values, you can use
 the function `values`:
 
 
-```r
+``` r
 summary(values(DSM_HARV))
 ```
 
-```{.output}
+``` output
   HARV_dsmCrop  
  Min.   :305.1  
  1st Qu.:345.6  
@@ -265,7 +265,7 @@ lesson](https://datacarpentry.org/r-intro-geospatial/04-data-structures-part2/in
 The `terra` package has an built-in function for conversion to a plotable dataframe.
 
 
-```r
+``` r
 DSM_HARV_df <- as.data.frame(DSM_HARV, xy = TRUE)
 ```
 
@@ -273,11 +273,11 @@ Now when we view the structure of our data, we will see a standard
 dataframe format.
 
 
-```r
+``` r
 str(DSM_HARV_df)
 ```
 
-```{.output}
+``` output
 'data.frame':	2319799 obs. of  3 variables:
  $ x           : num  731454 731454 731456 731456 731458 ...
  $ y           : num  4713838 4713838 4713838 4713838 4713838 ...
@@ -292,7 +292,7 @@ are not too close to the poles. Other coordinate systems are available in
 ggplot2 if needed, you can learn about them at their help page `?coord_map`.
 
 
-```r
+``` r
 ggplot() +
     geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = HARV_dsmCrop)) +
     scale_fill_viridis_c() +
@@ -328,7 +328,7 @@ For faster, simpler plots, you can use the `plot` function from the `terra` pack
 See `?plot` for more arguments to customize the plot
 
 
-```r
+``` r
 plot(DSM_HARV)
 ```
 
@@ -356,11 +356,11 @@ We can view the CRS string associated with our R object using the`crs()`
 function.
 
 
-```r
+``` r
 crs(DSM_HARV, proj = TRUE)
 ```
 
-```{.output}
+``` output
 [1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
 ```
 
@@ -420,29 +420,29 @@ Raster statistics are often calculated and embedded in a GeoTIFF for us. We
 can view these values:
 
 
-```r
+``` r
 minmax(DSM_HARV)
 ```
 
-```{.output}
+``` output
     HARV_dsmCrop
 min       305.07
 max       416.07
 ```
 
-```r
+``` r
 min(values(DSM_HARV))
 ```
 
-```{.output}
+``` output
 [1] 305.07
 ```
 
-```r
+``` r
 max(values(DSM_HARV))
 ```
 
-```{.output}
+``` output
 [1] 416.07
 ```
 
@@ -455,7 +455,7 @@ calculated, we can calculate them using the
 `setMinMax()` function.
 
 
-```r
+``` r
 DSM_HARV <- setMinMax(DSM_HARV)
 ```
 
@@ -477,11 +477,11 @@ function to import one single band from a single or multi-band raster. We can
 view the number of bands in a raster using the `nly()` function.
 
 
-```r
+``` r
 nlyr(DSM_HARV)
 ```
 
-```{.output}
+``` output
 [1] 1
 ```
 
@@ -558,11 +558,11 @@ Use the output from the `describe()` and `sources()` functions to find out what
 ## Answers
 
 
-```r
+``` r
 describe(sources(DSM_HARV))
 ```
 
-```{.output}
+``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                                                                                                                                                                         
  [2] "Files: /home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif"                                                                                                                      
  [3] "Size is 1697, 1367"                                                                                                                                                                                                                                                            
@@ -671,12 +671,12 @@ We can explore the distribution of values contained within our raster using the
 useful in identifying outliers and bad data values in our raster data.
 
 
-```r
+``` r
 ggplot() +
     geom_histogram(data = DSM_HARV_df, aes(HARV_dsmCrop))
 ```
 
-```{.output}
+``` output
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
@@ -691,7 +691,7 @@ This warning is caused by a default setting in `geom_histogram` enforcing that t
 by using the `bins` value in the `geom_histogram()` function.
 
 
-```r
+``` r
 ggplot() +
     geom_histogram(data = DSM_HARV_df, aes(HARV_dsmCrop), bins = 40)
 ```
@@ -722,11 +722,11 @@ Notice: this file is a hillshade. We will learn about hillshades in the [Working
 ## Answers
 
 
-```r
+``` r
 describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 ```
 
-```{.output}
+``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                                                                                                                                                                         
  [2] "Files: data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif"                                                                                                                                                                                                         
  [3] "Size is 1697, 1367"                                                                                                                                                                                                                                                            

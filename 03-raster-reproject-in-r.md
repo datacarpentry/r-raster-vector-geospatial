@@ -6,7 +6,7 @@ source: Rmd
 ---
 
 
-```{.warning}
+``` warning
 Warning in
 download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
 : cannot open URL
@@ -14,7 +14,7 @@ download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/d
 HTTP status was '500 Internal Server Error'
 ```
 
-```{.error}
+``` error
 Error in download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
 ```
 
@@ -74,7 +74,7 @@ The hillshade layer maps the terrain using light and shadow to create a
 First, we need to import the DTM and DTM hillshade data.
 
 
-```r
+``` r
 DTM_HARV <- 
     rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 
@@ -86,7 +86,7 @@ Next, we will convert each of these datasets to a dataframe for
 plotting with `ggplot`.
 
 
-```r
+``` r
 DTM_HARV_df <- as.data.frame(DTM_HARV, xy = TRUE)
 
 DTM_hill_HARV_df <- as.data.frame(DTM_hill_HARV, xy = TRUE)
@@ -95,7 +95,7 @@ DTM_hill_HARV_df <- as.data.frame(DTM_hill_HARV, xy = TRUE)
 Now we can create a map of the DTM layered over the hillshade.
 
 
-```r
+``` r
 ggplot() +
      geom_raster(data = DTM_HARV_df , 
                  aes(x = x, y = y, 
@@ -114,7 +114,7 @@ nor the DTM Hillshade (`DTM_hill_HARV_df`) plotted.
 Let's try to plot the DTM on its own to make sure there are data there.
 
 
-```r
+``` r
 ggplot() +
 geom_raster(data = DTM_HARV_df,
     aes(x = x, y = y,
@@ -130,7 +130,7 @@ Our DTM seems to contain data and plots just fine.
 Next we plot the DTM Hillshade on its own to see whether everything is OK.
 
 
-```r
+``` r
 ggplot() +
 geom_raster(data = DTM_hill_HARV_df,
     aes(x = x, y = y,
@@ -159,12 +159,12 @@ does each use?
 ## Solution
 
 
-```r
+``` r
 # view crs for DTM
 crs(DTM_HARV, parse = TRUE)
 ```
 
-```{.output}
+``` output
  [1] "PROJCRS[\"WGS 84 / UTM zone 18N\","                                                                                                                                                                                                                                            
  [2] "    BASEGEOGCRS[\"WGS 84\","                                                                                                                                                                                                                                                   
  [3] "        DATUM[\"World Geodetic System 1984\","                                                                                                                                                                                                                                 
@@ -205,12 +205,12 @@ crs(DTM_HARV, parse = TRUE)
 [38] "    ID[\"EPSG\",32618]]"                                                                                                                                                                                                                                                       
 ```
 
-```r
+``` r
 # view crs for hillshade
 crs(DTM_hill_HARV, parse = TRUE)
 ```
 
-```{.output}
+``` output
  [1] "GEOGCRS[\"WGS 84\","                                   
  [2] "    DATUM[\"World Geodetic System 1984\","             
  [3] "        ELLIPSOID[\"WGS 84\",6378137,298.257223563,"   
@@ -275,7 +275,7 @@ First we will reproject our `DTM_hill_HARV` raster data to match the `DTM_HARV`
 raster CRS:
 
 
-```r
+``` r
 DTM_hill_UTMZ18N_HARV <- project(DTM_hill_HARV,
                                  crs(DTM_HARV))
 ```
@@ -284,11 +284,11 @@ Now we can compare the CRS of our original DTM hillshade and our new DTM
 hillshade, to see how they are different.
 
 
-```r
+``` r
 crs(DTM_hill_UTMZ18N_HARV, parse = TRUE)
 ```
 
-```{.output}
+``` output
  [1] "PROJCRS[\"WGS 84 / UTM zone 18N\","                                                                                                                                                                                                                                            
  [2] "    BASEGEOGCRS[\"WGS 84\","                                                                                                                                                                                                                                                   
  [3] "        DATUM[\"World Geodetic System 1984\","                                                                                                                                                                                                                                 
@@ -329,11 +329,11 @@ crs(DTM_hill_UTMZ18N_HARV, parse = TRUE)
 [38] "    ID[\"EPSG\",32618]]"                                                                                                                                                                                                                                                       
 ```
 
-```r
+``` r
 crs(DTM_hill_HARV, parse = TRUE)
 ```
 
-```{.output}
+``` output
  [1] "GEOGCRS[\"WGS 84\","                                   
  [2] "    DATUM[\"World Geodetic System 1984\","             
  [3] "        ELLIPSOID[\"WGS 84\",6378137,298.257223563,"   
@@ -353,19 +353,19 @@ crs(DTM_hill_HARV, parse = TRUE)
 We can also compare the extent of the two objects.
 
 
-```r
+``` r
 ext(DTM_hill_UTMZ18N_HARV)
 ```
 
-```{.output}
+``` output
 SpatExtent : 731402.31567604, 733200.22199435, 4712407.19751409, 4713901.78222079 (xmin, xmax, ymin, ymax)
 ```
 
-```r
+``` r
 ext(DTM_hill_HARV)
 ```
 
-```{.output}
+``` output
 SpatExtent : -72.1819236223343, -72.1606102223342, 42.5294079700285, 42.5423355900285 (xmin, xmax, ymin, ymax)
 ```
 
@@ -399,19 +399,19 @@ Let's next have a look at the resolution of our reprojected hillshade versus
 our original data.
 
 
-```r
+``` r
 res(DTM_hill_UTMZ18N_HARV)
 ```
 
-```{.output}
+``` output
 [1] 1.001061 1.001061
 ```
 
-```r
+``` r
 res(DTM_HARV)
 ```
 
-```{.output}
+``` output
 [1] 1 1
 ```
 
@@ -422,7 +422,7 @@ example below, we ensure a resolution match by using `res(DTM_HARV)` as a
 variable.
 
 
-```r
+``` r
   DTM_hill_UTMZ18N_HARV <- project(DTM_hill_HARV, 
                                    crs(DTM_HARV), 
                                    res = res(DTM_HARV)) 
@@ -432,19 +432,19 @@ Now both our resolutions and our CRSs match, so we can plot these two data sets
 together. Let's double-check our resolution to be sure:
 
 
-```r
+``` r
 res(DTM_hill_UTMZ18N_HARV)
 ```
 
-```{.output}
+``` output
 [1] 1 1
 ```
 
-```r
+``` r
 res(DTM_HARV)
 ```
 
-```{.output}
+``` output
 [1] 1 1
 ```
 
@@ -452,14 +452,14 @@ For plotting with `ggplot()`, we will need to create a dataframe from our newly
 reprojected raster.
 
 
-```r
+``` r
 DTM_hill_HARV_2_df <- as.data.frame(DTM_hill_UTMZ18N_HARV, xy = TRUE)
 ```
 
 We can now create a plot of this data.
 
 
-```r
+``` r
 ggplot() +
      geom_raster(data = DTM_HARV_df , 
                  aes(x = x, y = y, 
@@ -491,7 +491,7 @@ Reproject the data as necessary to make things line up!
 ## Answers
 
 
-```r
+``` r
 # import DSM
 DSM_SJER <- 
     rast("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")

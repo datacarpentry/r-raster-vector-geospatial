@@ -6,7 +6,7 @@ source: Rmd
 ---
 
 
-```{.warning}
+``` warning
 Warning in
 download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
 : cannot open URL
@@ -14,7 +14,7 @@ download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/d
 HTTP status was '500 Internal Server Error'
 ```
 
-```{.error}
+``` error
 Error in download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
 ```
 
@@ -70,12 +70,12 @@ We can calculate the mean for each raster using the `global()` function. The
 associated with the name of raster stack it was derived from.
 
 
-```r
+``` r
 avg_NDVI_HARV <- global(NDVI_HARV_stack, mean)
 avg_NDVI_HARV
 ```
 
-```{.output}
+``` output
                         mean
 X005_HARV_ndvi_crop 0.365150
 X037_HARV_ndvi_crop 0.242645
@@ -97,11 +97,11 @@ good idea to view the first few rows of our data frame with `head()` to make
 sure the structure is what we expect.
 
 
-```r
+``` r
 head(avg_NDVI_HARV)
 ```
 
-```{.output}
+``` output
                         mean
 X005_HARV_ndvi_crop 0.365150
 X037_HARV_ndvi_crop 0.242645
@@ -118,12 +118,12 @@ in our data frame to make it easier for colleagues to work with our code.
  Let's change the NDVI column name to `meanNDVI`.
 
 
-```r
+``` r
 names(avg_NDVI_HARV) <- "meanNDVI"
 head(avg_NDVI_HARV)
 ```
 
-```{.output}
+``` output
                     meanNDVI
 X005_HARV_ndvi_crop 0.365150
 X037_HARV_ndvi_crop 0.242645
@@ -138,7 +138,7 @@ are only working with one site now, we might want to compare several sites
 worth of data in the future. Let's add a column to our dataframe called "site".
 
 
-```r
+``` r
 avg_NDVI_HARV$site <- "HARV"
 ```
 
@@ -146,12 +146,12 @@ We can populate this column with the site name - HARV. Let's also create a year
 column and populate it with 2011 - the year our data were collected.
 
 
-```r
+``` r
 avg_NDVI_HARV$year <- "2011"
 head(avg_NDVI_HARV)
 ```
 
-```{.output}
+``` output
                     meanNDVI site year
 X005_HARV_ndvi_crop 0.365150 HARV 2011
 X037_HARV_ndvi_crop 0.242645 HARV 2011
@@ -181,12 +181,12 @@ Using this character in our search pattern allows us to search for more than
 one pattern in our text strings.
 
 
-```r
+``` r
 julianDays <- gsub("X|_HARV_ndvi_crop", "", row.names(avg_NDVI_HARV))
 julianDays
 ```
 
-```{.output}
+``` output
  [1] "005" "037" "085" "133" "181" "197" "213" "229" "245" "261" "277" "293"
 [13] "309"
 ```
@@ -195,18 +195,18 @@ Now that we've extracted the Julian days from our row names, we can add that
 data to the data frame as a column called "julianDay".
 
 
-```r
+``` r
 avg_NDVI_HARV$julianDay <- julianDays
 ```
 
 Let's check the class of this new column:
 
 
-```r
+``` r
 class(avg_NDVI_HARV$julianDay)
 ```
 
-```{.output}
+``` output
 [1] "character"
 ```
 
@@ -226,14 +226,14 @@ year. Therefore, the first day or "origin" for our Julian day count is 01
 January 2011.
 
 
-```r
+``` r
 origin <- as.Date("2011-01-01")
 ```
 
 Next we convert the `julianDay` column from character to integer.
 
 
-```r
+``` r
 avg_NDVI_HARV$julianDay <- as.integer(avg_NDVI_HARV$julianDay)
 ```
 
@@ -249,12 +249,12 @@ cannot simply add `origin + julianDay` because `01 + 05 = 06` or 06 January
 05 2011.
 
 
-```r
+``` r
 avg_NDVI_HARV$Date<- origin + (avg_NDVI_HARV$julianDay - 1)
 head(avg_NDVI_HARV$Date)
 ```
 
-```{.output}
+``` output
 [1] "2011-01-05" "2011-02-06" "2011-03-26" "2011-05-13" "2011-06-30"
 [6] "2011-07-16"
 ```
@@ -263,11 +263,11 @@ Since the origin date was originally set as a Date class object, the new `Date`
 column is also stored as class `Date`.
 
 
-```r
+``` r
 class(avg_NDVI_HARV$Date)
 ```
 
-```{.output}
+``` output
 [1] "Date"
 ```
 
@@ -291,7 +291,7 @@ Experimental Range field site. NDVI data for SJER are located in the
 First we will read in the NDVI data for the SJER field site.
 
 
-```r
+``` r
 NDVI_path_SJER <- "data/NEON-DS-Landsat-NDVI/SJER/2011/NDVI"
 
 all_NDVI_SJER <- list.files(NDVI_path_SJER,
@@ -307,14 +307,14 @@ NDVI_stack_SJER <- NDVI_stack_SJER/10000
 Then we can calculate the mean values for each day and put that in a dataframe.
 
 
-```r
+``` r
 avg_NDVI_SJER <- as.data.frame(global(NDVI_stack_SJER, mean))
 ```
 
 Next we rename the NDVI column, and add site and year columns to our data.
 
 
-```r
+``` r
 names(avg_NDVI_SJER) <- "meanNDVI"
 avg_NDVI_SJER$site <- "SJER"
 avg_NDVI_SJER$year <- "2011"
@@ -323,7 +323,7 @@ avg_NDVI_SJER$year <- "2011"
 Now we will create our Julian day column
 
 
-```r
+``` r
 julianDays_SJER <- gsub("X|_SJER_ndvi_crop", "", row.names(avg_NDVI_SJER))
 origin <- as.Date("2011-01-01")
 avg_NDVI_SJER$julianDay <- as.integer(julianDays_SJER)
@@ -333,7 +333,7 @@ avg_NDVI_SJER$Date <- origin + (avg_NDVI_SJER$julianDay - 1)
 head(avg_NDVI_SJER)
 ```
 
-```{.output}
+``` output
                     meanNDVI site year julianDay       Date
 X014_SJER_ndvi_crop 0.048216 SJER 2011        14 2011-01-14
 X046_SJER_ndvi_crop 0.529780 SJER 2011        46 2011-02-15
@@ -353,7 +353,7 @@ We now have a clean dataframe with properly scaled NDVI and Julian days. Let's
 plot our data.
 
 
-```r
+``` r
 ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI)) +
   geom_point() +
   ggtitle("Landsat Derived NDVI - 2011", 
@@ -375,7 +375,7 @@ different color.
 ## Answers
 
 
-```r
+``` r
 ggplot(avg_NDVI_SJER, aes(julianDay, meanNDVI)) +
   geom_point(colour = "SpringGreen4") +
   ggtitle("Landsat Derived NDVI - 2011", subtitle = "NEON SJER Field Site") +
@@ -396,14 +396,14 @@ merging the two data sets together. The date frames must have the same number
 of columns and exact same column names to be merged.
 
 
-```r
+``` r
 NDVI_HARV_SJER <- rbind(avg_NDVI_HARV, avg_NDVI_SJER)
 ```
 
 Now we can plot both datasets on the same plot.
 
 
-```r
+``` r
 ggplot(NDVI_HARV_SJER, aes(x = julianDay, y = meanNDVI, colour = site)) +
   geom_point(aes(group = site)) +
   geom_line(aes(group = site)) +
@@ -426,7 +426,7 @@ on the x-axis.
 ## Answers
 
 
-```r
+``` r
 ggplot(NDVI_HARV_SJER, aes(x = Date, y = meanNDVI, colour = site)) +
   geom_point(aes(group = site)) +
   geom_line(aes(group = site)) +
@@ -482,19 +482,19 @@ outcomes!
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-```r
+``` r
 avg_NDVI_HARV_clean <- subset(avg_NDVI_HARV, meanNDVI > 0.1)
 avg_NDVI_HARV_clean$meanNDVI < 0.1
 ```
 
-```{.output}
+``` output
  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ```
 
 Now we can create another plot without the suspect data.
 
 
-```r
+``` r
 ggplot(avg_NDVI_HARV_clean, aes(x = julianDay, y = meanNDVI)) +
   geom_point() +
   ggtitle("Landsat Derived NDVI - 2011", 
@@ -522,11 +522,11 @@ Before saving our file, let's view the format to make sure it is what we want
 as an output format.
 
 
-```r
+``` r
 head(avg_NDVI_HARV_clean)
 ```
 
-```{.output}
+``` output
                     meanNDVI site year julianDay       Date
 X005_HARV_ndvi_crop 0.365150 HARV 2011         5 2011-01-05
 X037_HARV_ndvi_crop 0.242645 HARV 2011        37 2011-02-06
@@ -541,12 +541,12 @@ have this information stored in individual columns in our data frame. Let's
 remove the row names.
 
 
-```r
+``` r
 row.names(avg_NDVI_HARV_clean) <- NULL
 head(avg_NDVI_HARV_clean)
 ```
 
-```{.output}
+``` output
   meanNDVI site year julianDay       Date
 1 0.365150 HARV 2011         5 2011-01-05
 2 0.242645 HARV 2011        37 2011-02-06
@@ -557,7 +557,7 @@ head(avg_NDVI_HARV_clean)
 ```
 
 
-```r
+``` r
 write.csv(avg_NDVI_HARV_clean, file="meanNDVI_HARV_2011.csv")
 ```
 
@@ -575,13 +575,13 @@ write.csv(avg_NDVI_HARV_clean, file="meanNDVI_HARV_2011.csv")
 ## Answers
 
 
-```r
+``` r
 avg_NDVI_SJER_clean <- subset(avg_NDVI_SJER, meanNDVI > 0.1)
 row.names(avg_NDVI_SJER_clean) <- NULL
 head(avg_NDVI_SJER_clean)
 ```
 
-```{.output}
+``` output
   meanNDVI site year julianDay       Date
 1 0.529780 SJER 2011        46 2011-02-15
 2 0.554368 SJER 2011        62 2011-03-03
@@ -591,7 +591,7 @@ head(avg_NDVI_SJER_clean)
 6 0.400868 SJER 2011       142 2011-05-22
 ```
 
-```r
+``` r
 write.csv(avg_NDVI_SJER_clean, file = "meanNDVI_SJER_2011.csv")
 ```
 

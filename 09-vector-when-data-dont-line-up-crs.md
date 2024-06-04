@@ -6,7 +6,7 @@ source: Rmd
 ---
 
 
-```{.warning}
+``` warning
 Warning in
 download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
 : cannot open URL
@@ -14,7 +14,7 @@ download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/d
 HTTP status was '500 Internal Server Error'
 ```
 
-```{.error}
+``` error
 Error in download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
 ```
 
@@ -107,12 +107,12 @@ these data have been modified and reprojected from the original data downloaded
 from the Census website to support the learning goals of this episode.
 
 
-```r
+``` r
 state_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp") %>%
   st_zm()
 ```
 
-```{.output}
+``` output
 Reading layer `US-State-Boundaries-Census-2014' from data source 
   `/home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp' 
   using driver `ESRI Shapefile'
@@ -127,7 +127,7 @@ Geodetic CRS:  WGS 84
 Next, let's plot the U.S. states data:
 
 
-```r
+``` r
 ggplot() +
   geom_sf(data = state_boundary_US) +
   ggtitle("Map of Contiguous US State Boundaries") +
@@ -143,12 +143,12 @@ nicer. We will import
 `NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States`.
 
 
-```r
+``` r
 country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp") %>%
   st_zm()
 ```
 
-```{.output}
+``` output
 Reading layer `US-Boundary-Dissolved-States' from data source 
   `/home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp' 
   using driver `ESRI Shapefile'
@@ -165,7 +165,7 @@ will make our map pop! We will also manually set the colors of the state
 boundaries and country boundaries.
 
 
-```r
+``` r
 ggplot() +
   geom_sf(data = state_boundary_US, color = "gray60") +
   geom_sf(data = country_boundary_US, color = "black",alpha = 0.25,size = 5) +
@@ -180,11 +180,11 @@ As we are adding these layers, take note of the CRS of each object.
 First let's look at the CRS of our tower location object:
 
 
-```r
+``` r
 st_crs(point_HARV)$proj4string
 ```
 
-```{.output}
+``` output
 [1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
 ```
 
@@ -204,19 +204,19 @@ zone.
 Let's check the CRS of our state and country boundary objects:
 
 
-```r
+``` r
 st_crs(state_boundary_US)$proj4string
 ```
 
-```{.output}
+``` output
 [1] "+proj=longlat +datum=WGS84 +no_defs"
 ```
 
-```r
+``` r
 st_crs(country_boundary_US)$proj4string
 ```
 
-```{.output}
+``` output
 [1] "+proj=longlat +datum=WGS84 +no_defs"
 ```
 
@@ -255,11 +255,11 @@ object compared to the `state_boundary_US` object.
 First we'll look at the extent for our study site:
 
 
-```r
+``` r
 st_bbox(point_HARV)
 ```
 
-```{.output}
+``` output
      xmin      ymin      xmax      ymax 
  732183.2 4713265.0  732183.2 4713265.0 
 ```
@@ -267,11 +267,11 @@ st_bbox(point_HARV)
 And then the extent for the state boundary data.
 
 
-```r
+``` r
 st_bbox(state_boundary_US)
 ```
 
-```{.output}
+``` output
       xmin       ymin       xmax       ymax 
 -124.72584   24.49813  -66.94989   49.38436 
 ```
@@ -306,7 +306,7 @@ This means we can plot our three data sets together without doing any
 conversion:
 
 
-```r
+``` r
 ggplot() +
   geom_sf(data = state_boundary_US, color = "gray60") +
   geom_sf(data = country_boundary_US, size = 5, alpha = 0.25, color = "black") +
@@ -336,12 +336,12 @@ Create a map of the North Eastern United States as follows:
 ## Answers
 
 
-```r
+``` r
 NE.States.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp") %>%
   st_zm()
 ```
 
-```{.output}
+``` output
 Reading layer `Boundary-US-State-NEast' from data source 
   `/home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp' 
   using driver `ESRI Shapefile'
@@ -353,7 +353,7 @@ z_range:       zmin: 0 zmax: 0
 Geodetic CRS:  WGS 84
 ```
 
-```r
+``` r
 ggplot() +
     geom_sf(data = NE.States.Boundary.US, aes(color ="color"),
             show.legend = "line") +

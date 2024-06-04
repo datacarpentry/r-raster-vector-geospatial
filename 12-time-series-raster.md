@@ -6,7 +6,7 @@ source: Rmd
 ---
 
 
-```{.warning}
+``` warning
 Warning in
 download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
 : cannot open URL
@@ -14,7 +14,7 @@ download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/d
 HTTP status was '500 Internal Server Error'
 ```
 
-```{.error}
+``` error
 Error in download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
 ```
 
@@ -86,7 +86,7 @@ In this episode, we will use the `terra`, `scales`, `tidyr`, and `ggplot2`
 packages. Make sure you have them loaded.
 
 
-```r
+``` r
 library(terra)
 library(scales)
 library(tidyr)
@@ -115,7 +115,7 @@ scope of this workshop.
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-```r
+``` r
 NDVI_HARV_path <- "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI"
 
 all_NDVI_HARV <- list.files(NDVI_HARV_path,
@@ -127,11 +127,11 @@ It's a good idea to look at the file names that matched our search to make sure
 they meet our expectations.
 
 
-```r
+``` r
 all_NDVI_HARV
 ```
 
-```{.output}
+``` output
  [1] "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI/005_HARV_ndvi_crop.tif"
  [2] "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI/037_HARV_ndvi_crop.tif"
  [3] "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI/085_HARV_ndvi_crop.tif"
@@ -154,7 +154,7 @@ Next, we will create a stack of rasters from this list using the
 [an earlier episode](05-raster-multi-band-in-r/).
 
 
-```r
+``` r
 NDVI_HARV_stack <- rast(all_NDVI_HARV)
 ```
 
@@ -164,11 +164,11 @@ same syntax that we used on single-band raster objects in R including: `crs()`
 `yres()` and `xres()`).
 
 
-```r
+``` r
 crs(NDVI_HARV_stack, proj = TRUE)
 ```
 
-```{.output}
+``` output
 [1] "+proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs"
 ```
 
@@ -202,27 +202,27 @@ questions.
 ## Answers
 
 
-```r
+``` r
 ext(NDVI_HARV_stack)
 ```
 
-```{.output}
+``` output
 SpatExtent : 239415, 239535, 4714215, 4714365 (xmin, xmax, ymin, ymax)
 ```
 
-```r
+``` r
 yres(NDVI_HARV_stack)
 ```
 
-```{.output}
+``` output
 [1] 30
 ```
 
-```r
+``` r
 xres(NDVI_HARV_stack)
 ```
 
-```{.output}
+``` output
 [1] 30
 ```
 
@@ -240,7 +240,7 @@ the data so that we have a single column with the NDVI observations. We will
 use the function `pivot_longer()` from the `tidyr` package to do this:
 
 
-```r
+``` r
 NDVI_HARV_stack_df <- as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
     pivot_longer(-(x:y), names_to = "variable", values_to = "value")
 ```
@@ -250,7 +250,7 @@ for each time point in our time series, so we will use the `facet_wrap()`
 function to create a multi-paneled plot:
 
 
-```r
+``` r
 ggplot() +
   geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~ variable)
@@ -272,7 +272,7 @@ Let's apply the scale factor before we go any further. Conveniently, we can
 quickly apply this factor using raster math on the entire stack as follows:
 
 
-```r
+``` r
 NDVI_HARV_stack <- NDVI_HARV_stack/10000
 ```
 
@@ -280,7 +280,7 @@ After applying our scale factor, we can recreate our plot using the same code
 we used above.
 
 
-```r
+``` r
 NDVI_HARV_stack_df <- as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
     pivot_longer(-(x:y), names_to = "variable", values_to = "value")
 
@@ -317,13 +317,13 @@ Next we will use histograms to explore the distribution of NDVI values stored
 in each raster.
 
 
-```r
+``` r
 ggplot(NDVI_HARV_stack_df) +
   geom_histogram(aes(value)) + 
   facet_wrap(~variable)
 ```
 
-```{.output}
+``` output
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
@@ -347,14 +347,14 @@ browning seen in the NDVI data. First we will read in the temperature data and
 preview the structure of that dataframe:
 
 
-```r
+``` r
 har_met_daily <-
   read.csv("data/NEON-DS-Met-Time-Series/HARV/FisherTower-Met/hf001-06-daily-m.csv")
 
 str(har_met_daily)
 ```
 
-```{.output}
+``` output
 'data.frame':	5345 obs. of  46 variables:
  $ date     : chr  "2001-02-11" "2001-02-12" "2001-02-13" "2001-02-14" ...
  $ jd       : int  42 43 44 45 46 47 48 49 50 51 ...
@@ -410,14 +410,14 @@ need to tell R what format the data is in. Our dates are YYY-MM-DD, which is
 represented by R as `%Y-%m-%d`.
 
 
-```r
+``` r
 har_met_daily$date <- as.Date(har_met_daily$date, format = "%Y-%m-%d")
 ```
 
 We only want to look at the data from 2011:
 
 
-```r
+``` r
 yr_11_daily_avg <- har_met_daily %>%
   filter(between(date, as.Date('2011-01-01'), as.Date('2011-12-31')))
 ```
@@ -426,7 +426,7 @@ Now we can plot the air temperature (the `airt` column) by Julian day (the `jd`
 column):
 
 
-```r
+``` r
 ggplot() +
   geom_point(data = yr_11_daily_avg, aes(jd, airt)) +
   ggtitle("Daily Mean Air Temperature",
@@ -461,7 +461,7 @@ First we need to load in the RGB data for Julian day 277 and look at its
 metadata.
 
 
-```r
+``` r
 RGB_277 <- rast("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif")
 
 # NOTE: Fix the bands' names so they don't start with a number!
@@ -470,7 +470,7 @@ names(RGB_277) <- paste0("X", names(RGB_277))
 RGB_277
 ```
 
-```{.output}
+``` output
 class       : SpatRaster 
 dimensions  : 652, 696, 3  (nrow, ncol, nlyr)
 resolution  : 30, 30  (x, y)
@@ -486,21 +486,21 @@ The RGB data has a max value of 255, but we need our color intensity to be
 between 0 and 1, so we will divide our RasterStack object by 255.
 
 
-```r
+``` r
 RGB_277 <- RGB_277/255
 ```
 
 Next we convert it to a dataframe.
 
 
-```r
+``` r
 RGB_277_df <- as.data.frame(RGB_277, xy = TRUE)
 ```
 
 We create RGB colors from the three channels:
 
 
-```r
+``` r
 RGB_277_df$rgb <- 
   with(RGB_277_df, rgb(X277_HARV_landRGB_1, X277_HARV_landRGB_2, 
                        X277_HARV_landRGB_3, 1))
@@ -509,7 +509,7 @@ RGB_277_df$rgb <-
 Finally, we can plot the RGB data for Julian day 277.
 
 
-```r
+``` r
 ggplot() +
   geom_raster(data=RGB_277_df, aes(x, y), fill=RGB_277_df$rgb) + 
   ggtitle("Julian day 277") 
@@ -520,7 +520,7 @@ ggplot() +
 We then do the same steps for Julian day 293
 
 
-```r
+``` r
 # Julian day 293
 RGB_293 <- rast("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")
 names(RGB_293) <- paste0("X", names(RGB_293))

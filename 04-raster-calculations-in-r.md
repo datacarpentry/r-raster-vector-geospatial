@@ -6,7 +6,7 @@ source: Rmd
 ---
 
 
-```{.warning}
+``` warning
 Warning in
 download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
 : cannot open URL
@@ -14,7 +14,7 @@ download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/d
 HTTP status was '500 Internal Server Error'
 ```
 
-```{.error}
+``` error
 Error in download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
 ```
 
@@ -94,11 +94,11 @@ they both have defined minimum and maximum values?
 ## Solution
 
 
-```r
+``` r
 describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 ```
 
-```{.output}
+``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                                                                                                                                                                         
  [2] "Files: data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif"                                                                                                                                                                                                         
  [3] "Size is 1697, 1367"                                                                                                                                                                                                                                                            
@@ -166,11 +166,11 @@ describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 [65] "    STATISTICS_STDDEV=15.861471000978"                                                                                                                                                                                                                                         
 ```
 
-```r
+``` r
 describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 ```
 
-```{.output}
+``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                                                                                                                                                                         
  [2] "Files: data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif"                                                                                                                                                                                                         
  [3] "Size is 1697, 1367"                                                                                                                                                                                                                                                            
@@ -247,7 +247,7 @@ earlier episodes. Let's plot them each once more to remind ourselves
 what this data looks like. First we'll plot the DTM elevation data:
 
 
-```r
+``` r
  ggplot() +
       geom_raster(data = DTM_HARV_df , 
               aes(x = x, y = y, fill = HARV_dtmCrop)) +
@@ -260,7 +260,7 @@ what this data looks like. First we'll plot the DTM elevation data:
 And then the DSM elevation data:
 
 
-```r
+``` r
  ggplot() +
       geom_raster(data = DSM_HARV_df , 
               aes(x = x, y = y, fill = HARV_dsmCrop)) +
@@ -291,7 +291,7 @@ Let's subtract the DTM from the DSM to create a Canopy Height Model.
 After subtracting, let's create a dataframe so we can plot with `ggplot`.
 
 
-```r
+``` r
 CHM_HARV <- DSM_HARV - DTM_HARV
 
 CHM_HARV_df <- as.data.frame(CHM_HARV, xy = TRUE)
@@ -300,7 +300,7 @@ CHM_HARV_df <- as.data.frame(CHM_HARV, xy = TRUE)
 We can now plot the output CHM.
 
 
-```r
+``` r
  ggplot() +
    geom_raster(data = CHM_HARV_df , 
                aes(x = x, y = y, fill = HARV_dsmCrop)) + 
@@ -314,12 +314,12 @@ Let's have a look at the distribution of values in our newly created
 Canopy Height Model (CHM).
 
 
-```r
+``` r
 ggplot(CHM_HARV_df) +
     geom_histogram(aes(HARV_dsmCrop))
 ```
 
-```{.output}
+``` output
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
@@ -349,19 +349,19 @@ like we might explore a dataset that we collected in the field.
   `na.rm = TRUE`.
 
 
-```r
+``` r
 min(CHM_HARV_df$HARV_dsmCrop, na.rm = TRUE)
 ```
 
-```{.output}
+``` output
 [1] 0
 ```
 
-```r
+``` r
 max(CHM_HARV_df$HARV_dsmCrop, na.rm = TRUE)
 ```
 
-```{.output}
+``` output
 [1] 38.16998
 ```
 
@@ -373,12 +373,12 @@ max(CHM_HARV_df$HARV_dsmCrop, na.rm = TRUE)
 
 3) 
 
-```r
+``` r
 ggplot(CHM_HARV_df) +
     geom_histogram(aes(HARV_dsmCrop))
 ```
 
-```{.output}
+``` output
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
@@ -386,7 +386,7 @@ ggplot(CHM_HARV_df) +
 
 4) 
 
-```r
+``` r
 ggplot(CHM_HARV_df) +
     geom_histogram(aes(HARV_dsmCrop), colour="black", 
                    fill="darkgreen", bins = 6)
@@ -396,7 +396,7 @@ ggplot(CHM_HARV_df) +
 
 5) 
 
-```r
+``` r
 custom_bins <- c(0, 10, 20, 30, 40)
 CHM_HARV_df <- CHM_HARV_df %>%
                   mutate(canopy_discrete = cut(HARV_dsmCrop, 
@@ -460,7 +460,7 @@ function in R is:
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-```r
+``` r
 CHM_ov_HARV <- lapp(sds(list(DSM_HARV, DTM_HARV)), 
                     fun = function(r1, r2) { return( r1 - r2) })
 ```
@@ -469,14 +469,14 @@ Next we need to convert our new object to a data frame for plotting with
 `ggplot`.
 
 
-```r
+``` r
 CHM_ov_HARV_df <- as.data.frame(CHM_ov_HARV, xy = TRUE)
 ```
 
 Now we can plot the CHM:
 
 
-```r
+``` r
  ggplot() +
    geom_raster(data = CHM_ov_HARV_df, 
                aes(x = x, y = y, fill = HARV_dsmCrop)) + 
@@ -506,7 +506,7 @@ We will also tell R to overwrite any data that is already in a file of the same
 name.
 
 
-```r
+``` r
 writeRaster(CHM_ov_HARV, "CHM_HARV.tiff",
             filetype="GTiff",
             overwrite=TRUE,
@@ -559,7 +559,7 @@ keep track of data from different sites!
 1) Use the `lapp()` function to subtract the two rasters \& create the CHM.
 
 
-```r
+``` r
 CHM_ov_SJER <- lapp(sds(list(DSM_SJER, DTM_SJER)),
                        fun = function(r1, r2){ return(r1 - r2) })
 ```
@@ -567,19 +567,19 @@ CHM_ov_SJER <- lapp(sds(list(DSM_SJER, DTM_SJER)),
 Convert the output to a dataframe:
 
 
-```r
+``` r
 CHM_ov_SJER_df <- as.data.frame(CHM_ov_SJER, xy = TRUE)
 ```
 
 Create a histogram to check that the data distribution makes sense:
 
 
-```r
+``` r
 ggplot(CHM_ov_SJER_df) +
     geom_histogram(aes(SJER_dsmCrop))
 ```
 
-```{.output}
+``` output
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
@@ -588,7 +588,7 @@ ggplot(CHM_ov_SJER_df) +
 2) Create a plot of the CHM:
 
 
-```r
+``` r
  ggplot() +
       geom_raster(data = CHM_ov_SJER_df, 
               aes(x = x, y = y, 
@@ -604,7 +604,7 @@ ggplot(CHM_ov_SJER_df) +
 3) Export the CHM object to a file:
 
 
-```r
+``` r
 writeRaster(CHM_ov_SJER, "chm_ov_SJER.tiff",
             filetype = "GTiff",
             overwrite = TRUE,
@@ -616,23 +616,23 @@ writeRaster(CHM_ov_SJER, "chm_ov_SJER.tiff",
   looking at the histograms of the two CHMs.
 
 
-```r
+``` r
 ggplot(CHM_HARV_df) +
     geom_histogram(aes(HARV_dsmCrop))
 ```
 
-```{.output}
+``` output
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
 <img src="fig/04-raster-calculations-in-r-rendered-compare-chm-harv-sjer-1.png" style="display: block; margin: auto;" />
 
-```r
+``` r
 ggplot(CHM_ov_SJER_df) +
     geom_histogram(aes(SJER_dsmCrop))
 ```
 
-```{.output}
+``` output
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 

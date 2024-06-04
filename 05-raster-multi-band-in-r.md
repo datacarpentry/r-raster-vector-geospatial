@@ -6,7 +6,7 @@ source: Rmd
 ---
 
 
-```{.warning}
+``` warning
 Warning in
 download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
 : cannot open URL
@@ -14,7 +14,7 @@ download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/d
 HTTP status was '500 Internal Server Error'
 ```
 
-```{.error}
+``` error
 Error in download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
 ```
 
@@ -64,7 +64,7 @@ specific raster bands (i.e. the first one); omitting this parater would read
 instead all bands.
 
 
-```r
+``` r
 RGB_band1_HARV <- 
   rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif", 
        lyrs = 1)
@@ -73,12 +73,12 @@ RGB_band1_HARV <-
 We need to convert this data to a data frame in order to plot it with `ggplot`.
 
 
-```r
+``` r
 RGB_band1_HARV_df  <- as.data.frame(RGB_band1_HARV, xy = TRUE)
 ```
 
 
-```r
+``` r
 ggplot() +
   geom_raster(data = RGB_band1_HARV_df,
               aes(x = x, y = y, alpha = HARV_RGB_Ortho_1)) + 
@@ -99,11 +99,11 @@ and max values, and band number?
 ## Solution
 
 
-```r
+``` r
 RGB_band1_HARV
 ```
 
-```{.output}
+``` output
 class       : SpatRaster 
 dimensions  : 2317, 3073, 1  (nrow, ncol, nlyr)
 resolution  : 0.25, 0.25  (x, y)
@@ -154,7 +154,7 @@ by specifying which band we want with `lyrs = N` (N represents the band number w
 want to work with). To import the green band, we would use `lyrs = 2`.
 
 
-```r
+``` r
 RGB_band2_HARV <-  
   rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif", 
        lyrs = 2)
@@ -163,12 +163,12 @@ RGB_band2_HARV <-
 We can convert this data to a data frame and plot the same way we plotted the red band:
 
 
-```r
+``` r
 RGB_band2_HARV_df <- as.data.frame(RGB_band2_HARV, xy = TRUE)
 ```
 
 
-```r
+``` r
 ggplot() +
   geom_raster(data = RGB_band2_HARV_df,
               aes(x = x, y = y, alpha = HARV_RGB_Ortho_2)) + 
@@ -206,7 +206,7 @@ raster object. We will then plot a 3-band composite, or full color, image.
 To bring in all bands of a multi-band raster, we use the`rast()` function.
 
 
-```r
+``` r
 RGB_stack_HARV <- 
   rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 ```
@@ -214,11 +214,11 @@ RGB_stack_HARV <-
 Let's preview the attributes of our stack object:
 
 
-```r
+``` r
 RGB_stack_HARV
 ```
 
-```{.output}
+``` output
 class       : SpatRaster 
 dimensions  : 2317, 3073, 3  (nrow, ncol, nlyr)
 resolution  : 0.25, 0.25  (x, y)
@@ -235,11 +235,11 @@ example, if we had hundreds of bands, we could specify which band we'd like to
 view attributes for using an index value:
 
 
-```r
+``` r
 RGB_stack_HARV[[2]]
 ```
 
-```{.output}
+``` output
 class       : SpatRaster 
 dimensions  : 2317, 3073, 1  (nrow, ncol, nlyr)
 resolution  : 0.25, 0.25  (x, y)
@@ -255,18 +255,18 @@ We can also use the `ggplot` functions to plot the data in any layer of our
 raster object. Remember, we need to convert to a data frame first.
 
 
-```r
+``` r
 RGB_stack_HARV_df  <- as.data.frame(RGB_stack_HARV, xy = TRUE)
 ```
 
 Each band in our RasterStack gets its own column in the data frame. Thus we have:
 
 
-```r
+``` r
 str(RGB_stack_HARV_df)
 ```
 
-```{.output}
+``` output
 'data.frame':	7120141 obs. of  5 variables:
  $ x               : num  731999 731999 731999 731999 732000 ...
  $ y               : num  4713535 4713535 4713535 4713535 4713535 ...
@@ -278,12 +278,12 @@ str(RGB_stack_HARV_df)
 Let's create a histogram of the first band:
 
 
-```r
+``` r
 ggplot() +
   geom_histogram(data = RGB_stack_HARV_df, aes(HARV_RGB_Ortho_1))
 ```
 
-```{.output}
+``` output
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
@@ -292,7 +292,7 @@ ggplot() +
 And a raster plot of the second band:
 
 
-```r
+``` r
 ggplot() +
   geom_raster(data = RGB_stack_HARV_df,
               aes(x = x, y = y, alpha = HARV_RGB_Ortho_2)) + 
@@ -321,7 +321,7 @@ directly with our RasterStack object (we don't need a dataframe as this
 function isn't part of the `ggplot2` package).
 
 
-```r
+``` r
 plotRGB(RGB_stack_HARV,
         r = 1, g = 2, b = 3)
 ```
@@ -345,7 +345,7 @@ rendered by default. We can stretch the values to extend to the full 0-255
 range of potential values to increase the visual contrast of the image.
 
 
-```r
+``` r
 plotRGB(RGB_stack_HARV,
         r = 1, g = 2, b = 3,
         scale = 800,
@@ -355,7 +355,7 @@ plotRGB(RGB_stack_HARV,
 <img src="fig/05-raster-multi-band-in-r-rendered-plot-rbg-image-linear-1.png" style="display: block; margin: auto;" />
 
 
-```r
+``` r
 plotRGB(RGB_stack_HARV,
         r = 1, g = 2, b = 3,
         scale = 800,
@@ -394,11 +394,11 @@ objects and using the `plotRGB()` function. We will use the
 1) First we use the `describe()` function to view the data attributes.
 
 
-```r
+``` r
 describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif")
 ```
 
-```{.output}
+``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                                                                                                                                                                         
  [2] "Files: data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif"                                                                                                                                                                                               
  [3] "Size is 3073, 2317"                                                                                                                                                                                                                                                            
@@ -492,7 +492,7 @@ assigned the value of -9999.
 4) To read in the file, we will use the `rast()` function:
 
 
-```r
+``` r
 HARV_NA <- 
   rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif")
 ```
@@ -500,7 +500,7 @@ HARV_NA <-
 5) We can plot the data with the `plotRGB()` function:
 
 
-```r
+``` r
 plotRGB(HARV_NA,
         r = 1, g = 2, b = 3)
 ```
@@ -515,11 +515,11 @@ reflectance values are 0. The black edges in the other file are defined as
 -9999 and R renders them as NA.
 
 
-```r
+``` r
 describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 ```
 
-```{.output}
+``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                                                                                                                                                                         
  [2] "Files: data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif"                                                                                                                                                                                               
  [3] "Size is 3073, 2317"                                                                                                                                                                                                                                                            
@@ -644,7 +644,7 @@ or `?sds`.
 We can build a SpatRasterDataset using a SpatRaster or a list of SpatRaster:
 
 
-```r
+``` r
 RGB_sds_HARV <- sds(RGB_stack_HARV)
 RGB_sds_HARV <- sds(list(RGB_stack_HARV, RGB_stack_HARV))
 ```
@@ -653,11 +653,11 @@ We can retrieve the SpatRaster objects from a SpatRasterDataset using
 subsetting:
 
 
-```r
+``` r
 RGB_sds_HARV[[1]]
 ```
 
-```{.output}
+``` output
 class       : SpatRaster 
 dimensions  : 2317, 3073, 3  (nrow, ncol, nlyr)
 resolution  : 0.25, 0.25  (x, y)
@@ -669,11 +669,11 @@ min values  :                0,                0,                0
 max values  :              255,              255,              255 
 ```
 
-```r
+``` r
 RGB_sds_HARV[[2]]
 ```
 
-```{.output}
+``` output
 class       : SpatRaster 
 dimensions  : 2317, 3073, 3  (nrow, ncol, nlyr)
 resolution  : 0.25, 0.25  (x, y)
@@ -705,11 +705,11 @@ We can view various functions (or methods) available to use on an R object with
   RasterStack object:
 
 
-```r
+``` r
 methods(class=class(RGB_stack_HARV))
 ```
 
-```{.output}
+``` output
   [1] !                     [                     [[                   
   [4] [[<-                  [<-                   %in%                 
   [7] $                     $<-                   activeCat            
@@ -724,107 +724,108 @@ methods(class=class(RGB_stack_HARV))
  [34] as.logical            as.matrix             as.numeric           
  [37] as.points             as.polygons           as.raster            
  [40] atan_2                atan2                 autocor              
- [43] barplot               blocks                boundaries           
- [46] boxplot               buffer                c                    
- [49] catalyze              categories            cats                 
- [52] cellFromRowCol        cellFromRowColCombine cellFromXY           
- [55] cells                 cellSize              clamp_ts             
- [58] clamp                 classify              click                
- [61] coerce                colFromCell           colFromX             
- [64] colorize              coltab                coltab<-             
- [67] Compare               compare               compareGeom          
- [70] concats               contour               costDist             
- [73] countNA               cover                 crds                 
- [76] crop                  crosstab              crs                  
- [79] crs<-                 datatype              deepcopy             
- [82] density               depth                 depth<-              
- [85] diff                  dim                   dim<-                
- [88] direction             disagg                distance             
- [91] droplevels            expanse               ext                  
- [94] ext<-                 extend                extract              
- [97] extractRange          fillTime              flip                 
-[100] focal                 focal3D               focalCor             
-[103] focalCpp              focalPairs            focalReg             
-[106] focalValues           freq                  getTileExtents       
-[109] global                gridDist              gridDistance         
-[112] has.colors            has.RGB               has.time             
-[115] hasMinMax             hasValues             head                 
-[118] hist                  identical             ifel                 
-[121] image                 init                  inMemory             
-[124] inset                 interpIDW             interpNear           
-[127] interpolate           intersect             is.bool              
-[130] is.factor             is.finite             is.infinite          
-[133] is.int                is.lonlat             is.na                
-[136] is.nan                is.related            is.rotated           
-[139] isFALSE               isTRUE                k_means              
-[142] lapp                  layerCor              levels               
-[145] levels<-              linearUnits           lines                
-[148] log                   Logic                 logic                
-[151] longnames             longnames<-           makeTiles            
-[154] mask                  match                 math                 
-[157] Math                  Math2                 mean                 
-[160] median                merge                 meta                 
-[163] metags                metags<-              minmax               
-[166] modal                 mosaic                NAflag               
-[169] NAflag<-              names                 names<-              
-[172] ncell                 ncol                  ncol<-               
-[175] nlyr                  nlyr<-                noNA                 
-[178] not.na                nrow                  nrow<-               
-[181] nsrc                  origin                origin<-             
-[184] pairs                 panel                 patches              
-[187] persp                 plet                  plot                 
-[190] plotRGB               points                polys                
-[193] prcomp                predict               princomp             
-[196] project               quantile              rangeFill            
-[199] rapp                  rast                  rasterize            
-[202] rasterizeGeom         rasterizeWin          rcl                  
-[205] readStart             readStop              readValues           
-[208] rectify               regress               relate               
-[211] rep                   res                   res<-                
-[214] resample              rescale               rev                  
-[217] RGB                   RGB<-                 roll                 
-[220] rotate                rowColCombine         rowColFromCell       
-[223] rowFromCell           rowFromY              sapp                 
-[226] saveRDS               scale                 scoff                
-[229] scoff<-               sds                   segregate            
-[232] sel                   selectHighest         selectRange          
-[235] serialize             set.cats              set.crs              
-[238] set.ext               set.names             set.RGB              
-[241] set.values            setMinMax             setValues            
-[244] shift                 show                  sieve                
-[247] size                  sort                  sources              
-[250] spatSample            split                 sprc                 
-[253] stdev                 str                   stretch              
-[256] subset                subst                 summary              
-[259] Summary               t                     tail                 
-[262] tapp                  terrain               text                 
-[265] tighten               time                  time<-               
-[268] timeInfo              trans                 trim                 
-[271] unique                units                 units<-              
-[274] update                values                values<-             
-[277] varnames              varnames<-            viewshed             
-[280] weighted.mean         where.max             where.min            
-[283] which.lyr             which.max             which.min            
-[286] window                window<-              wrap                 
-[289] wrapCache             writeCDF              writeRaster          
-[292] writeStart            writeStop             writeValues          
-[295] xapp                  xFromCell             xFromCol             
-[298] xmax                  xmax<-                xmin                 
-[301] xmin<-                xres                  xyFromCell           
-[304] yFromCell             yFromRow              ymax                 
-[307] ymax<-                ymin                  ymin<-               
-[310] yres                  zonal                 zoom                 
+ [43] barplot               bestMatch             blocks               
+ [46] boundaries            boxplot               buffer               
+ [49] c                     catalyze              categories           
+ [52] cats                  cellFromRowCol        cellFromRowColCombine
+ [55] cellFromXY            cells                 cellSize             
+ [58] clamp_ts              clamp                 classify             
+ [61] click                 coerce                colFromCell          
+ [64] colFromX              colorize              coltab               
+ [67] coltab<-              Compare               compare              
+ [70] compareGeom           concats               contour              
+ [73] costDist              countNA               cover                
+ [76] crds                  crop                  crosstab             
+ [79] crs                   crs<-                 datatype             
+ [82] deepcopy              density               depth                
+ [85] depth<-               diff                  dim                  
+ [88] dim<-                 direction             disagg               
+ [91] distance              droplevels            expanse              
+ [94] ext                   ext<-                 extend               
+ [97] extract               extractRange          fillTime             
+[100] flip                  focal                 focal3D              
+[103] focalCor              focalCpp              focalPairs           
+[106] focalReg              focalValues           freq                 
+[109] getTileExtents        global                gridDist             
+[112] gridDistance          has.colors            has.RGB              
+[115] has.time              hasMinMax             hasValues            
+[118] head                  hist                  identical            
+[121] ifel                  image                 init                 
+[124] inMemory              inset                 interpIDW            
+[127] interpNear            interpolate           intersect            
+[130] is.bool               is.factor             is.finite            
+[133] is.infinite           is.int                is.lonlat            
+[136] is.na                 is.nan                is.related           
+[139] is.rotated            isFALSE               isTRUE               
+[142] k_means               lapp                  layerCor             
+[145] levels                levels<-              linearUnits          
+[148] lines                 log                   Logic                
+[151] logic                 longnames             longnames<-          
+[154] makeTiles             mask                  match                
+[157] math                  Math                  Math2                
+[160] mean                  median                merge                
+[163] meta                  metags                metags<-             
+[166] minmax                modal                 mosaic               
+[169] NAflag                NAflag<-              names                
+[172] names<-               ncell                 ncol                 
+[175] ncol<-                nlyr                  nlyr<-               
+[178] noNA                  not.na                nrow                 
+[181] nrow<-                nsrc                  origin               
+[184] origin<-              pairs                 panel                
+[187] patches               persp                 plet                 
+[190] plot                  plotRGB               points               
+[193] polys                 prcomp                predict              
+[196] princomp              project               quantile             
+[199] rangeFill             rapp                  rast                 
+[202] rasterize             rasterizeGeom         rasterizeWin         
+[205] rcl                   readStart             readStop             
+[208] readValues            rectify               regress              
+[211] relate                rep                   res                  
+[214] res<-                 resample              rescale              
+[217] rev                   RGB                   RGB<-                
+[220] roll                  rotate                rowColCombine        
+[223] rowColFromCell        rowFromCell           rowFromY             
+[226] sapp                  saveRDS               scale                
+[229] scoff                 scoff<-               sds                  
+[232] segregate             sel                   selectHighest        
+[235] selectRange           serialize             set.cats             
+[238] set.crs               set.ext               set.names            
+[241] set.RGB               set.values            setMinMax            
+[244] setValues             shift                 show                 
+[247] sieve                 size                  sort                 
+[250] sources               spatSample            split                
+[253] sprc                  stdev                 str                  
+[256] stretch               subset                subst                
+[259] summary               Summary               t                    
+[262] tail                  tapp                  terrain              
+[265] text                  tighten               time                 
+[268] time<-                timeInfo              trans                
+[271] trim                  unique                units                
+[274] units<-               update                values               
+[277] values<-              varnames              varnames<-           
+[280] viewshed              weighted.mean         where.max            
+[283] where.min             which.lyr             which.max            
+[286] which.min             window                window<-             
+[289] wrap                  wrapCache             writeCDF             
+[292] writeRaster           writeStart            writeStop            
+[295] writeValues           xapp                  xFromCell            
+[298] xFromCol              xmax                  xmax<-               
+[301] xmin                  xmin<-                xres                 
+[304] xyFromCell            yFromCell             yFromRow             
+[307] ymax                  ymax<-                ymin                 
+[310] ymin<-                yres                  zonal                
+[313] zoom                 
 see '?methods' for accessing help and source code
 ```
 
 2) And compare that with the methods available for a single band:
 
 
-```r
+``` r
 methods(class=class(RGB_stack_HARV[[1]]))
 ```
 
-```{.output}
+``` output
   [1] !                     [                     [[                   
   [4] [[<-                  [<-                   %in%                 
   [7] $                     $<-                   activeCat            
@@ -839,96 +840,97 @@ methods(class=class(RGB_stack_HARV[[1]]))
  [34] as.logical            as.matrix             as.numeric           
  [37] as.points             as.polygons           as.raster            
  [40] atan_2                atan2                 autocor              
- [43] barplot               blocks                boundaries           
- [46] boxplot               buffer                c                    
- [49] catalyze              categories            cats                 
- [52] cellFromRowCol        cellFromRowColCombine cellFromXY           
- [55] cells                 cellSize              clamp_ts             
- [58] clamp                 classify              click                
- [61] coerce                colFromCell           colFromX             
- [64] colorize              coltab                coltab<-             
- [67] Compare               compare               compareGeom          
- [70] concats               contour               costDist             
- [73] countNA               cover                 crds                 
- [76] crop                  crosstab              crs                  
- [79] crs<-                 datatype              deepcopy             
- [82] density               depth                 depth<-              
- [85] diff                  dim                   dim<-                
- [88] direction             disagg                distance             
- [91] droplevels            expanse               ext                  
- [94] ext<-                 extend                extract              
- [97] extractRange          fillTime              flip                 
-[100] focal                 focal3D               focalCor             
-[103] focalCpp              focalPairs            focalReg             
-[106] focalValues           freq                  getTileExtents       
-[109] global                gridDist              gridDistance         
-[112] has.colors            has.RGB               has.time             
-[115] hasMinMax             hasValues             head                 
-[118] hist                  identical             ifel                 
-[121] image                 init                  inMemory             
-[124] inset                 interpIDW             interpNear           
-[127] interpolate           intersect             is.bool              
-[130] is.factor             is.finite             is.infinite          
-[133] is.int                is.lonlat             is.na                
-[136] is.nan                is.related            is.rotated           
-[139] isFALSE               isTRUE                k_means              
-[142] lapp                  layerCor              levels               
-[145] levels<-              linearUnits           lines                
-[148] log                   Logic                 logic                
-[151] longnames             longnames<-           makeTiles            
-[154] mask                  match                 math                 
-[157] Math                  Math2                 mean                 
-[160] median                merge                 meta                 
-[163] metags                metags<-              minmax               
-[166] modal                 mosaic                NAflag               
-[169] NAflag<-              names                 names<-              
-[172] ncell                 ncol                  ncol<-               
-[175] nlyr                  nlyr<-                noNA                 
-[178] not.na                nrow                  nrow<-               
-[181] nsrc                  origin                origin<-             
-[184] pairs                 panel                 patches              
-[187] persp                 plet                  plot                 
-[190] plotRGB               points                polys                
-[193] prcomp                predict               princomp             
-[196] project               quantile              rangeFill            
-[199] rapp                  rast                  rasterize            
-[202] rasterizeGeom         rasterizeWin          rcl                  
-[205] readStart             readStop              readValues           
-[208] rectify               regress               relate               
-[211] rep                   res                   res<-                
-[214] resample              rescale               rev                  
-[217] RGB                   RGB<-                 roll                 
-[220] rotate                rowColCombine         rowColFromCell       
-[223] rowFromCell           rowFromY              sapp                 
-[226] saveRDS               scale                 scoff                
-[229] scoff<-               sds                   segregate            
-[232] sel                   selectHighest         selectRange          
-[235] serialize             set.cats              set.crs              
-[238] set.ext               set.names             set.RGB              
-[241] set.values            setMinMax             setValues            
-[244] shift                 show                  sieve                
-[247] size                  sort                  sources              
-[250] spatSample            split                 sprc                 
-[253] stdev                 str                   stretch              
-[256] subset                subst                 summary              
-[259] Summary               t                     tail                 
-[262] tapp                  terrain               text                 
-[265] tighten               time                  time<-               
-[268] timeInfo              trans                 trim                 
-[271] unique                units                 units<-              
-[274] update                values                values<-             
-[277] varnames              varnames<-            viewshed             
-[280] weighted.mean         where.max             where.min            
-[283] which.lyr             which.max             which.min            
-[286] window                window<-              wrap                 
-[289] wrapCache             writeCDF              writeRaster          
-[292] writeStart            writeStop             writeValues          
-[295] xapp                  xFromCell             xFromCol             
-[298] xmax                  xmax<-                xmin                 
-[301] xmin<-                xres                  xyFromCell           
-[304] yFromCell             yFromRow              ymax                 
-[307] ymax<-                ymin                  ymin<-               
-[310] yres                  zonal                 zoom                 
+ [43] barplot               bestMatch             blocks               
+ [46] boundaries            boxplot               buffer               
+ [49] c                     catalyze              categories           
+ [52] cats                  cellFromRowCol        cellFromRowColCombine
+ [55] cellFromXY            cells                 cellSize             
+ [58] clamp_ts              clamp                 classify             
+ [61] click                 coerce                colFromCell          
+ [64] colFromX              colorize              coltab               
+ [67] coltab<-              Compare               compare              
+ [70] compareGeom           concats               contour              
+ [73] costDist              countNA               cover                
+ [76] crds                  crop                  crosstab             
+ [79] crs                   crs<-                 datatype             
+ [82] deepcopy              density               depth                
+ [85] depth<-               diff                  dim                  
+ [88] dim<-                 direction             disagg               
+ [91] distance              droplevels            expanse              
+ [94] ext                   ext<-                 extend               
+ [97] extract               extractRange          fillTime             
+[100] flip                  focal                 focal3D              
+[103] focalCor              focalCpp              focalPairs           
+[106] focalReg              focalValues           freq                 
+[109] getTileExtents        global                gridDist             
+[112] gridDistance          has.colors            has.RGB              
+[115] has.time              hasMinMax             hasValues            
+[118] head                  hist                  identical            
+[121] ifel                  image                 init                 
+[124] inMemory              inset                 interpIDW            
+[127] interpNear            interpolate           intersect            
+[130] is.bool               is.factor             is.finite            
+[133] is.infinite           is.int                is.lonlat            
+[136] is.na                 is.nan                is.related           
+[139] is.rotated            isFALSE               isTRUE               
+[142] k_means               lapp                  layerCor             
+[145] levels                levels<-              linearUnits          
+[148] lines                 log                   Logic                
+[151] logic                 longnames             longnames<-          
+[154] makeTiles             mask                  match                
+[157] math                  Math                  Math2                
+[160] mean                  median                merge                
+[163] meta                  metags                metags<-             
+[166] minmax                modal                 mosaic               
+[169] NAflag                NAflag<-              names                
+[172] names<-               ncell                 ncol                 
+[175] ncol<-                nlyr                  nlyr<-               
+[178] noNA                  not.na                nrow                 
+[181] nrow<-                nsrc                  origin               
+[184] origin<-              pairs                 panel                
+[187] patches               persp                 plet                 
+[190] plot                  plotRGB               points               
+[193] polys                 prcomp                predict              
+[196] princomp              project               quantile             
+[199] rangeFill             rapp                  rast                 
+[202] rasterize             rasterizeGeom         rasterizeWin         
+[205] rcl                   readStart             readStop             
+[208] readValues            rectify               regress              
+[211] relate                rep                   res                  
+[214] res<-                 resample              rescale              
+[217] rev                   RGB                   RGB<-                
+[220] roll                  rotate                rowColCombine        
+[223] rowColFromCell        rowFromCell           rowFromY             
+[226] sapp                  saveRDS               scale                
+[229] scoff                 scoff<-               sds                  
+[232] segregate             sel                   selectHighest        
+[235] selectRange           serialize             set.cats             
+[238] set.crs               set.ext               set.names            
+[241] set.RGB               set.values            setMinMax            
+[244] setValues             shift                 show                 
+[247] sieve                 size                  sort                 
+[250] sources               spatSample            split                
+[253] sprc                  stdev                 str                  
+[256] stretch               subset                subst                
+[259] summary               Summary               t                    
+[262] tail                  tapp                  terrain              
+[265] text                  tighten               time                 
+[268] time<-                timeInfo              trans                
+[271] trim                  unique                units                
+[274] units<-               update                values               
+[277] values<-              varnames              varnames<-           
+[280] viewshed              weighted.mean         where.max            
+[283] where.min             which.lyr             which.max            
+[286] which.min             window                window<-             
+[289] wrap                  wrapCache             writeCDF             
+[292] writeRaster           writeStart            writeStop            
+[295] writeValues           xapp                  xFromCell            
+[298] xFromCol              xmax                  xmax<-               
+[301] xmin                  xmin<-                xres                 
+[304] xyFromCell            yFromCell             yFromRow             
+[307] ymax                  ymax<-                ymin                 
+[310] ymin<-                yres                  zonal                
+[313] zoom                 
 see '?methods' for accessing help and source code
 ```
 
