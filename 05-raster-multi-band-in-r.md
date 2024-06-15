@@ -364,7 +364,7 @@ well between 0 and 255.
 Let's explore what happens with NoData values when working with RasterStack 
 objects and using the `plotRGB()` function. We will use the 
 `HARV_Ortho_wNA.tif` GeoTIFF file in the 
-`NEON-DS-Airborne-Remote-Sensing/HARVRGB_Imagery/` directory.
+`NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/` directory.
 
 1. View the files attributes. Are there `NoData` values assigned for this file?
 2. If so, what is the `NoData` Value?
