@@ -6,17 +6,6 @@ source: Rmd
 ---
 
 
-``` warning
-Warning in
-download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
-: cannot open URL
-'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip':
-HTTP status was '500 Internal Server Error'
-```
-
-``` error
-Error in download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
-```
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
@@ -60,7 +49,7 @@ Each RGB image is a 3-band raster. The same steps would apply to working with a
 multi-spectral image with 4 or more bands - like Landsat imagery.
 
 By using the `rast()` function along with the `lyrs` parameter, we can read 
-specific raster bands (i.e. the first one); omitting this parater would read 
+specific raster bands (i.e. the first one); omitting this parameter would read 
 instead all bands.
 
 
