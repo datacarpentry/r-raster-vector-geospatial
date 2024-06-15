@@ -6,17 +6,6 @@ source: Rmd
 ---
 
 
-``` warning
-Warning in
-download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
-: cannot open URL
-'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip':
-HTTP status was '500 Internal Server Error'
-```
-
-``` error
-Error in download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
-```
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
@@ -474,7 +463,7 @@ raster: surface elevation in meters for one time period.
 
 A raster dataset can contain one or more bands. We can use the `rast()`
 function to import one single band from a single or multi-band raster. We can
-view the number of bands in a raster using the `nly()` function.
+view the number of bands in a raster using the `nlyr()` function.
 
 
 ``` r
@@ -487,7 +476,7 @@ nlyr(DSM_HARV)
 
 However, raster data can also be multi-band, meaning that one raster file
 contains data for more than one variable or time period for each cell. By
-default the `raster()` function only imports the first band in a raster
+default the `rast()` function only imports the first band in a raster
 regardless of whether it has one or more bands. Jump to a later episode in
 this series for information on working with multi-band rasters:
 [Work with Multi-band Rasters in R](05-raster-multi-band-in-r/).
