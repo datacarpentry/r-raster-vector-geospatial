@@ -6,6 +6,17 @@ source: Rmd
 ---
 
 
+``` warning
+Warning in
+download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
+: cannot open URL
+'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip':
+HTTP status was '500 Internal Server Error'
+```
+
+``` error
+Error in download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
+```
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
@@ -474,8 +485,11 @@ nlyr(DSM_HARV)
 [1] 1
 ```
 
-However, raster data can also be multi-band, meaning that one raster file contains data for more than one variable or time period for each cell.
-Jump to a later episode in this series for information on working with multi-band rasters:
+However, raster data can also be multi-band, meaning that one raster file
+contains data for more than one variable or time period for each cell. By
+default the `raster()` function only imports the first band in a raster
+regardless of whether it has one or more bands. Jump to a later episode in
+this series for information on working with multi-band rasters:
 [Work with Multi-band Rasters in R](05-raster-multi-band-in-r/).
 
 ## Dealing with Missing Data

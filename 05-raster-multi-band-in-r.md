@@ -6,6 +6,17 @@ source: Rmd
 ---
 
 
+``` warning
+Warning in
+download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
+: cannot open URL
+'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip':
+HTTP status was '500 Internal Server Error'
+```
+
+``` error
+Error in download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'
+```
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
@@ -49,7 +60,7 @@ Each RGB image is a 3-band raster. The same steps would apply to working with a
 multi-spectral image with 4 or more bands - like Landsat imagery.
 
 By using the `rast()` function along with the `lyrs` parameter, we can read 
-specific raster bands (i.e. the first one); omitting this parameter would read 
+specific raster bands (i.e. the first one); omitting this parater would read 
 instead all bands.
 
 
@@ -364,7 +375,7 @@ well between 0 and 255.
 Let's explore what happens with NoData values when working with RasterStack 
 objects and using the `plotRGB()` function. We will use the 
 `HARV_Ortho_wNA.tif` GeoTIFF file in the 
-`NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/` directory.
+`NEON-DS-Airborne-Remote-Sensing/HARVRGB_Imagery/` directory.
 
 1. View the files attributes. Are there `NoData` values assigned for this file?
 2. If so, what is the `NoData` Value?
