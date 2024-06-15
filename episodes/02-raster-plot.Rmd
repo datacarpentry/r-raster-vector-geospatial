@@ -85,13 +85,11 @@ values of `fct_elevation`:
 unique(DSM_HARV_df$fct_elevation)
 ```
 
-And we can get the count of values in each group using `dplyr`'s `group_by()` 
-and `count()` functions:
+And we can get the count of values in each group using `dplyr`'s `count()` function:
 
 ```{r breaks-count}
 DSM_HARV_df %>%
-        group_by(fct_elevation) %>%
-        count()
+        count(fct_elevation)
 ```
 
 We might prefer to customize the cutoff values for these groups.
@@ -133,8 +131,7 @@ And we can get the count of values in each group in the same way we did before:
 
 ```{r break-count-custom}
 DSM_HARV_df %>%
-  group_by(fct_elevation_2) %>%
-  count()
+  count(fct_elevation_2)
 ```
 
 We can use those groups to plot our raster data, with each group being a 
