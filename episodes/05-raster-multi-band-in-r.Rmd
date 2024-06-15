@@ -55,7 +55,7 @@ Each RGB image is a 3-band raster. The same steps would apply to working with a
 multi-spectral image with 4 or more bands - like Landsat imagery.
 
 By using the `rast()` function along with the `lyrs` parameter, we can read 
-specific raster bands (i.e. the first one); omitting this parater would read 
+specific raster bands (i.e. the first one); omitting this parameter would read 
 instead all bands.
 
 ```{r read-single-band}

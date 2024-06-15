@@ -318,16 +318,14 @@ raster: surface elevation in meters for one time period.
 
 A raster dataset can contain one or more bands. We can use the `rast()`
 function to import one single band from a single or multi-band raster. We can
-view the number of bands in a raster using the `nly()` function.
+view the number of bands in a raster using the `nlyr()` function.
 
 ```{r view-raster-bands}
 nlyr(DSM_HARV)
 ```
 
-However, raster data can also be multi-band, meaning that one raster file
-contains data for more than one variable or time period for each cell.
-Jump to a later episode in
-this series for information on working with multi-band rasters:
+However, raster data can also be multi-band, meaning that one raster file contains data for more than one variable or time period for each cell.
+Jump to a later episode in this series for information on working with multi-band rasters:
 [Work with Multi-band Rasters in R](05-raster-multi-band-in-r/).
 
 ## Dealing with Missing Data
