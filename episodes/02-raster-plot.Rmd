@@ -85,8 +85,7 @@ values of `fct_elevation`:
 unique(DSM_HARV_df$fct_elevation)
 ```
 
-And we can get the count of values in each group using `dplyr`'s `group_by()` 
-and `count()` functions:
+And we can get the count of values in each group using `dplyr`'s `count()` function:
 
 ```{r breaks-count}
 DSM_HARV_df %>%
