@@ -439,7 +439,7 @@ ggplot() +
   scale_color_manual(values = road_colors) +
   labs(color = 'Road Type') +
   theme(legend.text = element_text(size = 20),
-        legend.box.background = element_rect(size = 1)) +
+        legend.box.background = element_rect(linewidth = 1)) +
   ggtitle("NEON Harvard Forest Field Site",
           subtitle = "Roads & Trails - Modified Legend") +
   coord_sf()
