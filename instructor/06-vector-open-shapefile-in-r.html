@@ -392,7 +392,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Open and Plot Vector Layers</h1>
-        <p>Last updated on 2024-06-04 |
+        <p>Last updated on 2024-07-02 |
         
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/06-vector-open-shapefile-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -406,20 +406,6 @@
 
         
 
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning in
-download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
-: cannot open URL
-'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip':
-HTTP status was '500 Internal Server Error'</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'</code></pre>
-</div>
 <div class="overview card">
 <h2 class="card-header">Overview</h2>
 <div class="row g-0">
@@ -473,7 +459,7 @@ R. We will also use the <code>terra</code> package, which has been
 loaded in previous episodes, so we can explore raster and vector spatial
 metadata using similar commands. Make sure you have the <code>sf</code>
 library loaded.</p>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -493,7 +479,7 @@ study area (or our Area Of Interest or AOI, hence the name
 <code>st_read()</code>. <code>st_read()</code> requires the file path to
 the ESRI <code>shapefile</code>.</p>
 <p>Let’s import our AOI:</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -554,7 +540,7 @@ objects in the vector layer.</li>
 <code>st_geometry_type()</code>, <code>st_crs()</code> and
 <code>st_bbox()</code> functions. First, let’s view the geometry type
 for our AOI vector layer:</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -569,7 +555,7 @@ for our AOI vector layer:</p>
 <p>Our <code>aoi_boundary_HARV</code> is a polygon spatial object. The
 18 levels shown below our output list the possible categories of the
 geometry type. Now let’s check what CRS this file data is in:</p>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -620,7 +606,7 @@ PROJCRS["WGS 84 / UTM zone 18N",
 critical to interpreting the spatial object’s extent values as it
 specifies units. To find the extent of our AOI, we can use the
 <code>st_bbox()</code> function:</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -639,7 +625,7 @@ spatial object. Image Source: National Ecological Observatory Network
 (NEON).</p>
 <figure><img src="../fig/dc-spatial-vector/spatial_extent.png" alt="Extent image" class="figure mx-auto d-block"></figure><p>Lastly, we can view all of the metadata and attributes for this R
 spatial object by printing it to the screen:</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -671,7 +657,7 @@ to convert vector data to a dataframe before plotting with
 color, and fill for our plot. When plotting <code>sf</code> objects with
 <code>ggplot2</code>, you need to use the <code>coord_sf()</code>
 coordinate system.</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -710,7 +696,7 @@ layer?</p></li>
 <div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>First we import the data:</p>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -728,7 +714,7 @@ Dimension:     XY
 Bounding box:  xmin: 730741.2 ymin: 4711942 xmax: 733295.5 ymax: 4714260
 Projected CRS: WGS 84 / UTM zone 18N</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -747,7 +733,7 @@ Bounding box:  xmin: 732183.2 ymin: 4713265 xmax: 732183.2 ymax: 4713265
 Projected CRS: WGS 84 / UTM zone 18N</code></pre>
 </div>
 <p>Then we check its class:</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -758,7 +744,7 @@ Projected CRS: WGS 84 / UTM zone 18N</code></pre>
 </h3>
 <pre class="output" tabindex="0"><code>[1] "sf"         "data.frame"</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -770,7 +756,7 @@ Projected CRS: WGS 84 / UTM zone 18N</code></pre>
 <pre class="output" tabindex="0"><code>[1] "sf"         "data.frame"</code></pre>
 </div>
 <p>We also check the CRS and extent of each object:</p>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -817,7 +803,7 @@ PROJCRS["WGS 84 / UTM zone 18N",
             LENGTHUNIT["metre",1]],
     ID["EPSG",32618]]</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -829,7 +815,7 @@ PROJCRS["WGS 84 / UTM zone 18N",
 <pre class="output" tabindex="0"><code>     xmin      ymin      xmax      ymax 
  730741.2 4711942.0  733295.5 4714260.0 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb27">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -876,7 +862,7 @@ PROJCRS["WGS 84 / UTM zone 18N",
             LENGTHUNIT["metre",1]],
     ID["EPSG",32618]]</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb29">
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -950,7 +936,7 @@ dataframe.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.5" class="external-link">sandpaper (0.16.5)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.5" class="external-link">pegboard (0.7.5)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.3" class="external-link">varnish (1.0.3)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.5" class="external-link">sandpaper (0.16.5)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.6" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.3" class="external-link">varnish (1.0.3)</a></p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -972,8 +958,8 @@ dataframe.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/06-vector-open-shapefile-in-r.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/06-vector-open-shapefile-in-r.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2024-06-04",
-  "datePublished": "2024-06-25"
+  "dateModified": "2024-07-02",
+  "datePublished": "2024-07-02"
 }
 
   </script><script>

@@ -395,7 +395,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Derive Values from Raster Time Series</h1>
-        <p>Last updated on 2024-06-04 |
+        <p>Last updated on 2024-07-02 |
         
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/14-extract-ndvi-from-rasters-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -409,20 +409,6 @@
 
         
 
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning in
-download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip",
-: cannot open URL
-'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip':
-HTTP status was '500 Internal Server Error'</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in download.file("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip", : cannot open URL 'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_graticules_all.zip'</code></pre>
-</div>
 <div class="overview card">
 <h2 class="card-header">Overview</h2>
 <div class="row g-0">
@@ -480,7 +466,7 @@ represents the mean NDVI value for this area on a given day.</p>
 <code>global()</code> function. The <code>global()</code> function
 produces a named numeric vector, where each value is associated with the
 name of raster stack it was derived from.</p>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -509,7 +495,7 @@ X309_HARV_ndvi_crop 0.541130</code></pre>
 <code>as.data.frame()</code>). It’s a good idea to view the first few
 rows of our data frame with <code>head()</code> to make sure the
 structure is what we expect.</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -531,7 +517,7 @@ original file name and a mean NDVI value for each file. Next, let’s
 clean up the column names in our data frame to make it easier for
 colleagues to work with our code.</p>
 <p>Let’s change the NDVI column name to <code>meanNDVI</code>.</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -553,7 +539,7 @@ X197_HARV_ndvi_crop 0.893250</code></pre>
 While we are only working with one site now, we might want to compare
 several sites worth of data in the future. Let’s add a column to our
 dataframe called “site”.</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -562,7 +548,7 @@ dataframe called “site”.</p>
 <p>We can populate this column with the site name - HARV. Let’s also
 create a year column and populate it with 2011 - the year our data were
 collected.</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -598,7 +584,7 @@ episode</a>.</p>
 at the same time. The vertical bar character ( <code>|</code> ) is
 equivalent to the word “or”. Using this character in our search pattern
 allows us to search for more than one pattern in our text strings.</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -613,14 +599,14 @@ allows us to search for more than one pattern in our text strings.</p>
 </div>
 <p>Now that we’ve extracted the Julian days from our row names, we can
 add that data to the data frame as a column called “julianDay”.</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">avg_NDVI_HARV</span><span class="op">$</span><span class="va">julianDay</span> <span class="op">&lt;-</span> <span class="va">julianDays</span></span></code></pre>
 </div>
 <p>Let’s check the class of this new column:</p>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -646,7 +632,7 @@ origin, which is the day that our Julian days start counting from. Our
 data is from 2011 and we know that the USGS Landsat Team created Julian
 day values for this year. Therefore, the first day or “origin” for our
 Julian day count is 01 January 2011.</p>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -654,7 +640,7 @@ Julian day count is 01 January 2011.</p>
 </div>
 <p>Next we convert the <code>julianDay</code> column from character to
 integer.</p>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -670,7 +656,7 @@ for this is also 01. When we convert from the integer 05
 simply add <code>origin + julianDay</code> because
 <code>01 + 05 = 06</code> or 06 January 2011. To correct, this error we
 then subtract 1 to get the correct day, January 05 2011.</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -686,7 +672,7 @@ then subtract 1 to get the correct day, January 05 2011.</p>
 <p>Since the origin date was originally set as a Date class object, the
 new <code>Date</code> column is also stored as class
 <code>Date</code>.</p>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -724,10 +710,10 @@ directory.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>First we will read in the NDVI data for the SJER field site.</p>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -744,7 +730,7 @@ directory.</p>
 </div>
 <p>Then we can calculate the mean values for each day and put that in a
 dataframe.</p>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -752,7 +738,7 @@ dataframe.</p>
 </div>
 <p>Next we rename the NDVI column, and add site and year columns to our
 data.</p>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -761,7 +747,7 @@ data.</p>
 <span><span class="va">avg_NDVI_SJER</span><span class="op">$</span><span class="va">year</span> <span class="op">&lt;-</span> <span class="st">"2011"</span></span></code></pre>
 </div>
 <p>Now we will create our Julian day column</p>
-<div class="codewrapper sourceCode" id="cb26">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -792,7 +778,7 @@ X126_SJER_ndvi_crop 0.538336 SJER 2011       126 2011-05-06</code></pre>
 </h2>
 <hr class="half-width"><p>We now have a clean dataframe with properly scaled NDVI and Julian
 days. Let’s plot our data.</p>
-<div class="codewrapper sourceCode" id="cb28">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -822,9 +808,9 @@ in a different color.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb29">
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -844,14 +830,14 @@ side. Or, even better, if both sets of data are plotted in the same
 plot. We can do this by merging the two data sets together. The date
 frames must have the same number of columns and exact same column names
 to be merged.</p>
-<div class="codewrapper sourceCode" id="cb30">
+<div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">NDVI_HARV_SJER</span> <span class="op">&lt;-</span> <span class="fu">rbind</span><span class="op">(</span><span class="va">avg_NDVI_HARV</span>, <span class="va">avg_NDVI_SJER</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Now we can plot both datasets on the same plot.</p>
-<div class="codewrapper sourceCode" id="cb31">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -882,9 +868,9 @@ Julian day, on the x-axis.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -937,7 +923,7 @@ knowledge of the data and the desired outcomes!</p>
 </div>
 </div>
 </div>
-<div class="codewrapper sourceCode" id="cb33">
+<div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -950,7 +936,7 @@ knowledge of the data and the desired outcomes!</p>
 <pre class="output" tabindex="0"><code> [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
 </div>
 <p>Now we can create another plot without the suspect data.</p>
-<div class="codewrapper sourceCode" id="cb35">
+<div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -974,7 +960,7 @@ to a <code>.csv</code> file. Unless you designate a different directory,
 the output file will be saved in your working directory.</p>
 <p>Before saving our file, let’s view the format to make sure it is what
 we want as an output format.</p>
-<div class="codewrapper sourceCode" id="cb36">
+<div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -994,7 +980,7 @@ X197_HARV_ndvi_crop 0.893250 HARV 2011       197 2011-07-16</code></pre>
 <p>It looks like we have a series of <code>row.names</code> that we do
 not need because we have this information stored in individual columns
 in our data frame. Let’s remove the row names.</p>
-<div class="codewrapper sourceCode" id="cb38">
+<div class="codewrapper sourceCode" id="cb36">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1012,7 +998,7 @@ in our data frame. Let’s remove the row names.</p>
 5 0.878725 HARV 2011       181 2011-06-30
 6 0.893250 HARV 2011       197 2011-07-16</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb40">
+<div class="codewrapper sourceCode" id="cb38">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1042,9 +1028,9 @@ sites.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb41">
+<div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1063,7 +1049,7 @@ sites.</li>
 5 0.538336 SJER 2011       126 2011-05-06
 6 0.400868 SJER 2011       142 2011-05-22</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb43">
+<div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1125,7 +1111,7 @@ have the same column names.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.5" class="external-link">sandpaper (0.16.5)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.5" class="external-link">pegboard (0.7.5)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.3" class="external-link">varnish (1.0.3)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.5" class="external-link">sandpaper (0.16.5)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.6" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.3" class="external-link">varnish (1.0.3)</a></p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -1147,8 +1133,8 @@ have the same column names.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/14-extract-ndvi-from-rasters-in-r.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/14-extract-ndvi-from-rasters-in-r.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2024-06-04",
-  "datePublished": "2024-06-25"
+  "dateModified": "2024-07-02",
+  "datePublished": "2024-07-02"
 }
 
   </script><script>
