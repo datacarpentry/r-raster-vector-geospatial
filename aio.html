@@ -405,10 +405,10 @@
             </div>
 
             <hr class="half-width">
-<div class="accordion accordion-flush resources" id="accordionFlush12">
+<div class="accordion accordion-flush lesson-resources" id="accordionFlush12">
               <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingTwelve">
-                  <button class="accordion-button collapsed" id="resources" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwelve" aria-expanded="false" aria-controls="flush-collapseTwelve">
+                  <button class="accordion-button collapsed" id="lesson-resources" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwelve" aria-expanded="false" aria-controls="flush-collapseTwelve">
                     RESOURCES
                   </button>
                 </h2>
@@ -431,7 +431,7 @@
                 </div>
               </div>
             </div>
-            <hr class="half-width resources">
+            <hr class="half-width lesson-resources">
 <a href="aio.html">See all in one page</a>
 
 
@@ -499,8 +499,7 @@
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
-<h3 class="callout-title">Things You’ll Need To Complete This Episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
-</h3>
+<h3 class="callout-title">Things You’ll Need To Complete This Episode</h3>
 <div class="callout-content">
 <p>See the <a href=".">lesson homepage</a> for detailed information
 about the software, data, and other prerequisites you will need to work
@@ -533,8 +532,7 @@ loaded.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="introduce-the-data" class="callout-inner">
-<h3 class="callout-title">Introduce the Data<a class="anchor" aria-label="anchor" href="#introduce-the-data"></a>
-</h3>
+<h3 class="callout-title">Introduce the Data</h3>
 <div class="callout-content">
 <p>If not already discussed, introduce the datasets that will be used in
 this lesson. A brief introduction to the datasets can be found on the <a href="https://datacarpentry.org/geospatial-workshop/#data" class="external-link">Geospatial
@@ -545,7 +543,6 @@ workshop data page</a>.</p>
 </div>
 </div>
 <section><h2 class="section-heading" id="view-raster-file-attributes">View Raster File Attributes<a class="anchor" aria-label="anchor" href="#view-raster-file-attributes"></a>
-<a class="anchor" aria-label="anchor" href="#view-raster-file-attributes"></a>
 </h2>
 <hr class="half-width">
 <p>We will be working with a series of GeoTIFF files in this lesson. The
@@ -644,7 +641,6 @@ be exploring this data throughout this episode. By the end of this
 episode, you will be able to explain and understand the output
 above.</p>
 </section><section><h2 class="section-heading" id="open-a-raster-in-r">Open a Raster in R<a class="anchor" aria-label="anchor" href="#open-a-raster-in-r"></a>
-<a class="anchor" aria-label="anchor" href="#open-a-raster-in-r"></a>
 </h2>
 <hr class="half-width">
 <p>Now that we’ve previewed the metadata for our GeoTIFF, let’s import
@@ -655,8 +651,7 @@ use the <code>rast()</code> function to open a raster in R.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip---object-names" class="callout-inner">
-<h3 class="callout-title">Data Tip - Object names<a class="anchor" aria-label="anchor" href="#data-tip---object-names"></a>
-</h3>
+<h3 class="callout-title">Data Tip - Object names</h3>
 <div class="callout-content">
 <p>To improve code readability, file and object names should be used
 that make it clear what is in the file. The data for this episode were
@@ -786,8 +781,7 @@ Raster plot with ggplot2 using the viridis color scale
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="plotting-tip" class="callout-inner">
-<h3 class="callout-title">Plotting Tip<a class="anchor" aria-label="anchor" href="#plotting-tip"></a>
-</h3>
+<h3 class="callout-title">Plotting Tip</h3>
 <div class="callout-content">
 <p>More information about the Viridis palette used above at <a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html" class="external-link">R
 Viridis package documentation</a>.</p>
@@ -799,8 +793,7 @@ Viridis package documentation</a>.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="plotting-tip-1" class="callout-inner">
-<h3 class="callout-title">Plotting Tip<a class="anchor" aria-label="anchor" href="#plotting-tip-1"></a>
-</h3>
+<h3 class="callout-title">Plotting Tip</h3>
 <div class="callout-content">
 <p>For faster, simpler plots, you can use the <code>plot</code> function
 from the <code>terra</code> package.</p>
@@ -814,7 +807,7 @@ from the <code>terra</code> package.</p>
   Show plot
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>See <code>?plot</code> for more arguments to customize the plot</p>
 <div class="codewrapper sourceCode" id="cb16">
@@ -858,8 +851,7 @@ the<code>crs()</code> function.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge" class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge"></a>
-</h3>
+<h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
 <p>What units are our data in?</p>
 </div>
@@ -872,7 +864,7 @@ the<code>crs()</code> function.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p><code>+units=m</code> tells us that our data is in meters.</p>
 </div>
@@ -881,7 +873,6 @@ the<code>crs()</code> function.</p>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="understanding-crs-in-proj4-format">Understanding CRS in Proj4 Format<a class="anchor" aria-label="anchor" href="#understanding-crs-in-proj4-format"></a>
-<a class="anchor" aria-label="anchor" href="#understanding-crs-in-proj4-format"></a>
 </h2>
 <hr class="half-width">
 <p>The CRS for our data is given to us by R in <code>proj4</code>
@@ -924,7 +915,6 @@ States. From: <a href="https://upload.wikimedia.org/wikipedia/commons/8/8d/Utm-z
 </figure>
 </div>
 </section><section><h2 class="section-heading" id="calculate-raster-min-and-max-values">Calculate Raster Min and Max Values<a class="anchor" aria-label="anchor" href="#calculate-raster-min-and-max-values"></a>
-<a class="anchor" aria-label="anchor" href="#calculate-raster-min-and-max-values"></a>
 </h2>
 <hr class="half-width">
 <p>It is useful to know the minimum or maximum values of a raster
@@ -972,8 +962,7 @@ max       416.07</code></pre>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip---set-min-and-max-values" class="callout-inner">
-<h3 class="callout-title">Data Tip - Set min and max values<a class="anchor" aria-label="anchor" href="#data-tip---set-min-and-max-values"></a>
-</h3>
+<h3 class="callout-title">Data Tip - Set min and max values</h3>
 <div class="callout-content">
 <p>If the minimum and maximum values haven’t already been calculated, we
 can calculate them using the <code>setMinMax()</code> function.</p>
@@ -989,7 +978,6 @@ can calculate them using the <code>setMinMax()</code> function.</p>
 <p>We can see that the elevation at our site ranges from 305.0700073m to
 416.0699768m.</p>
 </section><section><h2 class="section-heading" id="raster-bands">Raster Bands<a class="anchor" aria-label="anchor" href="#raster-bands"></a>
-<a class="anchor" aria-label="anchor" href="#raster-bands"></a>
 </h2>
 <hr class="half-width">
 <p>The Digital Surface Model object (<code>DSM_HARV</code>) that we’ve
@@ -1017,7 +1005,6 @@ cell. Jump to a later episode in this series for information on working
 with multi-band rasters: <a href="05-raster-multi-band-in-r/">Work with
 Multi-band Rasters in R</a>.</p>
 </section><section><h2 class="section-heading" id="dealing-with-missing-data">Dealing with Missing Data<a class="anchor" aria-label="anchor" href="#dealing-with-missing-data"></a>
-<a class="anchor" aria-label="anchor" href="#dealing-with-missing-data"></a>
 </h2>
 <hr class="half-width">
 <p>Raster data often has a <code>NoDataValue</code> associated with it.
@@ -1072,8 +1059,7 @@ will be ignored by R as demonstrated above.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-1" class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge-1"></a>
-</h3>
+<h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
 <p>Use the output from the <code>describe()</code> and
 <code>sources()</code> functions to find out what
@@ -1089,7 +1075,7 @@ dataset.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1172,7 +1158,6 @@ dataset.</p>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="bad-data-values-in-rasters">Bad Data Values in Rasters<a class="anchor" aria-label="anchor" href="#bad-data-values-in-rasters"></a>
-<a class="anchor" aria-label="anchor" href="#bad-data-values-in-rasters"></a>
 </h2>
 <hr class="half-width">
 <p>Bad data values are different from <code>NoDataValue</code>s. Bad
@@ -1203,7 +1188,6 @@ colour.</p>
 <figure><img src="fig/01-raster-structure-rendered-demo-bad-data-highlighting-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
 </section><section><h2 class="section-heading" id="create-a-histogram-of-raster-values">Create A Histogram of Raster Values<a class="anchor" aria-label="anchor" href="#create-a-histogram-of-raster-values"></a>
-<a class="anchor" aria-label="anchor" href="#create-a-histogram-of-raster-values"></a>
 </h2>
 <hr class="half-width">
 <p>We can explore the distribution of values contained within our raster
@@ -1248,8 +1232,7 @@ raster.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-explore-raster-metadata" class="callout-inner">
-<h3 class="callout-title">Challenge: Explore Raster Metadata<a class="anchor" aria-label="anchor" href="#challenge-explore-raster-metadata"></a>
-</h3>
+<h3 class="callout-title">Challenge: Explore Raster Metadata</h3>
 <div class="callout-content">
 <p>Use <code>describe()</code> to determine the following about the
 <code>NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif</code>
@@ -1274,7 +1257,7 @@ in R</a> episode.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1370,8 +1353,7 @@ resolution of 1x1 and units in meters, therefore resolution of 5x5 means
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="more-resources" class="callout-inner">
-<h3 class="callout-title">More Resources<a class="anchor" aria-label="anchor" href="#more-resources"></a>
-</h3>
+<h3 class="callout-title">More Resources</h3>
 <div class="callout-content">
 <ul>
 <li><a href="https://cran.r-project.org/package=terra" class="external-link">Read more about
@@ -1385,8 +1367,7 @@ the <code>terra</code> package in R.</a></li>
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
+<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
 <li>The GeoTIFF file format includes metadata about the raster
@@ -1442,8 +1423,7 @@ basemap.</li>
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
-<h3 class="callout-title">Things You’ll Need To Complete This Episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
-</h3>
+<h3 class="callout-title">Things You’ll Need To Complete This Episode</h3>
 <div class="callout-content">
 <p>See the <a href=".">lesson homepage</a> for detailed information
 about the software, data, and other prerequisites you will need to work
@@ -1452,7 +1432,6 @@ through the examples in this episode.</p>
 </div>
 </div>
 <section><h2 class="section-heading" id="plot-raster-data-in-r">Plot Raster Data in R<a class="anchor" aria-label="anchor" href="#plot-raster-data-in-r"></a>
-<a class="anchor" aria-label="anchor" href="#plot-raster-data-in-r"></a>
 </h2>
 <hr class="half-width">
 <p>This episode covers how to plot a raster in R using the
@@ -1461,7 +1440,6 @@ covers how to layer a raster on top of a hillshade to produce an
 eloquent map. We will continue working with the Digital Surface Model
 (DSM) raster for the NEON Harvard Forest Field Site.</p>
 </section><section><h2 class="section-heading" id="plotting-data-using-breaks">Plotting Data Using Breaks<a class="anchor" aria-label="anchor" href="#plotting-data-using-breaks"></a>
-<a class="anchor" aria-label="anchor" href="#plotting-data-using-breaks"></a>
 </h2>
 <hr class="half-width">
 <p>In the previous episode, we viewed our data using a continuous color
@@ -1541,8 +1519,7 @@ Levels: (300,350] (350,400] (400,450]</code></pre>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tips" class="callout-inner">
-<h3 class="callout-title">Data Tips<a class="anchor" aria-label="anchor" href="#data-tips"></a>
-</h3>
+<h3 class="callout-title">Data Tips</h3>
 <div class="callout-content">
 <p>Note that when we assign break values a set of 4 values will result
 in 3 bins of data.</p>
@@ -1660,8 +1637,7 @@ argument of the <code>scale_fill_manual()</code> function.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-plot-using-custom-breaks" class="callout-inner">
-<h3 class="callout-title">Challenge: Plot Using Custom Breaks<a class="anchor" aria-label="anchor" href="#challenge-plot-using-custom-breaks"></a>
-</h3>
+<h3 class="callout-title">Challenge: Plot Using Custom Breaks</h3>
 <div class="callout-content">
 <p>Create a plot of the Harvard Forest Digital Surface Model (DSM) that
 has:</p>
@@ -1708,7 +1684,6 @@ divided among the range of pixel values.</li>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="layering-rasters">Layering Rasters<a class="anchor" aria-label="anchor" href="#layering-rasters"></a>
-<a class="anchor" aria-label="anchor" href="#layering-rasters"></a>
 </h2>
 <hr class="half-width">
 <p>We can layer a raster on top of a hillshade raster for the same area,
@@ -1774,8 +1749,7 @@ max value   :    0.9999997 </code></pre>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tips-1" class="callout-inner">
-<h3 class="callout-title">Data Tips<a class="anchor" aria-label="anchor" href="#data-tips-1"></a>
-</h3>
+<h3 class="callout-title">Data Tips</h3>
 <div class="callout-content">
 <p>Turn off, or hide, the legend on a plot by adding
 <code>guide = "none"</code> to a <code>scale_something()</code> function
@@ -1809,8 +1783,7 @@ call to the <code>geom_raster()</code> function. Let’s overlay
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-create-dtm-dsm-for-sjer" class="callout-inner">
-<h3 class="callout-title">Challenge: Create DTM &amp; DSM for SJER<a class="anchor" aria-label="anchor" href="#challenge-create-dtm-dsm-for-sjer"></a>
-</h3>
+<h3 class="callout-title">Challenge: Create DTM &amp; DSM for SJER</h3>
 <div class="callout-content">
 <p>Use the files in the
 <code>data/NEON-DS-Airborne-Remote-Sensing/SJER/</code> directory to
@@ -1923,8 +1896,7 @@ the data.</li>
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
+<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
 <li>Continuous data ranges can be grouped into categories using
@@ -1976,8 +1948,7 @@ projections?</li>
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
-<h3 class="callout-title">Things You’ll Need To Complete This Episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
-</h3>
+<h3 class="callout-title">Things You’ll Need To Complete This Episode</h3>
 <div class="callout-content">
 <p>See the <a href=".">lesson homepage</a> for detailed information
 about the software, data, and other prerequisites you will need to work
@@ -1992,7 +1963,6 @@ to deal with rasters in different, known CRSs. It will walk though
 reprojecting rasters in R using the <code>project()</code> function in
 the <code>terra</code> package.</p>
 <section><h2 class="section-heading" id="raster-projection-in-r">Raster Projection in R<a class="anchor" aria-label="anchor" href="#raster-projection-in-r"></a>
-<a class="anchor" aria-label="anchor" href="#raster-projection-in-r"></a>
 </h2>
 <hr class="half-width">
 <p>In the <a href="02-raster-plot/">Plot Raster Data in R</a> episode,
@@ -2085,8 +2055,7 @@ something has gone wrong. We can look at Coordinate Reference Systems
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="exercise" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise"></a>
-</h3>
+<h3 class="callout-title">Exercise</h3>
 <div class="callout-content">
 <p>View the CRS for each of these two datasets. What projection does
 each use?</p>
@@ -2098,7 +2067,7 @@ each use?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2186,7 +2155,6 @@ when plotted in R. We need to reproject (or change the projection of)
 <code>DTM_hill_HARV</code> into the UTM CRS. Alternatively, we could
 reproject <code>DTM_HARV</code> into WGS84.</p>
 </section><section><h2 class="section-heading" id="reproject-rasters">Reproject Rasters<a class="anchor" aria-label="anchor" href="#reproject-rasters"></a>
-<a class="anchor" aria-label="anchor" href="#reproject-rasters"></a>
 </h2>
 <hr class="half-width">
 <p>We can use the <code>project()</code> function to reproject a raster
@@ -2199,8 +2167,7 @@ cannot be used if no CRS is defined. Lucky for us, the
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip"></a>
-</h3>
+<h3 class="callout-title">Data Tip</h3>
 <div class="callout-content">
 <p>When we reproject a raster, we move it from one “grid” to another.
 Thus, we are modifying the data! Keep this in mind as we work with
@@ -2337,8 +2304,7 @@ values of <code>DTM_hillUTMZ18N_HARV</code> are different from
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-extent-change-with-crs-change" class="callout-inner">
-<h3 class="callout-title">Challenge: Extent Change with CRS Change<a class="anchor" aria-label="anchor" href="#challenge-extent-change-with-crs-change"></a>
-</h3>
+<h3 class="callout-title">Challenge: Extent Change with CRS Change</h3>
 <div class="callout-content">
 <p>Why do you think the two extents differ?</p>
 </div>
@@ -2349,7 +2315,7 @@ values of <code>DTM_hillUTMZ18N_HARV</code> are different from
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Answers </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>The extent for DTM_hill_UTMZ18N_HARV is in UTMs so the extent is in
 meters. The extent for DTM_hill_HARV is in lat/long so the extent is
@@ -2359,7 +2325,6 @@ expressed in decimal degrees.</p>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="deal-with-raster-resolution">Deal with Raster Resolution<a class="anchor" aria-label="anchor" href="#deal-with-raster-resolution"></a>
-<a class="anchor" aria-label="anchor" href="#deal-with-raster-resolution"></a>
 </h2>
 <hr class="half-width">
 <p>Let’s next have a look at the resolution of our reprojected hillshade
@@ -2453,8 +2418,7 @@ our hillshade to produce a nice looking, textured map!</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-reproject-then-plot-a-digital-terrain-model" class="callout-inner">
-<h3 class="callout-title">Challenge: Reproject, then Plot a Digital Terrain Model<a class="anchor" aria-label="anchor" href="#challenge-reproject-then-plot-a-digital-terrain-model"></a>
-</h3>
+<h3 class="callout-title">Challenge: Reproject, then Plot a Digital Terrain Model</h3>
 <div class="callout-content">
 <p>Create a map of the <a href="https://www.neonscience.org/field-sites/field-sites-map/SJER" class="external-link">San
 Joaquin Experimental Range</a> field site using the
@@ -2469,7 +2433,7 @@ files.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Answers </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2516,7 +2480,7 @@ files.</p>
 </div>
 <div id="challenge-reproject-then-plot-a-digital-terrain-model" class="callout-inner">
 <h3 class="callout-title">Challenge: Reproject, then Plot a Digital
-Terrain Model<em> (continued)</em><a class="anchor" aria-label="anchor" href="#challenge-reproject-then-plot-a-digital-terrain-model"></a>
+Terrain Model<em> (continued)</em>
 </h3>
 <div class="callout-content">
 <p>If you completed the San Joaquin plotting challenge in the <a href="02-raster-plot/">Plot Raster Data in R</a> episode, how does the
@@ -2529,7 +2493,7 @@ map you just created compare to that map?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Answers </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>The maps look identical. Which is what they should be as the only
 difference is this one was reprojected from WGS84 to UTM prior to
@@ -2543,8 +2507,7 @@ plotting.</p>
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
+<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
 <li>In order to plot two raster data sets together, they must be in the
@@ -2597,8 +2560,7 @@ raster <code>lapp()</code> function.</li>
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
-<h3 class="callout-title">Things You’ll Need To Complete This Episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
-</h3>
+<h3 class="callout-title">Things You’ll Need To Complete This Episode</h3>
 <div class="callout-content">
 <p>See the <a href=".">lesson homepage</a> for detailed information
 about the software, data, and other prerequisites you will need to work
@@ -2613,7 +2575,6 @@ subtract one raster from another using basic raster math and the
 from a set of locations - for example a buffer region around plot
 locations at a field site.</p>
 <section><h2 class="section-heading" id="raster-calculations-in-r">Raster Calculations in R<a class="anchor" aria-label="anchor" href="#raster-calculations-in-r"></a>
-<a class="anchor" aria-label="anchor" href="#raster-calculations-in-r"></a>
 </h2>
 <hr class="half-width">
 <p>We often want to perform calculations on two or more rasters to
@@ -2629,8 +2590,7 @@ elevation removed.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="more-resources" class="callout-inner">
-<h3 class="callout-title">More Resources<a class="anchor" aria-label="anchor" href="#more-resources"></a>
-</h3>
+<h3 class="callout-title">More Resources</h3>
 <div class="callout-content">
 <ul>
 <li>Check out more on LiDAR CHM, DTM and DSM in this NEON Data Skills
@@ -2651,8 +2611,7 @@ have loaded from previous episodes.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="exercise" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise"></a>
-</h3>
+<h3 class="callout-title">Exercise</h3>
 <div class="callout-content">
 <p>Use the <code>describe()</code> function to view information about
 the DTM and DSM data files. Do the two rasters have the same or
@@ -2666,7 +2625,7 @@ maximum values?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2849,7 +2808,6 @@ data looks like. First we’ll plot the DTM elevation data:</p>
 <figure><img src="fig/04-raster-calculations-in-r-rendered-harv-dsm-plot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
 </section><section><h2 class="section-heading" id="two-ways-to-perform-raster-calculations">Two Ways to Perform Raster Calculations<a class="anchor" aria-label="anchor" href="#two-ways-to-perform-raster-calculations"></a>
-<a class="anchor" aria-label="anchor" href="#two-ways-to-perform-raster-calculations"></a>
 </h2>
 <hr class="half-width">
 <p>We can calculate the difference between two rasters in two different
@@ -2862,7 +2820,6 @@ large and/or the calculations we are performing are complex:</p>
 <ul>
 <li>using the <code>lapp()</code> function.</li>
 </ul></section><section><h2 class="section-heading" id="raster-math-canopy-height-models">Raster Math &amp; Canopy Height Models<a class="anchor" aria-label="anchor" href="#raster-math-canopy-height-models"></a>
-<a class="anchor" aria-label="anchor" href="#raster-math-canopy-height-models"></a>
 </h2>
 <hr class="half-width">
 <p>We can perform raster calculations by subtracting (or adding,
@@ -2911,8 +2868,7 @@ Canopy Height Model (CHM).</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-explore-chm-raster-values" class="callout-inner">
-<h3 class="callout-title">Challenge: Explore CHM Raster Values<a class="anchor" aria-label="anchor" href="#challenge-explore-chm-raster-values"></a>
-</h3>
+<h3 class="callout-title">Challenge: Explore CHM Raster Values</h3>
 <div class="callout-content">
 <p>It’s often a good idea to explore the range of values in a raster
 dataset just like we might explore a dataset that we collected in the
@@ -2937,7 +2893,7 @@ title and no axes ticks / labels.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Answers </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>There are missing values in our data, so we need to specify
@@ -3021,7 +2977,6 @@ title and no axes ticks / labels.</li>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="efficient-raster-calculations">Efficient Raster Calculations<a class="anchor" aria-label="anchor" href="#efficient-raster-calculations"></a>
-<a class="anchor" aria-label="anchor" href="#efficient-raster-calculations"></a>
 </h2>
 <hr class="half-width">
 <p>Raster math, like we just did, is an appropriate approach to raster
@@ -3043,8 +2998,7 @@ which is an object that holds rasters. See <code>help(sds)</code>.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip"></a>
-</h3>
+<h3 class="callout-title">Data Tip</h3>
 <div class="callout-content">
 <p>To create a SpatRasterDataset, we call the function <code>sds</code>
 which can take a list of raster objects (each one created by calling
@@ -3059,8 +3013,7 @@ above using raster math, using the <code>lapp()</code> function.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip-1" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip-1"></a>
-</h3>
+<h3 class="callout-title">Data Tip</h3>
 <div class="callout-content">
 <p>A custom function consists of a defined set of commands performed on
 a input object. Custom functions are particularly useful for tasks that
@@ -3099,7 +3052,6 @@ with <code>ggplot</code>.</p>
 <figure><img src="fig/04-raster-calculations-in-r-rendered-harv-chm-overlay-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>How do the plots of the CHM created with manual raster math and the
 <code>lapp()</code> function compare?</p>
 </section><section><h2 class="section-heading" id="export-a-geotiff">Export a GeoTIFF<a class="anchor" aria-label="anchor" href="#export-a-geotiff"></a>
-<a class="anchor" aria-label="anchor" href="#export-a-geotiff"></a>
 </h2>
 <hr class="half-width">
 <p>Now that we’ve created a new raster, let’s export the data as a
@@ -3143,8 +3095,7 @@ Network’s (NEON) standard <code>NoDataValue</code>.</li>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-explore-the-neon-san-joaquin-experimental-range-field-site" class="callout-inner">
-<h3 class="callout-title">Challenge: Explore the NEON San Joaquin Experimental Range Field Site<a class="anchor" aria-label="anchor" href="#challenge-explore-the-neon-san-joaquin-experimental-range-field-site"></a>
-</h3>
+<h3 class="callout-title">Challenge: Explore the NEON San Joaquin Experimental Range Field Site</h3>
 <div class="callout-content">
 <p>Data are often more interesting and powerful when we compare them
 across various locations. Let’s compare some data collected over Harvard
@@ -3176,7 +3127,7 @@ Joaquin Experimental Range.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Answers </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>Use the <code>lapp()</code> function to subtract the two rasters
@@ -3277,8 +3228,7 @@ CHMs.</li>
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
+<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
 <li>Rasters can be computed on using mathematical functions.</li>
@@ -3334,8 +3284,7 @@ package.</li>
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
-<h3 class="callout-title">Things You’ll Need To Complete This Episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
-</h3>
+<h3 class="callout-title">Things You’ll Need To Complete This Episode</h3>
 <div class="callout-content">
 <p>See the <a href=".">lesson homepage</a> for detailed information
 about the software, data, and other prerequisites you will need to work
@@ -3347,7 +3296,6 @@ through the examples in this episode.</p>
 earlier lesson</a>. This episode explores how to import and plot a
 multi-band raster in R.</p>
 <section><h2 class="section-heading" id="getting-started-with-multi-band-data-in-r">Getting Started with Multi-Band Data in R<a class="anchor" aria-label="anchor" href="#getting-started-with-multi-band-data-in-r"></a>
-<a class="anchor" aria-label="anchor" href="#getting-started-with-multi-band-data-in-r"></a>
 </h2>
 <hr class="half-width">
 <p>In this episode, the multi-band data that we are working with is
@@ -3389,8 +3337,7 @@ first one); omitting this parameter would read instead all bands.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge" class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge"></a>
-</h3>
+<h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
 <p>View the attributes of this band. What are its dimensions, CRS,
 resolution, min and max values, and band number?</p>
@@ -3435,8 +3382,7 @@ max value   :              255 </code></pre>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip"></a>
-</h3>
+<h3 class="callout-title">Data Tip</h3>
 <div class="callout-content">
 <p>The number of bands associated with a raster’s file can also be
 determined using the <code>describe()</code> function: syntax is
@@ -3494,8 +3440,7 @@ plotted the red band:</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-making-sense-of-single-band-images" class="callout-inner">
-<h3 class="callout-title">Challenge: Making Sense of Single Band Images<a class="anchor" aria-label="anchor" href="#challenge-making-sense-of-single-band-images"></a>
-</h3>
+<h3 class="callout-title">Challenge: Making Sense of Single Band Images</h3>
 <div class="callout-content">
 <p>Compare the plots of band 1 (red) and band 2 (green). Is the forested
 area darker or lighter in band 2 (the green band) compared to band 1
@@ -3520,7 +3465,6 @@ light.</p>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="raster-stacks-in-r">Raster Stacks in R<a class="anchor" aria-label="anchor" href="#raster-stacks-in-r"></a>
-<a class="anchor" aria-label="anchor" href="#raster-stacks-in-r"></a>
 </h2>
 <hr class="half-width">
 <p>Next, we will work with all three image bands (red, green and blue)
@@ -3692,8 +3636,7 @@ values is distributed well between 0 and 255.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge---nodata-values" class="callout-inner">
-<h3 class="callout-title">Challenge - NoData Values<a class="anchor" aria-label="anchor" href="#challenge---nodata-values"></a>
-</h3>
+<h3 class="callout-title">Challenge - NoData Values</h3>
 <div class="callout-content">
 <p>Let’s explore what happens with NoData values when working with
 RasterStack objects and using the <code>plotRGB()</code> function. We
@@ -3954,8 +3897,7 @@ NA.</p></li>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip-1" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip-1"></a>
-</h3>
+<h3 class="callout-title">Data Tip</h3>
 <div class="callout-content">
 <p>We can create a raster object from several, individual single-band
 GeoTIFFs too. We will do this in a later episode, <a href="12-time-series-raster/">Raster Time Series Data in R</a>.</p>
@@ -3964,7 +3906,6 @@ GeoTIFFs too. We will do this in a later episode, <a href="12-time-series-raster
 </div>
 </div>
 </section><section><h2 class="section-heading" id="spatraster-in-r">SpatRaster in R<a class="anchor" aria-label="anchor" href="#spatraster-in-r"></a>
-<a class="anchor" aria-label="anchor" href="#spatraster-in-r"></a>
 </h2>
 <hr class="half-width">
 <p>The R SpatRaster object type can handle rasters with multiple bands.
@@ -3978,8 +3919,7 @@ the same way we might work with a SpatRasterDataset.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="more-resources" class="callout-inner">
-<h3 class="callout-title">More Resources<a class="anchor" aria-label="anchor" href="#more-resources"></a>
-</h3>
+<h3 class="callout-title">More Resources</h3>
 <div class="callout-content">
 <p>You can read the help for the <code>rast()</code> and
 <code>sds()</code> functions by typing <code>?rast</code> or
@@ -4041,8 +3981,7 @@ max values  :              255,              255,              255 </code></pre>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-what-functions-can-be-used-on-an-r-object-of-a-particular-class" class="callout-inner">
-<h3 class="callout-title">Challenge: What Functions Can Be Used on an R Object of a particular class?<a class="anchor" aria-label="anchor" href="#challenge-what-functions-can-be-used-on-an-r-object-of-a-particular-class"></a>
-</h3>
+<h3 class="callout-title">Challenge: What Functions Can Be Used on an R Object of a particular class?</h3>
 <div class="callout-content">
 <p>We can view various functions (or methods) available to use on an R
 object with <code>methods(class=class(objectNameHere))</code>. Use this
@@ -4315,8 +4254,7 @@ see '?methods' for accessing help and source code</code></pre>
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
+<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
 <li>A single raster file can contain multiple bands or layers.</li>
@@ -4371,8 +4309,7 @@ elements.</li>
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
-<h3 class="callout-title">Things You’ll Need To Complete This Episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
-</h3>
+<h3 class="callout-title">Things You’ll Need To Complete This Episode</h3>
 <div class="callout-content">
 <p>See the <a href=".">lesson homepage</a> for detailed information
 about the software, data, and other prerequisites you will need to work
@@ -4388,7 +4325,6 @@ Harvard Forest field site</a>, which we have been working with in
 previous episodes. In later episodes, we will learn how to work with
 raster and vector data together and combine them into a single plot.</p>
 <section><h2 class="section-heading" id="import-vector-data">Import Vector Data<a class="anchor" aria-label="anchor" href="#import-vector-data"></a>
-<a class="anchor" aria-label="anchor" href="#import-vector-data"></a>
 </h2>
 <hr class="half-width">
 <p>We will use the <code>sf</code> package to work with vector data in
@@ -4438,7 +4374,6 @@ Bounding box:  xmin: 732128 ymin: 4713209 xmax: 732251.1 ymax: 4713359
 Projected CRS: WGS 84 / UTM zone 18N</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="vector-layer-metadata-attributes">Vector Layer Metadata &amp; Attributes<a class="anchor" aria-label="anchor" href="#vector-layer-metadata-attributes"></a>
-<a class="anchor" aria-label="anchor" href="#vector-layer-metadata-attributes"></a>
 </h2>
 <hr class="half-width">
 <p>When we import the <code>HarClip_UTMZ18</code> vector layer from an
@@ -4454,8 +4389,7 @@ vector object.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip"></a>
-</h3>
+<h3 class="callout-title">Data Tip</h3>
 <div class="callout-content">
 <p>The <a href="07-vector-shapefile-attributes-in-r/">Explore and Plot
 by Vector Layer Attributes</a> episode provides more information on both
@@ -4465,7 +4399,6 @@ data.</p>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="spatial-metadata">Spatial Metadata<a class="anchor" aria-label="anchor" href="#spatial-metadata"></a>
-<a class="anchor" aria-label="anchor" href="#spatial-metadata"></a>
 </h2>
 <hr class="half-width">
 <p>Key metadata for all vector layers includes:</p>
@@ -4588,14 +4521,12 @@ Projected CRS: WGS 84 / UTM zone 18N
 1  1 POLYGON ((732128 4713359, 7...</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="spatial-data-attributes">Spatial Data Attributes<a class="anchor" aria-label="anchor" href="#spatial-data-attributes"></a>
-<a class="anchor" aria-label="anchor" href="#spatial-data-attributes"></a>
 </h2>
 <hr class="half-width">
 <p>We introduced the idea of spatial data attributes in <a href="https://datacarpentry.org/organization-geospatial/02-intro-vector-data" class="external-link">an
 earlier lesson</a>. Now we will explore how to use spatial data
 attributes stored in our data to plot different features.</p>
 </section><section><h2 class="section-heading" id="plot-a-vector-layer">Plot a vector layer<a class="anchor" aria-label="anchor" href="#plot-a-vector-layer"></a>
-<a class="anchor" aria-label="anchor" href="#plot-a-vector-layer"></a>
 </h2>
 <hr class="half-width">
 <p>Next, let’s visualize the data in our <code>sf</code> object using
@@ -4620,8 +4551,7 @@ coordinate system.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-import-line-and-point-vector-layers" class="callout-inner">
-<h3 class="callout-title">Challenge: Import Line and Point Vector Layers<a class="anchor" aria-label="anchor" href="#challenge-import-line-and-point-vector-layers"></a>
-</h3>
+<h3 class="callout-title">Challenge: Import Line and Point Vector Layers</h3>
 <div class="callout-content">
 <p>Using the steps above, import the HARV_roads and HARVtower_UTM18N
 vector layers into R. Call the HARV_roads object <code>lines_HARV</code>
@@ -4838,8 +4768,7 @@ point.</p>
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
+<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
 <li>Metadata for vector layers include geometry type, CRS, and
@@ -4893,8 +4822,7 @@ dataframe.</li>
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
-<h3 class="callout-title">Things You’ll Need To Complete This Episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
-</h3>
+<h3 class="callout-title">Things You’ll Need To Complete This Episode</h3>
 <div class="callout-content">
 <p>See the <a href=".">lesson homepage</a> for detailed information
 about the software, data, and other prerequisites you will need to work
@@ -4908,7 +4836,6 @@ identify and query layer attributes, as well as how to subset features
 by specific attribute values. Finally, we will learn how to plot a
 feature according to a set of attribute values.</p>
 <section><h2 class="section-heading" id="load-the-data">Load the Data<a class="anchor" aria-label="anchor" href="#load-the-data"></a>
-<a class="anchor" aria-label="anchor" href="#load-the-data"></a>
 </h2>
 <hr class="half-width">
 <p>We will continue using the <code>sf</code>, <code>terra</code> and
@@ -4917,7 +4844,6 @@ these packages loaded. We will continue to work with the three ESRI
 <code>shapefiles</code> (vector layers) that we loaded in the <a href="06-vector-open-shapefile-in-r/">Open and Plot Vector Layers in
 R</a> episode.</p>
 </section><section><h2 class="section-heading" id="query-vector-feature-metadata">Query Vector Feature Metadata<a class="anchor" aria-label="anchor" href="#query-vector-feature-metadata"></a>
-<a class="anchor" aria-label="anchor" href="#query-vector-feature-metadata"></a>
 </h2>
 <hr class="half-width">
 <p>As we discussed in the <a href="06-vector-open-shapefile-in-r/">Open
@@ -5042,8 +4968,7 @@ Projected CRS: WGS 84 / UTM zone 18N
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-attributes-for-different-spatial-classes" class="callout-inner">
-<h3 class="callout-title">Challenge: Attributes for Different Spatial Classes<a class="anchor" aria-label="anchor" href="#challenge-attributes-for-different-spatial-classes"></a>
-</h3>
+<h3 class="callout-title">Challenge: Attributes for Different Spatial Classes</h3>
 <div class="callout-content">
 <p>Explore the attributes associated with the <code>point_HARV</code>
 and <code>aoi_boundary_HARV</code> spatial objects.</p>
@@ -5133,7 +5058,6 @@ function:</li>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="explore-values-within-one-attribute">Explore Values within One Attribute<a class="anchor" aria-label="anchor" href="#explore-values-within-one-attribute"></a>
-<a class="anchor" aria-label="anchor" href="#explore-values-within-one-attribute"></a>
 </h2>
 <hr class="half-width">
 <p>We can explore individual values stored within a particular
@@ -5241,8 +5165,7 @@ differently.
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-subset-spatial-line-objects-part-1" class="callout-inner">
-<h3 class="callout-title">Challenge: Subset Spatial Line Objects Part 1<a class="anchor" aria-label="anchor" href="#challenge-subset-spatial-line-objects-part-1"></a>
-</h3>
+<h3 class="callout-title">Challenge: Subset Spatial Line Objects Part 1</h3>
 <div class="callout-content">
 <p>Subset out all <code>boardwalk</code> from the lines layer and plot
 it.</p>
@@ -5300,8 +5223,7 @@ Map of the boardwalks in the study area.
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-subset-spatial-line-objects-part-2" class="callout-inner">
-<h3 class="callout-title">Challenge: Subset Spatial Line Objects Part 2<a class="anchor" aria-label="anchor" href="#challenge-subset-spatial-line-objects-part-2"></a>
-</h3>
+<h3 class="callout-title">Challenge: Subset Spatial Line Objects Part 2</h3>
 <div class="callout-content">
 <p>Subset out all <code>stone wall</code> features from the lines layer
 and plot it. For each plot, color each feature using a unique color.</p>
@@ -5353,7 +5275,6 @@ differently.
 </div>
 </div>
 </section><section><h2 class="section-heading" id="customize-plots">Customize Plots<a class="anchor" aria-label="anchor" href="#customize-plots"></a>
-<a class="anchor" aria-label="anchor" href="#customize-plots"></a>
 </h2>
 <hr class="half-width">
 <p>In the examples above, <code>ggplot()</code> automatically selected
@@ -5431,8 +5352,7 @@ thickness and colors.
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-plot-line-width-by-attribute" class="callout-inner">
-<h3 class="callout-title">Challenge: Plot Line Width by Attribute<a class="anchor" aria-label="anchor" href="#challenge-plot-line-width-by-attribute"></a>
-</h3>
+<h3 class="callout-title">Challenge: Plot Line Width by Attribute</h3>
 <div class="callout-content">
 <p>In the example above, we set the line widths to be 1, 2, 3, and 4.
 Because R orders alphabetically by default, this gave us a plot where
@@ -5596,8 +5516,7 @@ Map of the paths in the study area using a different color palette.
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip"></a>
-</h3>
+<h3 class="callout-title">Data Tip</h3>
 <div class="callout-content">
 <p>You can modify the default R color palette using the palette method.
 For example <code>palette(rainbow(6))</code> or
@@ -5613,8 +5532,7 @@ package</a>.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-plot-lines-by-attribute" class="callout-inner">
-<h3 class="callout-title">Challenge: Plot Lines by Attribute<a class="anchor" aria-label="anchor" href="#challenge-plot-lines-by-attribute"></a>
-</h3>
+<h3 class="callout-title">Challenge: Plot Lines by Attribute</h3>
 <div class="callout-content">
 <p>Create a plot that emphasizes only roads where bicycles and horses
 are allowed. To emphasize this, make the lines where bicycles are not
@@ -5689,8 +5607,7 @@ are allowed.
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-plot-polygon-by-attribute" class="callout-inner">
-<h3 class="callout-title">Challenge: Plot Polygon by Attribute<a class="anchor" aria-label="anchor" href="#challenge-plot-polygon-by-attribute"></a>
-</h3>
+<h3 class="callout-title">Challenge: Plot Polygon by Attribute</h3>
 <div class="callout-content">
 <ol style="list-style-type: decimal">
 <li>Create a map of the state boundaries in the United States using the
@@ -5778,8 +5695,7 @@ by region.
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
+<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
 <li>Spatial objects in <code>sf</code> are similar to standard data
@@ -5833,8 +5749,7 @@ ggplot?</li>
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
-<h3 class="callout-title">Things You’ll Need To Complete This Episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
-</h3>
+<h3 class="callout-title">Things You’ll Need To Complete This Episode</h3>
 <div class="callout-content">
 <p>See the <a href=".">lesson homepage</a> for detailed information
 about the software, data, and other prerequisites you will need to work
@@ -5847,7 +5762,6 @@ work with vector layers in R and explore how to plot multiple vector
 layers. It also covers how to plot raster and vector data together on
 the same plot.</p>
 <section><h2 class="section-heading" id="load-the-data">Load the Data<a class="anchor" aria-label="anchor" href="#load-the-data"></a>
-<a class="anchor" aria-label="anchor" href="#load-the-data"></a>
 </h2>
 <hr class="half-width">
 <p>To work with vector data in R, we can use the <code>sf</code>
@@ -5858,7 +5772,6 @@ sure that you have these packages loaded.</p>
 that we loaded in the <a href="06-vector-open-shapefile-in-r/">Open and
 Plot Vector Layers in R</a> episode.</p>
 </section><section><h2 class="section-heading" id="plotting-multiple-vector-layers">Plotting Multiple Vector Layers<a class="anchor" aria-label="anchor" href="#plotting-multiple-vector-layers"></a>
-<a class="anchor" aria-label="anchor" href="#plotting-multiple-vector-layers"></a>
 </h2>
 <hr class="half-width">
 <p>In the <a href="07-vector-shapefile-attributes-in-r/">previous
@@ -5931,8 +5844,7 @@ call to <code>geom_sf</code>: 16 is a point symbol, 15 is a box.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip"></a>
-</h3>
+<h3 class="callout-title">Data Tip</h3>
 <div class="callout-content">
 <p>To view a short list of <code>shape</code> symbols, type
 <code>?pch</code> into the R console.</p>
@@ -5958,8 +5870,7 @@ call to <code>geom_sf</code>: 16 is a point symbol, 15 is a box.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-plot-polygon-by-attribute" class="callout-inner">
-<h3 class="callout-title">Challenge: Plot Polygon by Attribute<a class="anchor" aria-label="anchor" href="#challenge-plot-polygon-by-attribute"></a>
-</h3>
+<h3 class="callout-title">Challenge: Plot Polygon by Attribute</h3>
 <div class="callout-content">
 <ol style="list-style-type: decimal">
 <li><p>Using the
@@ -6073,8 +5984,7 @@ multiple values to the <code>scale_shape_manual()</code> argument.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-plot-raster-vector-data-together" class="callout-inner">
-<h3 class="callout-title">Challenge: Plot Raster &amp; Vector Data Together<a class="anchor" aria-label="anchor" href="#challenge-plot-raster-vector-data-together"></a>
-</h3>
+<h3 class="callout-title">Challenge: Plot Raster &amp; Vector Data Together</h3>
 <div class="callout-content">
 <p>You can plot vector data layered on top of raster data using the
 <code>+</code> to add a layer in <code>ggplot</code>. Create a plot that
@@ -6121,8 +6031,7 @@ as a base layer. On top of the CHM, please add:</p>
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
+<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
 <li>Use the <code>+</code> operator to add multiple layers to a
@@ -6174,8 +6083,7 @@ colors.</li>
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
-<h3 class="callout-title">Things You’ll Need To Complete This Episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
-</h3>
+<h3 class="callout-title">Things You’ll Need To Complete This Episode</h3>
 <div class="callout-content">
 <p>See the <a href=".">lesson homepage</a> for detailed information
 about the software, data, and other prerequisites you will need to work
@@ -6195,7 +6103,6 @@ in different CRSs and thus don’t line up on a map.</p>
 that we loaded in the <a href="06-vector-open-shapefile-in-r/">Open and
 Plot Vector Layers in R</a> episode.</p>
 <section><h2 class="section-heading" id="working-with-spatial-data-from-different-sources">Working With Spatial Data From Different Sources<a class="anchor" aria-label="anchor" href="#working-with-spatial-data-from-different-sources"></a>
-<a class="anchor" aria-label="anchor" href="#working-with-spatial-data-from-different-sources"></a>
 </h2>
 <hr class="half-width">
 <p>We often need to gather spatial datasets from different sources
@@ -6226,7 +6133,6 @@ results.</p>
 <p>We will continue to use the <code>sf</code> and <code>terra</code>
 packages in this episode.</p>
 </section><section><h2 class="section-heading" id="import-us-boundaries---census-data">Import US Boundaries - Census Data<a class="anchor" aria-label="anchor" href="#import-us-boundaries---census-data"></a>
-<a class="anchor" aria-label="anchor" href="#import-us-boundaries---census-data"></a>
 </h2>
 <hr class="half-width">
 <p>There are many good sources of boundary base layers that we can use
@@ -6237,7 +6143,6 @@ States Census Bureau</a>. It is useful to have vector layers in ESRI’s
 <code>shapefile</code> format to work with because we can add additional
 attributes to them if need be - for project specific mapping.</p>
 </section><section><h2 class="section-heading" id="read-us-boundary-file">Read US Boundary File<a class="anchor" aria-label="anchor" href="#read-us-boundary-file"></a>
-<a class="anchor" aria-label="anchor" href="#read-us-boundary-file"></a>
 </h2>
 <hr class="half-width">
 <p>We will use the <code>st_read()</code> function to import the
@@ -6276,8 +6181,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Map of Contiguous US State Boundaries"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/09-vector-when-data-dont-line-up-crs-rendered-find-coordinates-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="u-s--boundary-layer">U.S. Boundary Layer<a class="anchor" aria-label="anchor" href="#u.s.-boundary-layer"></a>
-<a class="anchor" aria-label="anchor" href="#u-s--boundary-layer"></a>
+<figure><img src="fig/09-vector-when-data-dont-line-up-crs-rendered-find-coordinates-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="u-s--boundary-layer">U.S. Boundary Layer<a class="anchor" aria-label="anchor" href="#u-s--boundary-layer"></a>
 </h2>
 <hr class="half-width">
 <p>We can add a boundary layer of the United States to our map - to make
@@ -6394,8 +6298,7 @@ which is most often recorded in decimal degrees.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip"></a>
-</h3>
+<h3 class="callout-title">Data Tip</h3>
 <div class="callout-content">
 <p>the last portion of each <code>proj4</code> string could potentially
 be something like <code>+towgs84=0,0,0</code>. This is a conversion
@@ -6405,7 +6308,6 @@ with datums in this episode series.</p>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="crs-units---view-object-extent">CRS Units - View Object Extent<a class="anchor" aria-label="anchor" href="#crs-units---view-object-extent"></a>
-<a class="anchor" aria-label="anchor" href="#crs-units---view-object-extent"></a>
 </h2>
 <hr class="half-width">
 <p>Next, let’s view the extent or spatial coverage for the
@@ -6446,8 +6348,7 @@ point is in UTM, is represented in meters.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="proj4-crs-resources" class="callout-inner">
-<h3 class="callout-title">Proj4 &amp; CRS Resources<a class="anchor" aria-label="anchor" href="#proj4-crs-resources"></a>
-</h3>
+<h3 class="callout-title">Proj4 &amp; CRS Resources</h3>
 <div class="callout-content">
 <ul>
 <li><a href="https://proj4.org/" class="external-link">Official PROJ library
@@ -6465,7 +6366,6 @@ library.</li>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="reproject-vector-data-or-no">Reproject Vector Data or No?<a class="anchor" aria-label="anchor" href="#reproject-vector-data-or-no"></a>
-<a class="anchor" aria-label="anchor" href="#reproject-vector-data-or-no"></a>
 </h2>
 <hr class="half-width">
 <p>We saw in <a href="03-raster-reproject-in-r/">an earlier episode</a>
@@ -6491,8 +6391,7 @@ three data sets together without doing any conversion:</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge---plot-multiple-layers-of-spatial-data" class="callout-inner">
-<h3 class="callout-title">Challenge - Plot Multiple Layers of Spatial Data<a class="anchor" aria-label="anchor" href="#challenge---plot-multiple-layers-of-spatial-data"></a>
-</h3>
+<h3 class="callout-title">Challenge - Plot Multiple Layers of Spatial Data</h3>
 <div class="callout-content">
 <p>Create a map of the North Eastern United States as follows:</p>
 <ol style="list-style-type: decimal">
@@ -6514,7 +6413,7 @@ Tower location point.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -6562,8 +6461,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
+<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
 <li>
@@ -6615,8 +6513,7 @@ data frame.</li>
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
-<h3 class="callout-title">Things You’ll Need To Complete This Episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
-</h3>
+<h3 class="callout-title">Things You’ll Need To Complete This Episode</h3>
 <div class="callout-content">
 <p>See the <a href=".">lesson homepage</a> for detailed information
 about the software, data, and other prerequisites you will need to work
@@ -6631,7 +6528,6 @@ from an ESRI <code>shapefile</code> format, export the reprojected data
 as an ESRI <code>shapefile</code>, and plot raster and vector data as
 layers in the same plot.</p>
 <section><h2 class="section-heading" id="spatial-data-in-text-format">Spatial Data in Text Format<a class="anchor" aria-label="anchor" href="#spatial-data-in-text-format"></a>
-<a class="anchor" aria-label="anchor" href="#spatial-data-in-text-format"></a>
 </h2>
 <hr class="half-width">
 <p>The <code>HARV_PlotLocations.csv</code> file contains
@@ -6656,8 +6552,7 @@ associated attribute data - or columns describing each feature in the
 spatial object.</p>
 <p>We will continue using the <code>sf</code> and <code>terra</code>
 packages in this episode.</p>
-</section><section><h2 class="section-heading" id="import--csv">Import .csv<a class="anchor" aria-label="anchor" href="#import-.csv"></a>
-<a class="anchor" aria-label="anchor" href="#import--csv"></a>
+</section><section><h2 class="section-heading" id="import--csv">Import .csv<a class="anchor" aria-label="anchor" href="#import--csv"></a>
 </h2>
 <hr class="half-width">
 <p>To begin let’s import a <code>.csv</code> file that contains plot
@@ -6720,7 +6615,6 @@ lucky, our <code>.csv</code> will contain columns labeled:</p>
 [16] "plotdim_m" </code></pre>
 </div>
 </section><section><h2 class="section-heading" id="identify-xy-location-columns">Identify X,Y Location Columns<a class="anchor" aria-label="anchor" href="#identify-xy-location-columns"></a>
-<a class="anchor" aria-label="anchor" href="#identify-xy-location-columns"></a>
 </h2>
 <hr class="half-width">
 <p>Our column names include several fields that might contain spatial
@@ -6923,7 +6817,6 @@ PROJCRS["WGS 84 / UTM zone 18N",
 <pre class="output" tabindex="0"><code>[1] "crs"</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="csv-to-sf-object">.csv to sf object<a class="anchor" aria-label="anchor" href="#csv-to-sf-object"></a>
-<a class="anchor" aria-label="anchor" href="#csv-to-sf-object"></a>
 </h2>
 <hr class="half-width">
 <p>Next, let’s convert our dataframe into an <code>sf</code> object. To
@@ -6993,7 +6886,6 @@ PROJCRS["WGS 84 / UTM zone 18N",
     ID["EPSG",32618]]</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="plot-spatial-object">Plot Spatial Object<a class="anchor" aria-label="anchor" href="#plot-spatial-object"></a>
-<a class="anchor" aria-label="anchor" href="#plot-spatial-object"></a>
 </h2>
 <hr class="half-width">
 <p>We now have a spatial R object, we can plot our newly created spatial
@@ -7007,7 +6899,6 @@ object.</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Map of Plot Locations"</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/10-vector-csv-to-shapefile-in-r-rendered-plot-data-points-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="plot-extent">Plot Extent<a class="anchor" aria-label="anchor" href="#plot-extent"></a>
-<a class="anchor" aria-label="anchor" href="#plot-extent"></a>
 </h2>
 <hr class="half-width">
 <p>In <a href="06-vector-open-shapefile-in-r.html">Open and Plot Vector
@@ -7033,8 +6924,7 @@ included in all of the layers. That’s really handy!</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge---import-plot-additional-points" class="callout-inner">
-<h3 class="callout-title">Challenge - Import &amp; Plot Additional Points<a class="anchor" aria-label="anchor" href="#challenge---import-plot-additional-points"></a>
-</h3>
+<h3 class="callout-title">Challenge - Import &amp; Plot Additional Points</h3>
 <div class="callout-content">
 <p>We want to add two phenology plots to our existing map of vegetation
 plot locations.</p>
@@ -7060,7 +6950,7 @@ your map!</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>First we will read in the new csv file and look at the data
@@ -7184,7 +7074,7 @@ before. The data for the earlier plot was in UTM. Since we’re using
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="export-to-an-esri-shapefile">Export to an ESRI <code>shapefile</code><a class="anchor" aria-label="anchor" href="#export-to-an-esri-shapefile"></a>
+</section><section><h2 class="section-heading" id="export-to-an-esri-shapefile">Export to an ESRI <code>shapefile</code>
 <a class="anchor" aria-label="anchor" href="#export-to-an-esri-shapefile"></a>
 </h2>
 <hr class="half-width">
@@ -7215,8 +7105,7 @@ path)</li>
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
+<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
 <li>Know the projection (if any) of your point data prior to converting
@@ -7270,8 +7159,7 @@ overlay.</li>
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
-<h3 class="callout-title">Things You’ll Need To Complete This Episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
-</h3>
+<h3 class="callout-title">Things You’ll Need To Complete This Episode</h3>
 <div class="callout-content">
 <p>See the <a href=".">lesson homepage</a> for detailed information
 about the software, data, and other prerequisites you will need to work
@@ -7284,7 +7172,6 @@ vector layer. We will also cover how to extract values from a raster
 that occur within a set of polygons, or in a buffer (surrounding) region
 around a set of points.</p>
 <section><h2 class="section-heading" id="crop-a-raster-to-vector-extent">Crop a Raster to Vector Extent<a class="anchor" aria-label="anchor" href="#crop-a-raster-to-vector-extent"></a>
-<a class="anchor" aria-label="anchor" href="#crop-a-raster-to-vector-extent"></a>
 </h2>
 <hr class="half-width">
 <p>We often work with spatial layers that have different spatial
@@ -7310,7 +7197,6 @@ file sizes as we process our data. Cropping a raster can also be useful
 when creating pretty maps so that the raster layer matches the extent of
 the desired vector layers.</p>
 </section><section><h2 class="section-heading" id="crop-a-raster-using-vector-extent">Crop a Raster Using Vector Extent<a class="anchor" aria-label="anchor" href="#crop-a-raster-using-vector-extent"></a>
-<a class="anchor" aria-label="anchor" href="#crop-a-raster-using-vector-extent"></a>
 </h2>
 <hr class="half-width">
 <p>We can use the <code>crop()</code> function to crop a raster to the
@@ -7438,8 +7324,7 @@ plotted on top of the Canopy Height Model information.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-crop-to-vector-points-extent" class="callout-inner">
-<h3 class="callout-title">Challenge: Crop to Vector Points Extent<a class="anchor" aria-label="anchor" href="#challenge-crop-to-vector-points-extent"></a>
-</h3>
+<h3 class="callout-title">Challenge: Crop to Vector Points Extent</h3>
 <div class="callout-content">
 <ol style="list-style-type: decimal">
 <li>Crop the Canopy Height Model to the extent of the study plot
@@ -7492,7 +7377,6 @@ extent in areas where there are no data. Thus, the extent of our
 vegetation plot layer will still extend further west than the extent of
 our (cropped) raster data (dark green).</p>
 <figure><img src="fig/11-vector-raster-integration-rendered-repeat-compare-data-extents-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="define-an-extent">Define an Extent<a class="anchor" aria-label="anchor" href="#define-an-extent"></a>
-<a class="anchor" aria-label="anchor" href="#define-an-extent"></a>
 </h2>
 <hr class="half-width">
 <p>So far, we have used a vector layer to crop the extent of a raster
@@ -7519,8 +7403,7 @@ attr(,"package")
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip"></a>
-</h3>
+<h3 class="callout-title">Data Tip</h3>
 <div class="callout-content">
 <p>The extent can be created from a numeric vector (as shown above), a
 matrix, or a list. For more details see the <code>ext()</code> function
@@ -7559,7 +7442,6 @@ the same plot for scale.</p>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/11-vector-raster-integration-rendered-show-manual-crop-area-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="extract-raster-pixels-values-using-vector-polygons">Extract Raster Pixels Values Using Vector Polygons<a class="anchor" aria-label="anchor" href="#extract-raster-pixels-values-using-vector-polygons"></a>
-<a class="anchor" aria-label="anchor" href="#extract-raster-pixels-values-using-vector-polygons"></a>
 </h2>
 <hr class="half-width">
 <p>Often we want to extract values from a raster layer for particular
@@ -7637,7 +7519,6 @@ values help us better understand vegetation at our field site.</p>
    2.03   21.36   22.81   22.43   23.97   38.17 </code></pre>
 </div>
 </section><section><h2 class="section-heading" id="summarize-extracted-raster-values">Summarize Extracted Raster Values<a class="anchor" aria-label="anchor" href="#summarize-extracted-raster-values"></a>
-<a class="anchor" aria-label="anchor" href="#summarize-extracted-raster-values"></a>
 </h2>
 <hr class="half-width">
 <p>We often want to extract summary values from a raster. We can tell R
@@ -7662,7 +7543,6 @@ AOI.</p>
 <p>It appears that the mean height value, extracted from our LiDAR data
 derived canopy height model is 22.43 meters.</p>
 </section><section><h2 class="section-heading" id="extract-data-using-xy-locations">Extract Data using x,y Locations<a class="anchor" aria-label="anchor" href="#extract-data-using-xy-locations"></a>
-<a class="anchor" aria-label="anchor" href="#extract-data-using-xy-locations"></a>
 </h2>
 <hr class="half-width">
 <p>We can also extract pixel values from a raster by defining a buffer
@@ -7698,8 +7578,7 @@ the 20m around the tower location (<code>point_HARV</code>).</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-extract-raster-height-values-for-plot-locations" class="callout-inner">
-<h3 class="callout-title">Challenge: Extract Raster Height Values For Plot Locations<a class="anchor" aria-label="anchor" href="#challenge-extract-raster-height-values-for-plot-locations"></a>
-</h3>
+<h3 class="callout-title">Challenge: Extract Raster Height Values For Plot Locations</h3>
 <div class="callout-content">
 <ol style="list-style-type: decimal">
 <li><p>Use the plot locations object
@@ -7787,8 +7666,7 @@ averages returned.</p></li>
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
+<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
 <li>Use the <code>crop()</code> function to crop a raster object.</li>
@@ -7842,8 +7720,7 @@ year?</li>
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
-<h3 class="callout-title">Things You’ll Need To Complete This Episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
-</h3>
+<h3 class="callout-title">Things You’ll Need To Complete This Episode</h3>
 <div class="callout-content">
 <p>See the <a href=".">lesson homepage</a> for detailed information
 about the software, data, and other prerequisites you will need to work
@@ -7855,7 +7732,6 @@ through the examples in this episode.</p>
 using an R raster object. It also covers practical assessment of data
 quality in remote sensing derived imagery.</p>
 <section><h2 class="section-heading" id="about-raster-time-series-data">About Raster Time Series Data<a class="anchor" aria-label="anchor" href="#about-raster-time-series-data"></a>
-<a class="anchor" aria-label="anchor" href="#about-raster-time-series-data"></a>
 </h2>
 <hr class="half-width">
 <p>A raster data file can contain one single band or many bands. If the
@@ -7877,7 +7753,6 @@ throughout the year.</li>
 <li>View the RGB imagery used to derived the NDVI time series to better
 understand unusual / outlier values.</li>
 </ol></section><section><h2 class="section-heading" id="rgb-data">RGB Data<a class="anchor" aria-label="anchor" href="#rgb-data"></a>
-<a class="anchor" aria-label="anchor" href="#rgb-data"></a>
 </h2>
 <hr class="half-width">
 <p>While the NDVI data is a single band product, the RGB images that
@@ -7911,8 +7786,7 @@ added to the list.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip"></a>
-</h3>
+<h3 class="callout-title">Data Tip</h3>
 <div class="callout-content">
 <p>In the pattern above, the <code>$</code> character represents the end
 of a line. Using it ensures that our pattern will only match files that
@@ -8007,8 +7881,7 @@ the Landsat data is in a CRS of UTM Zone 19.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-raster-metadata" class="callout-inner">
-<h3 class="callout-title">Challenge: Raster Metadata<a class="anchor" aria-label="anchor" href="#challenge-raster-metadata"></a>
-</h3>
+<h3 class="callout-title">Challenge: Raster Metadata</h3>
 <div class="callout-content">
 <p>Investigate the metadata for our RasterStack and answer the following
 questions.</p>
@@ -8026,7 +7899,7 @@ questions.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -8067,7 +7940,6 @@ questions.</p>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="plotting-time-series-data">Plotting Time Series Data<a class="anchor" aria-label="anchor" href="#plotting-time-series-data"></a>
-<a class="anchor" aria-label="anchor" href="#plotting-time-series-data"></a>
 </h2>
 <hr class="half-width">
 <p>Once we have created our RasterStack, we can visualize our data. We
@@ -8101,7 +7973,6 @@ multi-paneled plot:</p>
 that the accepted values for NDVI range from 0-1. Why does our data
 range from 0 - 10,000?</p>
 </section><section><h2 class="section-heading" id="scale-factors">Scale Factors<a class="anchor" aria-label="anchor" href="#scale-factors"></a>
-<a class="anchor" aria-label="anchor" href="#scale-factors"></a>
 </h2>
 <hr class="half-width">
 <p>The metadata for this NDVI data specifies a scale factor: 10,000. A
@@ -8131,7 +8002,6 @@ same code we used above.</p>
 <span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">variable</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/12-time-series-raster-rendered-ndvi-stack-wrap-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="take-a-closer-look-at-our-data">Take a Closer Look at Our Data<a class="anchor" aria-label="anchor" href="#take-a-closer-look-at-our-data"></a>
-<a class="anchor" aria-label="anchor" href="#take-a-closer-look-at-our-data"></a>
 </h2>
 <hr class="half-width">
 <p>Let’s take a closer look at the plots of our data. Massachusetts,
@@ -8146,7 +8016,6 @@ which in this case represents the number of days into each year. If you
 are unfamiliar with Julian day, check out the NEON Data Skills <a href="https://www.neonscience.org/julian-day-conversion-r" class="external-link">Converting to
 Julian Day</a> tutorial.</p>
 </section><section><h2 class="section-heading" id="view-distribution-of-raster-values">View Distribution of Raster Values<a class="anchor" aria-label="anchor" href="#view-distribution-of-raster-values"></a>
-<a class="anchor" aria-label="anchor" href="#view-distribution-of-raster-values"></a>
 </h2>
 <hr class="half-width">
 <p>In the above exercise, we viewed plots of our NDVI time series and
@@ -8287,8 +8156,7 @@ understand what appear to be outlier NDVI values.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-examine-rgb-raster-files" class="callout-inner">
-<h3 class="callout-title">Challenge: Examine RGB Raster Files<a class="anchor" aria-label="anchor" href="#challenge-examine-rgb-raster-files"></a>
-</h3>
+<h3 class="callout-title">Challenge: Examine RGB Raster Files</h3>
 <div class="callout-content">
 <p>Plot the RGB images for the Julian days 277 and 293. Compare those
 with the RGB plots for Julian days 133 and 197 (shown above). Does the
@@ -8304,7 +8172,7 @@ these days?</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>First we need to load in the RGB data for Julian day 277 and look at
 its metadata.</p>
@@ -8399,8 +8267,7 @@ working with satellite remote sensing imagery.</p>
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
+<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
 <li>Use the <code>list.files()</code> function to get a list of
@@ -8454,8 +8321,7 @@ parameters?</li>
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
-<h3 class="callout-title">Things You’ll Need To Complete This Episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
-</h3>
+<h3 class="callout-title">Things You’ll Need To Complete This Episode</h3>
 <div class="callout-content">
 <p>See the <a href=".">lesson homepage</a> for detailed information
 about the software, data, and other prerequisites you will need to work
@@ -8467,7 +8333,6 @@ through the examples in this episode.</p>
 <code>ggplot2</code> package in R to create publication-quality
 plots.</p>
 <section><h2 class="section-heading" id="before-and-after">Before and After<a class="anchor" aria-label="anchor" href="#before-and-after"></a>
-<a class="anchor" aria-label="anchor" href="#before-and-after"></a>
 </h2>
 <hr class="half-width">
 <p>In <a href="12-time-series-raster/">the previous episode</a>, we
@@ -8484,7 +8349,6 @@ this plot above to produce a publication quality graphic. We will go
 through these steps iteratively. When we’re done, we will have created
 the plot shown below.</p>
 <figure><img src="fig/13-plot-time-series-rasters-in-r-rendered-levelplot-time-series-after-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="adjust-the-plot-theme">Adjust the Plot Theme<a class="anchor" aria-label="anchor" href="#adjust-the-plot-theme"></a>
-<a class="anchor" aria-label="anchor" href="#adjust-the-plot-theme"></a>
 </h2>
 <hr class="half-width">
 <p>The first thing we will do to our plot remove the x and y-axis labels
@@ -8529,8 +8393,7 @@ indicates right justification.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge" class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge"></a>
-</h3>
+<h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
 <p>Change the plot title (but not the subtitle) to bold font. You can
 (and should!) use the help menu in RStudio or any internet resources to
@@ -8545,7 +8408,7 @@ figure out how to change this setting.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Learners can find this information in the help files for the
 <code>theme()</code> function. The parameter to set is called
@@ -8569,7 +8432,6 @@ figure out how to change this setting.</p>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="adjust-the-color-ramp">Adjust the Color Ramp<a class="anchor" aria-label="anchor" href="#adjust-the-color-ramp"></a>
-<a class="anchor" aria-label="anchor" href="#adjust-the-color-ramp"></a>
 </h2>
 <hr class="half-width">
 <p>Next, let’s adjust the color ramp used to render the rasters. First,
@@ -8630,8 +8492,7 @@ understand that pixels that are more green have a higher NDVI value.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip"></a>
-</h3>
+<h3 class="callout-title">Data Tip</h3>
 <div class="callout-content">
 <p>For all of the <code>brewer.pal</code> ramp names see the <a href="https://www.datavis.ca/sasmac/brewerpal.html" class="external-link">brewerpal
 page</a>.</p>
@@ -8643,8 +8504,7 @@ page</a>.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip-1" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip-1"></a>
-</h3>
+<h3 class="callout-title">Data Tip</h3>
 <div class="callout-content">
 <p>Cynthia Brewer, the creator of ColorBrewer, offers an online tool to
 help choose suitable color ramps, or to create your own. <a href="https://colorbrewer2.org/" class="external-link">ColorBrewer 2.0; Color Advise for
@@ -8653,7 +8513,6 @@ Cartography</a></p>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="refine-plot-tile-labels">Refine Plot &amp; Tile Labels<a class="anchor" aria-label="anchor" href="#refine-plot-tile-labels"></a>
-<a class="anchor" aria-label="anchor" href="#refine-plot-tile-labels"></a>
 </h2>
 <hr class="half-width">
 <p>Next, let’s label each panel in our plot with the Julian day that the
@@ -8742,7 +8601,6 @@ plot with the new labels using a<code>labeller</code>.</p>
 <span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"NDVI"</span>, colours <span class="op">=</span> <span class="fu">green_colors</span><span class="op">(</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/13-plot-time-series-rasters-in-r-rendered-create-levelplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="change-layout-of-panels">Change Layout of Panels<a class="anchor" aria-label="anchor" href="#change-layout-of-panels"></a>
-<a class="anchor" aria-label="anchor" href="#change-layout-of-panels"></a>
 </h2>
 <hr class="half-width">
 <p>We can adjust the columns of our plot by setting the number of
@@ -8769,8 +8627,7 @@ five panels.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-divergent-color-ramps" class="callout-inner">
-<h3 class="callout-title">Challenge: Divergent Color Ramps<a class="anchor" aria-label="anchor" href="#challenge-divergent-color-ramps"></a>
-</h3>
+<h3 class="callout-title">Challenge: Divergent Color Ramps</h3>
 <div class="callout-content">
 <p>When we used the <code>gsub()</code> function to modify the tile
 labels we replaced the beginning of each tile title with “Day”. A more
@@ -8795,7 +8652,7 @@ best?</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -8827,8 +8684,7 @@ one end and just keeps increasing.</p>
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
+<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
 <li>Use the <code>theme_void()</code> function for a clean background to
@@ -8885,8 +8741,7 @@ data?</li>
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
-<h3 class="callout-title">Things You’ll Need To Complete This Episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
-</h3>
+<h3 class="callout-title">Things You’ll Need To Complete This Episode</h3>
 <div class="callout-content">
 <p>See the <a href=".">lesson homepage</a> for detailed information
 about the software, data, and other prerequisites you will need to work
@@ -8897,7 +8752,6 @@ through the examples in this episode.</p>
 <p>In this episode, we will extract NDVI values from a raster time
 series dataset and plot them using the <code>ggplot2</code> package.</p>
 <section><h2 class="section-heading" id="extract-summary-statistics-from-raster-data">Extract Summary Statistics From Raster Data<a class="anchor" aria-label="anchor" href="#extract-summary-statistics-from-raster-data"></a>
-<a class="anchor" aria-label="anchor" href="#extract-summary-statistics-from-raster-data"></a>
 </h2>
 <hr class="half-width">
 <p>We often want to extract summary values from raster data. For
@@ -8906,7 +8760,6 @@ site or at each plot within a field site. These values can then be
 compared between different field sites and combined with other related
 metrics to support modeling and further analysis.</p>
 </section><section><h2 class="section-heading" id="calculate-average-ndvi">Calculate Average NDVI<a class="anchor" aria-label="anchor" href="#calculate-average-ndvi"></a>
-<a class="anchor" aria-label="anchor" href="#calculate-average-ndvi"></a>
 </h2>
 <hr class="half-width">
 <p>Our goal in this episode is to create a dataframe that contains a
@@ -9020,7 +8873,6 @@ X197_HARV_ndvi_crop 0.893250 HARV 2011</code></pre>
 processed, and columns for <code>meanNDVI</code>, <code>site</code>, and
 <code>year</code>.</p>
 </section><section><h2 class="section-heading" id="extract-julian-day-from-row-names">Extract Julian Day from row names<a class="anchor" aria-label="anchor" href="#extract-julian-day-from-row-names"></a>
-<a class="anchor" aria-label="anchor" href="#extract-julian-day-from-row-names"></a>
 </h2>
 <hr class="half-width">
 <p>We’d like to produce a plot where Julian days (the numeric day of the
@@ -9070,7 +8922,6 @@ add that data to the data frame as a column called “julianDay”.</p>
 <pre class="output" tabindex="0"><code>[1] "character"</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="convert-julian-day-to-date-class">Convert Julian Day to Date Class<a class="anchor" aria-label="anchor" href="#convert-julian-day-to-date-class"></a>
-<a class="anchor" aria-label="anchor" href="#convert-julian-day-to-date-class"></a>
 </h2>
 <hr class="half-width">
 <p>Currently, the values in the Julian day column are stored as class
@@ -9142,8 +8993,7 @@ new <code>Date</code> column is also stored as class
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-ndvi-for-the-san-joaquin-experimental-range" class="callout-inner">
-<h3 class="callout-title">Challenge: NDVI for the San Joaquin Experimental Range<a class="anchor" aria-label="anchor" href="#challenge-ndvi-for-the-san-joaquin-experimental-range"></a>
-</h3>
+<h3 class="callout-title">Challenge: NDVI for the San Joaquin Experimental Range</h3>
 <div class="callout-content">
 <p>We often want to compare two different sites. The National Ecological
 Observatory Network (NEON) also has a field site in Southern California
@@ -9229,7 +9079,6 @@ X126_SJER_ndvi_crop 0.538336 SJER 2011       126 2011-05-06</code></pre>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="plot-ndvi-using-ggplot">Plot NDVI Using ggplot<a class="anchor" aria-label="anchor" href="#plot-ndvi-using-ggplot"></a>
-<a class="anchor" aria-label="anchor" href="#plot-ndvi-using-ggplot"></a>
 </h2>
 <hr class="half-width">
 <p>We now have a clean dataframe with properly scaled NDVI and Julian
@@ -9249,8 +9098,7 @@ days. Let’s plot our data.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-plot-san-joaquin-experimental-range-data" class="callout-inner">
-<h3 class="callout-title">Challenge: Plot San Joaquin Experimental Range Data<a class="anchor" aria-label="anchor" href="#challenge-plot-san-joaquin-experimental-range-data"></a>
-</h3>
+<h3 class="callout-title">Challenge: Plot San Joaquin Experimental Range Data</h3>
 <div class="callout-content">
 <p>Create a complementary plot for the SJER data. Plot the data points
 in a different color.</p>
@@ -9281,7 +9129,6 @@ in a different color.</p>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="compare-ndvi-from-two-different-sites-in-one-plot">Compare NDVI from Two Different Sites in One Plot<a class="anchor" aria-label="anchor" href="#compare-ndvi-from-two-different-sites-in-one-plot"></a>
-<a class="anchor" aria-label="anchor" href="#compare-ndvi-from-two-different-sites-in-one-plot"></a>
 </h2>
 <hr class="half-width">
 <p>Comparison of plots is often easiest when both plots are side by
@@ -9312,8 +9159,7 @@ to be merged.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-plot-ndvi-with-date" class="callout-inner">
-<h3 class="callout-title">Challenge: Plot NDVI with date<a class="anchor" aria-label="anchor" href="#challenge-plot-ndvi-with-date"></a>
-</h3>
+<h3 class="callout-title">Challenge: Plot NDVI with date</h3>
 <div class="callout-content">
 <p>Plot the SJER and HARV data in one plot but use date, rather than
 Julian day, on the x-axis.</p>
@@ -9346,7 +9192,6 @@ Julian day, on the x-axis.</p>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="remove-outlier-data">Remove Outlier Data<a class="anchor" aria-label="anchor" href="#remove-outlier-data"></a>
-<a class="anchor" aria-label="anchor" href="#remove-outlier-data"></a>
 </h2>
 <hr class="half-width">
 <p>As we look at these plots we see variation in greenness across the
@@ -9373,8 +9218,7 @@ outlier datapoints (below our identified threshold).</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip"></a>
-</h3>
+<h3 class="callout-title">Data Tip</h3>
 <div class="callout-content">
 <p>Thresholding, or removing outlier data, can be tricky business. In
 this case, we can be confident that some of our NDVI values are not
@@ -9410,8 +9254,7 @@ knowledge of the data and the desired outcomes!</p>
 </div>
 <figure><img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-plot-clean-HARV-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Now our outlier data points are removed and the pattern of “green-up”
 and “brown-down” makes more sense.</p>
-</section><section><h2 class="section-heading" id="write-ndvi-data-to-a--csv-file">Write NDVI data to a .csv File<a class="anchor" aria-label="anchor" href="#write-ndvi-data-to-a-.csv-file"></a>
-<a class="anchor" aria-label="anchor" href="#write-ndvi-data-to-a--csv-file"></a>
+</section><section><h2 class="section-heading" id="write-ndvi-data-to-a--csv-file">Write NDVI data to a .csv File<a class="anchor" aria-label="anchor" href="#write-ndvi-data-to-a--csv-file"></a>
 </h2>
 <hr class="half-width">
 <p>We can write our final NDVI dataframe out to a text format, to
@@ -9473,8 +9316,7 @@ in our data frame. Let’s remove the row names.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-write-to-.csv" class="callout-inner">
-<h3 class="callout-title">Challenge: Write to .csv<a class="anchor" aria-label="anchor" href="#challenge-write-to-.csv"></a>
-</h3>
+<h3 class="callout-title">Challenge: Write to .csv</h3>
 <div class="callout-content">
 <ol style="list-style-type: decimal">
 <li>Create a NDVI .csv file for the NEON SJER field site that is
@@ -9530,8 +9372,7 @@ sites.</li>
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
+<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
 <li>Use the <code>global()</code> function to calculate summary
@@ -9568,7 +9409,7 @@ have the same column names.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.5" class="external-link">sandpaper (0.16.5)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.6" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.3" class="external-link">varnish (1.0.3)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.6" class="external-link">sandpaper (0.16.6)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.6" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.4" class="external-link">varnish (1.0.4)</a></p>
 			</div>
 		</footer>
 </div> <!-- / div.container -->
@@ -9591,8 +9432,8 @@ have the same column names.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/aio.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/aio.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2024-08-20",
-  "datePublished": "2024-08-20"
+  "dateModified": "2024-08-27",
+  "datePublished": "2024-08-27"
 }
 
   </script><script>

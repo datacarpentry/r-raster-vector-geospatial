@@ -337,10 +337,10 @@
               </div>
             </div>
 
-            <hr class="half-width"><div class="accordion accordion-flush resources" id="accordionFlush12">
+            <hr class="half-width"><div class="accordion accordion-flush lesson-resources" id="accordionFlush12">
               <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingTwelve">
-                  <button class="accordion-button collapsed" id="resources" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwelve" aria-expanded="false" aria-controls="flush-collapseTwelve">
+                  <button class="accordion-button collapsed" id="lesson-resources" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwelve" aria-expanded="false" aria-controls="flush-collapseTwelve">
                     RESOURCES
                   </button>
                 </h2>
@@ -360,7 +360,7 @@
                 </div>
               </div>
             </div>
-            <hr class="half-width resources"><a href="aio.html">See all in one page</a>
+            <hr class="half-width lesson-resources"><a href="aio.html">See all in one page</a>
 
 
             <hr class="d-none d-sm-block d-md-none"><div class="d-grid gap-1">
@@ -431,8 +431,7 @@
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
-<h3 class="callout-title">Things You’ll Need To Complete This Episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
-</h3>
+<h3 class="callout-title">Things You’ll Need To Complete This Episode</h3>
 <div class="callout-content">
 <p>See the <a href=".">lesson homepage</a> for detailed information
 about the software, data, and other prerequisites you will need to work
@@ -445,15 +444,13 @@ covers how to work with vector layer attributes in R. It covers how to
 identify and query layer attributes, as well as how to subset features
 by specific attribute values. Finally, we will learn how to plot a
 feature according to a set of attribute values.</p>
-<section><h2 class="section-heading" id="load-the-data">Load the Data<a class="anchor" aria-label="anchor" href="#load-the-data"></a>
-<a class="anchor" aria-label="anchor" href="#load-the-data"></a></h2>
+<section><h2 class="section-heading" id="load-the-data">Load the Data<a class="anchor" aria-label="anchor" href="#load-the-data"></a></h2>
 <hr class="half-width"><p>We will continue using the <code>sf</code>, <code>terra</code> and
 <code>ggplot2</code> packages in this episode. Make sure that you have
 these packages loaded. We will continue to work with the three ESRI
 <code>shapefiles</code> (vector layers) that we loaded in the <a href="06-vector-open-shapefile-in-r/">Open and Plot Vector Layers in
 R</a> episode.</p>
-</section><section><h2 class="section-heading" id="query-vector-feature-metadata">Query Vector Feature Metadata<a class="anchor" aria-label="anchor" href="#query-vector-feature-metadata"></a>
-<a class="anchor" aria-label="anchor" href="#query-vector-feature-metadata"></a></h2>
+</section><section><h2 class="section-heading" id="query-vector-feature-metadata">Query Vector Feature Metadata<a class="anchor" aria-label="anchor" href="#query-vector-feature-metadata"></a></h2>
 <hr class="half-width"><p>As we discussed in the <a href="06-vector-open-shapefile-in-r/">Open
 and Plot Vector Layers in R</a> episode, we can view metadata associated
 with an R object using:</p>
@@ -574,8 +571,7 @@ Projected CRS: WGS 84 / UTM zone 18N
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-attributes-for-different-spatial-classes" class="callout-inner">
-<h3 class="callout-title">Challenge: Attributes for Different Spatial Classes<a class="anchor" aria-label="anchor" href="#challenge-attributes-for-different-spatial-classes"></a>
-</h3>
+<h3 class="callout-title">Challenge: Attributes for Different Spatial Classes</h3>
 <div class="callout-content">
 <p>Explore the attributes associated with the <code>point_HARV</code>
 and <code>aoi_boundary_HARV</code> spatial objects.</p>
@@ -654,8 +650,7 @@ function:</li>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="explore-values-within-one-attribute">Explore Values within One Attribute<a class="anchor" aria-label="anchor" href="#explore-values-within-one-attribute"></a>
-<a class="anchor" aria-label="anchor" href="#explore-values-within-one-attribute"></a></h2>
+</section><section><h2 class="section-heading" id="explore-values-within-one-attribute">Explore Values within One Attribute<a class="anchor" aria-label="anchor" href="#explore-values-within-one-attribute"></a></h2>
 <hr class="half-width"><p>We can explore individual values stored within a particular
 attribute. Comparing attributes to a spreadsheet or a data frame, this
 is similar to exploring values in a column. We did this with the
@@ -760,8 +755,7 @@ differently.
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-subset-spatial-line-objects-part-1" class="callout-inner">
-<h3 class="callout-title">Challenge: Subset Spatial Line Objects Part 1<a class="anchor" aria-label="anchor" href="#challenge-subset-spatial-line-objects-part-1"></a>
-</h3>
+<h3 class="callout-title">Challenge: Subset Spatial Line Objects Part 1</h3>
 <div class="callout-content">
 <p>Subset out all <code>boardwalk</code> from the lines layer and plot
 it.</p>
@@ -818,8 +812,7 @@ Map of the boardwalks in the study area.
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-subset-spatial-line-objects-part-2" class="callout-inner">
-<h3 class="callout-title">Challenge: Subset Spatial Line Objects Part 2<a class="anchor" aria-label="anchor" href="#challenge-subset-spatial-line-objects-part-2"></a>
-</h3>
+<h3 class="callout-title">Challenge: Subset Spatial Line Objects Part 2</h3>
 <div class="callout-content">
 <p>Subset out all <code>stone wall</code> features from the lines layer
 and plot it. For each plot, color each feature using a unique color.</p>
@@ -869,8 +862,7 @@ differently.
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="customize-plots">Customize Plots<a class="anchor" aria-label="anchor" href="#customize-plots"></a>
-<a class="anchor" aria-label="anchor" href="#customize-plots"></a></h2>
+</section><section><h2 class="section-heading" id="customize-plots">Customize Plots<a class="anchor" aria-label="anchor" href="#customize-plots"></a></h2>
 <hr class="half-width"><p>In the examples above, <code>ggplot()</code> automatically selected
 colors for each line based on a default color order. If we don’t like
 those default colors, we can create a vector of colors - one for each
@@ -945,8 +937,7 @@ thickness and colors.
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-plot-line-width-by-attribute" class="callout-inner">
-<h3 class="callout-title">Challenge: Plot Line Width by Attribute<a class="anchor" aria-label="anchor" href="#challenge-plot-line-width-by-attribute"></a>
-</h3>
+<h3 class="callout-title">Challenge: Plot Line Width by Attribute</h3>
 <div class="callout-content">
 <p>In the example above, we set the line widths to be 1, 2, 3, and 4.
 Because R orders alphabetically by default, this gave us a plot where
@@ -1102,8 +1093,7 @@ Map of the paths in the study area using a different color palette.
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip" class="callout-inner">
-<h3 class="callout-title">Data Tip<a class="anchor" aria-label="anchor" href="#data-tip"></a>
-</h3>
+<h3 class="callout-title">Data Tip</h3>
 <div class="callout-content">
 <p>You can modify the default R color palette using the palette method.
 For example <code>palette(rainbow(6))</code> or
@@ -1119,8 +1109,7 @@ package</a>.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-plot-lines-by-attribute" class="callout-inner">
-<h3 class="callout-title">Challenge: Plot Lines by Attribute<a class="anchor" aria-label="anchor" href="#challenge-plot-lines-by-attribute"></a>
-</h3>
+<h3 class="callout-title">Challenge: Plot Lines by Attribute</h3>
 <div class="callout-content">
 <p>Create a plot that emphasizes only roads where bicycles and horses
 are allowed. To emphasize this, make the lines where bicycles are not
@@ -1194,8 +1183,7 @@ are allowed.
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-plot-polygon-by-attribute" class="callout-inner">
-<h3 class="callout-title">Challenge: Plot Polygon by Attribute<a class="anchor" aria-label="anchor" href="#challenge-plot-polygon-by-attribute"></a>
-</h3>
+<h3 class="callout-title">Challenge: Plot Polygon by Attribute</h3>
 <div class="callout-content">
 <ol style="list-style-type: decimal"><li>Create a map of the state boundaries in the United States using the
 data located in your downloaded data folder:
@@ -1280,8 +1268,7 @@ by region.
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
+<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul><li>Spatial objects in <code>sf</code> are similar to standard data
 frames and can be manipulated using the same functions.</li>
@@ -1327,7 +1314,7 @@ functions and options in the <code>ggplot2</code> package.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.5" class="external-link">sandpaper (0.16.5)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.6" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.3" class="external-link">varnish (1.0.3)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.6" class="external-link">sandpaper (0.16.6)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.6" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.4" class="external-link">varnish (1.0.4)</a></p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -1350,7 +1337,7 @@ functions and options in the <code>ggplot2</code> package.</li>
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/07-vector-shapefile-attributes-in-r.html",
   "dateCreated": "2015-10-22",
   "dateModified": "2024-07-15",
-  "datePublished": "2024-08-20"
+  "datePublished": "2024-08-27"
 }
 
   </script><script>
