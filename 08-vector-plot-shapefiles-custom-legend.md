@@ -215,7 +215,7 @@ ggplot() +
                                               shape = NA))) +
   scale_fill_manual(name = "Soil Type", values = blue_orange,
      guide = guide_legend(override.aes = list(linetype = "blank", shape = 21,
-                                              colour = NA))) +
+                                              colour = "black"))) +
   ggtitle("NEON Harvard Forest Field Site") +
   coord_sf()
 ```
@@ -235,8 +235,7 @@ ggplot() +
   scale_color_manual(name = "Line Type", values = road_colors,
      guide = guide_legend(override.aes = list(linetype = "solid", shape = NA))) +
   scale_fill_manual(name = "Soil Type", values = blue_orange,
-     guide = guide_legend(override.aes = list(linetype = "blank", shape = c(21, 22),
-     color = blue_orange))) +
+     guide = guide_legend(override.aes = list(linetype = "blank", shape = c(21, 22), color = "black"))) +
   ggtitle("NEON Harvard Forest Field Site") +
   coord_sf()
 ```
