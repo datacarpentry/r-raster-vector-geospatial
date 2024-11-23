@@ -482,13 +482,17 @@ We can use those line widths when we plot the data.
 
 ``` r
 ggplot() +
-  geom_sf(data = lines_HARV, aes(color = TYPE, size = TYPE)) +
+  geom_sf(data = lines_HARV, aes(color = TYPE, linewidth = TYPE)) +
   scale_color_manual(values = road_colors) +
   labs(color = 'Road Type') +
   scale_size_manual(values = line_widths) +
   ggtitle("NEON Harvard Forest Field Site",
           subtitle = "Roads & Trails - Line width varies") +
   coord_sf()
+```
+
+``` warning
+Warning: Using linewidth for a discrete variable is not advised.
 ```
 
 <div class="figure" style="text-align: center">
