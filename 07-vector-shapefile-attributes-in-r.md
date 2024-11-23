@@ -608,18 +608,10 @@ ggplot() +
   scale_color_manual(values = road_colors) +
   labs(color = 'Road Type') +
   theme(legend.text = element_text(size = 20),
-        legend.box.background = element_rect(size = 1)) +
+        legend.box.background = element_rect(linewidth = 1)) +
   ggtitle("NEON Harvard Forest Field Site",
           subtitle = "Roads & Trails - Modified Legend") +
   coord_sf()
-```
-
-``` warning
-Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.
-ℹ Please use the `linewidth` argument instead.
-This warning is displayed once every 8 hours.
-Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-generated.
 ```
 
 <div class="figure" style="text-align: center">
@@ -640,6 +632,14 @@ ggplot() +
   ggtitle("NEON Harvard Forest Field Site",
           subtitle = "Roads & Trails - Pretty Colors") +
   coord_sf()
+```
+
+``` warning
+Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.
+ℹ Please use the `linewidth` argument instead.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.
 ```
 
 <div class="figure" style="text-align: center">
