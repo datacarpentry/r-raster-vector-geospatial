@@ -77,7 +77,7 @@ from this data.
   If you see the following error message, try to re-run your plotting command and it should work.
   The `ggplot` development team is working on fixing this bug.
 
-## Error message
+* Error message *
 
 > ```
 > Error in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y,  : 
