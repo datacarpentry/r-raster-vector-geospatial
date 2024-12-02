@@ -1,7 +1,7 @@
 ---
 title: Plot Multiple Vector Layers
-teaching: 40
-exercises: 20
+teaching: 30
+exercises: 15
 source: Rmd
 ---
 
