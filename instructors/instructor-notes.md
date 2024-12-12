@@ -79,15 +79,10 @@ from this data.
 
 ## Error message
 
-> ```
-> Error in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y,  : 
-> ```
-
+```error
+Error in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y,  : 
 polygon edge not found
-
-> ```
-> {: .error}
-> ```
+```
 
 #### [Explore and Plot by Shapefile Attributes](07-vector-shapefile-attributes-in-r.md)
 
