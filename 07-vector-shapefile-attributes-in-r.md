@@ -308,7 +308,7 @@ there is only one feature? Let's adjust the colors used in our plot. If we have
 2 features in our vector object, we can plot each using a unique color by
 assigning a column name to the color aesthetic (`color =`). We use the syntax
 `aes(color = )` to do this. We can also alter the default line thickness by
-using the `size =` parameter, as the default value of 0.5 can be hard to see.
+using the `linewidth =` parameter, as the default value of 0.5 can be hard to see.
 Note that size is placed outside of the `aes()` function, as we are not
 connecting line thickness to a data variable.
 
@@ -427,7 +427,7 @@ In the examples above, `ggplot()` automatically selected colors for each line
 based on a default color order. If we don't like those default colors, we can
 create a vector of colors - one for each feature.
 
-First we will check how many unique levels our factor has:
+First we will check how many unique values our TYPE attribute has:
 
 
 ``` r
@@ -467,7 +467,7 @@ ggplot() +
 ### Adjust Line Width
 
 We adjusted line width universally earlier. If we want a unique line width for
-each level or attribute category in our spatial object, we can use the
+each attribute category in our spatial object, we can use the
 same syntax that we used for colors, above.
 
 We already know that we have four different `TYPE`s in the lines\_HARV object,
@@ -522,7 +522,7 @@ following thicknesses:
 
 ## Answers
 
-First we need to look at the levels of our factor to see
+First we need to look at the values of our data to see
 what order the road types are in:
 
 
