@@ -300,7 +300,7 @@ In the examples above, `ggplot()` automatically selected colors for each line
 based on a default color order. If we don't like those default colors, we can
 create a vector of colors - one for each feature.
 
-First we will check how many unique levels our factor has:
+First we will check how many unique values our TYPE attribute has:
 
 ```{r palette-and-plot}
 unique(lines_HARV$TYPE)
@@ -328,7 +328,7 @@ ggplot() +
 ### Adjust Line Width
 
 We adjusted line width universally earlier. If we want a unique line width for
-each level or attribute category in our spatial object, we can use the
+each attribute category in our spatial object, we can use the
 same syntax that we used for colors, above.
 
 We already know that we have four different `TYPE`s in the lines\_HARV object,
@@ -372,7 +372,7 @@ following thicknesses:
 
 ## Answers
 
-First we need to look at the levels of our factor to see
+First we need to look at the values of our data to see
 what order the road types are in:
 
 ```{r}
