@@ -1,19 +1,11 @@
 ---
-maintainers:
-- Leah Wasser
-- Jemma Stachelek
-- Tyson Swetnam
-- Lauren O'Brien
-- Janani Selvaraj
-- Lachlan Deer
-- Chris Prener
-- Juan Fung
+
 site: sandpaper::sandpaper_site
 ---
 
 **Lesson Authors:** Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Jemma Stachelek
 
-**Lesson Maintainers:** {{ page.maintainers | join: ', ' }}
+
 
 The episodes in this lesson cover how to open, work with, and plot
 vector and raster-format spatial data in R. Additional topics include
