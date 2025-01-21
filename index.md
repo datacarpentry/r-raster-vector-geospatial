@@ -1,13 +1,5 @@
 ---
-maintainers:
-- Leah Wasser
-- Jemma Stachelek
-- Tyson Swetnam
-- Lauren O'Brien
-- Janani Selvaraj
-- Lachlan Deer
-- Chris Prener
-- Juan Fung
+
 site: sandpaper::sandpaper_site
 ---
 
