@@ -1,6 +1,6 @@
 ---
 title: Handling Spatial Projection & CRS
-teaching: 40
+teaching: 30
 exercises: 20
 source: Rmd
 ---
