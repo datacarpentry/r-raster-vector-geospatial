@@ -330,9 +330,15 @@ plot(DSM_HARV)
 
 This map shows the elevation of our study site in Harvard Forest. From the
 legend, we can see that the maximum elevation is ~400, but we can't tell whether
-this is 400 feet or 400 meters because the legend doesn't show us the units. We
-can look at the metadata of our object to see what the units are. Much of the
-metadata that we're interested in is part of the CRS. We introduced the
+this is 400 feet or 400 meters because the legend doesn't show us the units. 
+
+Unfortunately, nothing in the technical metadata (that which is built into
+the file format) tells us what the _vertical_ resolution is. For now you will
+have to trust us that it is meters.
+
+However, we can look at the metadata of our object to see what the horizontal 
+units are: in other words how many meters from the origin are the
+x and y points. That metadata, is part of the CRS. We introduced the
 concept of a CRS in [an earlier
 lesson](https://datacarpentry.org/organization-geospatial/03-crs).
 
@@ -357,7 +363,7 @@ crs(DSM_HARV, proj = TRUE)
 
 ## Challenge
 
-What units are our data in?
+What units are our horizontal data in?
 
 :::::::::::::::  solution
 

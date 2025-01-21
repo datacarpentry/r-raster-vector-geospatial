@@ -30,7 +30,7 @@ from this data.
   at the end of the first day, they will need to either save the workspace or reload the data and packages.
   Because of this, it is essential that learners save their code to a script throughout the lesson.
 
-#### [Intro to Raster Data in R](01-raster-structure.md)
+#### [1 Intro to Raster Data in R](01-raster-structure.md)
 
 - Be sure to introduce the datasets that will be used in this lesson. There are many data files. It may
   be helpful to draw a diagram on the board showing the types of data that will be plotted and analyzed
@@ -48,7 +48,7 @@ from this data.
 - Be sure to draw a distinction between the DTM and the DSM files, as these two datasets will be used
   throughout the lesson.
 
-#### [Plot Raster Data in R](02-raster-plot.md)
+#### [2 Plot Raster Data in R](02-raster-plot.md)
 
 - `geom_bar()` is a new geom for the learners. They were introduced to `geom_col()` in the [Introduction to R for Geospatial Data](https://datacarpentry.org/r-intro-geospatial/) lesson.
 - `dplyr` syntax should be familiar to your learners from the [Introduction to R for Geospatial Data](https://datacarpentry.org/r-intro-geospatial/) lesson.
@@ -56,20 +56,20 @@ from this data.
 - Starting in this episode and continuing throughout the lesson, the `ggplot` calls can be very long. Be sure
   to explicitly describe each step of the function call and what it is doing for the overall plot.
 
-#### [Reproject Raster Data in R](03-raster-reproject-in-r.md)
+#### [3 Reproject Raster Data in R](03-raster-reproject-in-r.md)
 
 - No notes yet. Please add your tips and comments!
 
-#### [Raster Calculations in R](04-raster-calculations-in-r.md)
+#### [4 Raster Calculations in R](04-raster-calculations-in-r.md)
 
 - The `overlay()` function syntax is fairly complex compared to other function calls the learners have seen.
   Be sure to explain it in detail.
 
-#### [Work With Multi-Band Rasters in R](05-raster-multi-band-in-r.md)
+#### [5 Work With Multi-Band Rasters in R](05-raster-multi-band-in-r.md)
 
 - No notes yet. Please add your tips and comments!
 
-#### [Open and Plot Shapefiles in R](06-vector-open-shapefile-in-r.md)
+#### [6 Open and Plot Shapefiles in R](06-vector-open-shapefile-in-r.md)
 
 - Learners may have heard of the `sp` package. If it comes up, explain that `sf` is a
   more modern update of `sp`.
@@ -77,47 +77,47 @@ from this data.
   If you see the following error message, try to re-run your plotting command and it should work.
   The `ggplot` development team is working on fixing this bug.
 
-## Error message
+* Error message *
 
 ```error
 Error in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y,  : 
 polygon edge not found
 ```
 
-#### [Explore and Plot by Shapefile Attributes](07-vector-shapefile-attributes-in-r.md)
+#### [7 Explore and Plot by Shapefile Attributes](07-vector-shapefile-attributes-in-r.md)
 
 - No notes yet. Please add your tips and comments!
 
-#### [Plot Multiple Shapefiles in R](08-vector-plot-shapefiles-custom-legend.md)
+#### [8 Plot Multiple Vector Layers](08-vector-plot-shapefiles-custom-legend.md)
 
 - No notes yet. Please add your tips and comments!
 
-#### [Handling Spatial Projection \& CRS in R](09-vector-when-data-dont-line-up-crs.md)
+#### [9 Handling Spatial Projection \& CRS in R](09-vector-when-data-dont-line-up-crs.md)
 
 - Note that, although `ggplot` automatically reprojects vector data when plotting multiple shapefiles with
   different projections together, it is still important to be aware of the CRSs of your data and to keep track
   of how they are being transformed.
 
-#### [Convert from .csv to a Shapefile in R](10-vector-csv-to-shapefile-in-r.md)
+#### [10 Convert from .csv to a Vector Layer](10-vector-csv-to-shapefile-in-r.md)
 
 - No notes yet. Please add your tips and comments!
 
-#### [Manipulate Raster Data in R](11-vector-raster-integration.md)
+#### [11 Manipulate Raster Data](11-vector-raster-integration.md)
 
 - Learners have not yet been exposed to the `melt()` function in this workshop. They will need to have
   the syntax explained.
 - This is the first instance of a faceted plot in this workshop.
 
-#### [Raster Time Series Data in R](12-time-series-raster.md)
+#### [12 Raster Time Series Data](12-time-series-raster.md)
 
 - No notes yet. Please add your tips and comments!
 
-#### [Create Publication-quality Graphics](13-plot-time-series-rasters-in-r.md)
+#### [13 Create Publication-quality Graphics](13-plot-time-series-rasters-in-r.md)
 
 - Be sure to show learners the before and after plots to motivate the complexity of the
   `ggplot` calls that will be used in this episode.
 
-#### [Derive Values from Raster Time Series](14-extract-ndvi-from-rasters-in-r.md)
+#### [14 Derive Values from Raster Time Series](14-extract-ndvi-from-rasters-in-r.md)
 
 - This is the first time in the workshop that learners will have worked with date data.
 
@@ -152,6 +152,7 @@ polygon edge not found
   researchers, particularly those outside of environmental sciences), then move to raster data if there is extra time.
 - Skip Introduction to Geospatial Concepts. Spend at most 30 minutes reviewing things as this is currently not
   an interactive curriculum. Most of the concepts you can cover within the R for Raster and Vector Data curriculum.
+- Covering Episode 10 immediately after 3 can be helpful to solidify the concepts of projections
 
 ## Common problems
 
