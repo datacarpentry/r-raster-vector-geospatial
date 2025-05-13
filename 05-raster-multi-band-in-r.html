@@ -390,7 +390,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Work with Multi-Band Rasters</h1>
-        <p>Last updated on 2025-04-22 |
+        <p>Last updated on 2025-05-13 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/05-raster-multi-band-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -759,7 +759,12 @@ the image.</p>
 <span>        scale <span class="op">=</span> <span class="fl">800</span>,</span>
 <span>        stretch <span class="op">=</span> <span class="st">"lin"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/05-raster-multi-band-in-r-rendered-plot-rbg-image-linear-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in grDevices::rgb(RGB[, 1], RGB[, 2], RGB[, 3], alpha = alpha, maxColorValue = scale): alpha level 800, not in 0:255</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -768,7 +773,12 @@ the image.</p>
 <span>        scale <span class="op">=</span> <span class="fl">800</span>,</span>
 <span>        stretch <span class="op">=</span> <span class="st">"hist"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/05-raster-multi-band-in-r-rendered-plot-rgb-image-hist-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In this case, the stretch doesn’t enhance the contrast our image
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in grDevices::rgb(RGB[, 1], RGB[, 2], RGB[, 3], alpha = alpha, maxColorValue = scale): alpha level 800, not in 0:255</code></pre>
+</div>
+<p>In this case, the stretch doesn’t enhance the contrast our image
 significantly given the distribution of reflectance (or brightness)
 values is distributed well between 0 and 255.</p>
 <div id="challenge---nodata-values" class="callout challenge">
@@ -806,7 +816,7 @@ can you check?</li>
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>First we use the <code>describe()</code> function to view the data
 attributes.</li>
-</ol><div class="codewrapper sourceCode" id="cb23">
+</ol><div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -904,7 +914,7 @@ values and they are assigned the value of -9999.</p></li>
 <li><p>The data has three bands.</p></li>
 <li><p>To read in the file, we will use the <code>rast()</code>
 function:</p></li>
-</ol><div class="codewrapper sourceCode" id="cb25">
+</ol><div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -912,7 +922,7 @@ function:</p></li>
 <span>  <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif"</span><span class="op">)</span></span></code></pre>
 </div>
 <ol start="5" style="list-style-type: decimal"><li>We can plot the data with the <code>plotRGB()</code> function:</li>
-</ol><div class="codewrapper sourceCode" id="cb26">
+</ol><div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -925,7 +935,7 @@ RGB_stack the NoData value is not defined in the tiff tags, thus R
 renders them as black as the reflectance values are 0. The black edges
 in the other file are defined as -9999 and R renders them as
 NA.</p></li>
-</ol><div class="codewrapper sourceCode" id="cb27">
+</ol><div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1057,7 +1067,7 @@ the same way we might work with a SpatRasterDataset.</p>
 </div>
 <p>We can build a SpatRasterDataset using a SpatRaster or a list of
 SpatRaster:</p>
-<div class="codewrapper sourceCode" id="cb29">
+<div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1066,7 +1076,7 @@ SpatRaster:</p>
 </div>
 <p>We can retrieve the SpatRaster objects from a SpatRasterDataset using
 subsetting:</p>
-<div class="codewrapper sourceCode" id="cb30">
+<div class="codewrapper sourceCode" id="cb32">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1085,7 +1095,7 @@ names       : HARV_RGB_Ortho_1, HARV_RGB_Ortho_2, HARV_RGB_Ortho_3
 min values  :                0,                0,                0
 max values  :              255,              255,              255 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1131,7 +1141,7 @@ object?</li>
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>We can see a list of all of the methods available for our
 RasterStack object:</li>
-</ol><div class="codewrapper sourceCode" id="cb34">
+</ol><div class="codewrapper sourceCode" id="cb36">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1169,91 +1179,93 @@ RasterStack object:</li>
  [79] crop                  crosstab              crs
  [82] crs&lt;-                 datatype              deepcopy
  [85] density               depth                 depth&lt;-
- [88] describe              diff                  dim
- [91] dim&lt;-                 direction             disagg
- [94] distance              divide                droplevels
- [97] expanse               ext                   ext&lt;-
-[100] extend                extract               extractRange
-[103] fillTime              flip                  flowAccumulation
-[106] focal                 focal3D               focalCpp
-[109] focalPairs            focalReg              focalValues
-[112] freq                  getTileExtents        global
-[115] gridDist              gridDistance          has.colors
-[118] has.RGB               has.time              hasMinMax
-[121] hasValues             head                  hist
-[124] identical             ifel                  image
-[127] init                  inMemory              inset
-[130] interpIDW             interpNear            interpolate
-[133] intersect             is.bool               is.factor
-[136] is.finite             is.flipped            is.infinite
-[139] is.int                is.lonlat             is.na
-[142] is.nan                is.related            is.rotated
-[145] isFALSE               isTRUE                k_means
-[148] lapp                  layerCor              levels
-[151] levels&lt;-              linearUnits           lines
-[154] log                   Logic                 logic
-[157] longnames             longnames&lt;-           makeTiles
-[160] mask                  match                 math
-[163] Math                  Math2                 mean
-[166] median                merge                 meta
-[169] metags                metags&lt;-              minmax
-[172] modal                 mosaic                NAflag
-[175] NAflag&lt;-              names                 names&lt;-
-[178] ncell                 ncol                  ncol&lt;-
-[181] NIDP                  nlyr                  nlyr&lt;-
-[184] noNA                  not.na                nrow
-[187] nrow&lt;-                nsrc                  origin
-[190] origin&lt;-              pairs                 panel
-[193] patches               persp                 pitfinder
-[196] plet                  plot                  plotRGB
-[199] points                polys                 prcomp
-[202] predict               princomp              project
-[205] quantile              rangeFill             rapp
-[208] rast                  rasterize             rasterizeGeom
-[211] rasterizeWin          rcl                   readStart
-[214] readStop              readValues            rectify
-[217] regress               relate                rep
-[220] res                   res&lt;-                 resample
-[223] rescale               rev                   RGB
-[226] RGB&lt;-                 roll                  rotate
-[229] rowColCombine         rowColFromCell        rowFromCell
-[232] rowFromY              rowMeans              rowSums
-[235] sapp                  saveRDS               scale_linear
-[238] scale                 scoff                 scoff&lt;-
-[241] sds                   segregate             sel
-[244] selectHighest         selectRange           serialize
-[247] set.cats              set.crs               set.ext
-[250] set.names             set.RGB               set.values
-[253] set.window            setMinMax             setValues
-[256] shift                 show                  sieve
-[259] size                  sort                  sources
-[262] spatSample            split                 sprc
-[265] stdev                 str                   stretch
-[268] subset                subst                 summary
-[271] Summary               surfArea              t
-[274] tail                  tapp                  terrain
-[277] text                  thresh                tighten
-[280] time                  time&lt;-                timeInfo
-[283] toMemory              trans                 trim
-[286] unique                units                 units&lt;-
-[289] update                values                values&lt;-
-[292] varnames              varnames&lt;-            viewshed
-[295] watershed             weighted.mean         where.max
-[298] where.min             which.lyr             which.max
-[301] which.min             window                window&lt;-
-[304] wrap                  wrapCache             writeCDF
-[307] writeRaster           writeStart            writeStop
-[310] writeValues           xapp                  xFromCell
-[313] xFromCol              xmax                  xmax&lt;-
-[316] xmin                  xmin&lt;-                xres
-[319] xyFromCell            yFromCell             yFromRow
-[322] ymax                  ymax&lt;-                ymin
-[325] ymin&lt;-                yres                  zonal
-[328] zoom
+ [88] depthName             depthName&lt;-           depthUnit
+ [91] depthUnit&lt;-           describe              diff
+ [94] dim                   dim&lt;-                 direction
+ [97] disagg                distance              divide
+[100] droplevels            expanse               ext
+[103] ext&lt;-                 extend                extract
+[106] extractRange          fillTime              flip
+[109] flowAccumulation      focal                 focal3D
+[112] focalCpp              focalPairs            focalReg
+[115] focalValues           freq                  getTileExtents
+[118] global                gridDist              gridDistance
+[121] has.colors            has.RGB               has.time
+[124] hasMinMax             hasValues             head
+[127] hist                  identical             ifel
+[130] image                 init                  inMemory
+[133] inset                 interpIDW             interpNear
+[136] interpolate           intersect             is.bool
+[139] is.factor             is.finite             is.flipped
+[142] is.infinite           is.int                is.lonlat
+[145] is.na                 is.nan                is.num
+[148] is.related            is.rotated            isFALSE
+[151] isTRUE                k_means               lapp
+[154] layerCor              levels                levels&lt;-
+[157] linearUnits           lines                 log
+[160] Logic                 logic                 longnames
+[163] longnames&lt;-           makeTiles             mask
+[166] match                 math                  Math
+[169] Math2                 mean                  median
+[172] merge                 meta                  metags
+[175] metags&lt;-              minmax                modal
+[178] mosaic                NAflag                NAflag&lt;-
+[181] names                 names&lt;-               ncell
+[184] ncol                  ncol&lt;-                NIDP
+[187] nlyr                  nlyr&lt;-                noNA
+[190] not.na                nrow                  nrow&lt;-
+[193] nsrc                  origin                origin&lt;-
+[196] pairs                 panel                 patches
+[199] persp                 pitfinder             plet
+[202] plot                  plotRGB               points
+[205] polys                 prcomp                predict
+[208] princomp              project               quantile
+[211] rangeFill             rapp                  rast
+[214] rasterize             rasterizeGeom         rasterizeWin
+[217] rcl                   readStart             readStop
+[220] readValues            rectify               regress
+[223] relate                rep                   res
+[226] res&lt;-                 resample              rescale
+[229] rev                   RGB                   RGB&lt;-
+[232] roll                  rotate                rowColCombine
+[235] rowColFromCell        rowFromCell           rowFromY
+[238] rowMeans              rowSums               sapp
+[241] saveRDS               scale_linear          scale
+[244] scoff                 scoff&lt;-               sds
+[247] segregate             sel                   selectHighest
+[250] selectRange           serialize             set.cats
+[253] set.crs               set.ext               set.names
+[256] set.RGB               set.values            set.window
+[259] setMinMax             setValues             shift
+[262] show                  sieve                 simplifyLevels
+[265] size                  sort                  sources
+[268] spatSample            split                 sprc
+[271] stdev                 str                   stretch
+[274] subset                subst                 summary
+[277] Summary               surfArea              t
+[280] tail                  tapp                  terrain
+[283] text                  thresh                tighten
+[286] time                  time&lt;-                timeInfo
+[289] toMemory              trans                 trim
+[292] unique                units                 units&lt;-
+[295] update                values                values&lt;-
+[298] varnames              varnames&lt;-            viewshed
+[301] watershed             weighted.mean         where.max
+[304] where.min             which.lyr             which.max
+[307] which.min             window                window&lt;-
+[310] wrap                  wrapCache             writeCDF
+[313] writeRaster           writeStart            writeStop
+[316] writeValues           xapp                  xFromCell
+[319] xFromCol              xmax                  xmax&lt;-
+[322] xmin                  xmin&lt;-                xres
+[325] xyFromCell            yFromCell             yFromRow
+[328] ymax                  ymax&lt;-                ymin
+[331] ymin&lt;-                yres                  zonal
+[334] zoom
 see '?methods' for accessing help and source code</code></pre>
 </div>
 <ol start="2" style="list-style-type: decimal"><li>And compare that with the methods available for a single band:</li>
-</ol><div class="codewrapper sourceCode" id="cb36">
+</ol><div class="codewrapper sourceCode" id="cb38">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1291,87 +1303,89 @@ see '?methods' for accessing help and source code</code></pre>
  [79] crop                  crosstab              crs
  [82] crs&lt;-                 datatype              deepcopy
  [85] density               depth                 depth&lt;-
- [88] describe              diff                  dim
- [91] dim&lt;-                 direction             disagg
- [94] distance              divide                droplevels
- [97] expanse               ext                   ext&lt;-
-[100] extend                extract               extractRange
-[103] fillTime              flip                  flowAccumulation
-[106] focal                 focal3D               focalCpp
-[109] focalPairs            focalReg              focalValues
-[112] freq                  getTileExtents        global
-[115] gridDist              gridDistance          has.colors
-[118] has.RGB               has.time              hasMinMax
-[121] hasValues             head                  hist
-[124] identical             ifel                  image
-[127] init                  inMemory              inset
-[130] interpIDW             interpNear            interpolate
-[133] intersect             is.bool               is.factor
-[136] is.finite             is.flipped            is.infinite
-[139] is.int                is.lonlat             is.na
-[142] is.nan                is.related            is.rotated
-[145] isFALSE               isTRUE                k_means
-[148] lapp                  layerCor              levels
-[151] levels&lt;-              linearUnits           lines
-[154] log                   Logic                 logic
-[157] longnames             longnames&lt;-           makeTiles
-[160] mask                  match                 math
-[163] Math                  Math2                 mean
-[166] median                merge                 meta
-[169] metags                metags&lt;-              minmax
-[172] modal                 mosaic                NAflag
-[175] NAflag&lt;-              names                 names&lt;-
-[178] ncell                 ncol                  ncol&lt;-
-[181] NIDP                  nlyr                  nlyr&lt;-
-[184] noNA                  not.na                nrow
-[187] nrow&lt;-                nsrc                  origin
-[190] origin&lt;-              pairs                 panel
-[193] patches               persp                 pitfinder
-[196] plet                  plot                  plotRGB
-[199] points                polys                 prcomp
-[202] predict               princomp              project
-[205] quantile              rangeFill             rapp
-[208] rast                  rasterize             rasterizeGeom
-[211] rasterizeWin          rcl                   readStart
-[214] readStop              readValues            rectify
-[217] regress               relate                rep
-[220] res                   res&lt;-                 resample
-[223] rescale               rev                   RGB
-[226] RGB&lt;-                 roll                  rotate
-[229] rowColCombine         rowColFromCell        rowFromCell
-[232] rowFromY              rowMeans              rowSums
-[235] sapp                  saveRDS               scale_linear
-[238] scale                 scoff                 scoff&lt;-
-[241] sds                   segregate             sel
-[244] selectHighest         selectRange           serialize
-[247] set.cats              set.crs               set.ext
-[250] set.names             set.RGB               set.values
-[253] set.window            setMinMax             setValues
-[256] shift                 show                  sieve
-[259] size                  sort                  sources
-[262] spatSample            split                 sprc
-[265] stdev                 str                   stretch
-[268] subset                subst                 summary
-[271] Summary               surfArea              t
-[274] tail                  tapp                  terrain
-[277] text                  thresh                tighten
-[280] time                  time&lt;-                timeInfo
-[283] toMemory              trans                 trim
-[286] unique                units                 units&lt;-
-[289] update                values                values&lt;-
-[292] varnames              varnames&lt;-            viewshed
-[295] watershed             weighted.mean         where.max
-[298] where.min             which.lyr             which.max
-[301] which.min             window                window&lt;-
-[304] wrap                  wrapCache             writeCDF
-[307] writeRaster           writeStart            writeStop
-[310] writeValues           xapp                  xFromCell
-[313] xFromCol              xmax                  xmax&lt;-
-[316] xmin                  xmin&lt;-                xres
-[319] xyFromCell            yFromCell             yFromRow
-[322] ymax                  ymax&lt;-                ymin
-[325] ymin&lt;-                yres                  zonal
-[328] zoom
+ [88] depthName             depthName&lt;-           depthUnit
+ [91] depthUnit&lt;-           describe              diff
+ [94] dim                   dim&lt;-                 direction
+ [97] disagg                distance              divide
+[100] droplevels            expanse               ext
+[103] ext&lt;-                 extend                extract
+[106] extractRange          fillTime              flip
+[109] flowAccumulation      focal                 focal3D
+[112] focalCpp              focalPairs            focalReg
+[115] focalValues           freq                  getTileExtents
+[118] global                gridDist              gridDistance
+[121] has.colors            has.RGB               has.time
+[124] hasMinMax             hasValues             head
+[127] hist                  identical             ifel
+[130] image                 init                  inMemory
+[133] inset                 interpIDW             interpNear
+[136] interpolate           intersect             is.bool
+[139] is.factor             is.finite             is.flipped
+[142] is.infinite           is.int                is.lonlat
+[145] is.na                 is.nan                is.num
+[148] is.related            is.rotated            isFALSE
+[151] isTRUE                k_means               lapp
+[154] layerCor              levels                levels&lt;-
+[157] linearUnits           lines                 log
+[160] Logic                 logic                 longnames
+[163] longnames&lt;-           makeTiles             mask
+[166] match                 math                  Math
+[169] Math2                 mean                  median
+[172] merge                 meta                  metags
+[175] metags&lt;-              minmax                modal
+[178] mosaic                NAflag                NAflag&lt;-
+[181] names                 names&lt;-               ncell
+[184] ncol                  ncol&lt;-                NIDP
+[187] nlyr                  nlyr&lt;-                noNA
+[190] not.na                nrow                  nrow&lt;-
+[193] nsrc                  origin                origin&lt;-
+[196] pairs                 panel                 patches
+[199] persp                 pitfinder             plet
+[202] plot                  plotRGB               points
+[205] polys                 prcomp                predict
+[208] princomp              project               quantile
+[211] rangeFill             rapp                  rast
+[214] rasterize             rasterizeGeom         rasterizeWin
+[217] rcl                   readStart             readStop
+[220] readValues            rectify               regress
+[223] relate                rep                   res
+[226] res&lt;-                 resample              rescale
+[229] rev                   RGB                   RGB&lt;-
+[232] roll                  rotate                rowColCombine
+[235] rowColFromCell        rowFromCell           rowFromY
+[238] rowMeans              rowSums               sapp
+[241] saveRDS               scale_linear          scale
+[244] scoff                 scoff&lt;-               sds
+[247] segregate             sel                   selectHighest
+[250] selectRange           serialize             set.cats
+[253] set.crs               set.ext               set.names
+[256] set.RGB               set.values            set.window
+[259] setMinMax             setValues             shift
+[262] show                  sieve                 simplifyLevels
+[265] size                  sort                  sources
+[268] spatSample            split                 sprc
+[271] stdev                 str                   stretch
+[274] subset                subst                 summary
+[277] Summary               surfArea              t
+[280] tail                  tapp                  terrain
+[283] text                  thresh                tighten
+[286] time                  time&lt;-                timeInfo
+[289] toMemory              trans                 trim
+[292] unique                units                 units&lt;-
+[295] update                values                values&lt;-
+[298] varnames              varnames&lt;-            viewshed
+[301] watershed             weighted.mean         where.max
+[304] where.min             which.lyr             which.max
+[307] which.min             window                window&lt;-
+[310] wrap                  wrapCache             writeCDF
+[313] writeRaster           writeStart            writeStop
+[316] writeValues           xapp                  xFromCell
+[319] xFromCol              xmax                  xmax&lt;-
+[322] xmin                  xmin&lt;-                xres
+[325] xyFromCell            yFromCell             yFromRow
+[328] ymax                  ymax&lt;-                ymin
+[331] ymin&lt;-                yres                  zonal
+[334] zoom
 see '?methods' for accessing help and source code</code></pre>
 </div>
 <ol start="3" style="list-style-type: decimal"><li>A SpatRaster is the same no matter its number of bands.</li>
@@ -1453,7 +1467,7 @@ holds.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/05-raster-multi-band-in-r.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/05-raster-multi-band-in-r.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2025-04-22",
+  "dateModified": "2025-05-13",
   "datePublished": "2025-05-13"
 }
 
