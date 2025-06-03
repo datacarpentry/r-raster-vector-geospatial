@@ -461,7 +461,7 @@ RGB_277
 
 ``` output
 class       : SpatRaster 
-dimensions  : 652, 696, 3  (nrow, ncol, nlyr)
+size        : 652, 696, 3  (nrow, ncol, nlyr)
 resolution  : 30, 30  (x, y)
 extent      : 230775, 251655, 4704825, 4724385  (xmin, xmax, ymin, ymax)
 coord. ref. : WGS 84 / UTM zone 19N (EPSG:32619) 

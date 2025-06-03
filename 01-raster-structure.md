@@ -195,7 +195,7 @@ DSM_HARV
 
 ``` output
 class       : SpatRaster 
-dimensions  : 1367, 1697, 1  (nrow, ncol, nlyr)
+size        : 1367, 1697, 1  (nrow, ncol, nlyr)
 resolution  : 1, 1  (x, y)
 extent      : 731453, 733150, 4712471, 4713838  (xmin, xmax, ymin, ymax)
 coord. ref. : WGS 84 / UTM zone 18N (EPSG:32618) 
