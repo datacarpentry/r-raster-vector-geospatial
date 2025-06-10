@@ -35,7 +35,7 @@ episode.
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 We introduced multi-band raster data in
-[an earlier episode](https://datacarpentry.org/organization-geospatial/01-intro-raster-data). 
+[an earlier lesson](https://datacarpentry.org/organization-geospatial/01-intro-raster-data). 
 This episode explores how to import and plot a multi-band raster in R.
 
 ## Getting Started with Multi-Band Data in R
