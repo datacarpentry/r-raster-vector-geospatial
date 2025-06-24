@@ -608,7 +608,7 @@ describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.t
 
 We can create a raster object from several, individual single-band GeoTIFFs 
 too. We will do this in a later episode,
-[Raster Time Series Data in R](12-time-series-raster/).
+[Raster Time Series Data in R](https://datacarpentry.org/r-raster-vector-geospatial/12-time-series-raster).
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::

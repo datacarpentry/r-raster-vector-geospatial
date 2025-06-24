@@ -532,8 +532,8 @@ keep track of data from different sites!
 
 0. You should have the DSM and DTM data for the SJER site already
   loaded from the
-  [Plot Raster Data in R](02-raster-plot/)
-  episode.) Don't forget to check the CRSs and units of the data.
+  [Plot Raster Data in R](https://datacarpentry.org/r-raster-vectore-geospatial/02-raster-plot)
+  episode. Don't forget to check the CRSs and units of the data.
 1. Create a CHM from the two raster layers and check to make sure the data
   are what you expect.
 2. Plot the CHM from SJER.

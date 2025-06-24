@@ -32,7 +32,7 @@ episode.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-In [an earlier episode](03-raster-reproject-in-r/)
+In [an earlier episode](https://datacarpentry.org/r-raster-vector-geospatial/03-raster-reproject-in-r)
 we learned how to handle a situation where you have two different files with
 raster data in different projections. Now we will apply those same principles
 to working with vector data.
@@ -43,7 +43,7 @@ We will learn how to map vector data that are in different CRSs and thus don't
 line up on a map.
 
 We will continue to work with the three ESRI `shapefiles` that we loaded in the
-[Open and Plot Vector Layers in R](06-vector-open-shapefile-in-r/) episode.
+[Open and Plot Vector Layers in R](https://datacarpentry.org/r-raster-vector-geospatial/06-vector-open-shapefile-in-r) episode.
 
 
 
@@ -286,7 +286,7 @@ represented in meters.
 
 ## Reproject Vector Data or No?
 
-We saw in [an earlier episode](03-raster-reproject-in-r/) that when working
+We saw in [an earlier episode](https://datacarpentry.org/r-raster-vector-geospatial/03-raster-reproject-in-r) that when working
 with raster data in different CRSs, we needed to convert all objects to the
 same CRS. We can do the same thing with our vector data - however, we don't
 need to! When using the `ggplot2` package, `ggplot` automatically converts all

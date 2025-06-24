@@ -99,7 +99,7 @@ individual vector object.
 
 ## Data Tip
 
-The [Explore and Plot by Vector Layer Attributes](07-vector-shapefile-attributes-in-r/)
+The [Explore and Plot by Vector Layer Attributes](https://datacarpentry.org/r-raster-vector-geospatial/07-vector-shapefile-attributes-in-r)
 episode provides more information on both metadata and attributes
 and using attributes to subset and plot data.
 

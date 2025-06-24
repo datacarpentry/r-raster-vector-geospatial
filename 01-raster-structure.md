@@ -250,7 +250,7 @@ summary(values(DSM_HARV))
 
 To visualise this data in R using `ggplot2`, we need to convert it to a
 dataframe. We learned about dataframes in [an earlier
-lesson](https://datacarpentry.org/r-intro-geospatial/04-data-structures-part2/index.html).
+lesson](https://datacarpentry.org/r-intro-geospatial/04-data-structures-part2).
 The `terra` package has an built-in function for conversion to a plotable dataframe.
 
 
@@ -482,7 +482,7 @@ nlyr(DSM_HARV)
 
 However, raster data can also be multi-band, meaning that one raster file contains data for more than one variable or time period for each cell.
 Jump to a later episode in this series for information on working with multi-band rasters:
-[Work with Multi-band Rasters in R](05-raster-multi-band-in-r/).
+[Work with Multi-band Rasters in R](https://datacarpentry.org/r-raster-vector-geospatial/05-raster-multi-band-in-r).
 
 ## Dealing with Missing Data
 
@@ -707,7 +707,7 @@ Use `describe()` to determine the following about the `NEON-DS-Airborne-Remote-S
 4. How large would a 5x5 pixel area be on the Earth's surface?
 5. Is the file a multi- or single-band raster?
 
-Notice: this file is a hillshade. We will learn about hillshades in the [Working with Multi-band Rasters in R](05-raster-multi-band-in-r/) episode.
+Notice: this file is a hillshade. We will learn about hillshades in the [Working with Multi-band Rasters in R](https://datacarpentry.org/r-raster-vector-geospatial/05-raster-multi-band-in-r) episode.
 
 :::::::::::::::  solution
 

@@ -38,7 +38,7 @@ episode.
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 This episode builds upon
-[the previous episode](07-vector-shapefile-attributes-in-r/)
+[the previous episode](https://datacarpentry.org/r-raster-vector-geospatial/07-vector-shapefile-attributes-in-r)
 to work with vector layers in R and explore how to plot multiple
 vector layers. It also covers how to plot raster and vector data together on the
 same plot.
@@ -50,7 +50,7 @@ package also allows us to explore metadata using similar commands for both
 raster and vector files. Make sure that you have these packages loaded.
 
 We will continue to work with the three ESRI `shapefile` that we loaded in the
-[Open and Plot Vector Layers in R](06-vector-open-shapefile-in-r/) episode.
+[Open and Plot Vector Layers in R](https://datacarpentry.org/r-raster-vector-geospatial/06-vector-open-shapefile-in-r) episode.
 
 ## Plotting Multiple Vector Layers
 

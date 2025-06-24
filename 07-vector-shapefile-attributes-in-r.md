@@ -48,12 +48,12 @@ attribute values.
 We will continue using the `sf`, `terra` `dplyr` and `ggplot2` packages in this
 episode. Make sure that you have these packages loaded. We will continue to
 work with the three ESRI `shapefiles` (vector layers) that we loaded in the
-[Open and Plot Vector Layers in R](06-vector-open-shapefile-in-r/) episode.
+[Open and Plot Vector Layers in R](https://datacarpentry.org/r-raster-vector-geospatial/06-vector-open-shapefile-in-r) episode.
 
 ## Query Vector Feature Metadata
 
 As we discussed in the
-[Open and Plot Vector Layers in R](06-vector-open-shapefile-in-r/)
+[Open and Plot Vector Layers in R](https://datacarpentry.org/r-raster-vector-geospatial/06-vector-open-shapefile-in-r)
 episode, we can view metadata associated with an R object using:
 
 - `st_geometry_type()` - The type of vector data stored in the object.
@@ -233,7 +233,7 @@ names(point_HARV)
 We can explore individual values stored within a particular attribute.
 Comparing attributes to a spreadsheet or a data frame, this is similar to
 exploring values in a column. We did this with the `gapminder` dataframe in
-[an earlier lesson](https://datacarpentry.org/r-intro-geospatial/05-data-subsetting/index.html).
+[an earlier lesson](https://datacarpentry.org/r-intro-geospatial/5-data-subsetting).
 For spatial objects, we can use the same syntax: `objectName$attributeName`.
 
 We can see the contents of the `TYPE` field of our lines feature:
@@ -253,7 +253,7 @@ To see only unique values within the `TYPE` field, we can use the `unique()`
 function for extracting the possible values of a character variable (R also is
 able to handle categorical variables called factors; we worked with factors a
 little bit in
-[an earlier lesson](https://datacarpentry.org/r-intro-geospatial/03-data-structures-part1/index.html).
+[an earlier lesson](https://datacarpentry.org/r-intro-geospatial/03-data-structures-part1).
 
 
 ``` r

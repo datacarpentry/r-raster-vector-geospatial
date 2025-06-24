@@ -40,7 +40,7 @@ package in R to create publication-quality plots.
 
 ## Before and After
 
-In [the previous episode](12-time-series-raster/), we learned how to plot 
+In [the previous episode](https://datacarpentry.org/r-raster-vector-geospatial/12-time-series-raster), we learned how to plot 
 multi-band raster data in R using the `facet_wrap()` function. This created a 
 separate panel in our plot for each raster band. The plot we created together 
 is shown below:

@@ -183,7 +183,7 @@ contain the information that helps us determine the CRS:
 - `utmZone`: 18
 
 In
-[When Vector Data Don't Line Up - Handling Spatial Projection \& CRS in R](09-vector-when-data-dont-line-up-crs.html)
+[When Vector Data Don't Line Up - Handling Spatial Projection \& CRS in R](https://datacarpentry.org/r-raster-vector-geospatial/09-vector-when-data-dont-line-up-crs)
 we learned about the components of a `proj4` string. We have everything we need
 to assign a CRS to our data frame.
 
@@ -385,7 +385,7 @@ ggplot() +
 ## Plot Extent
 
 In
-[Open and Plot Vector Layers in R](06-vector-open-shapefile-in-r.html)
+[Open and Plot Vector Layers in R](https://datacarpentry.org/r-raster-vector-geospatial/06-vector-open-shapefile-in-r)
 we learned about spatial object extent. When we plot several spatial layers in
 R using `ggplot`, all of the layers of the plot are considered in setting the
 boundaries of the plot. To show this, let's plot our `aoi_boundary_HARV` object

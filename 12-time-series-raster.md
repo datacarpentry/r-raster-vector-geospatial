@@ -52,7 +52,7 @@ difference vegetation index (NDVI) and RGB data from the Harvard Forest site.
 We introduced the concepts of NDVI and RGB data in 
 [an earlier lesson](https://datacarpentry.org/organization-geospatial/01-intro-raster-data) 
 and worked with an RGB RasterStack in the 
-[Work with Multi-band Rasters in R]( 05-raster-multi-band-in-r/) episode.
+[Work with Multi-band Rasters in R](https://datacarpentry.org/r-raster-vector-geospatial/05-raster-multi-band-in-r) episode.
 
 In this episode, we will:
 

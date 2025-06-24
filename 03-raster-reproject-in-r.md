@@ -40,7 +40,7 @@ the `project()` function in the `terra` package.
 
 ## Raster Projection in R
 
-In the [Plot Raster Data in R](02-raster-plot/)
+In the [Plot Raster Data in R](https://datacarpentry.org/r-raster-vector-geospatial/02-raster-plot)
 episode, we learned how to layer a raster file on top of a hillshade for a nice
 looking basemap. In that episode, all of our data were in the same CRS. What
 happens when things don't line up?
@@ -51,7 +51,7 @@ far in that the digital surface model (DSM) includes the tops of trees, while
 the digital terrain model (DTM) shows the ground level.
 
 We'll be looking at another model (the canopy height model) in
-[a later episode](04-raster-calculations-in-r/) and will see how to calculate 
+[a later episode](https://datacarpentry.org/r-raster-vector-geospatial/04-raster-calculations-in-r) and will see how to calculate 
 the CHM from the DSM and DTM. Here, we will create a map of the Harvard Forest 
 Digital Terrain Model (`DTM_HARV`) draped or layered on top of the hillshade 
 (`DTM_hill_HARV`).
@@ -517,7 +517,7 @@ ggplot() +
 :::::::::::::::::::::::::
 
 If you completed the San Joaquin plotting challenge in the
-[Plot Raster Data in R](02-raster-plot/)
+[Plot Raster Data in R](https://datacarpentry.org/r-raster-vector-geospatial/02-raster-plot)
 episode, how does the map you just created compare to that map?
 
 :::::::::::::::  solution

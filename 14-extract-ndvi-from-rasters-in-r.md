@@ -162,7 +162,7 @@ we'll need a column that contains the Julian day value.
 One way to create a Julian day column is to use `gsub()` on the file name in 
 each row. We can replace both the `X` and the `_HARV_NDVI_crop` to extract the 
 Julian Day value, just like we did in the 
-[previous episode](13-plot-time-series-rasters-in-r/).
+[previous episode](https://datacarpentry.org/r-raster-vector-geospatial/13-plot-time-series-rasters-in-r).
 
 This time we will use one additional trick to do both of these steps at the 
 same time. The vertical bar character ( `|` ) is equivalent to the word "or". 
@@ -204,7 +204,7 @@ class(avg_NDVI_HARV$julianDay)
 Currently, the values in the Julian day column are stored as class `character`.
 Storing this data as a date object is better - for plotting, data subsetting 
 and working with our data. Let's convert. We worked with data conversions
-[in an earlier episode](12-time-series-raster/). For an introduction to 
+[in an earlier episode](https://datacarpentry.org/r-raster-vector-geospatial/12-time-series-raster). For an introduction to 
 date-time classes, see the NEON Data Skills tutorial
 [Convert Date \& Time Data from Character Class to Date-Time Class (POSIX) in R](https://www.neonscience.org/dc-convert-date-time-POSIX-r).
 
@@ -438,7 +438,7 @@ towards 0 during a time period when we might expect the vegetation to have a
 higher greenness value. Is the vegetation truly senescent or gone or are these
 outlier values that should be removed from the data?
 
-We've seen in [an earlier episode](12-time-series-raster/) that data points 
+We've seen in [an earlier episode](https://datacarpentry.org/r-raster-vector-geospatial/12-time-series-raster) that data points 
 with very low NDVI values can be associated with images that are filled with 
 clouds. Thus, we can attribute the low NDVI values to high levels of cloud 
 cover. Is the same thing happening at SJER?
