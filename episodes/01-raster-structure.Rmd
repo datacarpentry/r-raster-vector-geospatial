@@ -332,7 +332,7 @@ nlyr(DSM_HARV)
 
 However, raster data can also be multi-band, meaning that one raster file contains data for more than one variable or time period for each cell.
 Jump to a later episode in this series for information on working with multi-band rasters:
-[Work with Multi-band Rasters in R](05-raster-multi-band-in-r.Rmd).
+[Work with Multi-band Rasters in R](05-raster-multi-band-in-r.html).
 
 ## Dealing with Missing Data
 
@@ -560,7 +560,7 @@ Use `describe()` to determine the following about the `NEON-DS-Airborne-Remote-S
 4. How large would a 5x5 pixel area be on the Earth's surface?
 5. Is the file a multi- or single-band raster?
 
-Notice: this file is a hillshade. We will learn about hillshades in the [Working with Multi-band Rasters in R](05-raster-multi-band-in-r.Rmd) episode.
+Notice: this file is a hillshade. We will learn about hillshades in the [Working with Multi-band Rasters in R](05-raster-multi-band-in-r.html) episode.
 
 :::::::::::::::  solution
 
