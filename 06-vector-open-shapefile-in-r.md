@@ -45,8 +45,8 @@ into a single plot.
 
 ## Import Vector Data
 
-We will use the `sf` package to work with vector data in R. We will also use
-the `terra` package, which has been loaded in previous episodes, so we can
+We will use the `sf` package to work with vector data in R. `sf` stands for simple features.
+We will also use the `terra` package, which has been loaded in previous episodes, so we can
 explore raster and vector spatial metadata using similar commands. Make sure
 you have the `sf` library loaded.
 
