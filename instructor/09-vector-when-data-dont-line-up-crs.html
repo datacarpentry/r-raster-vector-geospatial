@@ -441,17 +441,17 @@ through the examples in this episode.</p>
 </div>
 </div>
 </div>
-<p>In <a href="03-raster-reproject-in-r/">an earlier episode</a> we
-learned how to handle a situation where you have two different files
-with raster data in different projections. Now we will apply those same
-principles to working with vector data. We will create a base map of our
-study site using United States state and country boundary information
-accessed from the <a href="https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html" class="external-link">United
+<p>In <a href="https://datacarpentry.org/r-raster-vector-geospatial/03-raster-reproject-in-r" class="external-link">an
+earlier episode</a> we learned how to handle a situation where you have
+two different files with raster data in different projections. Now we
+will apply those same principles to working with vector data. We will
+create a base map of our study site using United States state and
+country boundary information accessed from the <a href="https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html" class="external-link">United
 States Census Bureau</a>. We will learn how to map vector data that are
 in different CRSs and thus don’t line up on a map.</p>
 <p>We will continue to work with the three ESRI <code>shapefiles</code>
-that we loaded in the <a href="06-vector-open-shapefile-in-r/">Open and
-Plot Vector Layers in R</a> episode.</p>
+that we loaded in the <a href="https://datacarpentry.org/r-raster-vector-geospatial/06-vector-open-shapefile-in-r" class="external-link">Open
+and Plot Vector Layers in R</a> episode.</p>
 <section><h2 class="section-heading" id="working-with-spatial-data-from-different-sources">Working With Spatial Data From Different Sources<a class="anchor" aria-label="anchor" href="#working-with-spatial-data-from-different-sources"></a></h2>
 <hr class="half-width"><p>We often need to gather spatial datasets from different sources
 and/or data that cover different spatial extents. These data are often
@@ -698,13 +698,13 @@ library.</li>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="reproject-vector-data-or-no">Reproject Vector Data or No?<a class="anchor" aria-label="anchor" href="#reproject-vector-data-or-no"></a></h2>
-<hr class="half-width"><p>We saw in <a href="03-raster-reproject-in-r/">an earlier episode</a>
-that when working with raster data in different CRSs, we needed to
-convert all objects to the same CRS. We can do the same thing with our
-vector data - however, we don’t need to! When using the
-<code>ggplot2</code> package, <code>ggplot</code> automatically converts
-all objects to the same CRS before plotting. This means we can plot our
-three data sets together without doing any conversion:</p>
+<hr class="half-width"><p>We saw in <a href="https://datacarpentry.org/r-raster-vector-geospatial/03-raster-reproject-in-r" class="external-link">an
+earlier episode</a> that when working with raster data in different
+CRSs, we needed to convert all objects to the same CRS. We can do the
+same thing with our vector data - however, we don’t need to! When using
+the <code>ggplot2</code> package, <code>ggplot</code> automatically
+converts all objects to the same CRS before plotting. This means we can
+plot our three data sets together without doing any conversion:</p>
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -741,7 +741,7 @@ Tower location point.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>

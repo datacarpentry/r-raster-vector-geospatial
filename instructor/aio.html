@@ -735,7 +735,7 @@ all the values, you can use the function <code>values</code>:</p>
  Max.   :416.1  </code></pre>
 </div>
 <p>To visualise this data in R using <code>ggplot2</code>, we need to
-convert it to a dataframe. We learned about dataframes in <a href="https://datacarpentry.org/r-intro-geospatial/04-data-structures-part2/index.html" class="external-link">an
+convert it to a dataframe. We learned about dataframes in <a href="https://datacarpentry.org/r-intro-geospatial/04-data-structures-part2" class="external-link">an
 earlier lesson</a>. The <code>terra</code> package has an built-in
 function for conversion to a plotable dataframe.</p>
 <div class="codewrapper sourceCode" id="cb12">
@@ -810,7 +810,7 @@ from the <code>terra</code> package.</p>
   Show plot
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>See <code>?plot</code> for more arguments to customize the plot</p>
 <div class="codewrapper sourceCode" id="cb16">
@@ -872,7 +872,7 @@ the<code>crs()</code> function.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p><code>+units=m</code> tells us that our data is in meters.</p>
 </div>
@@ -1010,8 +1010,8 @@ multi-band raster. We can view the number of bands in a raster using the
 <p>However, raster data can also be multi-band, meaning that one raster
 file contains data for more than one variable or time period for each
 cell. Jump to a later episode in this series for information on working
-with multi-band rasters: <a href="05-raster-multi-band-in-r/">Work with
-Multi-band Rasters in R</a>.</p>
+with multi-band rasters: <a href="https://datacarpentry.org/r-raster-vector-geospatial/05-raster-multi-band-in-r" class="external-link">Work
+with Multi-band Rasters in R</a>.</p>
 </section><section><h2 class="section-heading" id="dealing-with-missing-data">Dealing with Missing Data<a class="anchor" aria-label="anchor" href="#dealing-with-missing-data"></a>
 </h2>
 <hr class="half-width">
@@ -1083,7 +1083,7 @@ dataset.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1253,8 +1253,8 @@ file:</p>
 <li>Is the file a multi- or single-band raster?</li>
 </ol>
 <p>Notice: this file is a hillshade. We will learn about hillshades in
-the <a href="05-raster-multi-band-in-r/">Working with Multi-band Rasters
-in R</a> episode.</p>
+the <a href="https://datacarpentry.org/r-raster-vector-geospatial/05-raster-multi-band-in-r" class="external-link">Working
+with Multi-band Rasters in R</a> episode.</p>
 </div>
 </div>
 </div>
@@ -1265,7 +1265,7 @@ in R</a> episode.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1666,7 +1666,7 @@ divided among the range of pixel values.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1816,7 +1816,7 @@ the data.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1975,22 +1975,23 @@ the <code>terra</code> package.</p>
 <section><h2 class="section-heading" id="raster-projection-in-r">Raster Projection in R<a class="anchor" aria-label="anchor" href="#raster-projection-in-r"></a>
 </h2>
 <hr class="half-width">
-<p>In the <a href="02-raster-plot/">Plot Raster Data in R</a> episode,
-we learned how to layer a raster file on top of a hillshade for a nice
-looking basemap. In that episode, all of our data were in the same CRS.
-What happens when things don’t line up?</p>
+<p>In the <a href="https://datacarpentry.org/r-raster-vector-geospatial/02-raster-plot" class="external-link">Plot
+Raster Data in R</a> episode, we learned how to layer a raster file on
+top of a hillshade for a nice looking basemap. In that episode, all of
+our data were in the same CRS. What happens when things don’t line
+up?</p>
 <p>For this episode, we will be working with the Harvard Forest Digital
 Terrain Model data. This differs from the surface model data we’ve been
 working with so far in that the digital surface model (DSM) includes the
 tops of trees, while the digital terrain model (DTM) shows the ground
 level.</p>
-<p>We’ll be looking at another model (the canopy height model) in <a href="04-raster-calculations-in-r/">a later episode</a> and will see how
-to calculate the CHM from the DSM and DTM. Here, we will create a map of
-the Harvard Forest Digital Terrain Model (<code>DTM_HARV</code>) draped
-or layered on top of the hillshade (<code>DTM_hill_HARV</code>). The
-hillshade layer maps the terrain using light and shadow to create a
-3D-looking image, based on a hypothetical illumination of the ground
-level.</p>
+<p>We’ll be looking at another model (the canopy height model) in <a href="https://datacarpentry.org/r-raster-vector-geospatial/04-raster-calculations-in-r" class="external-link">a
+later episode</a> and will see how to calculate the CHM from the DSM and
+DTM. Here, we will create a map of the Harvard Forest Digital Terrain
+Model (<code>DTM_HARV</code>) draped or layered on top of the hillshade
+(<code>DTM_hill_HARV</code>). The hillshade layer maps the terrain using
+light and shadow to create a 3D-looking image, based on a hypothetical
+illumination of the ground level.</p>
 <figure><img src="../fig/dc-spatial-raster/lidarTree-height.png" alt="Source: National Ecological Observatory Network (NEON)." class="figure mx-auto d-block"></figure><p>First, we need to import the DTM and DTM hillshade data.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2077,7 +2078,7 @@ each use?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2325,7 +2326,7 @@ values of <code>DTM_hillUTMZ18N_HARV</code> are different from
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Answers </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>The extent for DTM_hill_UTMZ18N_HARV is in UTMs so the extent is in
 meters. The extent for DTM_hill_HARV is in lat/long so the extent is
@@ -2443,7 +2444,7 @@ files.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Answers </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2493,8 +2494,9 @@ files.</p>
 Terrain Model<em> (continued)</em>
 </h3>
 <div class="callout-content">
-<p>If you completed the San Joaquin plotting challenge in the <a href="02-raster-plot/">Plot Raster Data in R</a> episode, how does the
-map you just created compare to that map?</p>
+<p>If you completed the San Joaquin plotting challenge in the <a href="https://datacarpentry.org/r-raster-vector-geospatial/02-raster-plot" class="external-link">Plot
+Raster Data in R</a> episode, how does the map you just created compare
+to that map?</p>
 </div>
 </div>
 </div>
@@ -2503,7 +2505,7 @@ map you just created compare to that map?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Answers </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>The maps look identical. Which is what they should be as the only
 difference is this one was reprojected from WGS84 to UTM prior to
@@ -3121,8 +3123,9 @@ outputs carefully, as follows: objectType_SJER
 different sites!</p>
 <ol start="0" style="list-style-type: decimal">
 <li>You should have the DSM and DTM data for the SJER site already
-loaded from the <a href="02-raster-plot/">Plot Raster Data in R</a>
-episode.) Don’t forget to check the CRSs and units of the data.</li>
+loaded from the <a href="https://datacarpentry.org/r-raster-vectore-geospatial/02-raster-plot" class="external-link">Plot
+Raster Data in R</a> episode. Don’t forget to check the CRSs and units
+of the data.</li>
 <li>Create a CHM from the two raster layers and check to make sure the
 data are what you expect.</li>
 <li>Plot the CHM from SJER.</li>
@@ -3922,7 +3925,8 @@ NA.</p></li>
 <h3 class="callout-title">Data Tip</h3>
 <div class="callout-content">
 <p>We can create a raster object from several, individual single-band
-GeoTIFFs too. We will do this in a later episode, <a href="12-time-series-raster/">Raster Time Series Data in R</a>.</p>
+GeoTIFFs too. We will do this in a later episode, <a href="https://datacarpentry.org/r-raster-vector-geospatial/12-time-series-raster" class="external-link">Raster
+Time Series Data in R</a>.</p>
 </div>
 </div>
 </div>
@@ -4428,10 +4432,10 @@ vector object.</p>
 <div id="data-tip" class="callout-inner">
 <h3 class="callout-title">Data Tip</h3>
 <div class="callout-content">
-<p>The <a href="07-vector-shapefile-attributes-in-r/">Explore and Plot
-by Vector Layer Attributes</a> episode provides more information on both
-metadata and attributes and using attributes to subset and plot
-data.</p>
+<p>The <a href="https://datacarpentry.org/r-raster-vector-geospatial/07-vector-shapefile-attributes-in-r" class="external-link">Explore
+and Plot by Vector Layer Attributes</a> episode provides more
+information on both metadata and attributes and using attributes to
+subset and plot data.</p>
 </div>
 </div>
 </div>
@@ -4880,12 +4884,12 @@ feature according to a set of attribute values.</p>
 <code>dplyr</code> and <code>ggplot2</code> packages in this episode.
 Make sure that you have these packages loaded. We will continue to work
 with the three ESRI <code>shapefiles</code> (vector layers) that we
-loaded in the <a href="06-vector-open-shapefile-in-r/">Open and Plot
-Vector Layers in R</a> episode.</p>
+loaded in the <a href="https://datacarpentry.org/r-raster-vector-geospatial/06-vector-open-shapefile-in-r" class="external-link">Open
+and Plot Vector Layers in R</a> episode.</p>
 </section><section><h2 class="section-heading" id="query-vector-feature-metadata">Query Vector Feature Metadata<a class="anchor" aria-label="anchor" href="#query-vector-feature-metadata"></a>
 </h2>
 <hr class="half-width">
-<p>As we discussed in the <a href="06-vector-open-shapefile-in-r/">Open
+<p>As we discussed in the <a href="https://datacarpentry.org/r-raster-vector-geospatial/06-vector-open-shapefile-in-r" class="external-link">Open
 and Plot Vector Layers in R</a> episode, we can view metadata associated
 with an R object using:</p>
 <ul>
@@ -5032,7 +5036,7 @@ object?</p></li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>To find the number of attributes, we use the <code>ncol()</code>
@@ -5103,7 +5107,7 @@ function:</li>
 <p>We can explore individual values stored within a particular
 attribute. Comparing attributes to a spreadsheet or a data frame, this
 is similar to exploring values in a column. We did this with the
-<code>gapminder</code> dataframe in <a href="https://datacarpentry.org/r-intro-geospatial/05-data-subsetting/index.html" class="external-link">an
+<code>gapminder</code> dataframe in <a href="https://datacarpentry.org/r-intro-geospatial/5-data-subsetting" class="external-link">an
 earlier lesson</a>. For spatial objects, we can use the same syntax:
 <code>objectName$attributeName</code>.</p>
 <p>We can see the contents of the <code>TYPE</code> field of our lines
@@ -5124,7 +5128,7 @@ feature:</p>
 <p>To see only unique values within the <code>TYPE</code> field, we can
 use the <code>unique()</code> function for extracting the possible
 values of a character variable (R also is able to handle categorical
-variables called factors; we worked with factors a little bit in <a href="https://datacarpentry.org/r-intro-geospatial/03-data-structures-part1/index.html" class="external-link">an
+variables called factors; we worked with factors a little bit in <a href="https://datacarpentry.org/r-intro-geospatial/03-data-structures-part1" class="external-link">an
 earlier lesson</a>.</p>
 <div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -5219,7 +5223,7 @@ it.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>First we will save an object with only the boardwalk lines:</p>
 <div class="codewrapper sourceCode" id="cb25">
@@ -5277,7 +5281,7 @@ and plot it. For each plot, color each feature using a unique color.</p>
   Answer
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>First we will save an object with only the stone wall lines and check
 the number of features:</p>
@@ -5422,7 +5426,7 @@ the following thicknesses:</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>First we need to look at the values of our data to see what order the
 road types are in:</p>
@@ -5588,7 +5592,7 @@ bright color. All other lines can be black.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <p>First we explore the <code>BicyclesHo</code> attribute to learn the
 values that correspond to the roads we need.</p>
@@ -5662,7 +5666,7 @@ Add a legend.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
+<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
 <div class="accordion-body">
 <p>First we read in the data and check how many levels there are in the
 <code>region</code> column:</p>
@@ -5794,10 +5798,10 @@ through the examples in this episode.</p>
 </div>
 </div>
 </div>
-<p>This episode builds upon <a href="07-vector-shapefile-attributes-in-r/">the previous episode</a> to
-work with vector layers in R and explore how to plot multiple vector
-layers. It also covers how to plot raster and vector data together on
-the same plot.</p>
+<p>This episode builds upon <a href="https://datacarpentry.org/r-raster-vector-geospatial/07-vector-shapefile-attributes-in-r" class="external-link">the
+previous episode</a> to work with vector layers in R and explore how to
+plot multiple vector layers. It also covers how to plot raster and
+vector data together on the same plot.</p>
 <section><h2 class="section-heading" id="load-the-data">Load the Data<a class="anchor" aria-label="anchor" href="#load-the-data"></a>
 </h2>
 <hr class="half-width">
@@ -5806,8 +5810,8 @@ library. The <code>terra</code> package also allows us to explore
 metadata using similar commands for both raster and vector files. Make
 sure that you have these packages loaded.</p>
 <p>We will continue to work with the three ESRI <code>shapefile</code>
-that we loaded in the <a href="06-vector-open-shapefile-in-r/">Open and
-Plot Vector Layers in R</a> episode.</p>
+that we loaded in the <a href="https://datacarpentry.org/r-raster-vector-geospatial/06-vector-open-shapefile-in-r" class="external-link">Open
+and Plot Vector Layers in R</a> episode.</p>
 </section><section><h2 class="section-heading" id="plotting-multiple-vector-layers">Plotting Multiple Vector Layers<a class="anchor" aria-label="anchor" href="#plotting-multiple-vector-layers"></a>
 </h2>
 <hr class="half-width">
@@ -5931,7 +5935,7 @@ different symbol of <code>shape</code> value.</p></li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>First we need to read in the data and see how many unique soils are
 represented in the <code>soilTypeOr</code> attribute.</p>
@@ -6043,7 +6047,7 @@ as a base layer. On top of the CHM, please add:</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -6128,17 +6132,17 @@ through the examples in this episode.</p>
 </div>
 </div>
 </div>
-<p>In <a href="03-raster-reproject-in-r/">an earlier episode</a> we
-learned how to handle a situation where you have two different files
-with raster data in different projections. Now we will apply those same
-principles to working with vector data. We will create a base map of our
-study site using United States state and country boundary information
-accessed from the <a href="https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html" class="external-link">United
+<p>In <a href="https://datacarpentry.org/r-raster-vector-geospatial/03-raster-reproject-in-r" class="external-link">an
+earlier episode</a> we learned how to handle a situation where you have
+two different files with raster data in different projections. Now we
+will apply those same principles to working with vector data. We will
+create a base map of our study site using United States state and
+country boundary information accessed from the <a href="https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html" class="external-link">United
 States Census Bureau</a>. We will learn how to map vector data that are
 in different CRSs and thus don’t line up on a map.</p>
 <p>We will continue to work with the three ESRI <code>shapefiles</code>
-that we loaded in the <a href="06-vector-open-shapefile-in-r/">Open and
-Plot Vector Layers in R</a> episode.</p>
+that we loaded in the <a href="https://datacarpentry.org/r-raster-vector-geospatial/06-vector-open-shapefile-in-r" class="external-link">Open
+and Plot Vector Layers in R</a> episode.</p>
 <section><h2 class="section-heading" id="working-with-spatial-data-from-different-sources">Working With Spatial Data From Different Sources<a class="anchor" aria-label="anchor" href="#working-with-spatial-data-from-different-sources"></a>
 </h2>
 <hr class="half-width">
@@ -6405,13 +6409,13 @@ library.</li>
 </section><section><h2 class="section-heading" id="reproject-vector-data-or-no">Reproject Vector Data or No?<a class="anchor" aria-label="anchor" href="#reproject-vector-data-or-no"></a>
 </h2>
 <hr class="half-width">
-<p>We saw in <a href="03-raster-reproject-in-r/">an earlier episode</a>
-that when working with raster data in different CRSs, we needed to
-convert all objects to the same CRS. We can do the same thing with our
-vector data - however, we don’t need to! When using the
-<code>ggplot2</code> package, <code>ggplot</code> automatically converts
-all objects to the same CRS before plotting. This means we can plot our
-three data sets together without doing any conversion:</p>
+<p>We saw in <a href="https://datacarpentry.org/r-raster-vector-geospatial/03-raster-reproject-in-r" class="external-link">an
+earlier episode</a> that when working with raster data in different
+CRSs, we needed to convert all objects to the same CRS. We can do the
+same thing with our vector data - however, we don’t need to! When using
+the <code>ggplot2</code> package, <code>ggplot</code> automatically
+converts all objects to the same CRS before plotting. This means we can
+plot our three data sets together without doing any conversion:</p>
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -6450,7 +6454,7 @@ Tower location point.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -6729,10 +6733,10 @@ information that helps us determine the CRS:</p>
 <li>
 <code>utmZone</code>: 18</li>
 </ul>
-<p>In <a href="09-vector-when-data-dont-line-up-crs.html">When Vector
-Data Don’t Line Up - Handling Spatial Projection &amp; CRS in R</a> we
-learned about the components of a <code>proj4</code> string. We have
-everything we need to assign a CRS to our data frame.</p>
+<p>In <a href="https://datacarpentry.org/r-raster-vector-geospatial/09-vector-when-data-dont-line-up-crs" class="external-link">When
+Vector Data Don’t Line Up - Handling Spatial Projection &amp; CRS in
+R</a> we learned about the components of a <code>proj4</code> string. We
+have everything we need to assign a CRS to our data frame.</p>
 <p>To create the <code>proj4</code> associated with UTM Zone 18 WGS84 we
 can look up the projection on the <a href="https://spatialreference.org/ref/epsg/32618/" class="external-link">Spatial Reference
 website</a>, which contains a list of CRS formats for each projection.
@@ -6939,12 +6943,12 @@ object.</p>
 <figure><img src="../fig/10-vector-csv-to-shapefile-in-r-rendered-plot-data-points-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="plot-extent">Plot Extent<a class="anchor" aria-label="anchor" href="#plot-extent"></a>
 </h2>
 <hr class="half-width">
-<p>In <a href="06-vector-open-shapefile-in-r.html">Open and Plot Vector
-Layers in R</a> we learned about spatial object extent. When we plot
-several spatial layers in R using <code>ggplot</code>, all of the layers
-of the plot are considered in setting the boundaries of the plot. To
-show this, let’s plot our <code>aoi_boundary_HARV</code> object with our
-vegetation plots.</p>
+<p>In <a href="https://datacarpentry.org/r-raster-vector-geospatial/06-vector-open-shapefile-in-r" class="external-link">Open
+and Plot Vector Layers in R</a> we learned about spatial object extent.
+When we plot several spatial layers in R using <code>ggplot</code>, all
+of the layers of the plot are considered in setting the boundaries of
+the plot. To show this, let’s plot our <code>aoi_boundary_HARV</code>
+object with our vegetation plots.</p>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -7783,8 +7787,8 @@ same extent (region) and of the same resolution. For this episode, we
 will work with a time series of normalized difference vegetation index
 (NDVI) and RGB data from the Harvard Forest site. We introduced the
 concepts of NDVI and RGB data in <a href="https://datacarpentry.org/organization-geospatial/01-intro-raster-data" class="external-link">an
-earlier lesson</a> and worked with an RGB RasterStack in the <a href="05-raster-multi-band-in-r/">Work with Multi-band Rasters in R</a>
-episode.</p>
+earlier lesson</a> and worked with an RGB RasterStack in the <a href="https://datacarpentry.org/r-raster-vector-geospatial/05-raster-multi-band-in-r" class="external-link">Work
+with Multi-band Rasters in R</a> episode.</p>
 <p>In this episode, we will:</p>
 <ol style="list-style-type: decimal">
 <li>Import NDVI data in GeoTIFF format.</li>
@@ -8376,11 +8380,11 @@ plots.</p>
 <section><h2 class="section-heading" id="before-and-after">Before and After<a class="anchor" aria-label="anchor" href="#before-and-after"></a>
 </h2>
 <hr class="half-width">
-<p>In <a href="12-time-series-raster/">the previous episode</a>, we
-learned how to plot multi-band raster data in R using the
-<code>facet_wrap()</code> function. This created a separate panel in our
-plot for each raster band. The plot we created together is shown
-below:</p>
+<p>In <a href="https://datacarpentry.org/r-raster-vector-geospatial/12-time-series-raster" class="external-link">the
+previous episode</a>, we learned how to plot multi-band raster data in R
+using the <code>facet_wrap()</code> function. This created a separate
+panel in our plot for each raster band. The plot we created together is
+shown below:</p>
 <figure><img src="../fig/13-plot-time-series-rasters-in-r-rendered-levelplot-time-series-before-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Although this plot is informative, it isn’t something we would expect
 to see in a journal publication. The x and y-axis labels aren’t
 informative. There is a lot of unnecessary gray background and the
@@ -8924,7 +8928,7 @@ value.</p>
 <p>One way to create a Julian day column is to use <code>gsub()</code>
 on the file name in each row. We can replace both the <code>X</code> and
 the <code>_HARV_NDVI_crop</code> to extract the Julian Day value, just
-like we did in the <a href="13-plot-time-series-rasters-in-r/">previous
+like we did in the <a href="https://datacarpentry.org/r-raster-vector-geospatial/13-plot-time-series-rasters-in-r" class="external-link">previous
 episode</a>.</p>
 <p>This time we will use one additional trick to do both of these steps
 at the same time. The vertical bar character ( <code>|</code> ) is
@@ -8969,9 +8973,9 @@ add that data to the data frame as a column called “julianDay”.</p>
 <p>Currently, the values in the Julian day column are stored as class
 <code>character</code>. Storing this data as a date object is better -
 for plotting, data subsetting and working with our data. Let’s convert.
-We worked with data conversions <a href="12-time-series-raster/">in an
-earlier episode</a>. For an introduction to date-time classes, see the
-NEON Data Skills tutorial <a href="https://www.neonscience.org/dc-convert-date-time-POSIX-r" class="external-link">Convert
+We worked with data conversions <a href="https://datacarpentry.org/r-raster-vector-geospatial/12-time-series-raster" class="external-link">in
+an earlier episode</a>. For an introduction to date-time classes, see
+the NEON Data Skills tutorial <a href="https://www.neonscience.org/dc-convert-date-time-POSIX-r" class="external-link">Convert
 Date &amp; Time Data from Character Class to Date-Time Class (POSIX) in
 R</a>.</p>
 <p>To convert a Julian day number to a date class, we need to set the
@@ -9242,10 +9246,11 @@ quickly drops towards 0 during a time period when we might expect the
 vegetation to have a higher greenness value. Is the vegetation truly
 senescent or gone or are these outlier values that should be removed
 from the data?</p>
-<p>We’ve seen in <a href="12-time-series-raster/">an earlier episode</a>
-that data points with very low NDVI values can be associated with images
-that are filled with clouds. Thus, we can attribute the low NDVI values
-to high levels of cloud cover. Is the same thing happening at SJER?</p>
+<p>We’ve seen in <a href="https://datacarpentry.org/r-raster-vector-geospatial/12-time-series-raster" class="external-link">an
+earlier episode</a> that data points with very low NDVI values can be
+associated with images that are filled with clouds. Thus, we can
+attribute the low NDVI values to high levels of cloud cover. Is the same
+thing happening at SJER?</p>
 <figure><img src="../fig/14-extract-ndvi-from-rasters-in-r-rendered-view-all-rgb-SJER-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Without significant additional processing, we will not be able to
 retrieve a strong reflection from vegetation, from a remotely sensed
 image that is predominantly cloud covered. Thus, these points are likely

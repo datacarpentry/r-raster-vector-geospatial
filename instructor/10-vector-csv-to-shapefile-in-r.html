@@ -601,10 +601,10 @@ information that helps us determine the CRS:</p>
 <code>geodeticDa</code>: WGS84 – this is geodetic datum WGS84</li>
 <li>
 <code>utmZone</code>: 18</li>
-</ul><p>In <a href="09-vector-when-data-dont-line-up-crs.html">When Vector
-Data Don’t Line Up - Handling Spatial Projection &amp; CRS in R</a> we
-learned about the components of a <code>proj4</code> string. We have
-everything we need to assign a CRS to our data frame.</p>
+</ul><p>In <a href="https://datacarpentry.org/r-raster-vector-geospatial/09-vector-when-data-dont-line-up-crs" class="external-link">When
+Vector Data Don’t Line Up - Handling Spatial Projection &amp; CRS in
+R</a> we learned about the components of a <code>proj4</code> string. We
+have everything we need to assign a CRS to our data frame.</p>
 <p>To create the <code>proj4</code> associated with UTM Zone 18 WGS84 we
 can look up the projection on the <a href="https://spatialreference.org/ref/epsg/32618/" class="external-link">Spatial Reference
 website</a>, which contains a list of CRS formats for each projection.
@@ -803,12 +803,12 @@ object.</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Map of Plot Locations"</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="../fig/10-vector-csv-to-shapefile-in-r-rendered-plot-data-points-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="plot-extent">Plot Extent<a class="anchor" aria-label="anchor" href="#plot-extent"></a></h2>
-<hr class="half-width"><p>In <a href="06-vector-open-shapefile-in-r.html">Open and Plot Vector
-Layers in R</a> we learned about spatial object extent. When we plot
-several spatial layers in R using <code>ggplot</code>, all of the layers
-of the plot are considered in setting the boundaries of the plot. To
-show this, let’s plot our <code>aoi_boundary_HARV</code> object with our
-vegetation plots.</p>
+<hr class="half-width"><p>In <a href="https://datacarpentry.org/r-raster-vector-geospatial/06-vector-open-shapefile-in-r" class="external-link">Open
+and Plot Vector Layers in R</a> we learned about spatial object extent.
+When we plot several spatial layers in R using <code>ggplot</code>, all
+of the layers of the plot are considered in setting the boundaries of
+the plot. To show this, let’s plot our <code>aoi_boundary_HARV</code>
+object with our vegetation plots.</p>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>

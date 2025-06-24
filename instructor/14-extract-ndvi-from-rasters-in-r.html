@@ -574,7 +574,7 @@ value.</p>
 <p>One way to create a Julian day column is to use <code>gsub()</code>
 on the file name in each row. We can replace both the <code>X</code> and
 the <code>_HARV_NDVI_crop</code> to extract the Julian Day value, just
-like we did in the <a href="13-plot-time-series-rasters-in-r/">previous
+like we did in the <a href="https://datacarpentry.org/r-raster-vector-geospatial/13-plot-time-series-rasters-in-r" class="external-link">previous
 episode</a>.</p>
 <p>This time we will use one additional trick to do both of these steps
 at the same time. The vertical bar character ( <code>|</code> ) is
@@ -617,9 +617,9 @@ add that data to the data frame as a column called “julianDay”.</p>
 <hr class="half-width"><p>Currently, the values in the Julian day column are stored as class
 <code>character</code>. Storing this data as a date object is better -
 for plotting, data subsetting and working with our data. Let’s convert.
-We worked with data conversions <a href="12-time-series-raster/">in an
-earlier episode</a>. For an introduction to date-time classes, see the
-NEON Data Skills tutorial <a href="https://www.neonscience.org/dc-convert-date-time-POSIX-r" class="external-link">Convert
+We worked with data conversions <a href="https://datacarpentry.org/r-raster-vector-geospatial/12-time-series-raster" class="external-link">in
+an earlier episode</a>. For an introduction to date-time classes, see
+the NEON Data Skills tutorial <a href="https://www.neonscience.org/dc-convert-date-time-POSIX-r" class="external-link">Convert
 Date &amp; Time Data from Character Class to Date-Time Class (POSIX) in
 R</a>.</p>
 <p>To convert a Julian day number to a date class, we need to set the
@@ -882,10 +882,11 @@ quickly drops towards 0 during a time period when we might expect the
 vegetation to have a higher greenness value. Is the vegetation truly
 senescent or gone or are these outlier values that should be removed
 from the data?</p>
-<p>We’ve seen in <a href="12-time-series-raster/">an earlier episode</a>
-that data points with very low NDVI values can be associated with images
-that are filled with clouds. Thus, we can attribute the low NDVI values
-to high levels of cloud cover. Is the same thing happening at SJER?</p>
+<p>We’ve seen in <a href="https://datacarpentry.org/r-raster-vector-geospatial/12-time-series-raster" class="external-link">an
+earlier episode</a> that data points with very low NDVI values can be
+associated with images that are filled with clouds. Thus, we can
+attribute the low NDVI values to high levels of cloud cover. Is the same
+thing happening at SJER?</p>
 <figure><img src="../fig/14-extract-ndvi-from-rasters-in-r-rendered-view-all-rgb-SJER-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Without significant additional processing, we will not be able to
 retrieve a strong reflection from vegetation, from a remotely sensed
 image that is predominantly cloud covered. Thus, these points are likely

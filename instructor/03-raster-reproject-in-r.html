@@ -446,22 +446,23 @@ to deal with rasters in different, known CRSs. It will walk though
 reprojecting rasters in R using the <code>project()</code> function in
 the <code>terra</code> package.</p>
 <section><h2 class="section-heading" id="raster-projection-in-r">Raster Projection in R<a class="anchor" aria-label="anchor" href="#raster-projection-in-r"></a></h2>
-<hr class="half-width"><p>In the <a href="02-raster-plot/">Plot Raster Data in R</a> episode,
-we learned how to layer a raster file on top of a hillshade for a nice
-looking basemap. In that episode, all of our data were in the same CRS.
-What happens when things don’t line up?</p>
+<hr class="half-width"><p>In the <a href="https://datacarpentry.org/r-raster-vector-geospatial/02-raster-plot" class="external-link">Plot
+Raster Data in R</a> episode, we learned how to layer a raster file on
+top of a hillshade for a nice looking basemap. In that episode, all of
+our data were in the same CRS. What happens when things don’t line
+up?</p>
 <p>For this episode, we will be working with the Harvard Forest Digital
 Terrain Model data. This differs from the surface model data we’ve been
 working with so far in that the digital surface model (DSM) includes the
 tops of trees, while the digital terrain model (DTM) shows the ground
 level.</p>
-<p>We’ll be looking at another model (the canopy height model) in <a href="04-raster-calculations-in-r/">a later episode</a> and will see how
-to calculate the CHM from the DSM and DTM. Here, we will create a map of
-the Harvard Forest Digital Terrain Model (<code>DTM_HARV</code>) draped
-or layered on top of the hillshade (<code>DTM_hill_HARV</code>). The
-hillshade layer maps the terrain using light and shadow to create a
-3D-looking image, based on a hypothetical illumination of the ground
-level.</p>
+<p>We’ll be looking at another model (the canopy height model) in <a href="https://datacarpentry.org/r-raster-vector-geospatial/04-raster-calculations-in-r" class="external-link">a
+later episode</a> and will see how to calculate the CHM from the DSM and
+DTM. Here, we will create a map of the Harvard Forest Digital Terrain
+Model (<code>DTM_HARV</code>) draped or layered on top of the hillshade
+(<code>DTM_hill_HARV</code>). The hillshade layer maps the terrain using
+light and shadow to create a 3D-looking image, based on a hypothetical
+illumination of the ground level.</p>
 <figure><img src="../fig/dc-spatial-raster/lidarTree-height.png" alt="Source: National Ecological Observatory Network (NEON)." class="figure mx-auto d-block"></figure><p>First, we need to import the DTM and DTM hillshade data.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -548,7 +549,7 @@ each use?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -792,7 +793,7 @@ values of <code>DTM_hillUTMZ18N_HARV</code> are different from
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Answers </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>The extent for DTM_hill_UTMZ18N_HARV is in UTMs so the extent is in
 meters. The extent for DTM_hill_HARV is in lat/long so the extent is
@@ -908,7 +909,7 @@ files.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Answers </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -957,8 +958,9 @@ files.</p>
 Terrain Model<em> (continued)</em>
 </h3>
 <div class="callout-content">
-<p>If you completed the San Joaquin plotting challenge in the <a href="02-raster-plot/">Plot Raster Data in R</a> episode, how does the
-map you just created compare to that map?</p>
+<p>If you completed the San Joaquin plotting challenge in the <a href="https://datacarpentry.org/r-raster-vector-geospatial/02-raster-plot" class="external-link">Plot
+Raster Data in R</a> episode, how does the map you just created compare
+to that map?</p>
 </div>
 </div>
 </div>
@@ -967,7 +969,7 @@ map you just created compare to that map?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Answers </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>The maps look identical. Which is what they should be as the only
 difference is this one was reprojected from WGS84 to UTM prior to
