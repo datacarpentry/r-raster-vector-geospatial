@@ -25,7 +25,7 @@ working through this lesson.
 
 This lesson assumes you have some knowledge of `R`. If you've never
 used `R` before, or need a refresher, start with our
-[Introduction to R for Geospatial Data](http://www.datacarpentry.org/r-intro-geospatial/)
+[Introduction to R for Geospatial Data](https://www.datacarpentry.org/r-intro-geospatial/)
 lesson.
 
 ### Geospatial Skill Level
@@ -33,20 +33,20 @@ lesson.
 This lesson assumes you have some knowledge of geospatial data types
 and common file formats. If you have never worked with geospatial
 data before, or need a refresher, start with our
-[Introduction to Geospatial Concepts](http://www.datacarpentry.org/organization-geospatial/)
+[Introduction to Geospatial Concepts](https://www.datacarpentry.org/organization-geospatial/)
 lesson.
 
 ### Install Software and Download Data
 
 For installation instructions and to download the data used in this
 lesson, see the
-[Geospatial Workshop Overview](http://www.datacarpentry.org/geospatial-workshop/#setup).
+[Geospatial Workshop Overview](https://www.datacarpentry.org/geospatial-workshop/#setup).
 
 ### Setup RStudio Project
 
 Make sure you have set up a RStudio project for this lesson, as
 described in the
-[setup instructions](http://www.datacarpentry.org/geospatial-workshop/#setup)
+[setup instructions](https://www.datacarpentry.org/geospatial-workshop/#setup)
 and that your working directory is correctly set.
 
 
