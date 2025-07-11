@@ -1,7 +1,7 @@
 ---
 title: Reproject Raster Data
-teaching: 40
-exercises: 20
+teaching: 25
+exercises: 15
 source: Rmd
 ---
 
