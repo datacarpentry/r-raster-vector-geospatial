@@ -52,8 +52,8 @@ into a single plot.
 
 ## Import Vector Data
 
-We will use the `sf` package to work with vector data in R. We will also use
-the `terra` package, which has been loaded in previous episodes, so we can
+We will use the `sf` package to work with vector data in R. `sf` stands for simple features.
+We will also use the `terra` package, which has been loaded in previous episodes, so we can
 explore raster and vector spatial metadata using similar commands. Make sure
 you have the `sf` library loaded.
 
@@ -93,7 +93,7 @@ individual vector object.
 
 ## Data Tip
 
-The [Explore and Plot by Vector Layer Attributes](07-vector-shapefile-attributes-in-r/)
+The [Explore and Plot by Vector Layer Attributes](https://datacarpentry.org/r-raster-vector-geospatial/07-vector-shapefile-attributes-in-r)
 episode provides more information on both metadata and attributes
 and using attributes to subset and plot data.
 
