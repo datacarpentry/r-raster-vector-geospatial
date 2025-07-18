@@ -10,7 +10,8 @@ source: Rmd
 ::::::::::::::::::::::::::::::::::::::: objectives
 
 - Build customized plots for a single band raster using the `ggplot2` package.
-- Layer a raster dataset on top of a hillshade to create an elegant basemap.
+- Use transparency to layer a raster dataset on top of a hillshade to create an elegant basemap.
+- Recognize the difference between a DTM and a DSM.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -33,6 +34,9 @@ source: Rmd
 See the [lesson homepage](.) for detailed information about the software,
 data, and other prerequisites you will need to work through the examples in this episode.
 
+We will be using `dplyr`, `ggplot2`, and `terra` in this episode.
+
+Make sure you have the `DSM_HARV` and `DSM_HARV_df` created.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -181,7 +185,8 @@ terrain.colors(3)
 ```
 
 The `terrain.colors()` function returns *hex colors* -
-each of these character strings represents a color.
+each of these character strings represents an earthy color
+that looks good on a landform map.
 To use these in our map, we pass them across using the
 `scale_fill_manual()` function.
 
@@ -199,41 +204,30 @@ ggplot() +
 ### More Plot Formatting
 
 If we need to create multiple plots using the same color palette, we can create
-an R object (`my_col`) for the set of colors that we want to use. We can then
-quickly change the palette across all plots by modifying the `my_col` object, 
+an R object (`my_colors`) for the set of colors that we want to use. We can then
+quickly change the palette across all plots by modifying the `mycolors` object, 
 rather than each individual plot.
 
-We can label the x- and y-axes of our plot too using `xlab` and `ylab`.
 We can also give the legend a more meaningful title by passing a value
 to the `name` argument of the `scale_fill_manual()` function.
 
-
-``` r
-my_col <- terrain.colors(3)
-
-ggplot() +
- geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
-                                      fill = fct_elevation_2)) + 
-    scale_fill_manual(values = my_col, name = "Elevation") + 
-    coord_quickmap()
-```
-
-<img src="fig/02-raster-plot-rendered-add-ggplot-labels-1.png" style="display: block; margin: auto;" />
-
-Or we can also turn off the labels of both axes by passing `element_blank()` to
+We can also turn off the labels of both axes by passing `element_blank()` to
 the relevant part of the `theme()` function.
 
 
 ``` r
+mycolors <- terrain.colors(3)
+
+
 ggplot() +
  geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
                                       fill = fct_elevation_2)) + 
-    scale_fill_manual(values = my_col, name = "Elevation") +
+    scale_fill_manual(values = mycolors, name = "Elevation") +
     theme(axis.title = element_blank()) + 
     coord_quickmap()
 ```
 
-<img src="fig/02-raster-plot-rendered-turn-off-axes-1.png" style="display: block; margin: auto;" />
+<img src="fig/02-raster-plot-rendered-add-ggplot-labels-1.png" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -255,12 +249,12 @@ Create a plot of the Harvard Forest Digital Surface Model (DSM) that has:
 DSM_HARV_df <- DSM_HARV_df  %>%
                mutate(fct_elevation_6 = cut(HARV_dsmCrop, breaks = 6)) 
 
- my_col <- terrain.colors(6)
+ mycolors <- terrain.colors(6)
 
 ggplot() +
     geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
                                       fill = fct_elevation_6)) + 
-    scale_fill_manual(values = my_col, name = "Elevation") + 
+    scale_fill_manual(values = mycolors, name = "Elevation") + 
     ggtitle("Classified Elevation Map - NEON Harvard Forest Field Site") +
     xlab("UTM Easting Coordinate (m)") +
     ylab("UTM Northing Coordinate (m)") + 
@@ -348,6 +342,8 @@ transparent, 1 being opaque).
 
 We can layer another raster on top of our hillshade by adding another call to
 the `geom_raster()` function. Let's overlay `DSM_HARV` on top of the `hill_HARV`.
+
+Let's not forget to use `ggtitle` to give our outputs some context.
 
 
 ``` r

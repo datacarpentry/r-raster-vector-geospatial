@@ -29,6 +29,10 @@ See the [lesson homepage](.) for detailed information about the software,
 data, and other prerequisites you will need to work through the examples in 
 this episode.
 
+We will be using only 3 libraries: `dplyr`, `ggplot2`, and `terra` in this episode.
+
+
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -467,7 +471,7 @@ hillshade to produce a nice looking, textured map!
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge: Reproject, then Plot a Digital Terrain Model
+## Challenge: Reproject, then Plot a Digital Surface Model
 
 Create a map of the
 [San Joaquin Experimental Range](https://www.neonscience.org/field-sites/field-sites-map/SJER)
@@ -516,6 +520,8 @@ ggplot() +
 
 :::::::::::::::::::::::::
 
+
+
 If you completed the San Joaquin plotting challenge in the
 [Plot Raster Data in R](https://datacarpentry.org/r-raster-vector-geospatial/02-raster-plot)
 episode, how does the map you just created compare to that map?
@@ -531,6 +537,7 @@ is this one was reprojected from WGS84 to UTM prior to plotting.
 
 :::::::::::::::::::::::::
 
+main
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
