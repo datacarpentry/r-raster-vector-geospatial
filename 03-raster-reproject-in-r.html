@@ -390,7 +390,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Reproject Raster Data</h1>
-        <p>Last updated on 2025-07-14 |
+        <p>Last updated on 2025-07-18 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/03-raster-reproject-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -434,6 +434,8 @@ projections?</li>
 <p>See the <a href=".">lesson homepage</a> for detailed information
 about the software, data, and other prerequisites you will need to work
 through the examples in this episode.</p>
+<p>We will be using only 3 libraries: <code>dplyr</code>,
+<code>ggplot2</code>, and <code>terra</code> in this episode.</p>
 </div>
 </div>
 </div>
@@ -547,7 +549,7 @@ each use?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -791,7 +793,7 @@ values of <code>DTM_hillUTMZ18N_HARV</code> are different from
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Answers </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>The extent for DTM_hill_UTMZ18N_HARV is in UTMs so the extent is in
 meters. The extent for DTM_hill_HARV is in lat/long so the extent is
@@ -887,12 +889,12 @@ dataframe from our newly reprojected raster.</p>
 </div>
 <figure><img src="fig/03-raster-reproject-in-r-rendered-plot-projected-raster-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We have now successfully draped the Digital Terrain Model on top of
 our hillshade to produce a nice looking, textured map!</p>
-<div id="challenge-reproject-then-plot-a-digital-terrain-model" class="callout challenge">
+<div id="challenge-reproject-then-plot-a-digital-surface-model" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="challenge-reproject-then-plot-a-digital-terrain-model" class="callout-inner">
-<h3 class="callout-title">Challenge: Reproject, then Plot a Digital Terrain Model</h3>
+<div id="challenge-reproject-then-plot-a-digital-surface-model" class="callout-inner">
+<h3 class="callout-title">Challenge: Reproject, then Plot a Digital Surface Model</h3>
 <div class="callout-content">
 <p>Create a map of the <a href="https://www.neonscience.org/field-sites/field-sites-map/SJER" class="external-link">San
 Joaquin Experimental Range</a> field site using the
@@ -907,7 +909,7 @@ files.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Answers </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -947,13 +949,13 @@ files.</p>
 </div>
 </div>
 </div>
-<div id="challenge-reproject-then-plot-a-digital-terrain-model" class="callout challenge">
+<div id="challenge-reproject-then-plot-a-digital-surface-model" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="challenge-reproject-then-plot-a-digital-terrain-model" class="callout-inner">
+<div id="challenge-reproject-then-plot-a-digital-surface-model" class="callout-inner">
 <h3 class="callout-title">Challenge: Reproject, then Plot a Digital
-Terrain Model<em> (continued)</em>
+Surface Model<em> (continued)</em>
 </h3>
 <div class="callout-content">
 <p>If you completed the San Joaquin plotting challenge in the <a href="https://datacarpentry.org/r-raster-vector-geospatial/02-raster-plot" class="external-link">Plot
@@ -967,12 +969,25 @@ to that map?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Answers </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>The maps look identical. Which is what they should be as the only
 difference is this one was reprojected from WGS84 to UTM prior to
 plotting.</p>
 </div>
+</div>
+</div>
+</div>
+<div id="challenge-reproject-then-plot-a-digital-surface-model" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="challenge-reproject-then-plot-a-digital-surface-model" class="callout-inner">
+<h3 class="callout-title">Challenge: Reproject, then Plot a Digital
+Surface Model<em> (continued)</em>
+</h3>
+<div class="callout-content">
+<p>main</p>
 </div>
 </div>
 </div>
@@ -1048,8 +1063,8 @@ CRSs.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/03-raster-reproject-in-r.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/03-raster-reproject-in-r.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2025-07-14",
-  "datePublished": "2025-07-15"
+  "dateModified": "2025-07-18",
+  "datePublished": "2025-07-18"
 }
 
   </script><script>
