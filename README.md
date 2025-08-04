@@ -14,11 +14,10 @@
 
 ### Lesson Maintainers:
 
-- [Jemma Stachelek][stachelek_jemma]
 - [Ivo Arrey][arreyves]
 - [Jon Jablonski][jonjab]
-- Drake Asberry
+- [Braden Owsley][owsleybc]
 
-[stachelek_jemma]: https://carpentries.org/instructors/#jsta
 [arreyves]: https://carpentries.org/instructors/#arreyves
 [jonjab]: https://carpentries.org/instructors/#jonjab
+[owsleybc]: https://carpentries.org/instructors/#owsleybc
