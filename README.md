@@ -16,8 +16,9 @@
 
 - [Jemma Stachelek][stachelek_jemma]
 - [Ivo Arrey][arreyves]
-- Drake Asberry
 - [Jon Jablonski][jonjab]
+- Drake Asberry
 
 [stachelek_jemma]: https://carpentries.org/instructors/#jsta
 [arreyves]: https://carpentries.org/instructors/#arreyves
+[jonjab]: https://carpentries.org/instructors/#jonjab
