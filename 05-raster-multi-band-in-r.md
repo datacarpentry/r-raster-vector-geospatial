@@ -337,25 +337,19 @@ range of potential values to increase the visual contrast of the image.
 ``` r
 plotRGB(RGB_stack_HARV,
         r = 1, g = 2, b = 3,
-        scale = 800,
         stretch = "lin")
 ```
 
-``` error
-Error in grDevices::rgb(RGB[, 1], RGB[, 2], RGB[, 3], alpha = alpha, maxColorValue = scale): alpha level 800, not in 0:255
-```
+<img src="fig/05-raster-multi-band-in-r-rendered-plot-rbg-image-linear-1.png" style="display: block; margin: auto;" />
 
 
 ``` r
 plotRGB(RGB_stack_HARV,
         r = 1, g = 2, b = 3,
-        scale = 800,
         stretch = "hist")
 ```
 
-``` error
-Error in grDevices::rgb(RGB[, 1], RGB[, 2], RGB[, 3], alpha = alpha, maxColorValue = scale): alpha level 800, not in 0:255
-```
+<img src="fig/05-raster-multi-band-in-r-rendered-plot-rgb-image-hist-1.png" style="display: block; margin: auto;" />
 
 In this case, the stretch doesn't enhance the contrast our image significantly 
 given the distribution of reflectance (or brightness) values is distributed 
