@@ -390,7 +390,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Work with Multi-Band Rasters</h1>
-        <p>Last updated on 2025-08-05 |
+        <p>Last updated on 2025-08-12 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/05-raster-multi-band-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -764,29 +764,17 @@ the image.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plotRGB</span><span class="op">(</span><span class="va">RGB_stack_HARV</span>,</span>
 <span>        r <span class="op">=</span> <span class="fl">1</span>, g <span class="op">=</span> <span class="fl">2</span>, b <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>        scale <span class="op">=</span> <span class="fl">800</span>,</span>
 <span>        stretch <span class="op">=</span> <span class="st">"lin"</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in grDevices::rgb(RGB[, 1], RGB[, 2], RGB[, 3], alpha = alpha, maxColorValue = scale): alpha level 800, not in 0:255</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb23">
+<figure><img src="../fig/05-raster-multi-band-in-r-rendered-plot-rbg-image-linear-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plotRGB</span><span class="op">(</span><span class="va">RGB_stack_HARV</span>,</span>
 <span>        r <span class="op">=</span> <span class="fl">1</span>, g <span class="op">=</span> <span class="fl">2</span>, b <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>        scale <span class="op">=</span> <span class="fl">800</span>,</span>
 <span>        stretch <span class="op">=</span> <span class="st">"hist"</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in grDevices::rgb(RGB[, 1], RGB[, 2], RGB[, 3], alpha = alpha, maxColorValue = scale): alpha level 800, not in 0:255</code></pre>
-</div>
-<p>In this case, the stretch doesn’t enhance the contrast our image
+<figure><img src="../fig/05-raster-multi-band-in-r-rendered-plot-rgb-image-hist-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In this case, the stretch doesn’t enhance the contrast our image
 significantly given the distribution of reflectance (or brightness)
 values is distributed well between 0 and 255.</p>
 <div id="challenge---nodata-values" class="callout challenge">
@@ -825,7 +813,7 @@ can you check?</li>
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>First we use the <code>describe()</code> function to view the data
 attributes.</li>
-</ol><div class="codewrapper sourceCode" id="cb25">
+</ol><div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -923,7 +911,7 @@ values and they are assigned the value of -9999.</p></li>
 <li><p>The data has three bands.</p></li>
 <li><p>To read in the file, we will use the <code>rast()</code>
 function:</p></li>
-</ol><div class="codewrapper sourceCode" id="cb27">
+</ol><div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -931,7 +919,7 @@ function:</p></li>
 <span>  <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif"</span><span class="op">)</span></span></code></pre>
 </div>
 <ol start="5" style="list-style-type: decimal"><li>We can plot the data with the <code>plotRGB()</code> function:</li>
-</ol><div class="codewrapper sourceCode" id="cb28">
+</ol><div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -944,7 +932,7 @@ RGB_stack the NoData value is not defined in the tiff tags, thus R
 renders them as black as the reflectance values are 0. The black edges
 in the other file are defined as -9999 and R renders them as
 NA.</p></li>
-</ol><div class="codewrapper sourceCode" id="cb29">
+</ol><div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1079,7 +1067,7 @@ the same way we might work with a SpatRasterDataset.</p>
 </div>
 <p>We can build a SpatRasterDataset using a SpatRaster or a list of
 SpatRaster:</p>
-<div class="codewrapper sourceCode" id="cb31">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1088,7 +1076,7 @@ SpatRaster:</p>
 </div>
 <p>We can retrieve the SpatRaster objects from a SpatRasterDataset using
 subsetting:</p>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1107,7 +1095,7 @@ names       : HARV_RGB_Ortho_1, HARV_RGB_Ortho_2, HARV_RGB_Ortho_3
 min values  :                0,                0,                0
 max values  :              255,              255,              255 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb34">
+<div class="codewrapper sourceCode" id="cb32">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1155,7 +1143,7 @@ object?</li>
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>We can see a list of all of the methods available for our
 RasterStack object:</li>
-</ol><div class="codewrapper sourceCode" id="cb36">
+</ol><div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1279,7 +1267,7 @@ RasterStack object:</li>
 see '?methods' for accessing help and source code</code></pre>
 </div>
 <ol start="2" style="list-style-type: decimal"><li>And compare that with the methods available for a single band:</li>
-</ol><div class="codewrapper sourceCode" id="cb38">
+</ol><div class="codewrapper sourceCode" id="cb36">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1481,7 +1469,7 @@ holds.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/05-raster-multi-band-in-r.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/05-raster-multi-band-in-r.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2025-08-05",
+  "dateModified": "2025-08-12",
   "datePublished": "2025-08-12"
 }
 
