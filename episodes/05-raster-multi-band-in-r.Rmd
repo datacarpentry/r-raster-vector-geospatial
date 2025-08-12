@@ -268,14 +268,12 @@ range of potential values to increase the visual contrast of the image.
 ```{r plot-rbg-image-linear}
 plotRGB(RGB_stack_HARV,
         r = 1, g = 2, b = 3,
-        scale = 800,
         stretch = "lin")
 ```
 
 ```{r plot-rgb-image-hist}
 plotRGB(RGB_stack_HARV,
         r = 1, g = 2, b = 3,
-        scale = 800,
         stretch = "hist")
 ```
 
