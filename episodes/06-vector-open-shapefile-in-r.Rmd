@@ -52,10 +52,13 @@ into a single plot.
 
 ## Import Vector Data
 
-We will use the `sf` package to work with vector data in R. `sf` stands for simple features.
-We will also use the `terra` package, which has been loaded in previous episodes, so we can
-explore raster and vector spatial metadata using similar commands. Make sure
-you have the `sf` library loaded.
+We will use the `sf` package to work with vector data in R. `sf` stands for
+[simple features](https://en.wikipedia.org/wiki/Simple_Features), an international standard for
+representing spatial data that is used widely by databases (e.g., PostGIS) and other open source
+geospatial software (e.g., GDAL). We will also use the `terra` package, which has been loaded
+in previous episodes, so we can explore raster and vector spatial metadata using similar commands.
+
+Make sure you have the `sf` library loaded.
 
 ```{r load-sf, results="hide", eval=FALSE, message=FALSE}
 library(sf)
