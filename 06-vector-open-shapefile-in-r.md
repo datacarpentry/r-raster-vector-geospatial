@@ -245,6 +245,15 @@ ggplot() +
 
 <img src="fig/06-vector-open-shapefile-in-r-rendered-plot-shapefile-1.png" style="display: block; margin: auto;" />
 
+
+On the boundary plot, the x and y axes are labeled in units of decimal degrees. However, the CRS
+for `aoi_boundary_HARV` is UTM zone 18N, which has units of meters. `geom_sf` will use
+the CRS of the data to set the CRS for the plot, so why is there a mismatch?
+
+By default, `coord_sf()` generates a graticule with a CRS of WGS 84 (where the units
+are decimal degrees), and this sets our axis labels. To draw the graticule in the native
+CRS of our shapefile, we can set `datum=NULL` in the `coord_sf()` function.
+
 :::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Challenge: Import Line and Point Vector Layers
