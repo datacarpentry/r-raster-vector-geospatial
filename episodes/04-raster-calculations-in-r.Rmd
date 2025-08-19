@@ -43,13 +43,13 @@ DTM_HARV <-
 
 DTM_HARV_df <- as.data.frame(DTM_HARV, xy = TRUE)
 
-# DSM data for SJER
+# DSM (treetop) data for SJER
 DSM_SJER <- 
   rast("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
 
 DSM_SJER_df <- as.data.frame(DSM_SJER, xy = TRUE)
 
-# DTM data for SJER
+# DTM (bare-earth) data for SJER
 DTM_SJER <- 
   rast("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
 
@@ -64,6 +64,35 @@ See the [lesson homepage](.) for detailed information about the software,
 data, and other prerequisites you will need to work through the examples in 
 this episode.
 
+### Load the Data
+
+For this episode, we will use the DTM and DSM from the NEON Harvard Forest 
+Field site and San Joaquin Experimental Range. If you don't still have
+them loaded, do so now and turn them into dataframes:
+
+# DSM (tree top) data for Harvard Forest
+DSM_HARV <- 
+  rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+
+DSM_HARV_df <- as.data.frame(DSM_HARV, xy = TRUE)
+
+# DTM (bare earth) data for Harvard Forest
+DTM_HARV <- 
+  rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
+
+DTM_HARV_df <- as.data.frame(DTM_HARV, xy = TRUE)
+
+# DSM data for SJER
+DSM_SJER <- 
+  rast("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
+
+DSM_SJER_df <- as.data.frame(DSM_SJER, xy = TRUE)
+
+# DTM data for SJER
+DTM_SJER <- 
+  rast("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
+
+DTM_SJER_df <- as.data.frame(DTM_SJER, xy = TRUE)
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -95,11 +124,7 @@ with the influence of ground elevation removed.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-### Load the Data
 
-For this episode, we will use the DTM and DSM from the NEON Harvard Forest 
-Field site and San Joaquin Experimental Range, which we already have loaded 
-from previous episodes.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
