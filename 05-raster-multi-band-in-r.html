@@ -390,7 +390,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Work with Multi-Band Rasters</h1>
-        <p>Last updated on 2025-08-12 |
+        <p>Last updated on 2025-08-19 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/05-raster-multi-band-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -481,7 +481,8 @@ first one); omitting this parameter would read instead all bands.</p>
 <span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, alpha <span class="op">=</span> <span class="va">HARV_RGB_Ortho_1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/05-raster-multi-band-in-r-rendered-harv-rgb-band1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge" class="callout challenge">
+<figure><img src="fig/05-raster-multi-band-in-r-rendered-harv-rgb-band1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>To import the green band, we would use <code>lyrs = 2</code>.</p>
+<div id="challenge" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -553,75 +554,13 @@ red in them (less red was reflected). To plot an RGB image, we mix red +
 green + blue values into one single color to create a full color image -
 similar to the color image a digital camera creates.</p>
 </div>
-<div class="section level3">
-<h3 id="import-a-specific-band">Import A Specific Band<a class="anchor" aria-label="anchor" href="#import-a-specific-band"></a></h3>
-<p>We can use the <code>rast()</code> function to import specific bands
-in our raster object by specifying which band we want with
-<code>lyrs = N</code> (N represents the band number we want to work
-with). To import the green band, we would use <code>lyrs = 2</code>.</p>
-<div class="codewrapper sourceCode" id="cb6">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">RGB_band2_HARV</span> <span class="op">&lt;-</span>  </span>
-<span>  <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif"</span>, </span>
-<span>       lyrs <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
-</div>
-<p>We can convert this data to a data frame and plot the same way we
-plotted the red band:</p>
-<div class="codewrapper sourceCode" id="cb7">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">RGB_band2_HARV_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">RGB_band2_HARV</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb8">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">RGB_band2_HARV_df</span>,</span>
-<span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, alpha <span class="op">=</span> <span class="va">HARV_RGB_Ortho_2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
-</div>
-<figure><img src="fig/05-raster-multi-band-in-r-rendered-rgb-harv-band2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-making-sense-of-single-band-images" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<span class="callout-header">Challenge</span>
-<div id="challenge-making-sense-of-single-band-images" class="callout-inner">
-<h3 class="callout-title">Challenge: Making Sense of Single Band
-Images</h3>
-<div class="callout-content">
-<p>Compare the plots of band 1 (red) and band 2 (green). Is the forested
-area darker or lighter in band 2 (the green band) compared to band 1
-(the red band)?</p>
-</div>
-</div>
-</div>
-<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
-  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
-</button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
-<div class="accordion-body">
-<p>We’d expect a <em>brighter</em> value for the forest in band 2
-(green) than in band 1 (red) because the leaves on trees of most often
-appear “green” - healthy leaves reflect MORE green light than red
-light.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
 </section><section><h2 class="section-heading" id="raster-stacks-in-r">Raster Stacks in R<a class="anchor" aria-label="anchor" href="#raster-stacks-in-r"></a></h2>
 <hr class="half-width"><p>Next, we will work with all three image bands (red, green and blue)
 as an R raster object. We will then plot a 3-band composite, or full
 color, image.</p>
 <p>To bring in all bands of a multi-band raster, we use
 the<code>rast()</code> function.</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -629,7 +568,7 @@ the<code>rast()</code> function.</p>
 <span>  <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Let’s preview the attributes of our stack object:</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -651,7 +590,7 @@ max values  :              255,              255,              255 </code></pre>
 <p>We can view the attributes of each band in the stack in a single
 output. For example, if we had hundreds of bands, we could specify which
 band we’d like to view attributes for using an index value:</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -673,7 +612,7 @@ max value   :              255 </code></pre>
 <p>We can also use the <code>ggplot</code> functions to plot the data in
 any layer of our raster object. Remember, we need to convert to a data
 frame first.</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -681,7 +620,7 @@ frame first.</p>
 </div>
 <p>Each band in our RasterStack gets its own column in the data frame.
 Thus we have:</p>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -698,7 +637,7 @@ Thus we have:</p>
  $ HARV_RGB_Ortho_3: num  0 10 1 0 17 0 4 0 0 7 ...</code></pre>
 </div>
 <p>Let’s create a histogram of the first band:</p>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -711,7 +650,7 @@ Thus we have:</p>
 <pre class="output" tabindex="0"><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 </div>
 <figure><img src="fig/05-raster-multi-band-in-r-rendered-rgb-harv-hist-band1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>And a raster plot of the second band:</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -738,7 +677,7 @@ contrast.</li>
 <code>plotRGB()</code> function directly with our RasterStack object (we
 don’t need a dataframe as this function isn’t part of the
 <code>ggplot2</code> package).</p>
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -756,7 +695,7 @@ the image.</p>
 image is rendered by default. We can stretch the values to extend to the
 full 0-255 range of potential values to increase the visual contrast of
 the image.</p>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -764,7 +703,7 @@ the image.</p>
 <span>        r <span class="op">=</span> <span class="fl">1</span>, g <span class="op">=</span> <span class="fl">2</span>, b <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>        stretch <span class="op">=</span> <span class="st">"lin"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/05-raster-multi-band-in-r-rendered-plot-rbg-image-linear-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb22">
+<figure><img src="fig/05-raster-multi-band-in-r-rendered-plot-rbg-image-linear-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -802,16 +741,16 @@ can you check?</li>
 </ol></div>
 </div>
 </div>
-<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
-  <h4 class="accordion-header" id="headingSolution3"> Answers </h4>
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2"> Answers </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>First we use the <code>describe()</code> function to view the data
 attributes.</li>
-</ol><div class="codewrapper sourceCode" id="cb23">
+</ol><div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -909,7 +848,7 @@ values and they are assigned the value of -9999.</p></li>
 <li><p>The data has three bands.</p></li>
 <li><p>To read in the file, we will use the <code>rast()</code>
 function:</p></li>
-</ol><div class="codewrapper sourceCode" id="cb25">
+</ol><div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -917,7 +856,7 @@ function:</p></li>
 <span>  <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif"</span><span class="op">)</span></span></code></pre>
 </div>
 <ol start="5" style="list-style-type: decimal"><li>We can plot the data with the <code>plotRGB()</code> function:</li>
-</ol><div class="codewrapper sourceCode" id="cb26">
+</ol><div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -930,7 +869,7 @@ RGB_stack the NoData value is not defined in the tiff tags, thus R
 renders them as black as the reflectance values are 0. The black edges
 in the other file are defined as -9999 and R renders them as
 NA.</p></li>
-</ol><div class="codewrapper sourceCode" id="cb27">
+</ol><div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1065,7 +1004,7 @@ the same way we might work with a SpatRasterDataset.</p>
 </div>
 <p>We can build a SpatRasterDataset using a SpatRaster or a list of
 SpatRaster:</p>
-<div class="codewrapper sourceCode" id="cb29">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1074,7 +1013,7 @@ SpatRaster:</p>
 </div>
 <p>We can retrieve the SpatRaster objects from a SpatRasterDataset using
 subsetting:</p>
-<div class="codewrapper sourceCode" id="cb30">
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1093,7 +1032,7 @@ names       : HARV_RGB_Ortho_1, HARV_RGB_Ortho_2, HARV_RGB_Ortho_3
 min values  :                0,                0,                0
 max values  :              255,              255,              255 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1132,16 +1071,16 @@ object?</li>
 </ol></div>
 </div>
 </div>
-<div id="accordionSolution4" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
-  <h4 class="accordion-header" id="headingSolution4"> Answers </h4>
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3"> Answers </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>We can see a list of all of the methods available for our
 RasterStack object:</li>
-</ol><div class="codewrapper sourceCode" id="cb34">
+</ol><div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1265,7 +1204,7 @@ RasterStack object:</li>
 see '?methods' for accessing help and source code</code></pre>
 </div>
 <ol start="2" style="list-style-type: decimal"><li>And compare that with the methods available for a single band:</li>
-</ol><div class="codewrapper sourceCode" id="cb36">
+</ol><div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1467,7 +1406,7 @@ holds.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/05-raster-multi-band-in-r.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/05-raster-multi-band-in-r.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2025-08-12",
+  "dateModified": "2025-08-19",
   "datePublished": "2025-08-19"
 }
 

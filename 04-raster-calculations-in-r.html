@@ -392,7 +392,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Raster Calculations</h1>
-        <p>Last updated on 2025-08-05 |
+        <p>Last updated on 2025-08-19 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/04-raster-calculations-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -441,6 +441,36 @@ Episode</h3>
 <p>See the <a href=".">lesson homepage</a> for detailed information
 about the software, data, and other prerequisites you will need to work
 through the examples in this episode.</p>
+<div class="section level3">
+<h3 id="load-the-data">Load the Data<a class="anchor" aria-label="anchor" href="#load-the-data"></a></h3>
+<p>For this episode, we will use the DTM and DSM from the NEON Harvard
+Forest Field site and San Joaquin Experimental Range. If you don’t still
+have them loaded, do so now and turn them into dataframes:</p>
+</div>
+<div class="section level1">
+<h1 id="dsm-tree-top-data-for-harvard-forest">DSM (tree top) data for Harvard Forest<a class="anchor" aria-label="anchor" href="#dsm-tree-top-data-for-harvard-forest"></a></h1>
+<p>DSM_HARV &lt;-
+rast(“data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif”)</p>
+<p>DSM_HARV_df &lt;- as.data.frame(DSM_HARV, xy = TRUE)</p>
+</div>
+<div class="section level1">
+<h1 id="dtm-bare-earth-data-for-harvard-forest">DTM (bare earth) data for Harvard Forest<a class="anchor" aria-label="anchor" href="#dtm-bare-earth-data-for-harvard-forest"></a></h1>
+<p>DTM_HARV &lt;-
+rast(“data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif”)</p>
+<p>DTM_HARV_df &lt;- as.data.frame(DTM_HARV, xy = TRUE)</p>
+</div>
+<div class="section level1">
+<h1 id="dsm-data-for-sjer">DSM data for SJER<a class="anchor" aria-label="anchor" href="#dsm-data-for-sjer"></a></h1>
+<p>DSM_SJER &lt;-
+rast(“data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif”)</p>
+<p>DSM_SJER_df &lt;- as.data.frame(DSM_SJER, xy = TRUE)</p>
+</div>
+<div class="section level1">
+<h1 id="dtm-data-for-sjer">DTM data for SJER<a class="anchor" aria-label="anchor" href="#dtm-data-for-sjer"></a></h1>
+<p>DTM_SJER &lt;-
+rast(“data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif”)</p>
+<p>DTM_SJER_df &lt;- as.data.frame(DTM_SJER, xy = TRUE)</p>
+</div>
 </div>
 </div>
 </div>
@@ -473,11 +503,6 @@ is a CHM, DSM and DTM? About Gridded, Raster LiDAR Data</a>.</li>
 </ul></div>
 </div>
 </div>
-<div class="section level3">
-<h3 id="load-the-data">Load the Data<a class="anchor" aria-label="anchor" href="#load-the-data"></a></h3>
-<p>For this episode, we will use the DTM and DSM from the NEON Harvard
-Forest Field site and San Joaquin Experimental Range, which we already
-have loaded from previous episodes.</p>
 <div id="exercise" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -678,8 +703,7 @@ data looks like. First we’ll plot the DTM elevation data:</p>
 <span>     <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>     <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/04-raster-calculations-in-r-rendered-harv-dsm-plot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
-</section><section><h2 class="section-heading" id="two-ways-to-perform-raster-calculations">Two Ways to Perform Raster Calculations<a class="anchor" aria-label="anchor" href="#two-ways-to-perform-raster-calculations"></a></h2>
+<figure><img src="fig/04-raster-calculations-in-r-rendered-harv-dsm-plot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="two-ways-to-perform-raster-calculations">Two Ways to Perform Raster Calculations<a class="anchor" aria-label="anchor" href="#two-ways-to-perform-raster-calculations"></a></h2>
 <hr class="half-width"><p>We can calculate the difference between two rasters in two different
 ways:</p>
 <ul><li>by directly subtracting the two rasters in R using raster math</li>
@@ -1136,7 +1160,7 @@ data to a file.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/04-raster-calculations-in-r.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/04-raster-calculations-in-r.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2025-08-05",
+  "dateModified": "2025-08-19",
   "datePublished": "2025-08-19"
 }
 
