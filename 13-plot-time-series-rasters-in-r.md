@@ -66,7 +66,7 @@ setting the plot theme to `void`.
 
 ``` r
 ggplot() +
-  geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
+  geom_raster(data = ndvi_harv_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~variable) +
   ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest") + 
   theme_void()
@@ -88,7 +88,7 @@ justification.
 
 ``` r
 ggplot() +
-  geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
+  geom_raster(data = ndvi_harv_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~variable) +
   ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest") + 
   theme_void() + 
@@ -116,7 +116,7 @@ function. The parameter to set is called `face`.
 
 ``` r
 ggplot() +
-  geom_raster(data = NDVI_HARV_stack_df,
+  geom_raster(data = ndvi_harv_stack_df,
               aes(x = x, y = y, fill = value)) +
   facet_wrap(~ variable) +
   ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest") + 
@@ -171,7 +171,7 @@ graphic.
 
 ``` r
 ggplot() +
-  geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
+  geom_raster(data = ndvi_harv_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~variable) +
   ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest") + 
   theme_void() + 
@@ -220,11 +220,11 @@ To create a more meaningful label we can remove the "x" and replace it with
 
 First let's remove "\_HARV\_NDVI\_crop" from each label to make the labels
 shorter and remove repetition. To illustrate how this works, we will first
-look at the names for our `NDVI_HARV_stack` object:
+look at the names for our `ndvi_harv_stack` object:
 
 
 ``` r
-names(NDVI_HARV_stack)
+names(ndvi_harv_stack)
 ```
 
 ``` output
@@ -242,7 +242,7 @@ sure our code is doing what we want it to.
 
 
 ``` r
-raster_names <- names(NDVI_HARV_stack)
+raster_names <- names(ndvi_harv_stack)
 
 raster_names <- gsub("_HARV_ndvi_crop", "", raster_names)
 raster_names
@@ -267,11 +267,11 @@ raster_names
  [8] "Day 229" "Day 245" "Day 261" "Day 277" "Day 293" "Day 309"
 ```
 
-Our labels look good now. Let's reassign them to our `all_NDVI_HARV` object:
+Our labels look good now. Let's reassign them to our `all_ndvi_harv` object:
 
 
 ``` r
-labels_names <- setNames(raster_names, unique(NDVI_HARV_stack_df$variable))
+labels_names <- setNames(raster_names, unique(ndvi_harv_stack_df$variable))
 ```
 
 Once the names for each band have been reassigned, we can render our plot with
@@ -280,7 +280,7 @@ the new labels using a`labeller`.
 
 ``` r
 ggplot() +
-  geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
+  geom_raster(data = ndvi_harv_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~variable, labeller = labeller(variable = labels_names)) +
   ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest") + 
   theme_void() + 
@@ -300,7 +300,7 @@ has a width of five panels.
 
 ``` r
 ggplot() +
-  geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
+  geom_raster(data = ndvi_harv_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~variable, ncol = 5, 
              labeller = labeller(variable = labels_names)) +
   ggtitle("Landsat NDVI", subtitle = "NEON Harvard Forest") + 
@@ -337,12 +337,12 @@ color ramp may be best?
 
 ``` r
 raster_names  <- gsub("Day","Julian Day ", raster_names)
-labels_names <- setNames(raster_names, unique(NDVI_HARV_stack_df$variable))
+labels_names <- setNames(raster_names, unique(ndvi_harv_stack_df$variable))
 
 brown_green_colors <- colorRampPalette(brewer.pal(9, "BrBG"))
 
 ggplot() +
-  geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
+  geom_raster(data = ndvi_harv_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~variable, ncol = 5, labeller = labeller(variable = labels_names)) +
   ggtitle("Landsat NDVI - Julian Days", subtitle = "Harvard Forest 2011") +
   theme_void() +

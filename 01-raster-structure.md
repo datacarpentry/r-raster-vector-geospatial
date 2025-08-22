@@ -156,13 +156,13 @@ If you wish to store this information in R, you can do the following:
 
 
 ``` r
-HARV_dsmCrop_info <- capture.output(
+harv_metadata <- capture.output(
   describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 )
 ```
 
 Each line of text that was printed to the console is now stored as an element of
-the character vector `HARV_dsmCrop_info`. We will be exploring this data throughout this
+the character vector `harv_metadata`. We will be exploring this data throughout this
 episode. By the end of this episode, you will be able to explain and understand the output above.
 
 ## Open a Raster in R
@@ -187,10 +187,10 @@ First we will load our raster file into R and view the data structure.
 
 
 ``` r
-DSM_HARV <-
+dsm_harv <-
   rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
-DSM_HARV
+dsm_harv
 ```
 
 ``` output
@@ -211,7 +211,7 @@ columns, descriptive statistics for raster data can be retrieved like
 
 
 ``` r
-summary(DSM_HARV)
+summary(dsm_harv)
 ```
 
 ``` warning
@@ -235,7 +235,7 @@ the function `values`:
 
 
 ``` r
-summary(values(DSM_HARV))
+summary(values(dsm_harv))
 ```
 
 ``` output
@@ -255,7 +255,7 @@ The `terra` package has an built-in function for conversion to a plotable datafr
 
 
 ``` r
-DSM_HARV_df <- as.data.frame(DSM_HARV, xy = TRUE)
+dsm_harv_df <- as.data.frame(dsm_harv, xy = TRUE)
 ```
 
 Now when we view the structure of our data, we will see a standard
@@ -263,7 +263,7 @@ dataframe format.
 
 
 ``` r
-str(DSM_HARV_df)
+str(dsm_harv_df)
 ```
 
 ``` output
@@ -283,7 +283,7 @@ ggplot2 if needed, you can learn about them at their help page `?coord_map`.
 
 ``` r
 ggplot() +
-    geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = HARV_dsmCrop)) +
+    geom_raster(data = dsm_harv_df , aes(x = x, y = y, fill = HARV_dsmCrop)) +
     scale_fill_viridis_c() +
     coord_quickmap()
 ```
@@ -318,7 +318,7 @@ See `?plot` for more arguments to customize the plot
 
 
 ``` r
-plot(DSM_HARV)
+plot(dsm_harv)
 ```
 
 <img src="fig/01-raster-structure-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
@@ -352,7 +352,7 @@ function.
 
 
 ``` r
-crs(DSM_HARV, proj = TRUE)
+crs(dsm_harv, proj = TRUE)
 ```
 
 ``` output
@@ -386,7 +386,7 @@ and datum (`datum=`).
 
 ### UTM Proj4 String
 
-A projection string (like the one of `DSM_HARV`) specifies the UTM projection 
+A projection string (like the one of `dsm_harv`) specifies the UTM projection 
 as follows:
 
 `+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0`
@@ -416,7 +416,7 @@ can view these values:
 
 
 ``` r
-minmax(DSM_HARV)
+minmax(dsm_harv)
 ```
 
 ``` output
@@ -426,7 +426,7 @@ max       416.07
 ```
 
 ``` r
-min(values(DSM_HARV))
+min(values(dsm_harv))
 ```
 
 ``` output
@@ -434,7 +434,7 @@ min(values(DSM_HARV))
 ```
 
 ``` r
-max(values(DSM_HARV))
+max(values(dsm_harv))
 ```
 
 ``` output
@@ -451,7 +451,7 @@ calculated, we can calculate them using the
 
 
 ``` r
-DSM_HARV <- setMinMax(DSM_HARV)
+dsm_harv <- setMinMax(dsm_harv)
 ```
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -461,7 +461,7 @@ We can see that the elevation at our site ranges from 305.0700073m to
 
 ## Raster Bands
 
-The Digital Surface Model object (`DSM_HARV`) that we've been working with is a
+The Digital Surface Model object (`dsm_harv`) that we've been working with is a
 single band raster. This means that there is only one dataset stored in the
 raster: surface elevation in meters for one time period.
 
@@ -473,7 +473,7 @@ view the number of bands in a raster using the `nlyr()` function.
 
 
 ``` r
-nlyr(DSM_HARV)
+nlyr(dsm_harv)
 ```
 
 ``` output
@@ -543,7 +543,7 @@ of `NA` will be ignored by R as demonstrated above.
 ## Challenge
 
 Use the output from the `describe()` and `sources()` functions to find out what 
-`NoDataValue` is used for our `DSM_HARV` dataset.
+`NoDataValue` is used for our `dsm_harv` dataset.
 
 :::::::::::::::  solution
 
@@ -551,7 +551,7 @@ Use the output from the `describe()` and `sources()` functions to find out what
 
 
 ``` r
-describe(sources(DSM_HARV))
+describe(sources(dsm_harv))
 ```
 
 ``` output
@@ -665,7 +665,7 @@ useful in identifying outliers and bad data values in our raster data.
 
 ``` r
 ggplot() +
-    geom_histogram(data = DSM_HARV_df, aes(HARV_dsmCrop))
+    geom_histogram(data = dsm_harv_df, aes(HARV_dsmCrop))
 ```
 
 ``` output
@@ -685,7 +685,7 @@ by using the `bins` value in the `geom_histogram()` function.
 
 ``` r
 ggplot() +
-    geom_histogram(data = DSM_HARV_df, aes(HARV_dsmCrop), bins = 40)
+    geom_histogram(data = dsm_harv_df, aes(HARV_dsmCrop), bins = 40)
 ```
 
 <img src="fig/01-raster-structure-rendered-view-raster-histogram2-1.png" style="display: block; margin: auto;" />
@@ -701,7 +701,7 @@ no bad data values in this particular raster.
 
 Use `describe()` to determine the following about the `NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif` file:
 
-1. Does this file have the same CRS as `DSM_HARV`?
+1. Does this file have the same CRS as `dsm_harv`?
 2. What is the `NoDataValue`?
 3. What is resolution of the raster data?
 4. How large would a 5x5 pixel area be on the Earth's surface?
@@ -787,7 +787,7 @@ describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 ```
 
 
-1. If this file has the same CRS as DSM_HARV?  Yes: UTM Zone 18, WGS84, meters.
+1. If this file has the same CRS as dsm_harv?  Yes: UTM Zone 18, WGS84, meters.
 2. What format `NoDataValues` take?  -9999
 3. The resolution of the raster data? 1x1
 4. How large a 5x5 pixel area would be? 5mx5m How? We are given resolution of 1x1 and units in meters, therefore resolution of 5x5 means 5x5m.

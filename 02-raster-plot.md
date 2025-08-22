@@ -36,7 +36,7 @@ data, and other prerequisites you will need to work through the examples in this
 
 We will be using `dplyr`, `ggplot2`, and `terra` in this episode.
 
-Make sure you have the `DSM_HARV` and `DSM_HARV_df` created.
+Make sure you have the `dsm_harv` and `dsm_harv_df` created.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -61,11 +61,11 @@ data into 3 bins.
 
 
 ``` r
-DSM_HARV_df <- DSM_HARV_df %>%
+dsm_harv_df <- dsm_harv_df %>%
                 mutate(fct_elevation = cut(HARV_dsmCrop, breaks = 3))
 
 ggplot() +
-    geom_bar(data = DSM_HARV_df, aes(fct_elevation))
+    geom_bar(data = dsm_harv_df, aes(fct_elevation))
 ```
 
 <img src="fig/02-raster-plot-rendered-histogram-breaks-ggplot-1.png" style="display: block; margin: auto;" />
@@ -75,7 +75,7 @@ values of `fct_elevation`:
 
 
 ``` r
-unique(DSM_HARV_df$fct_elevation)
+unique(dsm_harv_df$fct_elevation)
 ```
 
 ``` output
@@ -87,7 +87,7 @@ And we can get the count of values in each group using `dplyr`'s `count()` funct
 
 
 ``` r
-DSM_HARV_df %>%
+dsm_harv_df %>%
         count(fct_elevation)
 ```
 
@@ -108,10 +108,10 @@ instead of the number of breaks we want.
 ``` r
 custom_bins <- c(300, 350, 400, 450)
 
-DSM_HARV_df <- DSM_HARV_df %>%
+dsm_harv_df <- dsm_harv_df %>%
   mutate(fct_elevation_2 = cut(HARV_dsmCrop, breaks = custom_bins))
 
-unique(DSM_HARV_df$fct_elevation_2)
+unique(dsm_harv_df$fct_elevation_2)
 ```
 
 ``` output
@@ -137,7 +137,7 @@ And now we can plot our bar plot again, using the new groups:
 
 ``` r
 ggplot() +
-  geom_bar(data = DSM_HARV_df, aes(fct_elevation_2))
+  geom_bar(data = dsm_harv_df, aes(fct_elevation_2))
 ```
 
 <img src="fig/02-raster-plot-rendered-histogram-custom-breaks-1.png" style="display: block; margin: auto;" />
@@ -146,7 +146,7 @@ And we can get the count of values in each group in the same way we did before:
 
 
 ``` r
-DSM_HARV_df %>%
+dsm_harv_df %>%
   count(fct_elevation_2)
 ```
 
@@ -163,7 +163,7 @@ different color:
 
 ``` r
 ggplot() +
-  geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = fct_elevation_2)) + 
+  geom_raster(data = dsm_harv_df , aes(x = x, y = y, fill = fct_elevation_2)) + 
   coord_quickmap()
 ```
 
@@ -193,7 +193,7 @@ To use these in our map, we pass them across using the
 
 ``` r
 ggplot() +
- geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
+ geom_raster(data = dsm_harv_df , aes(x = x, y = y,
                                       fill = fct_elevation_2)) + 
     scale_fill_manual(values = terrain.colors(3)) + 
     coord_quickmap()
@@ -205,7 +205,7 @@ ggplot() +
 
 If we need to create multiple plots using the same color palette, we can create
 an R object (`my_colors`) for the set of colors that we want to use. We can then
-quickly change the palette across all plots by modifying the `mycolors` object, 
+quickly change the palette across all plots by modifying the `my_colors` object, 
 rather than each individual plot.
 
 We can also give the legend a more meaningful title by passing a value
@@ -216,13 +216,13 @@ the relevant part of the `theme()` function.
 
 
 ``` r
-mycolors <- terrain.colors(3)
+my_colors <- terrain.colors(3)
 
 
 ggplot() +
- geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
+ geom_raster(data = dsm_harv_df , aes(x = x, y = y,
                                       fill = fct_elevation_2)) + 
-    scale_fill_manual(values = mycolors, name = "Elevation") +
+    scale_fill_manual(values = my_colors, name = "Elevation") +
     theme(axis.title = element_blank()) + 
     coord_quickmap()
 ```
@@ -246,15 +246,15 @@ Create a plot of the Harvard Forest Digital Surface Model (DSM) that has:
 
 
 ``` r
-DSM_HARV_df <- DSM_HARV_df  %>%
+dsm_harv_df <- dsm_harv_df  %>%
                mutate(fct_elevation_6 = cut(HARV_dsmCrop, breaks = 6)) 
 
- mycolors <- terrain.colors(6)
+ my_colors <- terrain.colors(6)
 
 ggplot() +
-    geom_raster(data = DSM_HARV_df , aes(x = x, y = y,
+    geom_raster(data = dsm_harv_df , aes(x = x, y = y,
                                       fill = fct_elevation_6)) + 
-    scale_fill_manual(values = mycolors, name = "Elevation") + 
+    scale_fill_manual(values = my_colors, name = "Elevation") + 
     ggtitle("Classified Elevation Map - NEON Harvard Forest Field Site") +
     xlab("UTM Easting Coordinate (m)") +
     ylab("UTM Northing Coordinate (m)") + 
@@ -279,10 +279,10 @@ First we need to read in our DSM hillshade data and view the structure:
 
 
 ``` r
-DSM_hill_HARV <-
+dsm_hill_harv <-
   rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 
-DSM_hill_HARV
+dsm_hill_harv
 ```
 
 ``` output
@@ -301,9 +301,9 @@ Next we convert it to a dataframe, so that we can plot it using `ggplot2`:
 
 
 ``` r
-DSM_hill_HARV_df <- as.data.frame(DSM_hill_HARV, xy = TRUE) 
+dsm_hill_harv_df <- as.data.frame(dsm_hill_harv, xy = TRUE) 
 
-str(DSM_hill_HARV_df)
+str(dsm_hill_harv_df)
 ```
 
 ``` output
@@ -318,7 +318,7 @@ Now we can plot the hillshade data:
 
 ``` r
 ggplot() +
-  geom_raster(data = DSM_hill_HARV_df,
+  geom_raster(data = dsm_hill_harv_df,
               aes(x = x, y = y, alpha = HARV_DSMhill)) + 
   scale_alpha(range =  c(0.15, 0.65), guide = "none") + 
   coord_quickmap()
@@ -341,17 +341,17 @@ transparent, 1 being opaque).
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 We can layer another raster on top of our hillshade by adding another call to
-the `geom_raster()` function. Let's overlay `DSM_HARV` on top of the `hill_HARV`.
+the `geom_raster()` function. Let's overlay `dsm_harv` on top of the `dsm_hill_harv`.
 
 Let's not forget to use `ggtitle` to give our outputs some context.
 
 
 ``` r
 ggplot() +
-  geom_raster(data = DSM_HARV_df , 
+  geom_raster(data = dsm_harv_df , 
               aes(x = x, y = y, 
                   fill = HARV_dsmCrop)) + 
-  geom_raster(data = DSM_hill_HARV_df, 
+  geom_raster(data = dsm_hill_harv_df, 
               aes(x = x, y = y, 
                   alpha = HARV_DSMhill)) +  
   scale_fill_viridis_c() +  
@@ -387,25 +387,25 @@ Make sure to:
 # CREATE DSM MAPS
 
 # import DSM data
-DSM_SJER <- 
+dsm_sjer <- 
   rast("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
 # convert to a df for plotting
-DSM_SJER_df <- as.data.frame(DSM_SJER, xy = TRUE)
+dsm_sjer_df <- as.data.frame(dsm_sjer, xy = TRUE)
 
 # import DSM hillshade
-DSM_hill_SJER <- 
+dsm_hill_sjer <- 
   rast("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmHill.tif")
 # convert to a df for plotting
-DSM_hill_SJER_df <- as.data.frame(DSM_hill_SJER, xy = TRUE)
+dsm_hill_sjer_df <- as.data.frame(dsm_hill_sjer, xy = TRUE)
 
 # Build Plot
 ggplot() +
-    geom_raster(data = DSM_SJER_df , 
+    geom_raster(data = dsm_sjer_df , 
                 aes(x = x, y = y, 
                      fill = SJER_dsmCrop,
                      alpha = 0.8)
                 ) + 
-    geom_raster(data = DSM_hill_SJER_df, 
+    geom_raster(data = dsm_hill_sjer_df, 
                 aes(x = x, y = y, 
                   alpha = SJER_dsmHill)
                 ) +
@@ -427,22 +427,22 @@ ggplot() +
 ``` r
 # CREATE DTM MAP
 # import DTM
-DTM_SJER <- 
+dtm_sjer <- 
   rast("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
-DTM_SJER_df <- as.data.frame(DTM_SJER, xy = TRUE)
+dtm_sjer_df <- as.data.frame(dtm_sjer, xy = TRUE)
 
 # DTM Hillshade
-DTM_hill_SJER <- 
+dtm_hill_sjer <- 
   rast("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmHill.tif")
-DTM_hill_SJER_df <- as.data.frame(DTM_hill_SJER, xy = TRUE)
+dtm_hill_sjer_df <- as.data.frame(dtm_hill_sjer, xy = TRUE)
 
 ggplot() +
-    geom_raster(data = DTM_SJER_df ,
+    geom_raster(data = dtm_sjer_df ,
                 aes(x = x, y = y,
                      fill = SJER_dtmCrop,
                      alpha = 2.0)
                 ) +
-    geom_raster(data = DTM_hill_SJER_df,
+    geom_raster(data = dtm_hill_sjer_df,
                 aes(x = x, y = y,
                   alpha = SJER_dtmHill)
                 ) +

@@ -60,8 +60,8 @@ associated with the name of raster stack it was derived from.
 
 
 ``` r
-avg_NDVI_HARV <- global(NDVI_HARV_stack, mean)
-avg_NDVI_HARV
+avg_ndvi_harv <- global(ndvi_harv_stack, mean)
+avg_ndvi_harv
 ```
 
 ``` output
@@ -87,7 +87,7 @@ sure the structure is what we expect.
 
 
 ``` r
-head(avg_NDVI_HARV)
+head(avg_ndvi_harv)
 ```
 
 ``` output
@@ -108,8 +108,8 @@ in our data frame to make it easier for colleagues to work with our code.
 
 
 ``` r
-names(avg_NDVI_HARV) <- "meanNDVI"
-head(avg_NDVI_HARV)
+names(avg_ndvi_harv) <- "meanNDVI"
+head(avg_ndvi_harv)
 ```
 
 ``` output
@@ -128,7 +128,7 @@ worth of data in the future. Let's add a column to our dataframe called "site".
 
 
 ``` r
-avg_NDVI_HARV$site <- "HARV"
+avg_ndvi_harv$site <- "HARV"
 ```
 
 We can populate this column with the site name - HARV. Let's also create a year 
@@ -136,8 +136,8 @@ column and populate it with 2011 - the year our data were collected.
 
 
 ``` r
-avg_NDVI_HARV$year <- "2011"
-head(avg_NDVI_HARV)
+avg_ndvi_harv$year <- "2011"
+head(avg_ndvi_harv)
 ```
 
 ``` output
@@ -171,8 +171,8 @@ one pattern in our text strings.
 
 
 ``` r
-julianDays <- gsub("X|_HARV_ndvi_crop", "", row.names(avg_NDVI_HARV))
-julianDays
+julian_days <- gsub("X|_HARV_ndvi_crop", "", row.names(avg_ndvi_harv))
+julian_days
 ```
 
 ``` output
@@ -185,14 +185,14 @@ data to the data frame as a column called "julianDay".
 
 
 ``` r
-avg_NDVI_HARV$julianDay <- julianDays
+avg_ndvi_harv$julianDay <- julian_days
 ```
 
 Let's check the class of this new column:
 
 
 ``` r
-class(avg_NDVI_HARV$julianDay)
+class(avg_ndvi_harv$julianDay)
 ```
 
 ``` output
@@ -223,7 +223,7 @@ Next we convert the `julianDay` column from character to integer.
 
 
 ``` r
-avg_NDVI_HARV$julianDay <- as.integer(avg_NDVI_HARV$julianDay)
+avg_ndvi_harv$julianDay <- as.integer(avg_ndvi_harv$julianDay)
 ```
 
 Once we set the Julian day origin, we can add the Julian day value (as an
@@ -239,8 +239,8 @@ cannot simply add `origin + julianDay` because `01 + 05 = 06` or 06 January
 
 
 ``` r
-avg_NDVI_HARV$Date<- origin + (avg_NDVI_HARV$julianDay - 1)
-head(avg_NDVI_HARV$Date)
+avg_ndvi_harv$Date<- origin + (avg_ndvi_harv$julianDay - 1)
+head(avg_ndvi_harv$Date)
 ```
 
 ``` output
@@ -253,7 +253,7 @@ column is also stored as class `Date`.
 
 
 ``` r
-class(avg_NDVI_HARV$Date)
+class(avg_ndvi_harv$Date)
 ```
 
 ``` output
@@ -281,45 +281,45 @@ First we will read in the NDVI data for the SJER field site.
 
 
 ``` r
-NDVI_path_SJER <- "data/NEON-DS-Landsat-NDVI/SJER/2011/NDVI"
+ndvi_path_sjer <- "data/NEON-DS-Landsat-NDVI/SJER/2011/NDVI"
 
-all_NDVI_SJER <- list.files(NDVI_path_SJER,
+all_ndvi_sjer <- list.files(ndvi_path_sjer,
                             full.names = TRUE,
                             pattern = ".tif$")
 
-NDVI_stack_SJER <- rast(all_NDVI_SJER)
-names(NDVI_stack_SJER) <- paste0("X", names(NDVI_stack_SJER))
+ndvi_stack_sjer <- rast(all_ndvi_sjer)
+names(ndvi_stack_sjer) <- paste0("X", names(ndvi_stack_sjer))
 
-NDVI_stack_SJER <- NDVI_stack_SJER/10000
+ndvi_stack_sjer <- ndvi_stack_sjer/10000
 ```
 
 Then we can calculate the mean values for each day and put that in a dataframe.
 
 
 ``` r
-avg_NDVI_SJER <- as.data.frame(global(NDVI_stack_SJER, mean))
+avg_ndvi_sjer <- as.data.frame(global(ndvi_stack_sjer, mean))
 ```
 
 Next we rename the NDVI column, and add site and year columns to our data.
 
 
 ``` r
-names(avg_NDVI_SJER) <- "meanNDVI"
-avg_NDVI_SJER$site <- "SJER"
-avg_NDVI_SJER$year <- "2011"
+names(avg_ndvi_sjer) <- "meanNDVI"
+avg_ndvi_sjer$site <- "SJER"
+avg_ndvi_sjer$year <- "2011"
 ```
 
 Now we will create our Julian day column
 
 
 ``` r
-julianDays_SJER <- gsub("X|_SJER_ndvi_crop", "", row.names(avg_NDVI_SJER))
+julian_days_sjer <- gsub("X|_SJER_ndvi_crop", "", row.names(avg_ndvi_sjer))
 origin <- as.Date("2011-01-01")
-avg_NDVI_SJER$julianDay <- as.integer(julianDays_SJER)
+avg_ndvi_sjer$julianDay <- as.integer(julian_days_sjer)
 
-avg_NDVI_SJER$Date <- origin + (avg_NDVI_SJER$julianDay - 1)
+avg_ndvi_sjer$Date <- origin + (avg_ndvi_sjer$julianDay - 1)
 
-head(avg_NDVI_SJER)
+head(avg_ndvi_sjer)
 ```
 
 ``` output
@@ -343,7 +343,7 @@ plot our data.
 
 
 ``` r
-ggplot(avg_NDVI_HARV, aes(julianDay, meanNDVI)) +
+ggplot(avg_ndvi_harv, aes(julianDay, meanNDVI)) +
   geom_point() +
   ggtitle("Landsat Derived NDVI - 2011", 
           subtitle = "NEON Harvard Forest Field Site") +
@@ -365,7 +365,7 @@ different color.
 
 
 ``` r
-ggplot(avg_NDVI_SJER, aes(julianDay, meanNDVI)) +
+ggplot(avg_ndvi_sjer, aes(julianDay, meanNDVI)) +
   geom_point(colour = "SpringGreen4") +
   ggtitle("Landsat Derived NDVI - 2011", subtitle = "NEON SJER Field Site") +
   xlab("Julian Day") + ylab("Mean NDVI")
@@ -386,14 +386,14 @@ of columns and exact same column names to be merged.
 
 
 ``` r
-NDVI_HARV_SJER <- rbind(avg_NDVI_HARV, avg_NDVI_SJER)
+ndvi_harv_sjer <- rbind(avg_ndvi_harv, avg_ndvi_sjer)
 ```
 
 Now we can plot both datasets on the same plot.
 
 
 ``` r
-ggplot(NDVI_HARV_SJER, aes(x = julianDay, y = meanNDVI, colour = site)) +
+ggplot(ndvi_harv_sjer, aes(x = julianDay, y = meanNDVI, colour = site)) +
   geom_point(aes(group = site)) +
   geom_line(aes(group = site)) +
   ggtitle("Landsat Derived NDVI - 2011", 
@@ -416,7 +416,7 @@ on the x-axis.
 
 
 ``` r
-ggplot(NDVI_HARV_SJER, aes(x = Date, y = meanNDVI, colour = site)) +
+ggplot(ndvi_harv_sjer, aes(x = Date, y = meanNDVI, colour = site)) +
   geom_point(aes(group = site)) +
   geom_line(aes(group = site)) +
   ggtitle("Landsat Derived NDVI - 2011", 
@@ -472,8 +472,8 @@ outcomes!
 
 
 ``` r
-avg_NDVI_HARV_clean <- subset(avg_NDVI_HARV, meanNDVI > 0.1)
-avg_NDVI_HARV_clean$meanNDVI < 0.1
+filtered_avg_ndvi_harv <- subset(avg_ndvi_harv, meanNDVI > 0.1)
+filtered_avg_ndvi_harv$meanNDVI < 0.1
 ```
 
 ``` output
@@ -484,7 +484,7 @@ Now we can create another plot without the suspect data.
 
 
 ``` r
-ggplot(avg_NDVI_HARV_clean, aes(x = julianDay, y = meanNDVI)) +
+ggplot(filtered_avg_ndvi_harv, aes(x = julianDay, y = meanNDVI)) +
   geom_point() +
   ggtitle("Landsat Derived NDVI - 2011", 
           subtitle = "NEON Harvard Forest Field Site") +
@@ -512,7 +512,7 @@ as an output format.
 
 
 ``` r
-head(avg_NDVI_HARV_clean)
+head(filtered_avg_ndvi_harv)
 ```
 
 ``` output
@@ -531,8 +531,8 @@ remove the row names.
 
 
 ``` r
-row.names(avg_NDVI_HARV_clean) <- NULL
-head(avg_NDVI_HARV_clean)
+row.names(filtered_avg_ndvi_harv) <- NULL
+head(filtered_avg_ndvi_harv)
 ```
 
 ``` output
@@ -547,7 +547,7 @@ head(avg_NDVI_HARV_clean)
 
 
 ``` r
-write.csv(avg_NDVI_HARV_clean, file="meanNDVI_HARV_2011.csv")
+write.csv(filtered_avg_ndvi_harv, file="meanNDVI_HARV_2011.csv")
 ```
 
 :::::::::::::::::::::::::::::::::::::::  challenge
@@ -565,9 +565,9 @@ write.csv(avg_NDVI_HARV_clean, file="meanNDVI_HARV_2011.csv")
 
 
 ``` r
-avg_NDVI_SJER_clean <- subset(avg_NDVI_SJER, meanNDVI > 0.1)
-row.names(avg_NDVI_SJER_clean) <- NULL
-head(avg_NDVI_SJER_clean)
+filtered_avg_ndvi_harv <- subset(avg_ndvi_sjer, meanNDVI > 0.1)
+row.names(filtered_avg_ndvi_harv) <- NULL
+head(filtered_avg_ndvi_harv)
 ```
 
 ``` output
@@ -581,7 +581,7 @@ head(avg_NDVI_SJER_clean)
 ```
 
 ``` r
-write.csv(avg_NDVI_SJER_clean, file = "meanNDVI_SJER_2011.csv")
+write.csv(filtered_avg_ndvi_harv, file = "meanNDVI_SJER_2011.csv")
 ```
 
 :::::::::::::::::::::::::

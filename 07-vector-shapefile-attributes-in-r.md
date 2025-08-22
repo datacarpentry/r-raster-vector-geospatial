@@ -62,14 +62,14 @@ episode, we can view metadata associated with an R object using:
   of the object.
 - `st_crs()` - The CRS (spatial projection) of the data.
 
-We started to explore our `point_HARV` object in the previous episode. To see a
-summary of all of the metadata associated with our `point_HARV` object, we can
-view the object with `View(point_HARV)` or print a summary of the object itself
+We started to explore our `point_harv` object in the previous episode. To see a
+summary of all of the metadata associated with our `point_harv` object, we can
+view the object with `View(point_harv)` or print a summary of the object itself
 to the console.
 
 
 ``` r
-point_HARV
+point_harv
 ```
 
 ``` output
@@ -92,7 +92,7 @@ counts towards the total. Let's look at the roads file:
 
 
 ``` r
-ncol(lines_HARV)
+ncol(lines_harv)
 ```
 
 ``` output
@@ -104,7 +104,7 @@ in R:
 
 
 ``` r
-names(lines_HARV)
+names(lines_harv)
 ```
 
 ``` output
@@ -119,7 +119,7 @@ function to get a preview of the data:
 
 
 ``` r
-head(lines_HARV)
+head(lines_harv)
 ```
 
 ``` output
@@ -162,14 +162,14 @@ Projected CRS: WGS 84 / UTM zone 18N
 
 ## Challenge: Attributes for Different Spatial Classes
 
-Explore the attributes associated with the `point_HARV` and `aoi_boundary_HARV`
+Explore the attributes associated with the `point_harv` and `aoi_boundary_harv`
 spatial objects.
 
 1. How many attributes does each have?
 
-2. Who owns the site in the `point_HARV` data object?
+2. Who owns the site in the `point_harv` data object?
 
-3. Which of the following is NOT an attribute of the `point_HARV` data object?
+3. Which of the following is NOT an attribute of the `point_harv` data object?
 
   A) Latitude      B) County     C) Country
 
@@ -181,7 +181,7 @@ spatial objects.
 
 
 ``` r
-ncol(point_HARV)
+ncol(point_harv)
 ```
 
 ``` output
@@ -189,7 +189,7 @@ ncol(point_HARV)
 ```
 
 ``` r
-ncol(aoi_boundary_HARV)
+ncol(aoi_boundary_harv)
 ```
 
 ``` output
@@ -200,7 +200,7 @@ ncol(aoi_boundary_HARV)
 
 
 ``` r
-point_HARV$Ownership
+point_harv$Ownership
 ```
 
 ``` output
@@ -211,7 +211,7 @@ point_HARV$Ownership
 
 
 ``` r
-names(point_HARV)
+names(point_harv)
 ```
 
 ``` output
@@ -240,7 +240,7 @@ We can see the contents of the `TYPE` field of our lines feature:
 
 
 ``` r
-lines_HARV$TYPE
+lines_harv$TYPE
 ```
 
 ``` output
@@ -257,7 +257,7 @@ little bit in
 
 
 ``` r
-unique(lines_HARV$TYPE)
+unique(lines_harv$TYPE)
 ```
 
 ``` output
@@ -277,9 +277,9 @@ so that code only operates on the footpath lines.
 
 
 ``` r
-footpath_HARV <- lines_HARV %>%
+footpath_harv <- lines_harv %>%
   filter(TYPE == "footpath")
-nrow(footpath_HARV)
+nrow(footpath_harv)
 ```
 
 ``` output
@@ -293,7 +293,7 @@ only two feature lines in our spatial object have the attribute
 
 ``` r
 ggplot() +
-  geom_sf(data = footpath_HARV) +
+  geom_sf(data = footpath_harv) +
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Footpaths") +
   coord_sf()
 ```
@@ -315,7 +315,7 @@ connecting line thickness to a data variable.
 
 ``` r
 ggplot() +
-  geom_sf(data = footpath_HARV, aes(color = factor(OBJECTID)), linewidth = 1.5) +
+  geom_sf(data = footpath_harv, aes(color = factor(OBJECTID)), linewidth = 1.5) +
   labs(color = 'Footpath ID') +
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Footpaths") +
   coord_sf()
@@ -342,7 +342,7 @@ First we will save an object with only the boardwalk lines:
 
 
 ``` r
-boardwalk_HARV <- lines_HARV %>%
+boardwalk_harv <- lines_harv %>%
   filter(TYPE == "boardwalk")
 ```
 
@@ -350,7 +350,7 @@ Let's check how many features there are in this subset:
 
 
 ``` r
-nrow(boardwalk_HARV)
+nrow(boardwalk_harv)
 ```
 
 ``` output
@@ -362,7 +362,7 @@ Now let's plot that data:
 
 ``` r
 ggplot() +
-  geom_sf(data = boardwalk_HARV, linewidth = 1.5) +
+  geom_sf(data = boardwalk_harv, linewidth = 1.5) +
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Boardwalks") +
   coord_sf()
 ```
@@ -392,9 +392,9 @@ number of features:
 
 
 ``` r
-stoneWall_HARV <- lines_HARV %>%
+stonewall_harv <- lines_harv %>%
   filter(TYPE == "stone wall")
-nrow(stoneWall_HARV)
+nrow(stonewall_harv)
 ```
 
 ``` output
@@ -406,7 +406,7 @@ Now we can plot the data:
 
 ``` r
 ggplot() +
-  geom_sf(data = stoneWall_HARV, aes(color = factor(OBJECTID)), linewidth = 1.5) +
+  geom_sf(data = stonewall_harv, aes(color = factor(OBJECTID)), linewidth = 1.5) +
   labs(color = 'Wall ID') +
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Stonewalls") +
   coord_sf()
@@ -431,7 +431,7 @@ First we will check how many unique values our TYPE attribute has:
 
 
 ``` r
-unique(lines_HARV$TYPE)
+unique(lines_harv$TYPE)
 ```
 
 ``` output
@@ -451,7 +451,7 @@ We can tell `ggplot` to use these colors when we plot the data.
 
 ``` r
 ggplot() +
-  geom_sf(data = lines_HARV, aes(color = TYPE)) +
+  geom_sf(data = lines_harv, aes(color = TYPE)) +
   scale_color_manual(values = road_colors) +
   labs(color = 'Road Type') +
   ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads & Trails") +
@@ -483,7 +483,7 @@ We can use those line widths when we plot the data.
 
 ``` r
 ggplot() +
-  geom_sf(data = lines_HARV, aes(color = TYPE, linewidth = TYPE)) +
+  geom_sf(data = lines_harv, aes(color = TYPE, linewidth = TYPE)) +
   scale_color_manual(values = road_colors) +
   labs(color = 'Road Type') +
   scale_linewidth_manual(values = line_widths) +
@@ -523,7 +523,7 @@ what order the road types are in:
 
 
 ``` r
-unique(lines_HARV$TYPE)
+unique(lines_harv$TYPE)
 ```
 
 ``` output
@@ -543,7 +543,7 @@ Now we can create our plot.
 
 ``` r
 ggplot() +
-  geom_sf(data = lines_HARV, aes(linewidth = TYPE)) +
+  geom_sf(data = lines_harv, aes(linewidth = TYPE)) +
   scale_linewidth_manual(values = line_width) +
   ggtitle("NEON Harvard Forest Field Site",
           subtitle = "Roads & Trails - Line width varies") +
@@ -575,7 +575,7 @@ appearance of our legend by manually setting different parameters.
 
 ``` r
 ggplot() +
-  geom_sf(data = lines_HARV, aes(color = TYPE), linewidth = 1.5) +
+  geom_sf(data = lines_harv, aes(color = TYPE), linewidth = 1.5) +
   scale_color_manual(values = road_colors) +
   labs(color = 'Road Type') +
   ggtitle("NEON Harvard Forest Field Site",
@@ -597,7 +597,7 @@ parameters.
 
 ``` r
 ggplot() +
-  geom_sf(data = lines_HARV, aes(color = TYPE), linewidth = 1.5) +
+  geom_sf(data = lines_harv, aes(color = TYPE), linewidth = 1.5) +
   scale_color_manual(values = road_colors) +
   labs(color = 'Road Type') +
   theme(legend.text = element_text(size = 20),
@@ -617,7 +617,7 @@ ggplot() +
 new_colors <- c("springgreen", "blue", "magenta", "orange")
 
 ggplot() +
-  geom_sf(data = lines_HARV, aes(color = TYPE), linewidth = 1.5) +
+  geom_sf(data = lines_harv, aes(color = TYPE), linewidth = 1.5) +
   scale_color_manual(values = new_colors) +
   labs(color = 'Road Type') +
   theme(legend.text = element_text(size = 20),
@@ -661,7 +661,7 @@ You can also use colorblind-friendly palettes such as those in the
 Create a plot that emphasizes only roads where bicycles and horses are allowed.
 To emphasize this, make the lines where bicycles are not allowed THINNER than
 the roads where bicycles are allowed.
-NOTE: this attribute information is located in the `lines_HARV$BicyclesHo`
+NOTE: this attribute information is located in the `lines_harv$BicyclesHo`
 attribute.
 
 Be sure to add a title and legend to your map. You might consider a color
@@ -677,7 +677,7 @@ to the roads we need.
 
 
 ``` r
-lines_HARV %>%
+lines_harv %>%
   pull(BicyclesHo) %>%
   unique()
 ```
@@ -692,8 +692,8 @@ are allowed.
 
 
 ``` r
-lines_showHarv <-
-  lines_HARV %>%
+roads_bike_horse <-
+  lines_harv %>%
   filter(BicyclesHo == "Bicycles and Horses Allowed")
 ```
 
@@ -703,8 +703,8 @@ line width.
 
 ``` r
 ggplot() +
-  geom_sf(data = lines_HARV) +
-  geom_sf(data = lines_showHarv, aes(color = BicyclesHo), linewidth = 2) +
+  geom_sf(data = lines_harv) +
+  geom_sf(data = roads_bike_horse, aes(color = BicyclesHo), linewidth = 2) +
   scale_color_manual(values = "magenta") +
   ggtitle("NEON Harvard Forest Field Site",
           subtitle = "Roads Where Bikes and Horses Are Allowed") +
@@ -725,7 +725,7 @@ ggplot() +
 ## Challenge: Plot Polygon by Attribute
 
 1. Create a map of the state boundaries in the United States using the data
-  located in your downloaded data folder: `NEON-DS-Site-Layout-Files/US-Boundary-Layers\US-State-Boundaries-Census-2014`.
+  located in your downloaded data folder: `NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014`.
   Apply a line color to each state using its `region` value. Add a legend.
 
 :::::::::::::::  solution
@@ -737,7 +737,7 @@ column:
 
 
 ``` r
-state_boundary_US <-
+state_boundary_us <-
 st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp") %>%
 # NOTE: We need neither Z nor M coordinates!
 st_zm()
@@ -756,8 +756,8 @@ Geodetic CRS:  WGS 84
 ```
 
 ``` r
-state_boundary_US$region <- as.factor(state_boundary_US$region)
-levels(state_boundary_US$region)
+state_boundary_us$region <- as.factor(state_boundary_us$region)
+levels(state_boundary_us$region)
 ```
 
 ``` output
@@ -776,7 +776,7 @@ Now we can create our plot:
 
 ``` r
 ggplot() +
-  geom_sf(data = state_boundary_US, aes(color = region), linewidth = 1) +
+  geom_sf(data = state_boundary_us, aes(color = region), linewidth = 1) +
   scale_color_manual(values = colors) +
   ggtitle("Contiguous U.S. State Boundaries") +
   coord_sf()

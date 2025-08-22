@@ -60,8 +60,8 @@ including adding a custom legend. However, what if we want to create a more
 complex plot with many vector layers and unique symbols that need to be
 represented clearly in a legend?
 
-Now, let's create a plot that combines our tower location (`point_HARV`), site
-boundary (`aoi_boundary_HARV`) and roads (`lines_HARV`) spatial objects. We
+Now, let's create a plot that combines our tower location (`point_harv`), site
+boundary (`aoi_boundary_harv`) and roads (`lines_harv`) spatial objects. We
 will need to build a custom legend as well.
 
 To begin, we will create a plot with the site boundary as the first layer. Then
@@ -70,9 +70,9 @@ layer the tower location and road data on top using `+`.
 
 ``` r
 ggplot() +
-  geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey") +
-  geom_sf(data = lines_HARV, aes(color = TYPE), size = 1) +
-  geom_sf(data = point_HARV) +
+  geom_sf(data = aoi_boundary_harv, fill = "grey", color = "grey") +
+  geom_sf(data = lines_harv, aes(color = TYPE), size = 1) +
+  geom_sf(data = point_harv) +
   ggtitle("NEON Harvard Forest Field Site") +
   coord_sf()
 ```
@@ -89,10 +89,10 @@ an instruction to the `geom_sf` call - in this case, `show.legend = 'line'`.
 
 ``` r
 ggplot() +
-  geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey") +
-  geom_sf(data = lines_HARV, aes(color = TYPE),
+  geom_sf(data = aoi_boundary_harv, fill = "grey", color = "grey") +
+  geom_sf(data = lines_harv, aes(color = TYPE),
           show.legend = "line", size = 1) +
-  geom_sf(data = point_HARV, aes(fill = Sub_Type), color = "black") +
+  geom_sf(data = point_harv, aes(fill = Sub_Type), color = "black") +
   scale_color_manual(values = road_colors) +
   scale_fill_manual(values = "black") +
   ggtitle("NEON Harvard Forest Field Site") +
@@ -107,9 +107,9 @@ and `fill` palettes.
 
 ``` r
 ggplot() +
-  geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey") +
-  geom_sf(data = point_HARV, aes(fill = Sub_Type)) +
-  geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line",
+  geom_sf(data = aoi_boundary_harv, fill = "grey", color = "grey") +
+  geom_sf(data = point_harv, aes(fill = Sub_Type)) +
+  geom_sf(data = lines_harv, aes(color = TYPE), show.legend = "line",
           size = 1) +
   scale_color_manual(values = road_colors, name = "Line Type") +
   scale_fill_manual(values = "black", name = "Tower Location") +
@@ -136,9 +136,9 @@ type `?pch` into the R console.
 
 ``` r
 ggplot() +
-  geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey") +
-  geom_sf(data = point_HARV, aes(fill = Sub_Type), shape = 15) +
-  geom_sf(data = lines_HARV, aes(color = TYPE),
+  geom_sf(data = aoi_boundary_harv, fill = "grey", color = "grey") +
+  geom_sf(data = point_harv, aes(fill = Sub_Type), shape = 15) +
+  geom_sf(data = lines_harv, aes(color = TYPE),
           show.legend = "line", size = 1) +
   scale_color_manual(values = road_colors, name = "Line Type") +
   scale_fill_manual(values = "black", name = "Tower Location") +
@@ -155,7 +155,7 @@ ggplot() +
 1. Using the `NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp` ESRI `shapefile`,
   create a map of study plot locations, with each point colored by the soil
   type (`soilTypeOr`). How many different soil types are there at this
-  particular field site? Overlay this layer on top of the `lines_HARV` layer
+  particular field site? Overlay this layer on top of the `lines_harv` layer
   (the roads). Create a custom legend that applies line symbols to lines and
   point symbols to the points.
 
@@ -207,7 +207,7 @@ Finally, we will create our plot.
 
 ``` r
 ggplot() +
-  geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line") +
+  geom_sf(data = lines_harv, aes(color = TYPE), show.legend = "line") +
   geom_sf(data = plot_locations, aes(fill = soilTypeOr),
           shape = 21, show.legend = 'point') +
   scale_color_manual(name = "Line Type", values = road_colors,
@@ -228,7 +228,7 @@ values to the `scale_shape_manual()` argument.
 
 ``` r
 ggplot() +
-  geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line", size = 1) +
+  geom_sf(data = lines_harv, aes(color = TYPE), show.legend = "line", size = 1) +
   geom_sf(data = plot_locations, aes(fill = soilTypeOr, shape = soilTypeOr),
           show.legend = 'point', size = 3) +
   scale_shape_manual(name = "Soil Type", values = c(21, 22)) +
@@ -268,10 +268,10 @@ Be sure to give your plot a meaningful title.
 
 ``` r
 ggplot() +
-  geom_raster(data = CHM_HARV_df, aes(x = x, y = y, fill = HARV_chmCrop)) +
-  geom_sf(data = lines_HARV, color = "black") +
-  geom_sf(data = aoi_boundary_HARV, color = "grey20", size = 1) +
-  geom_sf(data = point_HARV, pch = 8) +
+  geom_raster(data = chm_harv_df, aes(x = x, y = y, fill = HARV_chmCrop)) +
+  geom_sf(data = lines_harv, color = "black") +
+  geom_sf(data = aoi_boundary_harv, color = "grey20", size = 1) +
+  geom_sf(data = point_harv, pch = 8) +
   ggtitle("NEON Harvard Forest Field Site w/ Canopy Height Model") +
   coord_sf()
 ```

@@ -54,7 +54,7 @@ instead all bands.
 
 
 ``` r
-RGB_band1_HARV <- 
+rgb_b_1_harv <- 
   rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif", 
        lyrs = 1)
 ```
@@ -63,13 +63,13 @@ We need to convert this data to a data frame in order to plot it with `ggplot`.
 
 
 ``` r
-RGB_band1_HARV_df  <- as.data.frame(RGB_band1_HARV, xy = TRUE)
+rgb_b_1_harv_df  <- as.data.frame(rgb_b_1_harv, xy = TRUE)
 ```
 
 
 ``` r
 ggplot() +
-  geom_raster(data = RGB_band1_HARV_df,
+  geom_raster(data = rgb_b_1_harv_df,
               aes(x = x, y = y, alpha = HARV_RGB_Ortho_1)) + 
   coord_quickmap()
 ```
@@ -91,7 +91,7 @@ and max values, and band number?
 
 
 ``` r
-RGB_band1_HARV
+rgb_b_1_harv
 ```
 
 ``` output
@@ -122,7 +122,7 @@ This is R telling us that we read only one its bands.
 ## Data Tip
 
 The number of bands associated with a raster's file can also be determined 
-using the `describe()` function: syntax is `describe(sources(RGB_band1_HARV))`.
+using the `describe()` function: syntax is `describe(sources(rgb_b_1_harv))`.
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -150,7 +150,7 @@ To bring in all bands of a multi-band raster, we use the`rast()` function.
 
 
 ``` r
-RGB_stack_HARV <- 
+rgb_stack_harv <- 
   rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 ```
 
@@ -158,7 +158,7 @@ Let's preview the attributes of our stack object:
 
 
 ``` r
-RGB_stack_HARV
+rgb_stack_harv
 ```
 
 ``` output
@@ -179,7 +179,7 @@ view attributes for using an index value:
 
 
 ``` r
-RGB_stack_HARV[[2]]
+rgb_stack_harv[[2]]
 ```
 
 ``` output
@@ -199,14 +199,14 @@ raster object. Remember, we need to convert to a data frame first.
 
 
 ``` r
-RGB_stack_HARV_df  <- as.data.frame(RGB_stack_HARV, xy = TRUE)
+rgb_stack_harv_df  <- as.data.frame(rgb_stack_harv, xy = TRUE)
 ```
 
 Each band in our RasterStack gets its own column in the data frame. Thus we have:
 
 
 ``` r
-str(RGB_stack_HARV_df)
+str(rgb_stack_harv_df)
 ```
 
 ``` output
@@ -223,7 +223,7 @@ Let's create a histogram of the first band:
 
 ``` r
 ggplot() +
-  geom_histogram(data = RGB_stack_HARV_df, aes(HARV_RGB_Ortho_1))
+  geom_histogram(data = rgb_stack_harv_df, aes(HARV_RGB_Ortho_1))
 ```
 
 ``` output
@@ -237,7 +237,7 @@ And a raster plot of the second band:
 
 ``` r
 ggplot() +
-  geom_raster(data = RGB_stack_HARV_df,
+  geom_raster(data = rgb_stack_harv_df,
               aes(x = x, y = y, alpha = HARV_RGB_Ortho_2)) + 
   coord_quickmap()
 ```
@@ -265,7 +265,7 @@ function isn't part of the `ggplot2` package).
 
 
 ``` r
-plotRGB(RGB_stack_HARV,
+plotRGB(rgb_stack_harv,
         r = 1, g = 2, b = 3)
 ```
 
@@ -289,7 +289,7 @@ range of potential values to increase the visual contrast of the image.
 
 
 ``` r
-plotRGB(RGB_stack_HARV,
+plotRGB(rgb_stack_harv,
         r = 1, g = 2, b = 3,
         stretch = "lin")
 ```
@@ -298,7 +298,7 @@ plotRGB(RGB_stack_HARV,
 
 
 ``` r
-plotRGB(RGB_stack_HARV,
+plotRGB(rgb_stack_harv,
         r = 1, g = 2, b = 3,
         stretch = "hist")
 ```
@@ -325,7 +325,7 @@ objects and using the `plotRGB()` function. We will use the
 5. Plot the object as a true color image.
 6. What happened to the black edges in the data?
 7. What does this tell us about the difference in the data structure between
-  `HARV_Ortho_wNA.tif` and `HARV_RGB_Ortho.tif` (R object `RGB_stack`). How can 
+  `HARV_Ortho_wNA.tif` and `HARV_RGB_Ortho.tif` (R object `rgb_stack`). How can 
   you check?
 
 :::::::::::::::  solution
@@ -434,7 +434,7 @@ assigned the value of -9999.
 
 
 ``` r
-HARV_NA <- 
+harv_na <- 
   rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif")
 ```
 
@@ -442,7 +442,7 @@ HARV_NA <-
 
 
 ``` r
-plotRGB(HARV_NA,
+plotRGB(harv_na,
         r = 1, g = 2, b = 3)
 ```
 
@@ -586,8 +586,8 @@ We can build a SpatRasterDataset using a SpatRaster or a list of SpatRaster:
 
 
 ``` r
-RGB_sds_HARV <- sds(RGB_stack_HARV)
-RGB_sds_HARV <- sds(list(RGB_stack_HARV, RGB_stack_HARV))
+rgb_sds_harv <- sds(rgb_stack_harv)
+rgb_sds_harv <- sds(list(rgb_stack_harv, rgb_stack_harv))
 ```
 
 We can retrieve the SpatRaster objects from a SpatRasterDataset using 
@@ -595,7 +595,7 @@ subsetting:
 
 
 ``` r
-RGB_sds_HARV[[1]]
+rgb_sds_harv[[1]]
 ```
 
 ``` output
@@ -611,7 +611,7 @@ max values  :              255,              255,              255
 ```
 
 ``` r
-RGB_sds_HARV[[2]]
+rgb_sds_harv[[2]]
 ```
 
 ``` output
@@ -634,8 +634,8 @@ max values  :              255,              255,              255
 We can view various functions (or methods) available to use on an R object with
 `methods(class=class(objectNameHere))`. Use this to figure out:
 
-1. What methods can be used on the `RGB_stack_HARV` object?
-2. What methods can be used on a single band within `RGB_stack_HARV`?
+1. What methods can be used on the `rgb_stack_harv` object?
+2. What methods can be used on a single band within `rgb_stack_harv`?
 3. Why do you think there isn't a difference?
 
 :::::::::::::::  solution
@@ -647,7 +647,7 @@ We can view various functions (or methods) available to use on an R object with
 
 
 ``` r
-methods(class=class(RGB_stack_HARV))
+methods(class=class(rgb_stack_harv))
 ```
 
 ``` output
@@ -770,7 +770,7 @@ see '?methods' for accessing help and source code
 
 
 ``` r
-methods(class=class(RGB_stack_HARV[[1]]))
+methods(class=class(rgb_stack_harv[[1]]))
 ```
 
 ``` output
