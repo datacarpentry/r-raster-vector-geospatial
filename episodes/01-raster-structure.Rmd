@@ -92,13 +92,13 @@ describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 If you wish to store this information in R, you can do the following:
 
 ```{r}
-HARV_dsmCrop_info <- capture.output(
+harv_metadata <- capture.output(
   describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 )
 ```
 
 Each line of text that was printed to the console is now stored as an element of
-the character vector `HARV_dsmCrop_info`. We will be exploring this data throughout this
+the character vector `harv_metadata`. We will be exploring this data throughout this
 episode. By the end of this episode, you will be able to explain and understand the output above.
 
 ## Open a Raster in R
@@ -122,10 +122,10 @@ we'll use a naming convention of `datatype_HARV`.
 First we will load our raster file into R and view the data structure.
 
 ```{r}
-DSM_HARV <-
+dsm_harv <-
   rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
-DSM_HARV
+dsm_harv
 ```
 
 The information above includes a report of min and max values, but no other data
@@ -133,7 +133,7 @@ range statistics. Similar to other R data structures like vectors and data frame
 columns, descriptive statistics for raster data can be retrieved like
 
 ```{r}
-summary(DSM_HARV)
+summary(dsm_harv)
 ```
 
 but note the warning - unless you force R to calculate these statistics using
@@ -142,7 +142,7 @@ calculate from that instead. To force calculation all the values, you can use
 the function `values`:
 
 ```{r}
-summary(values(DSM_HARV))
+summary(values(dsm_harv))
 ```
 
 To visualise this data in R using `ggplot2`, we need to convert it to a
@@ -151,14 +151,14 @@ lesson](https://datacarpentry.org/r-intro-geospatial/04-data-structures-part2).
 The `terra` package has an built-in function for conversion to a plotable dataframe.
 
 ```{r}
-DSM_HARV_df <- as.data.frame(DSM_HARV, xy = TRUE)
+dsm_harv_df <- as.data.frame(dsm_harv, xy = TRUE)
 ```
 
 Now when we view the structure of our data, we will see a standard
 dataframe format.
 
 ```{r}
-str(DSM_HARV_df)
+str(dsm_harv_df)
 ```
 
 We can use `ggplot()` to plot this data. We will set the color scale to 
@@ -171,7 +171,7 @@ ggplot2 if needed, you can learn about them at their help page `?coord_map`.
 ```{r ggplot-raster, fig.cap="Raster plot with ggplot2 using the viridis color scale"}
 
 ggplot() +
-    geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = HARV_dsmCrop)) +
+    geom_raster(data = dsm_harv_df , aes(x = x, y = y, fill = HARV_dsmCrop)) +
     scale_fill_viridis_c() +
     coord_quickmap()
 ```
@@ -200,7 +200,7 @@ For faster, simpler plots, you can use the `plot` function from the `terra` pack
 See `?plot` for more arguments to customize the plot
 
 ```{r, eval=TRUE}
-plot(DSM_HARV)
+plot(dsm_harv)
 ```
 
 :::::::::::::::::
@@ -231,7 +231,7 @@ We can view the CRS string associated with our R object using the`crs()`
 function.
 
 ```{r view-resolution-units}
-crs(DSM_HARV, proj = TRUE)
+crs(dsm_harv, proj = TRUE)
 ```
 
 :::::::::::::::::::::::::::::::::::::::  challenge
@@ -261,7 +261,7 @@ and datum (`datum=`).
 
 ### UTM Proj4 String
 
-A projection string (like the one of `DSM_HARV`) specifies the UTM projection 
+A projection string (like the one of `dsm_harv`) specifies the UTM projection 
 as follows:
 
 `+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0`
@@ -290,11 +290,11 @@ Raster statistics are often calculated and embedded in a GeoTIFF for us. We
 can view these values:
 
 ```{r view-min-max}
-minmax(DSM_HARV)
+minmax(dsm_harv)
 
-min(values(DSM_HARV))
+min(values(dsm_harv))
 
-max(values(DSM_HARV))
+max(values(dsm_harv))
 ```
 
 :::::::::::::::::::::::::::::::::::::::::  callout
@@ -306,17 +306,17 @@ calculated, we can calculate them using the
 `setMinMax()` function.
 
 ```{r, eval=FALSE}
-DSM_HARV <- setMinMax(DSM_HARV)
+dsm_harv <- setMinMax(dsm_harv)
 ```
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-We can see that the elevation at our site ranges from `r min(terra::values(DSM_HARV))`m to
-`r max(terra::values(DSM_HARV))`m.
+We can see that the elevation at our site ranges from `r min(terra::values(dsm_harv))`m to
+`r max(terra::values(dsm_harv))`m.
 
 ## Raster Bands
 
-The Digital Surface Model object (`DSM_HARV`) that we've been working with is a
+The Digital Surface Model object (`dsm_harv`) that we've been working with is a
 single band raster. This means that there is only one dataset stored in the
 raster: surface elevation in meters for one time period.
 
@@ -327,7 +327,7 @@ function to import one single band from a single or multi-band raster. We can
 view the number of bands in a raster using the `nlyr()` function.
 
 ```{r view-raster-bands}
-nlyr(DSM_HARV)
+nlyr(dsm_harv)
 ```
 
 However, raster data can also be multi-band, meaning that one raster file contains data for more than one variable or time period for each cell.
@@ -347,15 +347,15 @@ airplane which only flew over some part of a defined region.
 In the image below, the pixels that are black have `NoDataValue`s. The camera
 did not collect data in these areas.
 
-```{r demonstrate-no-data-black-ggplot, echo=FALSE}
+```{r demonstrate-no-data-black-ggplot, echo=FALSE, message=FALSE, warning=FALSE}
 # no data demonstration code - not being taught
 # Use stack function to read in all bands
-RGB_stack <-
+rgb_stack <-
   rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
 # aggregate cells from 0.25m to 2m for plotting to speed up the lesson and
 # save memory
-RGB_2m <- raster::aggregate(RGB_stack, fact = 8, fun = median)
+RGB_2m <- raster::aggregate(rgb_stack, fact = 8, fun = median)
 # fix data values back to integer datatype
 values(RGB_2m) <- as.integer(round(values(RGB_2m)))
 
@@ -424,7 +424,7 @@ ggplot() +
   coord_quickmap()
 
 # memory saving
-rm(RGB_2m, RGB_stack, RGB_2m_df_nd, RGB_2m_df, RGB_2m_nas)
+rm(RGB_2m, rgb_stack, RGB_2m_df_nd, RGB_2m_df, RGB_2m_nas)
 ```
 
 The value that is conventionally used to take note of missing data (the
@@ -451,14 +451,14 @@ of `NA` will be ignored by R as demonstrated above.
 ## Challenge
 
 Use the output from the `describe()` and `sources()` functions to find out what 
-`NoDataValue` is used for our `DSM_HARV` dataset.
+`NoDataValue` is used for our `dsm_harv` dataset.
 
 :::::::::::::::  solution
 
 ## Answers
 
 ```{r}
-describe(sources(DSM_HARV))
+describe(sources(dsm_harv))
 ```
 
 `NoDataValue` are encoded as -9999.
@@ -495,25 +495,25 @@ elevation values over 400m with a contrasting colour.
 
 ```{r demo-bad-data-highlighting, echo=FALSE, message=FALSE, warning=FALSE}
 # reclassify raster to ok/not ok
-DSM_highvals <- classify(DSM_HARV, 
+dsm_high <- classify(dsm_harv, 
                          rcl = matrix(c(0, 400, NA_integer_, 400, 420, 1L), 
                                       ncol = 3, byrow = TRUE), 
                          include.lowest = TRUE)
-DSM_highvals <- as.data.frame(DSM_highvals, xy = TRUE)
+dsm_high <- as.data.frame(dsm_high, xy = TRUE)
 
-DSM_highvals <- DSM_highvals[!is.na(DSM_highvals$HARV_dsmCrop), ]
+dsm_high <- dsm_high[!is.na(dsm_high$HARV_dsmCrop), ]
 
 ggplot() +
-  geom_raster(data = DSM_HARV_df, aes(x = x, y = y, fill = HARV_dsmCrop)) +
+  geom_raster(data = dsm_harv_df, aes(x = x, y = y, fill = HARV_dsmCrop)) +
   scale_fill_viridis_c() +
   # use reclassified raster data as an annotation
-  annotate(geom = 'raster', x = DSM_highvals$x, y = DSM_highvals$y, 
-           fill = scales::colour_ramp('deeppink')(DSM_highvals$HARV_dsmCrop)) +
+  annotate(geom = 'raster', x = dsm_high$x, y = dsm_high$y, 
+           fill = scales::colour_ramp('deeppink')(dsm_high$HARV_dsmCrop)) +
   ggtitle("Elevation Data", subtitle = "Highlighting values > 400m") +
   coord_quickmap()
 
 # memory saving
-rm(DSM_highvals)
+rm(dsm_high)
 ```
 
 ## Create A Histogram of Raster Values
@@ -525,7 +525,7 @@ useful in identifying outliers and bad data values in our raster data.
 ```{r view-raster-histogram}
 
 ggplot() +
-    geom_histogram(data = DSM_HARV_df, aes(HARV_dsmCrop))
+    geom_histogram(data = dsm_harv_df, aes(HARV_dsmCrop))
 
 ```
 
@@ -539,7 +539,7 @@ by using the `bins` value in the `geom_histogram()` function.
 
 ```{r view-raster-histogram2}
 ggplot() +
-    geom_histogram(data = DSM_HARV_df, aes(HARV_dsmCrop), bins = 40)
+    geom_histogram(data = dsm_harv_df, aes(HARV_dsmCrop), bins = 40)
 
 ```
 
@@ -554,7 +554,7 @@ no bad data values in this particular raster.
 
 Use `describe()` to determine the following about the `NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif` file:
 
-1. Does this file have the same CRS as `DSM_HARV`?
+1. Does this file have the same CRS as `dsm_harv`?
 2. What is the `NoDataValue`?
 3. What is resolution of the raster data?
 4. How large would a 5x5 pixel area be on the Earth's surface?
@@ -571,7 +571,7 @@ describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 ```
 
 
-1. If this file has the same CRS as DSM_HARV?  Yes: UTM Zone 18, WGS84, meters.
+1. If this file has the same CRS as dsm_harv?  Yes: UTM Zone 18, WGS84, meters.
 2. What format `NoDataValues` take?  -9999
 3. The resolution of the raster data? 1x1
 4. How large a 5x5 pixel area would be? 5mx5m How? We are given resolution of 1x1 and units in meters, therefore resolution of 5x5 means 5x5m.
