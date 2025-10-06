@@ -395,7 +395,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Derive Values from Raster Time Series</h1>
-        <p>Last updated on 2025-09-26 |
+        <p>Last updated on 2025-10-06 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/14-extract-ndvi-from-rasters-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -469,8 +469,8 @@ name of raster stack it was derived from.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">avg_NDVI_HARV</span> <span class="op">&lt;-</span> <span class="fu">global</span><span class="op">(</span><span class="va">NDVI_HARV_stack</span>, <span class="va">mean</span><span class="op">)</span></span>
-<span><span class="va">avg_NDVI_HARV</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">avg_ndvi_harv</span> <span class="op">&lt;-</span> <span class="fu">global</span><span class="op">(</span><span class="va">ndvi_harv_stack</span>, <span class="va">mean</span><span class="op">)</span></span>
+<span><span class="va">avg_ndvi_harv</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -498,7 +498,7 @@ structure is what we expect.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">avg_NDVI_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">avg_ndvi_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -520,8 +520,8 @@ colleagues to work with our code.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">names</span><span class="op">(</span><span class="va">avg_NDVI_HARV</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"meanNDVI"</span></span>
-<span><span class="fu">head</span><span class="op">(</span><span class="va">avg_NDVI_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">names</span><span class="op">(</span><span class="va">avg_ndvi_harv</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"meanNDVI"</span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">avg_ndvi_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -542,7 +542,7 @@ dataframe called “site”.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">avg_NDVI_HARV</span><span class="op">$</span><span class="va">site</span> <span class="op">&lt;-</span> <span class="st">"HARV"</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">avg_ndvi_harv</span><span class="op">$</span><span class="va">site</span> <span class="op">&lt;-</span> <span class="st">"HARV"</span></span></code></pre>
 </div>
 <p>We can populate this column with the site name - HARV. Let’s also
 create a year column and populate it with 2011 - the year our data were
@@ -551,8 +551,8 @@ collected.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">avg_NDVI_HARV</span><span class="op">$</span><span class="va">year</span> <span class="op">&lt;-</span> <span class="st">"2011"</span></span>
-<span><span class="fu">head</span><span class="op">(</span><span class="va">avg_NDVI_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">avg_ndvi_harv</span><span class="op">$</span><span class="va">year</span> <span class="op">&lt;-</span> <span class="st">"2011"</span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">avg_ndvi_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -586,8 +586,8 @@ allows us to search for more than one pattern in our text strings.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">julianDays</span> <span class="op">&lt;-</span> <span class="fu">gsub</span><span class="op">(</span><span class="st">"X|_HARV_ndvi_crop"</span>, <span class="st">""</span>, <span class="fu">row.names</span><span class="op">(</span><span class="va">avg_NDVI_HARV</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">julianDays</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">julian_days</span> <span class="op">&lt;-</span> <span class="fu">gsub</span><span class="op">(</span><span class="st">"X|_HARV_ndvi_crop"</span>, <span class="st">""</span>, <span class="fu">row.names</span><span class="op">(</span><span class="va">avg_ndvi_harv</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">julian_days</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -601,14 +601,14 @@ add that data to the data frame as a column called “julianDay”.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">avg_NDVI_HARV</span><span class="op">$</span><span class="va">julianDay</span> <span class="op">&lt;-</span> <span class="va">julianDays</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">avg_ndvi_harv</span><span class="op">$</span><span class="va">julianDay</span> <span class="op">&lt;-</span> <span class="va">julian_days</span></span></code></pre>
 </div>
 <p>Let’s check the class of this new column:</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">class</span><span class="op">(</span><span class="va">avg_NDVI_HARV</span><span class="op">$</span><span class="va">julianDay</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">class</span><span class="op">(</span><span class="va">avg_ndvi_harv</span><span class="op">$</span><span class="va">julianDay</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -641,7 +641,7 @@ integer.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">avg_NDVI_HARV</span><span class="op">$</span><span class="va">julianDay</span> <span class="op">&lt;-</span> <span class="fu">as.integer</span><span class="op">(</span><span class="va">avg_NDVI_HARV</span><span class="op">$</span><span class="va">julianDay</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">avg_ndvi_harv</span><span class="op">$</span><span class="va">julianDay</span> <span class="op">&lt;-</span> <span class="fu">as.integer</span><span class="op">(</span><span class="va">avg_ndvi_harv</span><span class="op">$</span><span class="va">julianDay</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Once we set the Julian day origin, we can add the Julian day value
 (as an integer) to the origin date.</p>
@@ -657,8 +657,8 @@ then subtract 1 to get the correct day, January 05 2011.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">avg_NDVI_HARV</span><span class="op">$</span><span class="va">Date</span><span class="op">&lt;-</span> <span class="va">origin</span> <span class="op">+</span> <span class="op">(</span><span class="va">avg_NDVI_HARV</span><span class="op">$</span><span class="va">julianDay</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="fu">head</span><span class="op">(</span><span class="va">avg_NDVI_HARV</span><span class="op">$</span><span class="va">Date</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">avg_ndvi_harv</span><span class="op">$</span><span class="va">Date</span><span class="op">&lt;-</span> <span class="va">origin</span> <span class="op">+</span> <span class="op">(</span><span class="va">avg_ndvi_harv</span><span class="op">$</span><span class="va">julianDay</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">avg_ndvi_harv</span><span class="op">$</span><span class="va">Date</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -673,7 +673,7 @@ new <code>Date</code> column is also stored as class
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">class</span><span class="op">(</span><span class="va">avg_NDVI_HARV</span><span class="op">$</span><span class="va">Date</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">class</span><span class="op">(</span><span class="va">avg_ndvi_harv</span><span class="op">$</span><span class="va">Date</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -715,16 +715,16 @@ directory.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">NDVI_path_SJER</span> <span class="op">&lt;-</span> <span class="st">"data/NEON-DS-Landsat-NDVI/SJER/2011/NDVI"</span></span>
+<code class="sourceCode R"><span><span class="va">ndvi_path_sjer</span> <span class="op">&lt;-</span> <span class="st">"data/NEON-DS-Landsat-NDVI/SJER/2011/NDVI"</span></span>
 <span></span>
-<span><span class="va">all_NDVI_SJER</span> <span class="op">&lt;-</span> <span class="fu">list.files</span><span class="op">(</span><span class="va">NDVI_path_SJER</span>,</span>
+<span><span class="va">all_ndvi_sjer</span> <span class="op">&lt;-</span> <span class="fu">list.files</span><span class="op">(</span><span class="va">ndvi_path_sjer</span>,</span>
 <span>                            full.names <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                            pattern <span class="op">=</span> <span class="st">".tif$"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">NDVI_stack_SJER</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="va">all_NDVI_SJER</span><span class="op">)</span></span>
-<span><span class="fu">names</span><span class="op">(</span><span class="va">NDVI_stack_SJER</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">paste0</span><span class="op">(</span><span class="st">"X"</span>, <span class="fu">names</span><span class="op">(</span><span class="va">NDVI_stack_SJER</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ndvi_stack_sjer</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="va">all_ndvi_sjer</span><span class="op">)</span></span>
+<span><span class="fu">names</span><span class="op">(</span><span class="va">ndvi_stack_sjer</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">paste0</span><span class="op">(</span><span class="st">"X"</span>, <span class="fu">names</span><span class="op">(</span><span class="va">ndvi_stack_sjer</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">NDVI_stack_SJER</span> <span class="op">&lt;-</span> <span class="va">NDVI_stack_SJER</span><span class="op">/</span><span class="fl">10000</span></span></code></pre>
+<span><span class="va">ndvi_stack_sjer</span> <span class="op">&lt;-</span> <span class="va">ndvi_stack_sjer</span><span class="op">/</span><span class="fl">10000</span></span></code></pre>
 </div>
 <p>Then we can calculate the mean values for each day and put that in a
 dataframe.</p>
@@ -732,7 +732,7 @@ dataframe.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">avg_NDVI_SJER</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="fu">global</span><span class="op">(</span><span class="va">NDVI_stack_SJER</span>, <span class="va">mean</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">avg_ndvi_sjer</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="fu">global</span><span class="op">(</span><span class="va">ndvi_stack_sjer</span>, <span class="va">mean</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Next we rename the NDVI column, and add site and year columns to our
 data.</p>
@@ -740,22 +740,22 @@ data.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">names</span><span class="op">(</span><span class="va">avg_NDVI_SJER</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"meanNDVI"</span></span>
-<span><span class="va">avg_NDVI_SJER</span><span class="op">$</span><span class="va">site</span> <span class="op">&lt;-</span> <span class="st">"SJER"</span></span>
-<span><span class="va">avg_NDVI_SJER</span><span class="op">$</span><span class="va">year</span> <span class="op">&lt;-</span> <span class="st">"2011"</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">names</span><span class="op">(</span><span class="va">avg_ndvi_sjer</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"meanNDVI"</span></span>
+<span><span class="va">avg_ndvi_sjer</span><span class="op">$</span><span class="va">site</span> <span class="op">&lt;-</span> <span class="st">"SJER"</span></span>
+<span><span class="va">avg_ndvi_sjer</span><span class="op">$</span><span class="va">year</span> <span class="op">&lt;-</span> <span class="st">"2011"</span></span></code></pre>
 </div>
 <p>Now we will create our Julian day column</p>
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">julianDays_SJER</span> <span class="op">&lt;-</span> <span class="fu">gsub</span><span class="op">(</span><span class="st">"X|_SJER_ndvi_crop"</span>, <span class="st">""</span>, <span class="fu">row.names</span><span class="op">(</span><span class="va">avg_NDVI_SJER</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">julian_days_sjer</span> <span class="op">&lt;-</span> <span class="fu">gsub</span><span class="op">(</span><span class="st">"X|_SJER_ndvi_crop"</span>, <span class="st">""</span>, <span class="fu">row.names</span><span class="op">(</span><span class="va">avg_ndvi_sjer</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">origin</span> <span class="op">&lt;-</span> <span class="fu">as.Date</span><span class="op">(</span><span class="st">"2011-01-01"</span><span class="op">)</span></span>
-<span><span class="va">avg_NDVI_SJER</span><span class="op">$</span><span class="va">julianDay</span> <span class="op">&lt;-</span> <span class="fu">as.integer</span><span class="op">(</span><span class="va">julianDays_SJER</span><span class="op">)</span></span>
+<span><span class="va">avg_ndvi_sjer</span><span class="op">$</span><span class="va">julianDay</span> <span class="op">&lt;-</span> <span class="fu">as.integer</span><span class="op">(</span><span class="va">julian_days_sjer</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">avg_NDVI_SJER</span><span class="op">$</span><span class="va">Date</span> <span class="op">&lt;-</span> <span class="va">origin</span> <span class="op">+</span> <span class="op">(</span><span class="va">avg_NDVI_SJER</span><span class="op">$</span><span class="va">julianDay</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">avg_ndvi_sjer</span><span class="op">$</span><span class="va">Date</span> <span class="op">&lt;-</span> <span class="va">origin</span> <span class="op">+</span> <span class="op">(</span><span class="va">avg_ndvi_sjer</span><span class="op">$</span><span class="va">julianDay</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">head</span><span class="op">(</span><span class="va">avg_NDVI_SJER</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">avg_ndvi_sjer</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -779,7 +779,7 @@ days. Let’s plot our data.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">avg_NDVI_HARV</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">julianDay</span>, <span class="va">meanNDVI</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">avg_ndvi_harv</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">julianDay</span>, <span class="va">meanNDVI</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Landsat Derived NDVI - 2011"</span>, </span>
 <span>          subtitle <span class="op">=</span> <span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -812,7 +812,7 @@ in a different color.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">avg_NDVI_SJER</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">julianDay</span>, <span class="va">meanNDVI</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">avg_ndvi_sjer</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">julianDay</span>, <span class="va">meanNDVI</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"SpringGreen4"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Landsat Derived NDVI - 2011"</span>, subtitle <span class="op">=</span> <span class="st">"NEON SJER Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Julian Day"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">"Mean NDVI"</span><span class="op">)</span></span></code></pre>
@@ -831,14 +831,14 @@ to be merged.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">NDVI_HARV_SJER</span> <span class="op">&lt;-</span> <span class="fu">rbind</span><span class="op">(</span><span class="va">avg_NDVI_HARV</span>, <span class="va">avg_NDVI_SJER</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">ndvi_harv_sjer</span> <span class="op">&lt;-</span> <span class="fu">rbind</span><span class="op">(</span><span class="va">avg_ndvi_harv</span>, <span class="va">avg_ndvi_sjer</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Now we can plot both datasets on the same plot.</p>
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">NDVI_HARV_SJER</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">julianDay</span>, y <span class="op">=</span> <span class="va">meanNDVI</span>, colour <span class="op">=</span> <span class="va">site</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">ndvi_harv_sjer</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">julianDay</span>, y <span class="op">=</span> <span class="va">meanNDVI</span>, colour <span class="op">=</span> <span class="va">site</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>group <span class="op">=</span> <span class="va">site</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>group <span class="op">=</span> <span class="va">site</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Landsat Derived NDVI - 2011"</span>, </span>
@@ -871,7 +871,7 @@ Julian day, on the x-axis.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">NDVI_HARV_SJER</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Date</span>, y <span class="op">=</span> <span class="va">meanNDVI</span>, colour <span class="op">=</span> <span class="va">site</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">ndvi_harv_sjer</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Date</span>, y <span class="op">=</span> <span class="va">meanNDVI</span>, colour <span class="op">=</span> <span class="va">site</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>group <span class="op">=</span> <span class="va">site</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>group <span class="op">=</span> <span class="va">site</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Landsat Derived NDVI - 2011"</span>, </span>
@@ -924,8 +924,8 @@ knowledge of the data and the desired outcomes!</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">avg_NDVI_HARV_clean</span> <span class="op">&lt;-</span> <span class="fu">subset</span><span class="op">(</span><span class="va">avg_NDVI_HARV</span>, <span class="va">meanNDVI</span> <span class="op">&gt;</span> <span class="fl">0.1</span><span class="op">)</span></span>
-<span><span class="va">avg_NDVI_HARV_clean</span><span class="op">$</span><span class="va">meanNDVI</span> <span class="op">&lt;</span> <span class="fl">0.1</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">filtered_avg_ndvi_harv</span> <span class="op">&lt;-</span> <span class="fu">subset</span><span class="op">(</span><span class="va">avg_ndvi_harv</span>, <span class="va">meanNDVI</span> <span class="op">&gt;</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span><span class="va">filtered_avg_ndvi_harv</span><span class="op">$</span><span class="va">meanNDVI</span> <span class="op">&lt;</span> <span class="fl">0.1</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -937,7 +937,7 @@ knowledge of the data and the desired outcomes!</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">avg_NDVI_HARV_clean</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">julianDay</span>, y <span class="op">=</span> <span class="va">meanNDVI</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">filtered_avg_ndvi_harv</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">julianDay</span>, y <span class="op">=</span> <span class="va">meanNDVI</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Landsat Derived NDVI - 2011"</span>, </span>
 <span>          subtitle <span class="op">=</span> <span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -960,7 +960,7 @@ we want as an output format.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">avg_NDVI_HARV_clean</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">filtered_avg_ndvi_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -980,8 +980,8 @@ in our data frame. Let’s remove the row names.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">row.names</span><span class="op">(</span><span class="va">avg_NDVI_HARV_clean</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
-<span><span class="fu">head</span><span class="op">(</span><span class="va">avg_NDVI_HARV_clean</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">row.names</span><span class="op">(</span><span class="va">filtered_avg_ndvi_harv</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">filtered_avg_ndvi_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -998,7 +998,7 @@ in our data frame. Let’s remove the row names.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">write.csv</span><span class="op">(</span><span class="va">avg_NDVI_HARV_clean</span>, file<span class="op">=</span><span class="st">"meanNDVI_HARV_2011.csv"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">write.csv</span><span class="op">(</span><span class="va">filtered_avg_ndvi_harv</span>, file<span class="op">=</span><span class="st">"meanNDVI_HARV_2011.csv"</span><span class="op">)</span></span></code></pre>
 </div>
 <div id="challenge-write-to-.csv" class="callout challenge">
 <div class="callout-square">
@@ -1030,9 +1030,9 @@ sites.</li>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">avg_NDVI_SJER_clean</span> <span class="op">&lt;-</span> <span class="fu">subset</span><span class="op">(</span><span class="va">avg_NDVI_SJER</span>, <span class="va">meanNDVI</span> <span class="op">&gt;</span> <span class="fl">0.1</span><span class="op">)</span></span>
-<span><span class="fu">row.names</span><span class="op">(</span><span class="va">avg_NDVI_SJER_clean</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
-<span><span class="fu">head</span><span class="op">(</span><span class="va">avg_NDVI_SJER_clean</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">filtered_avg_ndvi_harv</span> <span class="op">&lt;-</span> <span class="fu">subset</span><span class="op">(</span><span class="va">avg_ndvi_sjer</span>, <span class="va">meanNDVI</span> <span class="op">&gt;</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span><span class="fu">row.names</span><span class="op">(</span><span class="va">filtered_avg_ndvi_harv</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">filtered_avg_ndvi_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1049,7 +1049,7 @@ sites.</li>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">write.csv</span><span class="op">(</span><span class="va">avg_NDVI_SJER_clean</span>, file <span class="op">=</span> <span class="st">"meanNDVI_SJER_2011.csv"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">write.csv</span><span class="op">(</span><span class="va">filtered_avg_ndvi_harv</span>, file <span class="op">=</span> <span class="st">"meanNDVI_SJER_2011.csv"</span><span class="op">)</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -1128,8 +1128,8 @@ have the same column names.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/14-extract-ndvi-from-rasters-in-r.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/14-extract-ndvi-from-rasters-in-r.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2025-09-26",
-  "datePublished": "2025-09-30"
+  "dateModified": "2025-10-06",
+  "datePublished": "2025-10-06"
 }
 
   </script><script>

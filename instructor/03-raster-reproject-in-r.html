@@ -390,7 +390,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Reproject Raster Data</h1>
-        <p>Last updated on 2025-09-26 |
+        <p>Last updated on 2025-10-06 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/03-raster-reproject-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -463,8 +463,8 @@ level.</p>
 <p>We’ll be looking at another model (the canopy height model) in <a href="https://datacarpentry.org/r-raster-vector-geospatial/04-raster-calculations-in-r" class="external-link">a
 later episode</a> and will see how to calculate the CHM from the DSM and
 DTM. Here, we will create a map of the Harvard Forest Digital Terrain
-Model (<code>DTM_HARV</code>) draped or layered on top of the hillshade
-(<code>DTM_hill_HARV</code>). The hillshade layer maps the terrain using
+Model (<code>dtm_harv</code>) draped or layered on top of the hillshade
+(<code>dtm_hill_harv</code>). The hillshade layer maps the terrain using
 light and shadow to create a 3D-looking image, based on a hypothetical
 illumination of the ground level.</p>
 <figure><img src="../fig/dc-spatial-raster/lidarTree-height.png" alt="Source: National Ecological Observatory Network (NEON)." class="figure mx-auto d-block"></figure><p>First, we need to import the DTM and DTM hillshade data.</p>
@@ -472,10 +472,10 @@ illumination of the ground level.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">DTM_HARV</span> <span class="op">&lt;-</span> </span>
+<code class="sourceCode R"><span><span class="va">dtm_harv</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">DTM_hill_HARV</span> <span class="op">&lt;-</span> </span>
+<span><span class="va">dtm_hill_harv</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Next, we will convert each of these datasets to a dataframe for
@@ -484,9 +484,9 @@ plotting with <code>ggplot</code>.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">DTM_HARV_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">DTM_HARV</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">dtm_harv_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">dtm_harv</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">DTM_hill_HARV_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">DTM_hill_HARV</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<span><span class="va">dtm_hill_harv_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">dtm_hill_harv</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Now we can create a map of the DTM layered over the hillshade.</p>
 <div class="codewrapper sourceCode" id="cb3">
@@ -494,25 +494,25 @@ plotting with <code>ggplot</code>.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>     <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DTM_HARV_df</span> , </span>
+<span>     <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dtm_harv_df</span> , </span>
 <span>                 <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, </span>
 <span>                  fill <span class="op">=</span> <span class="va">HARV_dtmCrop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>     <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DTM_hill_HARV_df</span>, </span>
+<span>     <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dtm_hill_harv_df</span>, </span>
 <span>                 <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, </span>
 <span>                   alpha <span class="op">=</span> <span class="va">HARV_DTMhill_WGS84</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>     <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>     <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="../fig/03-raster-reproject-in-r-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Our results are curious - neither the Digital Terrain Model
-(<code>DTM_HARV_df</code>) nor the DTM Hillshade
-(<code>DTM_hill_HARV_df</code>) plotted. Let’s try to plot the DTM on
+(<code>dtm_harv_df</code>) nor the DTM Hillshade
+(<code>dtm_hill_harv_df</code>) plotted. Let’s try to plot the DTM on
 its own to make sure there are data there.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span><span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DTM_HARV_df</span>,</span>
+<span><span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dtm_harv_df</span>,</span>
 <span>    <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>,</span>
 <span>    fill <span class="op">=</span> <span class="va">HARV_dtmCrop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span><span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -526,7 +526,7 @@ is OK.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span><span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DTM_hill_HARV_df</span>,</span>
+<span><span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dtm_hill_harv_df</span>,</span>
 <span>    <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>,</span>
 <span>    alpha <span class="op">=</span> <span class="va">HARV_DTMhill_WGS84</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
@@ -554,14 +554,14 @@ each use?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># view crs for DTM</span></span>
-<span><span class="fu">crs</span><span class="op">(</span><span class="va">DTM_HARV</span>, parse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">crs</span><span class="op">(</span><span class="va">dtm_harv</span>, parse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -610,7 +610,7 @@ each use?</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># view crs for hillshade</span></span>
-<span><span class="fu">crs</span><span class="op">(</span><span class="va">DTM_hill_HARV</span>, parse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">crs</span><span class="op">(</span><span class="va">dtm_hill_harv</span>, parse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -630,8 +630,8 @@ each use?</p>
 [13] "            ANGLEUNIT[\"degree\",0.0174532925199433]],"
 [14] "    ID[\"EPSG\",4326]]"                                </code></pre>
 </div>
-<p><code>DTM_HARV</code> is in the UTM projection, with units of meters.
-<code>DTM_hill_HARV</code> is in <code>Geographic WGS84</code> - which
+<p><code>dtm_harv</code> is in the UTM projection, with units of meters.
+<code>dtm_hill_harv</code> is in <code>Geographic WGS84</code> - which
 is represented by latitude and longitude values.</p>
 </div>
 </div>
@@ -639,14 +639,14 @@ is represented by latitude and longitude values.</p>
 </div>
 <p>Because the two rasters are in different CRSs, they don’t line up
 when plotted in R. We need to reproject (or change the projection of)
-<code>DTM_hill_HARV</code> into the UTM CRS. Alternatively, we could
-reproject <code>DTM_HARV</code> into WGS84.</p>
+<code>dtm_hill_harv</code> into the UTM CRS. Alternatively, we could
+reproject <code>dtm_harv</code> into WGS84.</p>
 </section><section><h2 class="section-heading" id="reproject-rasters">Reproject Rasters<a class="anchor" aria-label="anchor" href="#reproject-rasters"></a></h2>
 <hr class="half-width"><p>We can use the <code>project()</code> function to reproject a raster
 into a new CRS. Keep in mind that reprojection only works when you first
 have a defined CRS for the raster object that you want to reproject. It
 cannot be used if no CRS is defined. Lucky for us, the
-<code>DTM_hill_HARV</code> has a defined CRS.</p>
+<code>dtm_hill_harv</code> has a defined CRS.</p>
 <div id="data-tip" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -666,21 +666,21 @@ things:</p>
 <ol style="list-style-type: decimal"><li>the object we want to reproject and</li>
 <li>the CRS that we want to reproject it to.</li>
 </ol><p>The syntax is <code>project(RasterObject, crs)</code></p>
-<p>We want the CRS of our hillshade to match the <code>DTM_HARV</code>
-raster. We can thus assign the CRS of our <code>DTM_HARV</code> to our
+<p>We want the CRS of our hillshade to match the <code>dtm_harv</code>
+raster. We can thus assign the CRS of our <code>dtm_harv</code> to our
 hillshade within the <code>project()</code> function as follows:
-<code>crs(DTM_HARV)</code>. Note that we are using the
+<code>crs(dtm_harv)</code>. Note that we are using the
 <code>project()</code> function on the raster object, not the
 <code>data.frame()</code> we use for plotting with
 <code>ggplot</code>.</p>
-<p>First we will reproject our <code>DTM_hill_HARV</code> raster data to
-match the <code>DTM_HARV</code> raster CRS:</p>
+<p>First we will reproject our <code>dtm_hill_harv</code> raster data to
+match the <code>dtm_harv</code> raster CRS:</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">DTM_hill_UTMZ18N_HARV</span> <span class="op">&lt;-</span> <span class="fu">project</span><span class="op">(</span><span class="va">DTM_hill_HARV</span>,</span>
-<span>                                 <span class="fu">crs</span><span class="op">(</span><span class="va">DTM_HARV</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">dtm_hill_utm_harv</span> <span class="op">&lt;-</span> <span class="fu">project</span><span class="op">(</span><span class="va">dtm_hill_harv</span>,</span>
+<span>                                 <span class="fu">crs</span><span class="op">(</span><span class="va">dtm_harv</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Now we can compare the CRS of our original DTM hillshade and our new
 DTM hillshade, to see how they are different.</p>
@@ -688,7 +688,7 @@ DTM hillshade, to see how they are different.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">crs</span><span class="op">(</span><span class="va">DTM_hill_UTMZ18N_HARV</span>, parse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">crs</span><span class="op">(</span><span class="va">dtm_hill_utm_harv</span>, parse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -736,7 +736,7 @@ DTM hillshade, to see how they are different.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">crs</span><span class="op">(</span><span class="va">DTM_hill_HARV</span>, parse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">crs</span><span class="op">(</span><span class="va">dtm_hill_harv</span>, parse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -761,7 +761,7 @@ DTM hillshade, to see how they are different.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ext</span><span class="op">(</span><span class="va">DTM_hill_UTMZ18N_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">ext</span><span class="op">(</span><span class="va">dtm_hill_utm_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -772,7 +772,7 @@ DTM hillshade, to see how they are different.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ext</span><span class="op">(</span><span class="va">DTM_hill_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">ext</span><span class="op">(</span><span class="va">dtm_hill_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -780,9 +780,9 @@ DTM hillshade, to see how they are different.</p>
 <pre class="output" tabindex="0"><code>SpatExtent : -72.1819236223343, -72.1606102223342, 42.5294079700285, 42.5423355900285 (xmin, xmax, ymin, ymax)</code></pre>
 </div>
 <p>Notice in the output above that the <code>crs()</code> of
-<code>DTM_hill_UTMZ18N_HARV</code> is now UTM. However, the extent
-values of <code>DTM_hillUTMZ18N_HARV</code> are different from
-<code>DTM_hill_HARV</code>.</p>
+<code>dtm_hill_utm_harv</code> is now UTM. However, the extent values of
+<code>dtm_hill_utm_harv</code> are different from
+<code>dtm_hill_harv</code>.</p>
 <div id="challenge-extent-change-with-crs-change" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -800,11 +800,11 @@ values of <code>DTM_hillUTMZ18N_HARV</code> are different from
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Answers </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
-<p>The extent for DTM_hill_UTMZ18N_HARV is in UTMs so the extent is in
-meters. The extent for DTM_hill_HARV is in lat/long so the extent is
-expressed in decimal degrees.</p>
+<p>The extent for <code>dtm_hill_utm_harv</code> is in UTMs so the
+extent is in meters. The extent for <code>dtm_hill_harv</code> is in
+lat/long so the extent is expressed in decimal degrees.</p>
 </div>
 </div>
 </div>
@@ -816,7 +816,7 @@ versus our original data.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">res</span><span class="op">(</span><span class="va">DTM_hill_UTMZ18N_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">res</span><span class="op">(</span><span class="va">dtm_hill_utm_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -827,7 +827,7 @@ versus our original data.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">res</span><span class="op">(</span><span class="va">DTM_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">res</span><span class="op">(</span><span class="va">dtm_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -838,14 +838,14 @@ versus our original data.</p>
 same data. We can tell R to force our newly reprojected raster to be 1m
 x 1m resolution by adding a line of code <code>res=1</code> within the
 <code>project()</code> function. In the example below, we ensure a
-resolution match by using <code>res(DTM_HARV)</code> as a variable.</p>
+resolution match by using <code>res(dtm_harv)</code> as a variable.</p>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span>  <span class="va">DTM_hill_UTMZ18N_HARV</span> <span class="op">&lt;-</span> <span class="fu">project</span><span class="op">(</span><span class="va">DTM_hill_HARV</span>, </span>
-<span>                                   <span class="fu">crs</span><span class="op">(</span><span class="va">DTM_HARV</span><span class="op">)</span>, </span>
-<span>                                   res <span class="op">=</span> <span class="fu">res</span><span class="op">(</span><span class="va">DTM_HARV</span><span class="op">)</span><span class="op">)</span> </span></code></pre>
+<code class="sourceCode R"><span>  <span class="va">dtm_hill_utm_harv</span> <span class="op">&lt;-</span> <span class="fu">project</span><span class="op">(</span><span class="va">dtm_hill_harv</span>, </span>
+<span>                                   <span class="fu">crs</span><span class="op">(</span><span class="va">dtm_harv</span><span class="op">)</span>, </span>
+<span>                                   res <span class="op">=</span> <span class="fu">res</span><span class="op">(</span><span class="va">dtm_harv</span><span class="op">)</span><span class="op">)</span> </span></code></pre>
 </div>
 <p>Now both our resolutions and our CRSs match, so we can plot these two
 data sets together. Let’s double-check our resolution to be sure:</p>
@@ -853,7 +853,7 @@ data sets together. Let’s double-check our resolution to be sure:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">res</span><span class="op">(</span><span class="va">DTM_hill_UTMZ18N_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">res</span><span class="op">(</span><span class="va">dtm_hill_utm_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -864,7 +864,7 @@ data sets together. Let’s double-check our resolution to be sure:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">res</span><span class="op">(</span><span class="va">DTM_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">res</span><span class="op">(</span><span class="va">dtm_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -877,7 +877,7 @@ dataframe from our newly reprojected raster.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">DTM_hill_HARV_2_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">DTM_hill_UTMZ18N_HARV</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">dtm_hill_utm_harv_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">dtm_hill_utm_harv</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <p>We can now create a plot of this data.</p>
 <div class="codewrapper sourceCode" id="cb29">
@@ -885,10 +885,10 @@ dataframe from our newly reprojected raster.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>     <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DTM_HARV_df</span> , </span>
+<span>     <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dtm_harv_df</span> , </span>
 <span>                 <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, </span>
 <span>                  fill <span class="op">=</span> <span class="va">HARV_dtmCrop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>     <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DTM_hill_HARV_2_df</span>, </span>
+<span>     <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dtm_hill_utm_harv_df</span>, </span>
 <span>                 <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, </span>
 <span>                   alpha <span class="op">=</span> <span class="va">HARV_DTMhill_WGS84</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>     <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -918,35 +918,35 @@ files.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Answers </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import DSM</span></span>
-<span><span class="va">DSM_SJER</span> <span class="op">&lt;-</span> </span>
+<span><span class="va">dsm_sjer</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif"</span><span class="op">)</span></span>
 <span><span class="co"># import DSM hillshade</span></span>
-<span><span class="va">DSM_hill_SJER_WGS</span> <span class="op">&lt;-</span></span>
+<span><span class="va">dsm_hill_wgs_sjer</span> <span class="op">&lt;-</span></span>
 <span>    <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMhill_WGS84.tif"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># reproject raster</span></span>
-<span><span class="va">DSM_hill_UTMZ18N_SJER</span> <span class="op">&lt;-</span> <span class="fu">project</span><span class="op">(</span><span class="va">DSM_hill_SJER_WGS</span>,</span>
-<span>                                 <span class="fu">crs</span><span class="op">(</span><span class="va">DSM_SJER</span><span class="op">)</span>,</span>
+<span><span class="va">dsm_hill_utm_sjer</span> <span class="op">&lt;-</span> <span class="fu">project</span><span class="op">(</span><span class="va">dsm_hill_wgs_sjer</span>,</span>
+<span>                                 <span class="fu">crs</span><span class="op">(</span><span class="va">dsm_sjer</span><span class="op">)</span>,</span>
 <span>                                 res <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># convert to data.frames</span></span>
-<span><span class="va">DSM_SJER_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">DSM_SJER</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">dsm_sjer_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">dsm_sjer</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">DSM_hill_SJER_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">DSM_hill_UTMZ18N_SJER</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">dsm_hill_sjer_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">dsm_hill_utm_sjer</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>     <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_hill_SJER_df</span>, </span>
+<span>     <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dsm_hill_sjer_df</span>, </span>
 <span>                 <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, </span>
 <span>                   alpha <span class="op">=</span> <span class="va">SJER_DSMhill_WGS84</span><span class="op">)</span></span>
 <span>                 <span class="op">)</span> <span class="op">+</span></span>
-<span>     <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_SJER_df</span>, </span>
+<span>     <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dsm_sjer_df</span>, </span>
 <span>             <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, </span>
 <span>                  fill <span class="op">=</span> <span class="va">SJER_dsmCrop</span>,</span>
 <span>                  alpha<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span></span>
@@ -979,26 +979,12 @@ to that map?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Answers </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>The maps look identical. Which is what they should be as the only
 difference is this one was reprojected from WGS84 to UTM prior to
 plotting.</p>
 </div>
-</div>
-</div>
-</div>
-<div id="challenge-reproject-then-plot-a-digital-surface-model" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<span class="callout-header">Discussion</span>
-<div id="challenge-reproject-then-plot-a-digital-surface-model" class="callout-inner">
-<h3 class="callout-title">Challenge: Reproject, then Plot a Digital
-Surface Model<em> (continued)</em>
-</h3>
-<div class="callout-content">
-<p>main</p>
 </div>
 </div>
 </div>
@@ -1074,8 +1060,8 @@ CRSs.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/03-raster-reproject-in-r.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/03-raster-reproject-in-r.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2025-09-26",
-  "datePublished": "2025-09-30"
+  "dateModified": "2025-10-06",
+  "datePublished": "2025-10-06"
 }
 
   </script><script>

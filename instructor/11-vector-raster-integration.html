@@ -393,7 +393,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Manipulate Raster Data</h1>
-        <p>Last updated on 2025-09-26 |
+        <p>Last updated on 2025-10-06 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/11-vector-raster-integration.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -487,9 +487,9 @@ The boundaries of the AOI will be colored blue, and we use
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">CHM_HARV_df</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">HARV_chmCrop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">chm_harv_df</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">HARV_chmCrop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Canopy Height"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">aoi_boundary_HARV</span>, color <span class="op">=</span> <span class="st">"blue"</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">aoi_boundary_harv</span>, color <span class="op">=</span> <span class="st">"blue"</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="../fig/11-vector-raster-integration-rendered-crop-by-vector-extent-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Now that we have visualized the area of the CHM we want to subset, we
@@ -500,7 +500,7 @@ portion of the CHM data that falls within the boundaries of the AOI.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">CHM_HARV_Cropped</span> <span class="op">&lt;-</span> <span class="fu">crop</span><span class="op">(</span>x <span class="op">=</span> <span class="va">CHM_HARV</span>, y <span class="op">=</span> <span class="va">aoi_boundary_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">chm_crop_harv</span> <span class="op">&lt;-</span> <span class="fu">crop</span><span class="op">(</span>x <span class="op">=</span> <span class="va">chm_harv</span>, y <span class="op">=</span> <span class="va">aoi_boundary_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Now we can plot the cropped CHM data, along with a boundary box
 showing the full CHM extent. However, remember, since this is raster
@@ -514,28 +514,28 @@ that we can plot:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">CHM_HARV_Cropped_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">CHM_HARV_Cropped</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">chm_crop_harv_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">chm_crop_harv</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="fu">st_as_sfc</span><span class="op">(</span><span class="fu">st_bbox</span><span class="op">(</span><span class="va">CHM_HARV</span><span class="op">)</span><span class="op">)</span>, fill <span class="op">=</span> <span class="st">"green"</span>,</span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="fu">st_as_sfc</span><span class="op">(</span><span class="fu">st_bbox</span><span class="op">(</span><span class="va">chm_harv</span><span class="op">)</span><span class="op">)</span>, fill <span class="op">=</span> <span class="st">"green"</span>,</span>
 <span>          color <span class="op">=</span> <span class="st">"green"</span>, alpha <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">CHM_HARV_Cropped_df</span>,</span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">chm_crop_harv_df</span>,</span>
 <span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">HARV_chmCrop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Canopy Height"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="../fig/11-vector-raster-integration-rendered-show-cropped-area-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The plot above shows that the full CHM extent (plotted in green) is
 much larger than the resulting cropped raster. Our new cropped CHM now
-has the same extent as the <code>aoi_boundary_HARV</code> object that
+has the same extent as the <code>aoi_boundary_harv</code> object that
 was used as a crop extent (blue border below).</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">CHM_HARV_Cropped_df</span>,</span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">chm_crop_harv_df</span>,</span>
 <span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">HARV_chmCrop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">aoi_boundary_HARV</span>, color <span class="op">=</span> <span class="st">"blue"</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">aoi_boundary_harv</span>, color <span class="op">=</span> <span class="st">"blue"</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Canopy Height"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
@@ -545,7 +545,7 @@ site.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">st_bbox</span><span class="op">(</span><span class="va">CHM_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">st_bbox</span><span class="op">(</span><span class="va">chm_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -557,7 +557,7 @@ site.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">st_bbox</span><span class="op">(</span><span class="va">CHM_HARV_Cropped</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">st_bbox</span><span class="op">(</span><span class="va">chm_crop_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -569,7 +569,7 @@ site.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">st_bbox</span><span class="op">(</span><span class="va">aoi_boundary_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">st_bbox</span><span class="op">(</span><span class="va">aoi_boundary_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -581,7 +581,7 @@ site.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">st_bbox</span><span class="op">(</span><span class="va">plot_locations_sp_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">st_bbox</span><span class="op">(</span><span class="va">plot_locations_sp_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -614,21 +614,21 @@ Model.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">CHM_plots_HARVcrop</span> <span class="op">&lt;-</span> <span class="fu">crop</span><span class="op">(</span>x <span class="op">=</span> <span class="va">CHM_HARV</span>, y <span class="op">=</span> <span class="va">plot_locations_sp_HARV</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">chm_crop_p_harv</span> <span class="op">&lt;-</span> <span class="fu">crop</span><span class="op">(</span>x <span class="op">=</span> <span class="va">chm_harv</span>, y <span class="op">=</span> <span class="va">plot_locations_sp_harv</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">CHM_plots_HARVcrop_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">CHM_plots_HARVcrop</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">chm_crop_p_harv_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">chm_crop_p_harv</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">CHM_plots_HARVcrop_df</span>,</span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">chm_crop_p_harv_df</span>,</span>
 <span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">HARV_chmCrop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Canopy Height"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plot_locations_sp_HARV</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plot_locations_sp_harv</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="../fig/11-vector-raster-integration-rendered-challenge-code-crop-raster-points-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
@@ -688,7 +688,7 @@ object.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">CHM_HARV_manual_cropped</span> <span class="op">&lt;-</span> <span class="fu">crop</span><span class="op">(</span>x <span class="op">=</span> <span class="va">CHM_HARV</span>, y <span class="op">=</span> <span class="va">new_extent</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">chm_crop_harv_custom</span> <span class="op">&lt;-</span> <span class="fu">crop</span><span class="op">(</span>x <span class="op">=</span> <span class="va">chm_harv</span>, y <span class="op">=</span> <span class="va">new_extent</span><span class="op">)</span></span></code></pre>
 </div>
 <p>To plot this data using <code>ggplot()</code> we need to convert it
 to a dataframe.</p>
@@ -696,7 +696,7 @@ to a dataframe.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">CHM_HARV_manual_cropped_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">CHM_HARV_manual_cropped</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">chm_crop_harv_custom_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">chm_crop_harv_custom</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Now we can plot this cropped data. We will show the AOI boundary on
 the same plot for scale.</p>
@@ -705,8 +705,8 @@ the same plot for scale.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">aoi_boundary_HARV</span>, color <span class="op">=</span> <span class="st">"blue"</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">CHM_HARV_manual_cropped_df</span>,</span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">aoi_boundary_harv</span>, color <span class="op">=</span> <span class="st">"blue"</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">chm_crop_harv_custom_df</span>,</span>
 <span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">HARV_chmCrop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Canopy Height"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
@@ -727,15 +727,15 @@ boundary or boundaries,</li>
 <li>we can tell it to store the output values in a data frame using
 <code>raw = FALSE</code> (this is optional).</li>
 </ul><p>We will begin by extracting all canopy height pixel values located
-within our <code>aoi_boundary_HARV</code> polygon which surrounds the
+within our <code>aoi_boundary_harv</code> polygon which surrounds the
 tower located at the NEON Harvard Forest field site.</p>
 <div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree_height</span> <span class="op">&lt;-</span> <span class="fu">extract</span><span class="op">(</span>x <span class="op">=</span> <span class="va">CHM_HARV</span>, y <span class="op">=</span> <span class="va">aoi_boundary_HARV</span>, raw <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">tree_ht</span> <span class="op">&lt;-</span> <span class="fu">extract</span><span class="op">(</span>x <span class="op">=</span> <span class="va">chm_harv</span>, y <span class="op">=</span> <span class="va">aoi_boundary_harv</span>, raw <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">str</span><span class="op">(</span><span class="va">tree_height</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">str</span><span class="op">(</span><span class="va">tree_ht</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -746,7 +746,7 @@ tower located at the NEON Harvard Forest field site.</p>
 </div>
 <p>When we use the <code>extract()</code> function, R extracts the value
 for each pixel located within the boundary of the polygon being used to
-perform the extraction - in this case the <code>aoi_boundary_HARV</code>
+perform the extraction - in this case the <code>aoi_boundary_harv</code>
 object (a single polygon). Here, the function extracted values from
 18,450 pixels.</p>
 <p>We can create a histogram of tree height values within the boundary
@@ -759,7 +759,7 @@ each pixel.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_histogram</span><span class="op">(</span>data <span class="op">=</span> <span class="va">tree_height</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">HARV_chmCrop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span>data <span class="op">=</span> <span class="va">tree_ht</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">HARV_chmCrop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Histogram of CHM Height Values (m)"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Tree Height"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ylab</span><span class="op">(</span><span class="st">"Frequency of Pixels"</span><span class="op">)</span></span></code></pre>
@@ -776,7 +776,7 @@ values help us better understand vegetation at our field site.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="va">tree_height</span><span class="op">$</span><span class="va">HARV_chmCrop</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="va">tree_ht</span><span class="op">$</span><span class="va">HARV_chmCrop</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -793,10 +793,10 @@ AOI.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mean_tree_height_AOI</span> <span class="op">&lt;-</span> <span class="fu">extract</span><span class="op">(</span>x <span class="op">=</span> <span class="va">CHM_HARV</span>, y <span class="op">=</span> <span class="va">aoi_boundary_HARV</span>,</span>
+<code class="sourceCode R"><span><span class="va">avg_tree_ht_aoi</span> <span class="op">&lt;-</span> <span class="fu">extract</span><span class="op">(</span>x <span class="op">=</span> <span class="va">chm_harv</span>, y <span class="op">=</span> <span class="va">aoi_boundary_harv</span>,</span>
 <span>                                fun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">mean_tree_height_AOI</span></span></code></pre>
+<span><span class="va">avg_tree_ht_aoi</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -818,16 +818,16 @@ region are included in the extract.</p>
 <p><img src="../fig/BufferCircular.png" alt="Image shows raster information extraction using 20m buffer region." class="figure">
 Image Source: National Ecological Observatory Network (NEON)</p>
 <p>Let’s put this into practice by figuring out the mean tree height in
-the 20m around the tower location (<code>point_HARV</code>).</p>
+the 20m around the tower location (<code>point_harv</code>).</p>
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mean_tree_height_tower</span> <span class="op">&lt;-</span> <span class="fu">extract</span><span class="op">(</span>x <span class="op">=</span> <span class="va">CHM_HARV</span>,</span>
-<span>                                  y <span class="op">=</span> <span class="fu">st_buffer</span><span class="op">(</span><span class="va">point_HARV</span>, dist <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="va">mean_tree_ht_tower</span> <span class="op">&lt;-</span> <span class="fu">extract</span><span class="op">(</span>x <span class="op">=</span> <span class="va">chm_harv</span>,</span>
+<span>                                  y <span class="op">=</span> <span class="fu">st_buffer</span><span class="op">(</span><span class="va">point_harv</span>, dist <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
 <span>                                  fun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">mean_tree_height_tower</span></span></code></pre>
+<span><span class="va">mean_tree_ht_tower</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -845,7 +845,7 @@ the 20m around the tower location (<code>point_HARV</code>).</p>
 Plot Locations</h3>
 <div class="callout-content">
 <ol style="list-style-type: decimal"><li><p>Use the plot locations object
-(<code>plot_locations_sp_HARV</code>) to extract an average tree height
+(<code>plot_locations_sp_harv</code>) to extract an average tree height
 for the area within 20m of each vegetation plot location in the study
 area. Because there are multiple plot locations, there will be multiple
 averages returned.</p></li>
@@ -860,20 +860,20 @@ averages returned.</p></li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract data at each plot location</span></span>
-<span><span class="va">mean_tree_height_plots_HARV</span> <span class="op">&lt;-</span> <span class="fu">extract</span><span class="op">(</span>x <span class="op">=</span> <span class="va">CHM_HARV</span>,</span>
-<span>                                       y <span class="op">=</span> <span class="fu">st_buffer</span><span class="op">(</span><span class="va">plot_locations_sp_HARV</span>,</span>
+<span><span class="va">avg_tree_ht_p</span> <span class="op">&lt;-</span> <span class="fu">extract</span><span class="op">(</span>x <span class="op">=</span> <span class="va">chm_harv</span>,</span>
+<span>                                       y <span class="op">=</span> <span class="fu">st_buffer</span><span class="op">(</span><span class="va">plot_locations_sp_harv</span>,</span>
 <span>                                                     dist <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
 <span>                                       fun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># view data</span></span>
-<span><span class="va">mean_tree_height_plots_HARV</span></span></code></pre>
+<span><span class="va">avg_tree_ht_p</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -906,7 +906,7 @@ averages returned.</p></li>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot data</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">mean_tree_height_plots_HARV</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">ID</span>, <span class="va">HARV_chmCrop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">avg_tree_ht_p</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">ID</span>, <span class="va">HARV_chmCrop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Mean Tree Height at each Plot"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Plot ID"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -994,8 +994,8 @@ raster object that fall within a particular extent boundary.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/11-vector-raster-integration.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/11-vector-raster-integration.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2025-09-26",
-  "datePublished": "2025-09-30"
+  "dateModified": "2025-10-06",
+  "datePublished": "2025-10-06"
 }
 
   </script><script>

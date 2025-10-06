@@ -395,7 +395,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Intro to Raster Data</h1>
-        <p>Last updated on 2025-09-26 |
+        <p>Last updated on 2025-10-06 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/01-raster-structure.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -574,15 +574,14 @@ following:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">HARV_dsmCrop_info</span> <span class="op">&lt;-</span> <span class="fu">capture.output</span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">harv_metadata</span> <span class="op">&lt;-</span> <span class="fu">capture.output</span><span class="op">(</span></span>
 <span>  <span class="fu">describe</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
 <p>Each line of text that was printed to the console is now stored as an
-element of the character vector <code>HARV_dsmCrop_info</code>. We will
-be exploring this data throughout this episode. By the end of this
-episode, you will be able to explain and understand the output
-above.</p>
+element of the character vector <code>harv_metadata</code>. We will be
+exploring this data throughout this episode. By the end of this episode,
+you will be able to explain and understand the output above.</p>
 </section><section><h2 class="section-heading" id="open-a-raster-in-r">Open a Raster in R<a class="anchor" aria-label="anchor" href="#open-a-raster-in-r"></a></h2>
 <hr class="half-width"><p>Now that we’ve previewed the metadata for our GeoTIFF, let’s import
 this raster dataset into R and explore its metadata more closely. We can
@@ -608,10 +607,10 @@ structure.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">DSM_HARV</span> <span class="op">&lt;-</span></span>
+<code class="sourceCode R"><span><span class="va">dsm_harv</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">DSM_HARV</span></span></code></pre>
+<span><span class="va">dsm_harv</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -634,7 +633,7 @@ can be retrieved like</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="va">DSM_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="va">dsm_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -660,7 +659,7 @@ all the values, you can use the function <code>values</code>:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="fu">values</span><span class="op">(</span><span class="va">DSM_HARV</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="fu">values</span><span class="op">(</span><span class="va">dsm_harv</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -681,7 +680,7 @@ function for conversion to a plotable dataframe.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">DSM_HARV_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">DSM_HARV</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">dsm_harv_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">dsm_harv</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Now when we view the structure of our data, we will see a standard
 dataframe format.</p>
@@ -689,7 +688,7 @@ dataframe format.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">str</span><span class="op">(</span><span class="va">DSM_HARV_df</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">str</span><span class="op">(</span><span class="va">dsm_harv_df</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -712,7 +711,7 @@ page <code>?coord_map</code>.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_HARV_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">HARV_dsmCrop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dsm_harv_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">HARV_dsmCrop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">scale_fill_viridis_c</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
@@ -758,7 +757,7 @@ from the <code>terra</code> package.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">DSM_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">dsm_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="../fig/01-raster-structure-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 </div>
@@ -786,7 +785,7 @@ the<code>crs()</code> function.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">crs</span><span class="op">(</span><span class="va">DSM_HARV</span>, proj <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">crs</span><span class="op">(</span><span class="va">dsm_harv</span>, proj <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -831,7 +830,7 @@ defined. For example projection (<code>proj=</code>) and datum
 (<code>datum=</code>).</p>
 <div class="section level3">
 <h3 id="utm-proj4-string">UTM Proj4 String<a class="anchor" aria-label="anchor" href="#utm-proj4-string"></a></h3>
-<p>A projection string (like the one of <code>DSM_HARV</code>) specifies
+<p>A projection string (like the one of <code>dsm_harv</code>) specifies
 the UTM projection as follows:</p>
 <p><code>+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0</code></p>
 <ul><li>
@@ -866,7 +865,7 @@ us. We can view these values:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">minmax</span><span class="op">(</span><span class="va">DSM_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">minmax</span><span class="op">(</span><span class="va">dsm_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -879,7 +878,7 @@ max       416.07</code></pre>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">min</span><span class="op">(</span><span class="fu">values</span><span class="op">(</span><span class="va">DSM_HARV</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">min</span><span class="op">(</span><span class="fu">values</span><span class="op">(</span><span class="va">dsm_harv</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -890,7 +889,7 @@ max       416.07</code></pre>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">max</span><span class="op">(</span><span class="fu">values</span><span class="op">(</span><span class="va">DSM_HARV</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">max</span><span class="op">(</span><span class="fu">values</span><span class="op">(</span><span class="va">dsm_harv</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -911,7 +910,7 @@ can calculate them using the <code>setMinMax()</code> function.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">DSM_HARV</span> <span class="op">&lt;-</span> <span class="fu">setMinMax</span><span class="op">(</span><span class="va">DSM_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">dsm_harv</span> <span class="op">&lt;-</span> <span class="fu">setMinMax</span><span class="op">(</span><span class="va">dsm_harv</span><span class="op">)</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -919,7 +918,7 @@ can calculate them using the <code>setMinMax()</code> function.</p>
 <p>We can see that the elevation at our site ranges from 305.0700073m to
 416.0699768m.</p>
 </section><section><h2 class="section-heading" id="raster-bands">Raster Bands<a class="anchor" aria-label="anchor" href="#raster-bands"></a></h2>
-<hr class="half-width"><p>The Digital Surface Model object (<code>DSM_HARV</code>) that we’ve
+<hr class="half-width"><p>The Digital Surface Model object (<code>dsm_harv</code>) that we’ve
 been working with is a single band raster. This means that there is only
 one dataset stored in the raster: surface elevation in meters for one
 time period.</p>
@@ -931,7 +930,7 @@ multi-band raster. We can view the number of bands in a raster using the
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">nlyr</span><span class="op">(</span><span class="va">DSM_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">nlyr</span><span class="op">(</span><span class="va">dsm_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1001,7 +1000,7 @@ will be ignored by R as demonstrated above.</p>
 <div class="callout-content">
 <p>Use the output from the <code>describe()</code> and
 <code>sources()</code> functions to find out what
-<code>NoDataValue</code> is used for our <code>DSM_HARV</code>
+<code>NoDataValue</code> is used for our <code>dsm_harv</code>
 dataset.</p>
 </div>
 </div>
@@ -1019,7 +1018,7 @@ dataset.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">describe</span><span class="op">(</span><span class="fu">sources</span><span class="op">(</span><span class="va">DSM_HARV</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">describe</span><span class="op">(</span><span class="fu">sources</span><span class="op">(</span><span class="va">dsm_harv</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1129,7 +1128,7 @@ data values in our raster data.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_histogram</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_HARV_df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">HARV_dsmCrop</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<span>    <span class="fu">geom_histogram</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dsm_harv_df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">HARV_dsmCrop</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1150,7 +1149,7 @@ function.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_histogram</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_HARV_df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">HARV_dsmCrop</span><span class="op">)</span>, bins <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span></code></pre>
+<span>    <span class="fu">geom_histogram</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dsm_harv_df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">HARV_dsmCrop</span><span class="op">)</span>, bins <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="../fig/01-raster-structure-rendered-view-raster-histogram2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Note that the shape of this histogram looks similar to the previous
 one that was created using the default of 30 bins. The distribution of
@@ -1168,7 +1167,7 @@ raster.</p>
 <p>Use <code>describe()</code> to determine the following about the
 <code>NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif</code>
 file:</p>
-<ol style="list-style-type: decimal"><li>Does this file have the same CRS as <code>DSM_HARV</code>?</li>
+<ol style="list-style-type: decimal"><li>Does this file have the same CRS as <code>dsm_harv</code>?</li>
 <li>What is the <code>NoDataValue</code>?</li>
 <li>What is resolution of the raster data?</li>
 <li>How large would a 5x5 pixel area be on the Earth’s surface?</li>
@@ -1263,7 +1262,7 @@ with Multi-band Rasters in R</a> episode.</p>
 [64] "    STATISTICS_MINIMUM=-0.71362979358008"
 [65] "    STATISTICS_STDDEV=0.48129385401108"                                                                                                                                                                                                                                        </code></pre>
 </div>
-<ol style="list-style-type: decimal"><li>If this file has the same CRS as DSM_HARV? Yes: UTM Zone 18, WGS84,
+<ol style="list-style-type: decimal"><li>If this file has the same CRS as dsm_harv? Yes: UTM Zone 18, WGS84,
 meters.</li>
 <li>What format <code>NoDataValues</code> take? -9999</li>
 <li>The resolution of the raster data? 1x1</li>
@@ -1362,8 +1361,8 @@ to convert it to a dataframe.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/01-raster-structure.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/01-raster-structure.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2025-09-26",
-  "datePublished": "2025-09-30"
+  "dateModified": "2025-10-06",
+  "datePublished": "2025-10-06"
 }
 
   </script><script>

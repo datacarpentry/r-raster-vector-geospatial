@@ -390,7 +390,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Plot Raster Data</h1>
-        <p>Last updated on 2025-09-26 |
+        <p>Last updated on 2025-10-06 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/02-raster-plot.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -445,8 +445,8 @@ about the software, data, and other prerequisites you will need to work
 through the examples in this episode.</p>
 <p>We will be using <code>dplyr</code>, <code>ggplot2</code>, and
 <code>terra</code> in this episode.</p>
-<p>Make sure you have the <code>DSM_HARV</code> and
-<code>DSM_HARV_df</code> created.</p>
+<p>Make sure you have the <code>dsm_harv</code> and
+<code>dsm_harv_df</code> created.</p>
 </div>
 </div>
 </div>
@@ -470,11 +470,11 @@ with <code>cut()</code> to split the data into 3 bins.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">DSM_HARV_df</span> <span class="op">&lt;-</span> <span class="va">DSM_HARV_df</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="va">dsm_harv_df</span> <span class="op">&lt;-</span> <span class="va">dsm_harv_df</span> <span class="op">%&gt;%</span></span>
 <span>                <span class="fu">mutate</span><span class="op">(</span>fct_elevation <span class="op">=</span> <span class="fu">cut</span><span class="op">(</span><span class="va">HARV_dsmCrop</span>, breaks <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_bar</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_HARV_df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">fct_elevation</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<span>    <span class="fu">geom_bar</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dsm_harv_df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">fct_elevation</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="../fig/02-raster-plot-rendered-histogram-breaks-ggplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>If we want to know the cutoff values for the groups, we can ask for
 the unique values of <code>fct_elevation</code>:</p>
@@ -482,7 +482,7 @@ the unique values of <code>fct_elevation</code>:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">unique</span><span class="op">(</span><span class="va">DSM_HARV_df</span><span class="op">$</span><span class="va">fct_elevation</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">unique</span><span class="op">(</span><span class="va">dsm_harv_df</span><span class="op">$</span><span class="va">fct_elevation</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -496,7 +496,7 @@ Levels: (305,342] (342,379] (379,416]</code></pre>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">DSM_HARV_df</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="va">dsm_harv_df</span> <span class="op">%&gt;%</span></span>
 <span>        <span class="fu">count</span><span class="op">(</span><span class="va">fct_elevation</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -518,10 +518,10 @@ number of breaks we want.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">custom_bins</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="fl">300</span>, <span class="fl">350</span>, <span class="fl">400</span>, <span class="fl">450</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">DSM_HARV_df</span> <span class="op">&lt;-</span> <span class="va">DSM_HARV_df</span> <span class="op">%&gt;%</span></span>
+<span><span class="va">dsm_harv_df</span> <span class="op">&lt;-</span> <span class="va">dsm_harv_df</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>fct_elevation_2 <span class="op">=</span> <span class="fu">cut</span><span class="op">(</span><span class="va">HARV_dsmCrop</span>, breaks <span class="op">=</span> <span class="va">custom_bins</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">unique</span><span class="op">(</span><span class="va">DSM_HARV_df</span><span class="op">$</span><span class="va">fct_elevation_2</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">unique</span><span class="op">(</span><span class="va">dsm_harv_df</span><span class="op">$</span><span class="va">fct_elevation_2</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -551,7 +551,7 @@ and <code>]</code> to mean inclusive. For example:
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_bar</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_HARV_df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">fct_elevation_2</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<span>  <span class="fu">geom_bar</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dsm_harv_df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">fct_elevation_2</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="../fig/02-raster-plot-rendered-histogram-custom-breaks-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>And we can get the count of values in each group in the same way we
 did before:</p>
@@ -559,7 +559,7 @@ did before:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">DSM_HARV_df</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="va">dsm_harv_df</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">count</span><span class="op">(</span><span class="va">fct_elevation_2</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -577,7 +577,7 @@ being a different color:</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_HARV_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">fct_elevation_2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dsm_harv_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">fct_elevation_2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="../fig/02-raster-plot-rendered-raster-with-breaks-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The plot above uses the default colors inside <code>ggplot</code> for
@@ -605,7 +605,7 @@ across using the <code>scale_fill_manual()</code> function.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span> <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_HARV_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>,</span>
+<span> <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dsm_harv_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>,</span>
 <span>                                      fill <span class="op">=</span> <span class="va">fct_elevation_2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
@@ -615,7 +615,7 @@ across using the <code>scale_fill_manual()</code> function.</p>
 <p>If we need to create multiple plots using the same color palette, we
 can create an R object (<code>my_colors</code>) for the set of colors
 that we want to use. We can then quickly change the palette across all
-plots by modifying the <code>mycolors</code> object, rather than each
+plots by modifying the <code>my_colors</code> object, rather than each
 individual plot.</p>
 <p>We can also give the legend a more meaningful title by passing a
 value to the <code>name</code> argument of the
@@ -627,13 +627,13 @@ value to the <code>name</code> argument of the
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mycolors</span> <span class="op">&lt;-</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">my_colors</span> <span class="op">&lt;-</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
 <span></span>
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span> <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_HARV_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>,</span>
+<span> <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dsm_harv_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>,</span>
 <span>                                      fill <span class="op">=</span> <span class="va">fct_elevation_2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="va">mycolors</span>, name <span class="op">=</span> <span class="st">"Elevation"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="va">my_colors</span>, name <span class="op">=</span> <span class="st">"Elevation"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">theme</span><span class="op">(</span>axis.title <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
@@ -661,21 +661,21 @@ divided among the range of pixel values.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">DSM_HARV_df</span> <span class="op">&lt;-</span> <span class="va">DSM_HARV_df</span>  <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="va">dsm_harv_df</span> <span class="op">&lt;-</span> <span class="va">dsm_harv_df</span>  <span class="op">%&gt;%</span></span>
 <span>               <span class="fu">mutate</span><span class="op">(</span>fct_elevation_6 <span class="op">=</span> <span class="fu">cut</span><span class="op">(</span><span class="va">HARV_dsmCrop</span>, breaks <span class="op">=</span> <span class="fl">6</span><span class="op">)</span><span class="op">)</span> </span>
 <span></span>
-<span> <span class="va">mycolors</span> <span class="op">&lt;-</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">6</span><span class="op">)</span></span>
+<span> <span class="va">my_colors</span> <span class="op">&lt;-</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">6</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_HARV_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>,</span>
+<span>    <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dsm_harv_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>,</span>
 <span>                                      fill <span class="op">=</span> <span class="va">fct_elevation_6</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="va">mycolors</span>, name <span class="op">=</span> <span class="st">"Elevation"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="va">my_colors</span>, name <span class="op">=</span> <span class="st">"Elevation"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Classified Elevation Map - NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"UTM Easting Coordinate (m)"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ylab</span><span class="op">(</span><span class="st">"UTM Northing Coordinate (m)"</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -698,10 +698,10 @@ structure:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">DSM_hill_HARV</span> <span class="op">&lt;-</span></span>
+<code class="sourceCode R"><span><span class="va">dsm_hill_harv</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">DSM_hill_HARV</span></span></code></pre>
+<span><span class="va">dsm_hill_harv</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -722,9 +722,9 @@ max value   :    0.9999997 </code></pre>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">DSM_hill_HARV_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">DSM_hill_HARV</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span>
+<code class="sourceCode R"><span><span class="va">dsm_hill_harv_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">dsm_hill_harv</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span>
 <span></span>
-<span><span class="fu">str</span><span class="op">(</span><span class="va">DSM_hill_HARV_df</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">str</span><span class="op">(</span><span class="va">dsm_hill_harv_df</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -740,7 +740,7 @@ max value   :    0.9999997 </code></pre>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_hill_HARV_df</span>,</span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dsm_hill_harv_df</span>,</span>
 <span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, alpha <span class="op">=</span> <span class="va">HARV_DSMhill</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">scale_alpha</span><span class="op">(</span>range <span class="op">=</span>  <span class="fu">c</span><span class="op">(</span><span class="fl">0.15</span>, <span class="fl">0.65</span><span class="op">)</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
@@ -763,7 +763,7 @@ being transparent, 1 being opaque).</p>
 </div>
 <p>We can layer another raster on top of our hillshade by adding another
 call to the <code>geom_raster()</code> function. Let’s overlay
-<code>DSM_HARV</code> on top of the <code>hill_HARV</code>.</p>
+<code>dsm_harv</code> on top of the <code>dsm_hill_harv</code>.</p>
 <p>Let’s not forget to use <code>ggtitle</code> to give our outputs some
 context.</p>
 <div class="codewrapper sourceCode" id="cb22">
@@ -771,10 +771,10 @@ context.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_HARV_df</span> , </span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dsm_harv_df</span> , </span>
 <span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, </span>
 <span>                  fill <span class="op">=</span> <span class="va">HARV_dsmCrop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_hill_HARV_df</span>, </span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dsm_hill_harv_df</span>, </span>
 <span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, </span>
 <span>                  alpha <span class="op">=</span> <span class="va">HARV_DSMhill</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>  </span>
 <span>  <span class="fu">scale_fill_viridis_c</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>  </span>
@@ -810,7 +810,7 @@ the data.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -819,25 +819,25 @@ the data.</li>
 <code class="sourceCode R"><span><span class="co"># CREATE DSM MAPS</span></span>
 <span></span>
 <span><span class="co"># import DSM data</span></span>
-<span><span class="va">DSM_SJER</span> <span class="op">&lt;-</span> </span>
+<span><span class="va">dsm_sjer</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif"</span><span class="op">)</span></span>
 <span><span class="co"># convert to a df for plotting</span></span>
-<span><span class="va">DSM_SJER_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">DSM_SJER</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">dsm_sjer_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">dsm_sjer</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># import DSM hillshade</span></span>
-<span><span class="va">DSM_hill_SJER</span> <span class="op">&lt;-</span> </span>
+<span><span class="va">dsm_hill_sjer</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmHill.tif"</span><span class="op">)</span></span>
 <span><span class="co"># convert to a df for plotting</span></span>
-<span><span class="va">DSM_hill_SJER_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">DSM_hill_SJER</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">dsm_hill_sjer_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">dsm_hill_sjer</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Build Plot</span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_SJER_df</span> , </span>
+<span>    <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dsm_sjer_df</span> , </span>
 <span>                <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, </span>
 <span>                     fill <span class="op">=</span> <span class="va">SJER_dsmCrop</span>,</span>
 <span>                     alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
 <span>                <span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_hill_SJER_df</span>, </span>
+<span>    <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dsm_hill_sjer_df</span>, </span>
 <span>                <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, </span>
 <span>                  alpha <span class="op">=</span> <span class="va">SJER_dsmHill</span><span class="op">)</span></span>
 <span>                <span class="op">)</span> <span class="op">+</span></span>
@@ -859,22 +859,22 @@ the data.</li>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># CREATE DTM MAP</span></span>
 <span><span class="co"># import DTM</span></span>
-<span><span class="va">DTM_SJER</span> <span class="op">&lt;-</span> </span>
+<span><span class="va">dtm_sjer</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif"</span><span class="op">)</span></span>
-<span><span class="va">DTM_SJER_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">DTM_SJER</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">dtm_sjer_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">dtm_sjer</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># DTM Hillshade</span></span>
-<span><span class="va">DTM_hill_SJER</span> <span class="op">&lt;-</span> </span>
+<span><span class="va">dtm_hill_sjer</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmHill.tif"</span><span class="op">)</span></span>
-<span><span class="va">DTM_hill_SJER_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">DTM_hill_SJER</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">dtm_hill_sjer_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">dtm_hill_sjer</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DTM_SJER_df</span> ,</span>
+<span>    <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dtm_sjer_df</span> ,</span>
 <span>                <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>,</span>
 <span>                     fill <span class="op">=</span> <span class="va">SJER_dtmCrop</span>,</span>
 <span>                     alpha <span class="op">=</span> <span class="fl">2.0</span><span class="op">)</span></span>
 <span>                <span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DTM_hill_SJER_df</span>,</span>
+<span>    <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dtm_hill_sjer_df</span>,</span>
 <span>                <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>,</span>
 <span>                  alpha <span class="op">=</span> <span class="va">SJER_dtmHill</span><span class="op">)</span></span>
 <span>                <span class="op">)</span> <span class="op">+</span></span>
@@ -967,8 +967,8 @@ aesthetic.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/02-raster-plot.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/02-raster-plot.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2025-09-26",
-  "datePublished": "2025-09-30"
+  "dateModified": "2025-10-06",
+  "datePublished": "2025-10-06"
 }
 
   </script><script>

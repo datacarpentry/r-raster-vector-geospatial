@@ -394,7 +394,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Convert from .csv to a Vector Layer</h1>
-        <p>Last updated on 2025-09-26 |
+        <p>Last updated on 2025-10-06 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/10-vector-csv-to-shapefile-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -481,10 +481,10 @@ that new object:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">plot_locations_HARV</span> <span class="op">&lt;-</span></span>
+<code class="sourceCode R"><span><span class="va">plot_locations_harv</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">read.csv</span><span class="op">(</span><span class="st">"data/NEON-DS-Site-Layout-Files/HARV/HARV_PlotLocations.csv"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">str</span><span class="op">(</span><span class="va">plot_locations_HARV</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">str</span><span class="op">(</span><span class="va">plot_locations_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -520,7 +520,7 @@ lucky, our <code>.csv</code> will contain columns labeled:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">names</span><span class="op">(</span><span class="va">plot_locations_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">names</span><span class="op">(</span><span class="va">plot_locations_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -532,15 +532,15 @@ lucky, our <code>.csv</code> will contain columns labeled:</p>
 </div>
 </section><section><h2 class="section-heading" id="identify-xy-location-columns">Identify X,Y Location Columns<a class="anchor" aria-label="anchor" href="#identify-xy-location-columns"></a></h2>
 <hr class="half-width"><p>Our column names include several fields that might contain spatial
-information. The <code>plot_locations_HARV$easting</code> and
-<code>plot_locations_HARV$northing</code> columns contain coordinate
+information. The <code>plot_locations_harv$easting</code> and
+<code>plot_locations_harv$northing</code> columns contain coordinate
 values. We can confirm this by looking at the first six rows of our
 data.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">plot_locations_HARV</span><span class="op">$</span><span class="va">easting</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">plot_locations_harv</span><span class="op">$</span><span class="va">easting</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -551,7 +551,7 @@ data.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">plot_locations_HARV</span><span class="op">$</span><span class="va">northing</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">plot_locations_harv</span><span class="op">$</span><span class="va">northing</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -575,7 +575,7 @@ These appear to contain CRS information (<code>datum</code> and
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">plot_locations_HARV</span><span class="op">$</span><span class="va">geodeticDa</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">plot_locations_harv</span><span class="op">$</span><span class="va">geodeticDa</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -586,7 +586,7 @@ These appear to contain CRS information (<code>datum</code> and
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">plot_locations_HARV</span><span class="op">$</span><span class="va">utmZone</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">plot_locations_harv</span><span class="op">$</span><span class="va">utmZone</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -614,12 +614,12 @@ string for UTM Zone 18N WGS84</a>.</p>
 much easier to use the <code>st_crs()</code> function to extract the CRS
 in <code>proj4</code> format from that object and assign it to our new
 spatial object. We’ve seen this CRS before with our Harvard Forest study
-site (<code>point_HARV</code>).</p>
+site (<code>point_harv</code>).</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">st_crs</span><span class="op">(</span><span class="va">point_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">st_crs</span><span class="op">(</span><span class="va">point_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -671,8 +671,8 @@ define the CRS of our <code>sf</code> object when we create it.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">utm18nCRS</span> <span class="op">&lt;-</span> <span class="fu">st_crs</span><span class="op">(</span><span class="va">point_HARV</span><span class="op">)</span></span>
-<span><span class="va">utm18nCRS</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">utm_18n_crs</span> <span class="op">&lt;-</span> <span class="fu">st_crs</span><span class="op">(</span><span class="va">point_harv</span><span class="op">)</span></span>
+<span><span class="va">utm_18n_crs</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -719,7 +719,7 @@ PROJCRS["WGS 84 / UTM zone 18N",
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">class</span><span class="op">(</span><span class="va">utm18nCRS</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">class</span><span class="op">(</span><span class="va">utm_18n_crs</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -739,16 +739,16 @@ conversion.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">plot_locations_sp_HARV</span> <span class="op">&lt;-</span> <span class="fu">st_as_sf</span><span class="op">(</span><span class="va">plot_locations_HARV</span>,</span>
+<code class="sourceCode R"><span><span class="va">plot_locations_sp_harv</span> <span class="op">&lt;-</span> <span class="fu">st_as_sf</span><span class="op">(</span><span class="va">plot_locations_harv</span>,</span>
 <span>                                   coords <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"easting"</span>, <span class="st">"northing"</span><span class="op">)</span>,</span>
-<span>                                   crs <span class="op">=</span> <span class="va">utm18nCRS</span><span class="op">)</span></span></code></pre>
+<span>                                   crs <span class="op">=</span> <span class="va">utm_18n_crs</span><span class="op">)</span></span></code></pre>
 </div>
 <p>We should double check the CRS to make sure it is correct.</p>
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">st_crs</span><span class="op">(</span><span class="va">plot_locations_sp_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">st_crs</span><span class="op">(</span><span class="va">plot_locations_sp_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -799,7 +799,7 @@ object.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plot_locations_sp_HARV</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plot_locations_sp_harv</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Map of Plot Locations"</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/10-vector-csv-to-shapefile-in-r-rendered-plot-data-points-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="plot-extent">Plot Extent<a class="anchor" aria-label="anchor" href="#plot-extent"></a></h2>
@@ -807,15 +807,15 @@ object.</p>
 and Plot Vector Layers in R</a> we learned about spatial object extent.
 When we plot several spatial layers in R using <code>ggplot</code>, all
 of the layers of the plot are considered in setting the boundaries of
-the plot. To show this, let’s plot our <code>aoi_boundary_HARV</code>
+the plot. To show this, let’s plot our <code>aoi_boundary_harv</code>
 object with our vegetation plots.</p>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">aoi_boundary_HARV</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plot_locations_sp_HARV</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">aoi_boundary_harv</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plot_locations_sp_harv</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"AOI Boundary Plot"</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/10-vector-csv-to-shapefile-in-r-rendered-plot-data-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>When we plot the two layers together, <code>ggplot</code> sets the
@@ -860,9 +860,9 @@ structure.</li>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">newplot_locations_HARV</span> <span class="op">&lt;-</span></span>
+<code class="sourceCode R"><span><span class="va">newplot_locations_harv</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">read.csv</span><span class="op">(</span><span class="st">"data/NEON-DS-Site-Layout-Files/HARV/HARV_2NewPhenPlots.csv"</span><span class="op">)</span></span>
-<span><span class="fu">str</span><span class="op">(</span><span class="va">newplot_locations_HARV</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">str</span><span class="op">(</span><span class="va">newplot_locations_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -884,14 +884,14 @@ structure.</li>
 </div>
 <ol start="2" style="list-style-type: decimal"><li>The US boundary data we worked with previously is in a geographic
 WGS84 CRS. We can use that data to establish a CRS for this data. First
-we will extract the CRS from the <code>country_boundary_US</code> object
-and confirm that it is WGS84.</li>
+we will extract the CRS from the <code>us_outline</code> object and
+confirm that it is WGS84.</li>
 </ol><div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">geogCRS</span> <span class="op">&lt;-</span> <span class="fu">st_crs</span><span class="op">(</span><span class="va">country_boundary_US</span><span class="op">)</span></span>
-<span><span class="va">geogCRS</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">wgs_84_crs</span> <span class="op">&lt;-</span> <span class="fu">st_crs</span><span class="op">(</span><span class="va">us_outline</span><span class="op">)</span></span>
+<span><span class="va">wgs_84_crs</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -915,21 +915,21 @@ GEOGCRS["WGS 84",
     ID["EPSG",4326]]</code></pre>
 </div>
 <p>Then we will convert our new data to a spatial dataframe, using the
-<code>geogCRS</code> object as our CRS.</p>
+<code>wgs_84_crs</code> object as our CRS.</p>
 <div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">newPlot.Sp.HARV</span> <span class="op">&lt;-</span> <span class="fu">st_as_sf</span><span class="op">(</span><span class="va">newplot_locations_HARV</span>,</span>
+<code class="sourceCode R"><span><span class="va">newplot_sp_harv</span> <span class="op">&lt;-</span> <span class="fu">st_as_sf</span><span class="op">(</span><span class="va">newplot_locations_harv</span>,</span>
 <span>                            coords <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"decimalLon"</span>, <span class="st">"decimalLat"</span><span class="op">)</span>,</span>
-<span>                            crs <span class="op">=</span> <span class="va">geogCRS</span><span class="op">)</span></span></code></pre>
+<span>                            crs <span class="op">=</span> <span class="va">wgs_84_crs</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Next we’ll confirm that the CRS for our new object is correct.</p>
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">st_crs</span><span class="op">(</span><span class="va">newPlot.Sp.HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">st_crs</span><span class="op">(</span><span class="va">newplot_sp_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -961,8 +961,8 @@ before. The data for the earlier plot was in UTM. Since we’re using
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plot_locations_sp_HARV</span>, color <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">newPlot.Sp.HARV</span>, color <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plot_locations_sp_harv</span>, color <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">newplot_sp_harv</span>, color <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Map of All Plot Locations"</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/10-vector-csv-to-shapefile-in-r-rendered-plot-locations-harv-orange-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
@@ -975,7 +975,7 @@ before. The data for the earlier plot was in UTM. Since we’re using
 using the <code>st_write</code> function in <code>sf</code>. To do this
 we need the following arguments:</p>
 <ul><li>the name of the spatial object
-(<code>plot_locations_sp_HARV</code>)</li>
+(<code>plot_locations_sp_harv</code>)</li>
 <li>the directory where we want to save our ESRI <code>shapefile</code>
 (to use <code>current = getwd()</code> or you can specify a different
 path)</li>
@@ -988,7 +988,7 @@ path)</li>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">st_write</span><span class="op">(</span><span class="va">plot_locations_sp_HARV</span>,</span>
+<code class="sourceCode R"><span><span class="fu">st_write</span><span class="op">(</span><span class="va">plot_locations_sp_harv</span>,</span>
 <span>         <span class="st">"data/PlotLocations_HARV.shp"</span>, driver <span class="op">=</span> <span class="st">"ESRI Shapefile"</span><span class="op">)</span></span></code></pre>
 </div>
 <div id="keypoints1" class="callout keypoints">
@@ -1065,8 +1065,8 @@ to a spatial object.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/10-vector-csv-to-shapefile-in-r.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/10-vector-csv-to-shapefile-in-r.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2025-09-26",
-  "datePublished": "2025-09-30"
+  "dateModified": "2025-10-06",
+  "datePublished": "2025-10-06"
 }
 
   </script><script>

@@ -392,7 +392,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Create Publication-quality Graphics</h1>
-        <p>Last updated on 2025-09-26 |
+        <p>Last updated on 2025-10-06 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/13-plot-time-series-rasters-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -470,7 +470,7 @@ We can do this by setting the plot theme to <code>void</code>.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">NDVI_HARV_stack_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ndvi_harv_stack_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">variable</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Landsat NDVI"</span>, subtitle <span class="op">=</span> <span class="st">"NEON Harvard Forest"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">theme_void</span><span class="op">(</span><span class="op">)</span></span></code></pre>
@@ -492,7 +492,7 @@ indicates right justification.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">NDVI_HARV_stack_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ndvi_harv_stack_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">variable</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Landsat NDVI"</span>, subtitle <span class="op">=</span> <span class="st">"NEON Harvard Forest"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">theme_void</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -520,7 +520,7 @@ figure out how to change this setting.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Learners can find this information in the help files for the
 <code>theme()</code> function. The parameter to set is called
@@ -530,7 +530,7 @@ figure out how to change this setting.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">NDVI_HARV_stack_df</span>,</span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ndvi_harv_stack_df</span>,</span>
 <span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span> <span class="va">variable</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Landsat NDVI"</span>, subtitle <span class="op">=</span> <span class="st">"NEON Harvard Forest"</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -585,7 +585,7 @@ use 20 colors when we plot our graphic.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">NDVI_HARV_stack_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ndvi_harv_stack_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">variable</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Landsat NDVI"</span>, subtitle <span class="op">=</span> <span class="st">"NEON Harvard Forest"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">theme_void</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -634,13 +634,13 @@ as follows:
 <code>gsub("StringToReplace", "TextToReplaceIt", object)</code>.</p>
 <p>First let’s remove “_HARV_NDVI_crop” from each label to make the
 labels shorter and remove repetition. To illustrate how this works, we
-will first look at the names for our <code>NDVI_HARV_stack</code>
+will first look at the names for our <code>ndvi_harv_stack</code>
 object:</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">names</span><span class="op">(</span><span class="va">NDVI_HARV_stack</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">names</span><span class="op">(</span><span class="va">ndvi_harv_stack</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -660,7 +660,7 @@ code is doing what we want it to.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">raster_names</span> <span class="op">&lt;-</span> <span class="fu">names</span><span class="op">(</span><span class="va">NDVI_HARV_stack</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">raster_names</span> <span class="op">&lt;-</span> <span class="fu">names</span><span class="op">(</span><span class="va">ndvi_harv_stack</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">raster_names</span> <span class="op">&lt;-</span> <span class="fu">gsub</span><span class="op">(</span><span class="st">"_HARV_ndvi_crop"</span>, <span class="st">""</span>, <span class="va">raster_names</span><span class="op">)</span></span>
 <span><span class="va">raster_names</span></span></code></pre>
@@ -687,12 +687,12 @@ the “X” with the word “Day” followed by a space.</p>
  [8] "Day 229" "Day 245" "Day 261" "Day 277" "Day 293" "Day 309"</code></pre>
 </div>
 <p>Our labels look good now. Let’s reassign them to our
-<code>all_NDVI_HARV</code> object:</p>
+<code>all_ndvi_harv</code> object:</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">labels_names</span> <span class="op">&lt;-</span> <span class="fu">setNames</span><span class="op">(</span><span class="va">raster_names</span>, <span class="fu">unique</span><span class="op">(</span><span class="va">NDVI_HARV_stack_df</span><span class="op">$</span><span class="va">variable</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">labels_names</span> <span class="op">&lt;-</span> <span class="fu">setNames</span><span class="op">(</span><span class="va">raster_names</span>, <span class="fu">unique</span><span class="op">(</span><span class="va">ndvi_harv_stack_df</span><span class="op">$</span><span class="va">variable</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Once the names for each band have been reassigned, we can render our
 plot with the new labels using a<code>labeller</code>.</p>
@@ -701,7 +701,7 @@ plot with the new labels using a<code>labeller</code>.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">NDVI_HARV_stack_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ndvi_harv_stack_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">variable</span>, labeller <span class="op">=</span> <span class="fu">labeller</span><span class="op">(</span>variable <span class="op">=</span> <span class="va">labels_names</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Landsat NDVI"</span>, subtitle <span class="op">=</span> <span class="st">"NEON Harvard Forest"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">theme_void</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -719,7 +719,7 @@ five panels.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">NDVI_HARV_stack_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ndvi_harv_stack_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">variable</span>, ncol <span class="op">=</span> <span class="fl">5</span>, </span>
 <span>             labeller <span class="op">=</span> <span class="fu">labeller</span><span class="op">(</span>variable <span class="op">=</span> <span class="va">labels_names</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Landsat NDVI"</span>, subtitle <span class="op">=</span> <span class="st">"NEON Harvard Forest"</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -758,19 +758,19 @@ best?</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">raster_names</span>  <span class="op">&lt;-</span> <span class="fu">gsub</span><span class="op">(</span><span class="st">"Day"</span>,<span class="st">"Julian Day "</span>, <span class="va">raster_names</span><span class="op">)</span></span>
-<span><span class="va">labels_names</span> <span class="op">&lt;-</span> <span class="fu">setNames</span><span class="op">(</span><span class="va">raster_names</span>, <span class="fu">unique</span><span class="op">(</span><span class="va">NDVI_HARV_stack_df</span><span class="op">$</span><span class="va">variable</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">labels_names</span> <span class="op">&lt;-</span> <span class="fu">setNames</span><span class="op">(</span><span class="va">raster_names</span>, <span class="fu">unique</span><span class="op">(</span><span class="va">ndvi_harv_stack_df</span><span class="op">$</span><span class="va">variable</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">brown_green_colors</span> <span class="op">&lt;-</span> <span class="fu">colorRampPalette</span><span class="op">(</span><span class="fu">brewer.pal</span><span class="op">(</span><span class="fl">9</span>, <span class="st">"BrBG"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">NDVI_HARV_stack_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ndvi_harv_stack_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">variable</span>, ncol <span class="op">=</span> <span class="fl">5</span>, labeller <span class="op">=</span> <span class="fu">labeller</span><span class="op">(</span>variable <span class="op">=</span> <span class="va">labels_names</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Landsat NDVI - Julian Days"</span>, subtitle <span class="op">=</span> <span class="st">"Harvard Forest 2011"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_void</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -861,8 +861,8 @@ replacement in text.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/13-plot-time-series-rasters-in-r.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/13-plot-time-series-rasters-in-r.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2025-09-26",
-  "datePublished": "2025-09-30"
+  "dateModified": "2025-10-06",
+  "datePublished": "2025-10-06"
 }
 
   </script><script>

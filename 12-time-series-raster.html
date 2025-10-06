@@ -393,7 +393,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Raster Time Series Data</h1>
-        <p>Last updated on 2025-09-26 |
+        <p>Last updated on 2025-10-06 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/12-time-series-raster.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -516,9 +516,9 @@ expressions cheatsheet</a></li>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">NDVI_HARV_path</span> <span class="op">&lt;-</span> <span class="st">"data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI"</span></span>
+<code class="sourceCode R"><span><span class="va">ndvi_harv_path</span> <span class="op">&lt;-</span> <span class="st">"data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI"</span></span>
 <span></span>
-<span><span class="va">all_NDVI_HARV</span> <span class="op">&lt;-</span> <span class="fu">list.files</span><span class="op">(</span><span class="va">NDVI_HARV_path</span>,</span>
+<span><span class="va">all_ndvi_harv</span> <span class="op">&lt;-</span> <span class="fu">list.files</span><span class="op">(</span><span class="va">ndvi_harv_path</span>,</span>
 <span>                            full.names <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                            pattern <span class="op">=</span> <span class="st">".tif$"</span><span class="op">)</span></span></code></pre>
 </div>
@@ -528,7 +528,7 @@ make sure they meet our expectations.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">all_NDVI_HARV</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">all_ndvi_harv</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -557,7 +557,7 @@ earlier episode</a>.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">NDVI_HARV_stack</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="va">all_NDVI_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">ndvi_harv_stack</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="va">all_ndvi_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <p>We can explore the GeoTIFF tags (the embedded metadata) in a stack
 using the same syntax that we used on single-band raster objects in R
@@ -568,7 +568,7 @@ including: <code>crs()</code> (coordinate reference system),
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">crs</span><span class="op">(</span><span class="va">NDVI_HARV_stack</span>, proj <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">crs</span><span class="op">(</span><span class="va">ndvi_harv_stack</span>, proj <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -615,7 +615,7 @@ questions.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ext</span><span class="op">(</span><span class="va">NDVI_HARV_stack</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">ext</span><span class="op">(</span><span class="va">ndvi_harv_stack</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -626,7 +626,7 @@ questions.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">yres</span><span class="op">(</span><span class="va">NDVI_HARV_stack</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">yres</span><span class="op">(</span><span class="va">ndvi_harv_stack</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -637,7 +637,7 @@ questions.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">xres</span><span class="op">(</span><span class="va">NDVI_HARV_stack</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">xres</span><span class="op">(</span><span class="va">ndvi_harv_stack</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -662,7 +662,7 @@ this:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">NDVI_HARV_stack_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">NDVI_HARV_stack</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="va">ndvi_harv_stack_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">ndvi_harv_stack</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>    <span class="fu">pivot_longer</span><span class="op">(</span><span class="op">-</span><span class="op">(</span><span class="va">x</span><span class="op">:</span><span class="va">y</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"variable"</span>, values_to <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Now we can plot our data using <code>ggplot()</code>. We want to
@@ -674,7 +674,7 @@ multi-paneled plot:</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">NDVI_HARV_stack_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ndvi_harv_stack_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span> <span class="va">variable</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/12-time-series-raster-rendered-ndvi-wrap-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Look at the range of NDVI values observed in the plot above. We know
@@ -692,7 +692,7 @@ as follows:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">NDVI_HARV_stack</span> <span class="op">&lt;-</span> <span class="va">NDVI_HARV_stack</span><span class="op">/</span><span class="fl">10000</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">ndvi_harv_stack</span> <span class="op">&lt;-</span> <span class="va">ndvi_harv_stack</span><span class="op">/</span><span class="fl">10000</span></span></code></pre>
 </div>
 <p>After applying our scale factor, we can recreate our plot using the
 same code we used above.</p>
@@ -700,11 +700,11 @@ same code we used above.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">NDVI_HARV_stack_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">NDVI_HARV_stack</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="va">ndvi_harv_stack_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">ndvi_harv_stack</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>    <span class="fu">pivot_longer</span><span class="op">(</span><span class="op">-</span><span class="op">(</span><span class="va">x</span><span class="op">:</span><span class="va">y</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"variable"</span>, values_to <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">NDVI_HARV_stack_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ndvi_harv_stack_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">variable</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/12-time-series-raster-rendered-ndvi-stack-wrap-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="take-a-closer-look-at-our-data">Take a Closer Look at Our Data<a class="anchor" aria-label="anchor" href="#take-a-closer-look-at-our-data"></a></h2>
@@ -730,7 +730,7 @@ values stored in each raster.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">NDVI_HARV_stack_df</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">ndvi_harv_stack_df</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">variable</span><span class="op">)</span></span></code></pre>
 </div>
@@ -758,10 +758,10 @@ dataframe:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">har_met_daily</span> <span class="op">&lt;-</span></span>
+<code class="sourceCode R"><span><span class="va">harv_met_daily</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">read.csv</span><span class="op">(</span><span class="st">"data/NEON-DS-Met-Time-Series/HARV/FisherTower-Met/hf001-06-daily-m.csv"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">str</span><span class="op">(</span><span class="va">har_met_daily</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">str</span><span class="op">(</span><span class="va">harv_met_daily</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -823,14 +823,14 @@ R as <code>%Y-%m-%d</code>.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">har_met_daily</span><span class="op">$</span><span class="va">date</span> <span class="op">&lt;-</span> <span class="fu">as.Date</span><span class="op">(</span><span class="va">har_met_daily</span><span class="op">$</span><span class="va">date</span>, format <span class="op">=</span> <span class="st">"%Y-%m-%d"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">harv_met_daily</span><span class="op">$</span><span class="va">date</span> <span class="op">&lt;-</span> <span class="fu">as.Date</span><span class="op">(</span><span class="va">harv_met_daily</span><span class="op">$</span><span class="va">date</span>, format <span class="op">=</span> <span class="st">"%Y-%m-%d"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>We only want to look at the data from 2011:</p>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">yr_11_daily_avg</span> <span class="op">&lt;-</span> <span class="va">har_met_daily</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="va">yr_11_daily_avg</span> <span class="op">&lt;-</span> <span class="va">harv_met_daily</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="fu">between</span><span class="op">(</span><span class="va">date</span>, <span class="fu">as.Date</span><span class="op">(</span><span class="st">'2011-01-01'</span><span class="op">)</span>, <span class="fu">as.Date</span><span class="op">(</span><span class="st">'2011-12-31'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Now we can plot the air temperature (the <code>airt</code> column) by
@@ -882,12 +882,12 @@ its metadata.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">RGB_277</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">rgb_277</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># NOTE: Fix the bands' names so they don't start with a number!</span></span>
-<span><span class="fu">names</span><span class="op">(</span><span class="va">RGB_277</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">paste0</span><span class="op">(</span><span class="st">"X"</span>, <span class="fu">names</span><span class="op">(</span><span class="va">RGB_277</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">names</span><span class="op">(</span><span class="va">rgb_277</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">paste0</span><span class="op">(</span><span class="st">"X"</span>, <span class="fu">names</span><span class="op">(</span><span class="va">rgb_277</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">RGB_277</span></span></code></pre>
+<span><span class="va">rgb_277</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -909,22 +909,22 @@ to be between 0 and 1, so we will divide our RasterStack object by
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">RGB_277</span> <span class="op">&lt;-</span> <span class="va">RGB_277</span><span class="op">/</span><span class="fl">255</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">rgb_277</span> <span class="op">&lt;-</span> <span class="va">rgb_277</span><span class="op">/</span><span class="fl">255</span></span></code></pre>
 </div>
 <p>Next we convert it to a dataframe.</p>
 <div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">RGB_277_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">RGB_277</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">rgb_277_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">rgb_277</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <p>We create RGB colors from the three channels:</p>
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">RGB_277_df</span><span class="op">$</span><span class="va">rgb</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu">with</span><span class="op">(</span><span class="va">RGB_277_df</span>, <span class="fu">rgb</span><span class="op">(</span><span class="va">X277_HARV_landRGB_1</span>, <span class="va">X277_HARV_landRGB_2</span>, </span>
+<code class="sourceCode R"><span><span class="va">rgb_277_df</span><span class="op">$</span><span class="va">rgb</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu">with</span><span class="op">(</span><span class="va">rgb_277_df</span>, <span class="fu">rgb</span><span class="op">(</span><span class="va">X277_HARV_landRGB_1</span>, <span class="va">X277_HARV_landRGB_2</span>, </span>
 <span>                       <span class="va">X277_HARV_landRGB_3</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Finally, we can plot the RGB data for Julian day 277.</p>
@@ -933,7 +933,7 @@ to be between 0 and 1, so we will divide our RasterStack object by
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data<span class="op">=</span><span class="va">RGB_277_df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>, fill<span class="op">=</span><span class="va">RGB_277_df</span><span class="op">$</span><span class="va">rgb</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data<span class="op">=</span><span class="va">rgb_277_df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>, fill<span class="op">=</span><span class="va">rgb_277_df</span><span class="op">$</span><span class="va">rgb</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Julian day 277"</span><span class="op">)</span> </span></code></pre>
 </div>
 <figure><img src="fig/12-time-series-raster-rendered-rgb-277-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We then do the same steps for Julian day 293</p>
@@ -942,15 +942,15 @@ to be between 0 and 1, so we will divide our RasterStack object by
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Julian day 293</span></span>
-<span><span class="va">RGB_293</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif"</span><span class="op">)</span></span>
-<span><span class="fu">names</span><span class="op">(</span><span class="va">RGB_293</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">paste0</span><span class="op">(</span><span class="st">"X"</span>, <span class="fu">names</span><span class="op">(</span><span class="va">RGB_293</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">RGB_293</span> <span class="op">&lt;-</span> <span class="va">RGB_293</span><span class="op">/</span><span class="fl">255</span></span>
-<span><span class="va">RGB_293_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">RGB_293</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">RGB_293_df</span><span class="op">$</span><span class="va">rgb</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu">with</span><span class="op">(</span><span class="va">RGB_293_df</span>, <span class="fu">rgb</span><span class="op">(</span><span class="va">X293_HARV_landRGB_1</span>, <span class="va">X293_HARV_landRGB_2</span>, </span>
+<span><span class="va">rgb_293</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="st">"data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif"</span><span class="op">)</span></span>
+<span><span class="fu">names</span><span class="op">(</span><span class="va">rgb_293</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">paste0</span><span class="op">(</span><span class="st">"X"</span>, <span class="fu">names</span><span class="op">(</span><span class="va">rgb_293</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">rgb_293</span> <span class="op">&lt;-</span> <span class="va">rgb_293</span><span class="op">/</span><span class="fl">255</span></span>
+<span><span class="va">rgb_293_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">rgb_293</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">rgb_293_df</span><span class="op">$</span><span class="va">rgb</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu">with</span><span class="op">(</span><span class="va">rgb_293_df</span>, <span class="fu">rgb</span><span class="op">(</span><span class="va">X293_HARV_landRGB_1</span>, <span class="va">X293_HARV_landRGB_2</span>, </span>
 <span>                       <span class="va">X293_HARV_landRGB_3</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">RGB_293_df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">RGB_293_df</span><span class="op">$</span><span class="va">rgb</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">rgb_293_df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">rgb_293_df</span><span class="op">$</span><span class="va">rgb</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Julian day 293"</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/12-time-series-raster-rendered-rgb-293-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>This example highlights the importance of exploring the source of a
@@ -1039,8 +1039,8 @@ format.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/12-time-series-raster.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/12-time-series-raster.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2025-09-26",
-  "datePublished": "2025-09-30"
+  "dateModified": "2025-10-06",
+  "datePublished": "2025-10-06"
 }
 
   </script><script>

@@ -389,7 +389,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Plot Multiple Vector Layers</h1>
-        <p>Last updated on 2025-09-26 |
+        <p>Last updated on 2025-10-06 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/08-vector-plot-shapefiles-custom-legend.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -461,8 +461,8 @@ However, what if we want to create a more complex plot with many vector
 layers and unique symbols that need to be represented clearly in a
 legend?</p>
 <p>Now, let’s create a plot that combines our tower location
-(<code>point_HARV</code>), site boundary
-(<code>aoi_boundary_HARV</code>) and roads (<code>lines_HARV</code>)
+(<code>point_harv</code>), site boundary
+(<code>aoi_boundary_harv</code>) and roads (<code>lines_harv</code>)
 spatial objects. We will need to build a custom legend as well.</p>
 <p>To begin, we will create a plot with the site boundary as the first
 layer. Then layer the tower location and road data on top using
@@ -472,9 +472,9 @@ layer. Then layer the tower location and road data on top using
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">aoi_boundary_HARV</span>, fill <span class="op">=</span> <span class="st">"grey"</span>, color <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_HARV</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">point_HARV</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">aoi_boundary_harv</span>, fill <span class="op">=</span> <span class="st">"grey"</span>, color <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_harv</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">point_harv</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
@@ -491,10 +491,10 @@ to the <code>geom_sf</code> call - in this case,
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">aoi_boundary_HARV</span>, fill <span class="op">=</span> <span class="st">"grey"</span>, color <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_HARV</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span>,</span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">aoi_boundary_harv</span>, fill <span class="op">=</span> <span class="st">"grey"</span>, color <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_harv</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span>,</span>
 <span>          show.legend <span class="op">=</span> <span class="st">"line"</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">point_HARV</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Sub_Type</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">point_harv</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Sub_Type</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_color_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="va">road_colors</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -507,9 +507,9 @@ the respective <code>color</code> and <code>fill</code> palettes.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">aoi_boundary_HARV</span>, fill <span class="op">=</span> <span class="st">"grey"</span>, color <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">point_HARV</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Sub_Type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_HARV</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span>, show.legend <span class="op">=</span> <span class="st">"line"</span>,</span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">aoi_boundary_harv</span>, fill <span class="op">=</span> <span class="st">"grey"</span>, color <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">point_harv</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Sub_Type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_harv</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span>, show.legend <span class="op">=</span> <span class="st">"line"</span>,</span>
 <span>          size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_color_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="va">road_colors</span>, name <span class="op">=</span> <span class="st">"Line Type"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="st">"black"</span>, name <span class="op">=</span> <span class="st">"Tower Location"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -537,9 +537,9 @@ call to <code>geom_sf</code>: 16 is a point symbol, 15 is a box.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">aoi_boundary_HARV</span>, fill <span class="op">=</span> <span class="st">"grey"</span>, color <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">point_HARV</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Sub_Type</span><span class="op">)</span>, shape <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_HARV</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span>,</span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">aoi_boundary_harv</span>, fill <span class="op">=</span> <span class="st">"grey"</span>, color <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">point_harv</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Sub_Type</span><span class="op">)</span>, shape <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_harv</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span>,</span>
 <span>          show.legend <span class="op">=</span> <span class="st">"line"</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_color_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="va">road_colors</span>, name <span class="op">=</span> <span class="st">"Line Type"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="st">"black"</span>, name <span class="op">=</span> <span class="st">"Tower Location"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -559,7 +559,7 @@ call to <code>geom_sf</code>: 16 is a point symbol, 15 is a box.</p>
 <code>shapefile</code>, create a map of study plot locations, with each
 point colored by the soil type (<code>soilTypeOr</code>). How many
 different soil types are there at this particular field site? Overlay
-this layer on top of the <code>lines_HARV</code> layer (the roads).
+this layer on top of the <code>lines_harv</code> layer (the roads).
 Create a custom legend that applies line symbols to lines and point
 symbols to the points.</p></li>
 <li><p>Modify the plot above. Tell R to plot each point, using a
@@ -623,7 +623,7 @@ type.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_HARV</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span>, show.legend <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_harv</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span>, show.legend <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plot_locations</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">soilTypeOr</span><span class="op">)</span>,</span>
 <span>          shape <span class="op">=</span> <span class="fl">21</span>, show.legend <span class="op">=</span> <span class="st">'point'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_color_manual</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Line Type"</span>, values <span class="op">=</span> <span class="va">road_colors</span>,</span>
@@ -642,7 +642,7 @@ multiple values to the <code>scale_shape_manual()</code> argument.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_HARV</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span>, show.legend <span class="op">=</span> <span class="st">"line"</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_harv</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span>, show.legend <span class="op">=</span> <span class="st">"line"</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plot_locations</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">soilTypeOr</span>, shape <span class="op">=</span> <span class="va">soilTypeOr</span><span class="op">)</span>,</span>
 <span>          show.legend <span class="op">=</span> <span class="st">'point'</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_shape_manual</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Soil Type"</span>, values <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">21</span>, <span class="fl">22</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -692,10 +692,10 @@ as a base layer. On top of the CHM, please add:</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">CHM_HARV_df</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">HARV_chmCrop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_HARV</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">aoi_boundary_HARV</span>, color <span class="op">=</span> <span class="st">"grey20"</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">point_HARV</span>, pch <span class="op">=</span> <span class="fl">8</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">chm_harv_df</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">HARV_chmCrop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_harv</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">aoi_boundary_harv</span>, color <span class="op">=</span> <span class="st">"grey20"</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">point_harv</span>, pch <span class="op">=</span> <span class="fl">8</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site w/ Canopy Height Model"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
@@ -778,8 +778,8 @@ colors.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/08-vector-plot-shapefiles-custom-legend.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/08-vector-plot-shapefiles-custom-legend.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2025-09-26",
-  "datePublished": "2025-09-30"
+  "dateModified": "2025-10-06",
+  "datePublished": "2025-10-06"
 }
 
   </script><script>

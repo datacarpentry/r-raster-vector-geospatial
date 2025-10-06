@@ -391,7 +391,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Explore and Plot by Vector Layer Attributes</h1>
-        <p>Last updated on 2025-09-26 |
+        <p>Last updated on 2025-10-06 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/07-vector-shapefile-attributes-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -470,16 +470,16 @@ by) of the object.</li>
 <li>
 <code>st_crs()</code> - The CRS (spatial projection) of the
 data.</li>
-</ul><p>We started to explore our <code>point_HARV</code> object in the
+</ul><p>We started to explore our <code>point_harv</code> object in the
 previous episode. To see a summary of all of the metadata associated
-with our <code>point_HARV</code> object, we can view the object with
-<code>View(point_HARV)</code> or print a summary of the object itself to
+with our <code>point_harv</code> object, we can view the object with
+<code>View(point_harv)</code> or print a summary of the object itself to
 the console.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">point_HARV</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">point_harv</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -504,7 +504,7 @@ roads file:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ncol</span><span class="op">(</span><span class="va">lines_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">ncol</span><span class="op">(</span><span class="va">lines_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -517,7 +517,7 @@ roads file:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">names</span><span class="op">(</span><span class="va">lines_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">names</span><span class="op">(</span><span class="va">lines_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -533,7 +533,7 @@ the <code>head()</code> function to get a preview of the data:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">lines_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">lines_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -581,13 +581,13 @@ Projected CRS: WGS 84 / UTM zone 18N
 <h3 class="callout-title">Challenge: Attributes for Different Spatial
 Classes</h3>
 <div class="callout-content">
-<p>Explore the attributes associated with the <code>point_HARV</code>
-and <code>aoi_boundary_HARV</code> spatial objects.</p>
+<p>Explore the attributes associated with the <code>point_harv</code>
+and <code>aoi_boundary_harv</code> spatial objects.</p>
 <ol style="list-style-type: decimal"><li><p>How many attributes does each have?</p></li>
-<li><p>Who owns the site in the <code>point_HARV</code> data
+<li><p>Who owns the site in the <code>point_harv</code> data
 object?</p></li>
 <li><p>Which of the following is NOT an attribute of the
-<code>point_HARV</code> data object?</p></li>
+<code>point_harv</code> data object?</p></li>
 </ol><ol style="list-style-type: upper-alpha"><li>Latitude B) County C) Country</li>
 </ol></div>
 </div>
@@ -607,7 +607,7 @@ function:</li>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ncol</span><span class="op">(</span><span class="va">point_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">ncol</span><span class="op">(</span><span class="va">point_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -618,7 +618,7 @@ function:</li>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ncol</span><span class="op">(</span><span class="va">aoi_boundary_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">ncol</span><span class="op">(</span><span class="va">aoi_boundary_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -631,7 +631,7 @@ function:</li>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">point_HARV</span><span class="op">$</span><span class="va">Ownership</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">point_harv</span><span class="op">$</span><span class="va">Ownership</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -644,7 +644,7 @@ function:</li>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">names</span><span class="op">(</span><span class="va">point_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">names</span><span class="op">(</span><span class="va">point_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -671,7 +671,7 @@ feature:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">lines_HARV</span><span class="op">$</span><span class="va">TYPE</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">lines_harv</span><span class="op">$</span><span class="va">TYPE</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -689,7 +689,7 @@ earlier lesson</a>.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">unique</span><span class="op">(</span><span class="va">lines_HARV</span><span class="op">$</span><span class="va">TYPE</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">unique</span><span class="op">(</span><span class="va">lines_harv</span><span class="op">$</span><span class="va">TYPE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -710,9 +710,9 @@ lines.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">footpath_HARV</span> <span class="op">&lt;-</span> <span class="va">lines_HARV</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="va">footpath_harv</span> <span class="op">&lt;-</span> <span class="va">lines_harv</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="va">TYPE</span> <span class="op">==</span> <span class="st">"footpath"</span><span class="op">)</span></span>
-<span><span class="fu">nrow</span><span class="op">(</span><span class="va">footpath_HARV</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">nrow</span><span class="op">(</span><span class="va">footpath_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -728,7 +728,7 @@ lines:</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">footpath_HARV</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">footpath_harv</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span>, subtitle <span class="op">=</span> <span class="st">"Footpaths"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
@@ -749,7 +749,7 @@ variable.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">footpath_HARV</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">OBJECTID</span><span class="op">)</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">footpath_harv</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">OBJECTID</span><span class="op">)</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'Footpath ID'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span>, subtitle <span class="op">=</span> <span class="st">"Footpaths"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
@@ -786,7 +786,7 @@ it.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">boardwalk_HARV</span> <span class="op">&lt;-</span> <span class="va">lines_HARV</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="va">boardwalk_harv</span> <span class="op">&lt;-</span> <span class="va">lines_harv</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="va">TYPE</span> <span class="op">==</span> <span class="st">"boardwalk"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Let’s check how many features there are in this subset:</p>
@@ -794,7 +794,7 @@ it.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">nrow</span><span class="op">(</span><span class="va">boardwalk_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">nrow</span><span class="op">(</span><span class="va">boardwalk_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -807,7 +807,7 @@ it.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">boardwalk_HARV</span>, linewidth <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">boardwalk_harv</span>, linewidth <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span>, subtitle <span class="op">=</span> <span class="st">"Boardwalks"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
@@ -846,9 +846,9 @@ the number of features:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">stoneWall_HARV</span> <span class="op">&lt;-</span> <span class="va">lines_HARV</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="va">stonewall_harv</span> <span class="op">&lt;-</span> <span class="va">lines_harv</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="va">TYPE</span> <span class="op">==</span> <span class="st">"stone wall"</span><span class="op">)</span></span>
-<span><span class="fu">nrow</span><span class="op">(</span><span class="va">stoneWall_HARV</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">nrow</span><span class="op">(</span><span class="va">stonewall_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -861,7 +861,7 @@ the number of features:</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">stoneWall_HARV</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">OBJECTID</span><span class="op">)</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">stonewall_harv</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">OBJECTID</span><span class="op">)</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'Wall ID'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span>, subtitle <span class="op">=</span> <span class="st">"Stonewalls"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
@@ -885,7 +885,7 @@ has:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">unique</span><span class="op">(</span><span class="va">lines_HARV</span><span class="op">$</span><span class="va">TYPE</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">unique</span><span class="op">(</span><span class="va">lines_harv</span><span class="op">$</span><span class="va">TYPE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -907,7 +907,7 @@ data.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_HARV</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_harv</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_color_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="va">road_colors</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'Road Type'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span>, subtitle <span class="op">=</span> <span class="st">"Roads &amp; Trails"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -934,7 +934,7 @@ lines_HARV object, so we will set four different line widths.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_HARV</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span>, linewidth <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_harv</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span>, linewidth <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_color_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="va">road_colors</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'Road Type'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_linewidth_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="va">line_widths</span><span class="op">)</span> <span class="op">+</span></span>
@@ -981,7 +981,7 @@ road types are in:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">unique</span><span class="op">(</span><span class="va">lines_HARV</span><span class="op">$</span><span class="va">TYPE</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">unique</span><span class="op">(</span><span class="va">lines_harv</span><span class="op">$</span><span class="va">TYPE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1002,7 +1002,7 @@ the levels to the desired thickness.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_HARV</span>, <span class="fu">aes</span><span class="op">(</span>linewidth <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_harv</span>, <span class="fu">aes</span><span class="op">(</span>linewidth <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_linewidth_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="va">line_width</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span>,</span>
 <span>          subtitle <span class="op">=</span> <span class="st">"Roads &amp; Trails - Line width varies"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1029,7 +1029,7 @@ setting different parameters.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_HARV</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_harv</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_color_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="va">road_colors</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'Road Type'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span>,</span>
@@ -1050,7 +1050,7 @@ different parameters.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_HARV</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_harv</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_color_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="va">road_colors</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'Road Type'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme</span><span class="op">(</span>legend.text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
@@ -1069,7 +1069,7 @@ legend.
 <code class="sourceCode R"><span><span class="va">new_colors</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">"springgreen"</span>, <span class="st">"blue"</span>, <span class="st">"magenta"</span>, <span class="st">"orange"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_HARV</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_harv</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">TYPE</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_color_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="va">new_colors</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'Road Type'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme</span><span class="op">(</span>legend.text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
@@ -1118,7 +1118,7 @@ package</a>.</p>
 are allowed. To emphasize this, make the lines where bicycles are not
 allowed THINNER than the roads where bicycles are allowed. NOTE: this
 attribute information is located in the
-<code>lines_HARV$BicyclesHo</code> attribute.</p>
+<code>lines_harv$BicyclesHo</code> attribute.</p>
 <p>Be sure to add a title and legend to your map. You might consider a
 color palette that has all bike/horse-friendly roads displayed in a
 bright color. All other lines can be black.</p>
@@ -1140,7 +1140,7 @@ values that correspond to the roads we need.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">lines_HARV</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="va">lines_harv</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">pull</span><span class="op">(</span><span class="va">BicyclesHo</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">unique</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
@@ -1156,8 +1156,8 @@ and horses are allowed.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">lines_showHarv</span> <span class="op">&lt;-</span></span>
-<span>  <span class="va">lines_HARV</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="va">roads_bike_horse</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">lines_harv</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="va">BicyclesHo</span> <span class="op">==</span> <span class="st">"Bicycles and Horses Allowed"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Finally, we plot the needed roads after setting them to magenta and a
@@ -1167,8 +1167,8 @@ thicker line width.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_HARV</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_showHarv</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">BicyclesHo</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines_harv</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">roads_bike_horse</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">BicyclesHo</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_color_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="st">"magenta"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span>,</span>
 <span>          subtitle <span class="op">=</span> <span class="st">"Roads Where Bikes and Horses Are Allowed"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1191,7 +1191,7 @@ are allowed.
 <div class="callout-content">
 <ol style="list-style-type: decimal"><li>Create a map of the state boundaries in the United States using the
 data located in your downloaded data folder:
-<code>NEON-DS-Site-Layout-Files/US-Boundary-Layers\US-State-Boundaries-Census-2014</code>.
+<code>NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014</code>.
 Apply a line color to each state using its <code>region</code> value.
 Add a legend.</li>
 </ol></div>
@@ -1212,7 +1212,7 @@ Add a legend.</li>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">state_boundary_US</span> <span class="op">&lt;-</span></span>
+<code class="sourceCode R"><span><span class="va">state_boundary_us</span> <span class="op">&lt;-</span></span>
 <span><span class="fu">st_read</span><span class="op">(</span><span class="st">"data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span><span class="co"># NOTE: We need neither Z nor M coordinates!</span></span>
 <span><span class="fu">st_zm</span><span class="op">(</span><span class="op">)</span></span></code></pre>
@@ -1234,8 +1234,8 @@ Geodetic CRS:  WGS 84</code></pre>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">state_boundary_US</span><span class="op">$</span><span class="va">region</span> <span class="op">&lt;-</span> <span class="fu">as.factor</span><span class="op">(</span><span class="va">state_boundary_US</span><span class="op">$</span><span class="va">region</span><span class="op">)</span></span>
-<span><span class="fu">levels</span><span class="op">(</span><span class="va">state_boundary_US</span><span class="op">$</span><span class="va">region</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">state_boundary_us</span><span class="op">$</span><span class="va">region</span> <span class="op">&lt;-</span> <span class="fu">as.factor</span><span class="op">(</span><span class="va">state_boundary_us</span><span class="op">$</span><span class="va">region</span><span class="op">)</span></span>
+<span><span class="fu">levels</span><span class="op">(</span><span class="va">state_boundary_us</span><span class="op">$</span><span class="va">region</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1255,7 +1255,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">state_boundary_US</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">region</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">state_boundary_us</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">region</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_color_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="va">colors</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Contiguous U.S. State Boundaries"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
@@ -1340,8 +1340,8 @@ functions and options in the <code>ggplot2</code> package.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/07-vector-shapefile-attributes-in-r.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/07-vector-shapefile-attributes-in-r.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2025-09-26",
-  "datePublished": "2025-09-30"
+  "dateModified": "2025-10-06",
+  "datePublished": "2025-10-06"
 }
 
   </script><script>

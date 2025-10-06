@@ -393,7 +393,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Handling Spatial Projection &amp; CRS</h1>
-        <p>Last updated on 2025-09-26 |
+        <p>Last updated on 2025-10-06 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/09-vector-when-data-dont-line-up-crs.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -497,7 +497,7 @@ learning goals of this episode.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">state_boundary_US</span> <span class="op">&lt;-</span> <span class="fu">st_read</span><span class="op">(</span><span class="st">"data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="va">state_boundary_us</span> <span class="op">&lt;-</span> <span class="fu">st_read</span><span class="op">(</span><span class="st">"data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">st_zm</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -519,7 +519,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">state_boundary_US</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">state_boundary_us</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Map of Contiguous US State Boundaries"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
@@ -531,7 +531,7 @@ it look nicer. We will import
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">country_boundary_US</span> <span class="op">&lt;-</span> <span class="fu">st_read</span><span class="op">(</span><span class="st">"data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="va">us_outline</span> <span class="op">&lt;-</span> <span class="fu">st_read</span><span class="op">(</span><span class="st">"data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">st_zm</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -555,8 +555,8 @@ the colors of the state boundaries and country boundaries.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">state_boundary_US</span>, color <span class="op">=</span> <span class="st">"gray60"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">country_boundary_US</span>, color <span class="op">=</span> <span class="st">"black"</span>,alpha <span class="op">=</span> <span class="fl">0.25</span>,size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">state_boundary_us</span>, color <span class="op">=</span> <span class="st">"gray60"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">us_outline</span>, color <span class="op">=</span> <span class="st">"black"</span>,alpha <span class="op">=</span> <span class="fl">0.25</span>,size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Map of Contiguous US State Boundaries"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
@@ -567,14 +567,14 @@ First let’s look at the CRS of our tower location object:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">st_crs</span><span class="op">(</span><span class="va">point_HARV</span><span class="op">)</span><span class="op">$</span><span class="va">proj4string</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">st_crs</span><span class="op">(</span><span class="va">point_harv</span><span class="op">)</span><span class="op">$</span><span class="va">proj4string</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>[1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"</code></pre>
 </div>
-<p>Our project string for <code>point_HARV</code> specifies the UTM
+<p>Our project string for <code>point_harv</code> specifies the UTM
 projection as follows:</p>
 <p><code>+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs</code></p>
 <ul><li>
@@ -595,7 +595,7 @@ all CRSs will have a zone.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">st_crs</span><span class="op">(</span><span class="va">state_boundary_US</span><span class="op">)</span><span class="op">$</span><span class="va">proj4string</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">st_crs</span><span class="op">(</span><span class="va">state_boundary_us</span><span class="op">)</span><span class="op">$</span><span class="va">proj4string</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -606,15 +606,15 @@ all CRSs will have a zone.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">st_crs</span><span class="op">(</span><span class="va">country_boundary_US</span><span class="op">)</span><span class="op">$</span><span class="va">proj4string</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">st_crs</span><span class="op">(</span><span class="va">us_outline</span><span class="op">)</span><span class="op">$</span><span class="va">proj4string</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>[1] "+proj=longlat +datum=WGS84 +no_defs"</code></pre>
 </div>
-<p>Our project string for <code>state_boundary_US</code> and
-<code>country_boundary_US</code> specifies the lat/long projection as
+<p>Our project string for <code>state_boundary_us</code> and
+<code>us_outline</code> specifies the lat/long projection as
 follows:</p>
 <p><code>+proj=longlat +datum=WGS84 +no_defs</code></p>
 <ul><li>
@@ -646,14 +646,14 @@ with datums in this episode series.</p>
 </div>
 </section><section><h2 class="section-heading" id="crs-units---view-object-extent">CRS Units - View Object Extent<a class="anchor" aria-label="anchor" href="#crs-units---view-object-extent"></a></h2>
 <hr class="half-width"><p>Next, let’s view the extent or spatial coverage for the
-<code>point_HARV</code> spatial object compared to the
-<code>state_boundary_US</code> object.</p>
+<code>point_harv</code> spatial object compared to the
+<code>state_boundary_us</code> object.</p>
 <p>First we’ll look at the extent for our study site:</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">st_bbox</span><span class="op">(</span><span class="va">point_HARV</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">st_bbox</span><span class="op">(</span><span class="va">point_harv</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -666,7 +666,7 @@ with datums in this episode series.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">st_bbox</span><span class="op">(</span><span class="va">state_boundary_US</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">st_bbox</span><span class="op">(</span><span class="va">state_boundary_us</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -675,7 +675,7 @@ with datums in this episode series.</p>
 -124.72584   24.49813  -66.94989   49.38436 </code></pre>
 </div>
 <p>Note the difference in the units for each object. The extent for
-<code>state_boundary_US</code> is in latitude and longitude which yields
+<code>state_boundary_us</code> is in latitude and longitude which yields
 smaller numbers representing decimal degree units. Our tower location
 point is in UTM, is represented in meters.</p>
 <div id="proj4-crs-resources" class="callout">
@@ -712,9 +712,9 @@ plot our three data sets together without doing any conversion:</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">state_boundary_US</span>, color <span class="op">=</span> <span class="st">"gray60"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">country_boundary_US</span>, size <span class="op">=</span> <span class="fl">5</span>, alpha <span class="op">=</span> <span class="fl">0.25</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">point_HARV</span>, shape <span class="op">=</span> <span class="fl">19</span>, color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">state_boundary_us</span>, color <span class="op">=</span> <span class="st">"gray60"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">us_outline</span>, size <span class="op">=</span> <span class="fl">5</span>, alpha <span class="op">=</span> <span class="fl">0.25</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">point_harv</span>, shape <span class="op">=</span> <span class="fl">19</span>, color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Map of Contiguous US State Boundaries"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
@@ -731,7 +731,7 @@ Data</h3>
 <ol style="list-style-type: decimal"><li>Import and plot <code>Boundary-US-State-NEast.shp</code>. Adjust
 line width as necessary.</li>
 <li>Layer the Fisher Tower (in the NEON Harvard Forest site) point
-location <code>point_HARV</code> onto the plot.</li>
+location <code>point_harv</code> onto the plot.</li>
 <li>Add a title.</li>
 <li>Add a legend that shows both the state boundary (as a line) and the
 Tower location point.</li>
@@ -745,13 +745,13 @@ Tower location point.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">NE.States.Boundary.US</span> <span class="op">&lt;-</span> <span class="fu">st_read</span><span class="op">(</span><span class="st">"data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="va">ne_states_outline</span> <span class="op">&lt;-</span> <span class="fu">st_read</span><span class="op">(</span><span class="st">"data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">st_zm</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -772,11 +772,11 @@ Geodetic CRS:  WGS 84</code></pre>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">NE.States.Boundary.US</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span><span class="st">"color"</span><span class="op">)</span>,</span>
+<span>    <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ne_states_outline</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span><span class="st">"color"</span><span class="op">)</span>,</span>
 <span>            show.legend <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">scale_color_manual</span><span class="op">(</span>name <span class="op">=</span> <span class="st">""</span>, labels <span class="op">=</span> <span class="st">"State Boundary"</span>,</span>
 <span>                       values <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"color"</span> <span class="op">=</span> <span class="st">"gray18"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">point_HARV</span>, <span class="fu">aes</span><span class="op">(</span>shape <span class="op">=</span> <span class="st">"shape"</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">point_harv</span>, <span class="fu">aes</span><span class="op">(</span>shape <span class="op">=</span> <span class="st">"shape"</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">scale_shape_manual</span><span class="op">(</span>name <span class="op">=</span> <span class="st">""</span>, labels <span class="op">=</span> <span class="st">"Fisher Tower"</span>,</span>
 <span>                       values <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"shape"</span> <span class="op">=</span> <span class="fl">19</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Fisher Tower location"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -859,8 +859,8 @@ the same CRS.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/09-vector-when-data-dont-line-up-crs.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/09-vector-when-data-dont-line-up-crs.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2025-09-26",
-  "datePublished": "2025-09-30"
+  "dateModified": "2025-10-06",
+  "datePublished": "2025-10-06"
 }
 
   </script><script>
