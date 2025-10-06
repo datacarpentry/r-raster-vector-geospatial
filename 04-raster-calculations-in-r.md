@@ -40,28 +40,28 @@ Field site and San Joaquin Experimental Range. If you don't still have
 them loaded, do so now and turn them into dataframes:
 
 # DSM (tree top) data for Harvard Forest
-DSM_HARV <- 
+dsm_harv <- 
   rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
-DSM_HARV_df <- as.data.frame(DSM_HARV, xy = TRUE)
+dsm_harv_df <- as.data.frame(dsm_harv, xy = TRUE)
 
 # DTM (bare earth) data for Harvard Forest
-DTM_HARV <- 
+dtm_harv <- 
   rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 
-DTM_HARV_df <- as.data.frame(DTM_HARV, xy = TRUE)
+dtm_harv_df <- as.data.frame(dtm_harv, xy = TRUE)
 
 # DSM data for SJER
-DSM_SJER <- 
+dsm_sjer <- 
   rast("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
 
-DSM_SJER_df <- as.data.frame(DSM_SJER, xy = TRUE)
+dsm_sjer_df <- as.data.frame(dsm_sjer, xy = TRUE)
 
 # DTM data for SJER
-DTM_SJER <- 
+dtm_sjer <- 
   rast("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
 
-DTM_SJER_df <- as.data.frame(DTM_SJER, xy = TRUE)
+dtm_sjer_df <- as.data.frame(dtm_sjer, xy = TRUE)
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -263,7 +263,7 @@ what this data looks like. First we'll plot the DTM elevation data:
 
 ``` r
  ggplot() +
-      geom_raster(data = DTM_HARV_df , 
+      geom_raster(data = dtm_harv_df , 
               aes(x = x, y = y, fill = HARV_dtmCrop)) +
      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
      coord_quickmap()
@@ -276,7 +276,7 @@ And then the DSM elevation data:
 
 ``` r
  ggplot() +
-      geom_raster(data = DSM_HARV_df , 
+      geom_raster(data = dsm_harv_df , 
               aes(x = x, y = y, fill = HARV_dsmCrop)) +
      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
      coord_quickmap()
@@ -306,9 +306,9 @@ After subtracting, let's create a dataframe so we can plot with `ggplot`.
 
 
 ``` r
-CHM_HARV <- DSM_HARV - DTM_HARV
+chm_harv <- dsm_harv - dtm_harv
 
-CHM_HARV_df <- as.data.frame(CHM_HARV, xy = TRUE)
+chm_harv_df <- as.data.frame(chm_harv, xy = TRUE)
 ```
 
 We can now plot the output CHM.
@@ -316,7 +316,7 @@ We can now plot the output CHM.
 
 ``` r
  ggplot() +
-   geom_raster(data = CHM_HARV_df , 
+   geom_raster(data = chm_harv_df , 
                aes(x = x, y = y, fill = HARV_dsmCrop)) + 
    scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
    coord_quickmap()
@@ -329,7 +329,7 @@ Canopy Height Model (CHM).
 
 
 ``` r
-ggplot(CHM_HARV_df) +
+ggplot(chm_harv_df) +
     geom_histogram(aes(HARV_dsmCrop))
 ```
 
@@ -349,11 +349,11 @@ Does this make sense for trees in Harvard Forest?
 It's often a good idea to explore the range of values in a raster dataset just 
 like we might explore a dataset that we collected in the field.
 
-1. What is the min and maximum value for the Harvard Forest Canopy Height Model (`CHM_HARV`) that we just created?
-2. What are two ways you can check this range of data for `CHM_HARV`?
+1. What is the min and maximum value for the Harvard Forest Canopy Height Model (`chm_harv`) that we just created?
+2. What are two ways you can check this range of data for `chm_harv`?
 3. What is the distribution of all the pixel values in the CHM?
 4. Plot a histogram with 6 bins instead of the default and change the color of the histogram.
-5. Plot the `CHM_HARV` raster using breaks that make sense for the data. Include an appropriate color palette for the data, plot title and no axes ticks / labels.
+5. Plot the `chm_harv` raster using breaks that make sense for the data. Include an appropriate color palette for the data, plot title and no axes ticks / labels.
 
 :::::::::::::::  solution
 
@@ -364,7 +364,7 @@ like we might explore a dataset that we collected in the field.
 
 
 ``` r
-min(CHM_HARV_df$HARV_dsmCrop, na.rm = TRUE)
+min(chm_harv_df$HARV_dsmCrop, na.rm = TRUE)
 ```
 
 ``` output
@@ -372,7 +372,7 @@ min(CHM_HARV_df$HARV_dsmCrop, na.rm = TRUE)
 ```
 
 ``` r
-max(CHM_HARV_df$HARV_dsmCrop, na.rm = TRUE)
+max(chm_harv_df$HARV_dsmCrop, na.rm = TRUE)
 ```
 
 ``` output
@@ -388,7 +388,7 @@ max(CHM_HARV_df$HARV_dsmCrop, na.rm = TRUE)
 3) 
 
 ``` r
-ggplot(CHM_HARV_df) +
+ggplot(chm_harv_df) +
     geom_histogram(aes(HARV_dsmCrop))
 ```
 
@@ -401,7 +401,7 @@ ggplot(CHM_HARV_df) +
 4) 
 
 ``` r
-ggplot(CHM_HARV_df) +
+ggplot(chm_harv_df) +
     geom_histogram(aes(HARV_dsmCrop), colour="black", 
                    fill="darkgreen", bins = 6)
 ```
@@ -412,12 +412,12 @@ ggplot(CHM_HARV_df) +
 
 ``` r
 custom_bins <- c(0, 10, 20, 30, 40)
-CHM_HARV_df <- CHM_HARV_df %>%
+chm_harv_df <- chm_harv_df %>%
                   mutate(canopy_discrete = cut(HARV_dsmCrop, 
                                                breaks = custom_bins))
 
 ggplot() +
-  geom_raster(data = CHM_HARV_df , aes(x = x, y = y,
+  geom_raster(data = chm_harv_df , aes(x = x, y = y,
                                        fill = canopy_discrete)) + 
      scale_fill_manual(values = terrain.colors(4)) + 
      coord_quickmap()
@@ -475,7 +475,7 @@ function in R is:
 
 
 ``` r
-CHM_ov_HARV <- lapp(sds(list(DSM_HARV, DTM_HARV)), 
+chm_ov_harv <- lapp(sds(list(dsm_harv, dtm_harv)), 
                     fun = function(r1, r2) { return( r1 - r2) })
 ```
 
@@ -484,7 +484,7 @@ Next we need to convert our new object to a data frame for plotting with
 
 
 ``` r
-CHM_ov_HARV_df <- as.data.frame(CHM_ov_HARV, xy = TRUE)
+chm_ov_harv_df <- as.data.frame(chm_ov_harv, xy = TRUE)
 ```
 
 Now we can plot the CHM:
@@ -492,7 +492,7 @@ Now we can plot the CHM:
 
 ``` r
  ggplot() +
-   geom_raster(data = CHM_ov_HARV_df, 
+   geom_raster(data = chm_ov_harv_df, 
                aes(x = x, y = y, fill = HARV_dsmCrop)) + 
    scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
    coord_quickmap()
@@ -510,7 +510,7 @@ file using
 the `writeRaster()` function.
 
 When we write this raster object to a GeoTIFF file we'll name it
-`CHM_HARV.tiff`. This name allows us to quickly remember both what the data
+`chm_harv.tiff`. This name allows us to quickly remember both what the data
 contains (CHM data) and for where (HARVard Forest). The `writeRaster()` function
 by default writes the output file to your working directory unless you specify a
 full file path.
@@ -521,7 +521,7 @@ name.
 
 
 ``` r
-writeRaster(CHM_ov_HARV, "CHM_HARV.tiff",
+writeRaster(chm_ov_harv, "chm_harv.tiff",
             filetype="GTiff",
             overwrite=TRUE,
             NAflag=-9999)
@@ -552,7 +552,7 @@ in Massachusetts.
 
 Import the SJER DSM and DTM raster files and create a Canopy Height Model.
 Then compare the two sites. Be sure to name your R objects and outputs
-carefully, as follows: objectType\_SJER (e.g. `DSM_SJER`). This will help you
+carefully, as follows: objectType\_SJER (e.g. `dsm_sjer`). This will help you
 keep track of data from different sites!
 
 0. You should have the DSM and DTM data for the SJER site already
@@ -574,7 +574,7 @@ keep track of data from different sites!
 
 
 ``` r
-CHM_ov_SJER <- lapp(sds(list(DSM_SJER, DTM_SJER)),
+chm_ov_sjer <- lapp(sds(list(dsm_sjer, dtm_sjer)),
                        fun = function(r1, r2){ return(r1 - r2) })
 ```
 
@@ -582,14 +582,14 @@ Convert the output to a dataframe:
 
 
 ``` r
-CHM_ov_SJER_df <- as.data.frame(CHM_ov_SJER, xy = TRUE)
+chm_ov_sjer_df <- as.data.frame(chm_ov_sjer, xy = TRUE)
 ```
 
 Create a histogram to check that the data distribution makes sense:
 
 
 ``` r
-ggplot(CHM_ov_SJER_df) +
+ggplot(chm_ov_sjer_df) +
     geom_histogram(aes(SJER_dsmCrop))
 ```
 
@@ -604,7 +604,7 @@ ggplot(CHM_ov_SJER_df) +
 
 ``` r
  ggplot() +
-      geom_raster(data = CHM_ov_SJER_df, 
+      geom_raster(data = chm_ov_sjer_df, 
               aes(x = x, y = y, 
                    fill = SJER_dsmCrop)
               ) + 
@@ -619,7 +619,7 @@ ggplot(CHM_ov_SJER_df) +
 
 
 ``` r
-writeRaster(CHM_ov_SJER, "chm_ov_SJER.tiff",
+writeRaster(chm_ov_sjer, "chm_ov_sjer.tiff",
             filetype = "GTiff",
             overwrite = TRUE,
             NAflag = -9999)
@@ -631,7 +631,7 @@ writeRaster(CHM_ov_SJER, "chm_ov_SJER.tiff",
 
 
 ``` r
-ggplot(CHM_HARV_df) +
+ggplot(chm_harv_df) +
     geom_histogram(aes(HARV_dsmCrop))
 ```
 
@@ -642,7 +642,7 @@ ggplot(CHM_HARV_df) +
 <img src="fig/04-raster-calculations-in-r-rendered-compare-chm-harv-sjer-1.png" style="display: block; margin: auto;" />
 
 ``` r
-ggplot(CHM_ov_SJER_df) +
+ggplot(chm_ov_sjer_df) +
     geom_histogram(aes(SJER_dsmCrop))
 ```
 

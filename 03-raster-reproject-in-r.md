@@ -57,8 +57,8 @@ the digital terrain model (DTM) shows the ground level.
 We'll be looking at another model (the canopy height model) in
 [a later episode](https://datacarpentry.org/r-raster-vector-geospatial/04-raster-calculations-in-r) and will see how to calculate 
 the CHM from the DSM and DTM. Here, we will create a map of the Harvard Forest 
-Digital Terrain Model (`DTM_HARV`) draped or layered on top of the hillshade 
-(`DTM_hill_HARV`).
+Digital Terrain Model (`dtm_harv`) draped or layered on top of the hillshade 
+(`dtm_hill_harv`).
 The hillshade layer maps the terrain using light and shadow to create a 
 3D-looking image, based on a hypothetical illumination of the ground level.
 
@@ -68,10 +68,10 @@ First, we need to import the DTM and DTM hillshade data.
 
 
 ``` r
-DTM_HARV <- 
+dtm_harv <- 
     rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 
-DTM_hill_HARV <- 
+dtm_hill_harv <- 
     rast("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
 ```
 
@@ -80,9 +80,9 @@ plotting with `ggplot`.
 
 
 ``` r
-DTM_HARV_df <- as.data.frame(DTM_HARV, xy = TRUE)
+dtm_harv_df <- as.data.frame(dtm_harv, xy = TRUE)
 
-DTM_hill_HARV_df <- as.data.frame(DTM_hill_HARV, xy = TRUE)
+dtm_hill_harv_df <- as.data.frame(dtm_hill_harv, xy = TRUE)
 ```
 
 Now we can create a map of the DTM layered over the hillshade.
@@ -90,10 +90,10 @@ Now we can create a map of the DTM layered over the hillshade.
 
 ``` r
 ggplot() +
-     geom_raster(data = DTM_HARV_df , 
+     geom_raster(data = dtm_harv_df , 
                  aes(x = x, y = y, 
                   fill = HARV_dtmCrop)) + 
-     geom_raster(data = DTM_hill_HARV_df, 
+     geom_raster(data = dtm_hill_harv_df, 
                  aes(x = x, y = y, 
                    alpha = HARV_DTMhill_WGS84)) +
      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
@@ -102,14 +102,14 @@ ggplot() +
 
 <img src="fig/03-raster-reproject-in-r-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" />
 
-Our results are curious - neither the Digital Terrain Model (`DTM_HARV_df`)
-nor the DTM Hillshade (`DTM_hill_HARV_df`) plotted.
+Our results are curious - neither the Digital Terrain Model (`dtm_harv_df`)
+nor the DTM Hillshade (`dtm_hill_harv_df`) plotted.
 Let's try to plot the DTM on its own to make sure there are data there.
 
 
 ``` r
 ggplot() +
-geom_raster(data = DTM_HARV_df,
+geom_raster(data = dtm_harv_df,
     aes(x = x, y = y,
     fill = HARV_dtmCrop)) +
 scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
@@ -125,7 +125,7 @@ Next we plot the DTM Hillshade on its own to see whether everything is OK.
 
 ``` r
 ggplot() +
-geom_raster(data = DTM_hill_HARV_df,
+geom_raster(data = dtm_hill_harv_df,
     aes(x = x, y = y,
     alpha = HARV_DTMhill_WGS84)) + 
     coord_quickmap()
@@ -154,7 +154,7 @@ does each use?
 
 ``` r
 # view crs for DTM
-crs(DTM_HARV, parse = TRUE)
+crs(dtm_harv, parse = TRUE)
 ```
 
 ``` output
@@ -200,7 +200,7 @@ crs(DTM_HARV, parse = TRUE)
 
 ``` r
 # view crs for hillshade
-crs(DTM_hill_HARV, parse = TRUE)
+crs(dtm_hill_harv, parse = TRUE)
 ```
 
 ``` output
@@ -220,8 +220,8 @@ crs(DTM_hill_HARV, parse = TRUE)
 [14] "    ID[\"EPSG\",4326]]"                                
 ```
 
-`DTM_HARV` is in the UTM projection, with units of meters.
-`DTM_hill_HARV` is in
+`dtm_harv` is in the UTM projection, with units of meters.
+`dtm_hill_harv` is in
 `Geographic WGS84` - which is represented by latitude and longitude values.
 
 
@@ -231,15 +231,15 @@ crs(DTM_hill_HARV, parse = TRUE)
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 Because the two rasters are in different CRSs, they don't line up when plotted
-in R. We need to reproject (or change the projection of) `DTM_hill_HARV` into 
-the UTM CRS. Alternatively, we could reproject `DTM_HARV` into WGS84.
+in R. We need to reproject (or change the projection of) `dtm_hill_harv` into 
+the UTM CRS. Alternatively, we could reproject `dtm_harv` into WGS84.
 
 ## Reproject Rasters
 
 We can use the `project()` function to reproject a raster into a new CRS.
 Keep in mind that reprojection only works when you first have a defined CRS
 for the raster object that you want to reproject. It cannot be used if no
-CRS is defined. Lucky for us, the `DTM_hill_HARV` has a defined CRS.
+CRS is defined. Lucky for us, the `dtm_hill_harv` has a defined CRS.
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
@@ -258,19 +258,19 @@ To use the `project()` function, we need to define two things:
 
 The syntax is `project(RasterObject, crs)`
 
-We want the CRS of our hillshade to match the `DTM_HARV` raster. We can thus
-assign the CRS of our `DTM_HARV` to our hillshade within the `project()`
-function as follows: `crs(DTM_HARV)`.
+We want the CRS of our hillshade to match the `dtm_harv` raster. We can thus
+assign the CRS of our `dtm_harv` to our hillshade within the `project()`
+function as follows: `crs(dtm_harv)`.
 Note that we are using the `project()` function on the raster object,
 not the `data.frame()` we use for plotting with `ggplot`.
 
-First we will reproject our `DTM_hill_HARV` raster data to match the `DTM_HARV` 
+First we will reproject our `dtm_hill_harv` raster data to match the `dtm_harv` 
 raster CRS:
 
 
 ``` r
-DTM_hill_UTMZ18N_HARV <- project(DTM_hill_HARV,
-                                 crs(DTM_HARV))
+dtm_hill_utm_harv <- project(dtm_hill_harv,
+                                 crs(dtm_harv))
 ```
 
 Now we can compare the CRS of our original DTM hillshade and our new DTM 
@@ -278,7 +278,7 @@ hillshade, to see how they are different.
 
 
 ``` r
-crs(DTM_hill_UTMZ18N_HARV, parse = TRUE)
+crs(dtm_hill_utm_harv, parse = TRUE)
 ```
 
 ``` output
@@ -323,7 +323,7 @@ crs(DTM_hill_UTMZ18N_HARV, parse = TRUE)
 ```
 
 ``` r
-crs(DTM_hill_HARV, parse = TRUE)
+crs(dtm_hill_harv, parse = TRUE)
 ```
 
 ``` output
@@ -347,7 +347,7 @@ We can also compare the extent of the two objects.
 
 
 ``` r
-ext(DTM_hill_UTMZ18N_HARV)
+ext(dtm_hill_utm_harv)
 ```
 
 ``` output
@@ -355,16 +355,16 @@ SpatExtent : 731402.31567604, 733200.22199435, 4712407.19751409, 4713901.7822207
 ```
 
 ``` r
-ext(DTM_hill_HARV)
+ext(dtm_hill_harv)
 ```
 
 ``` output
 SpatExtent : -72.1819236223343, -72.1606102223342, 42.5294079700285, 42.5423355900285 (xmin, xmax, ymin, ymax)
 ```
 
-Notice in the output above that the `crs()` of `DTM_hill_UTMZ18N_HARV` is now
-UTM. However, the extent values of `DTM_hillUTMZ18N_HARV` are different from
-`DTM_hill_HARV`.
+Notice in the output above that the `crs()` of `dtm_hill_utm_harv` is now
+UTM. However, the extent values of `dtm_hill_utm_harv` are different from
+`dtm_hill_harv`.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -376,8 +376,8 @@ Why do you think the two extents differ?
 
 ## Answers
 
-The extent for DTM\_hill\_UTMZ18N\_HARV is in UTMs so the extent is in meters. 
-The extent for DTM\_hill\_HARV is in lat/long so the extent is expressed in 
+The extent for `dtm_hill_utm_harv` is in UTMs so the extent is in meters. 
+The extent for `dtm_hill_harv` is in lat/long so the extent is expressed in 
 decimal degrees.
 
 
@@ -393,7 +393,7 @@ our original data.
 
 
 ``` r
-res(DTM_hill_UTMZ18N_HARV)
+res(dtm_hill_utm_harv)
 ```
 
 ``` output
@@ -401,7 +401,7 @@ res(DTM_hill_UTMZ18N_HARV)
 ```
 
 ``` r
-res(DTM_HARV)
+res(dtm_harv)
 ```
 
 ``` output
@@ -411,14 +411,14 @@ res(DTM_HARV)
 These two resolutions are different, but they're representing the same data. We 
 can tell R to force our newly reprojected raster to be 1m x 1m resolution by 
 adding a line of code `res=1` within the `project()` function. In the 
-example below, we ensure a resolution match by using `res(DTM_HARV)` as a 
+example below, we ensure a resolution match by using `res(dtm_harv)` as a 
 variable.
 
 
 ``` r
-  DTM_hill_UTMZ18N_HARV <- project(DTM_hill_HARV, 
-                                   crs(DTM_HARV), 
-                                   res = res(DTM_HARV)) 
+  dtm_hill_utm_harv <- project(dtm_hill_harv, 
+                                   crs(dtm_harv), 
+                                   res = res(dtm_harv)) 
 ```
 
 Now both our resolutions and our CRSs match, so we can plot these two data sets 
@@ -426,7 +426,7 @@ together. Let's double-check our resolution to be sure:
 
 
 ``` r
-res(DTM_hill_UTMZ18N_HARV)
+res(dtm_hill_utm_harv)
 ```
 
 ``` output
@@ -434,7 +434,7 @@ res(DTM_hill_UTMZ18N_HARV)
 ```
 
 ``` r
-res(DTM_HARV)
+res(dtm_harv)
 ```
 
 ``` output
@@ -446,7 +446,7 @@ reprojected raster.
 
 
 ``` r
-DTM_hill_HARV_2_df <- as.data.frame(DTM_hill_UTMZ18N_HARV, xy = TRUE)
+dtm_hill_utm_harv_df <- as.data.frame(dtm_hill_utm_harv, xy = TRUE)
 ```
 
 We can now create a plot of this data.
@@ -454,10 +454,10 @@ We can now create a plot of this data.
 
 ``` r
 ggplot() +
-     geom_raster(data = DTM_HARV_df , 
+     geom_raster(data = dtm_harv_df , 
                  aes(x = x, y = y, 
                   fill = HARV_dtmCrop)) + 
-     geom_raster(data = DTM_hill_HARV_2_df, 
+     geom_raster(data = dtm_hill_utm_harv_df, 
                  aes(x = x, y = y, 
                    alpha = HARV_DTMhill_WGS84)) +
      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
@@ -486,28 +486,28 @@ Reproject the data as necessary to make things line up!
 
 ``` r
 # import DSM
-DSM_SJER <- 
+dsm_sjer <- 
     rast("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
 # import DSM hillshade
-DSM_hill_SJER_WGS <-
+dsm_hill_wgs_sjer <-
     rast("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMhill_WGS84.tif")
 
 # reproject raster
-DSM_hill_UTMZ18N_SJER <- project(DSM_hill_SJER_WGS,
-                                 crs(DSM_SJER),
+dsm_hill_utm_sjer <- project(dsm_hill_wgs_sjer,
+                                 crs(dsm_sjer),
                                  res = 1)
 
 # convert to data.frames
-DSM_SJER_df <- as.data.frame(DSM_SJER, xy = TRUE)
+dsm_sjer_df <- as.data.frame(dsm_sjer, xy = TRUE)
 
-DSM_hill_SJER_df <- as.data.frame(DSM_hill_UTMZ18N_SJER, xy = TRUE)
+dsm_hill_sjer_df <- as.data.frame(dsm_hill_utm_sjer, xy = TRUE)
 
 ggplot() +
-     geom_raster(data = DSM_hill_SJER_df, 
+     geom_raster(data = dsm_hill_sjer_df, 
                  aes(x = x, y = y, 
                    alpha = SJER_DSMhill_WGS84)
                  ) +
-     geom_raster(data = DSM_SJER_df, 
+     geom_raster(data = dsm_sjer_df, 
              aes(x = x, y = y, 
                   fill = SJER_dsmCrop,
                   alpha=0.8)
@@ -537,7 +537,7 @@ is this one was reprojected from WGS84 to UTM prior to plotting.
 
 :::::::::::::::::::::::::
 
-main
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 

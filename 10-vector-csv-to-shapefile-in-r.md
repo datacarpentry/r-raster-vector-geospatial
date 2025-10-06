@@ -69,10 +69,10 @@ look at the structure of that new object:
 
 
 ``` r
-plot_locations_HARV <-
+plot_locations_harv <-
   read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_PlotLocations.csv")
 
-str(plot_locations_HARV)
+str(plot_locations_harv)
 ```
 
 ``` output
@@ -109,7 +109,7 @@ Let's check out the column names of our dataframe.
 
 
 ``` r
-names(plot_locations_HARV)
+names(plot_locations_harv)
 ```
 
 ``` output
@@ -122,13 +122,13 @@ names(plot_locations_HARV)
 ## Identify X,Y Location Columns
 
 Our column names include several fields that might contain spatial information.
-The `plot_locations_HARV$easting` and `plot_locations_HARV$northing` columns
+The `plot_locations_harv$easting` and `plot_locations_harv$northing` columns
 contain coordinate values. We can confirm this by looking at the first six rows
 of our data.
 
 
 ``` r
-head(plot_locations_HARV$easting)
+head(plot_locations_harv$easting)
 ```
 
 ``` output
@@ -136,7 +136,7 @@ head(plot_locations_HARV$easting)
 ```
 
 ``` r
-head(plot_locations_HARV$northing)
+head(plot_locations_harv$northing)
 ```
 
 ``` output
@@ -160,7 +160,7 @@ Following the `easting` and `northing` columns, there is a `geodeticDa` and a
 
 
 ``` r
-head(plot_locations_HARV$geodeticDa)
+head(plot_locations_harv$geodeticDa)
 ```
 
 ``` output
@@ -168,7 +168,7 @@ head(plot_locations_HARV$geodeticDa)
 ```
 
 ``` r
-head(plot_locations_HARV$utmZone)
+head(plot_locations_harv$utmZone)
 ```
 
 ``` output
@@ -197,11 +197,11 @@ extract the
 However, if we have other data in the UTM Zone 18N projection, it's much easier
 to use the `st_crs()` function to extract the CRS in `proj4` format from that
 object and assign it to our new spatial object. We've seen this CRS before with
-our Harvard Forest study site (`point_HARV`).
+our Harvard Forest study site (`point_harv`).
 
 
 ``` r
-st_crs(point_HARV)
+st_crs(point_harv)
 ```
 
 ``` output
@@ -253,8 +253,8 @@ object when we create it.
 
 
 ``` r
-utm18nCRS <- st_crs(point_HARV)
-utm18nCRS
+utm_18n_crs <- st_crs(point_harv)
+utm_18n_crs
 ```
 
 ``` output
@@ -298,7 +298,7 @@ PROJCRS["WGS 84 / UTM zone 18N",
 ```
 
 ``` r
-class(utm18nCRS)
+class(utm_18n_crs)
 ```
 
 ``` output
@@ -317,16 +317,16 @@ We will use the `st_as_sf()` function to perform the conversion.
 
 
 ``` r
-plot_locations_sp_HARV <- st_as_sf(plot_locations_HARV,
+plot_locations_sp_harv <- st_as_sf(plot_locations_harv,
                                    coords = c("easting", "northing"),
-                                   crs = utm18nCRS)
+                                   crs = utm_18n_crs)
 ```
 
 We should double check the CRS to make sure it is correct.
 
 
 ``` r
-st_crs(plot_locations_sp_HARV)
+st_crs(plot_locations_sp_harv)
 ```
 
 ``` output
@@ -376,7 +376,7 @@ We now have a spatial R object, we can plot our newly created spatial object.
 
 ``` r
 ggplot() +
-  geom_sf(data = plot_locations_sp_HARV) +
+  geom_sf(data = plot_locations_sp_harv) +
   ggtitle("Map of Plot Locations")
 ```
 
@@ -388,14 +388,14 @@ In
 [Open and Plot Vector Layers in R](https://datacarpentry.org/r-raster-vector-geospatial/06-vector-open-shapefile-in-r)
 we learned about spatial object extent. When we plot several spatial layers in
 R using `ggplot`, all of the layers of the plot are considered in setting the
-boundaries of the plot. To show this, let's plot our `aoi_boundary_HARV` object
+boundaries of the plot. To show this, let's plot our `aoi_boundary_harv` object
 with our vegetation plots.
 
 
 ``` r
 ggplot() +
-  geom_sf(data = aoi_boundary_HARV) +
-  geom_sf(data = plot_locations_sp_HARV) +
+  geom_sf(data = aoi_boundary_harv) +
+  geom_sf(data = plot_locations_sp_harv) +
   ggtitle("AOI Boundary Plot")
 ```
 
@@ -432,9 +432,9 @@ First we will read in the new csv file and look at the data structure.
 
 
 ``` r
-newplot_locations_HARV <-
+newplot_locations_harv <-
   read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_2NewPhenPlots.csv")
-str(newplot_locations_HARV)
+str(newplot_locations_harv)
 ```
 
 ``` output
@@ -457,12 +457,12 @@ str(newplot_locations_HARV)
 2)
 The US boundary data we worked with previously is in a geographic WGS84 CRS. We
 can use that data to establish a CRS for this data. First we will extract the
-CRS from the `country_boundary_US` object and confirm that it is WGS84.
+CRS from the `us_outline` object and confirm that it is WGS84.
 
 
 ``` r
-geogCRS <- st_crs(country_boundary_US)
-geogCRS
+wgs_84_crs <- st_crs(us_outline)
+wgs_84_crs
 ```
 
 ``` output
@@ -485,21 +485,21 @@ GEOGCRS["WGS 84",
     ID["EPSG",4326]]
 ```
 
-Then we will convert our new data to a spatial dataframe, using the `geogCRS`
+Then we will convert our new data to a spatial dataframe, using the `wgs_84_crs`
 object as our CRS.
 
 
 ``` r
-newPlot.Sp.HARV <- st_as_sf(newplot_locations_HARV,
+newplot_sp_harv <- st_as_sf(newplot_locations_harv,
                             coords = c("decimalLon", "decimalLat"),
-                            crs = geogCRS)
+                            crs = wgs_84_crs)
 ```
 
 Next we'll confirm that the CRS for our new object is correct.
 
 
 ``` r
-st_crs(newPlot.Sp.HARV)
+st_crs(newplot_sp_harv)
 ```
 
 ``` output
@@ -531,8 +531,8 @@ the data for us.
 
 ``` r
 ggplot() +
-  geom_sf(data = plot_locations_sp_HARV, color = "orange") +
-  geom_sf(data = newPlot.Sp.HARV, color = "lightblue") +
+  geom_sf(data = plot_locations_sp_harv, color = "orange") +
+  geom_sf(data = newplot_sp_harv, color = "lightblue") +
   ggtitle("Map of All Plot Locations")
 ```
 
@@ -547,7 +547,7 @@ ggplot() +
 We can write an R spatial object to an ESRI `shapefile` using the `st_write` function
 in `sf`. To do this we need the following arguments:
 
-- the name of the spatial object (`plot_locations_sp_HARV`)
+- the name of the spatial object (`plot_locations_sp_harv`)
 - the directory where we want to save our ESRI `shapefile` (to use `current = getwd()`
   or you can specify a different path)
 - the name of the new ESRI `shapefile` (`PlotLocations_HARV`)
@@ -557,7 +557,7 @@ We can now export the spatial object as an ESRI `shapefile`.
 
 
 ``` r
-st_write(plot_locations_sp_HARV,
+st_write(plot_locations_sp_harv,
          "data/PlotLocations_HARV.shp", driver = "ESRI Shapefile")
 ```
 

@@ -74,7 +74,7 @@ Let's import our AOI:
 
 
 ``` r
-aoi_boundary_HARV <- st_read(
+aoi_boundary_harv <- st_read(
   "data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 ```
 
@@ -92,7 +92,7 @@ Projected CRS: WGS 84 / UTM zone 18N
 ## Vector Layer Metadata \& Attributes
 
 When we import the `HarClip_UTMZ18` vector layer from an ESRI `shapefile` into R (as our
-`aoi_boundary_HARV` object), the `st_read()` function automatically stores
+`aoi_boundary_harv` object), the `st_read()` function automatically stores
 information about the data. We are particularly interested in the geospatial
 metadata, describing the format, CRS, extent, and other components of the
 vector data, and the attributes which describe properties associated with each
@@ -125,7 +125,7 @@ vector layer:
 
 
 ``` r
-st_geometry_type(aoi_boundary_HARV)
+st_geometry_type(aoi_boundary_harv)
 ```
 
 ``` output
@@ -133,13 +133,13 @@ st_geometry_type(aoi_boundary_HARV)
 18 Levels: GEOMETRY POINT LINESTRING POLYGON MULTIPOINT ... TRIANGLE
 ```
 
-Our `aoi_boundary_HARV` is a polygon spatial object. The 18 levels shown below our
+Our `aoi_boundary_harv` is a polygon spatial object. The 18 levels shown below our
 output list the possible categories of the geometry type. Now let's check what
 CRS this file data is in:
 
 
 ``` r
-st_crs(aoi_boundary_HARV)
+st_crs(aoi_boundary_harv)
 ```
 
 ``` output
@@ -188,7 +188,7 @@ can use the `st_bbox()` function:
 
 
 ``` r
-st_bbox(aoi_boundary_HARV)
+st_bbox(aoi_boundary_harv)
 ```
 
 ``` output
@@ -208,7 +208,7 @@ object by printing it to the screen:
 
 
 ``` r
-aoi_boundary_HARV
+aoi_boundary_harv
 ```
 
 ``` output
@@ -241,7 +241,7 @@ for our plot. When plotting `sf` objects with `ggplot2`, you need to use the
 
 ``` r
 ggplot() +
-  geom_sf(data = aoi_boundary_HARV, size = 3, color = "black", fill = "cyan1") +
+  geom_sf(data = aoi_boundary_harv, size = 3, color = "black", fill = "cyan1") +
   ggtitle("AOI Boundary Plot") +
   coord_sf()
 ```
@@ -250,7 +250,7 @@ ggplot() +
 
 
 On the boundary plot, the x and y axes are labeled in units of decimal degrees. However, the CRS
-for `aoi_boundary_HARV` is UTM zone 18N, which has units of meters. `geom_sf` will use
+for `aoi_boundary_harv` is UTM zone 18N, which has units of meters. `geom_sf` will use
 the CRS of the data to set the CRS for the plot, so why is there a mismatch?
 
 By default, `coord_sf()` generates a graticule with a CRS of WGS 84 (where the units
@@ -262,8 +262,8 @@ CRS of our shapefile, we can set `datum=NULL` in the `coord_sf()` function.
 ## Challenge: Import Line and Point Vector Layers
 
 Using the steps above, import the HARV\_roads and HARVtower\_UTM18N vector layers into
-R. Call the HARV\_roads object `lines_HARV` and the HARVtower\_UTM18N
-`point_HARV`.
+R. Call the HARV\_roads object `lines_harv` and the HARVtower\_UTM18N
+`point_harv`.
 
 Answer the following questions:
 
@@ -283,7 +283,7 @@ First we import the data:
 
 
 ``` r
-lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
+lines_harv <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
 ```
 
 ``` output
@@ -298,7 +298,7 @@ Projected CRS: WGS 84 / UTM zone 18N
 ```
 
 ``` r
-point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
+point_harv <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 ```
 
 ``` output
@@ -316,7 +316,7 @@ Then we check its class:
 
 
 ``` r
-class(lines_HARV)
+class(lines_harv)
 ```
 
 ``` output
@@ -324,7 +324,7 @@ class(lines_HARV)
 ```
 
 ``` r
-class(point_HARV)
+class(point_harv)
 ```
 
 ``` output
@@ -335,7 +335,7 @@ We also check the CRS and extent of each object:
 
 
 ``` r
-st_crs(lines_HARV)
+st_crs(lines_harv)
 ```
 
 ``` output
@@ -379,7 +379,7 @@ PROJCRS["WGS 84 / UTM zone 18N",
 ```
 
 ``` r
-st_bbox(lines_HARV)
+st_bbox(lines_harv)
 ```
 
 ``` output
@@ -388,7 +388,7 @@ st_bbox(lines_HARV)
 ```
 
 ``` r
-st_crs(point_HARV)
+st_crs(point_harv)
 ```
 
 ``` output
@@ -432,7 +432,7 @@ PROJCRS["WGS 84 / UTM zone 18N",
 ```
 
 ``` r
-st_bbox(point_HARV)
+st_bbox(point_harv)
 ```
 
 ``` output
@@ -441,8 +441,8 @@ st_bbox(point_HARV)
 ```
 
 To see the number of objects in each file, we can look at the output from when
-we read these objects into R. `lines_HARV` contains 13 features (all lines) and
-`point_HARV` contains only one point.
+we read these objects into R. `lines_harv` contains 13 features (all lines) and
+`point_harv` contains only one point.
 
 
 

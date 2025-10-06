@@ -97,7 +97,7 @@ from the Census website to support the learning goals of this episode.
 
 
 ``` r
-state_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp") %>%
+state_boundary_us <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp") %>%
   st_zm()
 ```
 
@@ -118,7 +118,7 @@ Next, let's plot the U.S. states data:
 
 ``` r
 ggplot() +
-  geom_sf(data = state_boundary_US) +
+  geom_sf(data = state_boundary_us) +
   ggtitle("Map of Contiguous US State Boundaries") +
   coord_sf()
 ```
@@ -133,7 +133,7 @@ nicer. We will import
 
 
 ``` r
-country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp") %>%
+us_outline <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp") %>%
   st_zm()
 ```
 
@@ -156,8 +156,8 @@ boundaries and country boundaries.
 
 ``` r
 ggplot() +
-  geom_sf(data = state_boundary_US, color = "gray60") +
-  geom_sf(data = country_boundary_US, color = "black",alpha = 0.25,size = 5) +
+  geom_sf(data = state_boundary_us, color = "gray60") +
+  geom_sf(data = us_outline, color = "black",alpha = 0.25,size = 5) +
   ggtitle("Map of Contiguous US State Boundaries") +
   coord_sf()
 ```
@@ -170,14 +170,14 @@ First let's look at the CRS of our tower location object:
 
 
 ``` r
-st_crs(point_HARV)$proj4string
+st_crs(point_harv)$proj4string
 ```
 
 ``` output
 [1] "+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs"
 ```
 
-Our project string for `point_HARV` specifies the UTM projection as follows:
+Our project string for `point_harv` specifies the UTM projection as follows:
 
 `+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs`
 
@@ -194,7 +194,7 @@ Let's check the CRS of our state and country boundary objects:
 
 
 ``` r
-st_crs(state_boundary_US)$proj4string
+st_crs(state_boundary_us)$proj4string
 ```
 
 ``` output
@@ -202,14 +202,14 @@ st_crs(state_boundary_US)$proj4string
 ```
 
 ``` r
-st_crs(country_boundary_US)$proj4string
+st_crs(us_outline)$proj4string
 ```
 
 ``` output
 [1] "+proj=longlat +datum=WGS84 +no_defs"
 ```
 
-Our project string for `state_boundary_US` and `country_boundary_US` specifies
+Our project string for `state_boundary_us` and `us_outline` specifies
 the lat/long projection as follows:
 
 `+proj=longlat +datum=WGS84 +no_defs`
@@ -238,14 +238,14 @@ conversion is required. We will not deal with datums in this episode series.
 
 ## CRS Units - View Object Extent
 
-Next, let's view the extent or spatial coverage for the `point_HARV` spatial
-object compared to the `state_boundary_US` object.
+Next, let's view the extent or spatial coverage for the `point_harv` spatial
+object compared to the `state_boundary_us` object.
 
 First we'll look at the extent for our study site:
 
 
 ``` r
-st_bbox(point_HARV)
+st_bbox(point_harv)
 ```
 
 ``` output
@@ -257,7 +257,7 @@ And then the extent for the state boundary data.
 
 
 ``` r
-st_bbox(state_boundary_US)
+st_bbox(state_boundary_us)
 ```
 
 ``` output
@@ -266,7 +266,7 @@ st_bbox(state_boundary_US)
 ```
 
 Note the difference in the units for each object. The extent for
-`state_boundary_US` is in latitude and longitude which yields smaller numbers
+`state_boundary_us` is in latitude and longitude which yields smaller numbers
 representing decimal degree units. Our tower location point is in UTM, is
 represented in meters.
 
@@ -297,9 +297,9 @@ conversion:
 
 ``` r
 ggplot() +
-  geom_sf(data = state_boundary_US, color = "gray60") +
-  geom_sf(data = country_boundary_US, size = 5, alpha = 0.25, color = "black") +
-  geom_sf(data = point_HARV, shape = 19, color = "purple") +
+  geom_sf(data = state_boundary_us, color = "gray60") +
+  geom_sf(data = us_outline, size = 5, alpha = 0.25, color = "black") +
+  geom_sf(data = point_harv, shape = 19, color = "purple") +
   ggtitle("Map of Contiguous US State Boundaries") +
   coord_sf()
 ```
@@ -315,7 +315,7 @@ Create a map of the North Eastern United States as follows:
 1. Import and plot `Boundary-US-State-NEast.shp`. Adjust line width as
    necessary.
 2. Layer the Fisher Tower (in the NEON Harvard Forest site) point location
-   `point_HARV` onto the plot.
+   `point_harv` onto the plot.
 3. Add a title.
 4. Add a legend that shows both the state boundary (as a line) and the Tower
    location point.
@@ -326,7 +326,7 @@ Create a map of the North Eastern United States as follows:
 
 
 ``` r
-NE.States.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp") %>%
+ne_states_outline <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp") %>%
   st_zm()
 ```
 
@@ -344,11 +344,11 @@ Geodetic CRS:  WGS 84
 
 ``` r
 ggplot() +
-    geom_sf(data = NE.States.Boundary.US, aes(color ="color"),
+    geom_sf(data = ne_states_outline, aes(color ="color"),
             show.legend = "line") +
     scale_color_manual(name = "", labels = "State Boundary",
                        values = c("color" = "gray18")) +
-    geom_sf(data = point_HARV, aes(shape = "shape"), color = "purple") +
+    geom_sf(data = point_harv, aes(shape = "shape"), color = "purple") +
     scale_shape_manual(name = "", labels = "Fisher Tower",
                        values = c("shape" = 19)) +
     ggtitle("Fisher Tower location") +
