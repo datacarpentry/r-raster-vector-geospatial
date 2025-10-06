@@ -111,9 +111,9 @@ scope of this workshop.
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r import-NDVI-rasters}
-NDVI_HARV_path <- "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI"
+ndvi_harv_path <- "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI"
 
-all_NDVI_HARV <- list.files(NDVI_HARV_path,
+all_ndvi_harv <- list.files(ndvi_harv_path,
                             full.names = TRUE,
                             pattern = ".tif$")
 ```
@@ -122,7 +122,7 @@ It's a good idea to look at the file names that matched our search to make sure
 they meet our expectations.
 
 ```{r}
-all_NDVI_HARV
+all_ndvi_harv
 ```
 
 Now we have a list of all GeoTIFF files in the NDVI directory for Harvard
@@ -132,7 +132,7 @@ Next, we will create a stack of rasters from this list using the
 [an earlier episode](05-raster-multi-band-in-r/).
 
 ```{r create-timeSeries-raster-stack}
-NDVI_HARV_stack <- rast(all_NDVI_HARV)
+ndvi_harv_stack <- rast(all_ndvi_harv)
 ```
 
 We can explore the GeoTIFF tags (the embedded metadata) in a stack using the
@@ -141,7 +141,7 @@ same syntax that we used on single-band raster objects in R including: `crs()`
 `yres()` and `xres()`).
 
 ```{r explore-RasterStack-tags}
-crs(NDVI_HARV_stack, proj = TRUE)
+crs(ndvi_harv_stack, proj = TRUE)
 ```
 
 The CRS for our stack is `+proj=utm +zone=19 +ellps=WGS84 +units=m +no_defs`. 
@@ -174,9 +174,9 @@ questions.
 ## Answers
 
 ```{r challenge-code-raster-metadata, eval=TRUE, echo=TRUE}
-ext(NDVI_HARV_stack)
-yres(NDVI_HARV_stack)
-xres(NDVI_HARV_stack)
+ext(ndvi_harv_stack)
+yres(ndvi_harv_stack)
+xres(ndvi_harv_stack)
 ```
 
 :::::::::::::::::::::::::
@@ -193,7 +193,7 @@ the data so that we have a single column with the NDVI observations. We will
 use the function `pivot_longer()` from the `tidyr` package to do this:
 
 ```{r plot-time-series}
-NDVI_HARV_stack_df <- as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
+ndvi_harv_stack_df <- as.data.frame(ndvi_harv_stack, xy = TRUE) %>%
     pivot_longer(-(x:y), names_to = "variable", values_to = "value")
 ```
 
@@ -203,7 +203,7 @@ function to create a multi-paneled plot:
 
 ```{r ndvi-wrap}
 ggplot() +
-  geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
+  geom_raster(data = ndvi_harv_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~ variable)
 ```
 
@@ -221,18 +221,18 @@ Let's apply the scale factor before we go any further. Conveniently, we can
 quickly apply this factor using raster math on the entire stack as follows:
 
 ```{r apply-scale-factor}
-NDVI_HARV_stack <- NDVI_HARV_stack/10000
+ndvi_harv_stack <- ndvi_harv_stack/10000
 ```
 
 After applying our scale factor, we can recreate our plot using the same code 
 we used above.
 
 ```{r ndvi-stack-wrap}
-NDVI_HARV_stack_df <- as.data.frame(NDVI_HARV_stack, xy = TRUE) %>%
+ndvi_harv_stack_df <- as.data.frame(ndvi_harv_stack, xy = TRUE) %>%
     pivot_longer(-(x:y), names_to = "variable", values_to = "value")
 
 ggplot() +
-  geom_raster(data = NDVI_HARV_stack_df , aes(x = x, y = y, fill = value)) +
+  geom_raster(data = ndvi_harv_stack_df , aes(x = x, y = y, fill = value)) +
   facet_wrap(~variable)
 ```
 
@@ -262,7 +262,7 @@ Next we will use histograms to explore the distribution of NDVI values stored
 in each raster.
 
 ```{r view-stack-histogram}
-ggplot(NDVI_HARV_stack_df) +
+ggplot(ndvi_harv_stack_df) +
   geom_histogram(aes(value)) + 
   facet_wrap(~variable)
 ```
@@ -285,10 +285,10 @@ browning seen in the NDVI data. First we will read in the temperature data and
 preview the structure of that dataframe:
 
 ```{r view-temp-data}
-har_met_daily <-
+harv_met_daily <-
   read.csv("data/NEON-DS-Met-Time-Series/HARV/FisherTower-Met/hf001-06-daily-m.csv")
 
-str(har_met_daily)
+str(harv_met_daily)
 ```
 
 The `date` column is currently coded as a character. We want to be able to 
@@ -297,13 +297,13 @@ need to tell R what format the data is in. Our dates are YYY-MM-DD, which is
 represented by R as `%Y-%m-%d`.
 
 ```{r}
-har_met_daily$date <- as.Date(har_met_daily$date, format = "%Y-%m-%d")
+harv_met_daily$date <- as.Date(harv_met_daily$date, format = "%Y-%m-%d")
 ```
 
 We only want to look at the data from 2011:
 
 ```{r}
-yr_11_daily_avg <- har_met_daily %>%
+yr_11_daily_avg <- harv_met_daily %>%
   filter(between(date, as.Date('2011-01-01'), as.Date('2011-12-31')))
 ```
 
@@ -328,19 +328,19 @@ outlier NDVI values.
 ```{r ndvi-plots, echo=FALSE, warning=FALSE}
 # code not shown, demonstration only
 # Plot RGB data for Julian day 133
-RGB_133 <- rast("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
+rgb_133 <- rast("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
 
 # NOTE: Fix the bands' names so they don't start with a number!
-names(RGB_133) <- paste0("X", names(RGB_133))
+names(rgb_133) <- paste0("X", names(rgb_133))
 
 quantiles = c(0.02, 0.98)
-r <- stats::quantile(values(RGB_133$X133_HARV_landRGB_1), quantiles, 
+r <- stats::quantile(values(rgb_133$X133_HARV_landRGB_1), quantiles, 
                      na.rm = TRUE)
-g <- stats::quantile(values(RGB_133$X133_HARV_landRGB_2), quantiles, 
+g <- stats::quantile(values(rgb_133$X133_HARV_landRGB_2), quantiles, 
                      na.rm = TRUE)
-b <- stats::quantile(values(RGB_133$X133_HARV_landRGB_3), quantiles, 
+b <- stats::quantile(values(rgb_133$X133_HARV_landRGB_3), quantiles, 
                      na.rm = TRUE)
-RGB_133_df <- as.data.frame(RGB_133, xy = TRUE) %>%
+rgb_133_df <- as.data.frame(rgb_133, xy = TRUE) %>%
   mutate(tempR = (X133_HARV_landRGB_1 - r[1])/(r[2] - r[1]),
          tempG = (X133_HARV_landRGB_2 - g[1])/(g[2] - g[1]),
          tempB = (X133_HARV_landRGB_3 - b[1])/(b[2] - b[1]),
@@ -361,7 +361,7 @@ RGB_133_df <- as.data.frame(RGB_133, xy = TRUE) %>%
     dplyr::select(-(tempR:tempB))
 
 ggplot() +
-  geom_raster(data = RGB_133_df, aes(x, y), fill = RGB_133_df$rgb) + 
+  geom_raster(data = rgb_133_df, aes(x, y), fill = rgb_133_df$rgb) + 
   ggtitle("Julian day 133")
 
 # Plot RGB data for Julian day 197
@@ -416,32 +416,32 @@ First we need to load in the RGB data for Julian day 277 and look at its
 metadata.
 
 ```{r}
-RGB_277 <- rast("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif")
+rgb_277 <- rast("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif")
 
 # NOTE: Fix the bands' names so they don't start with a number!
-names(RGB_277) <- paste0("X", names(RGB_277))
+names(rgb_277) <- paste0("X", names(rgb_277))
 
-RGB_277
+rgb_277
 ```
 
 The RGB data has a max value of 255, but we need our color intensity to be 
 between 0 and 1, so we will divide our RasterStack object by 255.
 
 ```{r}
-RGB_277 <- RGB_277/255
+rgb_277 <- rgb_277/255
 ```
 
 Next we convert it to a dataframe.
 
 ```{r}
-RGB_277_df <- as.data.frame(RGB_277, xy = TRUE)
+rgb_277_df <- as.data.frame(rgb_277, xy = TRUE)
 ```
 
 We create RGB colors from the three channels:
 
 ```{r}
-RGB_277_df$rgb <- 
-  with(RGB_277_df, rgb(X277_HARV_landRGB_1, X277_HARV_landRGB_2, 
+rgb_277_df$rgb <- 
+  with(rgb_277_df, rgb(X277_HARV_landRGB_1, X277_HARV_landRGB_2, 
                        X277_HARV_landRGB_3, 1))
 ```
 
@@ -449,7 +449,7 @@ Finally, we can plot the RGB data for Julian day 277.
 
 ```{r rgb-277}
 ggplot() +
-  geom_raster(data=RGB_277_df, aes(x, y), fill=RGB_277_df$rgb) + 
+  geom_raster(data=rgb_277_df, aes(x, y), fill=rgb_277_df$rgb) + 
   ggtitle("Julian day 277") 
 ```
 
@@ -457,15 +457,15 @@ We then do the same steps for Julian day 293
 
 ```{r rgb-293}
 # Julian day 293
-RGB_293 <- rast("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")
-names(RGB_293) <- paste0("X", names(RGB_293))
-RGB_293 <- RGB_293/255
-RGB_293_df <- as.data.frame(RGB_293, xy = TRUE)
-RGB_293_df$rgb <- 
-  with(RGB_293_df, rgb(X293_HARV_landRGB_1, X293_HARV_landRGB_2, 
+rgb_293 <- rast("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")
+names(rgb_293) <- paste0("X", names(rgb_293))
+rgb_293 <- rgb_293/255
+rgb_293_df <- as.data.frame(rgb_293, xy = TRUE)
+rgb_293_df$rgb <- 
+  with(rgb_293_df, rgb(X293_HARV_landRGB_1, X293_HARV_landRGB_2, 
                        X293_HARV_landRGB_3,1))
 ggplot() +
-  geom_raster(data = RGB_293_df, aes(x, y), fill = RGB_293_df$rgb) +
+  geom_raster(data = rgb_293_df, aes(x, y), fill = rgb_293_df$rgb) +
   ggtitle("Julian day 293")
 ```
 
