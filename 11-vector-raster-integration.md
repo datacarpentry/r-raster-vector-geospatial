@@ -349,7 +349,7 @@ ggplot() +
 ```
 
 ``` output
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 ```
 
 <img src="fig/11-vector-raster-integration-rendered-view-extract-histogram-1.png" style="display: block; margin: auto;" />
