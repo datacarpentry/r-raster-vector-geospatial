@@ -313,7 +313,7 @@ ggplot(ndvi_harv_stack_df) +
 ```
 
 ``` output
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 ```
 
 <img src="fig/12-time-series-raster-rendered-view-stack-histogram-1.png" style="display: block; margin: auto;" />

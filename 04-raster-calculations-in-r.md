@@ -334,7 +334,7 @@ ggplot(chm_harv_df) +
 ```
 
 ``` output
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 ```
 
 <img src="fig/04-raster-calculations-in-r-rendered-create-hist-1.png" style="display: block; margin: auto;" />
@@ -393,7 +393,7 @@ ggplot(chm_harv_df) +
 ```
 
 ``` output
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 ```
 
 <img src="fig/04-raster-calculations-in-r-rendered-chm-harv-hist-1.png" style="display: block; margin: auto;" />
@@ -594,7 +594,7 @@ ggplot(chm_ov_sjer_df) +
 ```
 
 ``` output
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 ```
 
 <img src="fig/04-raster-calculations-in-r-rendered-sjer-chm-overlay-hist-1.png" style="display: block; margin: auto;" />
@@ -636,7 +636,7 @@ ggplot(chm_harv_df) +
 ```
 
 ``` output
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 ```
 
 <img src="fig/04-raster-calculations-in-r-rendered-compare-chm-harv-sjer-1.png" style="display: block; margin: auto;" />
@@ -647,7 +647,7 @@ ggplot(chm_ov_sjer_df) +
 ```
 
 ``` output
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 ```
 
 <img src="fig/04-raster-calculations-in-r-rendered-compare-chm-harv-sjer-2.png" style="display: block; margin: auto;" />
