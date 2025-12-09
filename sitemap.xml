@@ -58,6 +58,30 @@
     <loc>https://datacarpentry.org/r-raster-vector-geospatial/aio.html</loc>
   </url>
   <url>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_graticules_1.README.html</loc>
+  </url>
+  <url>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_graticules_10.README.html</loc>
+  </url>
+  <url>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_graticules_15.README.html</loc>
+  </url>
+  <url>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_graticules_20.README.html</loc>
+  </url>
+  <url>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_graticules_30.README.html</loc>
+  </url>
+  <url>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_graticules_5.README.html</loc>
+  </url>
+  <url>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_graticules_all/ne_110m_wgs84_bounding_box.README.html</loc>
+  </url>
+  <url>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/data/Global/Boundaries/ne_110m_land/ne_110m_land.README.html</loc>
+  </url>
+  <url>
     <loc>https://datacarpentry.org/r-raster-vector-geospatial/discuss.html</loc>
   </url>
   <url>
