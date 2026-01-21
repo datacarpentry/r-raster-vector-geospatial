@@ -68,7 +68,7 @@ ggplot() +
     geom_bar(data = dsm_harv_df, aes(fct_elevation))
 ```
 
-<img src="fig/02-raster-plot-rendered-histogram-breaks-ggplot-1.png" style="display: block; margin: auto;" />
+<img src="fig/02-raster-plot-rendered-histogram-breaks-ggplot-1.png" alt="" style="display: block; margin: auto;" />
 
 If we want to know the cutoff values for the groups, we can ask for the unique 
 values of `fct_elevation`:
@@ -140,7 +140,7 @@ ggplot() +
   geom_bar(data = dsm_harv_df, aes(fct_elevation_2))
 ```
 
-<img src="fig/02-raster-plot-rendered-histogram-custom-breaks-1.png" style="display: block; margin: auto;" />
+<img src="fig/02-raster-plot-rendered-histogram-custom-breaks-1.png" alt="" style="display: block; margin: auto;" />
 
 And we can get the count of values in each group in the same way we did before:
 
@@ -167,7 +167,7 @@ ggplot() +
   coord_quickmap()
 ```
 
-<img src="fig/02-raster-plot-rendered-raster-with-breaks-1.png" style="display: block; margin: auto;" />
+<img src="fig/02-raster-plot-rendered-raster-with-breaks-1.png" alt="" style="display: block; margin: auto;" />
 
 The plot above uses the default colors inside `ggplot` for raster objects.
 We can specify our own colors to make the plot look a little nicer.
@@ -199,7 +199,7 @@ ggplot() +
     coord_quickmap()
 ```
 
-<img src="fig/02-raster-plot-rendered-ggplot-breaks-customcolors-1.png" style="display: block; margin: auto;" />
+<img src="fig/02-raster-plot-rendered-ggplot-breaks-customcolors-1.png" alt="" style="display: block; margin: auto;" />
 
 ### More Plot Formatting
 
@@ -227,7 +227,7 @@ ggplot() +
     coord_quickmap()
 ```
 
-<img src="fig/02-raster-plot-rendered-add-ggplot-labels-1.png" style="display: block; margin: auto;" />
+<img src="fig/02-raster-plot-rendered-add-ggplot-labels-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -261,7 +261,7 @@ ggplot() +
     coord_quickmap()
 ```
 
-<img src="fig/02-raster-plot-rendered-challenge-code-plotting-1.png" style="display: block; margin: auto;" />
+<img src="fig/02-raster-plot-rendered-challenge-code-plotting-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::
 
@@ -324,7 +324,7 @@ ggplot() +
   coord_quickmap()
 ```
 
-<img src="fig/02-raster-plot-rendered-raster-hillshade-1.png" style="display: block; margin: auto;" />
+<img src="fig/02-raster-plot-rendered-raster-hillshade-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
@@ -360,7 +360,7 @@ ggplot() +
   coord_quickmap()
 ```
 
-<img src="fig/02-raster-plot-rendered-overlay-hillshade-1.png" style="display: block; margin: auto;" />
+<img src="fig/02-raster-plot-rendered-overlay-hillshade-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -422,7 +422,7 @@ ggplot() +
     coord_quickmap()
 ```
 
-<img src="fig/02-raster-plot-rendered-challenge-hillshade-layering-1.png" style="display: block; margin: auto;" />
+<img src="fig/02-raster-plot-rendered-challenge-hillshade-layering-1.png" alt="" style="display: block; margin: auto;" />
 
 ``` r
 # CREATE DTM MAP
@@ -458,7 +458,7 @@ ggplot() +
     coord_quickmap()
 ```
 
-<img src="fig/02-raster-plot-rendered-challenge-hillshade-layering-2.png" style="display: block; margin: auto;" />
+<img src="fig/02-raster-plot-rendered-challenge-hillshade-layering-2.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::
 

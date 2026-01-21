@@ -246,7 +246,7 @@ ggplot() +
   coord_sf()
 ```
 
-<img src="fig/06-vector-open-shapefile-in-r-rendered-plot-shapefile-1.png" style="display: block; margin: auto;" />
+<img src="fig/06-vector-open-shapefile-in-r-rendered-plot-shapefile-1.png" alt="" style="display: block; margin: auto;" />
 
 
 On the boundary plot, the x and y axes are labeled in units of decimal degrees. However, the CRS

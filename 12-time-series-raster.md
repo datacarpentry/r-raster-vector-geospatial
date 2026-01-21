@@ -245,7 +245,7 @@ ggplot() +
   facet_wrap(~ variable)
 ```
 
-<img src="fig/12-time-series-raster-rendered-ndvi-wrap-1.png" style="display: block; margin: auto;" />
+<img src="fig/12-time-series-raster-rendered-ndvi-wrap-1.png" alt="" style="display: block; margin: auto;" />
 
 Look at the range of NDVI values observed in the plot above. We know that the 
 accepted values for NDVI range from 0-1. Why does our data range from
@@ -278,7 +278,7 @@ ggplot() +
   facet_wrap(~variable)
 ```
 
-<img src="fig/12-time-series-raster-rendered-ndvi-stack-wrap-1.png" style="display: block; margin: auto;" />
+<img src="fig/12-time-series-raster-rendered-ndvi-stack-wrap-1.png" alt="" style="display: block; margin: auto;" />
 
 ## Take a Closer Look at Our Data
 
@@ -316,7 +316,7 @@ ggplot(ndvi_harv_stack_df) +
 `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 ```
 
-<img src="fig/12-time-series-raster-rendered-view-stack-histogram-1.png" style="display: block; margin: auto;" />
+<img src="fig/12-time-series-raster-rendered-view-stack-histogram-1.png" alt="" style="display: block; margin: auto;" />
 
 It seems like things get green in the spring and summer like we expect, but the
 data at Julian days 277 and 293 are unusual. It appears as if the vegetation 
@@ -424,7 +424,7 @@ ggplot() +
   ylab("Mean Air Temperature (C)")
 ```
 
-<img src="fig/12-time-series-raster-rendered-air-temperature-1.png" style="display: block; margin: auto;" />
+<img src="fig/12-time-series-raster-rendered-air-temperature-1.png" alt="" style="display: block; margin: auto;" />
 
 There are no significant peaks or dips in the temperature during the late 
 summer or early fall time period that might account for patterns seen in the 
@@ -432,7 +432,7 @@ NDVI data. Let's have a look at the source Landsat imagery that was partially
 used used to derive our NDVI rasters to try to understand what appear to be 
 outlier NDVI values.
 
-<img src="fig/12-time-series-raster-rendered-ndvi-plots-1.png" style="display: block; margin: auto;" /><img src="fig/12-time-series-raster-rendered-ndvi-plots-2.png" style="display: block; margin: auto;" />
+<img src="fig/12-time-series-raster-rendered-ndvi-plots-1.png" alt="" style="display: block; margin: auto;" /><img src="fig/12-time-series-raster-rendered-ndvi-plots-2.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -504,7 +504,7 @@ ggplot() +
   ggtitle("Julian day 277") 
 ```
 
-<img src="fig/12-time-series-raster-rendered-rgb-277-1.png" style="display: block; margin: auto;" />
+<img src="fig/12-time-series-raster-rendered-rgb-277-1.png" alt="" style="display: block; margin: auto;" />
 
 We then do the same steps for Julian day 293
 
@@ -523,7 +523,7 @@ ggplot() +
   ggtitle("Julian day 293")
 ```
 
-<img src="fig/12-time-series-raster-rendered-rgb-293-1.png" style="display: block; margin: auto;" />
+<img src="fig/12-time-series-raster-rendered-rgb-293-1.png" alt="" style="display: block; margin: auto;" />
 
 This example highlights the importance of exploring the source of a derived 
 data product. In this case, the NDVI data product was created using Landsat 

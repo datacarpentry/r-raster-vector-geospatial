@@ -380,7 +380,7 @@ ggplot() +
   ggtitle("Map of Plot Locations")
 ```
 
-<img src="fig/10-vector-csv-to-shapefile-in-r-rendered-plot-data-points-1.png" style="display: block; margin: auto;" />
+<img src="fig/10-vector-csv-to-shapefile-in-r-rendered-plot-data-points-1.png" alt="" style="display: block; margin: auto;" />
 
 ## Plot Extent
 
@@ -399,7 +399,7 @@ ggplot() +
   ggtitle("AOI Boundary Plot")
 ```
 
-<img src="fig/10-vector-csv-to-shapefile-in-r-rendered-plot-data-1.png" style="display: block; margin: auto;" />
+<img src="fig/10-vector-csv-to-shapefile-in-r-rendered-plot-data-1.png" alt="" style="display: block; margin: auto;" />
 
 When we plot the two layers together, `ggplot` sets the plot boundaries so that
 they are large enough to include all of the data included in all of the layers.
@@ -536,7 +536,7 @@ ggplot() +
   ggtitle("Map of All Plot Locations")
 ```
 
-<img src="fig/10-vector-csv-to-shapefile-in-r-rendered-plot-locations-harv-orange-1.png" style="display: block; margin: auto;" />
+<img src="fig/10-vector-csv-to-shapefile-in-r-rendered-plot-locations-harv-orange-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::
 

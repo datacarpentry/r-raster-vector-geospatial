@@ -61,7 +61,7 @@ we have worked with in this workshop:
 
 
 
-<img src="fig/11-vector-raster-integration-rendered-compare-data-extents-1.png" style="display: block; margin: auto;" />
+<img src="fig/11-vector-raster-integration-rendered-compare-data-extents-1.png" alt="" style="display: block; margin: auto;" />
 
 Frequent use cases of cropping a raster file include reducing file size and
 creating maps. Sometimes we have a raster file that is much larger than our
@@ -91,7 +91,7 @@ ggplot() +
   coord_sf()
 ```
 
-<img src="fig/11-vector-raster-integration-rendered-crop-by-vector-extent-1.png" style="display: block; margin: auto;" />
+<img src="fig/11-vector-raster-integration-rendered-crop-by-vector-extent-1.png" alt="" style="display: block; margin: auto;" />
 
 Now that we have visualized the area of the CHM we want to subset, we can
 perform the cropping operation. We are going to `crop()` function from the
@@ -123,7 +123,7 @@ ggplot() +
   coord_sf()
 ```
 
-<img src="fig/11-vector-raster-integration-rendered-show-cropped-area-1.png" style="display: block; margin: auto;" />
+<img src="fig/11-vector-raster-integration-rendered-show-cropped-area-1.png" alt="" style="display: block; margin: auto;" />
 
 The plot above shows that the full CHM extent (plotted in green) is much larger
 than the resulting cropped raster. Our new cropped CHM now has the same extent
@@ -140,7 +140,7 @@ ggplot() +
   coord_sf()
 ```
 
-<img src="fig/11-vector-raster-integration-rendered-view-crop-extent-1.png" style="display: block; margin: auto;" />
+<img src="fig/11-vector-raster-integration-rendered-view-crop-extent-1.png" alt="" style="display: block; margin: auto;" />
 
 We can look at the extent of all of our other objects for this field site.
 
@@ -210,7 +210,7 @@ ggplot() +
   coord_sf()
 ```
 
-<img src="fig/11-vector-raster-integration-rendered-challenge-code-crop-raster-points-1.png" style="display: block; margin: auto;" />
+<img src="fig/11-vector-raster-integration-rendered-challenge-code-crop-raster-points-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::
 
@@ -230,7 +230,7 @@ extent of our (cropped) raster data (dark green).
 
 
 
-<img src="fig/11-vector-raster-integration-rendered-repeat-compare-data-extents-1.png" style="display: block; margin: auto;" />
+<img src="fig/11-vector-raster-integration-rendered-repeat-compare-data-extents-1.png" alt="" style="display: block; margin: auto;" />
 
 ## Define an Extent
 
@@ -291,7 +291,7 @@ ggplot() +
   coord_sf()
 ```
 
-<img src="fig/11-vector-raster-integration-rendered-show-manual-crop-area-1.png" style="display: block; margin: auto;" />
+<img src="fig/11-vector-raster-integration-rendered-show-manual-crop-area-1.png" alt="" style="display: block; margin: auto;" />
 
 ## Extract Raster Pixels Values Using Vector Polygons
 
@@ -352,7 +352,7 @@ ggplot() +
 `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 ```
 
-<img src="fig/11-vector-raster-integration-rendered-view-extract-histogram-1.png" style="display: block; margin: auto;" />
+<img src="fig/11-vector-raster-integration-rendered-view-extract-histogram-1.png" alt="" style="display: block; margin: auto;" />
 
 We can also use the `summary()` function to view descriptive statistics
 including min, max, and mean height values. These values help us better
@@ -486,7 +486,7 @@ Warning: Removed 1 row containing missing values or values outside the scale ran
 (`geom_col()`).
 ```
 
-<img src="fig/11-vector-raster-integration-rendered-hist-tree-height-veg-plot-1.png" style="display: block; margin: auto;" />
+<img src="fig/11-vector-raster-integration-rendered-hist-tree-height-veg-plot-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::
 

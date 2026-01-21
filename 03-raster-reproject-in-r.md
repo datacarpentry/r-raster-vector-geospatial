@@ -100,7 +100,7 @@ ggplot() +
      coord_quickmap()
 ```
 
-<img src="fig/03-raster-reproject-in-r-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" />
+<img src="fig/03-raster-reproject-in-r-rendered-unnamed-chunk-2-1.png" alt="" style="display: block; margin: auto;" />
 
 Our results are curious - neither the Digital Terrain Model (`dtm_harv_df`)
 nor the DTM Hillshade (`dtm_hill_harv_df`) plotted.
@@ -116,7 +116,7 @@ scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
 coord_quickmap()
 ```
 
-<img src="fig/03-raster-reproject-in-r-rendered-plot-DTM-1.png" style="display: block; margin: auto;" />
+<img src="fig/03-raster-reproject-in-r-rendered-plot-DTM-1.png" alt="" style="display: block; margin: auto;" />
 
 Our DTM seems to contain data and plots just fine.
 
@@ -131,7 +131,7 @@ geom_raster(data = dtm_hill_harv_df,
     coord_quickmap()
 ```
 
-<img src="fig/03-raster-reproject-in-r-rendered-plot-DTM-hill-1.png" style="display: block; margin: auto;" />
+<img src="fig/03-raster-reproject-in-r-rendered-plot-DTM-hill-1.png" alt="" style="display: block; margin: auto;" />
 
 If we look at the axes, we can see that the projections of the two rasters are 
 different.
@@ -464,7 +464,7 @@ ggplot() +
      coord_quickmap()
 ```
 
-<img src="fig/03-raster-reproject-in-r-rendered-plot-projected-raster-1.png" style="display: block; margin: auto;" />
+<img src="fig/03-raster-reproject-in-r-rendered-plot-projected-raster-1.png" alt="" style="display: block; margin: auto;" />
 
 We have now successfully draped the Digital Terrain Model on top of our
 hillshade to produce a nice looking, textured map!
@@ -516,7 +516,7 @@ ggplot() +
      coord_quickmap()
 ```
 
-<img src="fig/03-raster-reproject-in-r-rendered-challenge-code-reprojection-1.png" style="display: block; margin: auto;" />
+<img src="fig/03-raster-reproject-in-r-rendered-challenge-code-reprojection-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::
 

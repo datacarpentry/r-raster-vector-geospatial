@@ -77,7 +77,7 @@ ggplot() +
   coord_sf()
 ```
 
-<img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-plot-many-shapefiles-1.png" style="display: block; margin: auto;" />
+<img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-plot-many-shapefiles-1.png" alt="" style="display: block; margin: auto;" />
 
 Next, let's build a custom legend using the symbology (the colors and symbols)
 that we used to create the plot above. For example, it might be good if the
@@ -99,7 +99,7 @@ ggplot() +
   coord_sf()
 ```
 
-<img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-plot-custom-shape-1.png" style="display: block; margin: auto;" />
+<img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-plot-custom-shape-1.png" alt="" style="display: block; margin: auto;" />
 
 Now lets adjust the legend titles by passing a `name` to the respective `color`
 and `fill` palettes.
@@ -117,7 +117,7 @@ ggplot() +
   coord_sf()
 ```
 
-<img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-create-custom-legend-1.png" style="display: block; margin: auto;" />
+<img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-create-custom-legend-1.png" alt="" style="display: block; margin: auto;" />
 
 Finally, it might be better if the points were symbolized as a symbol. We can
 customize this using `shape` parameters in our call to `geom_sf`: 16 is a point
@@ -146,7 +146,7 @@ ggplot() +
   coord_sf()
 ```
 
-<img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-custom-symbols-1.png" style="display: block; margin: auto;" />
+<img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-custom-symbols-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -220,7 +220,7 @@ ggplot() +
   coord_sf()
 ```
 
-<img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-harv-plot-locations-bg-1.png" style="display: block; margin: auto;" />
+<img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-harv-plot-locations-bg-1.png" alt="" style="display: block; margin: auto;" />
 
 If we want each soil to be shown with a different symbol, we can give multiple
 values to the `scale_shape_manual()` argument.
@@ -240,7 +240,7 @@ ggplot() +
   coord_sf()
 ```
 
-<img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-harv-plot-locations-pch-1.png" style="display: block; margin: auto;" />
+<img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-harv-plot-locations-pch-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::
 
@@ -276,7 +276,7 @@ ggplot() +
   coord_sf()
 ```
 
-<img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-challenge-vector-raster-overlay-1.png" style="display: block; margin: auto;" />
+<img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-challenge-vector-raster-overlay-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::
 

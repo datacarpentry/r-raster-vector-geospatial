@@ -350,7 +350,7 @@ ggplot(avg_ndvi_harv, aes(julianDay, meanNDVI)) +
   xlab("Julian Days") + ylab("Mean NDVI")
 ```
 
-<img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-ggplot-data-1.png" style="display: block; margin: auto;" />
+<img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-ggplot-data-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -371,7 +371,7 @@ ggplot(avg_ndvi_sjer, aes(julianDay, meanNDVI)) +
   xlab("Julian Day") + ylab("Mean NDVI")
 ```
 
-<img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-avg-ndvi-sjer-1.png" style="display: block; margin: auto;" />
+<img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-avg-ndvi-sjer-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::
 
@@ -401,7 +401,7 @@ ggplot(ndvi_harv_sjer, aes(x = julianDay, y = meanNDVI, colour = site)) +
   xlab("Julian Day") + ylab("Mean NDVI")
 ```
 
-<img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-ndvi-harv-sjer-comp-1.png" style="display: block; margin: auto;" />
+<img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-ndvi-harv-sjer-comp-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -424,7 +424,7 @@ ggplot(ndvi_harv_sjer, aes(x = Date, y = meanNDVI, colour = site)) +
   xlab("Date") + ylab("Mean NDVI")
 ```
 
-<img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-ndvi-harv-sjer-date-1.png" style="display: block; margin: auto;" />
+<img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-ndvi-harv-sjer-date-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::
 
@@ -443,7 +443,7 @@ with very low NDVI values can be associated with images that are filled with
 clouds. Thus, we can attribute the low NDVI values to high levels of cloud 
 cover. Is the same thing happening at SJER?
 
-<img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-view-all-rgb-SJER-1.png" style="display: block; margin: auto;" />
+<img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-view-all-rgb-SJER-1.png" alt="" style="display: block; margin: auto;" />
 
 Without significant additional processing, we will not be able to retrieve a
 strong reflection from vegetation, from a remotely sensed image that is
@@ -491,7 +491,7 @@ ggplot(filtered_avg_ndvi_harv, aes(x = julianDay, y = meanNDVI)) +
   xlab("Julian Days") + ylab("Mean NDVI")
 ```
 
-<img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-plot-clean-HARV-1.png" style="display: block; margin: auto;" />
+<img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-plot-clean-HARV-1.png" alt="" style="display: block; margin: auto;" />
 
 Now our outlier data points are removed and the pattern of "green-up" and
 "brown-down" makes more sense.

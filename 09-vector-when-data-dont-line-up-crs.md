@@ -123,7 +123,7 @@ ggplot() +
   coord_sf()
 ```
 
-<img src="fig/09-vector-when-data-dont-line-up-crs-rendered-find-coordinates-1.png" style="display: block; margin: auto;" />
+<img src="fig/09-vector-when-data-dont-line-up-crs-rendered-find-coordinates-1.png" alt="" style="display: block; margin: auto;" />
 
 ## U.S. Boundary Layer
 
@@ -162,7 +162,7 @@ ggplot() +
   coord_sf()
 ```
 
-<img src="fig/09-vector-when-data-dont-line-up-crs-rendered-us-boundaries-thickness-1.png" style="display: block; margin: auto;" />
+<img src="fig/09-vector-when-data-dont-line-up-crs-rendered-us-boundaries-thickness-1.png" alt="" style="display: block; margin: auto;" />
 
 Next, let's add the location of a flux tower where our study area is.
 As we are adding these layers, take note of the CRS of each object.
@@ -304,7 +304,7 @@ ggplot() +
   coord_sf()
 ```
 
-<img src="fig/09-vector-when-data-dont-line-up-crs-rendered-layer-point-on-states-1.png" style="display: block; margin: auto;" />
+<img src="fig/09-vector-when-data-dont-line-up-crs-rendered-layer-point-on-states-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -356,7 +356,7 @@ ggplot() +
     coord_sf()
 ```
 
-<img src="fig/09-vector-when-data-dont-line-up-crs-rendered-ne-states-harv-1.png" style="display: block; margin: auto;" />
+<img src="fig/09-vector-when-data-dont-line-up-crs-rendered-ne-states-harv-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::
 

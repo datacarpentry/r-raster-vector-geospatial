@@ -269,7 +269,7 @@ what this data looks like. First we'll plot the DTM elevation data:
      coord_quickmap()
 ```
 
-<img src="fig/04-raster-calculations-in-r-rendered-harv-dtm-plot-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-raster-calculations-in-r-rendered-harv-dtm-plot-1.png" alt="" style="display: block; margin: auto;" />
 
 And then the DSM elevation data:
 
@@ -282,7 +282,7 @@ And then the DSM elevation data:
      coord_quickmap()
 ```
 
-<img src="fig/04-raster-calculations-in-r-rendered-harv-dsm-plot-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-raster-calculations-in-r-rendered-harv-dsm-plot-1.png" alt="" style="display: block; margin: auto;" />
 
 ## Two Ways to Perform Raster Calculations
 
@@ -322,7 +322,7 @@ We can now plot the output CHM.
    coord_quickmap()
 ```
 
-<img src="fig/04-raster-calculations-in-r-rendered-harv-chm-plot-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-raster-calculations-in-r-rendered-harv-chm-plot-1.png" alt="" style="display: block; margin: auto;" />
 
 Let's have a look at the distribution of values in our newly created
 Canopy Height Model (CHM).
@@ -337,7 +337,7 @@ ggplot(chm_harv_df) +
 `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 ```
 
-<img src="fig/04-raster-calculations-in-r-rendered-create-hist-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-raster-calculations-in-r-rendered-create-hist-1.png" alt="" style="display: block; margin: auto;" />
 
 Notice that the range of values for the output CHM is between 0 and 30 meters. 
 Does this make sense for trees in Harvard Forest?
@@ -396,7 +396,7 @@ ggplot(chm_harv_df) +
 `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 ```
 
-<img src="fig/04-raster-calculations-in-r-rendered-chm-harv-hist-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-raster-calculations-in-r-rendered-chm-harv-hist-1.png" alt="" style="display: block; margin: auto;" />
 
 4) 
 
@@ -406,7 +406,7 @@ ggplot(chm_harv_df) +
                    fill="darkgreen", bins = 6)
 ```
 
-<img src="fig/04-raster-calculations-in-r-rendered-chm-harv-hist-green-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-raster-calculations-in-r-rendered-chm-harv-hist-green-1.png" alt="" style="display: block; margin: auto;" />
 
 5) 
 
@@ -423,7 +423,7 @@ ggplot() +
      coord_quickmap()
 ```
 
-<img src="fig/04-raster-calculations-in-r-rendered-chm-harv-raster-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-raster-calculations-in-r-rendered-chm-harv-raster-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::
 
@@ -498,7 +498,7 @@ Now we can plot the CHM:
    coord_quickmap()
 ```
 
-<img src="fig/04-raster-calculations-in-r-rendered-harv-chm-overlay-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-raster-calculations-in-r-rendered-harv-chm-overlay-1.png" alt="" style="display: block; margin: auto;" />
 
 How do the plots of the CHM created with manual raster math and the `lapp()`
 function compare?
@@ -597,7 +597,7 @@ ggplot(chm_ov_sjer_df) +
 `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 ```
 
-<img src="fig/04-raster-calculations-in-r-rendered-sjer-chm-overlay-hist-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-raster-calculations-in-r-rendered-sjer-chm-overlay-hist-1.png" alt="" style="display: block; margin: auto;" />
 
 2) Create a plot of the CHM:
 
@@ -613,7 +613,7 @@ ggplot(chm_ov_sjer_df) +
      coord_quickmap()
 ```
 
-<img src="fig/04-raster-calculations-in-r-rendered-sjer-chm-overlay-raster-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-raster-calculations-in-r-rendered-sjer-chm-overlay-raster-1.png" alt="" style="display: block; margin: auto;" />
 
 3) Export the CHM object to a file:
 
@@ -639,7 +639,7 @@ ggplot(chm_harv_df) +
 `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 ```
 
-<img src="fig/04-raster-calculations-in-r-rendered-compare-chm-harv-sjer-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-raster-calculations-in-r-rendered-compare-chm-harv-sjer-1.png" alt="" style="display: block; margin: auto;" />
 
 ``` r
 ggplot(chm_ov_sjer_df) +
@@ -650,7 +650,7 @@ ggplot(chm_ov_sjer_df) +
 `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 ```
 
-<img src="fig/04-raster-calculations-in-r-rendered-compare-chm-harv-sjer-2.png" style="display: block; margin: auto;" />
+<img src="fig/04-raster-calculations-in-r-rendered-compare-chm-harv-sjer-2.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::
 

@@ -45,7 +45,7 @@ multi-band raster data in R using the `facet_wrap()` function. This created a
 separate panel in our plot for each raster band. The plot we created together 
 is shown below:
 
-<img src="fig/13-plot-time-series-rasters-in-r-rendered-levelplot-time-series-before-1.png" style="display: block; margin: auto;" />
+<img src="fig/13-plot-time-series-rasters-in-r-rendered-levelplot-time-series-before-1.png" alt="" style="display: block; margin: auto;" />
 
 Although this plot is informative, it isn't something we would expect to see in 
 a journal publication. The x and y-axis labels aren't informative. There is a 
@@ -55,7 +55,7 @@ episode, we will customize this plot above to produce a publication quality
 graphic. We will go through these steps iteratively. When we're done, we will 
 have created the plot shown below.
 
-<img src="fig/13-plot-time-series-rasters-in-r-rendered-levelplot-time-series-after-1.png" style="display: block; margin: auto;" />
+<img src="fig/13-plot-time-series-rasters-in-r-rendered-levelplot-time-series-after-1.png" alt="" style="display: block; margin: auto;" />
 
 ## Adjust the Plot Theme
 
@@ -72,7 +72,7 @@ ggplot() +
   theme_void()
 ```
 
-<img src="fig/13-plot-time-series-rasters-in-r-rendered-adjust-theme-1.png" style="display: block; margin: auto;" />
+<img src="fig/13-plot-time-series-rasters-in-r-rendered-adjust-theme-1.png" alt="" style="display: block; margin: auto;" />
 
 Next we will center our plot title and subtitle. We need to do this **after** 
 the `theme_void()` layer, because R interprets the `ggplot` layers in order. If 
@@ -96,7 +96,7 @@ ggplot() +
         plot.subtitle = element_text(hjust = 0.5))
 ```
 
-<img src="fig/13-plot-time-series-rasters-in-r-rendered-adjust-theme-2-1.png" style="display: block; margin: auto;" />
+<img src="fig/13-plot-time-series-rasters-in-r-rendered-adjust-theme-2-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -125,7 +125,7 @@ ggplot() +
         plot.subtitle = element_text(hjust = 0.5))
 ```
 
-<img src="fig/13-plot-time-series-rasters-in-r-rendered-use-bold-face-1.png" style="display: block; margin: auto;" />
+<img src="fig/13-plot-time-series-rasters-in-r-rendered-use-bold-face-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::
 
@@ -180,7 +180,7 @@ ggplot() +
   scale_fill_gradientn(name = "NDVI", colours = green_colors(20))
 ```
 
-<img src="fig/13-plot-time-series-rasters-in-r-rendered-change-color-ramp-1.png" style="display: block; margin: auto;" />
+<img src="fig/13-plot-time-series-rasters-in-r-rendered-change-color-ramp-1.png" alt="" style="display: block; margin: auto;" />
 
 The yellow to green color ramp visually represents NDVI well given it's a
 measure of greenness. Someone looking at the plot can quickly understand that
@@ -289,7 +289,7 @@ ggplot() +
   scale_fill_gradientn(name = "NDVI", colours = green_colors(20))
 ```
 
-<img src="fig/13-plot-time-series-rasters-in-r-rendered-create-levelplot-1.png" style="display: block; margin: auto;" />
+<img src="fig/13-plot-time-series-rasters-in-r-rendered-create-levelplot-1.png" alt="" style="display: block; margin: auto;" />
 
 ## Change Layout of Panels
 
@@ -310,7 +310,7 @@ ggplot() +
   scale_fill_gradientn(name = "NDVI", colours = green_colors(20))
 ```
 
-<img src="fig/13-plot-time-series-rasters-in-r-rendered-adjust-layout-1.png" style="display: block; margin: auto;" />
+<img src="fig/13-plot-time-series-rasters-in-r-rendered-adjust-layout-1.png" alt="" style="display: block; margin: auto;" />
 
 Now we have a beautiful, publication quality plot!
 
@@ -351,7 +351,7 @@ ggplot() +
   scale_fill_gradientn(name = "NDVI", colours = brown_green_colors(20))
 ```
 
-<img src="fig/13-plot-time-series-rasters-in-r-rendered-final-figure-1.png" style="display: block; margin: auto;" />
+<img src="fig/13-plot-time-series-rasters-in-r-rendered-final-figure-1.png" alt="" style="display: block; margin: auto;" />
 
 For NDVI data, the sequential color ramp is better than the divergent as it is
 more akin to the process of greening up, which starts off at one end and just 
