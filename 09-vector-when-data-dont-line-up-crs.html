@@ -394,7 +394,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Handling Spatial Projection &amp; CRS</h1>
-        <p>Last updated on 2025-12-09 |
+        <p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/09-vector-when-data-dont-line-up-crs.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -524,7 +524,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Map of Contiguous US State Boundaries"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/09-vector-when-data-dont-line-up-crs-rendered-find-coordinates-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="u-s--boundary-layer">U.S. Boundary Layer<a class="anchor" aria-label="anchor" href="#u-s--boundary-layer"></a></h2>
+<figure><img src="fig/09-vector-when-data-dont-line-up-crs-rendered-find-coordinates-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="u-s--boundary-layer">U.S. Boundary Layer<a class="anchor" aria-label="anchor" href="#u-s--boundary-layer"></a></h2>
 <hr class="half-width"><p>We can add a boundary layer of the United States to our map - to make
 it look nicer. We will import
 <code>NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States</code>.</p>
@@ -561,7 +561,7 @@ the colors of the state boundaries and country boundaries.</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Map of Contiguous US State Boundaries"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/09-vector-when-data-dont-line-up-crs-rendered-us-boundaries-thickness-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Next, let’s add the location of a flux tower where our study area is.
+<figure><img src="fig/09-vector-when-data-dont-line-up-crs-rendered-us-boundaries-thickness-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Next, let’s add the location of a flux tower where our study area is.
 As we are adding these layers, take note of the CRS of each object.
 First let’s look at the CRS of our tower location object:</p>
 <div class="codewrapper sourceCode" id="cb7">
@@ -719,7 +719,7 @@ plot our three data sets together without doing any conversion:</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Map of Contiguous US State Boundaries"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/09-vector-when-data-dont-line-up-crs-rendered-layer-point-on-states-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge---plot-multiple-layers-of-spatial-data" class="callout challenge">
+<figure><img src="fig/09-vector-when-data-dont-line-up-crs-rendered-layer-point-on-states-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge---plot-multiple-layers-of-spatial-data" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -746,7 +746,7 @@ Tower location point.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -784,7 +784,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <span>    <span class="fu">theme</span><span class="op">(</span>legend.background <span class="op">=</span> <span class="fu">element_rect</span><span class="op">(</span>color <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/09-vector-when-data-dont-line-up-crs-rendered-ne-states-harv-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<figure><img src="fig/09-vector-when-data-dont-line-up-crs-rendered-ne-states-harv-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 </div>
 </div>
 </div>
@@ -862,8 +862,8 @@ the same CRS.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/09-vector-when-data-dont-line-up-crs.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/09-vector-when-data-dont-line-up-crs.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2025-12-09",
-  "datePublished": "2026-01-20"
+  "dateModified": "2026-01-21",
+  "datePublished": "2026-01-21"
 }
 
   </script><script>

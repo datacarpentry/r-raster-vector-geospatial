@@ -390,7 +390,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Plot Multiple Vector Layers</h1>
-        <p>Last updated on 2025-12-09 |
+        <p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/08-vector-plot-shapefiles-custom-legend.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -479,7 +479,7 @@ layer. Then layer the tower location and road data on top using
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-plot-many-shapefiles-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Next, let’s build a custom legend using the symbology (the colors and
+<figure><img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-plot-many-shapefiles-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Next, let’s build a custom legend using the symbology (the colors and
 symbols) that we used to create the plot above. For example, it might be
 good if the lines were symbolized as lines. In the previous episode, you
 may have noticed that the default legend behavior for
@@ -501,7 +501,7 @@ to the <code>geom_sf</code> call - in this case,
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-plot-custom-shape-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Now lets adjust the legend titles by passing a <code>name</code> to
+<figure><img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-plot-custom-shape-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Now lets adjust the legend titles by passing a <code>name</code> to
 the respective <code>color</code> and <code>fill</code> palettes.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -517,7 +517,7 @@ the respective <code>color</code> and <code>fill</code> palettes.</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-create-custom-legend-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Finally, it might be better if the points were symbolized as a
+<figure><img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-create-custom-legend-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Finally, it might be better if the points were symbolized as a
 symbol. We can customize this using <code>shape</code> parameters in our
 call to <code>geom_sf</code>: 16 is a point symbol, 15 is a box.</p>
 <div id="data-tip" class="callout">
@@ -547,7 +547,7 @@ call to <code>geom_sf</code>: 16 is a point symbol, 15 is a box.</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-custom-symbols-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-plot-polygon-by-attribute" class="callout challenge">
+<figure><img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-custom-symbols-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-plot-polygon-by-attribute" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -636,7 +636,7 @@ type.</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-harv-plot-locations-bg-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>If we want each soil to be shown with a different symbol, we can give
+<figure><img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-harv-plot-locations-bg-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>If we want each soil to be shown with a different symbol, we can give
 multiple values to the <code>scale_shape_manual()</code> argument.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -654,7 +654,7 @@ multiple values to the <code>scale_shape_manual()</code> argument.</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-harv-plot-locations-pch-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<figure><img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-harv-plot-locations-pch-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 </div>
 </div>
 </div>
@@ -700,7 +700,7 @@ as a base layer. On top of the CHM, please add:</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site w/ Canopy Height Model"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-challenge-vector-raster-overlay-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<figure><img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-challenge-vector-raster-overlay-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 </div>
 </div>
 </div>
@@ -781,8 +781,8 @@ colors.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/08-vector-plot-shapefiles-custom-legend.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/08-vector-plot-shapefiles-custom-legend.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2025-12-09",
-  "datePublished": "2026-01-20"
+  "dateModified": "2026-01-21",
+  "datePublished": "2026-01-21"
 }
 
   </script><script>

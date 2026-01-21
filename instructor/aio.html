@@ -460,7 +460,7 @@
         
 <section id="aio-01-raster-structure"><p>Content from <a href="01-raster-structure.html">Intro to Raster Data</a></p>
 <hr>
-<p>Last updated on 2025-12-09 |
+<p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/01-raster-structure.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 50 minutes</p>
@@ -816,7 +816,7 @@ from the <code>terra</code> package.</p>
   Show plot
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>See <code>?plot</code> for more arguments to customize the plot</p>
 <div class="codewrapper sourceCode" id="cb16">
@@ -825,7 +825,7 @@ from the <code>terra</code> package.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">dsm_harv</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/01-raster-structure-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+<figure><img src="../fig/01-raster-structure-rendered-unnamed-chunk-7-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
 </div>
 </div>
@@ -879,7 +879,7 @@ the<code>crs()</code> function.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p><code>+units=m</code> tells us that our data is in meters.</p>
 </div>
@@ -1034,13 +1034,13 @@ some part of a defined region.</p>
 <p>In the image below, the pixels that are black have
 <code>NoDataValue</code>s. The camera did not collect data in these
 areas.</p>
-<figure><img src="../fig/01-raster-structure-rendered-demonstrate-no-data-black-ggplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In the next image, the black edges have been assigned
+<figure><img src="../fig/01-raster-structure-rendered-demonstrate-no-data-black-ggplot-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In the next image, the black edges have been assigned
 <code>NoDataValue</code>. R doesn’t render pixels that contain a
 specified <code>NoDataValue</code>. R assigns missing data with the
 <code>NoDataValue</code> as <code>NA</code>.</p>
 <p>The difference here shows up as ragged edges on the plot, rather than
 black spaces where there is no data.</p>
-<figure><img src="../fig/01-raster-structure-rendered-demonstrate-no-data-ggplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>If your raster already has <code>NA</code> values set correctly but
+<figure><img src="../fig/01-raster-structure-rendered-demonstrate-no-data-ggplot-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>If your raster already has <code>NA</code> values set correctly but
 you aren’t sure where they are, you can deliberately plot them in a
 particular colour. This can be useful when checking a dataset’s
 coverage. For instance, sometimes data can be missing where a sensor
@@ -1050,7 +1050,7 @@ data and fill it in.</p>
 <code>scale_fill_*()</code> layer to contain a colour instruction for
 <code>NA</code> values, like
 <code>scale_fill_viridis_c(na.value = 'deeppink')</code></p>
-<figure><img src="../fig/01-raster-structure-rendered-unnamed-chunk-9-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The value that is conventionally used to take note of missing data
+<figure><img src="../fig/01-raster-structure-rendered-unnamed-chunk-9-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The value that is conventionally used to take note of missing data
 (the <code>NoDataValue</code> value) varies by the raster data type. For
 floating-point rasters, the figure <code>-3.4e+38</code> is a common
 default, and for integers, <code>-9999</code> is common. Some
@@ -1092,7 +1092,7 @@ dataset.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1202,7 +1202,7 @@ just as we would for field data to identify questionable values.</p>
 in bad values and may suggest a solution. Below, reclassification is
 used to highlight elevation values over 400m with a contrasting
 colour.</p>
-<figure><img src="../fig/01-raster-structure-rendered-demo-bad-data-highlighting-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+<figure><img src="../fig/01-raster-structure-rendered-demo-bad-data-highlighting-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
 </section><section><h2 class="section-heading" id="create-a-histogram-of-raster-values">Create A Histogram of Raster Values<a class="anchor" aria-label="anchor" href="#create-a-histogram-of-raster-values"></a>
 </h2>
@@ -1223,7 +1223,7 @@ data values in our raster data.</p>
 </h3>
 <pre class="output" tabindex="0"><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
 </div>
-<figure><img src="../fig/01-raster-structure-rendered-view-raster-histogram-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Notice that a warning message is thrown when R creates the
+<figure><img src="../fig/01-raster-structure-rendered-view-raster-histogram-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Notice that a warning message is thrown when R creates the
 histogram.</p>
 <p><code>stat_bin()</code> using <code>bins = 30</code>. Pick better
 value with <code>binwidth</code>.</p>
@@ -1239,7 +1239,7 @@ function.</p>
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">geom_histogram</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dsm_harv_df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">HARV_dsmCrop</span><span class="op">)</span>, bins <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/01-raster-structure-rendered-view-raster-histogram2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Note that the shape of this histogram looks similar to the previous
+<figure><img src="../fig/01-raster-structure-rendered-view-raster-histogram2-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Note that the shape of this histogram looks similar to the previous
 one that was created using the default of 30 bins. The distribution of
 elevation values for our <code>Digital Surface Model (DSM)</code> looks
 reasonable. It is likely there are no bad data values in this particular
@@ -1275,7 +1275,7 @@ with Multi-band Rasters in R</a> episode.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1401,7 +1401,7 @@ to convert it to a dataframe.</li>
 </div>
 </section></section><section id="aio-02-raster-plot"><p>Content from <a href="02-raster-plot.html">Plot Raster Data</a></p>
 <hr>
-<p>Last updated on 2025-12-09 |
+<p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/02-raster-plot.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 70 minutes</p>
@@ -1488,7 +1488,7 @@ with <code>cut()</code> to split the data into 3 bins.</p>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">geom_bar</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dsm_harv_df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">fct_elevation</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/02-raster-plot-rendered-histogram-breaks-ggplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>If we want to know the cutoff values for the groups, we can ask for
+<figure><img src="../fig/02-raster-plot-rendered-histogram-breaks-ggplot-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>If we want to know the cutoff values for the groups, we can ask for
 the unique values of <code>fct_elevation</code>:</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1565,7 +1565,7 @@ and <code>]</code> to mean inclusive. For example:
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_bar</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dsm_harv_df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">fct_elevation_2</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/02-raster-plot-rendered-histogram-custom-breaks-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>And we can get the count of values in each group in the same way we
+<figure><img src="../fig/02-raster-plot-rendered-histogram-custom-breaks-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>And we can get the count of values in each group in the same way we
 did before:</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1592,7 +1592,7 @@ being a different color:</p>
 <span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dsm_harv_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">fct_elevation_2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/02-raster-plot-rendered-raster-with-breaks-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The plot above uses the default colors inside <code>ggplot</code> for
+<figure><img src="../fig/02-raster-plot-rendered-raster-with-breaks-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The plot above uses the default colors inside <code>ggplot</code> for
 raster objects. We can specify our own colors to make the plot look a
 little nicer. R has a built in set of colors for plotting terrain, which
 are built in to the <code>terrain.colors()</code> function. Since we
@@ -1622,7 +1622,7 @@ across using the <code>scale_fill_manual()</code> function.</p>
 <span>    <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/02-raster-plot-rendered-ggplot-breaks-customcolors-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="section level3">
+<figure><img src="../fig/02-raster-plot-rendered-ggplot-breaks-customcolors-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="section level3">
 <h3 id="more-plot-formatting">More Plot Formatting<a class="anchor" aria-label="anchor" href="#more-plot-formatting"></a>
 </h3>
 <p>If we need to create multiple plots using the same color palette, we
@@ -1650,7 +1650,7 @@ value to the <code>name</code> argument of the
 <span>    <span class="fu">theme</span><span class="op">(</span>axis.title <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/02-raster-plot-rendered-add-ggplot-labels-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-plot-using-custom-breaks" class="callout challenge">
+<figure><img src="../fig/02-raster-plot-rendered-add-ggplot-labels-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-plot-using-custom-breaks" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -1696,7 +1696,7 @@ divided among the range of pixel values.</li>
 <span>    <span class="fu">ylab</span><span class="op">(</span><span class="st">"UTM Northing Coordinate (m)"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/02-raster-plot-rendered-challenge-code-plotting-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+<figure><img src="../fig/02-raster-plot-rendered-challenge-code-plotting-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
 </div>
 </div>
@@ -1763,7 +1763,7 @@ max value   :    0.9999997 </code></pre>
 <span>  <span class="fu">scale_alpha</span><span class="op">(</span>range <span class="op">=</span>  <span class="fu">c</span><span class="op">(</span><span class="fl">0.15</span>, <span class="fl">0.65</span><span class="op">)</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/02-raster-plot-rendered-raster-hillshade-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="data-tips-1" class="callout">
+<figure><img src="../fig/02-raster-plot-rendered-raster-hillshade-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="data-tips-1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -1800,7 +1800,7 @@ context.</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Elevation with hillshade"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/02-raster-plot-rendered-overlay-hillshade-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-create-dtm-dsm-for-sjer" class="callout challenge">
+<figure><img src="../fig/02-raster-plot-rendered-overlay-hillshade-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-create-dtm-dsm-for-sjer" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -1873,7 +1873,7 @@ the data.</li>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"DSM with Hillshade"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/02-raster-plot-rendered-challenge-hillshade-layering-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb24">
+<figure><img src="../fig/02-raster-plot-rendered-challenge-hillshade-layering-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1909,7 +1909,7 @@ the data.</li>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"DTM with Hillshade"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/02-raster-plot-rendered-challenge-hillshade-layering-2.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+<figure><img src="../fig/02-raster-plot-rendered-challenge-hillshade-layering-2.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
 </div>
 </div>
@@ -1934,7 +1934,7 @@ aesthetic.</li>
 </div>
 </section></section><section id="aio-03-raster-reproject-in-r"><p>Content from <a href="03-raster-reproject-in-r.html">Reproject Raster Data</a></p>
 <hr>
-<p>Last updated on 2025-12-09 |
+<p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/03-raster-reproject-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 40 minutes</p>
@@ -2046,7 +2046,7 @@ plotting with <code>ggplot</code>.</p>
 <span>     <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>     <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/03-raster-reproject-in-r-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Our results are curious - neither the Digital Terrain Model
+<figure><img src="../fig/03-raster-reproject-in-r-rendered-unnamed-chunk-2-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Our results are curious - neither the Digital Terrain Model
 (<code>dtm_harv_df</code>) nor the DTM Hillshade
 (<code>dtm_hill_harv_df</code>) plotted. Let’s try to plot the DTM on
 its own to make sure there are data there.</p>
@@ -2061,7 +2061,7 @@ its own to make sure there are data there.</p>
 <span><span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span><span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/03-raster-reproject-in-r-rendered-plot-DTM-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Our DTM seems to contain data and plots just fine.</p>
+<figure><img src="../fig/03-raster-reproject-in-r-rendered-plot-DTM-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Our DTM seems to contain data and plots just fine.</p>
 <p>Next we plot the DTM Hillshade on its own to see whether everything
 is OK.</p>
 <div class="codewrapper sourceCode" id="cb5">
@@ -2074,7 +2074,7 @@ is OK.</p>
 <span>    alpha <span class="op">=</span> <span class="va">HARV_DTMhill_WGS84</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/03-raster-reproject-in-r-rendered-plot-DTM-hill-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>If we look at the axes, we can see that the projections of the two
+<figure><img src="../fig/03-raster-reproject-in-r-rendered-plot-DTM-hill-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>If we look at the axes, we can see that the projections of the two
 rasters are different. When this is the case, <code>ggplot</code> won’t
 render the image. It won’t even throw an error message to tell you
 something has gone wrong. We can look at Coordinate Reference Systems
@@ -2443,7 +2443,7 @@ dataframe from our newly reprojected raster.</p>
 <span>     <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>     <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/03-raster-reproject-in-r-rendered-plot-projected-raster-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We have now successfully draped the Digital Terrain Model on top of
+<figure><img src="../fig/03-raster-reproject-in-r-rendered-plot-projected-raster-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We have now successfully draped the Digital Terrain Model on top of
 our hillshade to produce a nice looking, textured map!</p>
 <div id="challenge-reproject-then-plot-a-digital-surface-model" class="callout challenge">
 <div class="callout-square">
@@ -2503,7 +2503,7 @@ files.</p>
 <span>     <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>     <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/03-raster-reproject-in-r-rendered-challenge-code-reprojection-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+<figure><img src="../fig/03-raster-reproject-in-r-rendered-challenge-code-reprojection-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
 </div>
 </div>
@@ -2556,7 +2556,7 @@ CRSs.</li>
 </div>
 </section></section><section id="aio-04-raster-calculations-in-r"><p>Content from <a href="04-raster-calculations-in-r.html">Raster Calculations</a></p>
 <hr>
-<p>Last updated on 2025-12-09 |
+<p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/04-raster-calculations-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 60 minutes</p>
@@ -2864,7 +2864,7 @@ data looks like. First we’ll plot the DTM elevation data:</p>
 <span>     <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>     <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/04-raster-calculations-in-r-rendered-harv-dtm-plot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>And then the DSM elevation data:</p>
+<figure><img src="../fig/04-raster-calculations-in-r-rendered-harv-dtm-plot-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>And then the DSM elevation data:</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2875,7 +2875,7 @@ data looks like. First we’ll plot the DTM elevation data:</p>
 <span>     <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>     <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/04-raster-calculations-in-r-rendered-harv-dsm-plot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="two-ways-to-perform-raster-calculations">Two Ways to Perform Raster Calculations<a class="anchor" aria-label="anchor" href="#two-ways-to-perform-raster-calculations"></a>
+<figure><img src="../fig/04-raster-calculations-in-r-rendered-harv-dsm-plot-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="two-ways-to-perform-raster-calculations">Two Ways to Perform Raster Calculations<a class="anchor" aria-label="anchor" href="#two-ways-to-perform-raster-calculations"></a>
 </h2>
 <hr class="half-width">
 <p>We can calculate the difference between two rasters in two different
@@ -2915,7 +2915,7 @@ After subtracting, let’s create a dataframe so we can plot with
 <span>   <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Canopy Height"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>   <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/04-raster-calculations-in-r-rendered-harv-chm-plot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Let’s have a look at the distribution of values in our newly created
+<figure><img src="../fig/04-raster-calculations-in-r-rendered-harv-chm-plot-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Let’s have a look at the distribution of values in our newly created
 Canopy Height Model (CHM).</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2929,7 +2929,7 @@ Canopy Height Model (CHM).</p>
 </h3>
 <pre class="output" tabindex="0"><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
 </div>
-<figure><img src="../fig/04-raster-calculations-in-r-rendered-create-hist-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Notice that the range of values for the output CHM is between 0 and
+<figure><img src="../fig/04-raster-calculations-in-r-rendered-create-hist-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Notice that the range of values for the output CHM is between 0 and
 30 meters. Does this make sense for trees in Harvard Forest?</p>
 <div id="challenge-explore-chm-raster-values" class="callout challenge">
 <div class="callout-square">
@@ -3013,7 +3013,7 @@ title and no axes ticks / labels.</li>
 </h3>
 <pre class="output" tabindex="0"><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
 </div>
-<figure><img src="../fig/04-raster-calculations-in-r-rendered-chm-harv-hist-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><ol start="4" style="list-style-type: decimal"><li>
+<figure><img src="../fig/04-raster-calculations-in-r-rendered-chm-harv-hist-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><ol start="4" style="list-style-type: decimal"><li>
 </li></ol>
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3023,7 +3023,7 @@ title and no axes ticks / labels.</li>
 <span>    <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">HARV_dsmCrop</span><span class="op">)</span>, colour<span class="op">=</span><span class="st">"black"</span>, </span>
 <span>                   fill<span class="op">=</span><span class="st">"darkgreen"</span>, bins <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/04-raster-calculations-in-r-rendered-chm-harv-hist-green-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><ol start="5" style="list-style-type: decimal"><li>
+<figure><img src="../fig/04-raster-calculations-in-r-rendered-chm-harv-hist-green-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><ol start="5" style="list-style-type: decimal"><li>
 </li></ol>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3040,7 +3040,7 @@ title and no axes ticks / labels.</li>
 <span>     <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>     <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/04-raster-calculations-in-r-rendered-chm-harv-raster-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+<figure><img src="../fig/04-raster-calculations-in-r-rendered-chm-harv-raster-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
 </div>
 </div>
@@ -3120,7 +3120,7 @@ with <code>ggplot</code>.</p>
 <span>   <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Canopy Height"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>   <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/04-raster-calculations-in-r-rendered-harv-chm-overlay-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>How do the plots of the CHM created with manual raster math and the
+<figure><img src="../fig/04-raster-calculations-in-r-rendered-harv-chm-overlay-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>How do the plots of the CHM created with manual raster math and the
 <code>lapp()</code> function compare?</p>
 </section><section><h2 class="section-heading" id="export-a-geotiff">Export a GeoTIFF<a class="anchor" aria-label="anchor" href="#export-a-geotiff"></a>
 </h2>
@@ -3235,7 +3235,7 @@ sense:</p>
 </h3>
 <pre class="output" tabindex="0"><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
 </div>
-<figure><img src="../fig/04-raster-calculations-in-r-rendered-sjer-chm-overlay-hist-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><ol start="2" style="list-style-type: decimal">
+<figure><img src="../fig/04-raster-calculations-in-r-rendered-sjer-chm-overlay-hist-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><ol start="2" style="list-style-type: decimal">
 <li>Create a plot of the CHM:</li>
 </ol>
 <div class="codewrapper sourceCode" id="cb27">
@@ -3251,7 +3251,7 @@ sense:</p>
 <span>        colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>     <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/04-raster-calculations-in-r-rendered-sjer-chm-overlay-raster-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><ol start="3" style="list-style-type: decimal">
+<figure><img src="../fig/04-raster-calculations-in-r-rendered-sjer-chm-overlay-raster-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><ol start="3" style="list-style-type: decimal">
 <li>Export the CHM object to a file:</li>
 </ol>
 <div class="codewrapper sourceCode" id="cb28">
@@ -3280,7 +3280,7 @@ CHMs.</li>
 </h3>
 <pre class="output" tabindex="0"><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
 </div>
-<figure><img src="../fig/04-raster-calculations-in-r-rendered-compare-chm-harv-sjer-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb31">
+<figure><img src="../fig/04-raster-calculations-in-r-rendered-compare-chm-harv-sjer-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3292,7 +3292,7 @@ CHMs.</li>
 </h3>
 <pre class="output" tabindex="0"><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
 </div>
-<figure><img src="../fig/04-raster-calculations-in-r-rendered-compare-chm-harv-sjer-2.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+<figure><img src="../fig/04-raster-calculations-in-r-rendered-compare-chm-harv-sjer-2.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
 </div>
 </div>
@@ -3317,7 +3317,7 @@ data to a file.</li>
 </div>
 </section></section><section id="aio-05-raster-multi-band-in-r"><p>Content from <a href="05-raster-multi-band-in-r.html">Work with Multi-Band Rasters</a></p>
 <hr>
-<p>Last updated on 2025-12-09 |
+<p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/05-raster-multi-band-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 45 minutes</p>
@@ -3409,7 +3409,7 @@ first one); omitting this parameter would read instead all bands.</p>
 <span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, alpha <span class="op">=</span> <span class="va">HARV_RGB_Ortho_1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/05-raster-multi-band-in-r-rendered-harv-rgb-band1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>To import the green band, we would use <code>lyrs = 2</code>.</p>
+<figure><img src="../fig/05-raster-multi-band-in-r-rendered-harv-rgb-band1-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>To import the green band, we would use <code>lyrs = 2</code>.</p>
 <div id="challenge" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -3428,7 +3428,7 @@ resolution, min and max values, and band number?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3580,7 +3580,7 @@ Thus we have:</p>
 </h3>
 <pre class="output" tabindex="0"><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
 </div>
-<figure><img src="../fig/05-raster-multi-band-in-r-rendered-rgb-harv-hist-band1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>And a raster plot of the second band:</p>
+<figure><img src="../fig/05-raster-multi-band-in-r-rendered-rgb-harv-hist-band1-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>And a raster plot of the second band:</p>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -3590,7 +3590,7 @@ Thus we have:</p>
 <span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, alpha <span class="op">=</span> <span class="va">HARV_RGB_Ortho_2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/05-raster-multi-band-in-r-rendered-rgb-harv-plot-band2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We can access any individual band in the same way.</p>
+<figure><img src="../fig/05-raster-multi-band-in-r-rendered-rgb-harv-plot-band2-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We can access any individual band in the same way.</p>
 <div class="section level3">
 <h3 id="create-a-three-band-image">Create A Three Band Image<a class="anchor" aria-label="anchor" href="#create-a-three-band-image"></a>
 </h3>
@@ -3618,7 +3618,7 @@ don’t need a dataframe as this function isn’t part of the
 <code class="sourceCode R"><span><span class="fu">plotRGB</span><span class="op">(</span><span class="va">rgb_stack_harv</span>,</span>
 <span>        r <span class="op">=</span> <span class="fl">1</span>, g <span class="op">=</span> <span class="fl">2</span>, b <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/05-raster-multi-band-in-r-rendered-plot-rgb-image-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The image above looks pretty good. We can explore whether applying a
+<figure><img src="../fig/05-raster-multi-band-in-r-rendered-plot-rgb-image-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The image above looks pretty good. We can explore whether applying a
 stretch to the image might improve clarity and contrast using
 <code>stretch="lin"</code> or <code>stretch="hist"</code>.</p>
 <figure><img src="../fig/dc-spatial-raster/imageStretch_dark.jpg" alt="Image Stretch" class="figure mx-auto d-block"></figure><p>When the range of pixel brightness values is closer to 0, a darker
@@ -3637,7 +3637,7 @@ the image.</p>
 <span>        r <span class="op">=</span> <span class="fl">1</span>, g <span class="op">=</span> <span class="fl">2</span>, b <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>        stretch <span class="op">=</span> <span class="st">"lin"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/05-raster-multi-band-in-r-rendered-plot-rbg-image-linear-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb19">
+<figure><img src="../fig/05-raster-multi-band-in-r-rendered-plot-rbg-image-linear-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3645,7 +3645,7 @@ the image.</p>
 <span>        r <span class="op">=</span> <span class="fl">1</span>, g <span class="op">=</span> <span class="fl">2</span>, b <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>        stretch <span class="op">=</span> <span class="st">"hist"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/05-raster-multi-band-in-r-rendered-plot-rgb-image-hist-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In this case, the stretch doesn’t enhance the contrast our image
+<figure><img src="../fig/05-raster-multi-band-in-r-rendered-plot-rgb-image-hist-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In this case, the stretch doesn’t enhance the contrast our image
 significantly given the distribution of reflectance (or brightness)
 values is distributed well between 0 and 255.</p>
 <div id="challenge---nodata-values" class="callout challenge">
@@ -3682,7 +3682,7 @@ can you check?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Answers </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>First we use the <code>describe()</code> function to view the data
@@ -3805,7 +3805,7 @@ function:</p></li>
 <code class="sourceCode R"><span><span class="fu">plotRGB</span><span class="op">(</span><span class="va">harv_na</span>,</span>
 <span>        r <span class="op">=</span> <span class="fl">1</span>, g <span class="op">=</span> <span class="fl">2</span>, b <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/05-raster-multi-band-in-r-rendered-harv-na-rgb-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><ol start="6" style="list-style-type: decimal">
+<figure><img src="../fig/05-raster-multi-band-in-r-rendered-harv-na-rgb-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><ol start="6" style="list-style-type: decimal">
 <li><p>The black edges are not plotted.</p></li>
 <li><p>Both data sets have <code>NoData</code> values, however, in the
 RGB_stack the NoData value is not defined in the tiff tags, thus R
@@ -4024,7 +4024,7 @@ object?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Answers </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>We can see a list of all of the methods available for our
@@ -4058,99 +4058,100 @@ RasterStack object:</li>
  [49] c                     catalyze              categories
  [52] cats                  cellFromRowCol        cellFromRowColCombine
  [55] cellFromXY            cells                 cellSize
- [58] clamp_ts              clamp                 classify
- [61] click                 coerce                colFromCell
- [64] colFromX              colMeans              colorize
- [67] colSums               coltab                coltab&lt;-
- [70] Compare               compare               compareGeom
- [73] concats               contour               costDist
- [76] countNA               cover                 crds
- [79] crop                  crosstab              crs
- [82] crs&lt;-                 datatype              deepcopy
- [85] density               depth                 depth&lt;-
- [88] depthName             depthName&lt;-           depthUnit
- [91] depthUnit&lt;-           describe              diff
- [94] dim                   dim&lt;-                 direction
- [97] disagg                distance              divide
-[100] droplevels            expanse               ext
-[103] ext&lt;-                 extend                extract
-[106] extractRange          fillTime              flip
-[109] flowAccumulation      focal                 focal3D
-[112] focalCpp              focalPairs            focalReg
-[115] focalValues           freq                  getTileExtents
-[118] global                gridDist              gridDistance
-[121] has.colors            has.RGB               has.time
-[124] hasMinMax             hasValues             head
-[127] hist                  identical             ifel
-[130] image                 init                  inMemory
-[133] inset                 interpIDW             interpNear
-[136] interpolate           intersect             is.bool
-[139] is.factor             is.finite             is.flipped
-[142] is.infinite           is.int                is.lonlat
-[145] is.na                 is.nan                is.num
-[148] is.related            is.rotated            isFALSE
-[151] isTRUE                k_means               lapp
-[154] layerCor              levels                levels&lt;-
-[157] linearUnits           lines                 log
-[160] Logic                 logic                 longnames
-[163] longnames&lt;-           makeTiles             mask
-[166] match                 math                  Math
-[169] Math2                 mean                  median
-[172] merge                 meta                  metags
-[175] metags&lt;-              minmax                modal
-[178] mosaic                NAflag                NAflag&lt;-
-[181] names                 names&lt;-               ncell
-[184] ncol                  ncol&lt;-                NIDP
-[187] nlyr                  nlyr&lt;-                noNA
-[190] not.na                nrow                  nrow&lt;-
-[193] nsrc                  origin                origin&lt;-
-[196] pairs                 panel                 patches
-[199] persp                 pitfinder             plet
-[202] plot                  plotRGB               points
-[205] polys                 prcomp                predict
-[208] princomp              project               quantile
-[211] rangeFill             rapp                  rast
-[214] rasterize             rasterizeGeom         rasterizeWin
-[217] rcl                   readStart             readStop
-[220] readValues            rectify               regress
-[223] relate                rep                   res
-[226] res&lt;-                 resample              rescale
-[229] rev                   RGB                   RGB&lt;-
-[232] roll                  rotate                rowColCombine
-[235] rowColFromCell        rowFromCell           rowFromY
-[238] rowMeans              rowSums               sapp
-[241] saveRDS               scale_linear          scale
-[244] scoff                 scoff&lt;-               sds
-[247] segregate             sel                   selectHighest
-[250] selectRange           serialize             set.cats
-[253] set.crs               set.ext               set.names
-[256] set.RGB               set.values            set.window
-[259] setMinMax             setValues             shift
-[262] show                  sieve                 simplifyLevels
-[265] size                  sort                  sources
-[268] spatSample            split                 sprc
-[271] stdev                 str                   stretch
-[274] subset                subst                 summary
-[277] Summary               surfArea              t
-[280] tail                  tapp                  terrain
-[283] text                  thresh                tighten
-[286] time                  time&lt;-                timeInfo
-[289] toMemory              trans                 trim
-[292] unique                units                 units&lt;-
-[295] update                values                values&lt;-
-[298] varnames              varnames&lt;-            viewshed
-[301] watershed             weighted.mean         where.max
-[304] where.min             which.lyr             which.max
-[307] which.min             window                window&lt;-
-[310] wrap                  wrapCache             writeCDF
-[313] writeRaster           writeStart            writeStop
-[316] writeValues           xapp                  xFromCell
-[319] xFromCol              xmax                  xmax&lt;-
-[322] xmin                  xmin&lt;-                xres
-[325] xyFromCell            yFromCell             yFromRow
-[328] ymax                  ymax&lt;-                ymin
-[331] ymin&lt;-                yres                  zonal
-[334] zoom
+ [58] centroids             chunk                 clamp_ts
+ [61] clamp                 classify              click
+ [64] coerce                colFromCell           colFromX
+ [67] colMeans              colorize              colSums
+ [70] coltab                coltab&lt;-              Compare
+ [73] compare               compareGeom           concats
+ [76] contour               costDist              countNA
+ [79] cover                 crds                  crop
+ [82] crosstab              crs                   crs&lt;-
+ [85] datatype              deepcopy              density
+ [88] depth                 depth&lt;-               depthName
+ [91] depthName&lt;-           depthUnit             depthUnit&lt;-
+ [94] describe              diff                  dim
+ [97] dim&lt;-                 direction             disagg
+[100] distance              divide                droplevels
+[103] expanse               ext                   ext&lt;-
+[106] extend                extract               extractRange
+[109] fillHoles             fillTime              flip
+[112] flowAccumulation      focal                 focal3D
+[115] focalCpp              focalPairs            focalReg
+[118] focalValues           freq                  getTileExtents
+[121] global                gridDist              gridDistance
+[124] has.colors            has.RGB               has.time
+[127] hasMinMax             hasValues             head
+[130] hist                  identical             ifel
+[133] image                 init                  inMemory
+[136] inset                 interpIDW             interpNear
+[139] interpolate           intersect             is.bool
+[142] is.factor             is.finite             is.flipped
+[145] is.infinite           is.int                is.lonlat
+[148] is.na                 is.nan                is.num
+[151] is.related            is.rotated            isFALSE
+[154] isTRUE                k_means               lapp
+[157] layerCor              levels                levels&lt;-
+[160] linearUnits           lines                 log
+[163] Logic                 logic                 longnames
+[166] longnames&lt;-           makeTiles             mask
+[169] match                 math                  Math
+[172] Math2                 mean                  median
+[175] merge                 meta                  metags
+[178] metags&lt;-              minmax                modal
+[181] mosaic                NAflag                NAflag&lt;-
+[184] names                 names&lt;-               ncell
+[187] ncol                  ncol&lt;-                NIDP
+[190] nlyr                  nlyr&lt;-                noNA
+[193] not.na                nrow                  nrow&lt;-
+[196] nsrc                  origin                origin&lt;-
+[199] pairs                 panel                 patches
+[202] persp                 pitfinder             plet
+[205] plot                  plotRGB               points
+[208] polys                 prcomp                predict
+[211] princomp              project               quantile
+[214] rangeFill             rapp                  rast
+[217] rasterize             rasterizeGeom         rasterizeWin
+[220] rcl                   readStart             readStop
+[223] readValues            rectify               regress
+[226] relate                rep                   res
+[229] res&lt;-                 resample              rescale
+[232] rev                   RGB                   RGB&lt;-
+[235] roll                  rotate                rowColCombine
+[238] rowColFromCell        rowFromCell           rowFromY
+[241] rowMeans              rowSums               sapp
+[244] saveRDS               scale_linear          scale
+[247] scoff                 scoff&lt;-               sds
+[250] segregate             sel                   selectHighest
+[253] selectRange           serialize             set.cats
+[256] set.crs               set.ext               set.names
+[259] set.RGB               set.values            set.window
+[262] setMinMax             setValues             shift
+[265] show                  sieve                 simplifyLevels
+[268] size                  sort                  sources
+[271] spatSample            split                 sprc
+[274] stdev                 str                   stretch
+[277] subset                subst                 summary
+[280] Summary               surfArea              t
+[283] tail                  tapp                  terrain
+[286] text                  thresh                tighten
+[289] time                  time&lt;-                timeInfo
+[292] toMemory              trans                 trim
+[295] unique                units                 units&lt;-
+[298] update                values                values&lt;-
+[301] varnames              varnames&lt;-            viewshed
+[304] watershed             weighted.mean         where.max
+[307] where.min             which.lyr             which.max
+[310] which.min             window                window&lt;-
+[313] wrap                  wrapCache             writeCDF
+[316] writeRaster           writeStart            writeStop
+[319] writeValues           xapp                  xFromCell
+[322] xFromCol              xmax                  xmax&lt;-
+[325] xmin                  xmin&lt;-                xres
+[328] xyFromCell            yFromCell             yFromRow
+[331] ymax                  ymax&lt;-                ymin
+[334] ymin&lt;-                yres                  zonal
+[337] zoom
 see '?methods' for accessing help and source code</code></pre>
 </div>
 <ol start="2" style="list-style-type: decimal">
@@ -4184,99 +4185,100 @@ see '?methods' for accessing help and source code</code></pre>
  [49] c                     catalyze              categories
  [52] cats                  cellFromRowCol        cellFromRowColCombine
  [55] cellFromXY            cells                 cellSize
- [58] clamp_ts              clamp                 classify
- [61] click                 coerce                colFromCell
- [64] colFromX              colMeans              colorize
- [67] colSums               coltab                coltab&lt;-
- [70] Compare               compare               compareGeom
- [73] concats               contour               costDist
- [76] countNA               cover                 crds
- [79] crop                  crosstab              crs
- [82] crs&lt;-                 datatype              deepcopy
- [85] density               depth                 depth&lt;-
- [88] depthName             depthName&lt;-           depthUnit
- [91] depthUnit&lt;-           describe              diff
- [94] dim                   dim&lt;-                 direction
- [97] disagg                distance              divide
-[100] droplevels            expanse               ext
-[103] ext&lt;-                 extend                extract
-[106] extractRange          fillTime              flip
-[109] flowAccumulation      focal                 focal3D
-[112] focalCpp              focalPairs            focalReg
-[115] focalValues           freq                  getTileExtents
-[118] global                gridDist              gridDistance
-[121] has.colors            has.RGB               has.time
-[124] hasMinMax             hasValues             head
-[127] hist                  identical             ifel
-[130] image                 init                  inMemory
-[133] inset                 interpIDW             interpNear
-[136] interpolate           intersect             is.bool
-[139] is.factor             is.finite             is.flipped
-[142] is.infinite           is.int                is.lonlat
-[145] is.na                 is.nan                is.num
-[148] is.related            is.rotated            isFALSE
-[151] isTRUE                k_means               lapp
-[154] layerCor              levels                levels&lt;-
-[157] linearUnits           lines                 log
-[160] Logic                 logic                 longnames
-[163] longnames&lt;-           makeTiles             mask
-[166] match                 math                  Math
-[169] Math2                 mean                  median
-[172] merge                 meta                  metags
-[175] metags&lt;-              minmax                modal
-[178] mosaic                NAflag                NAflag&lt;-
-[181] names                 names&lt;-               ncell
-[184] ncol                  ncol&lt;-                NIDP
-[187] nlyr                  nlyr&lt;-                noNA
-[190] not.na                nrow                  nrow&lt;-
-[193] nsrc                  origin                origin&lt;-
-[196] pairs                 panel                 patches
-[199] persp                 pitfinder             plet
-[202] plot                  plotRGB               points
-[205] polys                 prcomp                predict
-[208] princomp              project               quantile
-[211] rangeFill             rapp                  rast
-[214] rasterize             rasterizeGeom         rasterizeWin
-[217] rcl                   readStart             readStop
-[220] readValues            rectify               regress
-[223] relate                rep                   res
-[226] res&lt;-                 resample              rescale
-[229] rev                   RGB                   RGB&lt;-
-[232] roll                  rotate                rowColCombine
-[235] rowColFromCell        rowFromCell           rowFromY
-[238] rowMeans              rowSums               sapp
-[241] saveRDS               scale_linear          scale
-[244] scoff                 scoff&lt;-               sds
-[247] segregate             sel                   selectHighest
-[250] selectRange           serialize             set.cats
-[253] set.crs               set.ext               set.names
-[256] set.RGB               set.values            set.window
-[259] setMinMax             setValues             shift
-[262] show                  sieve                 simplifyLevels
-[265] size                  sort                  sources
-[268] spatSample            split                 sprc
-[271] stdev                 str                   stretch
-[274] subset                subst                 summary
-[277] Summary               surfArea              t
-[280] tail                  tapp                  terrain
-[283] text                  thresh                tighten
-[286] time                  time&lt;-                timeInfo
-[289] toMemory              trans                 trim
-[292] unique                units                 units&lt;-
-[295] update                values                values&lt;-
-[298] varnames              varnames&lt;-            viewshed
-[301] watershed             weighted.mean         where.max
-[304] where.min             which.lyr             which.max
-[307] which.min             window                window&lt;-
-[310] wrap                  wrapCache             writeCDF
-[313] writeRaster           writeStart            writeStop
-[316] writeValues           xapp                  xFromCell
-[319] xFromCol              xmax                  xmax&lt;-
-[322] xmin                  xmin&lt;-                xres
-[325] xyFromCell            yFromCell             yFromRow
-[328] ymax                  ymax&lt;-                ymin
-[331] ymin&lt;-                yres                  zonal
-[334] zoom
+ [58] centroids             chunk                 clamp_ts
+ [61] clamp                 classify              click
+ [64] coerce                colFromCell           colFromX
+ [67] colMeans              colorize              colSums
+ [70] coltab                coltab&lt;-              Compare
+ [73] compare               compareGeom           concats
+ [76] contour               costDist              countNA
+ [79] cover                 crds                  crop
+ [82] crosstab              crs                   crs&lt;-
+ [85] datatype              deepcopy              density
+ [88] depth                 depth&lt;-               depthName
+ [91] depthName&lt;-           depthUnit             depthUnit&lt;-
+ [94] describe              diff                  dim
+ [97] dim&lt;-                 direction             disagg
+[100] distance              divide                droplevels
+[103] expanse               ext                   ext&lt;-
+[106] extend                extract               extractRange
+[109] fillHoles             fillTime              flip
+[112] flowAccumulation      focal                 focal3D
+[115] focalCpp              focalPairs            focalReg
+[118] focalValues           freq                  getTileExtents
+[121] global                gridDist              gridDistance
+[124] has.colors            has.RGB               has.time
+[127] hasMinMax             hasValues             head
+[130] hist                  identical             ifel
+[133] image                 init                  inMemory
+[136] inset                 interpIDW             interpNear
+[139] interpolate           intersect             is.bool
+[142] is.factor             is.finite             is.flipped
+[145] is.infinite           is.int                is.lonlat
+[148] is.na                 is.nan                is.num
+[151] is.related            is.rotated            isFALSE
+[154] isTRUE                k_means               lapp
+[157] layerCor              levels                levels&lt;-
+[160] linearUnits           lines                 log
+[163] Logic                 logic                 longnames
+[166] longnames&lt;-           makeTiles             mask
+[169] match                 math                  Math
+[172] Math2                 mean                  median
+[175] merge                 meta                  metags
+[178] metags&lt;-              minmax                modal
+[181] mosaic                NAflag                NAflag&lt;-
+[184] names                 names&lt;-               ncell
+[187] ncol                  ncol&lt;-                NIDP
+[190] nlyr                  nlyr&lt;-                noNA
+[193] not.na                nrow                  nrow&lt;-
+[196] nsrc                  origin                origin&lt;-
+[199] pairs                 panel                 patches
+[202] persp                 pitfinder             plet
+[205] plot                  plotRGB               points
+[208] polys                 prcomp                predict
+[211] princomp              project               quantile
+[214] rangeFill             rapp                  rast
+[217] rasterize             rasterizeGeom         rasterizeWin
+[220] rcl                   readStart             readStop
+[223] readValues            rectify               regress
+[226] relate                rep                   res
+[229] res&lt;-                 resample              rescale
+[232] rev                   RGB                   RGB&lt;-
+[235] roll                  rotate                rowColCombine
+[238] rowColFromCell        rowFromCell           rowFromY
+[241] rowMeans              rowSums               sapp
+[244] saveRDS               scale_linear          scale
+[247] scoff                 scoff&lt;-               sds
+[250] segregate             sel                   selectHighest
+[253] selectRange           serialize             set.cats
+[256] set.crs               set.ext               set.names
+[259] set.RGB               set.values            set.window
+[262] setMinMax             setValues             shift
+[265] show                  sieve                 simplifyLevels
+[268] size                  sort                  sources
+[271] spatSample            split                 sprc
+[274] stdev                 str                   stretch
+[277] subset                subst                 summary
+[280] Summary               surfArea              t
+[283] tail                  tapp                  terrain
+[286] text                  thresh                tighten
+[289] time                  time&lt;-                timeInfo
+[292] toMemory              trans                 trim
+[295] unique                units                 units&lt;-
+[298] update                values                values&lt;-
+[301] varnames              varnames&lt;-            viewshed
+[304] watershed             weighted.mean         where.max
+[307] where.min             which.lyr             which.max
+[310] which.min             window                window&lt;-
+[313] wrap                  wrapCache             writeCDF
+[316] writeRaster           writeStart            writeStop
+[319] writeValues           xapp                  xFromCell
+[322] xFromCol              xmax                  xmax&lt;-
+[325] xmin                  xmin&lt;-                xres
+[328] xyFromCell            yFromCell             yFromRow
+[331] ymax                  ymax&lt;-                ymin
+[334] ymin&lt;-                yres                  zonal
+[337] zoom
 see '?methods' for accessing help and source code</code></pre>
 </div>
 <ol start="3" style="list-style-type: decimal">
@@ -4306,7 +4308,7 @@ holds.</li>
 </div>
 </section></section><section id="aio-06-vector-open-shapefile-in-r"><p>Content from <a href="06-vector-open-shapefile-in-r.html">Open and Plot Vector Layers</a></p>
 <hr>
-<p>Last updated on 2025-12-09 |
+<p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/06-vector-open-shapefile-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 30 minutes</p>
@@ -4591,7 +4593,7 @@ coordinate system.</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"AOI Boundary Plot"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/06-vector-open-shapefile-in-r-rendered-plot-shapefile-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>On the boundary plot, the x and y axes are labeled in units of
+<figure><img src="../fig/06-vector-open-shapefile-in-r-rendered-plot-shapefile-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>On the boundary plot, the x and y axes are labeled in units of
 decimal degrees. However, the CRS for <code>aoi_boundary_harv</code> is
 UTM zone 18N, which has units of meters. <code>geom_sf</code> will use
 the CRS of the data to set the CRS for the plot, so why is there a
@@ -4630,7 +4632,7 @@ layer?</p></li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>First we import the data:</p>
 <div class="codewrapper sourceCode" id="cb13">
@@ -4840,7 +4842,7 @@ dataframe.</li>
 </div>
 </section></section><section id="aio-07-vector-shapefile-attributes-in-r"><p>Content from <a href="07-vector-shapefile-attributes-in-r.html">Explore and Plot by Vector Layer Attributes</a></p>
 <hr>
-<p>Last updated on 2025-12-09 |
+<p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/07-vector-shapefile-attributes-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 60 minutes</p>
@@ -5766,7 +5768,7 @@ functions and options in the <code>ggplot2</code> package.</li>
 </div>
 </section></section><section id="aio-08-vector-plot-shapefiles-custom-legend"><p>Content from <a href="08-vector-plot-shapefiles-custom-legend.html">Plot Multiple Vector Layers</a></p>
 <hr>
-<p>Last updated on 2025-12-09 |
+<p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/08-vector-plot-shapefiles-custom-legend.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 45 minutes</p>
@@ -5858,7 +5860,7 @@ layer. Then layer the tower location and road data on top using
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/08-vector-plot-shapefiles-custom-legend-rendered-plot-many-shapefiles-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Next, let’s build a custom legend using the symbology (the colors and
+<figure><img src="../fig/08-vector-plot-shapefiles-custom-legend-rendered-plot-many-shapefiles-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Next, let’s build a custom legend using the symbology (the colors and
 symbols) that we used to create the plot above. For example, it might be
 good if the lines were symbolized as lines. In the previous episode, you
 may have noticed that the default legend behavior for
@@ -5880,7 +5882,7 @@ to the <code>geom_sf</code> call - in this case,
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/08-vector-plot-shapefiles-custom-legend-rendered-plot-custom-shape-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Now lets adjust the legend titles by passing a <code>name</code> to
+<figure><img src="../fig/08-vector-plot-shapefiles-custom-legend-rendered-plot-custom-shape-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Now lets adjust the legend titles by passing a <code>name</code> to
 the respective <code>color</code> and <code>fill</code> palettes.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -5896,7 +5898,7 @@ the respective <code>color</code> and <code>fill</code> palettes.</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/08-vector-plot-shapefiles-custom-legend-rendered-create-custom-legend-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Finally, it might be better if the points were symbolized as a
+<figure><img src="../fig/08-vector-plot-shapefiles-custom-legend-rendered-create-custom-legend-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Finally, it might be better if the points were symbolized as a
 symbol. We can customize this using <code>shape</code> parameters in our
 call to <code>geom_sf</code>: 16 is a point symbol, 15 is a box.</p>
 <div id="data-tip" class="callout">
@@ -5926,7 +5928,7 @@ call to <code>geom_sf</code>: 16 is a point symbol, 15 is a box.</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/08-vector-plot-shapefiles-custom-legend-rendered-custom-symbols-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-plot-polygon-by-attribute" class="callout challenge">
+<figure><img src="../fig/08-vector-plot-shapefiles-custom-legend-rendered-custom-symbols-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-plot-polygon-by-attribute" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -6017,7 +6019,7 @@ type.</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/08-vector-plot-shapefiles-custom-legend-rendered-harv-plot-locations-bg-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>If we want each soil to be shown with a different symbol, we can give
+<figure><img src="../fig/08-vector-plot-shapefiles-custom-legend-rendered-harv-plot-locations-bg-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>If we want each soil to be shown with a different symbol, we can give
 multiple values to the <code>scale_shape_manual()</code> argument.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -6035,7 +6037,7 @@ multiple values to the <code>scale_shape_manual()</code> argument.</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/08-vector-plot-shapefiles-custom-legend-rendered-harv-plot-locations-pch-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+<figure><img src="../fig/08-vector-plot-shapefiles-custom-legend-rendered-harv-plot-locations-pch-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
 </div>
 </div>
@@ -6084,7 +6086,7 @@ as a base layer. On top of the CHM, please add:</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"NEON Harvard Forest Field Site w/ Canopy Height Model"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/08-vector-plot-shapefiles-custom-legend-rendered-challenge-vector-raster-overlay-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+<figure><img src="../fig/08-vector-plot-shapefiles-custom-legend-rendered-challenge-vector-raster-overlay-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
 </div>
 </div>
@@ -6110,7 +6112,7 @@ colors.</li>
 </div>
 </section></section><section id="aio-09-vector-when-data-dont-line-up-crs"><p>Content from <a href="09-vector-when-data-dont-line-up-crs.html">Handling Spatial Projection &amp; CRS</a></p>
 <hr>
-<p>Last updated on 2025-12-09 |
+<p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/09-vector-when-data-dont-line-up-crs.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 50 minutes</p>
@@ -6247,7 +6249,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Map of Contiguous US State Boundaries"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/09-vector-when-data-dont-line-up-crs-rendered-find-coordinates-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="u-s--boundary-layer">U.S. Boundary Layer<a class="anchor" aria-label="anchor" href="#u-s--boundary-layer"></a>
+<figure><img src="../fig/09-vector-when-data-dont-line-up-crs-rendered-find-coordinates-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="u-s--boundary-layer">U.S. Boundary Layer<a class="anchor" aria-label="anchor" href="#u-s--boundary-layer"></a>
 </h2>
 <hr class="half-width">
 <p>We can add a boundary layer of the United States to our map - to make
@@ -6286,7 +6288,7 @@ the colors of the state boundaries and country boundaries.</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Map of Contiguous US State Boundaries"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/09-vector-when-data-dont-line-up-crs-rendered-us-boundaries-thickness-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Next, let’s add the location of a flux tower where our study area is.
+<figure><img src="../fig/09-vector-when-data-dont-line-up-crs-rendered-us-boundaries-thickness-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Next, let’s add the location of a flux tower where our study area is.
 As we are adding these layers, take note of the CRS of each object.
 First let’s look at the CRS of our tower location object:</p>
 <div class="codewrapper sourceCode" id="cb7">
@@ -6454,7 +6456,7 @@ plot our three data sets together without doing any conversion:</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Map of Contiguous US State Boundaries"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/09-vector-when-data-dont-line-up-crs-rendered-layer-point-on-states-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge---plot-multiple-layers-of-spatial-data" class="callout challenge">
+<figure><img src="../fig/09-vector-when-data-dont-line-up-crs-rendered-layer-point-on-states-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge---plot-multiple-layers-of-spatial-data" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -6483,7 +6485,7 @@ Tower location point.</li>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -6521,7 +6523,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <span>    <span class="fu">theme</span><span class="op">(</span>legend.background <span class="op">=</span> <span class="fu">element_rect</span><span class="op">(</span>color <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/09-vector-when-data-dont-line-up-crs-rendered-ne-states-harv-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+<figure><img src="../fig/09-vector-when-data-dont-line-up-crs-rendered-ne-states-harv-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
 </div>
 </div>
@@ -6544,7 +6546,7 @@ the same CRS.</li>
 </div>
 </section></section><section id="aio-10-vector-csv-to-shapefile-in-r"><p>Content from <a href="10-vector-csv-to-shapefile-in-r.html">Convert from .csv to a Vector Layer</a></p>
 <hr>
-<p>Last updated on 2025-12-09 |
+<p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/10-vector-csv-to-shapefile-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 60 minutes</p>
@@ -6971,7 +6973,7 @@ object.</p>
 <span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plot_locations_sp_harv</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Map of Plot Locations"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/10-vector-csv-to-shapefile-in-r-rendered-plot-data-points-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="plot-extent">Plot Extent<a class="anchor" aria-label="anchor" href="#plot-extent"></a>
+<figure><img src="../fig/10-vector-csv-to-shapefile-in-r-rendered-plot-data-points-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="plot-extent">Plot Extent<a class="anchor" aria-label="anchor" href="#plot-extent"></a>
 </h2>
 <hr class="half-width">
 <p>In <a href="https://datacarpentry.org/r-raster-vector-geospatial/06-vector-open-shapefile-in-r" class="external-link">Open
@@ -6989,7 +6991,7 @@ object with our vegetation plots.</p>
 <span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plot_locations_sp_harv</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"AOI Boundary Plot"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/10-vector-csv-to-shapefile-in-r-rendered-plot-data-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>When we plot the two layers together, <code>ggplot</code> sets the
+<figure><img src="../fig/10-vector-csv-to-shapefile-in-r-rendered-plot-data-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>When we plot the two layers together, <code>ggplot</code> sets the
 plot boundaries so that they are large enough to include all of the data
 included in all of the layers. That’s really handy!</p>
 <div id="challenge---import-plot-additional-points" class="callout challenge">
@@ -7025,7 +7027,7 @@ your map!</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>First we will read in the new csv file and look at the data
@@ -7144,7 +7146,7 @@ before. The data for the earlier plot was in UTM. Since we’re using
 <span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">newplot_sp_harv</span>, color <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Map of All Plot Locations"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/10-vector-csv-to-shapefile-in-r-rendered-plot-locations-harv-orange-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+<figure><img src="../fig/10-vector-csv-to-shapefile-in-r-rendered-plot-locations-harv-orange-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
 </div>
 </div>
@@ -7195,7 +7197,7 @@ to a spatial object.</li>
 </div>
 </section></section><section id="aio-11-vector-raster-integration"><p>Content from <a href="11-vector-raster-integration.html">Manipulate Raster Data</a></p>
 <hr>
-<p>Last updated on 2025-12-09 |
+<p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/11-vector-raster-integration.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 60 minutes</p>
@@ -7267,7 +7269,7 @@ layers that we have worked with in this workshop:</p>
 <li>Vegetation plot locations (marked with white dots)– black</li>
 <li>A canopy height model (CHM) in GeoTIFF format – green</li>
 </ul>
-<figure><img src="../fig/11-vector-raster-integration-rendered-compare-data-extents-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Frequent use cases of cropping a raster file include reducing file
+<figure><img src="../fig/11-vector-raster-integration-rendered-compare-data-extents-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Frequent use cases of cropping a raster file include reducing file
 size and creating maps. Sometimes we have a raster file that is much
 larger than our study area or area of interest. It is often more
 efficient to crop the raster to the extent of our study area to reduce
@@ -7297,7 +7299,7 @@ The boundaries of the AOI will be colored blue, and we use
 <span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">aoi_boundary_harv</span>, color <span class="op">=</span> <span class="st">"blue"</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/11-vector-raster-integration-rendered-crop-by-vector-extent-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Now that we have visualized the area of the CHM we want to subset, we
+<figure><img src="../fig/11-vector-raster-integration-rendered-crop-by-vector-extent-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Now that we have visualized the area of the CHM we want to subset, we
 can perform the cropping operation. We are going to <code>crop()</code>
 function from the raster package to create a new object with only the
 portion of the CHM data that falls within the boundaries of the AOI.</p>
@@ -7329,7 +7331,7 @@ that we can plot:</p>
 <span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Canopy Height"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/11-vector-raster-integration-rendered-show-cropped-area-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The plot above shows that the full CHM extent (plotted in green) is
+<figure><img src="../fig/11-vector-raster-integration-rendered-show-cropped-area-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The plot above shows that the full CHM extent (plotted in green) is
 much larger than the resulting cropped raster. Our new cropped CHM now
 has the same extent as the <code>aoi_boundary_harv</code> object that
 was used as a crop extent (blue border below).</p>
@@ -7344,7 +7346,7 @@ was used as a crop extent (blue border below).</p>
 <span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Canopy Height"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/11-vector-raster-integration-rendered-view-crop-extent-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We can look at the extent of all of our other objects for this field
+<figure><img src="../fig/11-vector-raster-integration-rendered-view-crop-extent-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We can look at the extent of all of our other objects for this field
 site.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -7438,7 +7440,7 @@ Model.</li>
 <span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plot_locations_sp_harv</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/11-vector-raster-integration-rendered-challenge-code-crop-raster-points-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+<figure><img src="../fig/11-vector-raster-integration-rendered-challenge-code-crop-raster-points-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
 </div>
 </div>
@@ -7455,7 +7457,7 @@ function will make a raster extent smaller, it will not expand the
 extent in areas where there are no data. Thus, the extent of our
 vegetation plot layer will still extend further west than the extent of
 our (cropped) raster data (dark green).</p>
-<figure><img src="../fig/11-vector-raster-integration-rendered-repeat-compare-data-extents-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="define-an-extent">Define an Extent<a class="anchor" aria-label="anchor" href="#define-an-extent"></a>
+<figure><img src="../fig/11-vector-raster-integration-rendered-repeat-compare-data-extents-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="define-an-extent">Define an Extent<a class="anchor" aria-label="anchor" href="#define-an-extent"></a>
 </h2>
 <hr class="half-width">
 <p>So far, we have used a vector layer to crop the extent of a raster
@@ -7521,7 +7523,7 @@ the same plot for scale.</p>
 <span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Canopy Height"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/11-vector-raster-integration-rendered-show-manual-crop-area-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="extract-raster-pixels-values-using-vector-polygons">Extract Raster Pixels Values Using Vector Polygons<a class="anchor" aria-label="anchor" href="#extract-raster-pixels-values-using-vector-polygons"></a>
+<figure><img src="../fig/11-vector-raster-integration-rendered-show-manual-crop-area-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="extract-raster-pixels-values-using-vector-polygons">Extract Raster Pixels Values Using Vector Polygons<a class="anchor" aria-label="anchor" href="#extract-raster-pixels-values-using-vector-polygons"></a>
 </h2>
 <hr class="half-width">
 <p>Often we want to extract values from a raster layer for particular
@@ -7583,7 +7585,7 @@ each pixel.</p>
 </h3>
 <pre class="output" tabindex="0"><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
 </div>
-<figure><img src="../fig/11-vector-raster-integration-rendered-view-extract-histogram-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We can also use the <code>summary()</code> function to view
+<figure><img src="../fig/11-vector-raster-integration-rendered-view-extract-histogram-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We can also use the <code>summary()</code> function to view
 descriptive statistics including min, max, and mean height values. These
 values help us better understand vegetation at our field site.</p>
 <div class="codewrapper sourceCode" id="cb23">
@@ -7738,7 +7740,7 @@ averages returned.</p></li>
 <pre class="warning" tabindex="0"><code>Warning: Removed 1 row containing missing values or values outside the scale range
 (`geom_col()`).</code></pre>
 </div>
-<figure><img src="../fig/11-vector-raster-integration-rendered-hist-tree-height-veg-plot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+<figure><img src="../fig/11-vector-raster-integration-rendered-hist-tree-height-veg-plot-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
 </div>
 </div>
@@ -7761,7 +7763,7 @@ raster object that fall within a particular extent boundary.</li>
 </div>
 </section></section><section id="aio-12-time-series-raster"><p>Content from <a href="12-time-series-raster.html">Raster Time Series Data</a></p>
 <hr>
-<p>Last updated on 2025-12-09 |
+<p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/12-time-series-raster.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 60 minutes</p>
@@ -8056,7 +8058,7 @@ multi-paneled plot:</p>
 <span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ndvi_harv_stack_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span> <span class="va">variable</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/12-time-series-raster-rendered-ndvi-wrap-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Look at the range of NDVI values observed in the plot above. We know
+<figure><img src="../fig/12-time-series-raster-rendered-ndvi-wrap-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Look at the range of NDVI values observed in the plot above. We know
 that the accepted values for NDVI range from 0-1. Why does our data
 range from 0 - 10,000?</p>
 </section><section><h2 class="section-heading" id="scale-factors">Scale Factors<a class="anchor" aria-label="anchor" href="#scale-factors"></a>
@@ -8088,7 +8090,7 @@ same code we used above.</p>
 <span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ndvi_harv_stack_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">variable</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/12-time-series-raster-rendered-ndvi-stack-wrap-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="take-a-closer-look-at-our-data">Take a Closer Look at Our Data<a class="anchor" aria-label="anchor" href="#take-a-closer-look-at-our-data"></a>
+<figure><img src="../fig/12-time-series-raster-rendered-ndvi-stack-wrap-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="take-a-closer-look-at-our-data">Take a Closer Look at Our Data<a class="anchor" aria-label="anchor" href="#take-a-closer-look-at-our-data"></a>
 </h2>
 <hr class="half-width">
 <p>Let’s take a closer look at the plots of our data. Massachusetts,
@@ -8124,7 +8126,7 @@ values stored in each raster.</p>
 </h3>
 <pre class="output" tabindex="0"><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
 </div>
-<figure><img src="../fig/12-time-series-raster-rendered-view-stack-histogram-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>It seems like things get green in the spring and summer like we
+<figure><img src="../fig/12-time-series-raster-rendered-view-stack-histogram-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>It seems like things get green in the spring and summer like we
 expect, but the data at Julian days 277 and 293 are unusual. It appears
 as if the vegetation got green in the spring, but then died back only to
 get green again towards the end of the year. Is this right?</p>
@@ -8232,12 +8234,12 @@ Julian day (the <code>jd</code> column):</p>
 <span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Julian Day 2011"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ylab</span><span class="op">(</span><span class="st">"Mean Air Temperature (C)"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/12-time-series-raster-rendered-air-temperature-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>There are no significant peaks or dips in the temperature during the
+<figure><img src="../fig/12-time-series-raster-rendered-air-temperature-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>There are no significant peaks or dips in the temperature during the
 late summer or early fall time period that might account for patterns
 seen in the NDVI data. Let’s have a look at the source Landsat imagery
 that was partially used used to derive our NDVI rasters to try to
 understand what appear to be outlier NDVI values.</p>
-<p><img src="../fig/12-time-series-raster-rendered-ndvi-plots-1.png" style="display: block; margin: auto;" class="figure"><img src="../fig/12-time-series-raster-rendered-ndvi-plots-2.png" style="display: block; margin: auto;" class="figure"></p>
+<p><img src="../fig/12-time-series-raster-rendered-ndvi-plots-1.png" alt="" style="display: block; margin: auto;" class="figure"><img src="../fig/12-time-series-raster-rendered-ndvi-plots-2.png" alt="" style="display: block; margin: auto;" class="figure"></p>
 <div id="challenge-examine-rgb-raster-files" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -8322,7 +8324,7 @@ to be between 0 and 1, so we will divide our RasterStack object by
 <span>  <span class="fu">geom_raster</span><span class="op">(</span>data<span class="op">=</span><span class="va">rgb_277_df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>, fill<span class="op">=</span><span class="va">rgb_277_df</span><span class="op">$</span><span class="va">rgb</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Julian day 277"</span><span class="op">)</span> </span></code></pre>
 </div>
-<figure><img src="../fig/12-time-series-raster-rendered-rgb-277-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We then do the same steps for Julian day 293</p>
+<figure><img src="../fig/12-time-series-raster-rendered-rgb-277-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We then do the same steps for Julian day 293</p>
 <div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -8339,7 +8341,7 @@ to be between 0 and 1, so we will divide our RasterStack object by
 <span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">rgb_293_df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">rgb_293_df</span><span class="op">$</span><span class="va">rgb</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Julian day 293"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/12-time-series-raster-rendered-rgb-293-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>This example highlights the importance of exploring the source of a
+<figure><img src="../fig/12-time-series-raster-rendered-rgb-293-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>This example highlights the importance of exploring the source of a
 derived data product. In this case, the NDVI data product was created
 using Landsat imagery - specifically the red and near-infrared bands.
 When we look at the RGB collected at Julian days 277 and 293 we see that
@@ -8371,7 +8373,7 @@ format.</li>
 </div>
 </section></section><section id="aio-13-plot-time-series-rasters-in-r"><p>Content from <a href="13-plot-time-series-rasters-in-r.html">Create Publication-quality Graphics</a></p>
 <hr>
-<p>Last updated on 2025-12-09 |
+<p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/13-plot-time-series-rasters-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 60 minutes</p>
@@ -8431,7 +8433,7 @@ previous episode</a>, we learned how to plot multi-band raster data in R
 using the <code>facet_wrap()</code> function. This created a separate
 panel in our plot for each raster band. The plot we created together is
 shown below:</p>
-<figure><img src="../fig/13-plot-time-series-rasters-in-r-rendered-levelplot-time-series-before-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Although this plot is informative, it isn’t something we would expect
+<figure><img src="../fig/13-plot-time-series-rasters-in-r-rendered-levelplot-time-series-before-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Although this plot is informative, it isn’t something we would expect
 to see in a journal publication. The x and y-axis labels aren’t
 informative. There is a lot of unnecessary gray background and the
 titles of each panel don’t clearly state that the number refers to the
@@ -8439,7 +8441,7 @@ Julian day the data was collected. In this episode, we will customize
 this plot above to produce a publication quality graphic. We will go
 through these steps iteratively. When we’re done, we will have created
 the plot shown below.</p>
-<figure><img src="../fig/13-plot-time-series-rasters-in-r-rendered-levelplot-time-series-after-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="adjust-the-plot-theme">Adjust the Plot Theme<a class="anchor" aria-label="anchor" href="#adjust-the-plot-theme"></a>
+<figure><img src="../fig/13-plot-time-series-rasters-in-r-rendered-levelplot-time-series-after-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="adjust-the-plot-theme">Adjust the Plot Theme<a class="anchor" aria-label="anchor" href="#adjust-the-plot-theme"></a>
 </h2>
 <hr class="half-width">
 <p>The first thing we will do to our plot remove the x and y-axis labels
@@ -8455,7 +8457,7 @@ We can do this by setting the plot theme to <code>void</code>.</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Landsat NDVI"</span>, subtitle <span class="op">=</span> <span class="st">"NEON Harvard Forest"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">theme_void</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/13-plot-time-series-rasters-in-r-rendered-adjust-theme-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Next we will center our plot title and subtitle. We need to do this
+<figure><img src="../fig/13-plot-time-series-rasters-in-r-rendered-adjust-theme-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Next we will center our plot title and subtitle. We need to do this
 <strong>after</strong> the <code>theme_void()</code> layer, because R
 interprets the <code>ggplot</code> layers in order. If we first tell R
 to center our plot title, and then set the theme to <code>void</code>,
@@ -8479,7 +8481,7 @@ indicates right justification.</p>
 <span>  <span class="fu">theme</span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,</span>
 <span>        plot.subtitle <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/13-plot-time-series-rasters-in-r-rendered-adjust-theme-2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge" class="callout challenge">
+<figure><img src="../fig/13-plot-time-series-rasters-in-r-rendered-adjust-theme-2-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -8500,7 +8502,7 @@ figure out how to change this setting.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Learners can find this information in the help files for the
 <code>theme()</code> function. The parameter to set is called
@@ -8518,7 +8520,7 @@ figure out how to change this setting.</p>
 <span>  <span class="fu">theme</span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span>, face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>, </span>
 <span>        plot.subtitle <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/13-plot-time-series-rasters-in-r-rendered-use-bold-face-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+<figure><img src="../fig/13-plot-time-series-rasters-in-r-rendered-use-bold-face-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
 </div>
 </div>
@@ -8576,7 +8578,7 @@ use 20 colors when we plot our graphic.</p>
 <span>    plot.subtitle <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"NDVI"</span>, colours <span class="op">=</span> <span class="fu">green_colors</span><span class="op">(</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/13-plot-time-series-rasters-in-r-rendered-change-color-ramp-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The yellow to green color ramp visually represents NDVI well given
+<figure><img src="../fig/13-plot-time-series-rasters-in-r-rendered-change-color-ramp-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The yellow to green color ramp visually represents NDVI well given
 it’s a measure of greenness. Someone looking at the plot can quickly
 understand that pixels that are more green have a higher NDVI value.</p>
 <div id="data-tip" class="callout">
@@ -8694,7 +8696,7 @@ plot with the new labels using a<code>labeller</code>.</p>
 <span>    plot.subtitle <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"NDVI"</span>, colours <span class="op">=</span> <span class="fu">green_colors</span><span class="op">(</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/13-plot-time-series-rasters-in-r-rendered-create-levelplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="change-layout-of-panels">Change Layout of Panels<a class="anchor" aria-label="anchor" href="#change-layout-of-panels"></a>
+<figure><img src="../fig/13-plot-time-series-rasters-in-r-rendered-create-levelplot-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="change-layout-of-panels">Change Layout of Panels<a class="anchor" aria-label="anchor" href="#change-layout-of-panels"></a>
 </h2>
 <hr class="half-width">
 <p>We can adjust the columns of our plot by setting the number of
@@ -8715,7 +8717,7 @@ five panels.</p>
 <span>    plot.subtitle <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"NDVI"</span>, colours <span class="op">=</span> <span class="fu">green_colors</span><span class="op">(</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/13-plot-time-series-rasters-in-r-rendered-adjust-layout-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Now we have a beautiful, publication quality plot!</p>
+<figure><img src="../fig/13-plot-time-series-rasters-in-r-rendered-adjust-layout-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Now we have a beautiful, publication quality plot!</p>
 <div id="challenge-divergent-color-ramps" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -8747,7 +8749,7 @@ best?</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -8767,7 +8769,7 @@ best?</p>
 <span>  plot.subtitle <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"NDVI"</span>, colours <span class="op">=</span> <span class="fu">brown_green_colors</span><span class="op">(</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/13-plot-time-series-rasters-in-r-rendered-final-figure-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>For NDVI data, the sequential color ramp is better than the divergent
+<figure><img src="../fig/13-plot-time-series-rasters-in-r-rendered-final-figure-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>For NDVI data, the sequential color ramp is better than the divergent
 as it is more akin to the process of greening up, which starts off at
 one end and just keeps increasing.</p>
 </div>
@@ -8796,7 +8798,7 @@ replacement in text.</li>
 </div>
 </section></section><section id="aio-14-extract-ndvi-from-rasters-in-r"><p>Content from <a href="14-extract-ndvi-from-rasters-in-r.html">Derive Values from Raster Time Series</a></p>
 <hr>
-<p>Last updated on 2025-12-09 |
+<p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/14-extract-ndvi-from-rasters-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 60 minutes</p>
@@ -9193,7 +9195,7 @@ days. Let’s plot our data.</p>
 <span>          subtitle <span class="op">=</span> <span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Julian Days"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">"Mean NDVI"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/14-extract-ndvi-from-rasters-in-r-rendered-ggplot-data-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-plot-san-joaquin-experimental-range-data" class="callout challenge">
+<figure><img src="../fig/14-extract-ndvi-from-rasters-in-r-rendered-ggplot-data-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-plot-san-joaquin-experimental-range-data" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -9225,7 +9227,7 @@ in a different color.</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Landsat Derived NDVI - 2011"</span>, subtitle <span class="op">=</span> <span class="st">"NEON SJER Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Julian Day"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">"Mean NDVI"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/14-extract-ndvi-from-rasters-in-r-rendered-avg-ndvi-sjer-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+<figure><img src="../fig/14-extract-ndvi-from-rasters-in-r-rendered-avg-ndvi-sjer-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
 </div>
 </div>
@@ -9256,7 +9258,7 @@ to be merged.</p>
 <span>          subtitle <span class="op">=</span> <span class="st">"Harvard Forest vs San Joaquin"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Julian Day"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">"Mean NDVI"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/14-extract-ndvi-from-rasters-in-r-rendered-ndvi-harv-sjer-comp-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-plot-ndvi-with-date" class="callout challenge">
+<figure><img src="../fig/14-extract-ndvi-from-rasters-in-r-rendered-ndvi-harv-sjer-comp-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-plot-ndvi-with-date" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -9289,7 +9291,7 @@ Julian day, on the x-axis.</p>
 <span>          subtitle <span class="op">=</span> <span class="st">"Harvard Forest vs San Joaquin"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Date"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">"Mean NDVI"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/14-extract-ndvi-from-rasters-in-r-rendered-ndvi-harv-sjer-date-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+<figure><img src="../fig/14-extract-ndvi-from-rasters-in-r-rendered-ndvi-harv-sjer-date-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
 </div>
 </div>
@@ -9308,7 +9310,7 @@ earlier episode</a> that data points with very low NDVI values can be
 associated with images that are filled with clouds. Thus, we can
 attribute the low NDVI values to high levels of cloud cover. Is the same
 thing happening at SJER?</p>
-<figure><img src="../fig/14-extract-ndvi-from-rasters-in-r-rendered-view-all-rgb-SJER-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Without significant additional processing, we will not be able to
+<figure><img src="../fig/14-extract-ndvi-from-rasters-in-r-rendered-view-all-rgb-SJER-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Without significant additional processing, we will not be able to
 retrieve a strong reflection from vegetation, from a remotely sensed
 image that is predominantly cloud covered. Thus, these points are likely
 bad data points. Let’s remove them.</p>
@@ -9357,7 +9359,7 @@ knowledge of the data and the desired outcomes!</p>
 <span>          subtitle <span class="op">=</span> <span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Julian Days"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">"Mean NDVI"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/14-extract-ndvi-from-rasters-in-r-rendered-plot-clean-HARV-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Now our outlier data points are removed and the pattern of “green-up”
+<figure><img src="../fig/14-extract-ndvi-from-rasters-in-r-rendered-plot-clean-HARV-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Now our outlier data points are removed and the pattern of “green-up”
 and “brown-down” makes more sense.</p>
 </section><section><h2 class="section-heading" id="write-ndvi-data-to-a--csv-file">Write NDVI data to a .csv File<a class="anchor" aria-label="anchor" href="#write-ndvi-data-to-a--csv-file"></a>
 </h2>
@@ -9540,8 +9542,8 @@ have the same column names.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/aio.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/instructor/aio.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2026-01-20",
-  "datePublished": "2026-01-20"
+  "dateModified": "2026-01-21",
+  "datePublished": "2026-01-21"
 }
 
   </script><script>

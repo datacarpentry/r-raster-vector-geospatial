@@ -393,7 +393,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Create Publication-quality Graphics</h1>
-        <p>Last updated on 2025-12-09 |
+        <p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/13-plot-time-series-rasters-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -452,7 +452,7 @@ previous episode</a>, we learned how to plot multi-band raster data in R
 using the <code>facet_wrap()</code> function. This created a separate
 panel in our plot for each raster band. The plot we created together is
 shown below:</p>
-<figure><img src="fig/13-plot-time-series-rasters-in-r-rendered-levelplot-time-series-before-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Although this plot is informative, it isn’t something we would expect
+<figure><img src="fig/13-plot-time-series-rasters-in-r-rendered-levelplot-time-series-before-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Although this plot is informative, it isn’t something we would expect
 to see in a journal publication. The x and y-axis labels aren’t
 informative. There is a lot of unnecessary gray background and the
 titles of each panel don’t clearly state that the number refers to the
@@ -460,7 +460,7 @@ Julian day the data was collected. In this episode, we will customize
 this plot above to produce a publication quality graphic. We will go
 through these steps iteratively. When we’re done, we will have created
 the plot shown below.</p>
-<figure><img src="fig/13-plot-time-series-rasters-in-r-rendered-levelplot-time-series-after-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="adjust-the-plot-theme">Adjust the Plot Theme<a class="anchor" aria-label="anchor" href="#adjust-the-plot-theme"></a></h2>
+<figure><img src="fig/13-plot-time-series-rasters-in-r-rendered-levelplot-time-series-after-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="adjust-the-plot-theme">Adjust the Plot Theme<a class="anchor" aria-label="anchor" href="#adjust-the-plot-theme"></a></h2>
 <hr class="half-width"><p>The first thing we will do to our plot remove the x and y-axis labels
 and axis ticks, as these are unnecessary and make our plot look messy.
 We can do this by setting the plot theme to <code>void</code>.</p>
@@ -474,7 +474,7 @@ We can do this by setting the plot theme to <code>void</code>.</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Landsat NDVI"</span>, subtitle <span class="op">=</span> <span class="st">"NEON Harvard Forest"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">theme_void</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/13-plot-time-series-rasters-in-r-rendered-adjust-theme-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Next we will center our plot title and subtitle. We need to do this
+<figure><img src="fig/13-plot-time-series-rasters-in-r-rendered-adjust-theme-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Next we will center our plot title and subtitle. We need to do this
 <strong>after</strong> the <code>theme_void()</code> layer, because R
 interprets the <code>ggplot</code> layers in order. If we first tell R
 to center our plot title, and then set the theme to <code>void</code>,
@@ -498,7 +498,7 @@ indicates right justification.</p>
 <span>  <span class="fu">theme</span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,</span>
 <span>        plot.subtitle <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/13-plot-time-series-rasters-in-r-rendered-adjust-theme-2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge" class="callout challenge">
+<figure><img src="fig/13-plot-time-series-rasters-in-r-rendered-adjust-theme-2-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -519,7 +519,7 @@ figure out how to change this setting.</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Learners can find this information in the help files for the
 <code>theme()</code> function. The parameter to set is called
@@ -537,7 +537,7 @@ figure out how to change this setting.</p>
 <span>  <span class="fu">theme</span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span>, face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>, </span>
 <span>        plot.subtitle <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/13-plot-time-series-rasters-in-r-rendered-use-bold-face-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<figure><img src="fig/13-plot-time-series-rasters-in-r-rendered-use-bold-face-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 </div>
 </div>
 </div>
@@ -592,7 +592,7 @@ use 20 colors when we plot our graphic.</p>
 <span>    plot.subtitle <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"NDVI"</span>, colours <span class="op">=</span> <span class="fu">green_colors</span><span class="op">(</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/13-plot-time-series-rasters-in-r-rendered-change-color-ramp-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The yellow to green color ramp visually represents NDVI well given
+<figure><img src="fig/13-plot-time-series-rasters-in-r-rendered-change-color-ramp-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The yellow to green color ramp visually represents NDVI well given
 it’s a measure of greenness. Someone looking at the plot can quickly
 understand that pixels that are more green have a higher NDVI value.</p>
 <div id="data-tip" class="callout">
@@ -708,7 +708,7 @@ plot with the new labels using a<code>labeller</code>.</p>
 <span>    plot.subtitle <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"NDVI"</span>, colours <span class="op">=</span> <span class="fu">green_colors</span><span class="op">(</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/13-plot-time-series-rasters-in-r-rendered-create-levelplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="change-layout-of-panels">Change Layout of Panels<a class="anchor" aria-label="anchor" href="#change-layout-of-panels"></a></h2>
+<figure><img src="fig/13-plot-time-series-rasters-in-r-rendered-create-levelplot-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="change-layout-of-panels">Change Layout of Panels<a class="anchor" aria-label="anchor" href="#change-layout-of-panels"></a></h2>
 <hr class="half-width"><p>We can adjust the columns of our plot by setting the number of
 columns <code>ncol</code> and the number of rows <code>nrow</code> in
 <code>facet_wrap</code>. Let’s make our plot so that it has a width of
@@ -727,7 +727,7 @@ five panels.</p>
 <span>    plot.subtitle <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"NDVI"</span>, colours <span class="op">=</span> <span class="fu">green_colors</span><span class="op">(</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/13-plot-time-series-rasters-in-r-rendered-adjust-layout-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Now we have a beautiful, publication quality plot!</p>
+<figure><img src="fig/13-plot-time-series-rasters-in-r-rendered-adjust-layout-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Now we have a beautiful, publication quality plot!</p>
 <div id="challenge-divergent-color-ramps" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -757,7 +757,7 @@ best?</p>
   Answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -777,7 +777,7 @@ best?</p>
 <span>  plot.subtitle <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"NDVI"</span>, colours <span class="op">=</span> <span class="fu">brown_green_colors</span><span class="op">(</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/13-plot-time-series-rasters-in-r-rendered-final-figure-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>For NDVI data, the sequential color ramp is better than the divergent
+<figure><img src="fig/13-plot-time-series-rasters-in-r-rendered-final-figure-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>For NDVI data, the sequential color ramp is better than the divergent
 as it is more akin to the process of greening up, which starts off at
 one end and just keeps increasing.</p>
 </div>
@@ -862,8 +862,8 @@ replacement in text.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/13-plot-time-series-rasters-in-r.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/13-plot-time-series-rasters-in-r.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2025-12-09",
-  "datePublished": "2026-01-20"
+  "dateModified": "2026-01-21",
+  "datePublished": "2026-01-21"
 }
 
   </script><script>

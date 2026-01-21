@@ -396,7 +396,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Derive Values from Raster Time Series</h1>
-        <p>Last updated on 2025-12-09 |
+        <p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/datacarpentry/r-raster-vector-geospatial/edit/main/episodes/14-extract-ndvi-from-rasters-in-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -784,7 +784,7 @@ days. Let’s plot our data.</p>
 <span>          subtitle <span class="op">=</span> <span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Julian Days"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">"Mean NDVI"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-ggplot-data-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-plot-san-joaquin-experimental-range-data" class="callout challenge">
+<figure><img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-ggplot-data-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-plot-san-joaquin-experimental-range-data" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -816,7 +816,7 @@ in a different color.</p>
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Landsat Derived NDVI - 2011"</span>, subtitle <span class="op">=</span> <span class="st">"NEON SJER Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Julian Day"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">"Mean NDVI"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-avg-ndvi-sjer-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<figure><img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-avg-ndvi-sjer-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 </div>
 </div>
 </div>
@@ -844,7 +844,7 @@ to be merged.</p>
 <span>          subtitle <span class="op">=</span> <span class="st">"Harvard Forest vs San Joaquin"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Julian Day"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">"Mean NDVI"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-ndvi-harv-sjer-comp-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-plot-ndvi-with-date" class="callout challenge">
+<figure><img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-ndvi-harv-sjer-comp-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-plot-ndvi-with-date" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -877,7 +877,7 @@ Julian day, on the x-axis.</p>
 <span>          subtitle <span class="op">=</span> <span class="st">"Harvard Forest vs San Joaquin"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Date"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">"Mean NDVI"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-ndvi-harv-sjer-date-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<figure><img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-ndvi-harv-sjer-date-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 </div>
 </div>
 </div>
@@ -893,7 +893,7 @@ earlier episode</a> that data points with very low NDVI values can be
 associated with images that are filled with clouds. Thus, we can
 attribute the low NDVI values to high levels of cloud cover. Is the same
 thing happening at SJER?</p>
-<figure><img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-view-all-rgb-SJER-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Without significant additional processing, we will not be able to
+<figure><img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-view-all-rgb-SJER-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Without significant additional processing, we will not be able to
 retrieve a strong reflection from vegetation, from a remotely sensed
 image that is predominantly cloud covered. Thus, these points are likely
 bad data points. Let’s remove them.</p>
@@ -942,7 +942,7 @@ knowledge of the data and the desired outcomes!</p>
 <span>          subtitle <span class="op">=</span> <span class="st">"NEON Harvard Forest Field Site"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Julian Days"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">"Mean NDVI"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-plot-clean-HARV-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Now our outlier data points are removed and the pattern of “green-up”
+<figure><img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-plot-clean-HARV-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Now our outlier data points are removed and the pattern of “green-up”
 and “brown-down” makes more sense.</p>
 </section><section><h2 class="section-heading" id="write-ndvi-data-to-a--csv-file">Write NDVI data to a .csv File<a class="anchor" aria-label="anchor" href="#write-ndvi-data-to-a--csv-file"></a></h2>
 <hr class="half-width"><p>We can write our final NDVI dataframe out to a text format, to
@@ -1129,8 +1129,8 @@ have the same column names.</li>
   "url": "https://datacarpentry.org/r-raster-vector-geospatial/14-extract-ndvi-from-rasters-in-r.html",
   "identifier": "https://datacarpentry.org/r-raster-vector-geospatial/14-extract-ndvi-from-rasters-in-r.html",
   "dateCreated": "2015-10-22",
-  "dateModified": "2025-12-09",
-  "datePublished": "2026-01-20"
+  "dateModified": "2026-01-21",
+  "datePublished": "2026-01-21"
 }
 
   </script><script>
