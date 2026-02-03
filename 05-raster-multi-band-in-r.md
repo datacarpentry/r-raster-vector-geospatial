@@ -341,7 +341,7 @@ describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.t
 
 ``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                                                                                                                                                                         
- [2] "Files: data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif"                                                                                                                                                                                               
+ [2] "Files: /home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif"                                                                                                            
  [3] "Size is 3073, 2317"                                                                                                                                                                                                                                                            
  [4] "Coordinate System is:"                                                                                                                                                                                                                                                         
  [5] "PROJCRS[\"WGS 84 / UTM zone 18N\","                                                                                                                                                                                                                                            
@@ -462,7 +462,7 @@ describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.t
 
 ``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                                                                                                                                                                         
- [2] "Files: data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif"                                                                                                                                                                                               
+ [2] "Files: /home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif"                                                                                                            
  [3] "Size is 3073, 2317"                                                                                                                                                                                                                                                            
  [4] "Coordinate System is:"                                                                                                                                                                                                                                                         
  [5] "PROJCRS[\"WGS 84 / UTM zone 18N\","                                                                                                                                                                                                                                            
@@ -712,58 +712,58 @@ methods(class=class(rgb_stack_harv))
 [175] merge                 meta                  metags               
 [178] metags<-              minmax                modal                
 [181] mosaic                NAflag                NAflag<-             
-[184] names                 names<-               ncell                
-[187] ncol                  ncol<-                NIDP                 
-[190] nlyr                  nlyr<-                noNA                 
-[193] not.na                nrow                  nrow<-               
-[196] nsrc                  origin                origin<-             
-[199] pairs                 panel                 patches              
-[202] persp                 pitfinder             plet                 
-[205] plot                  plotRGB               points               
-[208] polys                 prcomp                predict              
-[211] princomp              project               quantile             
-[214] rangeFill             rapp                  rast                 
-[217] rasterize             rasterizeGeom         rasterizeWin         
-[220] rcl                   readStart             readStop             
-[223] readValues            rectify               regress              
-[226] relate                rep                   res                  
-[229] res<-                 resample              rescale              
-[232] rev                   RGB                   RGB<-                
-[235] roll                  rotate                rowColCombine        
-[238] rowColFromCell        rowFromCell           rowFromY             
-[241] rowMeans              rowSums               sapp                 
-[244] saveRDS               scale_linear          scale                
-[247] scoff                 scoff<-               sds                  
-[250] segregate             sel                   selectHighest        
-[253] selectRange           serialize             set.cats             
-[256] set.crs               set.ext               set.names            
-[259] set.RGB               set.values            set.window           
-[262] setMinMax             setValues             shift                
-[265] show                  sieve                 simplifyLevels       
-[268] size                  sort                  sources              
-[271] spatSample            split                 sprc                 
-[274] stdev                 str                   stretch              
-[277] subset                subst                 summary              
-[280] Summary               surfArea              t                    
-[283] tail                  tapp                  terrain              
-[286] text                  thresh                tighten              
-[289] time                  time<-                timeInfo             
-[292] toMemory              trans                 trim                 
-[295] unique                units                 units<-              
-[298] update                values                values<-             
-[301] varnames              varnames<-            viewshed             
-[304] watershed             weighted.mean         where.max            
-[307] where.min             which.lyr             which.max            
-[310] which.min             window                window<-             
-[313] wrap                  wrapCache             writeCDF             
-[316] writeRaster           writeStart            writeStop            
-[319] writeValues           xapp                  xFromCell            
-[322] xFromCol              xmax                  xmax<-               
-[325] xmin                  xmin<-                xres                 
-[328] xyFromCell            yFromCell             yFromRow             
-[331] ymax                  ymax<-                ymin                 
-[334] ymin<-                yres                  zonal                
-[337] zoom                 
+[184] names                 names<-               nany                 
+[187] ncell                 ncol                  ncol<-               
+[190] NIDP                  nlyr                  nlyr<-               
+[193] noNA                  not.na                nrow                 
+[196] nrow<-                nsrc                  origin               
+[199] origin<-              pairs                 panel                
+[202] patches               persp                 pitfinder            
+[205] plet                  plot                  plotRGB              
+[208] points                polys                 prcomp               
+[211] predict               princomp              project              
+[214] quantile              rangeFill             rapp                 
+[217] rast                  rasterize             rasterizeGeom        
+[220] rasterizeWin          rcl                   readStart            
+[223] readStop              readValues            rectify              
+[226] regress               relate                rep                  
+[229] res                   res<-                 resample             
+[232] rescale               rev                   RGB                  
+[235] RGB<-                 roll                  rotate               
+[238] rowColCombine         rowColFromCell        rowFromCell          
+[241] rowFromY              rowMeans              rowSums              
+[244] sapp                  saveRDS               scale_linear         
+[247] scale                 scoff                 scoff<-              
+[250] sds                   segregate             sel                  
+[253] selectHighest         selectRange           serialize            
+[256] set.cats              set.crs               set.ext              
+[259] set.names             set.RGB               set.values           
+[262] set.window            setMinMax             setValues            
+[265] shift                 show                  sieve                
+[268] simplifyLevels        size                  sort                 
+[271] sources               spatSample            split                
+[274] sprc                  stdev                 str                  
+[277] stretch               subset                subst                
+[280] summary               Summary               surfArea             
+[283] t                     tail                  tapp                 
+[286] terrain               text                  thresh               
+[289] tighten               time                  time<-               
+[292] timeInfo              toMemory              trans                
+[295] trim                  unique                units                
+[298] units<-               update                values               
+[301] values<-              varnames              varnames<-           
+[304] viewshed              watershed             weighted.mean        
+[307] where.max             where.min             which.lyr            
+[310] which.max             which.min             window               
+[313] window<-              wrap                  wrapCache            
+[316] writeCDF              writeRaster           writeStart           
+[319] writeStop             writeValues           xapp                 
+[322] xFromCell             xFromCol              xmax                 
+[325] xmax<-                xmin                  xmin<-               
+[328] xres                  xyFromCell            yFromCell            
+[331] yFromRow              ymax                  ymax<-               
+[334] ymin                  ymin<-                yres                 
+[337] zonal                 zoom                 
 see '?methods' for accessing help and source code
 ```
 
@@ -836,58 +836,58 @@ methods(class=class(rgb_stack_harv[[1]]))
 [175] merge                 meta                  metags               
 [178] metags<-              minmax                modal                
 [181] mosaic                NAflag                NAflag<-             
-[184] names                 names<-               ncell                
-[187] ncol                  ncol<-                NIDP                 
-[190] nlyr                  nlyr<-                noNA                 
-[193] not.na                nrow                  nrow<-               
-[196] nsrc                  origin                origin<-             
-[199] pairs                 panel                 patches              
-[202] persp                 pitfinder             plet                 
-[205] plot                  plotRGB               points               
-[208] polys                 prcomp                predict              
-[211] princomp              project               quantile             
-[214] rangeFill             rapp                  rast                 
-[217] rasterize             rasterizeGeom         rasterizeWin         
-[220] rcl                   readStart             readStop             
-[223] readValues            rectify               regress              
-[226] relate                rep                   res                  
-[229] res<-                 resample              rescale              
-[232] rev                   RGB                   RGB<-                
-[235] roll                  rotate                rowColCombine        
-[238] rowColFromCell        rowFromCell           rowFromY             
-[241] rowMeans              rowSums               sapp                 
-[244] saveRDS               scale_linear          scale                
-[247] scoff                 scoff<-               sds                  
-[250] segregate             sel                   selectHighest        
-[253] selectRange           serialize             set.cats             
-[256] set.crs               set.ext               set.names            
-[259] set.RGB               set.values            set.window           
-[262] setMinMax             setValues             shift                
-[265] show                  sieve                 simplifyLevels       
-[268] size                  sort                  sources              
-[271] spatSample            split                 sprc                 
-[274] stdev                 str                   stretch              
-[277] subset                subst                 summary              
-[280] Summary               surfArea              t                    
-[283] tail                  tapp                  terrain              
-[286] text                  thresh                tighten              
-[289] time                  time<-                timeInfo             
-[292] toMemory              trans                 trim                 
-[295] unique                units                 units<-              
-[298] update                values                values<-             
-[301] varnames              varnames<-            viewshed             
-[304] watershed             weighted.mean         where.max            
-[307] where.min             which.lyr             which.max            
-[310] which.min             window                window<-             
-[313] wrap                  wrapCache             writeCDF             
-[316] writeRaster           writeStart            writeStop            
-[319] writeValues           xapp                  xFromCell            
-[322] xFromCol              xmax                  xmax<-               
-[325] xmin                  xmin<-                xres                 
-[328] xyFromCell            yFromCell             yFromRow             
-[331] ymax                  ymax<-                ymin                 
-[334] ymin<-                yres                  zonal                
-[337] zoom                 
+[184] names                 names<-               nany                 
+[187] ncell                 ncol                  ncol<-               
+[190] NIDP                  nlyr                  nlyr<-               
+[193] noNA                  not.na                nrow                 
+[196] nrow<-                nsrc                  origin               
+[199] origin<-              pairs                 panel                
+[202] patches               persp                 pitfinder            
+[205] plet                  plot                  plotRGB              
+[208] points                polys                 prcomp               
+[211] predict               princomp              project              
+[214] quantile              rangeFill             rapp                 
+[217] rast                  rasterize             rasterizeGeom        
+[220] rasterizeWin          rcl                   readStart            
+[223] readStop              readValues            rectify              
+[226] regress               relate                rep                  
+[229] res                   res<-                 resample             
+[232] rescale               rev                   RGB                  
+[235] RGB<-                 roll                  rotate               
+[238] rowColCombine         rowColFromCell        rowFromCell          
+[241] rowFromY              rowMeans              rowSums              
+[244] sapp                  saveRDS               scale_linear         
+[247] scale                 scoff                 scoff<-              
+[250] sds                   segregate             sel                  
+[253] selectHighest         selectRange           serialize            
+[256] set.cats              set.crs               set.ext              
+[259] set.names             set.RGB               set.values           
+[262] set.window            setMinMax             setValues            
+[265] shift                 show                  sieve                
+[268] simplifyLevels        size                  sort                 
+[271] sources               spatSample            split                
+[274] sprc                  stdev                 str                  
+[277] stretch               subset                subst                
+[280] summary               Summary               surfArea             
+[283] t                     tail                  tapp                 
+[286] terrain               text                  thresh               
+[289] tighten               time                  time<-               
+[292] timeInfo              toMemory              trans                
+[295] trim                  unique                units                
+[298] units<-               update                values               
+[301] values<-              varnames              varnames<-           
+[304] viewshed              watershed             weighted.mean        
+[307] where.max             where.min             which.lyr            
+[310] which.max             which.min             window               
+[313] window<-              wrap                  wrapCache            
+[316] writeCDF              writeRaster           writeStart           
+[319] writeStop             writeValues           xapp                 
+[322] xFromCell             xFromCol              xmax                 
+[325] xmax<-                xmin                  xmin<-               
+[328] xres                  xyFromCell            yFromCell            
+[331] yFromRow              ymax                  ymax<-               
+[334] ymin                  ymin<-                yres                 
+[337] zonal                 zoom                 
 see '?methods' for accessing help and source code
 ```
 
