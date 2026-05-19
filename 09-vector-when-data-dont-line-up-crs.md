@@ -103,11 +103,11 @@ state_boundary_us <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/
 
 ``` output
 Reading layer `US-State-Boundaries-Census-2014' from data source 
-  `/home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp' 
+  `/__w/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp' 
   using driver `ESRI Shapefile'
 Simple feature collection with 58 features and 10 fields
 Geometry type: MULTIPOLYGON
-Dimension:     XYZ
+Dimension:     XY, XYZ
 Bounding box:  xmin: -124.7258 ymin: 24.49813 xmax: -66.9499 ymax: 49.38436
 z_range:       zmin: 0 zmax: 0
 Geodetic CRS:  WGS 84
@@ -139,7 +139,7 @@ us_outline <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boun
 
 ``` output
 Reading layer `US-Boundary-Dissolved-States' from data source 
-  `/home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp' 
+  `/__w/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp' 
   using driver `ESRI Shapefile'
 Simple feature collection with 1 feature and 9 fields
 Geometry type: MULTIPOLYGON
@@ -332,11 +332,11 @@ ne_states_outline <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/
 
 ``` output
 Reading layer `Boundary-US-State-NEast' from data source 
-  `/home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp' 
+  `/__w/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp' 
   using driver `ESRI Shapefile'
 Simple feature collection with 12 features and 9 fields
 Geometry type: MULTIPOLYGON
-Dimension:     XYZ
+Dimension:     XY, XYZ
 Bounding box:  xmin: -80.51989 ymin: 37.91685 xmax: -66.9499 ymax: 47.45716
 z_range:       zmin: 0 zmax: 0
 Geodetic CRS:  WGS 84
