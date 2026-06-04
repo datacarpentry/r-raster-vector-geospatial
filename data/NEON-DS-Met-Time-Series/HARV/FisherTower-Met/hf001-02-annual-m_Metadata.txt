@@ -1,0 +1,128 @@
+http://harvardforest.fas.harvard.edu:8080/exist/apps/datasets/showData.html?id=hf001
+
+Detailed Metadata
+
+hf001-01: station log
+
+date: date
+notes: notes
+hf001-02: annual (metric) since 2002
+
+date: date
+airt: average air temperature. Average of daily averages. (unit: celsius / missing value: NA)
+f.airt: flag for average air temperature
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+airtmax: average maximum air temperature. Average of daily maximums. (unit: celsius / missing value: NA)
+f.airtmax: flag for average maximum air temperature
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+airtmin: average minimum air temperature. Average of daily minimums. (unit: celsius / missing value: NA)
+f.airtmin: flag for average minimum air temperature
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+airtmmx: extreme maximum air temperature. Maximum of daily maximums. (unit: celsius / missing value: NA)
+f.airtmmx: flag for extreme maximum air temperature
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+airtmmn: extreme minimum air temperature. Minimum of daily minimums. (unit: celsius / missing value: NA)
+f.airtmmn: flag for extreme minimum air temperature
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+prec: total precipitation. Includes water equivalent of snow. Sum of daily totals. (unit: millimeter / missing value: NA)
+f.prec: flag for precipitation
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+slrt: average total global solar radiation. Average of daily totals. (unit: megajoulePerMeterSquared / missing value: NA)
+f.slrt: flag for average total global solar radiation
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+part: average total photosynthetically active radiation. Average of daily totals. (unit: molePerMeterSquared / missing value: NA)
+f.part: flag for average total photosynthetically active radiation
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+netr: average net radiation. Includes short and long wave. Corrected for wind speeds above 5 m/s using Cambell Scientific equation. Average of daily averages. (unit: wattPerMeterSquared / missing value: NA)
+f.netr: flag for average net radiation
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+wspd: average horizontal scalar wind speed. Average of daily averages. (unit: metersPerSecond / missing value: NA)
+f.wspd: flag for average horizonal scalar wind speed
+M: 10 or more daily measurements missing. Summary value not calculated
+1-9: Number of daily measurements missing.
+wres: average horizontal resultant vector wind speed. Vector average of daily averages. (unit: metersPerSecond / missing value: NA)
+f.wres: flag for average horizonal resultant vector wind speed
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+wdir: average horizontal vector wind direction. Measured in degrees clockwise from true north. Vector average of daily values. (unit: degree / missing value: NA)
+f.wdir: flag for average horizonal vector wind direction
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+gspd: extreme maximum gust speed. Maximum of daily maximums. (unit: metersPerSecond / missing value: NA)
+f.gspd: flag for extreme maximum gust speed
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+s10t: average soil temperature at 10cm depth. Average of daily averages. (unit: celsius / missing value: NA)
+f.s10t: flag for average soil temperature
+
+
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+hf001-03: annual (english) since 2002
+
+date: date
+airt: average air temperature. Average of daily averages. (unit: fahrenheit / missing value: NA)
+f.airt: flag for average air temperature
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+airtmax: average maximum air temperature. Average of daily maximums. (unit: fahrenheit / missing value: NA)
+f.airtmax: flag for average maximum air temperature
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+airtmin: average minimum air temperature. Average of daily minimums. (unit: fahrenheit / missing value: NA)
+f.airtmin: flag for average minimum air temperature
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+airtmmx: extreme maximum air temperature. Maximum of daily maximums. (unit: fahrenheit / missing value: NA)
+f.airtmmx: flag for extreme maximum air temperature
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+airtmmn: extreme minimum air temperature. Minimum of daily minimums. (unit: fahrenheit / missing value: NA)
+f.airtmmn: flag for extreme minimum air temperature
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+prec: total precipitation. Includes water equivalent of snow. Sum of daily totals. (unit: inch / missing value: NA)
+f.prec: flag for total precipitation
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+slrt: average total global solar radiation. Average of daily totals. (unit: megajoulePerMeterSquared / missing value: NA)
+f.slrt: flag for average total global solar radiation
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+part: average total photosynthetically active radiation. Average of daily totals. (unit: numberPerMeterSquared / missing value: NA)
+f.part: flag for average total photosynthetically active radiation
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+netr: average net radiation. Includes short and long wave. Corrected for wind speeds above 5 m/s using Cambell Scientific equation. Average of daily averages. (unit: wattPerMeterSquared / missing value: NA)
+f.netr: flag for net radiation
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+wpsd: average horizontal scalar wind speed. Average of daily averages. (unit: milesPerHour / missing value: NA)
+f.wspd: flag for average horizonal scalar wind speed
+M: 10 or more daily measurements missing. Summary value not calculated
+1-9: Number of daily measurements missing.
+wres: average horizontal resultant vector wind speed. Vector average of daily averages. (unit: milesPerHour / missing value: NA)
+f.wres: flag for average horizonal resultant vector wind speed
+M: 10 or more daily measurements missing. Summary value not calculated
+1-9: Number of daily measurements missing
+wdir: average horizontal vector wind direction. Measured in degrees clockwise from true north. Vector average of daily values. (unit: degree / missing value: NA)
+f.wdir: flag for average horizonal vector wind direction
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+gspd: extreme maximum gust speed. Maximum of daily maximums. (unit: milesPerHour / missing value: NA)
+f.gspd: flag for extreme maximum gust speed
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
+s10t: average soil temperature at 10cm depth. Average of daily averages. (unit: fahrenheit / missing value: NA)
+f.s10t: flag for average soil temperature
+M: 10 or more daily measurements missing. Summary value not calculated.
+1-9: Number of daily measurements missing.
