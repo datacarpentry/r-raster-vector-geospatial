@@ -341,7 +341,7 @@ describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.t
 
 ``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                                                                                                                                                                          
- [2] "Files: /__w/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif"                                                                                                                          
+ [2] "Files: /home/rstudio/lesson/site/built/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif"                                                                                                                                                                
  [3] "Size is 3073, 2317"                                                                                                                                                                                                                                                             
  [4] "Coordinate System is:"                                                                                                                                                                                                                                                          
  [5] "PROJCRS[\"WGS 84 / UTM zone 18N\","                                                                                                                                                                                                                                             
@@ -462,7 +462,7 @@ describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.t
 
 ``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                                                                                                                                                                          
- [2] "Files: /__w/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif"                                                                                                                          
+ [2] "Files: /home/rstudio/lesson/site/built/data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif"                                                                                                                                                                
  [3] "Size is 3073, 2317"                                                                                                                                                                                                                                                             
  [4] "Coordinate System is:"                                                                                                                                                                                                                                                          
  [5] "PROJCRS[\"WGS 84 / UTM zone 18N\","                                                                                                                                                                                                                                             

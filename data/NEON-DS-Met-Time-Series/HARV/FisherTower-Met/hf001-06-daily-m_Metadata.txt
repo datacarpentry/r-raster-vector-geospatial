@@ -1,0 +1,116 @@
+http://harvardforest.fas.harvard.edu:8080/exist/apps/datasets/showData.html?
+id=hf001
+hf001-06: daily (metric) since 2001
+
+date: date
+jd: Julian day (unit: nominalDay)
+airt: average air temperature. Average of 1-second measurements. (unit: celsius / missing value: NA)
+f.airt: flag for average air temperature
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+airtmax: maximum air temperature. Maximum of 1-second measurements. (unit: celsius / missing value: NA)
+f.airtmax: flag for maximum air temperature
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+airtmin: minimum air temperature. Minimum of 1-second measurements. (unit: celsius / missing value: NA)
+f.airtmin: flag for minimum air temperature
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+rh: average relative humidity. Average of 1-second measurements. (percent) (unit: number / missing value: NA)
+f.rh: flag for average relative humidity
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+rhmax: maximum relative humidity. Maximum of 1-second measurements. (percent) (unit: number / missing value: NA)
+f.rhmax: flag for maximum relative humidity
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+rhmin: minimum relative humidity. Minimum of 1-second measurements. (percent) (unit: number / missing value: NA)
+f.rhmin: flag for minimum relative humidity
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+dewp: average dew point. Average of 1-second values calculated from air temperature and relative humidity. (unit: celsius / missing value: NA)
+f.dewp: flag for average dew point
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+dewpmax: maximum dew point. Maximum of 1-second values calculated from air temperature and relative humidity. (unit: celsius / missing value: NA)
+f.dewpmax: flag for maximum dew point
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+dewpmin: minimum dew point. Minimum of 1-second values calculated from air temperature and relative humidity. (unit: celsius / missing value: NA)
+f.dewpmin: flag for minimum dew point
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+Q: Questionable. Possible problem with instrument.
+prec: total precipitation. Includes water equivalent of snow. Total value for 1-day period. Measured in increments of 0.01 inch. (unit: millimeter / missing value: NA)
+f.prec: flag for total precipitation
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+slrt: total global solar radiation. Total value for 1-day period. (unit: megajoulePerMeterSquared / missing value: NA)
+f.slrt: flag for total global solar radiation
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+part: total photosynthetically active radiation. Total value for 1-day period. (unit: molePerMeterSquared / missing value: NA)
+f.part: flag for total photosynthetically active radiation
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+netr: average net radiation. Includes short and long wave. Average of 1-second measurements. Corrected for wind speeds above 5 m/s using Cambell Scientific equation. (unit: wattPerMeterSquared / missing value: NA)
+f.netr: flag for average net radiation
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+bar: average barometric pressure. Corrected for elevation. Average of hourly measurements. (unit: millibar / missing value: NA)
+f.bar: flag for barometric pressure
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+wspd: average horizontal scalar wind speed. Average of 1-second measurements. (unit: metersPerSecond / missing value: NA)
+f.wspd: flag for average horizonal scalar wind speed
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+wres: average horizontal resultant vector wind speed. Vector average of 1-second measurements. (unit: metersPerSecond / missing value: NA)
+f.wres: flag for average horizonal resultant vector wind speed
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+wdir: average horizontal vector wind direction. Vector average of 1-second measurements. Measured in degrees clockwise from true north. (unit: degree / missing value: NA)
+f.wdir: flag for average horizonal vector wind direction
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+wdev: standard deviation of wind direction. Calculated from 1-second measurements using Campbell Scientific equation. (unit: degree / missing value: NA)
+f.wdev: flag for standard deviation of wind direction
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+gspd: gust speed. Maximum of 1-second measurements. (unit: metersPerSecond / missing value: NA)
+f.gspd: flag for gust speed
+M: # Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+s10t: average soil temperature at 10cm depth. Average of 1-second measurements. (unit: celsius / missing value: NA)
+f.s10t: flag for average soil temperature
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+s10tmax: maximum soil temperature at 10cm depth. Maximum of 1-second measurements. (unit: celsius / missing value: NA)
+f.s10tmax: flag for maximum soil temperature
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+s10tmin: minimum soil temperature at 10cm depth. Minimum of 1-second measurements. (unit: celsius / missing value: NA)
+f.s10tmin: flag for minimum soil temperature
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.

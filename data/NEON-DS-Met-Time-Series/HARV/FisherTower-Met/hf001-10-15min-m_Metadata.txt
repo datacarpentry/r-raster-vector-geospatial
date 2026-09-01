@@ -1,0 +1,78 @@
+http://harvardforest.fas.harvard.edu:8080/exist/apps/datasets/showData.html?id=hf001
+
+Detailed Metadata
+
+hf001-10: 15-minute (metric) since 2005
+
+datetime: date and time at end of sampling period
+jd: Julian day (unit: nominalDay)
+airt: air temperature. Average of 1-second measurements. (unit: celsius / missing value: NA)
+f.airt: flag for air temperature
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+rh: relative humidity. Average of 1-second measurements. (percent) (unit: number / missing value: NA)
+f.rh: flag for relative humidity
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+dewp: dew point. Average of 1-second values calculated from air temperature and relative humidity. (unit: celsius / missing value: NA)
+f.dewp: flag for dew point
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+prec: precipitation. Includes water equivalent of snow. Total value for 15-minute period. Measured in increments of 0.01 inch. (unit: millimeter / missing value: NA)
+f.prec: flag for precipitation
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+slrr: global solar radiation. Average of 1-second measurements. (unit: wattPerMeterSquared / missing value: NA)
+f.slrr: flag for global solar radiation
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+parr: photosynthetically active radiation. Average of 1-second measurements. (unit: micromolePerMeterSquaredPerSecond / missing value: NA)
+f.parr: flag for photosynthetically active radiation
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+netr: net radiation. Includes short and long wave. Average of 1-second measurements. Corrected for wind speeds above 5 m/s using Cambell Scientific equation. (unit: wattPerMeterSquared / missing value: NA)
+f.netr: flag for net radiation
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+bar: barometric pressure. Corrected for elevation. Average of 1-second measurements. (unit: millibar / missing value: NA)
+f.bar: flag for barometric pressure
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+wspd: horizontal scalar wind speed. Average of 1-second measurements. (unit: metersPerSecond / missing value: NA)
+f.wspd: flag for horizonal scalar wind speed
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+wres: horizontal resultant vector wind speed. Vector average of 1-second measurements. (unit: metersPerSecond / missing value: NA)
+f.wres: flag for horizonal resultant vector wind speed
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+wdir: horizontal vector wind direction. Vector average of 1-second measurements. Measured in degrees clockwise from true north. (unit: degree / missing value: NA)
+f.wdir: flag for horizonal vector wind direction
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+wdev: standard deviation of wind direction. Calculated from 1-second measurements using Campbell Scientific equation. (unit: degree / missing value: NA)
+f.wdev: flag for standard deviation of wind direction
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+gspd: gust speed. Maximum of 1-second measurements. (unit: metersPerSecond / missing value: NA)
+f.gspd: flag for gust speed
+Q: Questionable. Possible problem with instrument.
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
+s10t: soil temperature at 10cm depth. Average of 1-second measurements. (unit: celsius / missing value: NA)
+f.s10t: flag for soil temperature
+M: Missing. Instrument not installed, instrument not working correctly, or measured value out of range.
+Q: Questionable. Possible problem with instrument.
+E: Estimated. Value estimated from incomplete measurements or from other sources.
