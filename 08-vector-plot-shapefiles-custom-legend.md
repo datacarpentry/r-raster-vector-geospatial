@@ -177,7 +177,7 @@ plot_locations <-
 
 ``` output
 Reading layer `PlotLocations_HARV' from data source 
-  `/__w/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp' 
+  `/home/rstudio/lesson/site/built/data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp' 
   using driver `ESRI Shapefile'
 Simple feature collection with 21 features and 25 fields
 Geometry type: POINT

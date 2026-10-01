@@ -86,7 +86,7 @@ describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 ``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                                                                                                                                                                          
- [2] "Files: /__w/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif"                                                                                                                                    
+ [2] "Files: /home/rstudio/lesson/site/built/data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif"                                                                                                                                                                          
  [3] "Size is 1697, 1367"                                                                                                                                                                                                                                                             
  [4] "Coordinate System is:"                                                                                                                                                                                                                                                          
  [5] "PROJCRS[\"WGS 84 / UTM zone 18N\","                                                                                                                                                                                                                                             
@@ -556,7 +556,7 @@ describe(sources(dsm_harv))
 
 ``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                                                                                                                                                                          
- [2] "Files: /__w/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif"                                                                                                                                    
+ [2] "Files: /home/rstudio/lesson/site/built/data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif"                                                                                                                                                                          
  [3] "Size is 1697, 1367"                                                                                                                                                                                                                                                             
  [4] "Coordinate System is:"                                                                                                                                                                                                                                                          
  [5] "PROJCRS[\"WGS 84 / UTM zone 18N\","                                                                                                                                                                                                                                             
@@ -720,7 +720,7 @@ describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 
 ``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                                                                                                                                                                          
- [2] "Files: /__w/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif"                                                                                                                                    
+ [2] "Files: /home/rstudio/lesson/site/built/data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif"                                                                                                                                                                          
  [3] "Size is 1697, 1367"                                                                                                                                                                                                                                                             
  [4] "Coordinate System is:"                                                                                                                                                                                                                                                          
  [5] "PROJCRS[\"WGS 84 / UTM zone 18N\","                                                                                                                                                                                                                                             
