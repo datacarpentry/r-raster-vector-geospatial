@@ -2,9 +2,15 @@
 site: sandpaper::sandpaper_site
 ---
 
+:::::::::::::::::::::::::::::::::::::::::: callout
+
+### Lesson Retired
+**This curriculum is retired.** The lesson pages remain online but the source repository is archived and no new contributions can be made.
+[Contact The Carpentries](mailto:team@carpentries.org) with your questions.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
 **Lesson Authors:** Leah A. Wasser, Megan A. Jones, Zack Brym, Kristina Riemer, Jason Williams, Jeff Hollister,  Mike Smorul, Jemma Stachelek
-
-
 
 The episodes in this lesson cover how to open, work with, and plot
 vector and raster-format spatial data in R. Additional topics include
