@@ -21,7 +21,7 @@ keywords: 'software, data, lesson, The Carpentries'
 
 # Life cycle stage of the lesson
 # possible values: pre-alpha, alpha, beta, stable
-life_cycle: 'transition-step-2'
+life_cycle: 'retired'
 
 # License of the lesson
 license: 'CC-BY 4.0'
